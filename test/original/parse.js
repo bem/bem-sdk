@@ -1,6 +1,6 @@
 var naming = require('../../lib/bem-naming');
 
-describe('old school', function () {
+describe('original', function () {
     describe('parse', function () {
         it('must parse block', function () {
             var obj = naming.parse('block');

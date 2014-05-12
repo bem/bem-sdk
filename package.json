@@ -7,7 +7,7 @@
   },
   "main": "lib/bem-naming",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/old-school test/harry-roberts"
+    "test": "./node_modules/.bin/mocha test/original test/harry-roberts"
   },
   "devDependencies": {
     "mocha": "1.18.2",
