@@ -9,7 +9,8 @@
   "moduleType": [
     "amd",
     "globals",
-    "node"
+    "node",
+    "ym"
   ],
   "ignore": [
     "**/.*",
