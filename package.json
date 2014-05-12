@@ -1,12 +1,11 @@
 {
   "author": "Andrew Abramov <andrewblond@yandex.com>",
-  "private": true,
   "name": "bem-naming",
   "version": "0.0.1",
   "engines": {
     "node": ">= 0.8.0"
   },
-  "main": "lib/bem-notation",
+  "main": "lib/bem-naming",
   "scripts": {
     "test": "./node_modules/.bin/mocha test"
   },
