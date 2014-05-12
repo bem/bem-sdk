@@ -2,6 +2,15 @@
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "name": "bem-naming",
   "version": "0.0.1",
+  "repository": "git://github.com/bem/bem-naming",
+  "homepage": "https://github.com/bem/bem-naming",
+  "bugs": "https://github.com/bem/bem-naming/issues",
+  "contributors": [
+    {
+      "name": "Andrew Abramov",
+      "email": "andrewblond@yandex.com"
+    }
+  ],
   "engines": {
     "node": ">= 0.8.0"
   },
