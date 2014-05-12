@@ -1,0 +1,21 @@
+{
+  "name": "bem-naming",
+  "version": "0.0.1",
+  "homepage": "https://github.com/bem/bem-naming",
+  "authors": [
+    "Andrew Abramov <andrewblond@yandex.com>"
+  ],
+  "main": "lib/bem-naming.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node"
+  ],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "package.json"
+  ]
+}
