@@ -11,8 +11,8 @@ describe('original', function () {
         it('must stringify mod of block', function () {
             var str = naming.stringify({
                 block: 'block',
-                modKey: 'mod',
-                modValue: 'val'
+                modName: 'mod',
+                modVal: 'val'
             });
 
             str.must.equal('block_mod_val');
@@ -21,7 +21,7 @@ describe('original', function () {
         it('must stringify boolean mod of block', function () {
             var str = naming.stringify({
                 block: 'block',
-                modKey: 'mod'
+                modName: 'mod'
             });
 
             str.must.equal('block_mod');
@@ -40,8 +40,8 @@ describe('original', function () {
             var str = naming.stringify({
                 block: 'block',
                 elem: 'elem',
-                modKey: 'mod',
-                modValue: 'val'
+                modName: 'mod',
+                modVal: 'val'
             });
 
             str.must.equal('block__elem_mod_val');
@@ -51,7 +51,7 @@ describe('original', function () {
             var str = naming.stringify({
                 block: 'block',
                 elem: 'elem',
-                modKey: 'mod'
+                modName: 'mod'
             });
 
             str.must.equal('block__elem_mod');

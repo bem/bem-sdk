@@ -10,19 +10,19 @@ describe('harry roberts', function () {
         });
 
         it('must parse mod of block', function () {
-            var obj = naming.parse('block--key--val');
+            var obj = naming.parse('block--mod--val');
 
             obj.block.must.equal('block');
-            obj.modKey.must.equal('key');
-            obj.modValue.must.equal('val');
+            obj.modName.must.equal('mod');
+            obj.modVal.must.equal('val');
         });
 
         it('must parse boolean mod of block', function () {
             var obj = naming.parse('block--mod');
 
             obj.block.must.equal('block');
-            obj.modKey.must.equal('mod');
-            obj.modValue.must.be.true();
+            obj.modName.must.equal('mod');
+            obj.modVal.must.be.true();
         });
 
         it('must parse elem', function () {
@@ -33,21 +33,21 @@ describe('harry roberts', function () {
         });
 
         it('must parse mod of elem', function () {
-            var obj = naming.parse('block-elem--key--val');
+            var obj = naming.parse('block-elem--mod--val');
 
             obj.block.must.equal('block');
             obj.elem.must.equal('elem');
-            obj.modKey.must.equal('key');
-            obj.modValue.must.equal('val');
+            obj.modName.must.equal('mod');
+            obj.modVal.must.equal('val');
         });
 
         it('must parse boolean mod of elem', function () {
             var obj = naming.parse('block-elem--mod');
 
             obj.block.must.equal('block');
-            obj.modKey.must.equal('mod');
+            obj.modName.must.equal('mod');
             obj.elem.must.equal('elem');
-            obj.modValue.must.be.true();
+            obj.modVal.must.be.true();
         });
     });
 });

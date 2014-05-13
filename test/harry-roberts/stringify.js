@@ -12,8 +12,8 @@ describe('harry roberts', function () {
         it('must stringify mod of block', function () {
             var str = naming.stringify({
                 block: 'block',
-                modKey: 'mod',
-                modValue: 'val'
+                modName: 'mod',
+                modVal: 'val'
             });
 
             str.must.equal('block--mod--val');
@@ -22,7 +22,7 @@ describe('harry roberts', function () {
         it('must stringify boolean mod of block', function () {
             var str = naming.stringify({
                 block: 'block',
-                modKey: 'mod'
+                modName: 'mod'
             });
 
             str.must.equal('block--mod');
@@ -41,8 +41,8 @@ describe('harry roberts', function () {
             var str = naming.stringify({
                 block: 'block',
                 elem: 'elem',
-                modKey: 'mod',
-                modValue: 'val'
+                modName: 'mod',
+                modVal: 'val'
             });
 
             str.must.equal('block-elem--mod--val');
@@ -52,7 +52,7 @@ describe('harry roberts', function () {
             var str = naming.stringify({
                 block: 'block',
                 elem: 'elem',
-                modKey: 'mod'
+                modName: 'mod'
             });
 
             str.must.equal('block-elem--mod');
