@@ -1,10 +1,19 @@
 {
   "name": "bem-naming",
   "version": "0.0.1",
-  "homepage": "https://github.com/bem/bem-naming",
-  "authors": [
-    "Andrew Abramov <andrewblond@yandex.com>"
+  "description": "Manage naming of BEM entities",
+  "keywords": [
+    "bem",
+    "naming"
   ],
+  "authors": [
+    { "name": "Andrew Abramov", "email": "andrewblond@yandex.com" }
+  ],
+  "homepage": "https://github.com/bem/bem-naming",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/bem/bem-naming.git"
+  },
   "main": "lib/bem-naming.js",
   "moduleType": [
     "amd",
