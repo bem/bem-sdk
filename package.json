@@ -1,7 +1,12 @@
 {
-  "author": "Andrew Abramov <andrewblond@yandex.com>",
   "name": "bem-naming",
   "version": "0.0.1",
+  "description": "Manage naming of BEM entities",
+  "keywords": [
+      "bem",
+      "naming"
+  ],
+  "author": "Andrew Abramov <andrewblond@yandex.com>",
   "repository": "git://github.com/bem/bem-naming",
   "homepage": "https://github.com/bem/bem-naming",
   "bugs": "https://github.com/bem/bem-naming/issues",
