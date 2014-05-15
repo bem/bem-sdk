@@ -6,21 +6,21 @@ This README is also available [in Russian.](/README.ru.md)
 About
 --------
 
-This tool allows getting information about BEM-entity using [string](#%D0%A1%D1%82%D1%80%D0%BE%D0%BA%D0%BE%D0%B2%D0%BE%D0%B5-%D0%BF%D1%80%D0%B5%D0%B4%D1%81%D1%82%D0%B0%D0%B2%D0%BB%D0%B5%D0%BD%D0%B8%D0%B5) as well as forming string representation based on [BEM-naming](#%D0%91%D0%AD%D0%9C-%D0%BD%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D1%8F).
+This tool allows getting information about BEM-entity using [string](#string-representation) as well as forming string representation based on [BEM-naming](#bem-naming).
 
 String representation
------------------------
+---------------------
 To define BEM-entities we often use a special string format that allows us 100% define what entity exactly is represented.
 
-Originally this string will look like the following:
+According to original BEM-naming convention it looks like the following:
 
 ```js
 'block[_blockModName[_blockModVal]][__elemName[_elemModName[_elemModVal]]]'
 ```
 
-*(In square brackets we have parameters that are optional)*
+*(Parameters whithin square brackets are optional)*
 
-* BLock — `block-name`.
+* Block — `block-name`.
 * Block's modifier in key-value format — `block-name_mod-name_mod-val`.
 * Block's boolean modifier — `block-name_mod`.
 * Block's element — `block-name__elem-name`.
@@ -32,7 +32,7 @@ BEM-naming
 
 BEM-entities can be defined with a help of js-object with the following fields:
 
-* `block` — block's name. The field is required because it is impossible for any BEM-entity to exist.
+* `block` — block's name. The field is required because block is the only independent BEM-entity.
 * `elem` — element's name.
 * `modName` — modifier's name.
 * `modVal` — modifier's value.
@@ -47,7 +47,7 @@ API
 
 * **String** `str` — a string that defines BEM-entity.
 
-It parses string `str` into [BEM-naming](#%D0%91%D0%AD%D0%9C-%D0%BD%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D1%8F).
+It parses string `str` into [BEM-naming](#bem-naming).
 
 Example:
 
@@ -64,7 +64,7 @@ naming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
 
 * **String** `obj` — hash-object (BEM-naming) that defines BEM-entity.
 
-It forms a string according to [BEM-naming](#%D0%91%D0%AD%D0%9C-%D0%BD%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D1%8F) `obj`.
+It forms a string according to [BEM-naming](#bem-naming) `obj`.
 
 Example:
 
@@ -77,10 +77,10 @@ naming.stringify({
 }); // 'block__elem_mod_val'
 ```
 
-Own style
------------------
+Custom naming convention
+------------------------
 
-To use your own style to define strings that represent BEM-entities we need to create instance of BEMNaming-class.
+To use your own naming convention to define strings that represent BEM-entities we need to create instance of BEMNaming-class.
 
 Constructor `BEMNaming` gets the object from the following options:
 
@@ -102,7 +102,7 @@ var naming = new BEMNaming({
 naming.parse('block--mod');     // { block: 'blockName',
                                 //   modName: 'boolMod', modVal: true }
 
-naming.stringify({              // 'blockName-elem--boolElemMod'
+naming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',
     elem: 'elemName',
     modName: 'boolElemMod'
