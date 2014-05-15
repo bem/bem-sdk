@@ -102,7 +102,7 @@ var naming = new BEMNaming({
 naming.parse('block--mod');     // { block: 'blockName',
                                 //   modName: 'boolMod', modVal: true }
 
-naming.stringify({              // 'blockName-elem--boolElemMod'
+naming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',
     elem: 'elemName',
     modName: 'boolElemMod'
