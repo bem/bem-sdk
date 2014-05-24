@@ -21,10 +21,13 @@
   },
   "main": "lib/bem-naming",
   "scripts": {
-    "test": "./node_modules/.bin/mocha test/original test/harry-roberts"
+    "test": "npm run lint && npm run func-test",
+    "func-test": "mocha test/original test/harry-roberts",
+    "lint": "jshint ."
   },
   "devDependencies": {
     "mocha": "1.19.0",
-    "must": "0.11.0"
+    "must": "0.11.0",
+    "jshint": "2.5.1"
   }
 }
