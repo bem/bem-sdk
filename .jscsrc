@@ -1,0 +1,38 @@
+{
+    "excludeFiles": [
+        "node_modules/**"
+    ],
+
+    "requireCurlyBraces": ["if", "else", "for", "while", "do", "try", "catch", "case", "default"],
+    "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "return", "try", "catch"],
+    "disallowKeywords": ["with"],
+    "disallowKeywordsOnNewLine": ["else", "catch"],
+    "disallowLeftStickedOperators": [ "?" ],
+    "disallowRightStickedOperators": [ "?", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=" ],
+    "requireSpaceBeforeBinaryOperators": [ "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=" ],
+    "disallowSpaceAfterPrefixUnaryOperators": [ "++", "--", "+", "-" ],
+    "disallowSpaceBeforePostfixUnaryOperators": [ "++", "--" ],
+    "requireRightStickedOperators": [ "!" ],
+    "requireLeftStickedOperators": [ "," ],
+    "disallowSpacesInsideParentheses": true,
+
+    "requireSpacesInFunctionExpression": {
+        "beforeOpeningCurlyBrace": true,
+        "beforeOpeningRoundBrace": true
+    },
+
+    "disallowYodaConditions": true,
+    "safeContextKeyword": "_this",
+    "requireCapitalizedConstructors": true,
+    "requireCommaBeforeLineBreak": true,
+
+    "disallowEmptyBlocks": true,
+    "disallowMultipleLineBreaks": true,
+    "disallowMixedSpacesAndTabs": true,
+    "disallowTrailingWhitespace": true,
+
+    "validateQuoteMarks": "'",
+    "maximumLineLength": 120,
+    "requireLineFeedAtFileEnd": true,
+    "validateLineBreaks": "LF"
+}

@@ -1,5 +1,4 @@
-var BEMNaming = require('../../lib/bem-naming').BEMNaming;
-var naming = new BEMNaming({ elemSeparator: '-', modSeparator: '--', literal: '[a-zA-Z0-9]' });
+var naming = require('../lib/harry-roberts-naming');
 
 describe('harry roberts', function () {
     describe('parse', function () {

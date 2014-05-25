@@ -8,7 +8,6 @@
     "latedef": "nofucn",
     "noarg": true,
     "noempty": true,
-    "nonbsp": true,
     "undef": true,
     "unused": true,
     "trailing": true,
