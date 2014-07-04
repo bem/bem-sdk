@@ -5,19 +5,30 @@
 
     "requireCurlyBraces": ["if", "else", "for", "while", "do", "try", "catch", "case", "default"],
     "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "return", "try", "catch"],
+    "requireSpaceBeforeBinaryOperators": [
+        "=", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=",
+        "&=", "|=", "^=", "+=",
+
+        "+", "-", "*", "/", "%", "<<", ">>", ">>>", "&",
+        "|", "^", "&&", "||", "===", "==", ">=",
+        "<=", "<", ">", "!=", "!=="
+    ],
+    "requireSpacesInConditionalExpression": true,
+    "requireSpaceAfterBinaryOperators": true,
+    "disallowSpacesInsideParentheses": true,
+    "disallowSpaceBeforePostfixUnaryOperators": true,
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    "disallowSpaceBeforeBinaryOperators": [",", ":"],
     "disallowKeywords": ["with"],
     "disallowKeywordsOnNewLine": ["else", "catch"],
-    "disallowLeftStickedOperators": [ "?" ],
-    "disallowRightStickedOperators": [ "?", "/", "*", ":", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=" ],
-    "requireSpaceBeforeBinaryOperators": [ "+", "-", "/", "*", "=", "==", "===", "!=", "!==", ">", ">=", "<", "<=" ],
-    "disallowSpaceAfterPrefixUnaryOperators": [ "++", "--", "+", "-" ],
-    "disallowSpaceBeforePostfixUnaryOperators": [ "++", "--" ],
-    "requireRightStickedOperators": [ "!" ],
-    "requireLeftStickedOperators": [ "," ],
-    "disallowSpacesInsideParentheses": true,
 
     "requireSpacesInFunctionExpression": {
-        "beforeOpeningCurlyBrace": true,
+        "beforeOpeningCurlyBrace": true
+    },
+    "requireSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "disallowSpacesInNamedFunctionExpression": {
         "beforeOpeningRoundBrace": true
     },
 
