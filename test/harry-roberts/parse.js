@@ -1,7 +1,14 @@
+var demand = require('must');
 var naming = require('../lib/harry-roberts-naming');
 
 describe('harry roberts', function () {
     describe('parse', function () {
+        it('must not parse not valid string', function () {
+            var obj = naming.parse('(*)-(*)');
+
+            demand(obj).be.undefined();
+        });
+
         it('must parse block', function () {
             var obj = naming.parse('block');
 

@@ -1,7 +1,14 @@
+var demand = require('must');
 var naming = require('../../lib/bem-naming');
 
 describe('original', function () {
     describe('parse', function () {
+        it('must not parse not valid string', function () {
+            var obj = naming.parse('(*)_(*)');
+
+            demand(obj).be.undefined();
+        });
+
         it('must parse block', function () {
             var obj = naming.parse('block');
 
