@@ -97,8 +97,8 @@ var naming = new BEMNaming({
 });                             // в себя дефис, исключим его из имён блоков,
                                 // элементов и модификаторов
 
-naming.parse('block--mod');     // { block: 'blockName',
-                                //   modName: 'boolMod', modVal: true }
+naming.parse('block--mod');     // { block: 'block',
+                                //   modName: 'modFixed', modVal: true }
 
 naming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',

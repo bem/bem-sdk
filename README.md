@@ -97,8 +97,8 @@ var naming = new BEMNaming({
 });                             // hyphen in it, we need to exclude it from block,
                                 // element and modifier's name
                                 
-naming.parse('block--mod');     // { block: 'blockName',
-                                //   modName: 'boolMod', modVal: true }
+naming.parse('block--mod');     // { block: 'block',
+                                //   modName: 'mod', modVal: true }
 
 naming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',
