@@ -9,6 +9,30 @@ describe('original', function () {
             demand(obj).be.undefined();
         });
 
+        it('must have one filed if parse block', function () {
+            var obj = naming.parse('block');
+
+            Object.keys(obj).must.have.length(1);
+        });
+
+        it('must have three params if parse mod of block', function () {
+            var obj = naming.parse('block_mod');
+
+            Object.keys(obj).must.have.length(3);
+        });
+
+        it('must have two params if parse elem of block', function () {
+            var obj = naming.parse('block__elem');
+
+            Object.keys(obj).must.have.length(2);
+        });
+
+        it('must have four params if parse mod of elem', function () {
+            var obj = naming.parse('block__elem_mod');
+
+            Object.keys(obj).must.have.length(4);
+        });
+
         it('must parse block', function () {
             var obj = naming.parse('block');
 
