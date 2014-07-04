@@ -21,14 +21,16 @@
   },
   "main": "lib/bem-naming",
   "scripts": {
-    "test": "npm run lint && npm run func-test",
-    "func-test": "mocha test/original test/harry-roberts",
-    "lint": "jshint . && jscs ."
+    "test": "npm run lint && npm run func-test && npm run cover",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- test/original test/harry-roberts",
+    "lint": "jshint . && jscs .",
+    "func-test": "mocha test/original test/harry-roberts"
   },
   "devDependencies": {
     "mocha": "1.20.1",
     "must": "0.12.0",
     "jshint": "2.5.1",
-    "jscs": "1.5.7"
+    "jscs": "1.5.7",
+    "istanbul": "0.2.16"
   }
 }
