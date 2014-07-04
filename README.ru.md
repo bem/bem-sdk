@@ -1,4 +1,4 @@
-bem-naming [![NPM version](https://badge.fury.io/js/bem-naming.svg)](http://badge.fury.io/js/bem-naming) [![Build Status](https://travis-ci.org/bem/bem-naming.svg)](https://travis-ci.org/bem/bem-naming)
+bem-naming [![Bower version](https://badge.fury.io/bo/bem-naming.svg)](http://badge.fury.io/bo/bem-naming) [![NPM version](https://badge.fury.io/js/bem-naming.svg)](http://badge.fury.io/js/bem-naming) [![Build Status](https://travis-ci.org/bem/bem-naming.svg)](https://travis-ci.org/bem/bem-naming)
 ==========
 
 Что это?

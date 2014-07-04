@@ -1,8 +1,8 @@
-bem-naming [![NPM version](https://badge.fury.io/js/bem-naming.svg)](http://badge.fury.io/js/bem-naming) [![Build Status](https://travis-ci.org/bem/bem-naming.svg)](https://travis-ci.org/bem/bem-naming)
+bem-naming [![Bower version](https://badge.fury.io/bo/bem-naming.svg)](http://badge.fury.io/bo/bem-naming) [![NPM version](https://badge.fury.io/js/bem-naming.svg)](http://badge.fury.io/js/bem-naming) [![Build Status](https://travis-ci.org/bem/bem-naming.svg)](https://travis-ci.org/bem/bem-naming)
 ==========
 
 About
---------
+-----
 
 This tool allows getting information about BEM-entity using [string](#string-representation) as well as forming string representation based on [BEM-naming](#bem-naming).
 
@@ -26,7 +26,7 @@ According to original BEM-naming convention it looks like the following:
 * Element's boolean modifier — `block-name__elem_mod`.
 
 BEM-naming
------------
+----------
 
 BEM-entities can be defined with a help of js-object with the following fields:
 
