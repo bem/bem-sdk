@@ -1,7 +1,7 @@
 bem-naming
 ==========
 
-[![Bower version](https://badge.fury.io/bo/bem-naming.svg)](http://badge.fury.io/bo/bem-naming) [![NPM version](https://badge.fury.io/js/bem-naming.svg)](http://badge.fury.io/js/bem-naming) [![Build Status](https://travis-ci.org/bem/bem-naming.svg)](https://travis-ci.org/bem/bem-naming) [![Coverage Status](https://img.shields.io/coveralls/bem/bem-naming.svg?branch=master)](https://coveralls.io/r/bem/bem-naming)
+[![Bower version](https://badge.fury.io/bo/bem-naming.svg)](http://badge.fury.io/bo/bem-naming) [![NPM version](https://badge.fury.io/js/bem-naming.svg)](http://badge.fury.io/js/bem-naming) [![Build Status](https://travis-ci.org/bem/bem-naming.svg)](https://travis-ci.org/bem/bem-naming) [![Coverage Status](https://img.shields.io/coveralls/bem/bem-naming.svg?branch=master)](https://coveralls.io/r/bem/bem-naming) [![devDependency Status](https://david-dm.org/bem/bem-naming/dev-status.svg)](https://david-dm.org/bem/bem-naming#info=devDependencies)
 
 About
 -----
