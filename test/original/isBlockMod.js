@@ -2,6 +2,18 @@ var naming = require('../../lib/bem-naming');
 
 describe('original', function () {
     describe('isBlockMod', function () {
+        it('must not detect mod of block by undefined', function () {
+            naming.isBlockMod(undefined).must.be.false();
+        });
+
+        it('must not detect mod of block by empty object', function () {
+            naming.isBlockMod({}).must.be.false();
+        });
+
+        it('must not detect mod of block by not valid object notation', function () {
+            naming.isBlockMod({ modName: 'mod', modVal: 'val' }).must.be.false();
+        });
+
         it('must not detect mod of block in block by string', function () {
             naming.isBlockMod('block').must.be.false();
         });

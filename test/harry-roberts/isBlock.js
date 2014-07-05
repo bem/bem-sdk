@@ -2,6 +2,14 @@ var naming = require('../lib/harry-roberts-naming');
 
 describe('harry roberts', function () {
     describe('isBlock', function () {
+        it('must not detect block by undefined', function () {
+            naming.isBlock(undefined).must.be.false();
+        });
+
+        it('must not detect block by empty object', function () {
+            naming.isBlock({}).must.be.false();
+        });
+
         it('must detect block by string', function () {
             naming.isBlock('block').must.be.true();
         });
