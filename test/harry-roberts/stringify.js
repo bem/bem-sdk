@@ -3,7 +3,7 @@ var naming = require('../lib/harry-roberts-naming');
 describe('harry roberts', function () {
     describe('stringify', function () {
         it('must not stringify not valid notation', function () {
-            naming.stringify.bind({})
+            naming.stringify.bind(naming, {})
                 .must.throw('The field `block` is undefined. It is impossible to stringify BEM notation.');
         });
 
@@ -26,10 +26,26 @@ describe('harry roberts', function () {
         it('must stringify boolean mod of block', function () {
             var str = naming.stringify({
                 block: 'block',
-                modName: 'mod'
+                modName: 'mod',
+                modVal: true
             });
 
             str.must.equal('block--mod');
+        });
+
+        it('must stringify block if `modVal` filed is `undefined`', function () {
+            var str = naming.stringify({
+                block: 'block',
+                modName: 'mod',
+                modVal: undefined
+            });
+
+            str.must.equal('block');
+        });
+
+        it('must not stringify mod of block if `modVal` filed is not specified', function () {
+            naming.stringify.bind(naming, { block: 'block', modName: 'modVal' })
+                .must.throw('The field `modVal` not specified. It is impossible to stringify BEM notation.');
         });
 
         it('must stringify elem', function () {
@@ -56,10 +72,27 @@ describe('harry roberts', function () {
             var str = naming.stringify({
                 block: 'block',
                 elem: 'elem',
-                modName: 'mod'
+                modName: 'mod',
+                modVal: true
             });
 
             str.must.equal('block-elem--mod');
+        });
+
+        it('must stringify elem if `modVal` filed is `undefined`', function () {
+            var str = naming.stringify({
+                block: 'block',
+                elem: 'elem',
+                modName: 'mod',
+                modVal: undefined
+            });
+
+            str.must.equal('block-elem');
+        });
+
+        it('must not stringify mod of elem if `modVal` filed is not specified', function () {
+            naming.stringify.bind(naming, { block: 'block', elem: 'elem', modName: 'modVal' })
+                .must.throw('The field `modVal` not specified. It is impossible to stringify BEM notation.');
         });
     });
 });
