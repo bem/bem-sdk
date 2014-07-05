@@ -23,7 +23,7 @@
   "scripts": {
     "test": "npm run lint && npm run func-test && npm run cover",
     "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- test/original test/harry-roberts",
-    "lint": "jshint . && jscs .",
+    "lint": "jshint . && jscs -c .jscs.js .",
     "func-test": "mocha test/original test/harry-roberts"
   },
   "devDependencies": {
