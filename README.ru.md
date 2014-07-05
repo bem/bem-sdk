@@ -40,14 +40,34 @@ bem-naming
 API
 ---
 
+* [`validate(str)`](#validatestr)
 * [`parse(str)`](#parsestr)
 * [`stringify(obj)`](#stringifyobj)
+* [`isBlock(str)`](#isblockstr)
+* [`isBlock(obj)`](#isblockobj)
+* [`isBlockMod(str)`](#isblockmodstr)
+* [`isBlockMod(obj)`](#isblockmodobj)
+* [`isElem(str)`](#iselemstr)
+* [`isElem(obj)`](#iselemobj)
+* [`isElemMod(str)`](#iselemmodstr)
+* [`isElemMod(obj)`](#iselemmodobj)
+
+### `validate(str)`
+
+Проверяет может ли строка `str` быть раскрыта в БЭМ-нотацию.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.validate('block-name');  // true
+naming.validate('^*^');         // false
+```
 
 ### `parse(str)`
 
-* **String** `str` — строка, определяющая БЭМ-сущность.
-
-Раскрывает строку `str` в [БЭМ-нотацию](#%D0%91%D0%AD%D0%9C-%D0%BD%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D1%8F).
+Раскрывает строку `str` в БЭМ-нотацию.
 
 Пример:
 
@@ -62,9 +82,7 @@ naming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
 
 ### `stringify(obj)`
 
-* **String** `obj` — хэш-объект (БЭМ-нотация), определяющий БЭМ-сущность.
-
-Формирует строку по [БЭМ-нотации](#%D0%91%D0%AD%D0%9C-%D0%BD%D0%BE%D1%82%D0%B0%D1%86%D0%B8%D1%8F) `obj`.
+Формирует строку по БЭМ-нотации `obj`.
 
 Пример:
 
@@ -75,6 +93,116 @@ naming.stringify({
     block: 'block', elem: 'elem',
     modName: 'mod', modVal: 'val'
 }); // 'block__elem_mod_val'
+```
+
+### `isBlock(str)`
+
+Проверяет обозначает ли строка `str` блок.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.isBlock('block-name');   // true
+naming.isBlock('block__elem');  // false
+```
+
+### `isBlock(obj)`
+
+Проверяет обозначает ли БЭМ-нотация `obj` блок.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.isBlock({ block: 'block-name' });           // true
+naming.isBlock({ block: 'block', elem: 'elem' });  // false
+```
+
+### `isBlockMod(str)`
+
+Проверяет обозначает ли строка `str` модификатор блока.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.isBlockMod('block_mod');        // true
+naming.isBlockMod('block__elem_mod');  // false
+```
+
+### `isBlockMod(obj)`
+
+Проверяет обозначает ли БЭМ-нотация `obj` модификатор блока.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.isBlockMod({ block: 'block',
+    modName: 'mod', modVal: true });               // true
+
+naming.isBlockMod({ block: 'block', elem: 'elem',
+    modName: 'mod', modVal: true });               // false
+```
+
+### `isElem(str)`
+
+Проверяет обозначает ли строка `str` элемент блока.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.isElem('block__elem');  // true
+naming.isElem('block-name');   // false
+```
+
+### `isElem(obj)`
+
+Проверяет обозначает ли БЭМ-нотация `obj` элемент блока.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.isElem({ block: 'block', elem: 'elem' });  // true
+naming.isElem({ block: 'block-name' });           // false
+```
+
+### `isElemMod(str)`
+
+Проверяет обозначает ли строка `str` модификатор элемента.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.isElemMod('block__elem_mod');  // true
+naming.isElemMod('block__elem');      // false
+```
+
+### `isElemMod(obj)`
+
+Проверяет обозначает ли БЭМ-нотация `obj` модификатор элемента.
+
+Пример:
+
+```js
+var naming = require('bem-naming');
+
+naming.isElemMod({ block: 'block', elem: 'elem',
+    modName: 'mod', modVal: true });              // true
+
+naming.isElemMod({ block: 'block',
+    modName: 'mod', modVal: true});               // false
 ```
 
 Собственный стиль
