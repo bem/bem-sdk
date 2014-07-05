@@ -55,7 +55,7 @@ describe('original', function () {
         });
 
         it('must detect mod of elem by string', function () {
-            naming.isElemMod('block__elem_mod_value').must.be.true();
+            naming.isElemMod('block__elem_mod_val').must.be.true();
         });
 
         it('must detect mod of elem by object', function () {
@@ -69,9 +69,15 @@ describe('original', function () {
         });
 
         it('must detect boolean mod of elem by object', function () {
-            var notation = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' };
+            var notation = { block: 'block', elem: 'elem', modName: 'mod', modVal: true };
 
             naming.isElemMod(notation).must.be.true();
+        });
+
+        it('must detect mod of elem by object without `modVal` field', function () {
+            var notation = { block: 'block', elem: 'elem', modName: 'mod' };
+
+            naming.isElemMod(notation).must.be.false();
         });
     });
 });

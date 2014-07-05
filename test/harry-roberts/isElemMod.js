@@ -73,5 +73,11 @@ describe('harry roberts', function () {
 
             naming.isElemMod(notation).must.be.true();
         });
+
+        it('must detect mod of elem by object without `modVal` field', function () {
+            var notation = { block: 'block', elem: 'elem', modName: 'mod' };
+
+            naming.isElemMod(notation).must.be.false();
+        });
     });
 });

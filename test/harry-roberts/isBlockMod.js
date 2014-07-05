@@ -44,6 +44,12 @@ describe('harry roberts', function () {
             naming.isBlockMod(notation).must.be.true();
         });
 
+        it('must not detect mod of block by object without `modVal` field', function () {
+            var notation = { block: 'block', modName: 'mod' };
+
+            naming.isBlockMod(notation).must.be.false();
+        });
+
         it('must not detect mod of block in elem by string', function () {
             naming.isBlockMod('block-elem').must.be.false();
         });
