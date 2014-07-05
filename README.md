@@ -80,13 +80,13 @@ naming.stringify({
 Custom naming convention
 ------------------------
 
-To use your own naming convention to define strings that represent BEM-entities we need to create instance of BEMNaming-class.
+To use your own naming convention to define strings that represent BEM-entities we need to create instance of `BEMNaming`-class.
 
 Constructor `BEMNaming` gets the object from the following options:
 
-* **String** `modSeparator` — sepatates names and values of modifiers from blocks and elements. Default as `_`.
-* **String** `elemSeparator` — separates element's name from block. Default as `__`.
-* **String** `literal` — defines which symbols can be used as block, element and modifier's names. Default as `[a-zA-Z0-9-]`.
+* **String** `modSeparator` — sepatates names and values of modifiers from blocks and elements. Default&nbsp;as&nbsp;`_`.
+* **String** `elemSeparator` — separates element's name from block. Default&nbsp;as&nbsp;`__`.
+* **String** `literal` — defines which symbols can be used as block, element and modifier's names. Default&nbsp;as&nbsp;`[a-zA-Z0-9-]`.
 
 Example:
 
