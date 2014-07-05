@@ -40,14 +40,34 @@ BEM-entities can be defined with a help of js-object with the following fields:
 API
 ---
 
+* [`validate(str)`](#validatestr)
 * [`parse(str)`](#parsestr)
 * [`stringify(obj)`](#stringifyobj)
+* [`isBlock(str)`](#isblockstr)
+* [`isBlock(obj)`](#isblockobj)
+* [`isBlockMod(str)`](#isblockmodstr)
+* [`isBlockMod(obj)`](#isblockmodobj)
+* [`isElem(str)`](#iselemstr)
+* [`isElem(obj)`](#iselemobj)
+* [`isElemMod(str)`](#iselemmodstr)
+* [`isElemMod(obj)`](#iselemmodobj)
+
+### `validate(str)`
+
+Checks whether string `str` to be parsed in BEM-naming object.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.validate('block-name');  // true
+naming.validate('^*^');         // false
+```
 
 ### `parse(str)`
 
-* **String** `str` — a string that defines BEM-entity.
-
-It parses string `str` into [BEM-naming](#bem-naming).
+It parses string `str` into BEM-naming.
 
 Example:
 
@@ -62,9 +82,7 @@ naming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
 
 ### `stringify(obj)`
 
-* **String** `obj` — hash-object (BEM-naming) that defines BEM-entity.
-
-It forms a string according to [BEM-naming](#bem-naming) `obj`.
+It forms a string according to BEM-naming `obj`.
 
 Example:
 
@@ -75,6 +93,116 @@ naming.stringify({
     block: 'block', elem: 'elem',
     modName: 'mod', modVal: 'val'
 }); // 'block__elem_mod_val'
+```
+
+### `isBlock(str)`
+
+Checks whether string `str` is a block.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.isBlock('block-name');   // true
+naming.isBlock('block__elem');  // false
+```
+
+### `isBlock(obj)`
+
+Checks whether BEM-naming `obj` is a block.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.isBlock({ block: 'block-name' });           // true
+naming.isBlock({ block: 'block', elem: 'elem' });  // false
+```
+
+### `isBlockMod(str)`
+
+Checks whether string `str` is modifier of a block.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.isBlockMod('block_mod');        // true
+naming.isBlockMod('block__elem_mod');  // false
+```
+
+### `isBlockMod(obj)`
+
+Checks whether BEM-naming `obj` is modifier of a block.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.isBlockMod({ block: 'block',
+    modName: 'mod', modVal: true });               // true
+
+naming.isBlockMod({ block: 'block', elem: 'elem',
+    modName: 'mod', modVal: true });               // false
+```
+
+### `isElem(str)`
+
+Checks whether string `str` is element of a block.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.isElem('block__elem');  // true
+naming.isElem('block-name');   // false
+```
+
+### `isElem(obj)`
+
+Checks whether BEM-naming `obj` is element of a block.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.isElem({ block: 'block', elem: 'elem' });  // true
+naming.isElem({ block: 'block-name' });           // false
+```
+
+### `isElemMod(str)`
+
+Checks whether string `str` is modifier of an element.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.isElemMod('block__elem_mod');  // true
+naming.isElemMod('block__elem');      // false
+```
+
+### `isElemMod(obj)`
+
+Checks whether BEM-naming `obj` is modifier of an element.
+
+Example:
+
+```js
+var naming = require('bem-naming');
+
+naming.isElemMod({ block: 'block', elem: 'elem',
+    modName: 'mod', modVal: true });              // true
+
+naming.isElemMod({ block: 'block',
+    modName: 'mod', modVal: true});               // false
 ```
 
 Custom naming convention
