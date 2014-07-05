@@ -65,6 +65,8 @@ naming.validate('block-name');  // true
 naming.validate('^*^');         // false
 ```
 
+<hr/>
+
 ### `parse(str)`
 
 It parses string `str` into BEM-naming.
@@ -95,6 +97,8 @@ naming.stringify({
 }); // 'block__elem_mod_val'
 ```
 
+<hr/>
+
 ### `isBlock(str)`
 
 Checks whether string `str` is a block.
@@ -107,6 +111,8 @@ var naming = require('bem-naming');
 naming.isBlock('block-name');   // true
 naming.isBlock('block__elem');  // false
 ```
+
+<hr/>
 
 ### `isBlock(obj)`
 
@@ -121,6 +127,8 @@ naming.isBlock({ block: 'block-name' });           // true
 naming.isBlock({ block: 'block', elem: 'elem' });  // false
 ```
 
+<hr/>
+
 ### `isBlockMod(str)`
 
 Checks whether string `str` is modifier of a block.
@@ -133,6 +141,8 @@ var naming = require('bem-naming');
 naming.isBlockMod('block_mod');        // true
 naming.isBlockMod('block__elem_mod');  // false
 ```
+
+<hr/>
 
 ### `isBlockMod(obj)`
 
@@ -150,6 +160,8 @@ naming.isBlockMod({ block: 'block', elem: 'elem',
     modName: 'mod', modVal: true });               // false
 ```
 
+<hr/>
+
 ### `isElem(str)`
 
 Checks whether string `str` is element of a block.
@@ -162,6 +174,8 @@ var naming = require('bem-naming');
 naming.isElem('block__elem');  // true
 naming.isElem('block-name');   // false
 ```
+
+<hr/>
 
 ### `isElem(obj)`
 
@@ -176,6 +190,8 @@ naming.isElem({ block: 'block', elem: 'elem' });  // true
 naming.isElem({ block: 'block-name' });           // false
 ```
 
+<hr/>
+
 ### `isElemMod(str)`
 
 Checks whether string `str` is modifier of an element.
@@ -188,6 +204,8 @@ var naming = require('bem-naming');
 naming.isElemMod('block__elem_mod');  // true
 naming.isElemMod('block__elem');      // false
 ```
+
+<hr/>
 
 ### `isElemMod(obj)`
 
