@@ -24,14 +24,16 @@
   "devDependencies": {
     "mocha": "1.20.1",
     "should": "4.0.4",
+    "zuul": "1.8.0",
     "jshint": "2.5.1",
     "jscs": "1.5.7",
     "istanbul": "0.2.16"
   },
   "scripts": {
-    "test": "npm run lint && npm run func-test && npm run cover",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- test/original test/harry-roberts",
+    "test": "npm run lint && npm run node-test && npm run browser-test && npm run cover",
     "lint": "jshint . && jscs -c .jscs.js .",
-    "func-test": "mocha test/original test/harry-roberts"
+    "node-test": "mocha test/original test/harry-roberts",
+    "browser-test": "zuul -- ./test/**/*.test.js",
+    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- test/original test/harry-roberts"
   }
 }
