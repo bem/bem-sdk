@@ -32,8 +32,8 @@
   "scripts": {
     "test": "npm run lint && npm run node-test && npm run browser-test && npm run cover",
     "lint": "jshint . && jscs -c .jscs.js .",
-    "node-test": "mocha test/original test/harry-roberts",
+    "node-test": "mocha ./test/**/*.test.js",
     "browser-test": "zuul -- ./test/**/*.test.js",
-    "cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- test/original test/harry-roberts"
+    "cover": "istanbul cover _mocha -- ./test/**/*.test.js"
   }
 }
