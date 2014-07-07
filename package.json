@@ -27,13 +27,15 @@
     "zuul": "1.8.0",
     "jshint": "2.5.2",
     "jscs": "1.5.8",
-    "istanbul": "0.2.16"
+    "istanbul": "0.2.16",
+    "uglify-js": "2.4.14"
   },
   "scripts": {
     "test": "npm run lint && npm run node-test && npm run browser-test && npm run cover",
     "lint": "jshint . && jscs -c .jscs.js .",
     "node-test": "mocha ./test/**/*.test.js",
     "browser-test": "zuul -- ./test/**/*.test.js",
-    "cover": "istanbul cover _mocha -- ./test/**/*.test.js"
+    "cover": "istanbul cover _mocha -- ./test/**/*.test.js",
+    "min": "uglifyjs lib/bem-naming.js > bem-naming.min.js"
   }
 }

@@ -1,7 +1,8 @@
 module.exports = {
     excludeFiles: [
         'node_modules/**',
-        'coverage/**'
+        'coverage/**',
+        'bem-naming.min.js'
     ],
     requireCurlyBraces: ['if', 'else', 'for', 'while', 'do', 'try', 'catch', 'case', 'default'],
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
