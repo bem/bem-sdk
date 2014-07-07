@@ -23,7 +23,7 @@
   "files": ["lib"],
   "devDependencies": {
     "mocha": "1.20.1",
-    "must": "0.12.0",
+    "should": "4.0.4",
     "jshint": "2.5.1",
     "jscs": "1.5.7",
     "istanbul": "0.2.16"

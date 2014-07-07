@@ -1,83 +1,83 @@
-var demand = require('must');
+var demand = require('should');
 var naming = require('../lib/harry-roberts-naming');
 
 describe('harry roberts', function () {
     describe('parse', function () {
-        it('must not parse not valid string', function () {
+        it('should not parse not valid string', function () {
             var obj = naming.parse('(*)-(*)');
 
-            demand(obj).be.undefined();
+            demand(obj).be.undefined;
         });
 
-        it('must have one filed if parse block', function () {
+        it('should have one filed if parse block', function () {
             var obj = naming.parse('block');
 
-            Object.keys(obj).must.have.length(1);
+            Object.keys(obj).should.have.length(1);
         });
 
-        it('must have three params if parse mod of block', function () {
+        it('should have three params if parse mod of block', function () {
             var obj = naming.parse('block--mod');
 
-            Object.keys(obj).must.have.length(3);
+            Object.keys(obj).should.have.length(3);
         });
 
-        it('must have two params if parse elem of block', function () {
+        it('should have two params if parse elem of block', function () {
             var obj = naming.parse('block-elem');
 
-            Object.keys(obj).must.have.length(2);
+            Object.keys(obj).should.have.length(2);
         });
 
-        it('must have four params if parse mod of elem', function () {
+        it('should have four params if parse mod of elem', function () {
             var obj = naming.parse('block-elem--mod');
 
-            Object.keys(obj).must.have.length(4);
+            Object.keys(obj).should.have.length(4);
         });
 
-        it('must parse block', function () {
+        it('should parse block', function () {
             var obj = naming.parse('block');
 
-            obj.block.must.equal('block');
+            obj.block.should.equal('block');
         });
 
-        it('must parse mod of block', function () {
+        it('should parse mod of block', function () {
             var obj = naming.parse('block--mod--val');
 
-            obj.block.must.equal('block');
-            obj.modName.must.equal('mod');
-            obj.modVal.must.equal('val');
+            obj.block.should.equal('block');
+            obj.modName.should.equal('mod');
+            obj.modVal.should.equal('val');
         });
 
-        it('must parse boolean mod of block', function () {
+        it('should parse boolean mod of block', function () {
             var obj = naming.parse('block--mod');
 
-            obj.block.must.equal('block');
-            obj.modName.must.equal('mod');
-            obj.modVal.must.be.true();
+            obj.block.should.equal('block');
+            obj.modName.should.equal('mod');
+            obj.modVal.should.be.true;
         });
 
-        it('must parse elem', function () {
+        it('should parse elem', function () {
             var obj = naming.parse('block-elem');
 
-            obj.block.must.equal('block');
-            obj.elem.must.equal('elem');
+            obj.block.should.equal('block');
+            obj.elem.should.equal('elem');
         });
 
-        it('must parse mod of elem', function () {
+        it('should parse mod of elem', function () {
             var obj = naming.parse('block-elem--mod--val');
 
-            obj.block.must.equal('block');
-            obj.elem.must.equal('elem');
-            obj.modName.must.equal('mod');
-            obj.modVal.must.equal('val');
+            obj.block.should.equal('block');
+            obj.elem.should.equal('elem');
+            obj.modName.should.equal('mod');
+            obj.modVal.should.equal('val');
         });
 
-        it('must parse boolean mod of elem', function () {
+        it('should parse boolean mod of elem', function () {
             var obj = naming.parse('block-elem--mod');
 
-            obj.block.must.equal('block');
-            obj.modName.must.equal('mod');
-            obj.elem.must.equal('elem');
-            obj.modVal.must.be.true();
+            obj.block.should.equal('block');
+            obj.modName.should.equal('mod');
+            obj.elem.should.equal('elem');
+            obj.modVal.should.be.true;
         });
     });
 });
