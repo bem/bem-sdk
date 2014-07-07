@@ -45,7 +45,7 @@ describe('harry roberts', function () {
 
         it('should not stringify mod of block if `modVal` filed is not specified', function () {
             naming.stringify.bind(naming, { block: 'block', modName: 'modVal' })
-                .should.throw('The field `modVal` not specified. It is impossible to stringify BEM notation.');
+                .should.throw('The field `modVal` is not specified. It is impossible to stringify BEM notation.');
         });
 
         it('should stringify elem', function () {
@@ -92,7 +92,7 @@ describe('harry roberts', function () {
 
         it('should not stringify mod of elem if `modVal` filed is not specified', function () {
             naming.stringify.bind(naming, { block: 'block', elem: 'elem', modName: 'modVal' })
-                .should.throw('The field `modVal` not specified. It is impossible to stringify BEM notation.');
+                .should.throw('The field `modVal` is not specified. It is impossible to stringify BEM notation.');
         });
     });
 });
