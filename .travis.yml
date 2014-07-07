@@ -1,17 +1,17 @@
 language: node_js
-
 node_js:
   - "0.10"
-
 env:
   global:
     - GH_REF: github.com/bem/bem-naming.git
-    - ISTANBUL_COVERAGE: yes
-
+    - ISTANBUL_COVERAGE: true
+    - secure: PVMWhMSV+O0LvVLRzaqXLiVK0/tSsP4o5NGjb/Lwzlm+u1IkrG5A1buHAFZF3dZY6A2aCd28oPiIeksXp5wPPEuPE3RGzb/Xe57Ks3X1iAlbesPHzBVHV5QIdIUsXdAXmBvYweoBx1CljBluIiVg0PEEUE4UjVxXWCV86p3kr5A=
+    - secure: Gdp2CH1qEyB/4HW0GKl0UipsOYFfUoCHSdVaitA1Fr0gAd5HUXhbN53UpkPOH7ksB8ebOsGZCGpJuB7byt1/+9pE6jfGsAprINtHUpiyri6xQA6wPALpP+3/8eYkqHab8vl7a7SAHJ6tvIgHoMXVYXP2+fx05wiOstOdXaEr5wQ=
 branches:
   only:
     - master
-
+addons:
+  sauce_connect: true
 after_success:
   - npm i coveralls
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && echo "Coverage data was sent to coveralls!"
