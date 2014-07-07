@@ -59,10 +59,8 @@ API
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.validate('block-name');  // true
-naming.validate('^*^');         // false
+bemNaming.validate('block-name');  // true
+bemNaming.validate('^*^');         // false
 ```
 
 <hr/>
@@ -74,10 +72,8 @@ naming.validate('^*^');         // false
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
-                                      //   modName: 'mod', modVal: 'val' }
+bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
+                                         //   modName: 'mod', modVal: 'val' }
 ```
 
 <hr/>
@@ -89,9 +85,7 @@ naming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.stringify({
+bemNaming.stringify({
     block: 'block', elem: 'elem',
     modName: 'mod', modVal: 'val'
 }); // 'block__elem_mod_val'
@@ -106,10 +100,8 @@ naming.stringify({
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.isBlock('block-name');   // true
-naming.isBlock('block__elem');  // false
+bemNaming.isBlock('block-name');   // true
+bemNaming.isBlock('block__elem');  // false
 ```
 
 <hr/>
@@ -121,10 +113,8 @@ naming.isBlock('block__elem');  // false
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.isBlock({ block: 'block-name' });           // true
-naming.isBlock({ block: 'block', elem: 'elem' });  // false
+bemNaming.isBlock({ block: 'block-name' });           // true
+bemNaming.isBlock({ block: 'block', elem: 'elem' });  // false
 ```
 
 <hr/>
@@ -136,10 +126,8 @@ naming.isBlock({ block: 'block', elem: 'elem' });  // false
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.isBlockMod('block_mod');        // true
-naming.isBlockMod('block__elem_mod');  // false
+bemNaming.isBlockMod('block_mod');        // true
+bemNaming.isBlockMod('block__elem_mod');  // false
 ```
 
 <hr/>
@@ -151,13 +139,11 @@ naming.isBlockMod('block__elem_mod');  // false
 Пример:
 
 ```js
-var naming = require('bem-naming');
+bemNaming.isBlockMod({ block: 'block',
+    modName: 'mod', modVal: true });  // true
 
-naming.isBlockMod({ block: 'block',
-    modName: 'mod', modVal: true });               // true
-
-naming.isBlockMod({ block: 'block', elem: 'elem',
-    modName: 'mod', modVal: true });               // false
+bemNaming.isBlockMod({ block: 'block', elem: 'elem',
+    modName: 'mod', modVal: true });  // false
 ```
 
 <hr/>
@@ -169,10 +155,8 @@ naming.isBlockMod({ block: 'block', elem: 'elem',
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.isElem('block__elem');  // true
-naming.isElem('block-name');   // false
+bemNaming.isElem('block__elem');  // true
+bemNaming.isElem('block-name');   // false
 ```
 
 <hr/>
@@ -184,10 +168,8 @@ naming.isElem('block-name');   // false
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.isElem({ block: 'block', elem: 'elem' });  // true
-naming.isElem({ block: 'block-name' });           // false
+bemNaming.isElem({ block: 'block', elem: 'elem' });  // true
+bemNaming.isElem({ block: 'block-name' });           // false
 ```
 
 <hr/>
@@ -199,10 +181,8 @@ naming.isElem({ block: 'block-name' });           // false
 Пример:
 
 ```js
-var naming = require('bem-naming');
-
-naming.isElemMod('block__elem_mod');  // true
-naming.isElemMod('block__elem');      // false
+bemNaming.isElemMod('block__elem_mod');  // true
+bemNaming.isElemMod('block__elem');      // false
 ```
 
 <hr/>
@@ -214,13 +194,11 @@ naming.isElemMod('block__elem');      // false
 Пример:
 
 ```js
-var naming = require('bem-naming');
+bemNaming.isElemMod({ block: 'block', elem: 'elem',
+    modName: 'mod', modVal: true });  // true
 
-naming.isElemMod({ block: 'block', elem: 'elem',
-    modName: 'mod', modVal: true });              // true
-
-naming.isElemMod({ block: 'block',
-    modName: 'mod', modVal: true});               // false
+bemNaming.isElemMod({ block: 'block',
+    modName: 'mod', modVal: true});   // false
 ```
 
 Собственный стиль
@@ -237,18 +215,17 @@ naming.isElemMod({ block: 'block',
 Пример:
 
 ```js
-var BEMNaming = require('bem-naming').BEMNaming;
-var naming = new BEMNaming({
+var bemNaming = new BEMNaming({
     elemSeparator: '-',
     modSeparator: '--',
-    literal: '[a-zA-Z0-9]'      // т.к. сепараторы элемента и модификаотра включают
-});                             // в себя дефис, исключим его из имён блоков,
-                                // элементов и модификаторов
+    literal: '[a-zA-Z0-9]'        // т.к. сепараторы элемента и модификаотра включают
+});                               // в себя дефис, исключим его из имён блоков,
+                                  // элементов и модификаторов
 
-naming.parse('block--mod');     // { block: 'block',
-                                //   modName: 'modFixed', modVal: true }
+bemNaming.parse('block--mod');    // { block: 'block',
+                                  //   modName: 'modFixed', modVal: true }
 
-naming.stringify({              // 'blockName-elemName--boolElemMod'
+bemNaming.stringify({             // 'blockName-elemName--boolElemMod'
     block: 'blockName',
     elem: 'elemName',
     modName: 'boolElemMod'
