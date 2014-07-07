@@ -23,6 +23,7 @@
   ],
   "ignore": [
     "**/.*",
+    "CHANGELOG*",
     "node_modules",
     "test",
     "coverage",
