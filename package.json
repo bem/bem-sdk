@@ -25,8 +25,8 @@
     "mocha": "1.20.1",
     "should": "4.0.4",
     "zuul": "1.8.0",
-    "jshint": "2.5.1",
-    "jscs": "1.5.7",
+    "jshint": "2.5.2",
+    "jscs": "1.5.8",
     "istanbul": "0.2.16"
   },
   "scripts": {
