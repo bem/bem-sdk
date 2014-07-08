@@ -215,17 +215,18 @@ Constructor `BEMNaming` gets the object from the following options:
 Example:
 
 ```js
-var bemNaming = new BEMNaming({
+var BEMNaming = bemNaming.BEMNaming;
+var myNaming = new BEMNaming({
     elemSeparator: '-',
     modSeparator: '--',
     literal: '[a-zA-Z0-9]'        // because element and modifier's separators include
 });                               // hyphen in it, we need to exclude it from block,
                                   // element and modifier's name
                                 
-bemNaming.parse('block--mod');    // { block: 'block',
+myNaming.parse('block--mod');     // { block: 'block',
                                   //   modName: 'mod', modVal: true }
 
-bemNaming.stringify({             // 'blockName-elemName--boolElemMod'
+myNaming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',
     elem: 'elemName',
     modName: 'boolElemMod'

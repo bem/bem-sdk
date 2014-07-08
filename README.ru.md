@@ -215,17 +215,18 @@ bemNaming.isElemMod({ block: 'block',
 Пример:
 
 ```js
-var bemNaming = new BEMNaming({
+var BEMNaming = bemNaming.BEMNaming;
+var myNaming = new BEMNaming({
     elemSeparator: '-',
     modSeparator: '--',
     literal: '[a-zA-Z0-9]'        // т.к. сепараторы элемента и модификаотра включают
 });                               // в себя дефис, исключим его из имён блоков,
                                   // элементов и модификаторов
 
-bemNaming.parse('block--mod');    // { block: 'block',
+myNaming.parse('block--mod');     // { block: 'block',
                                   //   modName: 'modFixed', modVal: true }
 
-bemNaming.stringify({             // 'blockName-elemName--boolElemMod'
+myNaming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',
     elem: 'elemName',
     modName: 'boolElemMod'
