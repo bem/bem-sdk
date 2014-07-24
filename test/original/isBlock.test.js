@@ -10,6 +10,14 @@ describe('original', function () {
             naming.isBlock({}).should.be.false;
         });
 
+        it('should not detect block by not valid string', function () {
+            naming.isBlock('(*)_(*)').should.be.false;
+        });
+
+        it('should not detect block by not valid object', function () {
+            naming.isBlock({ elem: 'elem' }).should.be.false;
+        });
+
         it('should detect block by string', function () {
             naming.isBlock('block').should.be.true;
         });
