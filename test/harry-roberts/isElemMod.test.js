@@ -10,6 +10,14 @@ describe('harry roberts', function () {
             naming.isElemMod({}).should.be.false;
         });
 
+        it('should not detect mod of elem by not valid string', function () {
+            naming.isElemMod('(*)_(*)').should.be.false;
+        });
+
+        it('should not detect mod of elem by not valid object', function () {
+            naming.isElemMod({ modName: 'mod' }).should.be.false;
+        });
+
         it('should not detect mod of elem by not valid object notation', function () {
             naming.isElemMod({ elem: 'elem', modName: 'mod', modVal: 'val' }).should.be.false;
         });

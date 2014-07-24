@@ -10,6 +10,14 @@ describe('harry roberts', function () {
             naming.isElem({}).should.be.false;
         });
 
+        it('should not detect elem by not valid string', function () {
+            naming.isElem('(*)_(*)').should.be.false;
+        });
+
+        it('should not detect elem by not valid object', function () {
+            naming.isElem({ elem: 'elem' }).should.be.false;
+        });
+
         it('should not detect elem by not valid object notation', function () {
             naming.isElem({ elem: 'elem' }).should.be.false;
         });
