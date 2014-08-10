@@ -15,7 +15,7 @@ To define BEM-entities we often use a special string format that allows us 100% 
 According to original BEM-naming convention it looks like the following:
 
 ```js
-'block[_blockModName[_blockModVal]][__elemName[_elemModName[_elemModVal]]]'
+'block[_block-mod-name[_block-mod-val]][__elem-name[_elem-mod-name[_elem-mod-val]]]'
 ```
 
 *(Parameters whithin square brackets are optional)*
@@ -26,6 +26,21 @@ According to original BEM-naming convention it looks like the following:
 * Block's element — `block-name__elem-name`.
 * Element's modifier in key-value format — `block-name__elem-name_mod-name_mod-val`.
 * Element's boolean modifier — `block-name__elem_mod`.
+
+Common misconceptions
+---------------------
+
+BEM methodology involves the use of flat structure inside a block. It means that BEM entity can not be represented as an element of the other element and the following string representation will be invalid:
+
+```js
+'block__some-elem__sub-elem'
+```
+
+Also there is no such BEM entity as a modifier and an element modifier simultaneously so the following string representation will be invalid:
+
+```js
+'block_block-mod-name_block-mod-val__elem-name_elem-mod-name_elem-mod-val'
+```
 
 BEM-naming
 ----------
