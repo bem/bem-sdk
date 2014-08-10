@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.2.0
+-----
+
+ * Added ability to use BEM-naming object without `modVal` field.
+ * Added minified version.
+ * Fixed bug with `is*` methods for invalid strings.
+ * Fixed bug with `bemNaming` for IE6-8.
+
 0.1.0
 -----
 
