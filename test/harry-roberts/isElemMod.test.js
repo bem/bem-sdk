@@ -76,16 +76,16 @@ describe('harry roberts', function () {
             naming.isElemMod('block-elem--mod').should.be.true;
         });
 
-        it('should detect boolean mod of elem by object', function () {
-            var notation = { block: 'block', elem: 'elem', modName: 'mod', modVal: true };
+        it('should detect boolean mod of elem by object without `modVal` field', function () {
+            var notation = { block: 'block', elem: 'elem', modName: 'mod' };
 
             naming.isElemMod(notation).should.be.true;
         });
 
-        it('should detect mod of elem by object without `modVal` field', function () {
-            var notation = { block: 'block', elem: 'elem', modName: 'mod' };
+        it('should detect boolean mod of elem by strict object', function () {
+            var notation = { block: 'block', elem: 'elem', modName: 'mod', modVal: true };
 
-            naming.isElemMod(notation).should.be.false;
+            naming.isElemMod(notation).should.be.true;
         });
     });
 });
