@@ -46,16 +46,16 @@ describe('original', function () {
             naming.isBlockMod('block_mod').should.be.true;
         });
 
-        it('should detect boolean mod of block by object', function () {
-            var notation = { block: 'block', modName: 'mod', modVal: true };
+        it('should detect boolean mod of block by object without `modVal` field', function () {
+            var notation = { block: 'block', modName: 'mod' };
 
             naming.isBlockMod(notation).should.be.true;
         });
 
-        it('should not detect mod of block by object without `modVal` field', function () {
-            var notation = { block: 'block', modName: 'mod' };
+        it('should detect boolean mod of block by strict object', function () {
+            var notation = { block: 'block', modName: 'mod', modVal: true };
 
-            naming.isBlockMod(notation).should.be.false;
+            naming.isBlockMod(notation).should.be.true;
         });
 
         it('should not detect mod of block in elem by string', function () {
