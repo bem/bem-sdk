@@ -22,13 +22,13 @@
   "main": "lib/bem-naming",
   "files": ["lib"],
   "devDependencies": {
-    "mocha": "1.20.1",
+    "mocha": "1.21.4",
     "should": "4.0.4",
-    "zuul": "1.8.0",
-    "jshint": "2.5.2",
-    "jscs": "1.5.8",
+    "zuul": "1.10.1",
+    "jshint": "2.5.3",
+    "jscs": "1.5.9",
     "istanbul": "0.3.0",
-    "uglify-js": "2.4.14"
+    "uglify-js": "2.4.15"
   },
   "scripts": {
     "test": "npm run lint && npm run node-test && npm run browser-test && npm run cover",
