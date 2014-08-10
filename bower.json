@@ -6,6 +6,7 @@
     "bem",
     "naming"
   ],
+  "license": "MIT",
   "authors": [
     { "name": "Andrew Abramov", "email": "andrewblond@yandex.com" }
   ],
