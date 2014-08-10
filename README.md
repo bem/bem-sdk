@@ -69,7 +69,7 @@ API
 
 ### `validate(str)`
 
-Checks whether string `str` to be parsed in BEM-naming object.
+Checks a string to be valid BEM notation.
 
 Example:
 
@@ -223,9 +223,9 @@ To use your own naming convention to define strings that represent BEM-entities 
 
 Constructor `BEMNaming` gets the object from the following options:
 
-* **String** `modSeparator` — sepatates names and values of modifiers from blocks and elements. Default&nbsp;as&nbsp;`_`.
+* **String** `modSeparator` — separates names and values of modifiers from blocks and elements. Default&nbsp;as&nbsp;`_`.
 * **String** `elemSeparator` — separates element's name from block. Default&nbsp;as&nbsp;`__`.
-* **String** `literal` — defines which symbols can be used as block, element and modifier's names. Default&nbsp;as&nbsp;`[a-zA-Z0-9-]`.
+* **String** `literal` — defines which symbols can be used for block, element and modifier's names. Default&nbsp;as&nbsp;`[a-zA-Z0-9-]`.
 
 Example:
 
