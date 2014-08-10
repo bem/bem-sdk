@@ -6,6 +6,10 @@
       "bem",
       "naming"
   ],
+  "licenses": [{
+    "type": "MIT",
+    "url": "https://github.com/bem/bem-naming/blob/master/LICENSE"
+  }],
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "repository": "git://github.com/bem/bem-naming",
   "homepage": "https://github.com/bem/bem-naming",
