@@ -20,7 +20,7 @@
     "node": ">= 0.10.0"
   },
   "main": "lib/bem-naming",
-  "files": ["lib"],
+  "files": ["lib/bem-naming.js"],
   "devDependencies": {
     "mocha": "1.21.4",
     "should": "4.0.4",
