@@ -1,7 +1,7 @@
 bem-naming
 ==========
 
-[![NPM version](http://img.shields.io/npm/v/bem-naming.svg?style=flat)](http://badge.fury.io/js/bem-naming) [![Download](http://img.shields.io/badge/download-1kB-blue.svg?style=flat)](https://github.com/bem/bem-naming/releases/download/v0.2.1/bem-naming.min.js.gz) [![Build Status](http://img.shields.io/travis/bem/bem-naming.svg?style=flat)](https://travis-ci.org/bem/bem-naming) [![Coverage Status](https://img.shields.io/coveralls/bem/bem-naming.svg?branch=master&style=flat)](https://coveralls.io/r/bem/bem-naming) [![devDependency Status](http://img.shields.io/david/dev/bem/bem-naming.svg?style=flat)](https://david-dm.org/bem/bem-naming#info=devDependencies)
+[![NPM version](http://img.shields.io/npm/v/bem-naming.svg?style=flat)](http://badge.fury.io/js/bem-naming) [![Download](http://img.shields.io/badge/download-1%20kB-blue.svg?style=flat)](https://github.com/bem/bem-naming/releases/v0.2.1) [![Build Status](http://img.shields.io/travis/bem/bem-naming.svg?branch=master&style=flat)](https://travis-ci.org/bem/bem-naming) [![Coverage Status](https://img.shields.io/coveralls/bem/bem-naming.svg?branch=master&style=flat)](https://coveralls.io/r/bem/bem-naming) [![devDependency Status](http://img.shields.io/david/dev/bem/bem-naming.svg?style=flat)](https://david-dm.org/bem/bem-naming#info=devDependencies)
 
 Что это?
 --------
