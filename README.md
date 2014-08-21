@@ -223,18 +223,18 @@ To use your own naming convention to define strings that represent BEM-entities 
 
 Constructor `BEMNaming` gets the object from the following options:
 
-* **String** `modSeparator` — separates names and values of modifiers from blocks and elements. Default&nbsp;as&nbsp;`_`.
-* **String** `elemSeparator` — separates element's name from block. Default&nbsp;as&nbsp;`__`.
-* **String** `literal` — defines which symbols can be used for block, element and modifier's names. Default&nbsp;as&nbsp;`[a-zA-Z0-9-]`.
+* **String** `elem` — separates element's name from block. Default&nbsp;as&nbsp;`__`.
+* **String** `mod` — separates names and values of modifiers from blocks and elements. Default&nbsp;as&nbsp;`_`.
+* **String** `wordPattern` — defines which symbols can be used for block, element and modifier's names. Default&nbsp;as&nbsp;`[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 Example:
 
 ```js
 var BEMNaming = bemNaming.BEMNaming;
 var myNaming = new BEMNaming({
-    elemSeparator: '-',
-    modSeparator: '--',
-    literal: '[a-zA-Z0-9]'        // because element and modifier's separators include
+    elem: '-',
+    mod: '--',
+    wordPattern: '[a-zA-Z0-9]+'   // because element and modifier's separators include
 });                               // hyphen in it, we need to exclude it from block,
                                   // element and modifier's name
                                 
