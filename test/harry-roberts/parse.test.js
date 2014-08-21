@@ -1,5 +1,5 @@
-var demand = require('should');
-var naming = require('../lib/harry-roberts-naming');
+var demand = require('should'),
+    naming = require('../lib/harry-roberts-naming');
 
 describe('harry roberts', function () {
     describe('parse', function () {

@@ -1,4 +1,5 @@
 {
+    "bitwise": true,
     "curly": true,
     "eqeqeq": true,
     "forin": true,
@@ -7,9 +8,10 @@
     "latedef": "nofucn",
     "noarg": true,
     "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
     "undef": true,
     "unused": true,
-    "trailing": true,
 
     "node": true,
     "globals": {
@@ -21,5 +23,6 @@
         "afterEach": false
     },
 
-    "expr": true
+    "expr": true,
+    "sub": true
 }

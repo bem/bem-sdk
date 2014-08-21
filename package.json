@@ -25,7 +25,7 @@
     "mocha": "1.21.4",
     "should": "4.0.4",
     "zuul": "1.10.1",
-    "jshint": "2.5.3",
+    "jshint": "2.5.4",
     "jscs": "1.5.9",
     "istanbul": "0.3.0",
     "uglify-js": "2.4.15"

@@ -4,25 +4,10 @@ module.exports = {
         'coverage/**',
         'bem-naming.min.js'
     ],
-    requireCurlyBraces: ['if', 'else', 'for', 'while', 'do', 'try', 'catch', 'case', 'default'],
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
-    requireSpaceBeforeBinaryOperators: [
-        '=', '+=', '-=', '*=', '/=', '%=', '<<=', '>>=', '>>>=',
-        '&=', '|=', '^=', '+=',
-
-        '+', '-', '*', '/', '%', '<<', '>>', '>>>', '&',
-        '|', '^', '&&', '||', '===', '==', '>=',
-        '<=', '<', '>', '!=', '!=='
-    ],
+    requireSpaceBeforeBlockStatements: true,
     requireSpacesInConditionalExpression: true,
-    requireSpaceAfterBinaryOperators: true,
-    disallowSpacesInsideParentheses: true,
-    disallowSpaceBeforePostfixUnaryOperators: true,
-    disallowSpaceAfterPrefixUnaryOperators: true,
-    disallowSpaceBeforeBinaryOperators: [',', ':'],
-    disallowKeywords: ['with'],
-    disallowKeywordsOnNewLine: ['else', 'catch'],
-    requireSpacesInFunctionExpression: {
+    requireSpacesInFunction: {
         beforeOpeningCurlyBrace: true
     },
     requireSpacesInAnonymousFunctionExpression: {
@@ -31,19 +16,42 @@ module.exports = {
     disallowSpacesInNamedFunctionExpression: {
         beforeOpeningRoundBrace: true
     },
-
-    disallowYodaConditions: true,
-    safeContextKeyword: '_this',
-    requireCapitalizedConstructors: true,
+    requireMultipleVarDecl: true,
+    requireBlocksOnNewline: 1,
+    disallowPaddingNewlinesInBlocks: true,
+    disallowSpacesInsideArrayBrackets: 'nested',
+    disallowSpacesInsideParentheses: true,
+    requireSpacesInsideObjectBrackets: 'all',
+    disallowQuotedKeysInObjects: 'allButReserved',
+    disallowSpaceAfterObjectKeys: true,
     requireCommaBeforeLineBreak: true,
-
-    disallowEmptyBlocks: true,
+    requireOperatorBeforeLineBreak: true,
+    disallowSpaceAfterPrefixUnaryOperators: true,
+    disallowSpaceBeforePostfixUnaryOperators: true,
+    requireSpaceBeforeBinaryOperators: true,
+    requireSpaceAfterBinaryOperators: true,
+    requireCamelCaseOrUpperCaseIdentifiers: true,
+    disallowKeywords: ['with'],
+    disallowMultipleLineStrings: true,
     disallowMultipleLineBreaks: true,
+    validateLineBreaks: 'LF',
+    validateQuoteMarks: {
+        mark: '\'',
+        escape: true
+    },
     disallowMixedSpacesAndTabs: true,
     disallowTrailingWhitespace: true,
-
-    validateQuoteMarks: '\'',
-    maximumLineLength: 120,
+    disallowKeywordsOnNewLine: ['else', 'catch'],
     requireLineFeedAtFileEnd: true,
-    validateLineBreaks: 'LF'
+    maximumLineLength: 120,
+    requireCapitalizedConstructors: true,
+    safeContextKeyword: ['_this'],
+    disallowYodaConditions: true,
+    validateJSDoc: {
+        checkParamNames: true,
+        checkRedundantParams: true,
+        requireParamTypes: true
+    },
+    requireSpaceAfterLineComment: true,
+    disallowNewlineBeforeBlockStatements: true
 };

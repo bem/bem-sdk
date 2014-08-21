@@ -1,5 +1,5 @@
-var demand = require('should');
-var naming = require('../../lib/bem-naming');
+var demand = require('should'),
+    naming = require('../../lib/bem-naming');
 
 describe('original', function () {
     describe('parse', function () {
