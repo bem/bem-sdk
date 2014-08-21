@@ -15,19 +15,19 @@ describe('harry roberts', function () {
         });
 
         it('should validate elem', function () {
-            naming.validate('block-elem').should.be.true;
+            naming.validate('block__elem').should.be.true;
         });
 
         it('should validate mod of elem', function () {
-            naming.validate('block-elem--mod--value').should.be.true;
+            naming.validate('block__elem--mod--value').should.be.true;
         });
 
         it('should validate boolean mod of elem', function () {
-            naming.validate('block-elem--mod').should.be.true;
+            naming.validate('block__elem--mod').should.be.true;
         });
 
         it('should not validate elem without block', function () {
-            naming.validate('-elem').should.be.false;
+            naming.validate('__elem').should.be.false;
         });
 
         it('should not validate boolean mod without block', function () {
@@ -39,23 +39,23 @@ describe('harry roberts', function () {
         });
 
         it('should not validate mod of elem without block', function () {
-            naming.validate('-elem--mod--val').should.be.false;
+            naming.validate('__elem--mod--val').should.be.false;
         });
 
         it('should not validate boolean mod of elem without block', function () {
-            naming.validate('-elem--mod').should.be.false;
+            naming.validate('__elem--mod').should.be.false;
         });
 
         it('should not validate nested elem', function () {
-            naming.validate('block-elem1-elem2').should.be.false;
+            naming.validate('block__elem1__elem2').should.be.false;
         });
 
         it('should not validate multi mod', function () {
-            naming.validate('block--mod--val-elem--mod--val').should.be.false;
+            naming.validate('block--mod--val__elem--mod--val').should.be.false;
         });
 
         it('should not validate block name with illegal literals', function () {
-            naming.validate('block__elem').should.be.false;
+            naming.validate('block_elem').should.be.false;
         });
     });
 });

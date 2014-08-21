@@ -53,7 +53,7 @@ describe('harry roberts', function () {
         });
 
         it('should not detect mod of elem in elem by string', function () {
-            naming.isElemMod('block-elem').should.be.false;
+            naming.isElemMod('block__elem').should.be.false;
         });
 
         it('should not detect mod of elem in elem by object', function () {
@@ -63,7 +63,7 @@ describe('harry roberts', function () {
         });
 
         it('should detect mod of elem by string', function () {
-            naming.isElemMod('block-elem--mod--val').should.be.true;
+            naming.isElemMod('block__elem--mod--val').should.be.true;
         });
 
         it('should detect mod of elem by object', function () {
@@ -73,7 +73,7 @@ describe('harry roberts', function () {
         });
 
         it('should detect boolean mod of elem by string', function () {
-            naming.isElemMod('block-elem--mod').should.be.true;
+            naming.isElemMod('block__elem--mod').should.be.true;
         });
 
         it('should detect boolean mod of elem by object without `modVal` field', function () {
