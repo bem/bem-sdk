@@ -22,13 +22,13 @@ describe('harry roberts', function () {
         });
 
         it('should have two params if parse elem of block', function () {
-            var obj = naming.parse('block-elem');
+            var obj = naming.parse('block__elem');
 
             Object.keys(obj).should.have.length(2);
         });
 
         it('should have four params if parse mod of elem', function () {
-            var obj = naming.parse('block-elem--mod');
+            var obj = naming.parse('block__elem--mod');
 
             Object.keys(obj).should.have.length(4);
         });
@@ -56,14 +56,14 @@ describe('harry roberts', function () {
         });
 
         it('should parse elem', function () {
-            var obj = naming.parse('block-elem');
+            var obj = naming.parse('block__elem');
 
             obj.block.should.equal('block');
             obj.elem.should.equal('elem');
         });
 
         it('should parse mod of elem', function () {
-            var obj = naming.parse('block-elem--mod--val');
+            var obj = naming.parse('block__elem--mod--val');
 
             obj.block.should.equal('block');
             obj.elem.should.equal('elem');
@@ -72,7 +72,7 @@ describe('harry roberts', function () {
         });
 
         it('should parse boolean mod of elem', function () {
-            var obj = naming.parse('block-elem--mod');
+            var obj = naming.parse('block__elem--mod');
 
             obj.block.should.equal('block');
             obj.modName.should.equal('mod');

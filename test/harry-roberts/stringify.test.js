@@ -58,7 +58,7 @@ describe('harry roberts', function () {
                 elem: 'elem'
             });
 
-            str.should.equal('block-elem');
+            str.should.equal('block__elem');
         });
 
         it('should stringify mod of elem', function () {
@@ -69,7 +69,7 @@ describe('harry roberts', function () {
                 modVal: 'val'
             });
 
-            str.should.equal('block-elem--mod--val');
+            str.should.equal('block__elem--mod--val');
         });
 
         it('should stringify boolean mod of elem', function () {
@@ -80,7 +80,7 @@ describe('harry roberts', function () {
                 modVal: true
             });
 
-            str.should.equal('block-elem--mod');
+            str.should.equal('block__elem--mod');
         });
 
         it('should stringify boolean mod of elem by strict notation', function () {
@@ -91,7 +91,7 @@ describe('harry roberts', function () {
                 modVal: true
             });
 
-            str.should.equal('block-elem--mod');
+            str.should.equal('block__elem--mod');
         });
 
         it('should stringify elem if `modVal` filed is `undefined`', function () {
@@ -102,7 +102,7 @@ describe('harry roberts', function () {
                 modVal: undefined
             });
 
-            str.should.equal('block-elem');
+            str.should.equal('block__elem');
         });
     });
 });
