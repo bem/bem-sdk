@@ -1,6 +1,13 @@
 Changelog
 =========
 
+0.3.0
+-----
+
+ * Option `elemSeparator` is **deprecated**, use `elem` instead.
+ * Option `modSeparator` is **deprecated**, use `mod` instead.
+ * Option `literal` is **deprecated**, use `wordPattern` instead.
+
 0.2.1
 -----
 
