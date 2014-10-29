@@ -57,5 +57,9 @@ describe('original', function () {
         it('should not validate block name with illegal literals', function () {
             naming.validate('^_^').should.be.false;
         });
+
+        it('should support CamelCase', function () {
+            naming.validate('BlockName').should.be.true;
+        });
     });
 });
