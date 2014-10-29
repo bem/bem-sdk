@@ -57,5 +57,9 @@ describe('harry roberts', function () {
         it('should not validate block name with illegal literals', function () {
             naming.validate('block_elem').should.be.false;
         });
+
+        it('should support CamelCase', function () {
+            naming.validate('BlockName').should.be.true;
+        });
     });
 });
