@@ -7,6 +7,12 @@
       "naming"
   ],
   "author": "Andrew Abramov <andrewblond@yandex.com>",
+  "licenses": [
+    {
+      "type": "MPL-2.0",
+      "url": "https://github.com/bem/bem-naming/blob/master/LICENSE.txt"
+    }
+  ],
   "repository": "git://github.com/bem/bem-naming",
   "homepage": "https://github.com/bem/bem-naming",
   "bugs": "https://github.com/bem/bem-naming/issues",
@@ -20,7 +26,10 @@
     "node": ">= 0.10.0"
   },
   "main": "lib/bem-naming",
-  "files": ["lib/bem-naming.js"],
+  "files": [
+    "lib/bem-naming.js",
+    "LICENSE.txt"
+  ],
   "devDependencies": {
     "mocha": "1.21.4",
     "should": "4.0.4",
