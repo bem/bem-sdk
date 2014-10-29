@@ -237,7 +237,7 @@ var myNaming = new BEMNaming({
     wordPattern: '[a-zA-Z0-9]+'   // because element and modifier's separators include
 });                               // hyphen in it, we need to exclude it from block,
                                   // element and modifier's name
-                                
+
 myNaming.parse('block--mod');     // { block: 'block',
                                   //   modName: 'mod', modVal: true }
 
@@ -248,3 +248,7 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 });
 ```
 
+License
+-------
+
+Code and documentation copyright 2014 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
