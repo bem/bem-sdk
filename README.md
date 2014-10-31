@@ -248,6 +248,34 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 });
 ```
 
+Convention by Harry Roberts
+---------------------------
+
+According to this convention elements are delimited with two underscores (__), and boolean modifiers are delimited by two hyphens (--).
+Key-value modifiers are not used.
+
+Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
+
+Example:
+
+```js
+var BEMNaming = bemNaming.BEMNaming;
+var csswizardry = new BEMNaming({
+    elem: '__',
+    mod: '--'
+});
+
+csswizardry.parse('block__elem'); // { block: 'block', elem: 'elem' }
+csswizardry.parse('block--mod');  // { block: 'block',
+                                  //   modName: 'mod', modVal: true }
+
+csswizardry.stringify({           // 'block__elem--mod'
+    block: 'block',
+    elem: 'elem',
+    modName: 'mod'
+});
+```
+
 License
 -------
 
