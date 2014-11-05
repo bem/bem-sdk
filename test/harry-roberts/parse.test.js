@@ -1,5 +1,5 @@
 var demand = require('should'),
-    naming = require('../lib/harry-roberts-naming');
+    naming = require('../../lib/bem-naming')({ elem: '__', mod: '--' });
 
 describe('harry roberts', function () {
     describe('parse', function () {

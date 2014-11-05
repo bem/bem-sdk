@@ -264,9 +264,9 @@ bemNaming.isElemMod({ block: 'block',
 Custom naming convention
 ------------------------
 
-To use your own naming convention to define strings that represent BEM-entities we need to create instance of `BEMNaming`-class.
+Use `bemNaming` function to create instance to manage naming of your own naming convention.
 
-Constructor `BEMNaming` gets the object from the following options:
+Function `bemNaming` gets the object from the following options:
 
 * **String** `elem` — separates element's name from block. Default&nbsp;as&nbsp;`__`.
 * **String** `mod` — separates names and values of modifiers from blocks and elements. Default&nbsp;as&nbsp;`_`.
@@ -275,8 +275,7 @@ Constructor `BEMNaming` gets the object from the following options:
 Example:
 
 ```js
-var BEMNaming = bemNaming.BEMNaming;
-var myNaming = new BEMNaming({
+var myNaming = bemNaming({
     elem: '-',
     mod: '--',
     wordPattern: '[a-zA-Z0-9]+'   // because element and modifier's separators include
@@ -304,8 +303,7 @@ Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
 Example:
 
 ```js
-var BEMNaming = bemNaming.BEMNaming;
-var csswizardry = new BEMNaming({
+var csswizardry = bemNaming({
     elem: '__',
     mod: '--'
 });
