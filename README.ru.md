@@ -219,9 +219,9 @@ bemNaming.isElemMod({ block: 'block',
 Собственный стиль
 -----------------
 
-Чтобы использовать собственный стиль для описания строк, представляющих БЭМ-сущности, потребуется создать инстанс `BEMNaming`-класса.
+Используйте функцию `bemNaming`, чтобы создать новый объект для работы в вашем собственном стиле.
 
-Конструктор `BEMNaming` принимает объект из следующих опций:
+Функция принимает объект из следующих опций:
 
 * **String** `elem` — отделяет имя элемента от блока. По&nbsp;умолчанию&nbsp;—&nbsp;`__`.
 * **String** `mod` — отделяет названия и значения модификаторов от блоков и элементов. По&nbsp;умолчанию&nbsp;—&nbsp;`_`.
@@ -230,8 +230,7 @@ bemNaming.isElemMod({ block: 'block',
 Пример:
 
 ```js
-var BEMNaming = bemNaming.BEMNaming;
-var myNaming = new BEMNaming({
+var myNaming = bemNaming({
     elem: '-',
     mod: '--',
     wordPattern: '[a-zA-Z0-9]+'   // т.к. сепараторы элемента и модификаотра включают
@@ -258,8 +257,7 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 Пример:
 
 ```js
-var BEMNaming = bemNaming.BEMNaming;
-var csswizardry = new BEMNaming({
+var csswizardry = bemNaming({
     elem: '__',
     mod: '--'
 });
