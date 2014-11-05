@@ -1,4 +1,4 @@
-var naming = require('../lib/harry-roberts-naming');
+var naming = require('../../lib/bem-naming')({ elem: '__', mod: '--' });
 
 describe('harry roberts', function () {
     describe('isElemMod', function () {
