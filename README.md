@@ -6,7 +6,7 @@ bem-naming
 About
 -----
 
-This tool allows getting information about BEM-entity using [string](#string-representation) as well as forming string representation based on [BEM-naming](#bem-naming).
+This tool allows getting information about BEM entity using [string](#string-representation) as well as forming string representation based on [BEM-naming](#bem-naming).
 
 String representation
 ---------------------
@@ -47,10 +47,55 @@ BEM-naming
 
 BEM-entities can be defined with a help of js-object with the following fields:
 
-* `block` — block's name. The field is required because block is the only independent BEM-entity.
-* `elem` — element's name.
-* `modName` — modifier's name.
-* `modVal` — modifier's value.
+* `block` — a block name. The field is required because only a block exists as an independent BEM entity
+* `elem` — an element name.
+* `modName` — a modifier name.
+* `modVal` — a modifier value.
+
+The modifier consists of a pair of fields `modName` and `modVal`. This means that the field `modVal` without `modName` has no meaning.
+
+Example:
+
+```js
+// The block modifier
+{
+    block: 'block',
+    modName: 'mod',
+    modVal: 'val'
+}
+
+// Not valid BEM-notation
+{
+    block: 'block',
+    modVal: 'val'
+}
+```
+
+To describe the boolean modifier field `modVal` must be specified as `true`.
+
+Example:
+
+```js
+// Boolean modifier of a block
+{
+    block: 'block',
+    modName: 'mod',
+    modVal: true
+}
+
+// Shorthand for the boolean modifier of a block
+{
+    block: 'block',
+    modName: 'mod'
+}
+
+// Not valid BEM-notation
+{
+    block: 'block',
+    modName: 'mod',
+    modVal: false
+}
+```
 
 API
 ---
