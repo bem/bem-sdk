@@ -10,7 +10,7 @@ This tool allows getting information about BEM entity using [string](#string-rep
 
 String representation
 ---------------------
-To define BEM-entities we often use a special string format that allows us 100% define what entity exactly is represented.
+To define BEM entities we often use a special string format that allows us 100% define what entity exactly is represented.
 
 According to original BEM-naming convention it looks like the following:
 
@@ -45,7 +45,7 @@ Also there is no such BEM entity as a modifier and an element modifier simultane
 BEM-naming
 ----------
 
-BEM-entities can be defined with a help of js-object with the following fields:
+BEM entities can be defined with a help of js-object with the following fields:
 
 * `block` — a block name. The field is required because only a block exists as an independent BEM entity
 * `elem` — an element name.
@@ -103,6 +103,8 @@ API
 * [`validate(str)`](#validatestr)
 * [`parse(str)`](#parsestr)
 * [`stringify(obj)`](#stringifyobj)
+* [`typeOf(str)`](#typeofstr)
+* [`typeOf(obj)`](#typeofobj)
 * [`isBlock(str)`](#isblockstr)
 * [`isBlock(obj)`](#isblockobj)
 * [`isBlockMod(str)`](#isblockmodstr)
@@ -149,6 +151,36 @@ bemNaming.stringify({
     block: 'block', elem: 'elem',
     modName: 'mod', modVal: 'val'
 }); // 'block__elem_mod_val'
+```
+
+<hr/>
+
+### `typeOf(str)`
+
+Returns a string indicating the type of the BEM entity.
+
+Example:
+
+```js
+bemNaming.typeOf('block');             // block
+bemNaming.typeOf('block_mod');         // blockMod
+bemNaming.typeOf('block__elem');       // elem
+bemNaming.typeOf('block__elem_mod');   // elemMod
+```
+
+<hr/>
+
+### `typeOf(obj)`
+
+Returns a string indicating the type of the BEM entity.
+
+Example:
+
+```js
+bemNaming.isBlock({ block: 'block' });                 // block
+bemNaming.isBlock({ block: 'block', modName: 'mod' }); // blockMod
+bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elem
+bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elemMod
 ```
 
 <hr/>

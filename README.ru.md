@@ -103,6 +103,8 @@ API
 * [`validate(str)`](#validatestr)
 * [`parse(str)`](#parsestr)
 * [`stringify(obj)`](#stringifyobj)
+* [`typeOf(str)`](#typeofstr)
+* [`typeOf(obj)`](#typeofobj)
 * [`isBlock(str)`](#isblockstr)
 * [`isBlock(obj)`](#isblockobj)
 * [`isBlockMod(str)`](#isblockmodstr)
@@ -149,6 +151,36 @@ bemNaming.stringify({
     block: 'block', elem: 'elem',
     modName: 'mod', modVal: 'val'
 }); // 'block__elem_mod_val'
+```
+
+<hr/>
+
+### `typeOf(str)`
+
+Возвращает строку, указывающую тип БЭМ-сущности.
+
+Пример:
+
+```js
+bemNaming.typeOf('block');             // block
+bemNaming.typeOf('block_mod');         // blockMod
+bemNaming.typeOf('block__elem');       // elem
+bemNaming.typeOf('block__elem_mod');   // elemMod
+```
+
+<hr/>
+
+### `typeOf(obj)`
+
+Возвращает строку, указывающую тип БЭМ-сущности.
+
+Пример:
+
+```js
+bemNaming.isBlock({ block: 'block' });                 // block
+bemNaming.isBlock({ block: 'block', modName: 'mod' }); // blockMod
+bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elem
+bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elemMod
 ```
 
 <hr/>
