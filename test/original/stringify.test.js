@@ -2,11 +2,6 @@ var naming = require('../../lib/bem-naming');
 
 describe('original', function () {
     describe('stringify', function () {
-        it('should not stringify not valid notation', function () {
-            naming.stringify.bind(naming, {})
-                .should.throw('The field `block` is undefined. It is impossible to stringify BEM notation.');
-        });
-
         it('should stringify block', function () {
             var str = naming.stringify({ block: 'block' });
 

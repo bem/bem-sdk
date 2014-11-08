@@ -2,11 +2,6 @@ var naming = require('../../lib/bem-naming')({ elem: '__', mod: '--' });
 
 describe('harry roberts', function () {
     describe('stringify', function () {
-        it('should not stringify not valid notation', function () {
-            naming.stringify.bind(naming, {})
-                .should.throw('The field `block` is undefined. It is impossible to stringify BEM notation.');
-        });
-
         it('should stringify block', function () {
             var str = naming.stringify({ block: 'block' });
 
@@ -16,23 +11,13 @@ describe('harry roberts', function () {
         it('should stringify mod of block', function () {
             var str = naming.stringify({
                 block: 'block',
-                modName: 'mod',
-                modVal: 'val'
-            });
-
-            str.should.equal('block--mod--val');
-        });
-
-        it('should stringify boolean mod of block', function () {
-            var str = naming.stringify({
-                block: 'block',
                 modName: 'mod'
             });
 
             str.should.equal('block--mod');
         });
 
-        it('should stringify boolean mod of block by strict notation', function () {
+        it('should stringify mod of block by strict notation', function () {
             var str = naming.stringify({
                 block: 'block',
                 modName: 'mod',
@@ -66,24 +51,13 @@ describe('harry roberts', function () {
                 block: 'block',
                 elem: 'elem',
                 modName: 'mod',
-                modVal: 'val'
-            });
-
-            str.should.equal('block__elem--mod--val');
-        });
-
-        it('should stringify boolean mod of elem', function () {
-            var str = naming.stringify({
-                block: 'block',
-                elem: 'elem',
-                modName: 'mod',
                 modVal: true
             });
 
             str.should.equal('block__elem--mod');
         });
 
-        it('should stringify boolean mod of elem by strict notation', function () {
+        it('should stringify mod of elem by strict notation', function () {
             var str = naming.stringify({
                 block: 'block',
                 elem: 'elem',

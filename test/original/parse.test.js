@@ -14,19 +14,31 @@ describe('original', function () {
             Object.keys(obj).should.have.length(1);
         });
 
-        it('should have three params if parse mod of block', function () {
+        it('should have three filed if parse mod of block', function () {
+            var obj = naming.parse('block_mod_val');
+
+            Object.keys(obj).should.have.length(3);
+        });
+
+        it('should have three filed if parse boolean mod of block', function () {
             var obj = naming.parse('block_mod');
 
             Object.keys(obj).should.have.length(3);
         });
 
-        it('should have two params if parse elem of block', function () {
+        it('should have two filed if parse elem of block', function () {
             var obj = naming.parse('block__elem');
 
             Object.keys(obj).should.have.length(2);
         });
 
-        it('should have four params if parse mod of elem', function () {
+        it('should have four filed if parse mod of elem', function () {
+            var obj = naming.parse('block__elem_mod_val');
+
+            Object.keys(obj).should.have.length(4);
+        });
+
+        it('should have four filed if parse boolean mod of elem', function () {
             var obj = naming.parse('block__elem_mod');
 
             Object.keys(obj).should.have.length(4);

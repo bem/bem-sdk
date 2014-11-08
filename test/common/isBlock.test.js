@@ -1,9 +1,11 @@
 var naming = require('../../lib/bem-naming');
 
-describe('original', function () {
+describe('common', function () {
     describe('isBlock', function () {
         it('should detect block', function () {
-            naming.isBlock('block').should.be.true;
+            var notation = { block: 'block' };
+
+            naming.isBlock(notation).should.be.true;
         });
     });
 });
