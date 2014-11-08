@@ -40,7 +40,7 @@
     "uglify-js": "2.4.15"
   },
   "scripts": {
-    "test": "npm run lint && npm run node-test && npm run browser-test && npm run cover",
+    "test": "npm run lint && npm run cover && npm run browser-test",
     "lint": "jshint . && jscs -c .jscs.js .",
     "node-test": "mocha ./test/**/*.test.js",
     "browser-test": "zuul -- ./test/**/*.test.js",
