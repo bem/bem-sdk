@@ -31,12 +31,12 @@
     "LICENSE.txt"
   ],
   "devDependencies": {
-    "mocha": "1.21.4",
-    "should": "4.0.4",
-    "zuul": "1.10.1",
-    "jshint": "2.5.4",
-    "jscs": "1.5.9",
-    "istanbul": "0.3.0",
+    "mocha": "2.0.1",
+    "should": "4.2.1",
+    "zuul": "1.13.0",
+    "jshint": "2.5.10",
+    "jscs": "1.7.3",
+    "istanbul": "0.3.2",
     "uglify-js": "2.4.15"
   },
   "scripts": {
