@@ -1,30 +1,29 @@
-var demand = require('should'),
-    naming = require('../../lib/bem-naming')({ elem: '__', mod: '--' });
+var naming = require('../../lib/bem-naming')({ elem: '__', mod: '--' });
 
 describe('harry roberts', function () {
     describe('typeOf', function () {
         it('should not determine undefined', function () {
             var type = naming.typeOf(undefined);
 
-            demand(type).be.undefined;
+            (typeof type === 'undefined').should.be.true;
         });
 
         it('should not determine empty object', function () {
             var type = naming.typeOf({});
 
-            demand(type).be.undefined;
+            (typeof type === 'undefined').should.be.true;
         });
 
         it('should not determine not valid string', function () {
             var type = naming.typeOf('(*)_(*)');
 
-            demand(type).be.undefined;
+            (typeof type === 'undefined').should.be.true;
         });
 
         it('should not determine not valid object', function () {
             var type = naming.typeOf({ elem: 'elem' });
 
-            demand(type).be.undefined;
+            (typeof type === 'undefined').should.be.true;
         });
 
         it('should determine block by string', function () {

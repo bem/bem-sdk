@@ -1,12 +1,11 @@
-var demand = require('should'),
-    naming = require('../../lib/bem-naming')({ elem: '__', mod: '--' });
+var naming = require('../../lib/bem-naming')({ elem: '__', mod: '--' });
 
 describe('harry roberts', function () {
     describe('parse', function () {
         it('should not parse not valid string', function () {
             var obj = naming.parse('(*)-(*)');
 
-            demand(obj).be.undefined;
+            (typeof obj === 'undefined').should.be.true;
         });
 
         it('should have one filed if parse block', function () {
