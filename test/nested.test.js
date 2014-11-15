@@ -6,20 +6,21 @@ function assert(levels, expected, cb) {
     var buffer = [],
         walker = walk(levels);
 
-    walker.on('data', buffer.push.bind(buffer));
+    walker.on('data', function (obj) {
+        buffer.push(obj);
+    });
     walker.on('end', function () {
         try {
             buffer.must.eql(expected);
+            cb();
         } catch (e) {
             cb(e);
         }
-
-        cb();
     });
 }
 
 describe('nested scheme', function () {
-    beforeEach(function () {
+    afterEach(function () {
         mock.restore();
     });
 
@@ -46,7 +47,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('blocks/block.ext') ], done);
+        assert([ 'blocks' ], [ object('blocks/block_bool-mod.ext') ], done);
     });
 
     it('must detect mod', function (done) {
@@ -90,7 +91,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('block__elem_bool-mod.ext') ], done);
+        assert([ 'blocks' ], [ object('blocks/block__elem_bool-mod.ext') ], done);
     });
 
     it('must detect elem mod', function (done) {
@@ -106,7 +107,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('block__elem_mod_val.ext') ], done);
+        assert([ 'blocks' ], [ object('blocks/block__elem_mod_val.ext') ], done);
     });
 
     it('must detect block in few levels', function (done) {
