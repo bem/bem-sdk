@@ -1,0 +1,25 @@
+{
+  "name": "bem-walk",
+  "version": "0.0.0",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "npm run lint && npm run cover",
+    "lint": "jshint . && jscs . -c .jscs.js",
+    "unit": "mocha test/*.test.js",
+    "cover": "istanbul cover _mocha -- ./test/*.test.js"
+  },
+  "author": "",
+  "dependencies": {
+    "bem-naming": "0.4.0",
+    "bem-object": "3.0.1"
+  },
+  "devDependencies": {
+    "istanbul": "0.3.2",
+    "jscs": "1.7.3",
+    "jshint": "2.5.10",
+    "mocha": "2.0.1",
+    "mock-fs": "2.3.2",
+    "must": "0.12.0"
+  }
+}
