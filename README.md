@@ -17,13 +17,7 @@ walker.on('data', function (data) {
 
 ### walk(levels, [options])
 
-Returns `EventEmitter` with events:
-
-    * `data` - emitted with [bem-object](https://github.com/getbem/bem-object) as argument.
-    * `error` - if something goes wrong
-    * `end` - signals, that walking is over.
-
-
+Returns `Stream` with [bem-object](https://github.com/getbem/bem-object).
 
 [npm-url]: https://npmjs.org/package/bem-walk
 [npm-image]: http://img.shields.io/npm/v/bem-walk.svg?style=flat
