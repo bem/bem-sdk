@@ -28,6 +28,18 @@ describe('nested scheme', function () {
         assert([], [], done);
     });
 
+    it('must ignore entity without ext', function (done) {
+        mock({
+            blocks: {
+                block: {
+                    block: ''
+                }
+            }
+        });
+
+        assert([ 'blocks' ], [], done);
+    });
+
     it('must detect block', function (done) {
         mock({
             blocks: {
