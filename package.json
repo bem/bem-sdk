@@ -1,0 +1,50 @@
+{
+  "name": "bem-decl",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [
+      "bem",
+      "decl"
+  ],
+  "author": "Andrew Abramov <andrewblond@yandex.com>",
+  "licenses": [
+    {
+      "type": "MPL-2.0",
+      "url": "https://github.com/andrewblond/bem-decl/blob/master/LICENSE.txt"
+    }
+  ],
+  "repository": "git://github.com/andrewblond/bem-decl",
+  "homepage": "https://github.com/andrewblond/bem-decl",
+  "bugs": "https://github.com/andrewblond/bem-decl/issues",
+  "contributors": [
+    {
+      "name": "Andrew Abramov",
+      "email": "andrewblond@yandex.com"
+    }
+  ],
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "main": "lib/bem-decl",
+  "files": [
+    "lib/bem-decl.js",
+    "LICENSE.txt"
+  ],
+  "devDependencies": {
+    "mocha": "2.0.1",
+    "should": "4.2.1",
+    "zuul": "1.13.0",
+    "jshint": "2.5.10",
+    "jscs": "1.7.3",
+    "istanbul": "0.3.2",
+    "uglify-js": "2.4.15"
+  },
+  "scripts": {
+    "test": "npm run cover",
+    "lint": "jshint . && jscs -c .jscs.js .",
+    "node-test": "mocha ./test/*.test.js",
+    "browser-test": "zuul -- ./test/*.test.js",
+    "cover": "istanbul cover _mocha -- ./test/*.test.js",
+    "min": "uglifyjs lib/bem-decl.js > bem-decl.min.js"
+  }
+}
