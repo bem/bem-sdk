@@ -1,5 +1,4 @@
 var mock = require('mock-fs'),
-    object = require('bem-object'),
     walk = require('../lib');
 
 function assert(levels, expected, cb) {
@@ -49,7 +48,14 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('blocks/block.ext') ], done);
+        assert([ 'blocks' ], [{
+            bem: 'block',
+            id: 'block',
+            block: 'block',
+            tech: 'ext',
+            level: 'blocks',
+            path: 'blocks/block/block.ext'
+        }], done);
     });
 
     it('must detect bool mod', function (done) {
@@ -63,7 +69,16 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('blocks/block_bool-mod.ext') ], done);
+        assert([ 'blocks' ], [{
+            bem: 'block_bool-mod',
+            id: 'block_bool-mod',
+            block: 'block',
+            modName: 'bool-mod',
+            modVal: true,
+            tech: 'ext',
+            level: 'blocks',
+            path: 'blocks/block/_bool-mod/block_bool-mod.ext'
+        }], done);
     });
 
     it('must detect mod', function (done) {
@@ -77,7 +92,16 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('blocks/block_mod_val.ext') ], done);
+        assert([ 'blocks' ], [{
+            bem: 'block_mod_val',
+            id: 'block_mod_val',
+            block: 'block',
+            modName: 'mod',
+            modVal: 'val',
+            tech: 'ext',
+            level: 'blocks',
+            path: 'blocks/block/_mod/block_mod_val.ext'
+        }], done);
     });
 
     it('must detect elem', function (done) {
@@ -91,7 +115,15 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('blocks/block__elem.ext') ], done);
+        assert([ 'blocks' ], [{
+            bem: 'block__elem',
+            id: 'block__elem',
+            block: 'block',
+            elem: 'elem',
+            tech: 'ext',
+            level: 'blocks',
+            path: 'blocks/block/__elem/block__elem.ext'
+        }], done);
     });
 
     it('must detect bool mod of elem', function (done) {
@@ -107,7 +139,17 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('blocks/block__elem_bool-mod.ext') ], done);
+        assert([ 'blocks' ], [{
+            bem: 'block__elem_bool-mod',
+            id: 'block__elem_bool-mod',
+            block: 'block',
+            elem: 'elem',
+            modName: 'bool-mod',
+            modVal: true,
+            tech: 'ext',
+            level: 'blocks',
+            path: 'blocks/block/__elem/_bool-mod/block__elem_bool-mod.ext'
+        }], done);
     });
 
     it('must detect elem mod', function (done) {
@@ -123,7 +165,17 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [ object('blocks/block__elem_mod_val.ext') ], done);
+        assert([ 'blocks' ], [{
+            bem: 'block__elem_mod_val',
+            id: 'block__elem_mod_val',
+            block: 'block',
+            elem: 'elem',
+            modName: 'mod',
+            modVal: 'val',
+            tech: 'ext',
+            level: 'blocks',
+            path: 'blocks/block/__elem/_mod/block__elem_mod_val.ext'
+        }], done);
     });
 
     it('must detect block in few levels', function (done) {
@@ -141,8 +193,22 @@ describe('nested scheme', function () {
         });
 
         assert([ 'common.blocks', 'desktop.blocks' ], [
-            object('common.blocks/block.ext'),
-            object('desktop.blocks/block.ext')
+            {
+                bem: 'block',
+                block: 'block',
+                id: 'block',
+                level: 'common.blocks',
+                path: 'common.blocks/block/block.ext',
+                tech: 'ext'
+            },
+            {
+                bem: 'block',
+                block: 'block',
+                id: 'block',
+                level: 'desktop.blocks',
+                path: 'desktop.blocks/block/block.ext',
+                tech: 'ext'
+            }
         ], done);
     });
 });

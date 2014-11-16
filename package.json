@@ -12,9 +12,7 @@
     "bench-deps": "cd benchmark/fixtures && bower i"
   },
   "dependencies": {
-    "bem-naming": "0.4.0",
-    "bem-object": "3.1.1",
-    "readable-stream": "1.0.33"
+    "bem-naming": "0.4.0"
   },
   "devDependencies": {
     "enb-bem-techs": "1.0.0-rc",
