@@ -7,7 +7,9 @@
     "test": "npm run lint && npm run cover",
     "lint": "jshint . && jscs . -c .jscs.js",
     "unit": "mocha test/*.test.js",
-    "cover": "istanbul cover _mocha -- ./test/*.test.js"
+    "cover": "istanbul cover _mocha -- ./test/*.test.js",
+    "bench": "npm run bench-deps && matcha benchmark/**/*.js",
+    "bench-deps": "cd benchmark/fixtures && bower i"
   },
   "dependencies": {
     "bem-naming": "0.4.0",
@@ -15,11 +17,16 @@
     "readable-stream": "1.0.33"
   },
   "devDependencies": {
+    "enb-bem-techs": "1.0.0-rc",
     "istanbul": "0.3.2",
     "jscs": "1.7.3",
     "jshint": "2.5.10",
+    "matcha": "0.6.0",
     "mocha": "2.0.1",
     "mock-fs": "2.3.2",
-    "must": "0.12.0"
+    "must": "0.12.0",
+    "scan-level": "0.0.4",
+    "vow": "0.4.7",
+    "vow-node": "^0.2.1"
   }
 }
