@@ -24,6 +24,10 @@ describe('nested scheme', function () {
         mock.restore();
     });
 
+    it('must end if levels is empty', function (done) {
+        assert([], [], done);
+    });
+
     it('must detect block', function (done) {
         mock({
             blocks: {
