@@ -32,15 +32,15 @@
   ],
   "devDependencies": {
     "mocha": "2.0.1",
-    "should": "4.2.1",
-    "zuul": "1.13.0",
+    "should": "4.3.0",
+    "zuul": "1.13.1",
     "jshint": "2.5.10",
     "jscs": "1.7.3",
     "istanbul": "0.3.2",
     "uglify-js": "2.4.15"
   },
   "scripts": {
-    "test": "npm run lint && npm run cover",
+    "test": "npm run lint && npm run cover && npm run browser-test",
     "lint": "jshint . && jscs -c .jscs.js .",
     "node-test": "mocha ./test/*.test.js",
     "browser-test": "zuul -- ./test/*.test.js",

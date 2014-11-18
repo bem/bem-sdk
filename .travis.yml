@@ -3,10 +3,10 @@ node_js:
   - "0.10"
 env:
   global:
-    - GH_REF: github.com/bem/bem-naming.git
+    - GH_REF: github.com/andrewblond/bem-decl.git
     - ISTANBUL_COVERAGE: true
-    - secure: EmjCayFf+5jyXRLtH2lTLRIqXSyM23PwS+KceyX/Nwppd0ReMzR+rCnx7oFCydrmjlKFiHF6eLVs/3VcPEtLhz3wat/h0iU5eSOW6vaH/6tBeKFj8UuN5TPOEKENyCwUmV4QL4j+RbYSNWdAZ/rFu8Y3hPDmtAgXKCj7QvPxsms=
-    - secure: RNUlSmfxd1qKybLELKM2uiheyLHbqfDoP5v7rjnaLwaddURwhqFfV1SYxV+ei5COrlr1waeV4k62UKJNYNWRin29o6LAjbHQGnNX1bSaCYgw8SQWZerpRXr0NQ1v8jVcJzj7CBbyG4nyAYeQDWxj6gNswz6K5uQkuNnLiepK1pA=
+    - secure: VUP1mrK1KYgyFSbKqbtgMupjCTTanYGWqlp0fJoMpxVY3WiOgEUhtnfxX4UwrJl7bPvkHSM1bD2+QXdMQJkyT/9HDGzPYEYRLKoA/hcx3SvGJLFlzKAEE+Kow6KWZNSZfn22houJGg5j+ekUqN0Z3XcLlBV4c+F+OddcxsF1NKA=
+    - secure: IE35IHUNeXmjA99HrLupB/Ag+VyBqeg9YW7wrFTJhUZsmuxr28mG6koKrI42GdX4z9aUS+49KzsNHhi01sHJm5H7TmwXhw1x7rSJyOD/GGszcY8mQAt9+E06luROoXF4uf+otdNIP3nTKuBfLxPLeTXWRGjun+95t63J6fVtD2k=
 branches:
   only:
     - master
