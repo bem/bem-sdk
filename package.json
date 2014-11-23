@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "description": "",
   "keywords": [
-      "bem",
-      "decl"
+    "bem",
+    "decl"
   ],
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "licenses": [
@@ -25,26 +25,24 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "main": "lib/bem-decl",
+  "main": "lib/index.js",
   "files": [
-    "lib/bem-decl.js",
+    "lib/**",
     "LICENSE.txt"
   ],
   "devDependencies": {
+    "istanbul": "0.3.2",
+    "jscs": "1.7.3",
+    "jshint": "2.5.10",
     "mocha": "2.0.1",
     "should": "4.3.0",
-    "zuul": "1.13.1",
-    "jshint": "2.5.10",
-    "jscs": "1.7.3",
-    "istanbul": "0.3.2",
-    "uglify-js": "2.4.15"
+    "zuul": "1.13.1"
   },
   "scripts": {
     "test": "npm run lint && npm run cover && npm run browser-test",
     "lint": "jshint . && jscs -c .jscs.js .",
     "node-test": "mocha ./test/*.test.js",
     "browser-test": "zuul -- ./test/*.test.js",
-    "cover": "istanbul cover _mocha -- ./test/*.test.js",
-    "min": "uglifyjs lib/bem-decl.js > bem-decl.min.js"
+    "cover": "istanbul cover _mocha -- ./test/*.test.js"
   }
 }
