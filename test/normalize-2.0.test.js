@@ -1,4 +1,7 @@
-var nomralize = require('../lib/normalize-v2');
+var bemdecl = require('..'),
+    nomralize = function (decl) {
+        return bemdecl.normalize(decl, '2.0');
+    };
 
 describe('nomralize 2.0', function () {
     it('must support undefined', function () {

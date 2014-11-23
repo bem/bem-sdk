@@ -1,0 +1,34 @@
+{
+  "name": "bem-decl",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [
+    "bem",
+    "decl"
+  ],
+  "authors": [
+    { "name": "Andrew Abramov", "email": "andrewblond@yandex.com" }
+  ],
+  "license": "MPL-2.0",
+  "homepage": "https://github.com/andrewblond/bem-decl",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/andrewblond/bem-decl.git"
+  },
+  "main": "dist/bem-decl.js",
+  "moduleType": [
+    "amd",
+    "globals",
+    "node",
+    "ym"
+  ],
+  "ignore": [
+    "**/.*",
+    "CHANGELOG*",
+    "CONTRIBUTORS*",
+    "node_modules",
+    "test",
+    "coverage",
+    "package.json"
+  ]
+}

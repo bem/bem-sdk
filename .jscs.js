@@ -1,8 +1,10 @@
 module.exports = {
     excludeFiles: [
         'node_modules/**',
-        'coverage/**'
+        'coverage/**',
+        'dist/**'
     ],
+    esnext: true,
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
     requireSpaceBeforeBlockStatements: true,
     requireSpacesInConditionalExpression: true,
@@ -19,7 +21,6 @@ module.exports = {
     requireBlocksOnNewline: 1,
     disallowPaddingNewlinesInBlocks: true,
     disallowSpacesInsideArrayBrackets: 'nested',
-    disallowSpacesInsideParentheses: true,
     requireSpacesInsideObjectBrackets: 'all',
     disallowQuotedKeysInObjects: 'allButReserved',
     disallowSpaceAfterObjectKeys: true,
@@ -46,11 +47,6 @@ module.exports = {
     requireCapitalizedConstructors: true,
     safeContextKeyword: ['_this'],
     disallowYodaConditions: true,
-    validateJSDoc: {
-        checkParamNames: true,
-        checkRedundantParams: true,
-        requireParamTypes: true
-    },
     requireSpaceAfterLineComment: true,
     disallowNewlineBeforeBlockStatements: true
 };
