@@ -46,8 +46,8 @@
   "scripts": {
     "test": "npm run lint && npm run cover",
     "lint": "jshint . && jscs . -c .jscs.js",
-    "unit": "mocha test/*.test.js",
-    "cover": "istanbul cover _mocha -- ./test/*.test.js",
+    "unit": "mocha test/**/*.test.js",
+    "cover": "istanbul cover _mocha -- ./test/**/*.test.js",
     "bench": "npm run bench-deps && matcha benchmark/**/*.js",
     "bench-deps": "cd benchmark/fixtures && bower i"
   }

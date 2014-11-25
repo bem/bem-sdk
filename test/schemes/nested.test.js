@@ -1,9 +1,9 @@
 var mock = require('mock-fs'),
-    walk = require('../lib');
+    walk = require('../../lib/index');
 
 function assert(levels, expected, cb) {
     var buffer = [],
-        walker = walk(levels);
+        walker = walk(levels, { scheme: 'nested' });
 
     walker.on('data', function (obj) {
         buffer.push(obj);
@@ -46,7 +46,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [], done);
+        assert(['blocks'], [], done);
     });
 
     it('must detect block', function (done) {
@@ -58,7 +58,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [{
+        assert(['blocks'], [{
             block: 'block',
             tech: 'ext',
             level: 'blocks',
@@ -77,7 +77,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [{
+        assert(['blocks'], [{
             block: 'block',
             modName: 'bool-mod',
             modVal: true,
@@ -98,7 +98,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [{
+        assert(['blocks'], [{
             block: 'block',
             modName: 'mod',
             modVal: 'val',
@@ -119,7 +119,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [{
+        assert(['blocks'], [{
             block: 'block',
             elem: 'elem',
             tech: 'ext',
@@ -141,7 +141,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [{
+        assert(['blocks'], [{
             block: 'block',
             elem: 'elem',
             modName: 'bool-mod',
@@ -165,7 +165,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], [{
+        assert(['blocks'], [{
             block: 'block',
             elem: 'elem',
             modName: 'mod',
@@ -190,7 +190,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert([ 'common.blocks', 'desktop.blocks' ], [
+        assert(['common.blocks', 'desktop.blocks'], [
             {
                 block: 'block',
                 level: 'common.blocks',
