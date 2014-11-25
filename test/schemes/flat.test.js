@@ -1,4 +1,5 @@
-var mock = require('mock-fs'),
+var path = require('path'),
+    mock = require('mock-fs'),
     walk = require('../../lib/index');
 
 function assert(levels, expected, cb) {
@@ -58,7 +59,7 @@ describe('flat scheme', function () {
             block: 'block',
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block.ext'
+            path: path.join('blocks', 'block.ext')
         }], done);
     });
 
@@ -75,7 +76,7 @@ describe('flat scheme', function () {
             modVal: true,
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block_bool-mod.ext'
+            path: path.join('blocks', 'block_bool-mod.ext')
         }], done);
     });
 
@@ -92,7 +93,7 @@ describe('flat scheme', function () {
             modVal: 'val',
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block_mod_val.ext'
+            path: path.join('blocks', 'block_mod_val.ext')
         }], done);
     });
 
@@ -108,7 +109,7 @@ describe('flat scheme', function () {
             elem: 'elem',
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block__elem.ext'
+            path: path.join('blocks', 'block__elem.ext')
         }], done);
     });
 
@@ -126,7 +127,7 @@ describe('flat scheme', function () {
             modVal: true,
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block__elem_bool-mod.ext'
+            path: path.join('blocks', 'block__elem_bool-mod.ext')
         }], done);
     });
 
@@ -144,7 +145,7 @@ describe('flat scheme', function () {
             modVal: 'val',
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block__elem_mod_val.ext'
+            path: path.join('blocks', 'block__elem_mod_val.ext')
         }], done);
     });
 
@@ -162,13 +163,13 @@ describe('flat scheme', function () {
             {
                 block: 'block',
                 level: 'common.blocks',
-                path: 'common.blocks/block.ext',
+                path: path.join('common.blocks', 'block.ext'),
                 tech: 'ext'
             },
             {
                 block: 'block',
                 level: 'desktop.blocks',
-                path: 'desktop.blocks/block.ext',
+                path: path.join('desktop.blocks', 'block.ext'),
                 tech: 'ext'
             }
         ], done);

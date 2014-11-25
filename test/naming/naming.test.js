@@ -1,4 +1,5 @@
-var mock = require('mock-fs'),
+var path = require('path'),
+    mock = require('mock-fs'),
     walk = require('../../lib/index');
 
 function assert(levels, naming, expected, cb) {
@@ -38,7 +39,7 @@ describe('naming', function () {
             modVal: true,
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block__elem_bool-mod.ext'
+            path: path.join('blocks', 'block__elem_bool-mod.ext')
         }], done);
     });
 
@@ -56,7 +57,7 @@ describe('naming', function () {
             modVal: true,
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block__elem--bool-mod.ext'
+            path: path.join('blocks', 'block__elem--bool-mod.ext')
         }], done);
     });
 
@@ -78,7 +79,7 @@ describe('naming', function () {
             modVal: true,
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block-elem--boolMod.ext'
+            path: path.join('blocks', 'block-elem--boolMod.ext')
         }], done);
     });
 });

@@ -1,4 +1,5 @@
-var mock = require('mock-fs'),
+var path = require('path'),
+    mock = require('mock-fs'),
     walk = require('../../lib/index');
 
 function assert(levels, expected, cb) {
@@ -62,7 +63,7 @@ describe('nested scheme', function () {
             block: 'block',
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block/block.ext'
+            path: path.join('blocks', 'block', 'block.ext')
         }], done);
     });
 
@@ -83,7 +84,7 @@ describe('nested scheme', function () {
             modVal: true,
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block/_bool-mod/block_bool-mod.ext'
+            path: path.join('blocks', 'block', '_bool-mod', 'block_bool-mod.ext')
         }], done);
     });
 
@@ -104,7 +105,7 @@ describe('nested scheme', function () {
             modVal: 'val',
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block/_mod/block_mod_val.ext'
+            path: path.join('blocks', 'block', '_mod', 'block_mod_val.ext')
         }], done);
     });
 
@@ -124,7 +125,7 @@ describe('nested scheme', function () {
             elem: 'elem',
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block/__elem/block__elem.ext'
+            path: path.join('blocks', 'block', '__elem', 'block__elem.ext')
         }], done);
     });
 
@@ -148,7 +149,7 @@ describe('nested scheme', function () {
             modVal: true,
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block/__elem/_bool-mod/block__elem_bool-mod.ext'
+            path: path.join('blocks', 'block', '__elem', '_bool-mod', 'block__elem_bool-mod.ext')
         }], done);
     });
 
@@ -172,7 +173,7 @@ describe('nested scheme', function () {
             modVal: 'val',
             tech: 'ext',
             level: 'blocks',
-            path: 'blocks/block/__elem/_mod/block__elem_mod_val.ext'
+            path: path.join('blocks', 'block', '__elem', '_mod', 'block__elem_mod_val.ext')
         }], done);
     });
 
@@ -194,13 +195,13 @@ describe('nested scheme', function () {
             {
                 block: 'block',
                 level: 'common.blocks',
-                path: 'common.blocks/block/block.ext',
+                path: path.join('common.blocks', 'block', 'block.ext'),
                 tech: 'ext'
             },
             {
                 block: 'block',
                 level: 'desktop.blocks',
-                path: 'desktop.blocks/block/block.ext',
+                path: path.join('desktop.blocks', 'block', 'block.ext'),
                 tech: 'ext'
             }
         ], done);
