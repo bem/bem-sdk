@@ -2,15 +2,31 @@
   "name": "bem-walk",
   "version": "0.0.4",
   "description": "",
-  "main": "lib/index.js",
-  "scripts": {
-    "test": "npm run lint && npm run cover",
-    "lint": "jshint . && jscs . -c .jscs.js",
-    "unit": "mocha test/*.test.js",
-    "cover": "istanbul cover _mocha -- ./test/*.test.js",
-    "bench": "npm run bench-deps && matcha benchmark/**/*.js",
-    "bench-deps": "cd benchmark/fixtures && bower i"
+  "keywords": [
+    "bem",
+    "walk",
+    "level",
+    "scheme"
+  ],
+  "author": "Andrew Abramov <andrewblond@yandex.com>",
+  "licenses": [
+    {
+      "type": "MPL-2.0",
+      "url": "https://github.com/andrewblond/bem-decl/blob/master/LICENSE.txt"
+    }
+  ],
+  "repository": "git://github.com/andrewblond/bem-walk",
+  "homepage": "https://github.com/andrewblond/bem-walk",
+  "bugs": "https://github.com/andrewblond/bem-walk/issues",
+  "engines": {
+    "node": ">= 0.10.0"
   },
+  "main": "lib/index.js",
+  "files": [
+    "lib/**",
+    "schemes/**",
+    "LICENSE.txt"
+  ],
   "dependencies": {
     "bem-naming": "0.4.0"
   },
@@ -25,6 +41,14 @@
     "must": "0.12.0",
     "scan-level": "0.0.4",
     "vow": "0.4.7",
-    "vow-node": "^0.2.1"
+    "vow-node": "0.2.1"
+  },
+  "scripts": {
+    "test": "npm run lint && npm run cover",
+    "lint": "jshint . && jscs . -c .jscs.js",
+    "unit": "mocha test/*.test.js",
+    "cover": "istanbul cover _mocha -- ./test/*.test.js",
+    "bench": "npm run bench-deps && matcha benchmark/**/*.js",
+    "bench-deps": "cd benchmark/fixtures && bower i"
   }
 }
