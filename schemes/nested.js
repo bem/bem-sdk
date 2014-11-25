@@ -1,8 +1,7 @@
 var path = require('path'),
-    naming = require('bem-naming'),
     sep = path.sep;
 
-module.exports = function (item, add, walk, done) {
+module.exports = function (item, add, walk, naming, done) {
     var basename = item.basename,
         filename = item.filename,
         parent = path.basename(item.dirname),
