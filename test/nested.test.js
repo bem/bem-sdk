@@ -8,6 +8,7 @@ function assert(levels, expected, cb) {
     walker.on('data', function (obj) {
         buffer.push(obj);
     });
+
     walker.on('end', function () {
         try {
             buffer.must.eql(expected);
@@ -25,6 +26,15 @@ describe('nested scheme', function () {
 
     it('must end if levels is empty', function (done) {
         assert([], [], done);
+    });
+
+    it('must throw error if levels is not found', function (done) {
+        var walker = walk(['not-existing-level']);
+
+        walker.on('error', function (err) {
+            err.must.throw();
+            done();
+        });
     });
 
     it('must ignore entity without ext', function (done) {
@@ -49,8 +59,6 @@ describe('nested scheme', function () {
         });
 
         assert([ 'blocks' ], [{
-            bem: 'block',
-            id: 'block',
             block: 'block',
             tech: 'ext',
             level: 'blocks',
@@ -70,8 +78,6 @@ describe('nested scheme', function () {
         });
 
         assert([ 'blocks' ], [{
-            bem: 'block_bool-mod',
-            id: 'block_bool-mod',
             block: 'block',
             modName: 'bool-mod',
             modVal: true,
@@ -93,8 +99,6 @@ describe('nested scheme', function () {
         });
 
         assert([ 'blocks' ], [{
-            bem: 'block_mod_val',
-            id: 'block_mod_val',
             block: 'block',
             modName: 'mod',
             modVal: 'val',
@@ -116,8 +120,6 @@ describe('nested scheme', function () {
         });
 
         assert([ 'blocks' ], [{
-            bem: 'block__elem',
-            id: 'block__elem',
             block: 'block',
             elem: 'elem',
             tech: 'ext',
@@ -140,8 +142,6 @@ describe('nested scheme', function () {
         });
 
         assert([ 'blocks' ], [{
-            bem: 'block__elem_bool-mod',
-            id: 'block__elem_bool-mod',
             block: 'block',
             elem: 'elem',
             modName: 'bool-mod',
@@ -166,8 +166,6 @@ describe('nested scheme', function () {
         });
 
         assert([ 'blocks' ], [{
-            bem: 'block__elem_mod_val',
-            id: 'block__elem_mod_val',
             block: 'block',
             elem: 'elem',
             modName: 'mod',
@@ -194,17 +192,13 @@ describe('nested scheme', function () {
 
         assert([ 'common.blocks', 'desktop.blocks' ], [
             {
-                bem: 'block',
                 block: 'block',
-                id: 'block',
                 level: 'common.blocks',
                 path: 'common.blocks/block/block.ext',
                 tech: 'ext'
             },
             {
-                bem: 'block',
                 block: 'block',
-                id: 'block',
                 level: 'desktop.blocks',
                 path: 'desktop.blocks/block/block.ext',
                 tech: 'ext'
