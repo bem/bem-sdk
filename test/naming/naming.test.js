@@ -1,24 +1,6 @@
 var path = require('path'),
     mock = require('mock-fs'),
-    walk = require('../../lib/index');
-
-function assert(levels, naming, expected, cb) {
-    var buffer = [],
-        walker = walk(levels, { scheme: 'flat', naming: naming });
-
-    walker.on('data', function (obj) {
-        buffer.push(obj);
-    });
-
-    walker.on('end', function () {
-        try {
-            buffer.must.eql(expected);
-            cb();
-        } catch (e) {
-            cb(e);
-        }
-    });
-}
+    assert = require('../lib/assert');
 
 describe('naming', function () {
     afterEach(function () {
@@ -32,7 +14,10 @@ describe('naming', function () {
             }
         });
 
-        assert(['blocks'], { elem: '__', mod: '_' }, [{
+        assert(['blocks'], {
+            scheme: 'flat',
+            naming: { elem: '__', mod: '_' }
+        }, [{
             block: 'block',
             elem: 'elem',
             modName: 'bool-mod',
@@ -50,7 +35,10 @@ describe('naming', function () {
             }
         });
 
-        assert(['blocks'], { elem: '__', mod: '--' }, [{
+        assert(['blocks'], {
+            scheme: 'flat',
+            naming: { elem: '__', mod: '--' }
+        }, [{
             block: 'block',
             elem: 'elem',
             modName: 'bool-mod',
@@ -69,9 +57,12 @@ describe('naming', function () {
         });
 
         assert(['blocks'], {
-            elem: '-',
-            mod: '--',
-            wordPattern: '[a-zA-Z0-9]+'
+            scheme: 'flat',
+            naming: {
+                elem: '-',
+                mod: '--',
+                wordPattern: '[a-zA-Z0-9]+'
+            }
         }, [{
             block: 'block',
             elem: 'elem',

@@ -1,24 +1,8 @@
 var path = require('path'),
     mock = require('mock-fs'),
-    walk = require('../../lib/index');
-
-function assert(levels, expected, cb) {
-    var buffer = [],
-        walker = walk(levels, { scheme: 'nested' });
-
-    walker.on('data', function (obj) {
-        buffer.push(obj);
-    });
-
-    walker.on('end', function () {
-        try {
-            buffer.must.eql(expected);
-            cb();
-        } catch (e) {
-            cb(e);
-        }
-    });
-}
+    walk = require('../../lib/index'),
+    assert = require('../lib/assert'),
+    opts = { scheme: 'nested' };
 
 describe('nested scheme', function () {
     afterEach(function () {
@@ -26,7 +10,7 @@ describe('nested scheme', function () {
     });
 
     it('must end if levels is empty', function (done) {
-        assert([], [], done);
+        assert([], opts, [], done);
     });
 
     it('must throw error if levels is not found', function (done) {
@@ -47,7 +31,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert(['blocks'], [], done);
+        assert(['blocks'], opts, [], done);
     });
 
     it('must detect block', function (done) {
@@ -59,7 +43,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert(['blocks'], [{
+        assert(['blocks'], opts, [{
             block: 'block',
             tech: 'ext',
             level: 'blocks',
@@ -78,7 +62,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert(['blocks'], [{
+        assert(['blocks'], opts, [{
             block: 'block',
             modName: 'bool-mod',
             modVal: true,
@@ -99,7 +83,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert(['blocks'], [{
+        assert(['blocks'], opts, [{
             block: 'block',
             modName: 'mod',
             modVal: 'val',
@@ -120,7 +104,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert(['blocks'], [{
+        assert(['blocks'], opts, [{
             block: 'block',
             elem: 'elem',
             tech: 'ext',
@@ -142,7 +126,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert(['blocks'], [{
+        assert(['blocks'], opts, [{
             block: 'block',
             elem: 'elem',
             modName: 'bool-mod',
@@ -166,7 +150,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert(['blocks'], [{
+        assert(['blocks'], opts, [{
             block: 'block',
             elem: 'elem',
             modName: 'mod',
@@ -191,7 +175,7 @@ describe('nested scheme', function () {
             }
         });
 
-        assert(['common.blocks', 'desktop.blocks'], [
+        assert(['common.blocks', 'desktop.blocks'], opts, [
             {
                 block: 'block',
                 level: 'common.blocks',
