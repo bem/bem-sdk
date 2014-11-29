@@ -33,7 +33,7 @@
   "devDependencies": {
     "enb-bem-techs": "1.0.0-rc",
     "istanbul": "0.3.2",
-    "jscs": "1.7.3",
+    "jscs": "1.8.1",
     "jshint": "2.5.10",
     "matcha": "0.6.0",
     "mocha": "2.0.1",
