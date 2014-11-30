@@ -8,4 +8,4 @@ var transpiler = require('es6-module-transpiler'),
     });
 
 container.getModule('index');
-container.write('dist/bem-decl.js');
+container.write('dist/bem-decl.dev.js');

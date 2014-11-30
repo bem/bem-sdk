@@ -47,6 +47,6 @@
     "node-test": "mocha ./test/*.test.js",
     "browser-test": "zuul -- ./test/*.test.js",
     "cover": "istanbul cover _mocha -- ./test/*.test.js",
-    "dist": "node ./build.js && uglifyjs dist/bem-decl.js > dist/bem-decl.min.js"
+    "dist": "node ./build.js && uglifyjs dist/bem-decl.dev.js > dist/bem-decl.js"
   }
 }
