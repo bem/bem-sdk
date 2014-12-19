@@ -1,6 +1,11 @@
 Changelog
 =========
 
+0.5.0
+-----
+
+* API: delimiters provided (#48).
+
 0.4.0
 -----
 
