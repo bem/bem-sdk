@@ -127,7 +127,7 @@ bemNaming.validate('block-name');  // true
 bemNaming.validate('^*^');         // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `parse(str)`
 
@@ -140,7 +140,7 @@ bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
                                          //   modName: 'mod', modVal: 'val' }
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `stringify(obj)`
 
@@ -155,7 +155,7 @@ bemNaming.stringify({
 }); // 'block__elem_mod_val'
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `typeOf(str)`
 
@@ -170,7 +170,7 @@ bemNaming.typeOf('block__elem');       // elem
 bemNaming.typeOf('block__elem_mod');   // elemMod
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `typeOf(obj)`
 
@@ -185,7 +185,7 @@ bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elem
 bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elemMod
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `isBlock(str)`
 
@@ -198,7 +198,7 @@ bemNaming.isBlock('block-name');   // true
 bemNaming.isBlock('block__elem');  // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `isBlock(obj)`
 
@@ -211,7 +211,7 @@ bemNaming.isBlock({ block: 'block-name' });           // true
 bemNaming.isBlock({ block: 'block', elem: 'elem' });  // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `isBlockMod(str)`
 
@@ -224,7 +224,7 @@ bemNaming.isBlockMod('block_mod');        // true
 bemNaming.isBlockMod('block__elem_mod');  // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `isBlockMod(obj)`
 
@@ -240,7 +240,7 @@ bemNaming.isBlockMod({ block: 'block', elem: 'elem',
     modName: 'mod', modVal: true });  // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `isElem(str)`
 
@@ -253,7 +253,7 @@ bemNaming.isElem('block__elem');  // true
 bemNaming.isElem('block-name');   // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `isElem(obj)`
 
@@ -266,7 +266,7 @@ bemNaming.isElem({ block: 'block', elem: 'elem' });  // true
 bemNaming.isElem({ block: 'block-name' });           // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `isElemMod(str)`
 
@@ -279,7 +279,7 @@ bemNaming.isElemMod('block__elem_mod');  // true
 bemNaming.isElemMod('block__elem');      // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `isElemMod(obj)`
 
@@ -295,13 +295,13 @@ bemNaming.isElemMod({ block: 'block',
     modName: 'mod', modVal: true});   // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `elemDelim`
 
 String to separate elem from block.
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `modDelim`
 

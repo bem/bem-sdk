@@ -295,7 +295,7 @@ bemNaming.isElemMod({ block: 'block',
     modName: 'mod', modVal: true});   // false
 ```
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `elemDelim`
 
