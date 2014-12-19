@@ -113,6 +113,8 @@ API
 * [`isElem(obj)`](#iselemobj)
 * [`isElemMod(str)`](#iselemmodstr)
 * [`isElemMod(obj)`](#iselemmodobj)
+* [`elemDelim`](#elemdelim)
+* [`modDelim`](#moddelim)
 
 ### `validate(str)`
 
@@ -292,6 +294,18 @@ bemNaming.isElemMod({ block: 'block', elem: 'elem',
 bemNaming.isElemMod({ block: 'block',
     modName: 'mod', modVal: true});   // false
 ```
+
+<hr/>
+
+### `elemDelim`
+
+String to separate elem from block.
+
+<hr/>
+
+### `modDelim`
+
+String to separate names and values of modifiers from blocks and elements.
 
 Custom naming convention
 ------------------------

@@ -113,6 +113,8 @@ API
 * [`isElem(obj)`](#iselemobj)
 * [`isElemMod(str)`](#iselemmodstr)
 * [`isElemMod(obj)`](#iselemmodobj)
+* [`elemDelim`](#elemdelim)
+* [`modDelim`](#moddelim)
 
 ### `validate(str)`
 
@@ -292,6 +294,18 @@ bemNaming.isElemMod({ block: 'block', elem: 'elem',
 bemNaming.isElemMod({ block: 'block',
     modName: 'mod', modVal: true});   // false
 ```
+
+<hr/>
+
+### `elemDelim`
+
+Строка для разделения элемента от блока.
+
+<hr/>
+
+### `modDelim`
+
+Строка для разделения названия и значения модификатора от блока и элемента.
 
 Собственный стиль
 -----------------
