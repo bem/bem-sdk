@@ -28,15 +28,15 @@
     "LICENSE.txt"
   ],
   "dependencies": {
-    "bem-naming": "0.4.0"
+    "bem-naming": "0.5.0"
   },
   "devDependencies": {
-    "enb-bem-techs": "1.0.0-rc",
-    "istanbul": "0.3.2",
-    "jscs": "1.8.1",
-    "jshint": "2.5.10",
+    "enb-bem-techs": "1.0.0",
+    "istanbul": "0.3.5",
+    "jscs": "1.9.0",
+    "jshint": "2.5.11",
     "matcha": "0.6.0",
-    "mocha": "2.0.1",
+    "mocha": "2.1.0",
     "mock-fs": "2.3.2",
     "must": "0.12.0",
     "scan-level": "0.0.4",
