@@ -161,6 +161,81 @@ describe('nested scheme', function () {
         }], done);
     });
 
+    it('must detect complex entities', function (done) {
+        mock({
+            blocks: {
+                block: {
+                    'block.ext': '',
+                    '_bool-mod': {
+                        'block_bool-mod.ext': ''
+                    },
+                    _mod: {
+                        'block_mod_val.ext': ''
+                    },
+                    __elem: {
+                        'block__elem.ext': '',
+                        '_bool-mod': {
+                            'block__elem_bool-mod.ext': ''
+                        },
+                        _mod: {
+                            'block__elem_mod_val.ext': ''
+                        }
+                    }
+                }
+            }
+        });
+
+        assert(['blocks'], opts, [
+            {
+                block: 'block',
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block', 'block.ext')
+            },
+            {
+                block: 'block',
+                elem: 'elem',
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block', '__elem', 'block__elem.ext')
+            },
+            {
+                block: 'block',
+                modName: 'bool-mod',
+                modVal: true,
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block', '_bool-mod', 'block_bool-mod.ext')
+            },
+            {
+                block: 'block',
+                modName: 'mod',
+                modVal: 'val',
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block', '_mod', 'block_mod_val.ext')
+            },
+            {
+                block: 'block',
+                elem: 'elem',
+                modName: 'bool-mod',
+                modVal: true,
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block', '__elem', '_bool-mod', 'block__elem_bool-mod.ext')
+            },
+            {
+                block: 'block',
+                elem: 'elem',
+                modName: 'mod',
+                modVal: 'val',
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block', '__elem', '_mod', 'block__elem_mod_val.ext')
+            }
+        ], done);
+    });
+
     it('must detect block in few levels', function (done) {
         mock({
             'common.blocks': {
@@ -189,5 +264,71 @@ describe('nested scheme', function () {
                 tech: 'ext'
             }
         ], done);
+    });
+
+    it('must not detect file in root of level', function (done) {
+        mock({
+            blocks: {
+                'block.ext': ''
+            }
+        });
+
+        assert(['blocks'], opts, [], done);
+    });
+
+    it('must not detect block if filename not match with dirname', function (done) {
+        mock({
+            blocks: {
+                block: {
+                    'other-block.ext': ''
+                }
+            }
+        });
+
+        assert(['blocks'], opts, [], done);
+    });
+
+    it('must not detect elem if filename not match with dirname', function (done) {
+        mock({
+            blocks: {
+                block: {
+                    _mod: {
+                        'block_other-mod.ext': ''
+                    }
+                }
+            }
+        });
+
+        assert(['blocks'], opts, [], done);
+    });
+
+    it('must not detect mod if filename not match with dirname', function (done) {
+        mock({
+            blocks: {
+                block: {
+                    __elem: {
+                        'block__other-elem.ext': ''
+                    }
+                }
+            }
+        });
+
+        assert(['blocks'], opts, [], done);
+    });
+
+    it('must not detect elem mod if filename not match with dirname', function (done) {
+        mock({
+            blocks: {
+                block: {
+                    __elem: {
+                        _mod: {
+                            'block__elem_other-mod.ext': ''
+                        }
+                    }
+                }
+            }
+        });
+
+        assert(['blocks'], opts, [], done);
     });
 });
