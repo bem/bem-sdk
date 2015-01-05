@@ -2,8 +2,8 @@
     "name": "enb-bem-techs-bench-fixtures",
     "private": true,
     "dependencies": {
-        "bem-bl": "2.4.2",
+        "bem-bl": "2.5.2",
         "bem-core": "2.5.0",
-        "bem-components": "441539094ab9ce22121bfa341777e1af2fd3c956"
+        "bem-components": "964a54f22bfd29a74f8af61053276de1ba6d9c03"
     }
 }
