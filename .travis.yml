@@ -2,15 +2,4 @@ language: node_js
 node_js:
   - "0.10"
   - "0.11"
-env:
-  global:
-    - GH_REF: github.com/andrewblond/bem-decl.git
-    - ISTANBUL_COVERAGE: true
-    - secure: VUP1mrK1KYgyFSbKqbtgMupjCTTanYGWqlp0fJoMpxVY3WiOgEUhtnfxX4UwrJl7bPvkHSM1bD2+QXdMQJkyT/9HDGzPYEYRLKoA/hcx3SvGJLFlzKAEE+Kow6KWZNSZfn22houJGg5j+ekUqN0Z3XcLlBV4c+F+OddcxsF1NKA=
-    - secure: IE35IHUNeXmjA99HrLupB/Ag+VyBqeg9YW7wrFTJhUZsmuxr28mG6koKrI42GdX4z9aUS+49KzsNHhi01sHJm5H7TmwXhw1x7rSJyOD/GGszcY8mQAt9+E06luROoXF4uf+otdNIP3nTKuBfLxPLeTXWRGjun+95t63J6fVtD2k=
-branches:
-  only:
-    - master
-after_success:
-  - npm i coveralls
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && echo "Coverage data was sent to coveralls!"
+script: "npm run travis"

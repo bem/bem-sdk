@@ -1,10 +1,11 @@
 {
   "name": "bem-decl",
   "version": "0.0.0",
-  "description": "",
+  "description": "Manage declaration of BEM entities",
   "keywords": [
     "bem",
-    "decl"
+    "declaration",
+    "entities"
   ],
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "licenses": [
@@ -16,37 +17,35 @@
   "repository": "git://github.com/andrewblond/bem-decl",
   "homepage": "https://github.com/andrewblond/bem-decl",
   "bugs": "https://github.com/andrewblond/bem-decl/issues",
-  "contributors": [
+  "contributors": "Andrew Abramov <andrewblond@yandex.com>",
+  "maintainers": [
     {
       "name": "Andrew Abramov",
-      "email": "andrewblond@yandex.com"
+      "email": "andrewblond@yandex.com",
+      "github-username": "andrewblond"
     }
   ],
   "engines": {
     "node": ">= 0.10.0"
   },
-  "main": "dist/bem-decl.js",
+  "main": "lib/index.js",
   "files": [
-    "dist/**",
+    "lib/**",
     "LICENSE.txt"
   ],
   "devDependencies": {
-    "es6-module-transpiler": "0.9.5",
-    "es6-module-transpiler-dist-formatter": "0.0.2",
-    "istanbul": "0.3.2",
-    "jscs": "1.8.1",
-    "jshint": "2.5.10",
-    "mocha": "2.0.1",
-    "should": "4.3.0",
-    "uglify-js": "2.4.15",
-    "zuul": "1.14.0"
+    "istanbul": "0.3.5",
+    "jscs": "1.9.0",
+    "jshint": "2.5.11",
+    "mocha": "2.1.0",
+    "must": "0.12.0"
   },
   "scripts": {
-    "test": "npm run lint && npm run dist && npm run cover && npm run browser-test",
-    "lint": "jshint . && jscs --esnext -c .jscs.js .",
-    "node-test": "mocha ./test/*.test.js",
-    "browser-test": "zuul -- ./test/*.test.js",
+    "test": "npm run lint && npm run unit",
+    "lint": "jshint . && jscs -c .jscs.js .",
+    "unit": "mocha ./test/*.test.js",
     "cover": "istanbul cover _mocha -- ./test/*.test.js",
-    "dist": "node ./build.js && uglifyjs dist/bem-decl.dev.js > dist/bem-decl.js"
+    "coveralls": "npm i coveralls && cat ./coverage/lcov.info | coveralls",
+    "travis": "npm run test && npm run cover && npm run coveralls"
   }
 }

@@ -1,8 +1,7 @@
 module.exports = {
     excludeFiles: [
         'node_modules/**',
-        'coverage/**',
-        'dist/**'
+        'coverage/**'
     ],
     esnext: true,
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
