@@ -21,6 +21,30 @@ describe('normalize --harmony', function () {
         ]);
     });
 
+    it('must return set', function () {
+        var entities = [
+            { block: 'block' },
+            { block: 'block' }
+        ];
+
+        normalize(entities).must.eql([
+            { block: 'block' }
+        ]);
+    });
+
+    it('must save order', function () {
+        var entities = [
+            { block: 'block-1' },
+            { block: 'block-2' },
+            { block: 'block-1' }
+        ];
+
+        normalize(entities).must.eql([
+            { block: 'block-1' },
+            { block: 'block-2' }
+        ]);
+    });
+
     it('must support array', function () {
         var entities = [
             { block: 'block-1' },

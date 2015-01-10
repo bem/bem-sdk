@@ -33,6 +33,9 @@
     "lib/**",
     "LICENSE.txt"
   ],
+  "dependencies": {
+    "bem-naming": "0.5.0"
+  },
   "devDependencies": {
     "istanbul": "0.3.5",
     "jscs": "1.9.0",

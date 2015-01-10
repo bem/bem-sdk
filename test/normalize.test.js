@@ -17,6 +17,30 @@ describe('normalize', function () {
         ]);
     });
 
+    it('must return set', function () {
+        var entities = [
+            { name: 'block' },
+            { name: 'block' }
+        ];
+
+        normalize(entities).must.eql([
+            { block: 'block' }
+        ]);
+    });
+
+    it('must save order', function () {
+        var entities = [
+            { name: 'block-1' },
+            { name: 'block-2' },
+            { name: 'block-1' }
+        ];
+
+        normalize(entities).must.eql([
+            { block: 'block-1' },
+            { block: 'block-2' }
+        ]);
+    });
+
     it('must support array', function () {
         var entities = [
             { name: 'block-1' },
