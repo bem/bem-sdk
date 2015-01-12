@@ -34,6 +34,7 @@
     "istanbul": "0.3.5",
     "jscs": "1.8.1",
     "jshint": "2.5.11",
+    "matcha": "0.6.0",
     "mocha": "2.0.1",
     "should": "4.4.1",
     "uglify-js": "2.4.16",
@@ -45,6 +46,7 @@
     "node-test": "mocha ./test/**/*.test.js",
     "browser-test": "zuul -- ./test/**/*.test.js",
     "cover": "istanbul cover _mocha -- ./test/**/*.test.js",
+    "bench": "matcha benchmark/*.js",
     "min": "uglifyjs lib/bem-naming.js > bem-naming.min.js"
   }
 }
