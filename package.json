@@ -39,13 +39,13 @@
   ],
   "devDependencies": {
     "istanbul": "0.3.5",
-    "jscs": "1.8.1",
+    "jscs": "1.9.0",
     "jshint": "2.5.11",
     "matcha": "0.6.0",
-    "mocha": "2.0.1",
-    "should": "4.4.1",
+    "mocha": "2.1.0",
+    "should": "4.5.0",
     "uglify-js": "2.4.16",
-    "zuul": "1.16.0"
+    "zuul": "1.16.4"
   },
   "scripts": {
     "test": "npm run lint && npm run unit && npm run browser",
