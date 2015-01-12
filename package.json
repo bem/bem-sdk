@@ -4,7 +4,10 @@
   "description": "Manage naming of BEM entities",
   "keywords": [
     "bem",
-    "naming"
+    "naming",
+    "entities",
+    "parse",
+    "stringify"
   ],
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "licenses": [
@@ -16,11 +19,15 @@
   "repository": "git://github.com/bem/bem-naming",
   "homepage": "https://github.com/bem/bem-naming",
   "bugs": "https://github.com/bem/bem-naming/issues",
-  "contributors": [
+  "maintainers": [
     {
       "name": "Andrew Abramov",
-      "email": "andrewblond@yandex.com"
+      "email": "andrewblond@yandex.com",
+      "github-username": "andrewblond"
     }
+  ],
+  "contributors": [
+    "Andrew Abramov <andrewblond@yandex.com>"
   ],
   "engines": {
     "node": ">= 0.10.0"

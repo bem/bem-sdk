@@ -4,10 +4,13 @@
   "description": "Manage naming of BEM entities",
   "keywords": [
     "bem",
-    "naming"
+    "naming",
+    "entities",
+    "parse",
+    "stringify"
   ],
   "authors": [
-    { "name": "Andrew Abramov", "email": "andrewblond@yandex.com" }
+    "Andrew Abramov <andrewblond@yandex.com>"
   ],
   "license": "MPL-2.0",
   "homepage": "https://github.com/bem/bem-naming",
