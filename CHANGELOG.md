@@ -1,6 +1,14 @@
 Changelog
 =========
 
+0.5.1
+-----
+
+* Implemented caching for `BEMNaming` instances (#53).
+* `stringify` method is speeded up by 2,5 times (#57).
+* `parse` method is speeded up on 15% (#58).
+* `typeOf` method is speeded up by 2,25 times (#59).
+
 0.5.0
 -----
 
