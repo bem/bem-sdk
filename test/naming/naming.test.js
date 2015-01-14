@@ -1,6 +1,24 @@
 var path = require('path'),
     mock = require('mock-fs'),
-    assert = require('../lib/assert');
+    assert = require('../lib/assert'),
+    convention = {
+        original: {
+            scheme: 'flat',
+            naming: { elem: '__', mod: '_' }
+        },
+        csswizardry: {
+            scheme: 'flat',
+            naming: { elem: '__', mod: '--' }
+        },
+        custom:  {
+            scheme: 'flat',
+            naming: {
+                elem: '-',
+                mod: '--',
+                wordPattern: '[a-zA-Z0-9]+'
+            }
+        }
+    };
 
 describe('naming', function () {
     afterEach(function () {
@@ -14,18 +32,18 @@ describe('naming', function () {
             }
         });
 
-        assert(['blocks'], {
-            scheme: 'flat',
-            naming: { elem: '__', mod: '_' }
-        }, [{
-            block: 'block',
-            elem: 'elem',
-            modName: 'bool-mod',
-            modVal: true,
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block__elem_bool-mod.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                elem: 'elem',
+                modName: 'bool-mod',
+                modVal: true,
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block__elem_bool-mod.ext')
+            }];
+
+        assert(levels, convention.original, expected, done);
     });
 
     it('must support Convention by Harry Roberts', function (done) {
@@ -35,18 +53,18 @@ describe('naming', function () {
             }
         });
 
-        assert(['blocks'], {
-            scheme: 'flat',
-            naming: { elem: '__', mod: '--' }
-        }, [{
-            block: 'block',
-            elem: 'elem',
-            modName: 'bool-mod',
-            modVal: true,
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block__elem--bool-mod.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                elem: 'elem',
+                modName: 'bool-mod',
+                modVal: true,
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block__elem--bool-mod.ext')
+            }];
+
+        assert(levels, convention.csswizardry, expected, done);
     });
 
     it('must support custom naming', function (done) {
@@ -56,22 +74,18 @@ describe('naming', function () {
             }
         });
 
-        assert(['blocks'], {
-            scheme: 'flat',
-            naming: {
-                elem: '-',
-                mod: '--',
-                wordPattern: '[a-zA-Z0-9]+'
-            }
-        }, [{
-            block: 'block',
-            elem: 'elem',
-            modName: 'boolMod',
-            modVal: true,
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block-elem--boolMod.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                elem: 'elem',
+                modName: 'boolMod',
+                modVal: true,
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block-elem--boolMod.ext')
+            }];
+
+        assert(levels, convention.custom, expected, done);
     });
 
     it('must support several naming', function (done) {
@@ -79,7 +93,7 @@ describe('naming', function () {
             'original.naming': {
                 'block__elem_bool-mod.ext': ''
             },
-            'harry-roberts.naming': {
+            'csswizardry.naming': {
                 'block__elem--bool-mod.ext': ''
             }
         });
@@ -88,12 +102,12 @@ describe('naming', function () {
             {
                 path: 'original.naming',
                 scheme: 'flat',
-                naming: { elem: '__', mod: '_' }
+                naming: convention.original
             },
             {
-                path: 'harry-roberts.naming',
+                path: 'csswizardry.naming',
                 scheme: 'flat',
-                naming: { elem: '__', mod: '--' }
+                naming: convention.csswizardry.naming
             }
         ], {}, [
             {
@@ -111,8 +125,8 @@ describe('naming', function () {
                 modName: 'bool-mod',
                 modVal: true,
                 tech: 'ext',
-                level: 'harry-roberts.naming',
-                path: path.join('harry-roberts.naming', 'block__elem--bool-mod.ext')
+                level: 'csswizardry.naming',
+                path: path.join('csswizardry.naming', 'block__elem--bool-mod.ext')
             }
         ], done);
     });

@@ -1,8 +1,11 @@
 var path = require('path'),
     mock = require('mock-fs'),
     walk = require('../../lib/index'),
-    assert = require('../lib/assert'),
-    opts = { scheme: 'flat' };
+    verboseAssert = require('../lib/assert'),
+    opts = { scheme: 'flat' },
+    assert = function (levels, expected, done) {
+        verboseAssert(levels, opts, expected, done);
+    };
 
 describe('flat scheme', function () {
     afterEach(function () {
@@ -10,7 +13,10 @@ describe('flat scheme', function () {
     });
 
     it('must end if levels is empty', function (done) {
-        assert([], opts, [], done);
+        var levels = [],
+            expected = [];
+
+        assert(levels, expected, done);
     });
 
     it('must throw error if levels is not found', function (done) {
@@ -27,7 +33,10 @@ describe('flat scheme', function () {
             blocks: {}
         });
 
-        assert(['blocks'], opts, [], done);
+        var levels = ['blocks'],
+            expected = [];
+
+        assert(levels, expected, done);
     });
 
     it('must ignore entity without ext', function (done) {
@@ -37,7 +46,23 @@ describe('flat scheme', function () {
             }
         });
 
-        assert(['blocks'], opts, [], done);
+        var levels = ['blocks'],
+            expected = [];
+
+        assert(levels, expected, done);
+    });
+
+    it('must support invalid BEM-notation', function (done) {
+        mock({
+            blocks: {
+                '^_^.ext': ''
+            }
+        });
+
+        var levels = ['blocks'],
+            expected = [];
+
+        assert(levels, expected, done);
     });
 
     it('must detect block', function (done) {
@@ -47,12 +72,15 @@ describe('flat scheme', function () {
             }
         });
 
-        assert(['blocks'], opts, [{
-            block: 'block',
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block.ext')
+            }];
+
+        assert(levels, expected, done);
     });
 
     it('must detect bool mod', function (done) {
@@ -62,14 +90,17 @@ describe('flat scheme', function () {
             }
         });
 
-        assert(['blocks'], opts, [{
-            block: 'block',
-            modName: 'bool-mod',
-            modVal: true,
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block_bool-mod.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                modName: 'bool-mod',
+                modVal: true,
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block_bool-mod.ext')
+            }];
+
+        assert(levels, expected, done);
     });
 
     it('must detect mod', function (done) {
@@ -79,14 +110,17 @@ describe('flat scheme', function () {
             }
         });
 
-        assert([ 'blocks' ], opts, [{
-            block: 'block',
-            modName: 'mod',
-            modVal: 'val',
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block_mod_val.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                modName: 'mod',
+                modVal: 'val',
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block_mod_val.ext')
+            }];
+
+        assert(levels, expected, done);
     });
 
     it('must detect elem', function (done) {
@@ -96,13 +130,16 @@ describe('flat scheme', function () {
             }
         });
 
-        assert(['blocks'], opts, [{
-            block: 'block',
-            elem: 'elem',
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block__elem.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                elem: 'elem',
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block__elem.ext')
+            }];
+
+        assert(levels, expected, done);
     });
 
     it('must detect bool mod of elem', function (done) {
@@ -112,15 +149,18 @@ describe('flat scheme', function () {
             }
         });
 
-        assert(['blocks'], opts, [{
-            block: 'block',
-            elem: 'elem',
-            modName: 'bool-mod',
-            modVal: true,
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block__elem_bool-mod.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                elem: 'elem',
+                modName: 'bool-mod',
+                modVal: true,
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block__elem_bool-mod.ext')
+            }];
+
+        assert(levels, expected, done);
     });
 
     it('must detect elem mod', function (done) {
@@ -130,15 +170,18 @@ describe('flat scheme', function () {
             }
         });
 
-        assert(['blocks'], opts, [{
-            block: 'block',
-            elem: 'elem',
-            modName: 'mod',
-            modVal: 'val',
-            tech: 'ext',
-            level: 'blocks',
-            path: path.join('blocks', 'block__elem_mod_val.ext')
-        }], done);
+        var levels = ['blocks'],
+            expected = [{
+                block: 'block',
+                elem: 'elem',
+                modName: 'mod',
+                modVal: 'val',
+                tech: 'ext',
+                level: 'blocks',
+                path: path.join('blocks', 'block__elem_mod_val.ext')
+            }];
+
+        assert(levels, expected, done);
     });
 
     it('must detect block in few levels', function (done) {
@@ -151,19 +194,22 @@ describe('flat scheme', function () {
             }
         });
 
-        assert(['common.blocks', 'desktop.blocks'], opts, [
-            {
-                block: 'block',
-                level: 'common.blocks',
-                path: path.join('common.blocks', 'block.ext'),
-                tech: 'ext'
-            },
-            {
-                block: 'block',
-                level: 'desktop.blocks',
-                path: path.join('desktop.blocks', 'block.ext'),
-                tech: 'ext'
-            }
-        ], done);
+        var levels = ['common.blocks', 'desktop.blocks'],
+            expected = [
+                {
+                    block: 'block',
+                    level: 'common.blocks',
+                    path: path.join('common.blocks', 'block.ext'),
+                    tech: 'ext'
+                },
+                {
+                    block: 'block',
+                    level: 'desktop.blocks',
+                    path: path.join('desktop.blocks', 'block.ext'),
+                    tech: 'ext'
+                }
+            ];
+
+        assert(levels, expected, done);
     });
 });
