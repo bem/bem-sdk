@@ -341,4 +341,25 @@ describe('nested scheme', function () {
 
         assert(['blocks'], opts, [], done);
     });
+
+    it('must handle invalid BEM-notation', function (done) {
+        mock({
+            blocks: {
+                block: {
+                    __elem: {
+                        _mod: {
+                            '^_^.ext': ''
+                        },
+                        '^_^.ext': ''
+                    },
+                    _mod: {
+                        '^_^.ext': ''
+                    },
+                    '^_^.ext': ''
+                }
+            }
+        });
+
+        assert(['blocks'], opts, [], done);
+    });
 });
