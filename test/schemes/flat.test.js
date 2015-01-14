@@ -22,6 +22,14 @@ describe('flat scheme', function () {
         });
     });
 
+    it('must ignore entity dir', function (done) {
+        mock({
+            blocks: {}
+        });
+
+        assert(['blocks'], opts, [], done);
+    });
+
     it('must ignore entity without ext', function (done) {
         mock({
             blocks: {

@@ -22,6 +22,16 @@ describe('nested scheme', function () {
         });
     });
 
+    it('must ignore entity dir', function (done) {
+        mock({
+            blocks: {
+                block: {}
+            }
+        });
+
+        assert(['blocks'], opts, [], done);
+    });
+
     it('must ignore entity without ext', function (done) {
         mock({
             blocks: {
