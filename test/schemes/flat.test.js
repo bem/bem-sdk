@@ -28,188 +28,199 @@ describe('flat scheme', function () {
         });
     });
 
-    it('must ignore entity dir', function (done) {
-        mock({
-            blocks: {}
+    describe('ignore', function () {
+        it('must ignore entity dir', function (done) {
+            mock({
+                blocks: {}
+            });
+
+            var levels = ['blocks'],
+                expected = [];
+
+            assert(levels, expected, done);
         });
 
-        var levels = ['blocks'],
-            expected = [];
-
-        assert(levels, expected, done);
-    });
-
-    it('must ignore entity without ext', function (done) {
-        mock({
-            blocks: {
-                block: ''
-            }
-        });
-
-        var levels = ['blocks'],
-            expected = [];
-
-        assert(levels, expected, done);
-    });
-
-    it('must support invalid BEM-notation', function (done) {
-        mock({
-            blocks: {
-                '^_^.ext': ''
-            }
-        });
-
-        var levels = ['blocks'],
-            expected = [];
-
-        assert(levels, expected, done);
-    });
-
-    it('must detect block', function (done) {
-        mock({
-            blocks: {
-                'block.ext': ''
-            }
-        });
-
-        var levels = ['blocks'],
-            expected = [{
-                block: 'block',
-                tech: 'ext',
-                level: 'blocks',
-                path: path.join('blocks', 'block.ext')
-            }];
-
-        assert(levels, expected, done);
-    });
-
-    it('must detect bool mod', function (done) {
-        mock({
-            blocks: {
-                'block_bool-mod.ext': ''
-            }
-        });
-
-        var levels = ['blocks'],
-            expected = [{
-                block: 'block',
-                modName: 'bool-mod',
-                modVal: true,
-                tech: 'ext',
-                level: 'blocks',
-                path: path.join('blocks', 'block_bool-mod.ext')
-            }];
-
-        assert(levels, expected, done);
-    });
-
-    it('must detect mod', function (done) {
-        mock({
-            blocks: {
-                'block_mod_val.ext': ''
-            }
-        });
-
-        var levels = ['blocks'],
-            expected = [{
-                block: 'block',
-                modName: 'mod',
-                modVal: 'val',
-                tech: 'ext',
-                level: 'blocks',
-                path: path.join('blocks', 'block_mod_val.ext')
-            }];
-
-        assert(levels, expected, done);
-    });
-
-    it('must detect elem', function (done) {
-        mock({
-            blocks: {
-                'block__elem.ext': ''
-            }
-        });
-
-        var levels = ['blocks'],
-            expected = [{
-                block: 'block',
-                elem: 'elem',
-                tech: 'ext',
-                level: 'blocks',
-                path: path.join('blocks', 'block__elem.ext')
-            }];
-
-        assert(levels, expected, done);
-    });
-
-    it('must detect bool mod of elem', function (done) {
-        mock({
-            blocks: {
-                'block__elem_bool-mod.ext': ''
-            }
-        });
-
-        var levels = ['blocks'],
-            expected = [{
-                block: 'block',
-                elem: 'elem',
-                modName: 'bool-mod',
-                modVal: true,
-                tech: 'ext',
-                level: 'blocks',
-                path: path.join('blocks', 'block__elem_bool-mod.ext')
-            }];
-
-        assert(levels, expected, done);
-    });
-
-    it('must detect elem mod', function (done) {
-        mock({
-            blocks: {
-                'block__elem_mod_val.ext': ''
-            }
-        });
-
-        var levels = ['blocks'],
-            expected = [{
-                block: 'block',
-                elem: 'elem',
-                modName: 'mod',
-                modVal: 'val',
-                tech: 'ext',
-                level: 'blocks',
-                path: path.join('blocks', 'block__elem_mod_val.ext')
-            }];
-
-        assert(levels, expected, done);
-    });
-
-    it('must detect block in few levels', function (done) {
-        mock({
-            'common.blocks': {
-                'block.ext': ''
-            },
-            'desktop.blocks': {
-                'block.ext': ''
-            }
-        });
-
-        var levels = ['common.blocks', 'desktop.blocks'],
-            expected = [
-                {
-                    block: 'block',
-                    level: 'common.blocks',
-                    path: path.join('common.blocks', 'block.ext'),
-                    tech: 'ext'
-                },
-                {
-                    block: 'block',
-                    level: 'desktop.blocks',
-                    path: path.join('desktop.blocks', 'block.ext'),
-                    tech: 'ext'
+        it('must ignore entity without ext', function (done) {
+            mock({
+                blocks: {
+                    block: ''
                 }
-            ];
+            });
 
-        assert(levels, expected, done);
+            var levels = ['blocks'],
+                expected = [];
+
+            assert(levels, expected, done);
+        });
+
+        it('must support invalid BEM-notation', function (done) {
+            mock({
+                blocks: {
+                    '^_^.tech': ''
+                }
+            });
+
+            var levels = ['blocks'],
+                expected = [];
+
+            assert(levels, expected, done);
+        });
+    });
+
+    describe('detect', function () {
+        it('must detect block', function (done) {
+            mock({
+                blocks: {
+                    'block.tech': ''
+                }
+            });
+
+            var levels = ['blocks'],
+                expected = [{
+                    entity: { block: 'block' },
+                    tech: 'tech',
+                    level: 'blocks',
+                    path: path.join('blocks', 'block.tech')
+                }];
+
+            assert(levels, expected, done);
+        });
+
+        it('must support complex tech', function (done) {
+            mock({
+                blocks: {
+                    'block.tech.name': ''
+                }
+            });
+
+            var levels = ['blocks'],
+                expected = [{
+                    entity: { block: 'block' },
+                    tech: 'tech.name',
+                    level: 'blocks',
+                    path: path.join('blocks', 'block.tech.name')
+                }];
+
+            assert(levels, expected, done);
+        });
+
+        it('must detect bool mod', function (done) {
+            mock({
+                blocks: {
+                    'block_bool-mod.tech': ''
+                }
+            });
+
+            var levels = ['blocks'],
+                expected = [{
+                    entity: { block: 'block', modName: 'bool-mod', modVal: true },
+                    tech: 'tech',
+                    level: 'blocks',
+                    path: path.join('blocks', 'block_bool-mod.tech')
+                }];
+
+            assert(levels, expected, done);
+        });
+
+        it('must detect mod', function (done) {
+            mock({
+                blocks: {
+                    'block_mod_val.tech': ''
+                }
+            });
+
+            var levels = ['blocks'],
+                expected = [{
+                    entity: { block: 'block', modName: 'mod', modVal: 'val' },
+                    tech: 'tech',
+                    level: 'blocks',
+                    path: path.join('blocks', 'block_mod_val.tech')
+                }];
+
+            assert(levels, expected, done);
+        });
+
+        it('must detect elem', function (done) {
+            mock({
+                blocks: {
+                    'block__elem.tech': ''
+                }
+            });
+
+            var levels = ['blocks'],
+                expected = [{
+                    entity: { block: 'block', elem: 'elem' },
+                    tech: 'tech',
+                    level: 'blocks',
+                    path: path.join('blocks', 'block__elem.tech')
+                }];
+
+            assert(levels, expected, done);
+        });
+
+        it('must detect bool mod of elem', function (done) {
+            mock({
+                blocks: {
+                    'block__elem_bool-mod.tech': ''
+                }
+            });
+
+            var levels = ['blocks'],
+                expected = [{
+                    entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
+                    tech: 'tech',
+                    level: 'blocks',
+                    path: path.join('blocks', 'block__elem_bool-mod.tech')
+                }];
+
+            assert(levels, expected, done);
+        });
+
+        it('must detect elem mod', function (done) {
+            mock({
+                blocks: {
+                    'block__elem_mod_val.tech': ''
+                }
+            });
+
+            var levels = ['blocks'],
+                expected = [{
+                    entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' },
+                    tech: 'tech',
+                    level: 'blocks',
+                    path: path.join('blocks', 'block__elem_mod_val.tech')
+                }];
+
+            assert(levels, expected, done);
+        });
+
+        it('must support few levels', function (done) {
+            mock({
+                'common.blocks': {
+                    'block.tech': ''
+                },
+                'desktop.blocks': {
+                    'block.tech': ''
+                }
+            });
+
+            var levels = ['common.blocks', 'desktop.blocks'],
+                expected = [
+                    {
+                        entity: { block: 'block' },
+                        level: 'common.blocks',
+                        path: path.join('common.blocks', 'block.tech'),
+                        tech: 'tech'
+                    },
+                    {
+                        entity: { block: 'block' },
+                        level: 'desktop.blocks',
+                        path: path.join('desktop.blocks', 'block.tech'),
+                        tech: 'tech'
+                    }
+                ];
+
+            assert(levels, expected, done);
+        });
     });
 });
