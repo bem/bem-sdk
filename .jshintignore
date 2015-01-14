@@ -1,3 +1,4 @@
 node_modules
 coverage
 benchmark/fixtures/**
+benchmark/node_modules/**

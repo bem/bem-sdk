@@ -1,0 +1,9 @@
+{
+  "repository": "git://github.com/andrewblond/bem-walk",
+  "description": "BEM levels introspection performance",
+  "dependencies": {
+    "enb": "0.13.14",
+    "scan-level": "0.0.4",
+    "vow": "0.4.7"
+  }
+}
