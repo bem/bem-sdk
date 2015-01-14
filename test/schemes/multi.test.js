@@ -14,11 +14,11 @@ describe('multi scheme', function () {
     it('must support several schemes', function (done) {
         mock({
             'flat.level': {
-                'block.ext': ''
+                'block.tech': ''
             },
             'nested.level': {
                 block: {
-                    'block.ext': ''
+                    'block.tech': ''
                 }
             }
         });
@@ -35,16 +35,16 @@ describe('multi scheme', function () {
             ],
             expected = [
                 {
-                    block: 'block',
-                    tech: 'ext',
+                    entity: { block: 'block' },
+                    tech: 'tech',
                     level: 'flat.level',
-                    path: path.join('flat.level', 'block.ext')
+                    path: path.join('flat.level', 'block.tech')
                 },
                 {
-                    block: 'block',
-                    tech: 'ext',
+                    entity: { block: 'block' },
+                    tech: 'tech',
                     level: 'nested.level',
-                    path: path.join('nested.level', 'block', 'block.ext')
+                    path: path.join('nested.level', 'block', 'block.tech')
                 }
             ];
 
