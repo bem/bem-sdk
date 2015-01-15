@@ -7,27 +7,26 @@ benchmarks
 * `scan-level@0.0.4`
 
 ```
-                    bem-walk
-           8,770 op/s » `flat` level
-           2,939 op/s » `nested` level
-             145 op/s » `bem-bl`
-              88 op/s » `bem-core` + `bem-components`
+                      bem-walk
+           8,999 op/s » `flat` level
+           3,292 op/s » `nested` level
+             160 op/s » `bem-bl`
+              97 op/s » `bem-core` + `bem-components`
 
                       enb@0.x
-           6,493 op/s » `flat` level
-           3,778 op/s » `nested` level
-             109 op/s » `bem-bl`
-              68 op/s » `bem-core` + `bem-components`
+           6,367 op/s » `flat` level
+           3,749 op/s » `nested` level
+             101 op/s » `bem-bl`
+              64 op/s » `bem-core` + `bem-components`
 
                       scan-level
-           7,699 op/s » `flat` level
-           3,146 op/s » `nested` level
-             104 op/s » `bem-bl`
-              65 op/s » `bem-core` + `bem-components`
+           8,493 op/s » `flat` level
+           3,429 op/s » `nested` level
+             105 op/s » `bem-bl`
+              66 op/s » `bem-core` + `bem-components`
 
 
   Suites:  3
   Benches: 12
-  Elapsed: 20,469.39 ms
-
+  Elapsed: 20,748.29 ms
 ```
