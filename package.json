@@ -34,13 +34,13 @@
     "LICENSE.txt"
   ],
   "dependencies": {
-    "bem-naming": "0.5.0"
+    "bem-naming": "0.5.1"
   },
   "devDependencies": {
     "istanbul": "0.3.5",
-    "jscs": "1.9.0",
+    "jscs": "1.10.0",
     "jshint": "2.5.11",
-    "matcha": "^0.6.0",
+    "matcha": "0.6.0",
     "mocha": "2.1.0",
     "must": "0.12.0"
   },
