@@ -1,8 +1,4 @@
-var bemdecl = require('../lib/index'),
-    opts = { harmony: true },
-    normalize = function (decl) {
-        return bemdecl.normalize(decl, opts);
-    };
+var normalize = require('../lib/normalize-harmony');
 
 describe('normalize --harmony', function () {
     it('must support undefined', function () {

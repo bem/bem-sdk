@@ -1,4 +1,4 @@
-var normalize = require('../lib/index').normalize;
+var normalize = require('../lib/normalize');
 
 describe('normalize', function () {
     it('must support undefined', function () {

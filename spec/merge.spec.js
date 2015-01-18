@@ -1,4 +1,4 @@
-var merge = require('../lib/index').merge;
+var merge = require('../lib/merge');
 
 describe('merge', function () {
     describe('sets', function () {

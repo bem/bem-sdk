@@ -1,4 +1,4 @@
-var subtract = require('../lib/index').subtract;
+var subtract = require('../lib/subtract');
 
 describe('subtract', function () {
     describe('sets', function () {
