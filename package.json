@@ -45,11 +45,11 @@
     "must": "0.12.0"
   },
   "scripts": {
-    "test": "npm run lint && npm run unit",
+    "test": "npm run lint && npm run spec",
     "lint": "jshint . && jscs -c .jscs.js .",
-    "unit": "mocha ./test/*.test.js",
+    "spec": "mocha ./spec/*.spec.js --opts ./spec/mocha.opts",
     "bench": "matcha benchmark/*.js",
-    "cover": "istanbul cover _mocha -- ./test/*.test.js",
+    "cover": "istanbul cover _mocha -- ./spec/*.spec.js --opts ./spec/mocha.opts",
     "coveralls": "npm i coveralls && cat ./coverage/lcov.info | coveralls",
     "travis": "npm run test && npm run cover && npm run coveralls"
   }
