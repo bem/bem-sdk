@@ -46,7 +46,7 @@
   },
   "scripts": {
     "test": "npm run lint && npm run spec",
-    "lint": "jshint . && jscs -c .jscs.js .",
+    "lint": "jshint . && jscs .",
     "spec": "mocha ./spec/*.spec.js --opts ./spec/mocha.opts",
     "bench": "matcha benchmark/*.js",
     "cover": "unit-coverage run -s 'lib/**' -t 'spec/**/*.spec.js' -S relative -O sources=lib -O tests=spec -- --opts ./spec/mocha.opts lib spec",
