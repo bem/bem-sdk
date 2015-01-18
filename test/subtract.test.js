@@ -3,80 +3,78 @@ var subtract = require('../lib/index').subtract;
 describe('subtract', function () {
     describe('sets', function () {
         it('must subtract set from empty set', function () {
-            var decl1 = [],
-                decl2 = [{ block: 'block' }];
+            var A = [{ block: 'A' }];
 
-            subtract(decl1, decl2).must.eql([]);
+            subtract([], A)
+                .must.be.empty();
         });
 
         it('must subtract empty set from set', function () {
-            var decl1 = [{ block: 'block' }],
-                decl2 = [];
+            var A = [{ block: 'A' }];
 
-            subtract(decl1, decl2).must.eql([{ block: 'block' }]);
+            subtract(A, [])
+                .must.eql(A);
         });
 
         it('must support disjoint sets', function () {
-            var decl1 = [{ block: 'block-1' }],
-                decl2 = [{ block: 'block-2' }];
+            var A = [{ block: 'A' }],
+                B = [{ block: 'B' }];
 
-            subtract(decl1, decl2).must.eql([
-                { block: 'block-1' }
-            ]);
+            subtract(A, B)
+                .must.eql(A);
         });
 
         it('must support intersecting sets', function () {
-            var decl1 = [{ block: 'block-1' }, { block: 'block-2' }, { block: 'block-3' }],
-                decl2 = [{ block: 'block-2' }];
+            var ABC = [{ block: 'A' }, { block: 'B' }, { block: 'C' }],
+                B   = [{ block: 'B' }],
+                AC  = [{ block: 'A' }, { block: 'C' }];
 
-            subtract(decl1, decl2).must.eql([
-                { block: 'block-1' },
-                { block: 'block-3' }
-            ]);
+            subtract(ABC, B)
+                .must.eql(AC);
         });
     });
 
     describe('intersecting entities', function () {
         it('must subtract block from block', function () {
-            var decl1 = [{ block: 'block' }],
-                decl2 = [{ block: 'block' }];
+            var block = [{ block: 'block' }];
 
-            subtract(decl1, decl2).must.eql([]);
+            subtract(block, block)
+                .must.be.empty();
         });
 
         it('must subtract bool mod from bool mod', function () {
-            var decl1 = [{ block: 'block', modName: 'mod', modVal: true }],
-                decl2 = [{ block: 'block', modName: 'mod', modVal: true }];
+            var mod = [{ block: 'block', modName: 'mod', modVal: true }];
 
-            subtract(decl1, decl2).must.eql([]);
+            subtract(mod, mod)
+                .must.be.empty();
         });
 
         it('must subtract mod from mod', function () {
-            var decl1 = [{ block: 'block', modName: 'mod', modVal: 'val' }],
-                decl2 = [{ block: 'block', modName: 'mod', modVal: 'val' }];
+            var mod = [{ block: 'block', modName: 'mod', modVal: 'val' }];
 
-            subtract(decl1, decl2).must.eql([]);
+            subtract(mod, mod)
+                .must.be.empty();
         });
 
         it('must subtract elem from elem', function () {
-            var decl1 = [{ block: 'block', elem: 'elem' }],
-                decl2 = [{ block: 'block', elem: 'elem' }];
+            var elem = [{ block: 'block', elem: 'elem' }];
 
-            subtract(decl1, decl2).must.eql([]);
+            subtract(elem, elem)
+                .must.be.empty();
         });
 
         it('must subtract bool mod of elem from bool mod of elem', function () {
-            var decl1 = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: true }],
-                decl2 = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: true }];
+            var mod = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: true }];
 
-            subtract(decl1, decl2).must.eql([]);
+            subtract(mod, mod)
+                .must.be.empty();
         });
 
         it('must subtract elem mod from elem mod', function () {
-            var decl1 = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' }],
-                decl2 = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' }];
+            var mod = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' }];
 
-            subtract(decl1, decl2).must.eql([]);
+            subtract(mod, mod)
+                .must.be.empty();
         });
     });
 
@@ -91,9 +89,8 @@ describe('subtract', function () {
                     { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
                 ];
 
-            subtract(decl1, decl2).must.eql([
-                { block: 'block' }
-            ]);
+            subtract(decl1, decl2)
+                .must.eql(decl1);
         });
 
         it('must not subtract other entities from bool mod', function () {
@@ -106,9 +103,8 @@ describe('subtract', function () {
                     { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
                 ];
 
-            subtract(decl1, decl2).must.eql([
-                { block: 'block', modName: 'mod', modVal: true }
-            ]);
+            subtract(decl1, decl2)
+                .must.eql(decl1);
         });
 
         it('must not subtract other entities from mod', function () {
@@ -121,9 +117,8 @@ describe('subtract', function () {
                     { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
                 ];
 
-            subtract(decl1, decl2).must.eql([
-                { block: 'block', modName: 'mod', modVal: 'val' }
-            ]);
+            subtract(decl1, decl2)
+                .must.eql(decl1);
         });
 
         it('must not subtract other entities from elem', function () {
@@ -136,9 +131,8 @@ describe('subtract', function () {
                     { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
                 ];
 
-            subtract(decl1, decl2).must.eql([
-                { block: 'block', elem: 'elem' }
-            ]);
+            subtract(decl1, decl2)
+                .must.eql(decl1);
         });
 
         it('must not subtract other entities from bool mod of elem', function () {
@@ -151,9 +145,8 @@ describe('subtract', function () {
                     { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
                 ];
 
-            subtract(decl1, decl2).must.eql([
-                { block: 'block', elem: 'elem', modName: 'mod', modVal: true }
-            ]);
+            subtract(decl1, decl2)
+                .must.eql(decl1);
         });
 
         it('must not subtract other entities from mod of elem', function () {
@@ -166,9 +159,8 @@ describe('subtract', function () {
                     { block: 'block', elem: 'elem', modName: 'mod', modVal: true }
                 ];
 
-            subtract(decl1, decl2).must.eql([
-                { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
-            ]);
+            subtract(decl1, decl2)
+                .must.eql(decl1);
         });
     });
 });

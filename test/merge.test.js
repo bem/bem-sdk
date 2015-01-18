@@ -3,164 +3,131 @@ var merge = require('../lib/index').merge;
 describe('merge', function () {
     describe('sets', function () {
         it('must support only one decl', function () {
-            var decl1 = [{ block: 'block' }];
+            var decl = [{ block: 'block' }];
 
-            merge(decl1).must.eql([
-                { block: 'block' }
-            ]);
+            merge(decl)
+                .must.eql(decl);
         });
 
         it('must support several decls', function () {
-            var decl1 = [{ block: 'block-1' }],
-                decl2 = [{ block: 'block-2' }],
-                decl3 = [{ block: 'block-3' }];
+            var A = [{ block: 'A' }],
+                B = [{ block: 'B' }],
+                C = [{ block: 'C' }];
 
-            merge(decl1, decl2, decl3).must.eql([
-                { block: 'block-1' },
-                { block: 'block-2' },
-                { block: 'block-3' }
-            ]);
+            merge(A, B, C)
+                .must.eql([].concat(A, B, C));
         });
 
         it('must return set', function () {
-            var decl1 = [{ block: 'block' }],
-                decl2 = [{ block: 'block' }];
+            var decl = [{ block: 'block' }];
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block' }
-            ]);
+            merge(decl, decl)
+                .must.eql(decl);
         });
 
         it('must merge set with empty set', function () {
-            var decl1 = [{ block: 'block' }],
-                decl2 = [];
+            var decl = [{ block: 'block' }];
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block' }
-            ]);
+            merge(decl, [])
+                .must.eql(decl);
         });
 
         it('must merge disjoint sets', function () {
-            var decl1 = [{ block: 'block-1' }],
-                decl2 = [{ block: 'block-2' }];
+            var A = [{ block: 'A' }],
+                B = [{ block: 'B' }];
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block-1' },
-                { block: 'block-2' }
-            ]);
+            merge(A, B)
+                .must.eql([].concat(A, B));
         });
 
         it('must merge intersecting sets', function () {
-            var decl1 = [{ block: 'block-1' }, { block: 'block-2' }, { block: 'block-3' }],
-                decl2 = [{ block: 'block-2' }];
+            var ABC = [{ block: 'A' }, { block: 'B' }, { block: 'C' }],
+                B = [{ block: 'B' }];
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block-1' },
-                { block: 'block-2' },
-                { block: 'block-3' }
-            ]);
+            merge(ABC, B)
+                .must.eql(ABC);
         });
     });
 
     describe('bem', function () {
         it('must merge block with its elem', function () {
-            var decl1 = [{ block: 'block' }],
-                decl2 = [{ block: 'block', elem: 'elem' }];
+            var block = { block: 'block' },
+                elem = { block: 'block', elem: 'elem' };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block' },
-                { block: 'block', elem: 'elem' }
-            ]);
+            merge([block], [elem])
+                .must.eql([block, elem]);
         });
 
         it('must merge block with its mod', function () {
-            var decl1 = [{ block: 'block' }],
-                decl2 = [{ block: 'block', modName: 'mod', modVal: 'val' }];
+            var block = { block: 'block' },
+                mod = { block: 'block', modName: 'mod', modVal: 'val' };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block' },
-                { block: 'block', modName: 'mod', modVal: 'val' }
-            ]);
+            merge([block], [mod])
+                .must.eql([block, mod]);
         });
 
         it('must merge block with its bool mod', function () {
-            var decl1 = [{ block: 'block' }],
-                decl2 = [{ block: 'block', modName: 'bool-mod', modVal: true }];
+            var block = { block: 'block' },
+                mod = { block: 'block', modName: 'mod', modVal: true };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block' },
-                { block: 'block', modName: 'bool-mod', modVal: true }
-            ]);
+            merge([block], [mod])
+                .must.eql([block, mod]);
         });
 
         it('must merge elems of block', function () {
-            var decl1 = [{ block: 'block', elem: 'elem-1' }],
-                decl2 = [{ block: 'block', elem: 'elem-2' }];
+            var elem1 = { block: 'block', elem: 'elem-1' },
+                elem2 = { block: 'block', elem: 'elem-2' };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block', elem: 'elem-1' },
-                { block: 'block', elem: 'elem-2' }
-            ]);
+            merge([elem1], [elem2])
+                .must.eql([elem1, elem2]);
         });
 
         it('must merge mods of block', function () {
-            var decl1 = [{ block: 'block', modName: 'mod-1', modVal: true }],
-                decl2 = [{ block: 'block', modName: 'mod-2', modVal: true }];
+            var mod1 = { block: 'block', modName: 'mod-1', modVal: true },
+                mod2 = { block: 'block', modName: 'mod-2', modVal: true };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block', modName: 'mod-1', modVal: true },
-                { block: 'block', modName: 'mod-2', modVal: true }
-            ]);
+            merge([mod1], [mod2])
+                .must.eql([mod1, mod2]);
         });
 
         it('must merge mod vals of block mod', function () {
-            var decl1 = [{ block: 'block', modName: 'mod', modVal: 'val-1' }],
-                decl2 = [{ block: 'block', modName: 'mod', modVal: 'val-2' }];
+            var val1 = { block: 'block', modName: 'mod', modVal: 'val-1' },
+                val2 = { block: 'block', modName: 'mod', modVal: 'val-2' };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block', modName: 'mod', modVal: 'val-1' },
-                { block: 'block', modName: 'mod', modVal: 'val-2' }
-            ]);
+            merge([val1], [val2])
+                .must.eql([val1, val2]);
         });
 
         it('must merge elem with its mod', function () {
-            var decl1 = [{ block: 'block', elem: 'elem' }],
-                decl2 = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' }];
+            var elem = { block: 'block', elem: 'elem' },
+                mod = { block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block', elem: 'elem' },
-                { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
-            ]);
+            merge([elem], [mod])
+                .must.eql([elem, mod]);
         });
 
         it('must merge elem with its bool mod', function () {
-            var decl1 = [{ block: 'block', elem: 'elem' }],
-                decl2 = [{ block: 'block', elem: 'elem' , modName: 'bool-mod', modVal: true }];
+            var elem = { block: 'block', elem: 'elem' },
+                mod = { block: 'block', elem: 'elem' , modName: 'mod', modVal: true };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block', elem: 'elem' },
-                { block: 'block', elem: 'elem' , modName: 'bool-mod', modVal: true }
-            ]);
+            merge([elem], [mod])
+                .must.eql([elem, mod]);
         });
 
         it('must merge mods of elem', function () {
-            var decl1 = [{ block: 'block', elem: 'elem', modName: 'mod-1', modVal: true }],
-                decl2 = [{ block: 'block', elem: 'elem', modName: 'mod-2', modVal: true }];
+            var mod1 = { block: 'block', elem: 'elem', modName: 'mod-1', modVal: true },
+                mod2 = { block: 'block', elem: 'elem', modName: 'mod-2', modVal: true };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block', elem: 'elem', modName: 'mod-1', modVal: true },
-                { block: 'block', elem: 'elem', modName: 'mod-2', modVal: true }
-            ]);
+            merge([mod1], [mod2])
+                .must.eql([mod1, mod2]);
         });
 
         it('must merge mod vals of elem mod', function () {
-            var decl1 = [{ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-1' }],
-                decl2 = [{ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-2' }];
+            var val1 = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-1' },
+                val2 = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-2' };
 
-            merge(decl1, decl2).must.eql([
-                { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-1' },
-                { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-2' }
-            ]);
+            merge([val1], [val2])
+                .must.eql([val1, val2]);
         });
     });
 });
