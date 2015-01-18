@@ -19,7 +19,7 @@ var bemdecl = require('../lib/index'),
         ],
         elems: [
             { block: 'block', elem: 'elem' },
-            {  block: 'block', elems: ['elem-1', 'elem-2'] }
+            { block: 'block', elems: ['elem-1', 'elem-2'] }
         ],
         elemMods: [
             { block: 'block-1', elem: 'elem', modName: 'mod' },
