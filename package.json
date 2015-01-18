@@ -37,20 +37,22 @@
     "bem-naming": "0.5.1"
   },
   "devDependencies": {
-    "istanbul": "0.3.5",
     "jscs": "1.10.0",
     "jshint": "2.5.11",
     "matcha": "0.6.0",
     "mocha": "2.1.0",
-    "must": "0.12.0"
+    "must": "0.12.0",
+    "unit-coverage": "3.3.0"
   },
   "scripts": {
     "test": "npm run lint && npm run spec",
     "lint": "jshint . && jscs -c .jscs.js .",
     "spec": "mocha ./spec/*.spec.js --opts ./spec/mocha.opts",
     "bench": "matcha benchmark/*.js",
-    "cover": "istanbul cover _mocha -- ./spec/*.spec.js --opts ./spec/mocha.opts",
+    "cover": "unit-coverage run -s 'lib/**' -t 'spec/**/*.spec.js' -S relative -O sources=lib -O tests=spec -- --opts ./spec/mocha.opts lib spec",
+    "cover-lcov": "mkdir -p coverage && unit-coverage run -r lcov -o ./coverage/lcov.info -s 'lib/**' -t 'spec/**/*.spec.js' -S relative -O sources=lib -O tests=spec -- --opts ./spec/mocha.opts lib spec",
+    "cover-html": "mkdir -p coverage && unit-coverage run -r html -o ./coverage/coverage.html -s 'lib/**' -t 'spec/**/*.spec.js' -S relative -O sources=lib -O tests=spec -- --opts ./spec/mocha.opts lib spec",
     "coveralls": "npm i coveralls && cat ./coverage/lcov.info | coveralls",
-    "travis": "npm run test && npm run cover && npm run coveralls"
+    "travis": "npm run test && npm run cover-lcov && npm run coveralls"
   }
 }
