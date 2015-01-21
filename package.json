@@ -5,7 +5,11 @@
   "keywords": [
     "bem",
     "declaration",
-    "entities"
+    "entities",
+    "merge",
+    "normalize",
+    "subtract",
+    "BEMDECL"
   ],
   "author": "Andrew Abramov <andrewblond@yandex.com>",
   "licenses": [
