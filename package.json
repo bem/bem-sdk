@@ -11,12 +11,12 @@
   "licenses": [
     {
       "type": "MPL-2.0",
-      "url": "https://github.com/andrewblond/bem-decl/blob/master/LICENSE.txt"
+      "url": "https://github.com/bem/bem-decl/blob/master/LICENSE.txt"
     }
   ],
-  "repository": "git://github.com/andrewblond/bem-decl",
-  "homepage": "https://github.com/andrewblond/bem-decl",
-  "bugs": "https://github.com/andrewblond/bem-decl/issues",
+  "repository": "git://github.com/bem/bem-decl",
+  "homepage": "https://github.com/bem/bem-decl",
+  "bugs": "https://github.com/bem/bem-decl/issues",
   "contributors": "Andrew Abramov <andrewblond@yandex.com>",
   "maintainers": [
     {
