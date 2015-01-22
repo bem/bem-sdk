@@ -29,4 +29,9 @@ describe('index', function () {
         lib.must.have.ownProperty('subtract');
         lib.subtract.must.be.a.function();
     });
+
+    it('must have `intersect` method', function () {
+        lib.must.have.ownProperty('intersect');
+        lib.intersect.must.be.a.function();
+    });
 });
