@@ -32,7 +32,7 @@ var bemdecl = require('../lib/index'),
     };
     decls.full = [].concat(decls.blocks, decls.blockMods, decls.elems, decls.elemMods);
 
-suite('normalize', function () {
+suite('normalize --harmony', function () {
     set('interations', 200000);
 
     bench('blocks', function () {
