@@ -215,6 +215,22 @@ describe('normalize --harmony', function () {
         });
     });
 
+    it('must support mix', function () {
+        var decl = {
+            block: 'block',
+            elems: ['elem-1', 'elem-2'],
+            mods: ['mod-1', 'mod-2']
+        };
+
+        normalize(decl).must.eql([
+            { block: 'block' },
+            { block: 'block', elem: 'elem-1' },
+            { block: 'block', elem: 'elem-2' },
+            { block: 'block', modName: 'mod-1', modVal: true },
+            { block: 'block', modName: 'mod-2', modVal: true }
+        ]);
+    });
+
     describe('scope', function () {
         it('must support mod in block scope', function () {
             var decl = {
@@ -282,6 +298,21 @@ describe('normalize --harmony', function () {
 
             normalize(decl).must.eql([
                 { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
+            ]);
+        });
+
+        it('must support mix in elem scope', function () {
+            var decl = {
+                scope: 'block',
+                elems: ['elem-1', 'elem-2'],
+                mods: ['mod-1', 'mod-2']
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block', elem: 'elem-1' },
+                { block: 'block', elem: 'elem-2' },
+                { block: 'block', modName: 'mod-1', modVal: true },
+                { block: 'block', modName: 'mod-2', modVal: true }
             ]);
         });
     });
