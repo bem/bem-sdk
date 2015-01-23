@@ -117,7 +117,7 @@ describe('normalize --harmony', function () {
         });
     });
 
-    describe('elems', function () {
+    describe('elem', function () {
         it('must support elem', function () {
             var decl = { block: 'block', elem: 'elem' };
 
@@ -154,19 +154,6 @@ describe('normalize --harmony', function () {
                 { block: 'block' },
                 { block: 'block', elem: 'elem' },
                 { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
-            ]);
-        });
-
-        it('must support elems as arrays', function () {
-            var decl = {
-                block: 'block',
-                elems: ['elem-1', 'elem-2']
-            };
-
-            normalize(decl).must.eql([
-                { block: 'block' },
-                { block: 'block', elem: 'elem-1' },
-                { block: 'block',  elem: 'elem-2' }
             ]);
         });
 
@@ -211,6 +198,46 @@ describe('normalize --harmony', function () {
                 { block: 'block', elem: 'elem' },
                 { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-1' },
                 { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-2' }
+            ]);
+        });
+    });
+
+    describe('elems', function () {
+        it('must support strings', function () {
+            var decl = {
+                block: 'block',
+                elems: ['elem-1', 'elem-2']
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block' },
+                { block: 'block', elem: 'elem-1' },
+                { block: 'block',  elem: 'elem-2' }
+            ]);
+        });
+
+        it('must support objects', function () {
+            var decl = {
+                block: 'block',
+                elems: [{ elem: 'elem' }]
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block' },
+                { block: 'block', elem: 'elem' }
+            ]);
+        });
+
+        it('must support mods for elem objects', function () {
+            var decl = {
+                block: 'block',
+                elems: [{ elem: 'elem', mods: { mod: 'val' } }]
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block' },
+                { block: 'block', elem: 'elem' },
+                { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
             ]);
         });
     });
