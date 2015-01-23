@@ -18,13 +18,6 @@ describe('normalize --harmony', function () {
             .must.be.empty();
     });
 
-    it('must support block', function () {
-        var block = { block: 'block' };
-
-        normalize(block)
-            .must.eql([block]);
-    });
-
     it('must return set', function () {
         var A = { block: 'A' };
 
@@ -48,6 +41,22 @@ describe('normalize --harmony', function () {
 
         normalize(decl)
             .must.eql(decl);
+    });
+
+    describe('block', function () {
+        it('must support block', function () {
+            var block = { block: 'block' };
+
+            normalize(block)
+                .must.eql([block]);
+        });
+
+        it('must support block as string', function () {
+            var decl = ['block'];
+
+            normalize(decl)
+                .must.eql([{ block: 'block' }]);
+        });
     });
 
     describe('mods', function () {
