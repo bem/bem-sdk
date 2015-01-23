@@ -11,6 +11,13 @@ describe('normalize --harmony', function () {
             .must.be.empty();
     });
 
+    it('must support empty object', function () {
+        var decl = {};
+
+        normalize(decl)
+            .must.be.empty();
+    });
+
     it('must support block', function () {
         var block = { block: 'block' };
 
@@ -204,6 +211,77 @@ describe('normalize --harmony', function () {
                 { block: 'block', elem: 'elem' },
                 { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-1' },
                 { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-2' }
+            ]);
+        });
+    });
+
+    describe('scope', function () {
+        it('must support mod in block scope', function () {
+            var decl = {
+                scope: 'block',
+                modName: 'mod',
+                modVal: 'val'
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block', modName: 'mod', modVal: 'val' }
+            ]);
+        });
+
+        it('must support mods in block scope', function () {
+            var decl = {
+                scope: 'block',
+                mods: { mod: 'val' }
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block', modName: 'mod', modVal: 'val' }
+            ]);
+        });
+
+        it('must support elem in block scope', function () {
+            var decl = {
+                scope: 'block',
+                elem: 'elem'
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block', elem: 'elem' }
+            ]);
+        });
+
+        it('must support elems in block scope', function () {
+            var decl = {
+                scope: 'block',
+                elems: ['elem-1', 'elem-2']
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block', elem: 'elem-1' },
+                { block: 'block', elem: 'elem-2' }
+            ]);
+        });
+
+        it('must support elem mod in block scope', function () {
+            var decl = {
+                scope: 'block',
+                elem: 'elem', modName: 'mod', modVal: 'val'
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block', elem: 'elem' },
+                { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
+            ]);
+        });
+
+        it('must support mod in elem scope', function () {
+            var decl = {
+                scope: { block: 'block', elem: 'elem' },
+                modName: 'mod', modVal: 'val'
+            };
+
+            normalize(decl).must.eql([
+                { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
             ]);
         });
     });
