@@ -2,7 +2,7 @@ module.exports = {
     excludeFiles: [
         'node_modules/**',
         'coverage/**',
-        'benchmark/fixtures/**',
+        'benchmark/fixtures/libs/**',
         'benchmark/node_modules/**'
     ],
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
