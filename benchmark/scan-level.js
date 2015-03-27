@@ -5,19 +5,19 @@ suite('scan-level', function () {
     set('mintime', 1000);
 
     bench('`flat` level', function (done) {
-        run(fixtures.flat, { scanner: scanSimple }, done);
+        run(fixtures.levels.flat, { scanner: scanSimple }, done);
     });
 
     bench('`nested` level', function (done) {
-        run(fixtures.nested, {}, done);
+        run(fixtures.levels.nested, {}, done);
     });
 
     bench('`bem-bl`', function (done) {
-        run(fixtures['bem-bl'], {},  done);
+        run(fixtures.libs['bem-bl'], {},  done);
     });
 
     bench('`bem-core` + `bem-components`', function (done) {
-        run(fixtures.o2, {}, done);
+        run(fixtures.libs.o2, {}, done);
     });
 });
 

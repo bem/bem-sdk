@@ -7,19 +7,19 @@ suite('enb@0.x', function () {
     set('mintime', 1000);
 
     bench('`flat` level', function (done) {
-        run(fixtures.flat, LevelPlain, done);
+        run(fixtures.levels.flat, LevelPlain, done);
     });
 
     bench('`nested` level', function (done) {
-        run(fixtures.nested, null, done);
+        run(fixtures.levels.nested, null, done);
     });
 
     bench('`bem-bl`', function (done) {
-        run(fixtures['bem-bl'], null, done);
+        run(fixtures.libs['bem-bl'], null, done);
     });
 
     bench('`bem-core` + `bem-components`', function (done) {
-        run(fixtures.o2, null, done);
+        run(fixtures.libs.o2, null, done);
     });
 });
 
