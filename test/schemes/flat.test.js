@@ -25,7 +25,8 @@ describe('flat scheme', function () {
         walker.on('error', function (err) {
             err.must.throw();
             done();
-        });
+        })
+        .resume();
     });
 
     describe('ignore', function () {
