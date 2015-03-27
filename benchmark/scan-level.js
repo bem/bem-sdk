@@ -13,11 +13,11 @@ suite('scan-level', function () {
     });
 
     bench('`bem-bl`', function (done) {
-        run(fixtures['bem-bl'], {},  done);
+        run(fixtures.libs['bem-bl'], {},  done);
     });
 
     bench('`bem-core` + `bem-components`', function (done) {
-        run(fixtures.o2, {}, done);
+        run(fixtures.libs.o2, {}, done);
     });
 });
 

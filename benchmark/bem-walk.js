@@ -13,11 +13,11 @@ suite('bem-walk', function () {
     });
 
     bench('`bem-bl`', function (done) {
-        run(fixtures['bem-bl'], { scheme: 'nested' }, done);
+        run(fixtures.libs['bem-bl'], { scheme: 'nested' }, done);
     });
 
     bench('`bem-core` + `bem-components`', function (done) {
-        run(fixtures.o2, { scheme: 'nested' }, done);
+        run(fixtures.libs.o2, { scheme: 'nested' }, done);
     });
 });
 

@@ -15,11 +15,11 @@ suite('enb@0.x', function () {
     });
 
     bench('`bem-bl`', function (done) {
-        run(fixtures['bem-bl'], null, done);
+        run(fixtures.libs['bem-bl'], null, done);
     });
 
     bench('`bem-core` + `bem-components`', function (done) {
-        run(fixtures.o2, null, done);
+        run(fixtures.libs.o2, null, done);
     });
 });
 
