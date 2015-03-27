@@ -36,7 +36,7 @@
     "jshint": "2.5.11",
     "matcha": "0.6.0",
     "mocha": "2.1.0",
-    "mock-fs": "2.3.2",
+    "mock-fs": "2.5.0",
     "must": "0.12.0"
   },
   "scripts": {
