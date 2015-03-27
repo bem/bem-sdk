@@ -5,11 +5,11 @@ suite('bem-walk', function () {
     set('mintime', 1000);
 
     bench('`flat` level', function (done) {
-        run(fixtures.flat, { scheme: 'flat' }, done);
+        run(fixtures.levels.flat, { scheme: 'flat' }, done);
     });
 
     bench('`nested` level', function (done) {
-        run(fixtures.nested, { scheme: 'nested' }, done);
+        run(fixtures.levels.nested, { scheme: 'nested' }, done);
     });
 
     bench('`bem-bl`', function (done) {
