@@ -22,11 +22,12 @@ describe('nested scheme', function () {
     it('must throw error if levels is not found', function (done) {
         var walker = walk(['not-existing-level']);
 
-        walker.on('error', function (err) {
-            err.must.throw();
-            done();
-        })
-        .resume();
+        walker
+            .on('error', function (err) {
+                err.must.throw();
+                done();
+            })
+            .resume();
     });
 
     describe('ignore', function () {
