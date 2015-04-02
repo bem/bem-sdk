@@ -21,6 +21,14 @@
   "engines": {
     "node": ">= 0.10.0"
   },
+  "contributors": "Andrew Abramov <andrewblond@yandex.com>",
+  "maintainers": [
+    {
+      "name": "Andrew Abramov",
+      "email": "andrewblond@yandex.com",
+      "github-username": "blond"
+    }
+  ],
   "main": "lib/index.js",
   "files": [
     "lib/**",
