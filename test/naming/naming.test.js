@@ -1,6 +1,5 @@
 var path = require('path'),
-    mock = require('mock-fs'),
-    assert = require('../lib/assert'),
+    assert = require('../lib/mock-and-assert'),
     convention = {
         original: {
             scheme: 'flat',
@@ -21,18 +20,13 @@ var path = require('path'),
     };
 
 describe('naming', function () {
-    afterEach(function () {
-        mock.restore();
-    });
-
     it('must support original naming', function () {
-        mock({
-            blocks: {
-                'block__elem_bool-mod.tech': ''
-            }
-        });
-
-        var levels = ['blocks'],
+        var fs = {
+                blocks: {
+                    'block__elem_bool-mod.tech': ''
+                }
+            },
+            levels = ['blocks'],
             expected = [{
                 entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
                 tech: 'tech',
@@ -40,17 +34,16 @@ describe('naming', function () {
                 path: path.join('blocks', 'block__elem_bool-mod.tech')
             }];
 
-        return assert(levels, convention.original, expected);
+        return assert(fs, levels, convention.original, expected);
     });
 
     it('must support Convention by Harry Roberts', function () {
-        mock({
-            blocks: {
-                'block__elem--bool-mod.tech': ''
-            }
-        });
-
-        var levels = ['blocks'],
+        var fs = {
+                blocks: {
+                    'block__elem--bool-mod.tech': ''
+                }
+            },
+            levels = ['blocks'],
             expected = [{
                 entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
                 tech: 'tech',
@@ -58,17 +51,16 @@ describe('naming', function () {
                 path: path.join('blocks', 'block__elem--bool-mod.tech')
             }];
 
-        return assert(levels, convention.csswizardry, expected);
+        return assert(fs, levels, convention.csswizardry, expected);
     });
 
     it('must support custom naming', function () {
-        mock({
-            blocks: {
-                'block-elem--boolMod.tech': ''
-            }
-        });
-
-        var levels = ['blocks'],
+        var fs = {
+                blocks: {
+                    'block-elem--boolMod.tech': ''
+                }
+            },
+            levels = ['blocks'],
             expected = [{
                 entity: { block: 'block', elem: 'elem', modName: 'boolMod', modVal: true },
                 tech: 'tech',
@@ -76,20 +68,19 @@ describe('naming', function () {
                 path: path.join('blocks', 'block-elem--boolMod.tech')
             }];
 
-        return assert(levels, convention.custom, expected);
+        return assert(fs, levels, convention.custom, expected);
     });
 
     it('must support several naming', function () {
-        mock({
-            'original.naming': {
-                'block__elem_bool-mod.tech': ''
+        var fs = {
+                'original.naming': {
+                    'block__elem_bool-mod.tech': ''
+                },
+                'csswizardry.naming': {
+                    'block__elem--bool-mod.tech': ''
+                }
             },
-            'csswizardry.naming': {
-                'block__elem--bool-mod.tech': ''
-            }
-        });
-
-        var levels = [
+            levels = [
                 {
                     path: 'original.naming',
                     scheme: 'flat',
@@ -116,6 +107,6 @@ describe('naming', function () {
                 }
             ];
 
-        return assert(levels, {}, expected);
+        return assert(fs, levels, {}, expected);
     });
 });

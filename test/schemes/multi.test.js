@@ -1,19 +1,12 @@
 var path = require('path'),
-    mock = require('mock-fs'),
-    verboseAssert = require('../lib/assert'),
+    mockAndAssert = require('../lib/mock-and-assert'),
     opts = {},
-    assert = function (fs, levels, expected, done) {
-        mock(fs);
-
-        verboseAssert(levels, opts, expected, done);
+    assert = function (fs, levels, expected) {
+        return mockAndAssert(fs, levels, opts, expected);
     };
 
 describe('multi scheme', function () {
-    afterEach(function () {
-        mock.restore();
-    });
-
-    it('must support several schemes', function (done) {
+    it('must support several schemes', function () {
         var fs = {
                 'flat.level': {
                     'block.tech': ''
@@ -49,6 +42,6 @@ describe('multi scheme', function () {
                 }
             ];
 
-        assert(fs, levels, expected, done);
+        return assert(fs, levels, expected);
     });
 });
