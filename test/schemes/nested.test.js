@@ -1,10 +1,8 @@
 var path = require('path'),
-    mockAndAssert = require('../lib/mock-and-assert'),
+    schemeAssert = require('../lib/scheme-assert'),
     opts = { scheme: 'nested' },
     assert = function (fs, expected) {
-        var levels = Object.keys(fs);
-
-        return mockAndAssert(fs, levels, opts, expected);
+        return schemeAssert(fs, opts, expected);
     };
 
 describe('nested scheme', function () {

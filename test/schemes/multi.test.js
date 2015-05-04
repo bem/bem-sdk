@@ -1,9 +1,5 @@
 var path = require('path'),
-    mockAndAssert = require('../lib/mock-and-assert'),
-    opts = {},
-    assert = function (fs, levels, expected) {
-        return mockAndAssert(fs, levels, opts, expected);
-    };
+    assert = require('../lib/scheme-assert');
 
 describe('multi scheme', function () {
     it('must support several schemes', function () {
@@ -17,16 +13,6 @@ describe('multi scheme', function () {
                     }
                 }
             },
-            levels = [
-                {
-                    path: 'flat.level',
-                    scheme: 'flat'
-                },
-                {
-                    path: 'nested.level',
-                    scheme: 'nested'
-                }
-            ],
             expected = [
                 {
                     entity: { block: 'block' },
@@ -42,6 +28,6 @@ describe('multi scheme', function () {
                 }
             ];
 
-        return assert(fs, levels, expected);
+        return assert(fs, expected);
     });
 });
