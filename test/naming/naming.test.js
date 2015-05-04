@@ -25,7 +25,7 @@ describe('naming', function () {
         mock.restore();
     });
 
-    it('must support original naming', function (done) {
+    it('must support original naming', function () {
         mock({
             blocks: {
                 'block__elem_bool-mod.tech': ''
@@ -40,10 +40,10 @@ describe('naming', function () {
                 path: path.join('blocks', 'block__elem_bool-mod.tech')
             }];
 
-        assert(levels, convention.original, expected, done);
+        return assert(levels, convention.original, expected);
     });
 
-    it('must support Convention by Harry Roberts', function (done) {
+    it('must support Convention by Harry Roberts', function () {
         mock({
             blocks: {
                 'block__elem--bool-mod.tech': ''
@@ -58,10 +58,10 @@ describe('naming', function () {
                 path: path.join('blocks', 'block__elem--bool-mod.tech')
             }];
 
-        assert(levels, convention.csswizardry, expected, done);
+        return assert(levels, convention.csswizardry, expected);
     });
 
-    it('must support custom naming', function (done) {
+    it('must support custom naming', function () {
         mock({
             blocks: {
                 'block-elem--boolMod.tech': ''
@@ -76,10 +76,10 @@ describe('naming', function () {
                 path: path.join('blocks', 'block-elem--boolMod.tech')
             }];
 
-        assert(levels, convention.custom, expected, done);
+        return assert(levels, convention.custom, expected);
     });
 
-    it('must support several naming', function (done) {
+    it('must support several naming', function () {
         mock({
             'original.naming': {
                 'block__elem_bool-mod.tech': ''
@@ -116,6 +116,6 @@ describe('naming', function () {
                 }
             ];
 
-        assert(levels, {}, expected, done);
+        return assert(levels, {}, expected);
     });
 });

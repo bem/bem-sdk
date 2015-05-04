@@ -3,12 +3,12 @@ var path = require('path'),
     walk = require('../../lib/index'),
     verboseAssert = require('../lib/assert'),
     opts = { scheme: 'nested' },
-    assert = function (fs, expected, done) {
+    assert = function (fs, expected) {
         var levels = Object.keys(fs);
 
         mock(fs);
 
-        verboseAssert(levels, opts, expected, done);
+        return verboseAssert(levels, opts, expected);
     };
 
 describe('nested scheme', function () {
@@ -30,14 +30,14 @@ describe('nested scheme', function () {
     });
 
     describe('ignore', function () {
-        it('must end if levels are not specified', function (done) {
+        it('must end if levels are not specified', function () {
             var fs = {},
                 expected = [];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must ignore empty level', function (done) {
+        it('must ignore empty level', function () {
             var fs = {
                     blocks: {
                         block: {}
@@ -45,10 +45,10 @@ describe('nested scheme', function () {
                 },
                 expected = [];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must ignore files without extension', function (done) {
+        it('must ignore files without extension', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -58,10 +58,10 @@ describe('nested scheme', function () {
                 },
                 expected = [];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must ignore files with no BEM basename', function (done) {
+        it('must ignore files with no BEM basename', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -71,10 +71,10 @@ describe('nested scheme', function () {
                 },
                 expected = [];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must ignore file in root of level', function (done) {
+        it('must ignore file in root of level', function () {
             var fs = {
                     blocks: {
                         'block.tech': ''
@@ -82,11 +82,11 @@ describe('nested scheme', function () {
                 },
                 expected = [];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
         describe('filename matches', function () {
-            it('must ignore block if filename not match with dirname', function (done) {
+            it('must ignore block if filename not match with dirname', function () {
                 var fs = {
                         blocks: {
                             block: {
@@ -96,10 +96,10 @@ describe('nested scheme', function () {
                     },
                     expected = [];
 
-                assert(fs, expected, done);
+                return assert(fs, expected);
             });
 
-            it('must ignore block mod if filename not match with dirname', function (done) {
+            it('must ignore block mod if filename not match with dirname', function () {
                 var fs = {
                         blocks: {
                             block: {
@@ -111,10 +111,10 @@ describe('nested scheme', function () {
                     },
                     expected = [];
 
-                assert(fs, expected, done);
+                return assert(fs, expected);
             });
 
-            it('must ignore elem if filename not match with dirname', function (done) {
+            it('must ignore elem if filename not match with dirname', function () {
                 var fs = {
                         blocks: {
                             block: {
@@ -126,10 +126,10 @@ describe('nested scheme', function () {
                     },
                     expected = [];
 
-                assert(fs, expected, done);
+                return assert(fs, expected);
             });
 
-            it('must ignore elem mod if filename not match with dirname', function (done) {
+            it('must ignore elem mod if filename not match with dirname', function () {
                 var fs = {
                         blocks: {
                             block: {
@@ -143,13 +143,13 @@ describe('nested scheme', function () {
                     },
                     expected = [];
 
-                assert(fs, expected, done);
+                return assert(fs, expected);
             });
         });
     });
 
     describe('detect', function () {
-        it('must detect block', function (done) {
+        it('must detect block', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -164,10 +164,10 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', 'block.tech')
                 }];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must detect bool mod of block', function (done) {
+        it('must detect bool mod of block', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -184,10 +184,10 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '_mod', 'block_mod.tech')
                 }];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must detect key-val mod of block', function (done) {
+        it('must detect key-val mod of block', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -204,10 +204,10 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '_mod', 'block_mod_val.tech')
                 }];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must detect elem', function (done) {
+        it('must detect elem', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -224,10 +224,10 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '__elem', 'block__elem.tech')
                 }];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must detect bool mod of elem', function (done) {
+        it('must detect bool mod of elem', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -246,10 +246,10 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '__elem', '_bool-mod', 'block__elem_bool-mod.tech')
                 }];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must detect key-val mod of elem', function (done) {
+        it('must detect key-val mod of elem', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -268,10 +268,10 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '__elem', '_mod', 'block__elem_mod_val.tech')
                 }];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must detect complex entities', function (done) {
+        it('must detect complex entities', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -333,12 +333,12 @@ describe('nested scheme', function () {
                     }
                 ];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
     });
 
     describe('techs', function () {
-        it('must detect each techs of the same entity', function (done) {
+        it('must detect each techs of the same entity', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -362,10 +362,10 @@ describe('nested scheme', function () {
                     }
                 ];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must support complex tech', function (done) {
+        it('must support complex tech', function () {
             var fs = {
                     blocks: {
                         block: {
@@ -380,12 +380,12 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', 'block.tech-1.tech-2')
                 }];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
     });
 
     describe('levels', function () {
-        it('must support level name with extension', function (done) {
+        it('must support level name with extension', function () {
             var fs = {
                     'name.blocks': {
                         block: {
@@ -400,10 +400,10 @@ describe('nested scheme', function () {
                     tech: 'tech'
                 }];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must support few levels', function (done) {
+        it('must support few levels', function () {
             var fs = {
                     'level-1': {
                         'block-1': {
@@ -431,10 +431,10 @@ describe('nested scheme', function () {
                     }
                 ];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
 
-        it('must detect entity with the same name on every level', function (done) {
+        it('must detect entity with the same name on every level', function () {
             var fs = {
                     'level-1': {
                         block: {
@@ -462,7 +462,7 @@ describe('nested scheme', function () {
                     }
                 ];
 
-            assert(fs, expected, done);
+            return assert(fs, expected);
         });
     });
 });

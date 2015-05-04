@@ -1,6 +1,7 @@
-var walk = require('../../lib/index');
+var promisify = require('bluebird').promisify,
+    walk = require('../../lib/index');
 
-module.exports = function (levels, opts, expected, cb) {
+function assert(levels, opts, expected, cb) {
     var buffer = [],
         walker = walk(levels, opts);
 
@@ -12,8 +13,10 @@ module.exports = function (levels, opts, expected, cb) {
         try {
             buffer.must.eql(expected);
             cb();
-        } catch (e) {
-            cb(e);
+        } catch (err) {
+            cb(err);
         }
     });
-};
+}
+
+module.exports = promisify(assert);

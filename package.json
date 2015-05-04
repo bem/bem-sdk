@@ -39,6 +39,7 @@
     "bem-naming": "0.5.1"
   },
   "devDependencies": {
+    "bluebird": "2.9.25",
     "istanbul": "0.3.11",
     "jscs": "1.12.0",
     "jshint": "2.6.3",
