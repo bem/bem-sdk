@@ -3,7 +3,11 @@ var path = require('path'),
     walk = require('../../lib/index'),
     verboseAssert = require('../lib/assert'),
     opts = { scheme: 'nested' },
-    assert = function (levels, expected, done) {
+    assert = function (fs, expected, done) {
+        var levels = Object.keys(fs);
+
+        mock(fs);
+
         verboseAssert(levels, opts, expected, done);
     };
 
@@ -13,10 +17,10 @@ describe('nested scheme', function () {
     });
 
     it('must end if levels is empty', function (done) {
-        var levels = [],
+        var fs = [],
             expected = [];
 
-        assert(levels, expected, done);
+        assert(fs, expected, done);
     });
 
     it('must throw error if levels is not found', function (done) {
@@ -32,150 +36,132 @@ describe('nested scheme', function () {
 
     describe('ignore', function () {
         it('must ignore entity dir', function (done) {
-            mock({
-                blocks: {
-                    block: {}
-                }
-            });
-
-            var levels = ['blocks'],
+            var fs = {
+                    blocks: {
+                        block: {}
+                    }
+                },
                 expected = [];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must ignore entity without ext', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        block: ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            block: ''
+                        }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must support invalid BEM-notation', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        __elem: {
+            var fs = {
+                    blocks: {
+                        block: {
+                            __elem: {
+                                _mod: {
+                                    '^_^.tech': ''
+                                },
+                                '^_^.tech': ''
+                            },
                             _mod: {
                                 '^_^.tech': ''
                             },
                             '^_^.tech': ''
-                        },
-                        _mod: {
-                            '^_^.tech': ''
-                        },
-                        '^_^.tech': ''
+                        }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must ignore file in root of level', function (done) {
-            mock({
-                blocks: {
-                    'block.tech': ''
-                }
-            });
-
-            var levels = ['blocks'],
+            var fs = {
+                    blocks: {
+                        'block.tech': ''
+                    }
+                },
                 expected = [];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must not detect block if filename not match with dirname', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        'other-block.tech': ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            'other-block.tech': ''
+                        }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must not detect elem if filename not match with dirname', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        _mod: {
-                            'block_other-mod.tech': ''
-                        }
-                    }
-                }
-            });
-
-            var levels = ['blocks'],
-                expected = [];
-
-            assert(levels, expected, done);
-        });
-
-        it('must not detect mod if filename not match with dirname', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        __elem: {
-                            'block__other-elem.tech': ''
-                        }
-                    }
-                }
-            });
-
-            var levels = ['blocks'],
-                expected = [];
-
-            assert(levels, expected, done);
-        });
-
-        it('must not detect elem mod if filename not match with dirname', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        __elem: {
+            var fs = {
+                    blocks: {
+                        block: {
                             _mod: {
-                                'block__elem_other-mod.tech': ''
+                                'block_other-mod.tech': ''
                             }
                         }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
+        });
+
+        it('must not detect mod if filename not match with dirname', function (done) {
+            var fs = {
+                    blocks: {
+                        block: {
+                            __elem: {
+                                'block__other-elem.tech': ''
+                            }
+                        }
+                    }
+                },
+                expected = [];
+
+            assert(fs, expected, done);
+        });
+
+        it('must not detect elem mod if filename not match with dirname', function (done) {
+            var fs = {
+                    blocks: {
+                        block: {
+                            __elem: {
+                                _mod: {
+                                    'block__elem_other-mod.tech': ''
+                                }
+                            }
+                        }
+                    }
+                },
+                expected = [];
+
+            assert(fs, expected, done);
         });
     });
 
     describe('detect', function () {
         it('must detect block', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        'block.tech': ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            'block.tech': ''
+                        }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [{
                     entity: { block: 'block' },
                     tech: 'tech',
@@ -183,19 +169,17 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', 'block.tech')
                 }];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must support complex tech', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        'block.tech.name': ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            'block.tech.name': ''
+                        }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [{
                     entity: { block: 'block' },
                     tech: 'tech.name',
@@ -203,21 +187,19 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', 'block.tech.name')
                 }];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must detect bool mod', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        '_bool-mod': {
-                            'block_bool-mod.tech': ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            '_bool-mod': {
+                                'block_bool-mod.tech': ''
+                            }
                         }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [{
                     entity: { block: 'block', modName: 'bool-mod', modVal: true },
                     tech: 'tech',
@@ -225,21 +207,19 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '_bool-mod', 'block_bool-mod.tech')
                 }];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must detect mod', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        _mod: {
-                            'block_mod_val.tech': ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            _mod: {
+                                'block_mod_val.tech': ''
+                            }
                         }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [{
                     entity: { block: 'block', modName: 'mod', modVal: 'val' },
                     tech: 'tech',
@@ -247,21 +227,19 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '_mod', 'block_mod_val.tech')
                 }];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must detect elem', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        __elem: {
-                            'block__elem.tech': ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            __elem: {
+                                'block__elem.tech': ''
+                            }
                         }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [{
                     entity: { block: 'block', elem: 'elem' },
                     tech: 'tech',
@@ -269,23 +247,21 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '__elem', 'block__elem.tech')
                 }];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must detect bool mod of elem', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        __elem: {
-                            '_bool-mod': {
-                                'block__elem_bool-mod.tech': ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            __elem: {
+                                '_bool-mod': {
+                                    'block__elem_bool-mod.tech': ''
+                                }
                             }
                         }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [{
                     entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
                     tech: 'tech',
@@ -293,23 +269,21 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '__elem', '_bool-mod', 'block__elem_bool-mod.tech')
                 }];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must detect elem mod', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        __elem: {
-                            _mod: {
-                                'block__elem_mod_val.tech': ''
+            var fs = {
+                    blocks: {
+                        block: {
+                            __elem: {
+                                _mod: {
+                                    'block__elem_mod_val.tech': ''
+                                }
                             }
                         }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [{
                     entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' },
                     tech: 'tech',
@@ -317,34 +291,32 @@ describe('nested scheme', function () {
                     path: path.join('blocks', 'block', '__elem', '_mod', 'block__elem_mod_val.tech')
                 }];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must detect complex entities', function (done) {
-            mock({
-                blocks: {
-                    block: {
-                        'block.tech': '',
-                        '_bool-mod': {
-                            'block_bool-mod.tech': ''
-                        },
-                        _mod: {
-                            'block_mod_val.tech': ''
-                        },
-                        __elem: {
-                            'block__elem.tech': '',
+            var fs = {
+                    blocks: {
+                        block: {
+                            'block.tech': '',
                             '_bool-mod': {
-                                'block__elem_bool-mod.tech': ''
+                                'block_bool-mod.tech': ''
                             },
                             _mod: {
-                                'block__elem_mod_val.tech': ''
+                                'block_mod_val.tech': ''
+                            },
+                            __elem: {
+                                'block__elem.tech': '',
+                                '_bool-mod': {
+                                    'block__elem_bool-mod.tech': ''
+                                },
+                                _mod: {
+                                    'block__elem_mod_val.tech': ''
+                                }
                             }
                         }
                     }
-                }
-            });
-
-            var levels = ['blocks'],
+                },
                 expected = [
                     {
                         entity: { block: 'block' },
@@ -384,24 +356,22 @@ describe('nested scheme', function () {
                     }
                 ];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
 
         it('must support few levels', function (done) {
-            mock({
-                'common.blocks': {
-                    block: {
-                        'block.tech': ''
+            var fs = {
+                    'common.blocks': {
+                        block: {
+                            'block.tech': ''
+                        }
+                    },
+                    'desktop.blocks': {
+                        block: {
+                            'block.tech': ''
+                        }
                     }
                 },
-                'desktop.blocks': {
-                    block: {
-                        'block.tech': ''
-                    }
-                }
-            });
-
-            var levels = ['common.blocks', 'desktop.blocks'],
                 expected = [
                     {
                         entity: { block: 'block' },
@@ -417,7 +387,7 @@ describe('nested scheme', function () {
                     }
                 ];
 
-            assert(levels, expected, done);
+            assert(fs, expected, done);
         });
     });
 });
