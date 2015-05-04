@@ -1,5 +1,4 @@
 var path = require('path'),
-    walk = require('../../lib/index'),
     mockAndAssert = require('../lib/mock-and-assert'),
     opts = { scheme: 'nested' },
     assert = function (fs, expected) {
@@ -10,15 +9,17 @@ var path = require('path'),
 
 describe('nested scheme', function () {
     describe('errors', function () {
-        it('must throw error if levels is not found', function (done) {
-            var walker = walk(['not-existing-level']);
+        it('must throw error if levels is not found', function () {
+            var fs = {
+                'not-existing-level': false
+            };
 
-            walker
-                .on('error', function (err) {
-                    err.must.throw();
-                    done();
-                })
-                .resume();
+            return assert(fs)
+                .catch(function (err) {
+                    err.must.a(Error);
+                    err.code.must.be('ENOENT');
+                    err.errno.must.be(34);
+                });
         });
     });
 
