@@ -1,31 +1,23 @@
 var path = require('path'),
-    mock = require('mock-fs'),
-    walk = require('../../lib/index'),
-    verboseAssert = require('../lib/assert'),
+    schemeAssert = require('../lib/scheme-assert'),
     opts = { scheme: 'nested' },
     assert = function (fs, expected) {
-        var levels = Object.keys(fs);
-
-        mock(fs);
-
-        return verboseAssert(levels, opts, expected);
+        return schemeAssert(fs, opts, expected);
     };
 
 describe('nested scheme', function () {
-    afterEach(function () {
-        mock.restore();
-    });
-
     describe('errors', function () {
-        it('must throw error if levels is not found', function (done) {
-            var walker = walk(['not-existing-level']);
+        it('must throw error if levels is not found', function () {
+            var fs = {
+                'not-existing-level': false
+            };
 
-            walker
-                .on('error', function (err) {
-                    err.must.throw();
-                    done();
-                })
-                .resume();
+            return assert(fs)
+                .catch(function (err) {
+                    err.must.a(Error);
+                    err.code.must.be('ENOENT');
+                    err.errno.must.be(34);
+                });
         });
     });
 

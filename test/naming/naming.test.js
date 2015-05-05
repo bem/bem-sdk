@@ -1,106 +1,64 @@
 var path = require('path'),
-    mock = require('mock-fs'),
-    assert = require('../lib/assert'),
-    convention = {
-        original: {
-            scheme: 'flat',
-            naming: { elem: '__', mod: '_' }
-        },
-        csswizardry: {
-            scheme: 'flat',
-            naming: { elem: '__', mod: '--' }
-        },
-        custom:  {
-            scheme: 'flat',
-            naming: {
-                elem: '-',
-                mod: '--',
-                wordPattern: '[a-zA-Z0-9]+'
-            }
-        }
-    };
+    assert = require('../lib/naming-assert');
 
 describe('naming', function () {
-    afterEach(function () {
-        mock.restore();
-    });
-
     it('must support original naming', function () {
-        mock({
-            blocks: {
-                'block__elem_bool-mod.tech': ''
-            }
-        });
-
-        var levels = ['blocks'],
+        var fs = {
+                'original.blocks': {
+                    'block__elem_bool-mod.tech': ''
+                }
+            },
             expected = [{
                 entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
                 tech: 'tech',
-                level: 'blocks',
-                path: path.join('blocks', 'block__elem_bool-mod.tech')
+                level: 'original.blocks',
+                path: path.join('original.blocks', 'block__elem_bool-mod.tech')
             }];
 
-        return assert(levels, convention.original, expected);
+        return assert(fs, expected);
     });
 
     it('must support Convention by Harry Roberts', function () {
-        mock({
-            blocks: {
-                'block__elem--bool-mod.tech': ''
-            }
-        });
-
-        var levels = ['blocks'],
+        var fs = {
+                'csswizardry.blocks': {
+                    'block__elem--bool-mod.tech': ''
+                }
+            },
             expected = [{
                 entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
                 tech: 'tech',
-                level: 'blocks',
-                path: path.join('blocks', 'block__elem--bool-mod.tech')
+                level: 'csswizardry.blocks',
+                path: path.join('csswizardry.blocks', 'block__elem--bool-mod.tech')
             }];
 
-        return assert(levels, convention.csswizardry, expected);
+        return assert(fs, expected);
     });
 
     it('must support custom naming', function () {
-        mock({
-            blocks: {
-                'block-elem--boolMod.tech': ''
-            }
-        });
-
-        var levels = ['blocks'],
+        var fs = {
+                'custom.blocks': {
+                    'block-elem--boolMod.tech': ''
+                }
+            },
             expected = [{
                 entity: { block: 'block', elem: 'elem', modName: 'boolMod', modVal: true },
                 tech: 'tech',
-                level: 'blocks',
-                path: path.join('blocks', 'block-elem--boolMod.tech')
+                level: 'custom.blocks',
+                path: path.join('custom.blocks', 'block-elem--boolMod.tech')
             }];
 
-        return assert(levels, convention.custom, expected);
+        return assert(fs, expected);
     });
 
     it('must support several naming', function () {
-        mock({
-            'original.naming': {
-                'block__elem_bool-mod.tech': ''
-            },
-            'csswizardry.naming': {
-                'block__elem--bool-mod.tech': ''
-            }
-        });
-
-        var levels = [
-                {
-                    path: 'original.naming',
-                    scheme: 'flat',
-                    naming: convention.original
+        var fs = {
+                'original.naming': {
+                    'block__elem_bool-mod.tech': ''
                 },
-                {
-                    path: 'csswizardry.naming',
-                    scheme: 'flat',
-                    naming: convention.csswizardry.naming
+                'csswizardry.naming': {
+                    'block__elem--bool-mod.tech': ''
                 }
-            ],
+            },
             expected = [
                 {
                     entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
@@ -116,6 +74,6 @@ describe('naming', function () {
                 }
             ];
 
-        return assert(levels, {}, expected);
+        return assert(fs, expected);
     });
 });

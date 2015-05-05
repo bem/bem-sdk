@@ -3,19 +3,27 @@ var promisify = require('bluebird').promisify,
 
 function assert(levels, opts, expected, cb) {
     var buffer = [],
-        walker = walk(levels, opts);
+        walker = walk(levels, opts),
+        hasError = false;
 
     walker.on('data', function (obj) {
         buffer.push(obj);
     });
 
-    walker.on('end', function () {
-        try {
-            buffer.must.eql(expected);
-            cb();
-        } catch (err) {
-            cb(err);
+    walker.on ('end', function () {
+        if (!hasError) {
+            try {
+                buffer.must.eql(expected);
+                cb();
+            } catch (err) {
+                cb(err);
+            }
         }
+    });
+
+    walker.on('error', function (err) {
+        hasError = true;
+        cb(err);
     });
 }
 
