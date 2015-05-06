@@ -179,10 +179,10 @@ Returns a string indicating the type of the BEM entity.
 Example:
 
 ```js
-bemNaming.isBlock({ block: 'block' });                 // block
-bemNaming.isBlock({ block: 'block', modName: 'mod' }); // blockMod
-bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elem
-bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elemMod
+bemNaming.typeOf({ block: 'block' });                               // block
+bemNaming.typeOf({ block: 'block', modName: 'mod' });               // blockMod
+bemNaming.typeOf({ block: 'block', elem: 'elem' });                 // elem
+bemNaming.typeOf({ block: 'block', elem: 'elem', modName: 'mod' }); // elemMod
 ```
 
 -------------------------------------------------------------------------------

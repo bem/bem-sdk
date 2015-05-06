@@ -179,10 +179,10 @@ bemNaming.typeOf('block__elem_mod');   // elemMod
 Пример:
 
 ```js
-bemNaming.isBlock({ block: 'block' });                 // block
-bemNaming.isBlock({ block: 'block', modName: 'mod' }); // blockMod
-bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elem
-bemNaming.isBlock({ block: 'block', elem: 'elem' });   // elemMod
+bemNaming.typeOf({ block: 'block' });                               // block
+bemNaming.typeOf({ block: 'block', modName: 'mod' });               // blockMod
+bemNaming.typeOf({ block: 'block', elem: 'elem' });                 // elem
+bemNaming.typeOf({ block: 'block', elem: 'elem', modName: 'mod' }); // elemMod
 ```
 
 <hr/>
