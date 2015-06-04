@@ -1,0 +1,38 @@
+{
+  "name": "bem-deps",
+  "version": "0.0.0",
+  "description": "",
+  "keywords": [
+    "bem",
+    "deps"
+  ],
+  "licenses": [
+    {
+      "type": "MPL-2.0",
+      "url": "https://github.com/bem-incubator/bem-deps/blob/master/LICENSE.txt"
+    }
+  ],
+  "repository": "git://github.com/bem-incubator/bem-deps",
+  "homepage": "https://github.com/bem-incubator/bem-deps",
+  "bugs": "https://github.com/bem-incubator/bem-deps/issues",
+  "engines": {
+    "node": ">= 0.10.0"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "istanbul": "0.3.14",
+    "jscs": "1.13.1",
+    "jshint": "2.8.0",
+    "matcha": "0.6.0",
+    "mocha": "2.2.5",
+    "must": "0.12.0"
+  },
+  "scripts": {
+    "test": "npm run lint && npm run unit",
+    "lint": "jshint . && jscs . -c .jscs.js",
+    "unit": "mocha -R spec",
+    "bench": "matcha benchmark/*.js",
+    "cover": "istanbul cover _mocha",
+    "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+  }
+}
