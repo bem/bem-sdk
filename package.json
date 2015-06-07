@@ -11,7 +11,7 @@
     "subtract",
     "BEMDECL"
   ],
-  "author": "Andrew Abramov <andrewblond@yandex.com>",
+  "author": "Andrew Abramov <mail@blond.im>",
   "licenses": [
     {
       "type": "MPL-2.0",
@@ -21,11 +21,11 @@
   "repository": "git://github.com/bem/bem-decl",
   "homepage": "https://github.com/bem/bem-decl",
   "bugs": "https://github.com/bem/bem-decl/issues",
-  "contributors": "Andrew Abramov <andrewblond@yandex.com>",
+  "contributors": "Andrew Abramov <mail@blond.im>",
   "maintainers": [
     {
       "name": "Andrew Abramov",
-      "email": "andrewblond@yandex.com",
+      "email": "mail@blond.im",
       "github-username": "blond"
     }
   ],
