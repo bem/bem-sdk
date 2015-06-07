@@ -4,7 +4,7 @@
     "forin": true,
     "freeze": true,
     "immed": true,
-    "latedef": "nofucn",
+    "latedef": "nofunc",
     "noarg": true,
     "noempty": true,
     "nonbsp": true,
@@ -12,14 +12,12 @@
     "undef": true,
     "unused": true,
 
+    "browser": true,
     "node": true,
+    "mocha": true,
     "globals": {
-        "describe": false,
-        "it": false,
-        "before": false,
-        "beforeEach": false,
-        "after": false,
-        "afterEach": false
+        "modules": false,
+        "define": false
     },
 
     "expr": true,
