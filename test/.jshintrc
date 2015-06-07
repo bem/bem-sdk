@@ -4,7 +4,7 @@
     "forin": true,
     "freeze": true,
     "immed": true,
-    "latedef": "nofucn",
+    "latedef": "nofunc",
     "noarg": true,
     "noempty": true,
     "nonbsp": true,
@@ -13,14 +13,7 @@
     "unused": true,
 
     "node": true,
-    "globals": {
-        "describe": false,
-        "it": false,
-        "before": false,
-        "beforeEach": false,
-        "after": false,
-        "afterEach": false
-    },
+    "mocha": true,
 
     "expr": true,
     "sub": true
