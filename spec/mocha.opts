@@ -1,0 +1,4 @@
+./spec/**/*.spec.js
+--ui bdd
+--reporter dot
+--require chai
