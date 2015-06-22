@@ -1,4 +1,4 @@
-./test/*.test.js
+./spec/**/*.spec.js
 --ui bdd
 --reporter dot
---require must
+--require chai
