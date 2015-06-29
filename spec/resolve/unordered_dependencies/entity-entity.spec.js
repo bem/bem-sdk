@@ -116,7 +116,7 @@ describe('resolve', function () {
                 firstIndex = _.findIndex(resolved.entities, { block: 'C' }),
                 lastIndex = _.findLastIndex(resolved.entities, { block: 'C' });
 
-            expect(resolved).to.contain({ block: 'C' });
+            expect(resolved.entities).to.contain({ block: 'C' });
             expect(firstIndex).to.be.equal(lastIndex);
         });
 
