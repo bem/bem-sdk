@@ -274,7 +274,7 @@ describe('resolving unordered dependencies: tech - tech for mismatching tech', f
             firstIndex = _.findIndex(resolved.dependOn[jsDepsIndex], { block: 'C' }),
             lastIndex = _.findLastIndex(resolved.dependOn[jsDepsIndex], { block: 'C' });
 
-        expect(~jsDepsIndex).to.be.ok;
+        expect(jsDepsIndex).to.not.be(-1);
         expect(firstIndex).to.be.equal(lastIndex);
     });
 
@@ -295,7 +295,7 @@ describe('resolving unordered dependencies: tech - tech for mismatching tech', f
                     ]
                 }
             ],
-            opts = { tech: 'css'},
+            opts = { tech: 'css' },
             resolved = resolve(decl, deps, opts);
 
         expect(resolved.dependOn).to.be.empty();
