@@ -3,7 +3,7 @@ var expect  = require('chai').expect,
     resolve = require('../../../lib/index').resolve;
 
 describe('resolving unordered dependencies: entity - tech', function () {
-    it('should resolve entity depending tech in another entity', function () {
+    it('should resolve entity depending by tech on another entity', function () {
         var decl = [{ block: 'A' }],
             deps = [
                 {
@@ -20,7 +20,7 @@ describe('resolving unordered dependencies: entity - tech', function () {
         expect(resolved.entities).to.contain({ block: 'B' });
     });
 
-    it('should resolve entity depending on tech of multiple entities', function () {
+    it('should resolve entity depending by tech on multiple entities', function () {
         var decl = [{ block: 'A' }],
             deps = [
                 {
@@ -44,7 +44,7 @@ describe('resolving unordered dependencies: entity - tech', function () {
             .and.to.contain({ block: 'C' });
     });
 
-    it('should resolve entity depending on multiple techs in another entity', function () {
+    it('should resolve entity depending by multiple techs on another entity', function () {
         var decl = [{ block: 'A' }],
             deps = [
                 {
@@ -67,7 +67,7 @@ describe('resolving unordered dependencies: entity - tech', function () {
         expect(resolved.entities).to.contain({ block: 'B' });
     });
 
-    it('should resolve dependency depending on tech in another entity', function () {
+    it('should resolve dependency depending by tech on another entity', function () {
         var decl = [{ block: 'A' }],
             deps = [
                 {
@@ -92,7 +92,7 @@ describe('resolving unordered dependencies: entity - tech', function () {
         expect(resolved.entities).to.contain({ block: 'C' });
     });
 
-    it('should resolve dependency depending on multiple techs in another entity', function () {
+    it('should resolve dependency depending by multiple techs on another entity', function () {
         var decl = [{ block: 'A' }],
             deps = [
                 {
@@ -121,7 +121,7 @@ describe('resolving unordered dependencies: entity - tech', function () {
         expect(resolved.entities).to.contain({ block: 'C' });
     });
 
-    it('should resolve dependency depending on multiple techs in another entities', function () {
+    it('should resolve dependency depending by multiple techs on another entities', function () {
         var decl = [{ block: 'A' }],
             deps = [
                 {

@@ -238,7 +238,7 @@ describe('resolving unordered dependencies: tech - tech for mismatching tech', f
         });
     });
 
-    it('should include tech to result once if tech of multiple entities depend on this tech and this tech is' +
+    it('should include tech to result once if tech of multiple entities depends on this tech and this tech is' +
         ' not matching with resolving tech', function () {
         var decl = [
                 { block: 'A' },
