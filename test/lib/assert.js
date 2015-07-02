@@ -1,9 +1,9 @@
 var promisify = require('bluebird').promisify,
     walk = require('../../lib/index');
 
-function assert(levels, opts, expected, cb) {
+function assert(levels, config, expected, cb) {
     var buffer = [],
-        walker = walk(levels, opts),
+        walker = walk(levels, config),
         hasError = false;
 
     walker.on('data', function (obj) {

@@ -1,7 +1,7 @@
 var mock = require('mock-fs'),
     assert = require('./assert');
 
-module.exports = function (fs, levels, opts, expected) {
+module.exports = function (fs, levels, config, expected) {
     Object.keys(fs).forEach(function (level) {
         var content = fs[level];
 
@@ -12,7 +12,7 @@ module.exports = function (fs, levels, opts, expected) {
 
     mock(fs);
 
-    return assert(levels, opts, expected)
+    return assert(levels, config, expected)
         .finally(function () {
             mock.restore();
         });
