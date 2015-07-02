@@ -4,6 +4,6 @@
   "dependencies": {
     "enb": "0.15.0",
     "scan-level": "0.0.4",
-    "vow": "0.4.9"
+    "vow": "0.4.10"
   }
 }

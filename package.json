@@ -39,13 +39,13 @@
     "bem-naming": "0.5.1"
   },
   "devDependencies": {
-    "bluebird": "2.9.25",
-    "istanbul": "0.3.11",
-    "jscs": "1.12.0",
-    "jshint": "2.6.3",
+    "bluebird": "2.9.30",
+    "istanbul": "0.3.17",
+    "jscs": "1.13.1",
+    "jshint": "2.8.0",
     "matcha": "0.6.0",
-    "mocha": "2.2.1",
-    "mock-fs": "2.7.1",
+    "mocha": "2.2.5",
+    "mock-fs": "3.0.0",
     "must": "0.12.0"
   },
   "scripts": {
