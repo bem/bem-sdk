@@ -43,7 +43,7 @@ describe('resolving unordered dependencies: tech - entity', function () {
             .and.to.contain({ block: 'C' });
     });
 
-    it('should resolve multiple tech in entity depending on another entity', function () {
+    it('should resolve multiple techs in entity depending on another entity', function () {
         var decl = [{ block: 'A' }],
             deps = [
                 {
@@ -179,7 +179,7 @@ describe('resolving unordered dependencies: tech - entity', function () {
         expect(resolved.entities).to.contain({ block: 'D' });
     });
 
-    it('should include entity to result once if tech of multiple entities depend on this entity', function () {
+    it('should include entity once if tech of multiple entities depend on this entity', function () {
         var decl = [
                 { block: 'A' },
                 { block: 'B' }
