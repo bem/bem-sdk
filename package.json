@@ -45,7 +45,7 @@
     "jshint": "2.6.3",
     "matcha": "0.6.0",
     "mocha": "2.2.1",
-    "mock-fs": "2.5.0",
+    "mock-fs": "2.7.1",
     "must": "0.12.0"
   },
   "scripts": {
@@ -55,7 +55,6 @@
     "cover": "istanbul cover _mocha -- ./test/**/*.test.js",
     "bench": "npm run bench-deps && matcha benchmark/*.js",
     "bench-deps": "cd benchmark && npm i && cd fixtures && bower i",
-    "coveralls": "npm i coveralls && cat ./coverage/lcov.info | coveralls",
-    "travis": "npm run test && npm run cover && npm run coveralls"
+    "coveralls": "npm i coveralls && npm run cover && cat ./coverage/lcov.info | coveralls"
   }
 }
