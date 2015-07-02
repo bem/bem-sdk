@@ -4,22 +4,27 @@ var mockAndAssert = require('./mock-and-assert'),
         nested: true
     };
 
-module.exports = function (fs, opts, expected) {
+module.exports = function (fs, defaults, expected) {
     if (arguments.length === 2) {
-        expected = opts;
-        opts = {};
+        expected = defaults;
+        defaults = {};
     }
 
-    var levels = Object.keys(fs).map(function (levelPath) {
-        var scheme = levelPath.indexOf('.') !== -1 && levelPath.split('.')[0],
+    var config = {
+        defaults: defaults,
+        levels: {}
+    };
+
+    Object.keys(fs).forEach(function (levelname) {
+        var scheme = levelname.indexOf('.') !== -1 && levelname.split('.')[0],
             info = {
-                path: levelPath
+                path: levelname
             };
 
         schemes[scheme] && (info.scheme = scheme);
 
-        return info;
+        config.levels[levelname] = info;
     });
 
-    return mockAndAssert(fs, levels, opts, expected);
+    return mockAndAssert(fs, Object.keys(config.levels), config, expected);
 };

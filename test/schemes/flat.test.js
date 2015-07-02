@@ -1,8 +1,8 @@
 var path = require('path'),
     schemeAssert = require('../lib/scheme-assert'),
-    opts = { scheme: 'flat' },
+    defaults = { scheme: 'flat' },
     assert = function (fs, expected) {
-        return schemeAssert(fs, opts, expected);
+        return schemeAssert(fs, defaults, expected);
     };
 
 describe('flat scheme', function () {

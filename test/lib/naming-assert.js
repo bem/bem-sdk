@@ -1,5 +1,5 @@
 var mockAndAssert = require('./mock-and-assert'),
-    opts = { scheme: 'flat' },
+    defaults = { scheme: 'flat' },
     conventions = {
         original: { elem: '__', mod: '_' },
         csswizardry: { elem: '__', mod: '--' },
@@ -11,17 +11,22 @@ var mockAndAssert = require('./mock-and-assert'),
     };
 
 module.exports = function (fs, expected) {
-    var levels = Object.keys(fs).map(function (levelPath) {
-        var naming = levelPath.indexOf('.') !== -1 && levelPath.split('.')[0],
+    var config = {
+        levels: {},
+        defaults: defaults
+    };
+
+    Object.keys(fs).forEach(function (levelname) {
+        var naming = levelname.indexOf('.') !== -1 && levelname.split('.')[0],
             convention = conventions[naming],
             info = {
-                path: levelPath
+                path: levelname
             };
 
         convention && (info.naming = convention);
 
-        return info;
+        config.levels[levelname] = info;
     });
 
-    return mockAndAssert(fs, levels, opts, expected);
+    return mockAndAssert(fs, Object.keys(config.levels), config, expected);
 };
