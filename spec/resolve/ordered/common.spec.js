@@ -195,7 +195,7 @@ describe('resolving ordered deps: common', function () {
         expect(resolved.entities).not.to.contain({ block: 'B' });
     });
 
-    it('should not include dependency\'s dependency if no entity from decl\'s dependencies depends ' +
+    it('should not include dependency of dependency if no entity from decl\'s dependencies depends ' +
         'on it', function () {
         var decl = [{ block: 'A' }],
             deps = [
