@@ -2,7 +2,7 @@ var expect  = require('chai').expect,
     _       = require('lodash'),
     resolve = require('../../../../lib/index').resolve;
 
-describe('resolving unordered dependencies: tech - tech for matching tech', function () {
+describe('resolving ordered dependencies: tech - tech for matching tech', function () {
     it('should resolve tech depending on another tech', function () {
         var decl = [{ block: 'A' }],
             deps = [
@@ -11,7 +11,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     tech: 'css',
                     dependOn: [{
                         entity: { block: 'B' },
-                        tech: 'css'
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
                     }]
                 }
             ],
@@ -30,11 +31,13 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         },
                         {
                             entity: { block: 'B' },
-                            tech: 'js'
+                            tech: 'js',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -54,7 +57,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 },
@@ -64,7 +68,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -75,7 +80,7 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
         expect(resolved.entities).to.contain({ block: 'B' });
     });
 
-    it('should resolve multiple tech in entity depending on multiple techs in another entity and one of this techs ' +
+    it('should resolve multiple techs in entity depending on multiple techs in another entity and one of this techs ' +
         'matching with resolving tech', function () {
         var decl = [{ block: 'A' }],
             deps = [
@@ -85,7 +90,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 },
@@ -95,7 +101,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            tech: 'js'
+                            tech: 'js',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -118,7 +125,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     tech: 'css',
                     dependOn: [{
                         entity: { block: 'C' },
-                        tech: 'css'
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
                     }]
                 },
                 {
@@ -126,7 +134,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     tech: 'css',
                     dependOn: [{
                         entity: { block: 'C' },
-                        tech: 'css'
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
                     }]
                 }
             ],
@@ -148,7 +157,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     tech: 'css',
                     dependOn: [{
                         entity: { block: 'C' },
-                        tech: 'js'
+                        tech: 'js',
+                        order: 'dependenceBeforeDependants'
                     }]
                 },
                 {
@@ -156,7 +166,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     tech: 'css',
                     dependOn: [{
                         entity: { block: 'C' },
-                        tech: 'css'
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
                     }]
                 }
             ],
@@ -183,7 +194,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'C' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -211,11 +223,13 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'C' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         },
                         {
                             entity: { block: 'D' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -246,7 +260,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     tech: 'css',
                     dependOn: [{
                         entity: { block: 'D' },
-                        tech: 'css'
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
                     }]
                 },
                 {
@@ -254,7 +269,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     tech: 'css',
                     dependOn: [{
                         entity: { block: 'D' },
-                        tech: 'css'
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
                     }]
                 }
             ],
@@ -264,7 +280,7 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
         expect(resolved.entities).to.contain({ block: 'D' });
     });
 
-    it('should include tech to result once if tech of multiple entities depend on this tech and this tech matches' +
+    it('should include tech to result once if tech of multiple entities depends on this tech and this tech matches' +
         ' with resolving tech', function () {
         var decl = [
                 { block: 'A' },
@@ -277,7 +293,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'C' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 },
@@ -287,7 +304,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'C' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -311,7 +329,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'A' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -332,7 +351,8 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
                     dependOn: [
                         {
                             entity: { block: 'D' },
-                            tech: 'css'
+                            tech: 'css',
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
