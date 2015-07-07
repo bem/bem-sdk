@@ -2,7 +2,7 @@ var expect  = require('chai').expect,
     _       = require('lodash'),
     resolve = require('../../../lib/index').resolve;
 
-describe('resolving ordered deps: common', function () {
+describe('resolving ordered deps: common for specific tech', function () {
     it('should resolve entity depending on another entity', function () {
         var decl = [{ block: 'A' }],
             deps = [
@@ -16,7 +16,8 @@ describe('resolving ordered deps: common', function () {
                     ]
                 }
             ],
-            resolved = resolve(decl, deps);
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts);
 
         expect(resolved.entities).to.contain({ block: 'B' });
     });
@@ -29,16 +30,17 @@ describe('resolving ordered deps: common', function () {
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            order: 'dependenceBeforeDependants'
+                            order: 'dependenceBeforeDependant'
                         },
                         {
                             entity: { block: 'C' },
-                            order: 'dependenceBeforeDependants'
+                            order: 'dependenceBeforeDependant'
                         }
                     ]
                 }
             ],
-            resolved = resolve(decl, deps);
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts);
 
         expect(resolved.entities).to.contain({ block: 'B' })
             .and.to.contain({ block: 'C' });
@@ -52,7 +54,7 @@ describe('resolving ordered deps: common', function () {
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            order: 'dependenceBeforeDependants'
+                            order: 'dependenceBeforeDependant'
                         },
                         {
                             entity: { block: 'C' }
@@ -60,7 +62,8 @@ describe('resolving ordered deps: common', function () {
                     ]
                 }
             ],
-            resolved = resolve(decl, deps);
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts);
 
         expect(resolved.entities).to.contain({ block: 'B' })
             .and.to.contain({ block: 'C' });
@@ -79,9 +82,14 @@ describe('resolving ordered deps: common', function () {
                     ]
                 }
             ],
-            resolved = resolve(decl, deps);
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts),
+            firstIndex = _.findIndex(resolved.entities, { block: 'A' }),
+            lastIndex = _.findLastIndex(resolved.entities, { block: 'A' });
 
-        expect(resolved.entities).to.be.eql([{ block: 'A' }]);
+        expect(firstIndex).to.not.be.equal(-1);
+        expect(lastIndex).to.not.be.equal(-1);
+        expect(firstIndex).to.be.equal(lastIndex);
     });
 
     it('should resolve dependency depending on another entity', function () {
@@ -106,7 +114,8 @@ describe('resolving ordered deps: common', function () {
                     ]
                 }
             ],
-            resolved = resolve(decl, deps);
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts);
 
         expect(resolved.entities).to.contain({ block: 'C' });
     });
@@ -137,7 +146,8 @@ describe('resolving ordered deps: common', function () {
                     ]
                 }
             ],
-            resolved = resolve(decl, deps);
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts);
 
         expect(resolved.entities).to.contain({ block: 'C' })
             .and.to.contain({ block: 'D' });
@@ -168,7 +178,8 @@ describe('resolving ordered deps: common', function () {
                     ]
                 }
             ],
-            resolved = resolve(decl, deps),
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts),
             firstIndex = _.findIndex(resolved.entities, { block: 'C' }),
             lastIndex = _.findLastIndex(resolved.entities, { block: 'C' });
 
@@ -190,7 +201,8 @@ describe('resolving ordered deps: common', function () {
                     ]
                 }
             ],
-            resolved = resolve(decl, deps);
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts);
 
         expect(resolved.entities).not.to.contain({ block: 'B' });
     });
@@ -209,7 +221,8 @@ describe('resolving ordered deps: common', function () {
                     ]
                 }
             ],
-            resolved = resolve(decl, deps);
+            opts = { tech: 'css' },
+            resolved = resolve(decl, deps, opts);
 
         expect(resolved.entities).to.not.contain({ block: 'D' });
     });
