@@ -1,0 +1,11 @@
+module.exports = [ { block: 'b1' },
+  { modName: 'm1', modVal: 'v1', block: 'b1', elem: 'e1' },
+  { modName: 'bool', modVal: true, block: 'b1', elem: 'e1' },
+  { block: 'b1', elem: 'e2' },
+  { modName: 'b1m1', modVal: 'v2', block: 'b1' },
+  { block: 'b3' },
+  { block: 'b2' },
+  { block: 'b2', elem: 'e1Ofb2' },
+  { block: 'b2', elem: 'e2Ofb2' },
+  { block: 'b1', elem: 'e3' },
+  { modName: 'b1m1', modVal: 'v1', block: 'b1' } ];
