@@ -34,12 +34,14 @@ walk([
     .pipe(stringify())
     .pipe(process.stdout);
 
-// {
+// [{
 //     entity: { block: "page" },
 //     level: "libs/bem-core/desktop.blocks",
 //     tech: "bemhtml",
 //     path: "libs/bem-core/desktop.blocks/page/page.bemhtml"
-// }
+// },
+// ...
+// ]
 ```
 
 License
