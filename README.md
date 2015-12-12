@@ -1,4 +1,4 @@
-# bem-scheme
+# bem-fs-scheme
 
 BEM file system schemes.
 
@@ -20,5 +20,5 @@ var options = {
     }
 }; // this is default value
 
-require('bem-scheme')('nested').path(entity, tech, options); // b1/__e1/_m1/b1__e1_m1_v1.js
+require('bem-fs-scheme')('nested').path(entity, tech, options); // b1/__e1/_m1/b1__e1_m1_v1.js
 ```
