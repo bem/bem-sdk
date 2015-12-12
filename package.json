@@ -1,0 +1,29 @@
+{
+  "name": "bem-scheme",
+  "version": "1.0.0",
+  "description": "BEM file system schemes",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem-incubator/bem-scheme.git"
+  },
+  "keywords": [
+    "BEM",
+    "bem",
+    "file system",
+    "fs",
+    "bem scheme"
+  ],
+  "author": "",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem-incubator/bem-scheme/issues"
+  },
+  "homepage": "https://github.com/bem-incubator/bem-scheme#readme",
+  "dependencies": {
+    "bem-naming": "^0.5.1"
+  }
+}
