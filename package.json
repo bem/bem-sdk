@@ -1,0 +1,29 @@
+{
+  "name": "bem-config",
+  "version": "1.0.0",
+  "description": "Config module for bem-tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem-incubator/bem-config.git"
+  },
+  "keywords": [
+    "BEM",
+    "bem-tools",
+    "bem",
+    "config"
+  ],
+  "author": "",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem-incubator/bem-config/issues"
+  },
+  "homepage": "https://github.com/bem-incubator/bem-config#readme",
+  "dependencies": {
+    "find-config": "^0.3.0",
+    "os-homedir": "^1.0.1"
+  }
+}
