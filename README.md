@@ -16,10 +16,8 @@ config(optionalConfig);
 
 var isGlobal = true;
 
-config.getConfigName(); // 'bemconf'
-config.getConfigName(isGlobal); // '.bemconf'
-config.getConfigFile(); // 'bemconf.json'
-config.getConfigFile(isGlobal); // '.bemconf.json'
+config.getConfigFilename(); // 'bemconf.json'
+config.getConfigFilename(isGlobal); // '.bemconf.json'
 config.getGlobalConfigPath(); // '~/.bemconf.json'
 ```
 

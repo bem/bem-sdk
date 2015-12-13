@@ -8,16 +8,12 @@ var fs = require('fs'),
 /**
  * @param {boolean} isGlobal
  */
-function getConfigName(isGlobal) {
-    return (isGlobal ? '.' : '') + 'bemconf';
-}
-
-function getConfigFile(isGlobal) {
-    return getConfigName(isGlobal) + '.json';
+function getConfigFilename(isGlobal) {
+    return (isGlobal ? '.' : '') + 'bemconf.json';
 }
 
 function getGlobalConfigPath() {
-    return path.resolve(tilde, getConfigFile(true));
+    return path.resolve(tilde, getConfigFilename(true));
 }
 
 function writeGlobalConfig(data) {
@@ -30,7 +26,7 @@ module.exports = function(config) {
 
     do {
         Object.assign(localConfig,
-            findConfig.require(getConfigName(), { cwd: cwd, home: false }));
+            findConfig.require(getConfigFilename(), { cwd: cwd, home: false }));
 
         cwd = path.resolve(cwd, '..');
     } while(!localConfig.root && cwd !== '/');
@@ -39,7 +35,7 @@ module.exports = function(config) {
 
     var globalConfig = {};
     try {
-        globalConfig = require(path.join(tilde, getConfigName(true)));
+        globalConfig = require(path.join(tilde, getConfigFilename(true)));
     } catch(e) {}
 
     var extendedConfig = Object.assign({}, globalConfig, localConfig, config);
@@ -51,7 +47,6 @@ module.exports = function(config) {
     };
 };
 
-module.exports.getConfigName = getConfigName;
-module.exports.getConfigFile = getConfigFile;
+module.exports.getConfigFilename = getConfigFilename;
 module.exports.getGlobalConfigPath = getGlobalConfigPath;
 module.exports.writeGlobalConfig = writeGlobalConfig;
