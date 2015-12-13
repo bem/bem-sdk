@@ -1,6 +1,7 @@
 Object.assign || (Object.assign = require('object-assign'));
 
-var path = require('path'),
+var fs = require('fs'),
+    path = require('path'),
     tilde = require('os-homedir')(),
     findConfig = require('find-config');
 
