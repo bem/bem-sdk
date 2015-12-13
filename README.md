@@ -2,20 +2,32 @@
 
 ## Usage
 
-```
-require('bem-config')({ plugins: ['css', 'js'] });
+```js
+var config = require('bem-config');
+var optionalConfig = { plugins: ['css', 'js'] };
+
+config(optionalConfig);
 
 // {
-//   global: {},   // ~/.bem/config.json
-//   local: {},    // nearestParentDirWithConf/.bem/config.json
-//   extended: {}  // util._extend(global, local)
+//   global: {},   // ~/.bemconf.json
+//   local: {},    // nearestParentDirWithConf/bemconf.json
+//   extended: {}  // Object.assign(global, local, optionalConfig)
 // }
+
+var isGlobal = true;
+
+config.getConfigName(); // 'bemconf'
+config.getConfigName(isGlobal); // '.bemconf'
+config.getConfigFile(); // 'bemconf.json'
+config.getConfigFile(isGlobal); // '.bemconf.json'
+config.getGlobalConfigPath(); // '~/.bemconf.json'
 ```
 
 ## Config example
 
 ```json
 {
+  "root": true,
   "plugins": [
     "make"
   ],
