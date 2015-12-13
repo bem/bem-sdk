@@ -17,7 +17,7 @@ function getConfigFile(isGlobal) {
 }
 
 function getGlobalConfigPath() {
-    return path.resolve(tilde, getConfigName(true));
+    return path.resolve(tilde, getConfigFile(true));
 }
 
 function writeGlobalConfig(data) {
