@@ -1,15 +1,19 @@
-var CONF_NAME = 'bemconf.json',
-    path = require('path'),
+var path = require('path'),
     mock = require('mock-fs'),
     expect = require('chai').expect,
+    config = require('..'),
+    localConfigName = config.getConfigName() + '.json',
+    globalConfigName = config.getConfigName(true) + '.json',
     findConfigPath = require.resolve('find-config'),
     osHomedirPath = require.resolve('os-homedir'),
-    bemConfigPath = require.resolve('..'),
+    // bemConfigPath = require.resolve('..'),
     tilde = require(osHomedirPath)(),
-    globalConfigPath = path.join(tilde, '.' + CONF_NAME);
+    globalConfigPath = path.join(tilde, globalConfigName);
 
     require(findConfigPath);
-    require(bemConfigPath);
+    // require(bemConfigPath);
+
+    var config = require('..');
 
 describe('bem-config tests', function() {
 
@@ -21,7 +25,6 @@ describe('bem-config tests', function() {
         var scheme = {};
         mock(scheme);
 
-        var config = require('..');
         expect({
             global: {},
             local: {},
@@ -33,7 +36,6 @@ describe('bem-config tests', function() {
         var scheme = {};
         scheme[globalConfigPath] = '{ "GLOBAL": "1" }';
         mock(scheme);
-        var config = require('..');
 
         expect({
             global: { GLOBAL: '1' },
@@ -45,10 +47,9 @@ describe('bem-config tests', function() {
     it('should respect local config', function() {
         var scheme = {};
         scheme[globalConfigPath] = '{ "GLOBAL": "1" }';
-        scheme[CONF_NAME] = '{ "LOCAL": "1" }';
+        scheme[localConfigName] = '{ "LOCAL": "1" }';
 
         mock(scheme);
-        var config = require('..');
 
         expect({
             global: { GLOBAL: '1' },
@@ -60,9 +61,8 @@ describe('bem-config tests', function() {
     it('should override config with option argument', function() {
         var scheme = {};
         scheme[globalConfigPath] = '{ "GLOBAL": "1" }';
-        scheme[CONF_NAME] = '{ "LOCAL": "1" }';
+        scheme[localConfigName] = '{ "LOCAL": "1" }';
         mock(scheme);
-        var config = require('..');
 
         expect({
             global: { GLOBAL: '1' },
