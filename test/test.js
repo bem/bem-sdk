@@ -6,12 +6,10 @@ var path = require('path'),
     globalConfigName = config.getConfigName(true) + '.json',
     findConfigPath = require.resolve('find-config'),
     osHomedirPath = require.resolve('os-homedir'),
-    // bemConfigPath = require.resolve('..'),
     tilde = require(osHomedirPath)(),
     globalConfigPath = path.join(tilde, globalConfigName);
 
     require(findConfigPath);
-    // require(bemConfigPath);
 
     var config = require('..');
 
@@ -71,4 +69,3 @@ describe('bem-config tests', function() {
         }).eql(config({ OPTION: '1'}));
     });
 });
-
