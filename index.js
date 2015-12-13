@@ -8,6 +8,14 @@ function getConfigName(isGlobal) {
     return (isGlobal ? '.' : '') + 'bemconf';
 }
 
+function getConfigFile(isGlobal) {
+    return getConfigName(isGlobal) + '.json';
+}
+
+function getGlobalConfigPath() {
+    return path.resolve(tilde, getConfigName(true));
+}
+
 module.exports = function(config) {
     var localConfig = {},
         cwd = process.cwd();
@@ -35,3 +43,5 @@ module.exports = function(config) {
 };
 
 module.exports.getConfigName = getConfigName;
+module.exports.getConfigFile = getConfigFile;
+module.exports.getGlobalConfigPath = getGlobalConfigPath;
