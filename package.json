@@ -26,6 +26,7 @@
   "homepage": "https://github.com/bem-incubator/bem-config#readme",
   "dependencies": {
     "find-config": "^0.3.0",
+    "object-assign": "^4.0.1",
     "os-homedir": "^1.0.1"
   },
   "devDependencies": {

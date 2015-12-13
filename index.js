@@ -1,19 +1,28 @@
+Object.assign || (Object.assign = require('object-assign'));
+const CONF_NAME = 'bemconf';
+
 var path = require('path'),
-    util = require('util'),
     tilde = require('os-homedir')(),
     findConfig = require('find-config');
 
 module.exports = function(config) {
-    var localConfig = findConfig.require('.bem/config', { home: false }) || {},
-        globalConfig = {};
+    var localConfig = {},
+        cwd = process.cwd();
+
+    do {
+        cwd = path.resolve(cwd, '..');
+        Object.assign(localConfig,
+            findConfig.require(CONF_NAME, { cwd: cwd, home: false }));
+    } while(!localConfig.root && cwd !== '/');
+
+    if (localConfig.root) localConfig.root = cwd;
+
+    var globalConfig = {};
     try {
-        globalConfig = require(path.join(tilde, '.bem', 'config'));
+        globalConfig = require(path.join(tilde, '.' + CONF_NAME));
     } catch(e) {}
 
-    var extendedConfig = util._extend({}, globalConfig);
-
-    extendedConfig = util._extend(extendedConfig, localConfig);
-    extendedConfig = util._extend(extendedConfig, config || {});
+    var extendedConfig = Object.assign({}, globalConfig, localConfig, config);
 
     return {
         global: globalConfig,

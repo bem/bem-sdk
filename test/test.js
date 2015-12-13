@@ -1,10 +1,12 @@
-var mock = require('mock-fs'),
+var CONF_NAME = 'bemconf.json',
+    path = require('path'),
+    mock = require('mock-fs'),
     expect = require('chai').expect,
     findConfigPath = require.resolve('find-config'),
     osHomedirPath = require.resolve('os-homedir'),
     bemConfigPath = require.resolve('..'),
     tilde = require(osHomedirPath)(),
-    rootConfigPath = tilde + '/.bem/config.json';
+    globalConfigPath = path.join(tilde, '.' + CONF_NAME);
 
     require(findConfigPath);
     require(bemConfigPath);
@@ -27,47 +29,46 @@ describe('bem-config tests', function() {
         }).eql(config());
     });
 
-    it('should return root config', function() {
+    it('should return global config', function() {
         var scheme = {};
-        scheme[rootConfigPath] = '{ "ROOT": "1" }';
+        scheme[globalConfigPath] = '{ "GLOBAL": "1" }';
         mock(scheme);
         var config = require('..');
 
         expect({
-            global: { ROOT: '1' },
-            local: { ROOT: '1' },
-            extended: { ROOT: '1' }
+            global: { GLOBAL: '1' },
+            local: {},
+            extended: { GLOBAL: '1' }
         }).eql(config());
     });
 
-    it('should return local config', function() {
+    it('should respect local config', function() {
         var scheme = {};
-        scheme[rootConfigPath] = '{ "ROOT": "1" }';
-        scheme['.bem/config.json'] = '{ "LOCAL": "1" }';
+        scheme[globalConfigPath] = '{ "GLOBAL": "1" }';
+        scheme[CONF_NAME] = '{ "LOCAL": "1" }';
 
         mock(scheme);
         var config = require('..');
 
         expect({
-            global: { ROOT: '1' },
+            global: { GLOBAL: '1' },
             local: { LOCAL: '1' },
-            extended: { ROOT: '1', LOCAL: '1' }
+            extended: { GLOBAL: '1', LOCAL: '1' }
         }).eql(config());
     });
 
-    it('should return extended config', function() {
+    it('should override config with option argument', function() {
         var scheme = {};
-        scheme[rootConfigPath] = '{ "ROOT": "1" }';
-        scheme['.bem/config.json'] = '{ "LOCAL": "1" }';
-
+        scheme[globalConfigPath] = '{ "GLOBAL": "1" }';
+        scheme[CONF_NAME] = '{ "LOCAL": "1" }';
         mock(scheme);
         var config = require('..');
 
         expect({
-            global: { ROOT: '1' },
+            global: { GLOBAL: '1' },
             local: { LOCAL: '1' },
-            extended: { ROOT: '1', LOCAL: '1', EXTENDED: '1' }
-        }).eql(config({ EXTENDED: '1'}));
+            extended: { GLOBAL: '1', LOCAL: '1', OPTION: '1' }
+        }).eql(config({ OPTION: '1'}));
     });
 });
 
