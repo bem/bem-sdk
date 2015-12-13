@@ -4,7 +4,9 @@
   "description": "Config module for bem-tools",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha",
+    "cover": "istanbul cover _mocha",
+    "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
   "repository": {
     "type": "git",
@@ -25,5 +27,11 @@
   "dependencies": {
     "find-config": "^0.3.0",
     "os-homedir": "^1.0.1"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "istanbul": "^0.4.1",
+    "mocha": "^2.3.4",
+    "mock-fs": "^3.5.0"
   }
 }
