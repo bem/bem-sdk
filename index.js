@@ -1,11 +1,27 @@
 Object.assign || (Object.assign = require('object-assign'));
 
-var path = require('path'),
+var fs = require('fs'),
+    path = require('path'),
     tilde = require('os-homedir')(),
     findConfig = require('find-config');
 
+/**
+ * @param {boolean} isGlobal
+ */
 function getConfigName(isGlobal) {
     return (isGlobal ? '.' : '') + 'bemconf';
+}
+
+function getConfigFile(isGlobal) {
+    return getConfigName(isGlobal) + '.json';
+}
+
+function getGlobalConfigPath() {
+    return path.resolve(tilde, getConfigName(true));
+}
+
+function writeGlobalConfig(data) {
+    fs.writeFileSync(getGlobalConfigPath(), JSON.stringify(data, null, 2));
 }
 
 module.exports = function(config) {
@@ -35,3 +51,6 @@ module.exports = function(config) {
 };
 
 module.exports.getConfigName = getConfigName;
+module.exports.getConfigFile = getConfigFile;
+module.exports.getGlobalConfigPath = getGlobalConfigPath;
+module.exports.writeGlobalConfig = writeGlobalConfig;
