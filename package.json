@@ -4,7 +4,7 @@
   "description": "BEM file system schemes",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,9 @@
   "homepage": "https://github.com/bem-incubator/bem-fs-scheme#readme",
   "dependencies": {
     "bem-naming": "^0.5.1"
+  },
+  "devDependencies": {
+    "chai": "^3.4.1",
+    "mocha": "^2.3.4"
   }
 }
