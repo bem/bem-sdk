@@ -1,3 +1,7 @@
 module.exports = function(name) {
-    return require('./lib/schemes/' + (name || 'nested'));
+    try {
+        return require('./lib/schemes/' + (name || 'nested'));
+    } catch(e) {
+        throw new Error('Scheme not found');
+    }
 };

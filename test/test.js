@@ -14,12 +14,8 @@ describe('default', function() {
     });
 
     it('should return error', function() {
-        try {
-            scheme('module-not-found').path({ block: 'a' }, 'js');
-        } catch (e) {
-            expect(e)
-                .eql({ "code" : "MODULE_NOT_FOUND" });
-        }
+        var s = scheme;
+        expect(s.bind(s, 'scheme-not-found')).to.throw(/Scheme not found/);
     });
 
     it('should support optional naming style', function() {
