@@ -26,9 +26,6 @@ config.getGlobalConfigPath(); // '~/.bemconf.json'
 ```json
 {
   "root": true,
-  "plugins": [
-    "make"
-  ],
   "techs": [
       "css", "js"
   ],
