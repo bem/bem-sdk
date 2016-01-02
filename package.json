@@ -25,13 +25,13 @@
     "babel-preset-es2015": "6.3.13",
     "babel-register": "6.3.13",
     "bem-naming": "0.5.1",
-    "chai": "3.0.0",
+    "chai": "3.4.1",
     "isparta": "4.0.0",
     "jscs": "1.13.1",
     "jshint": "2.8.0",
-    "lodash": "3.9.3",
+    "lodash": "3.10.1",
     "matcha": "0.6.0",
-    "mocha": "2.2.5"
+    "mocha": "2.3.4"
   },
   "scripts": {
     "test": "npm run lint && npm run spec && npm run unit-test",
