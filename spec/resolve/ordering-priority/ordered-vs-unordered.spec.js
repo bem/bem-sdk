@@ -1,6 +1,6 @@
-var expect  = require('chai').expect,
-    _       = require('lodash'),
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import _ from 'lodash';
+import { resolve } from '../../../lib';
 
 describe('resolve: ordering priority - ordered deps vs unordered deps', function () {
     it('should prioritise ordered dependency over decl recommended ordering', function () {

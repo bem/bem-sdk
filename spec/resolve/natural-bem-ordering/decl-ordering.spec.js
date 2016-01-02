@@ -1,6 +1,6 @@
-var expect  = require('chai').expect,
-    _       = require('lodash'),
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import _ from 'lodash';
+import { resolve } from '../../../lib';
 
 describe('resolve: natural BEM entities ordering for decl', function () {
     it('should place block before its element', function () {

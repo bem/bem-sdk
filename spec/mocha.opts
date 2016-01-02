@@ -2,3 +2,4 @@
 --ui bdd
 --reporter dot
 --require chai
+--compilers js:babel-register

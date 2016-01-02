@@ -1,6 +1,6 @@
-var expect  = require('chai').expect,
-    _       = require('lodash'),
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import _ from 'lodash';
+import { resolve } from '../../../lib';
 
 describe('resolve: ordering priority - natural BEM ordering vs decl order', function () {
     it('should prioritise block-element natural ordering over recommended decl ordering', function () {

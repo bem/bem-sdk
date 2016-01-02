@@ -1,6 +1,6 @@
-var expect  = require('chai').expect,
-    _       = require('lodash'),
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import _ from 'lodash';
+import { resolve } from '../../../lib';
 
 describe('resolving ordered deps: ordering', function () {
     it('should place ordered entity from decl before entity depending on it', function () {

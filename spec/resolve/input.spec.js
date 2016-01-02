@@ -1,5 +1,5 @@
-var resolve = require('../../lib/index').resolve,
-    expect =  require('chai').expect;
+import { expect } from 'chai';
+import { resolve } from '../../lib';
 
 describe('resolve: input params processing', function () {
     it('should return result containing entities and dependOn sections', function () {

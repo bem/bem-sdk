@@ -1,6 +1,6 @@
-var expect  = require('chai').expect,
-    _       = require('lodash'),
-    resolve = require('../../../../lib/index').resolve;
+import { expect } from 'chai';
+import _ from 'lodash';
+import { resolve } from '../../../../lib';
 
 describe('resolving ordered dependencies: tech - tech for matching tech', function () {
     it('should resolve tech depending on another tech', function () {
