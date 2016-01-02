@@ -30,7 +30,6 @@
     "jscs": "1.13.1",
     "jshint": "2.8.0",
     "lodash": "3.10.1",
-    "matcha": "0.6.0",
     "mocha": "2.3.4"
   },
   "scripts": {
@@ -38,7 +37,6 @@
     "lint": "jshint . && jscs . -c .jscs.js",
     "spec": "mocha spec/ -R spec --opts spec/mocha.opts",
     "unit-test": "mocha test/ -R spec --opts spec/mocha.opts",
-    "bench": "matcha benchmark/*.js",
     "cover": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- spec/ test/ --opts spec/mocha.opts",
     "coveralls": "npm i coveralls && babel-node node_modules/isparta/bin/isparta cover --report lcovonly node_modules/mocha/bin/_mocha -- spec/ test/ --opts && cat ./coverage/lcov.info | coveralls"
   }
