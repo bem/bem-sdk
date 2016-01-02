@@ -13,6 +13,7 @@ install:
   - npm install
 
 test_script:
-  - npm run unit
+  - npm run spec
+  - npm run unit-test
 
 build: off
