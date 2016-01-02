@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import _ from 'lodash';
-import { resolve } from '../../../../lib/index';
+import { resolve } from '../../../../lib';
 
 describe('resolving unordered dependencies: tech - tech for mismatching tech', function () {
     it('should resolve tech depending on another tech', function () {
@@ -274,7 +274,7 @@ describe('resolving unordered dependencies: tech - tech for mismatching tech', f
             firstIndex = _.findIndex(resolved.dependOn[jsDepsIndex], { block: 'C' }),
             lastIndex = _.findLastIndex(resolved.dependOn[jsDepsIndex], { block: 'C' });
 
-        expect(jsDepsIndex).to.not.be(-1);
+        expect(jsDepsIndex).to.not.be.equal(-1);
         expect(firstIndex).to.be.equal(lastIndex);
     });
 
@@ -298,6 +298,6 @@ describe('resolving unordered dependencies: tech - tech for mismatching tech', f
             opts = { tech: 'css' },
             resolved = resolve(decl, deps, opts);
 
-        expect(resolved.dependOn).to.be.empty();
+        expect(resolved.dependOn).to.be.empty;
     });
 });

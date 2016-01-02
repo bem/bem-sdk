@@ -54,7 +54,7 @@ describe('resolving loops: unordered-unordered', function () {
                     entity: { block: 'B' },
                     dependOn: [
                         {
-                            entity: { block: 'С' }
+                            entity: { block: 'C' }
                         }
                     ]
                 },

@@ -1,6 +1,6 @@
 import { expect } from 'chai';
 import _ from 'lodash';
-import { resolve } from '../../../../lib/index';
+import { resolve } from '../../../../lib';
 
 describe('resolving unordered dependencies: tech - tech for matching tech', function () {
     it('should resolve tech depending on another tech', function () {
@@ -297,7 +297,7 @@ describe('resolving unordered dependencies: tech - tech for matching tech', func
             firstIndex = _.findIndex(resolved.entities, { block: 'C' }),
             lastIndex = _.findLastIndex(resolved.entities, { block: 'C' });
 
-        expect(resolved).to.contain({ block: 'C' });
+        expect(resolved.entities).to.contain({ block: 'C' });
         expect(firstIndex).to.be.equal(lastIndex);
     });
 

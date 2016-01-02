@@ -117,7 +117,7 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                     entity: { block: 'A', modName: 'm', modVal: 'any' },
                     dependOn: [
                         {
-                            entity: { block: 'A', modName: 'n', modVal: true }
+                            entity: { block: 'A', modName: 'm', modVal: true }
                         }
                     ]
                 }
@@ -126,7 +126,7 @@ describe('resolve: natural BEM entities ordering for deps', function () {
             indexBoolean = _.findIndex(resolved.entities, { block: 'A', modName: 'n', modVal: true }),
             indexKeyValue = _.findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'any' });
 
-        expect(indexBoolean).to.be.before(indexKeyValue);
+        expect(indexBoolean).to.be.below(indexKeyValue);
     });
 
     it('should place elem before its boolean modifier', function () {
@@ -173,11 +173,11 @@ describe('resolve: natural BEM entities ordering for deps', function () {
 
     it('should place elem\'s boolean modifier before elem key-value modifier', function () {
         var decl = [
-                { block: 'A', elem: 'e', modName: 'n', modVal: 'any' }
+                { block: 'A', elem: 'e', modName: 'm', modVal: 'any' }
             ],
             deps = [
                 {
-                    entity: { block: 'A', elem: 'e', modName: 'n', modVal: 'any' },
+                    entity: { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
                     dependOn: [
                         {
                             entity: { block: 'A', elem: 'e', modName: 'm', modVal: true }
@@ -186,9 +186,9 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBoolean = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'n', modVal: true }),
+            indexBoolean = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true }),
             indexKeyValue = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'any' });
 
-        expect(indexBoolean).to.be.before(indexKeyValue);
+        expect(indexBoolean).to.be.below(indexKeyValue);
     });
 });

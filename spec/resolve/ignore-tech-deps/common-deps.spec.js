@@ -53,7 +53,7 @@ describe('resolve: ignoring tech dependencies when resolving common deps', funct
             ],
             resolved = resolve(decl, deps);
 
-        expect(resolved.dependOn).to.be.empty();
+        expect(resolved.dependOn).to.be.empty;
     });
 
     it('should ignore tech deps when resolving common deps in same way for ordered and unordered deps', function () {

@@ -74,7 +74,7 @@ describe('resolving loops: ordered-ordered', function () {
                     entity: { block: 'B' },
                     dependOn: [
                         {
-                            entity: { block: 'С' },
+                            entity: { block: 'C' },
                             order: 'dependenceBeforeDependants'
                         }
                     ]

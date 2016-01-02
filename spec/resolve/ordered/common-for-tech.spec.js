@@ -30,11 +30,11 @@ describe('resolving ordered deps: common for specific tech', function () {
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            order: 'dependenceBeforeDependant'
+                            order: 'dependenceBeforeDependants'
                         },
                         {
                             entity: { block: 'C' },
-                            order: 'dependenceBeforeDependant'
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -54,7 +54,7 @@ describe('resolving ordered deps: common for specific tech', function () {
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            order: 'dependenceBeforeDependant'
+                            order: 'dependenceBeforeDependants'
                         },
                         {
                             entity: { block: 'C' }

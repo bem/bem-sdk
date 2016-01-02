@@ -56,7 +56,7 @@ describe('resolve: ignoring tech if dependant techs mismatching resolving tech',
             opts = { tech: 'js' },
             resolved = resolve(decl, deps, opts);
 
-        expect(resolved.dependOn).to.be.empty();
+        expect(resolved.dependOn).to.be.empty;
     });
 
     it('should ignore tech deps for mismatching techs in same way for ordered and unordered deps', function () {
