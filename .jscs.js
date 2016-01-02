@@ -1,4 +1,5 @@
 module.exports = {
+    esnext: true,
     excludeFiles: [
         'node_modules',
         'coverage'

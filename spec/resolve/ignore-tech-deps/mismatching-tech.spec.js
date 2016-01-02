@@ -1,5 +1,5 @@
-var expect  = require('chai').expect,
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import { resolve } from '../../../lib';
 
 describe('resolve: ignoring tech if dependant techs mismatching resolving tech', function () {
     it('should ignore entity dependency on mismatched tech', function () {
@@ -56,7 +56,7 @@ describe('resolve: ignoring tech if dependant techs mismatching resolving tech',
             opts = { tech: 'js' },
             resolved = resolve(decl, deps, opts);
 
-        expect(resolved.dependOn).to.be.empty();
+        expect(resolved.dependOn).to.be.empty;
     });
 
     it('should ignore tech deps for mismatching techs in same way for ordered and unordered deps', function () {

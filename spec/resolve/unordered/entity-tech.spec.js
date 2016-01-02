@@ -1,6 +1,7 @@
-var expect  = require('chai').expect,
-    _       = require('lodash'),
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import { findIndex } from '../../utils';
+import { findLastIndex } from '../../utils';
+import { resolve } from '../../../lib';
 
 describe('resolving unordered dependencies: entity - tech', function () {
     it('should resolve entity depending by tech on another entity', function () {
@@ -178,8 +179,8 @@ describe('resolving unordered dependencies: entity - tech', function () {
             ],
             opts = { tech: 'css' },
             resolved = resolve(decl, deps, opts),
-            firstIndex = _.findIndex(resolved.entities, { block: 'C' }),
-            lastIndex = _.findLastIndex(resolved.entities, { block: 'C' });
+            firstIndex = findIndex(resolved.entities, { block: 'C' }),
+            lastIndex = findLastIndex(resolved.entities, { block: 'C' });
 
         expect(resolved.entities).to.contain({ block: 'C' });
         expect(firstIndex).to.be.equal(lastIndex);

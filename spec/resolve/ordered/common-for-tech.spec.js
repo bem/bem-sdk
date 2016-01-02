@@ -1,6 +1,7 @@
-var expect  = require('chai').expect,
-    _       = require('lodash'),
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import { findIndex } from '../../utils';
+import { findLastIndex } from '../../utils';
+import { resolve } from '../../../lib';
 
 describe('resolving ordered deps: common for specific tech', function () {
     it('should resolve entity depending on another entity', function () {
@@ -30,11 +31,11 @@ describe('resolving ordered deps: common for specific tech', function () {
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            order: 'dependenceBeforeDependant'
+                            order: 'dependenceBeforeDependants'
                         },
                         {
                             entity: { block: 'C' },
-                            order: 'dependenceBeforeDependant'
+                            order: 'dependenceBeforeDependants'
                         }
                     ]
                 }
@@ -54,7 +55,7 @@ describe('resolving ordered deps: common for specific tech', function () {
                     dependOn: [
                         {
                             entity: { block: 'B' },
-                            order: 'dependenceBeforeDependant'
+                            order: 'dependenceBeforeDependants'
                         },
                         {
                             entity: { block: 'C' }
@@ -84,8 +85,8 @@ describe('resolving ordered deps: common for specific tech', function () {
             ],
             opts = { tech: 'css' },
             resolved = resolve(decl, deps, opts),
-            firstIndex = _.findIndex(resolved.entities, { block: 'A' }),
-            lastIndex = _.findLastIndex(resolved.entities, { block: 'A' });
+            firstIndex = findIndex(resolved.entities, { block: 'A' }),
+            lastIndex = findLastIndex(resolved.entities, { block: 'A' });
 
         expect(firstIndex).to.not.be.equal(-1);
         expect(lastIndex).to.not.be.equal(-1);
@@ -180,8 +181,8 @@ describe('resolving ordered deps: common for specific tech', function () {
             ],
             opts = { tech: 'css' },
             resolved = resolve(decl, deps, opts),
-            firstIndex = _.findIndex(resolved.entities, { block: 'C' }),
-            lastIndex = _.findLastIndex(resolved.entities, { block: 'C' });
+            firstIndex = findIndex(resolved.entities, { block: 'C' }),
+            lastIndex = findLastIndex(resolved.entities, { block: 'C' });
 
         expect(resolved.entities).to.contain({ block: 'C' });
         expect(firstIndex).to.be.equal(lastIndex);

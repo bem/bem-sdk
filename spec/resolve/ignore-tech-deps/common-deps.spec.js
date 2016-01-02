@@ -1,5 +1,5 @@
-var expect  = require('chai').expect,
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import { resolve } from '../../../lib';
 
 describe('resolve: ignoring tech dependencies when resolving common deps', function () {
     it('should ignore unordered tech dependency on entity', function () {
@@ -53,7 +53,7 @@ describe('resolve: ignoring tech dependencies when resolving common deps', funct
             ],
             resolved = resolve(decl, deps);
 
-        expect(resolved.dependOn).to.be.empty();
+        expect(resolved.dependOn).to.be.empty;
     });
 
     it('should ignore tech deps when resolving common deps in same way for ordered and unordered deps', function () {

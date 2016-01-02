@@ -1,5 +1,5 @@
-var expect  = require('chai').expect,
-    resolve = require('../../../lib/index').resolve;
+import { expect } from 'chai';
+import { resolve } from '../../../lib';
 
 describe('resolving loops: ordered-ordered', function () {
     it('should not throw error if detected loop on itself', function () {
@@ -74,7 +74,7 @@ describe('resolving loops: ordered-ordered', function () {
                     entity: { block: 'B' },
                     dependOn: [
                         {
-                            entity: { block: 'С' },
+                            entity: { block: 'C' },
                             order: 'dependenceBeforeDependants'
                         }
                     ]

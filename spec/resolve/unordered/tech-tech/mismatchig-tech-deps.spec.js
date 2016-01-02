@@ -1,6 +1,8 @@
-var expect  = require('chai').expect,
-    _       = require('lodash'),
-    resolve = require('../../../../lib/index').resolve;
+import { expect } from 'chai';
+import _ from 'lodash';
+import { findIndex } from '../../../utils';
+import { findLastIndex } from '../../../utils';
+import { resolve } from '../../../../lib/index';
 
 describe('resolving unordered dependencies: tech - tech for mismatching tech', function () {
     it('should resolve tech depending on another tech', function () {
@@ -271,10 +273,10 @@ describe('resolving unordered dependencies: tech - tech for mismatching tech', f
             jsDepsIndex = _.findIndex(resolved.dependOn, function (techDeps) {
                 return techDeps.tech === 'js';
             }),
-            firstIndex = _.findIndex(resolved.dependOn[jsDepsIndex], { block: 'C' }),
-            lastIndex = _.findLastIndex(resolved.dependOn[jsDepsIndex], { block: 'C' });
+            firstIndex = findIndex(resolved.dependOn[jsDepsIndex], { block: 'C' }),
+            lastIndex = findLastIndex(resolved.dependOn[jsDepsIndex], { block: 'C' });
 
-        expect(jsDepsIndex).to.not.be(-1);
+        expect(jsDepsIndex).to.not.be.equal(-1);
         expect(firstIndex).to.be.equal(lastIndex);
     });
 
@@ -298,6 +300,6 @@ describe('resolving unordered dependencies: tech - tech for mismatching tech', f
             opts = { tech: 'css' },
             resolved = resolve(decl, deps, opts);
 
-        expect(resolved.dependOn).to.be.empty();
+        expect(resolved.dependOn).to.be.empty;
     });
 });
