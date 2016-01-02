@@ -35,9 +35,9 @@
   "scripts": {
     "test": "npm run lint && npm run unit",
     "lint": "jshint . && jscs . -c .jscs.js",
-    "unit": "mocha -R spec --opts spec/mocha.opts",
+    "unit": "mocha spec/ -R spec --opts spec/mocha.opts",
     "bench": "matcha benchmark/*.js",
-    "cover": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- --opts spec/mocha.opts",
-    "coveralls": "npm i coveralls && babel-node node_modules/isparta/bin/isparta cover --report lcovonly node_modules/mocha/bin/_mocha -- --opts && cat ./coverage/lcov.info | coveralls"
+    "cover": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- spec/ --opts spec/mocha.opts",
+    "coveralls": "npm i coveralls && babel-node node_modules/isparta/bin/isparta cover --report lcovonly node_modules/mocha/bin/_mocha -- spec/ --opts && cat ./coverage/lcov.info | coveralls"
   }
 }

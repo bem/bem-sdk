@@ -1,5 +1,5 @@
-./spec/**/*.spec.js
 --ui bdd
+--recursive
 --reporter dot
 --require chai
 --compilers js:babel-register
