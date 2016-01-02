@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from 'lodash';
+import { findIndex } from '../../utils';
 import { resolve } from '../../../lib';
 
 describe('resolve: natural BEM entities ordering for deps', function () {
@@ -18,8 +18,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBlock = _.findIndex(resolved.entities, { block: 'A' }),
-            indexElem = _.findIndex(resolved.entities, { block: 'A', elem: 'e' });
+            indexBlock = findIndex(resolved.entities, { block: 'A' }),
+            indexElem = findIndex(resolved.entities, { block: 'A', elem: 'e' });
 
         expect(indexBlock).to.be.below(indexElem);
     });
@@ -39,8 +39,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBlock = _.findIndex(resolved.entities, { block: 'A' }),
-            indexModifier = _.findIndex(resolved.entities, { block: 'A', modName: 'm' });
+            indexBlock = findIndex(resolved.entities, { block: 'A' }),
+            indexModifier = findIndex(resolved.entities, { block: 'A', modName: 'm' });
 
         expect(indexBlock).to.be.below(indexModifier);
     });
@@ -60,8 +60,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBlock = _.findIndex(resolved.entities, { block: 'A' }),
-            indexModifier = _.findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'any' });
+            indexBlock = findIndex(resolved.entities, { block: 'A' }),
+            indexModifier = findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'any' });
 
         expect(indexBlock).to.be.below(indexModifier);
     });
@@ -81,8 +81,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBlock = _.findIndex(resolved.entities, { block: 'A' }),
-            indexElem = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true });
+            indexBlock = findIndex(resolved.entities, { block: 'A' }),
+            indexElem = findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true });
 
         expect(indexBlock).to.be.below(indexElem);
     });
@@ -102,8 +102,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBlock = _.findIndex(resolved.entities, { block: 'A' }),
-            indexElem = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'any' });
+            indexBlock = findIndex(resolved.entities, { block: 'A' }),
+            indexElem = findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'any' });
 
         expect(indexBlock).to.be.below(indexElem);
     });
@@ -123,8 +123,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBoolean = _.findIndex(resolved.entities, { block: 'A', modName: 'n', modVal: true }),
-            indexKeyValue = _.findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'any' });
+            indexBoolean = findIndex(resolved.entities, { block: 'A', modName: 'n', modVal: true }),
+            indexKeyValue = findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'any' });
 
         expect(indexBoolean).to.be.below(indexKeyValue);
     });
@@ -144,8 +144,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexElem = _.findIndex(resolved.entities, { block: 'A', elem: 'e' }),
-            indexModifier = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true });
+            indexElem = findIndex(resolved.entities, { block: 'A', elem: 'e' }),
+            indexModifier = findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true });
 
         expect(indexElem).to.be.below(indexModifier);
     });
@@ -165,8 +165,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexElem = _.findIndex(resolved.entities, { block: 'A', elem: 'e' }),
-            indexModifier = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'any' });
+            indexElem = findIndex(resolved.entities, { block: 'A', elem: 'e' }),
+            indexModifier = findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'any' });
 
         expect(indexElem).to.be.below(indexModifier);
     });
@@ -186,8 +186,8 @@ describe('resolve: natural BEM entities ordering for deps', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBoolean = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true }),
-            indexKeyValue = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'any' });
+            indexBoolean = findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true }),
+            indexKeyValue = findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'any' });
 
         expect(indexBoolean).to.be.below(indexKeyValue);
     });

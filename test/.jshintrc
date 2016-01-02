@@ -1,0 +1,21 @@
+{
+    "bitwise": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "latedef": "nofunc",
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "undef": true,
+    "unused": true,
+
+    "esnext": true,
+    "node": true,
+    "mocha": true,
+
+    "expr": true,
+    "sub": true
+}

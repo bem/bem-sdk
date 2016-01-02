@@ -24,6 +24,7 @@
     "babel-core": "6.3.26",
     "babel-preset-es2015": "6.3.13",
     "babel-register": "6.3.13",
+    "bem-naming": "0.5.1",
     "chai": "3.0.0",
     "isparta": "4.0.0",
     "jscs": "1.13.1",
@@ -33,11 +34,12 @@
     "mocha": "2.2.5"
   },
   "scripts": {
-    "test": "npm run lint && npm run spec",
+    "test": "npm run lint && npm run spec && npm run unit-test",
     "lint": "jshint . && jscs . -c .jscs.js",
     "spec": "mocha spec/ -R spec --opts spec/mocha.opts",
+    "unit-test": "mocha test/ -R spec --opts spec/mocha.opts",
     "bench": "matcha benchmark/*.js",
-    "cover": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- spec/ --opts spec/mocha.opts",
-    "coveralls": "npm i coveralls && babel-node node_modules/isparta/bin/isparta cover --report lcovonly node_modules/mocha/bin/_mocha -- spec/ --opts && cat ./coverage/lcov.info | coveralls"
+    "cover": "babel-node node_modules/isparta/bin/isparta cover --report text --report html node_modules/mocha/bin/_mocha -- spec/ test/ --opts spec/mocha.opts",
+    "coveralls": "npm i coveralls && babel-node node_modules/isparta/bin/isparta cover --report lcovonly node_modules/mocha/bin/_mocha -- spec/ test/ --opts && cat ./coverage/lcov.info | coveralls"
   }
 }

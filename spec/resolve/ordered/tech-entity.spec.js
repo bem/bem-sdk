@@ -1,5 +1,6 @@
 import { expect } from 'chai';
-import _ from 'lodash';
+import { findIndex } from '../../utils';
+import { findLastIndex } from '../../utils';
 import { resolve } from '../../../lib';
 
 describe('resolving ordered dependencies: tech - entity', function () {
@@ -240,8 +241,8 @@ describe('resolving ordered dependencies: tech - entity', function () {
             ],
             opts = { tech: 'css' },
             resolved = resolve(decl, deps, opts),
-            firstIndex = _.findIndex(resolved.entities, { block: 'C' }),
-            lastIndex = _.findLastIndex(resolved.entities, { block: 'C' });
+            firstIndex = findIndex(resolved.entities, { block: 'C' }),
+            lastIndex = findLastIndex(resolved.entities, { block: 'C' });
 
         expect(resolved.entities).to.contain({ block: 'C' });
         expect(firstIndex).to.be.equal(lastIndex);

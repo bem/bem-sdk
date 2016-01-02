@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from 'lodash';
+import { findIndex } from '../../utils';
 import { resolve } from '../../../lib';
 
 describe('resolving ordered deps: ordering', function () {
@@ -20,8 +20,8 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexA = _.findIndex(resolved.entities, { block: 'A' }),
-            indexB = _.findIndex(resolved.entities, { block: 'B' });
+            indexA = findIndex(resolved.entities, { block: 'A' }),
+            indexB = findIndex(resolved.entities, { block: 'B' });
 
         expect(indexB).to.be.below(indexA);
     });
@@ -53,9 +53,9 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexA = _.findIndex(resolved.entities, { block: 'A' }),
-            indexB = _.findIndex(resolved.entities, { block: 'B' }),
-            indexC = _.findIndex(resolved.entities, { block: 'C' });
+            indexA = findIndex(resolved.entities, { block: 'A' }),
+            indexB = findIndex(resolved.entities, { block: 'B' }),
+            indexC = findIndex(resolved.entities, { block: 'C' });
 
         expect(indexC).to.be.below(indexA)
             .and.to.be.below(indexB);
@@ -79,8 +79,8 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexA = _.findIndex(resolved.entities, { block: 'A' }),
-            indexC = _.findIndex(resolved.entities, { block: 'C' });
+            indexA = findIndex(resolved.entities, { block: 'A' }),
+            indexC = findIndex(resolved.entities, { block: 'C' });
 
         expect(indexA).to.be.below(indexC);
     });
@@ -102,8 +102,8 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexA = _.findIndex(resolved.entities, { block: 'A' }),
-            indexB = _.findIndex(resolved.entities, { block: 'B' });
+            indexA = findIndex(resolved.entities, { block: 'A' }),
+            indexB = findIndex(resolved.entities, { block: 'B' });
 
         expect(indexB).to.be.below(indexA);
     });
@@ -134,9 +134,9 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexA = _.findIndex(resolved.entities, { block: 'A' }),
-            indexB = _.findIndex(resolved.entities, { block: 'B' }),
-            indexC = _.findIndex(resolved.entities, { block: 'C' });
+            indexA = findIndex(resolved.entities, { block: 'A' }),
+            indexB = findIndex(resolved.entities, { block: 'B' }),
+            indexC = findIndex(resolved.entities, { block: 'C' });
 
             expect(indexC).to.be.below(indexA)
                 .and.to.be.below(indexB);
@@ -159,8 +159,8 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexA = _.findIndex(resolved.entities, { block: 'A' }),
-            indexB = _.findIndex(resolved.entities, { block: 'B' });
+            indexA = findIndex(resolved.entities, { block: 'A' }),
+            indexB = findIndex(resolved.entities, { block: 'B' });
 
         expect(indexA).to.be.below(indexB);
     });
@@ -189,8 +189,8 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexB = _.findIndex(resolved.entities, { block: 'B' }),
-            indexC = _.findIndex(resolved.entities, { block: 'C' });
+            indexB = findIndex(resolved.entities, { block: 'B' }),
+            indexC = findIndex(resolved.entities, { block: 'C' });
 
         expect(indexC).to.be.below(indexB);
     });
@@ -227,9 +227,9 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexB = _.findIndex(resolved.entities, { block: 'B' }),
-            indexC = _.findIndex(resolved.entities, { block: 'C' }),
-            indexD = _.findIndex(resolved.entities, { block: 'D' });
+            indexB = findIndex(resolved.entities, { block: 'B' }),
+            indexC = findIndex(resolved.entities, { block: 'C' }),
+            indexD = findIndex(resolved.entities, { block: 'D' });
 
         expect(indexD).to.be.below(indexB)
             .and.to.be.below(indexC);
@@ -259,8 +259,8 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexB = _.findIndex(resolved.entities, { block: 'B' }),
-            indexD = _.findIndex(resolved.entities, { block: 'D' });
+            indexB = findIndex(resolved.entities, { block: 'B' }),
+            indexD = findIndex(resolved.entities, { block: 'D' });
 
         expect(indexB).to.be.below(indexD);
     });
@@ -293,9 +293,9 @@ describe('resolving ordered deps: ordering', function () {
                 }
             ],
             resolved = resolve(decl, deps),
-            indexA = _.findIndex(resolved.entities, { block: 'A' }),
-            indexB = _.findIndex(resolved.entities, { block: 'B' }),
-            indexC = _.findIndex(resolved.entities, { block: 'C' });
+            indexA = findIndex(resolved.entities, { block: 'A' }),
+            indexB = findIndex(resolved.entities, { block: 'B' }),
+            indexC = findIndex(resolved.entities, { block: 'C' });
 
         expect(indexC).to.be.below(indexA)
             .and.to.be.below(indexB);

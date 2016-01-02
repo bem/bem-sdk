@@ -1,6 +1,8 @@
 import { expect } from 'chai';
 import _ from 'lodash';
-import { resolve } from '../../../../lib';
+import { findIndex } from '../../../utils';
+import { findLastIndex } from '../../../utils';
+import { resolve } from '../../../../lib/index';
 
 describe('resolving unordered dependencies: tech - tech for mismatching tech', function () {
     it('should resolve tech depending on another tech', function () {
@@ -271,8 +273,8 @@ describe('resolving unordered dependencies: tech - tech for mismatching tech', f
             jsDepsIndex = _.findIndex(resolved.dependOn, function (techDeps) {
                 return techDeps.tech === 'js';
             }),
-            firstIndex = _.findIndex(resolved.dependOn[jsDepsIndex], { block: 'C' }),
-            lastIndex = _.findLastIndex(resolved.dependOn[jsDepsIndex], { block: 'C' });
+            firstIndex = findIndex(resolved.dependOn[jsDepsIndex], { block: 'C' }),
+            lastIndex = findLastIndex(resolved.dependOn[jsDepsIndex], { block: 'C' });
 
         expect(jsDepsIndex).to.not.be.equal(-1);
         expect(firstIndex).to.be.equal(lastIndex);

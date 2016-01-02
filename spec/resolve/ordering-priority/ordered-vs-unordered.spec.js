@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from 'lodash';
+import { findIndex } from '../../utils';
 import { resolve } from '../../../lib';
 
 describe('resolve: ordering priority - ordered deps vs unordered deps', function () {
@@ -20,8 +20,8 @@ describe('resolve: ordering priority - ordered deps vs unordered deps', function
                 }
             ],
             resolved = resolve(decl, deps),
-            indexA = _.findIndex(resolved.entities, { block: 'A' }),
-            indexB = _.findIndex(resolved.entities, { block: 'B' });
+            indexA = findIndex(resolved.entities, { block: 'A' }),
+            indexB = findIndex(resolved.entities, { block: 'B' });
 
         expect(indexB).to.be.below(indexA);
     });
@@ -45,8 +45,8 @@ describe('resolve: ordering priority - ordered deps vs unordered deps', function
                 }
             ],
             resolved = resolve(decl, deps),
-            indexB = _.findIndex(resolved.entities, { block: 'B' }),
-            indexC = _.findIndex(resolved.entities, { block: 'C' });
+            indexB = findIndex(resolved.entities, { block: 'B' }),
+            indexC = findIndex(resolved.entities, { block: 'C' });
 
         expect(indexC).to.be.below(indexB);
     });

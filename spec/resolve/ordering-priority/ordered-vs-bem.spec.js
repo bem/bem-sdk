@@ -1,5 +1,5 @@
 import { expect } from 'chai';
-import _ from 'lodash';
+import { findIndex } from '../../utils';
 import { resolve } from '../../../lib';
 
 describe('resolve: ordering priority - ordered deps vs natural bem ordering', function () {
@@ -20,8 +20,8 @@ describe('resolve: ordering priority - ordered deps vs natural bem ordering', fu
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBlock = _.findIndex(resolved.entities, { block: 'B' }),
-            indexElement = _.findIndex(resolved.entities, { block: 'A', elem: 'e' });
+            indexBlock = findIndex(resolved.entities, { block: 'B' }),
+            indexElement = findIndex(resolved.entities, { block: 'A', elem: 'e' });
 
         expect(indexElement).to.be.below(indexBlock);
     });
@@ -43,8 +43,8 @@ describe('resolve: ordering priority - ordered deps vs natural bem ordering', fu
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBlock = _.findIndex(resolved.entities, { block: 'B' }),
-            indexModifier = _.findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: true });
+            indexBlock = findIndex(resolved.entities, { block: 'B' }),
+            indexModifier = findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: true });
 
         expect(indexModifier).to.be.below(indexBlock);
     });
@@ -66,8 +66,8 @@ describe('resolve: ordering priority - ordered deps vs natural bem ordering', fu
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBlock = _.findIndex(resolved.entities, { block: 'B' }),
-            indexModifier = _.findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'val' });
+            indexBlock = findIndex(resolved.entities, { block: 'B' }),
+            indexModifier = findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'val' });
 
         expect(indexModifier).to.be.below(indexBlock);
     });
@@ -89,8 +89,8 @@ describe('resolve: ordering priority - ordered deps vs natural bem ordering', fu
                 }
             ],
             resolved = resolve(decl, deps),
-            indexElement = _.findIndex(resolved.entities, { block: 'B', elem: 'e' }),
-            indexModifier = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true });
+            indexElement = findIndex(resolved.entities, { block: 'B', elem: 'e' }),
+            indexModifier = findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: true });
 
         expect(indexModifier).to.be.below(indexElement);
     });
@@ -112,8 +112,8 @@ describe('resolve: ordering priority - ordered deps vs natural bem ordering', fu
                 }
             ],
             resolved = resolve(decl, deps),
-            indexElement = _.findIndex(resolved.entities, { block: 'B', elem: 'e' }),
-            indexModifier = _.findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'val' });
+            indexElement = findIndex(resolved.entities, { block: 'B', elem: 'e' }),
+            indexModifier = findIndex(resolved.entities, { block: 'A', elem: 'e', modName: 'm', modVal: 'val' });
 
         expect(indexModifier).to.be.below(indexElement);
     });
@@ -135,8 +135,8 @@ describe('resolve: ordering priority - ordered deps vs natural bem ordering', fu
                 }
             ],
             resolved = resolve(decl, deps),
-            indexBoolean = _.findIndex(resolved.entities, { block: 'B', modName: 'm', modVal: true }),
-            indexKeyValue = _.findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'val' });
+            indexBoolean = findIndex(resolved.entities, { block: 'B', modName: 'm', modVal: true }),
+            indexKeyValue = findIndex(resolved.entities, { block: 'A', modName: 'm', modVal: 'val' });
 
         expect(indexKeyValue).to.be.below(indexBoolean);
     });
