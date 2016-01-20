@@ -26,8 +26,11 @@
   "homepage": "https://github.com/bem-incubator/bem-config#readme",
   "dependencies": {
     "find-config": "^0.3.0",
+    "glob": "^6.0.4",
+    "lodash": "^4.1.0",
     "object-assign": "^4.0.1",
-    "os-homedir": "^1.0.1"
+    "os-homedir": "^1.0.1",
+    "rc": "tadatuta/rc"
   },
   "devDependencies": {
     "chai": "^3.4.1",

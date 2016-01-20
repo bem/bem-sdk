@@ -1,52 +1,64 @@
 Object.assign || (Object.assign = require('object-assign'));
 
-var fs = require('fs'),
-    path = require('path'),
-    tilde = require('os-homedir')(),
-    findConfig = require('find-config');
+var path = require('path'),
+    rc = require('rc'),
+    _ = require('lodash'),
+    glob = require('glob');
 
-/**
- * @param {boolean} isGlobal
- */
-function getConfigFilename(isGlobal) {
-    return (isGlobal ? '.' : '') + 'bemconf.json';
-}
+function BemConfig(config) {
+    var configs = rc('bem', config);
 
-function getGlobalConfigPath() {
-    return path.resolve(tilde, getConfigFilename(true));
-}
+    this.configs = configs.map(function(config) {
+        config.levels && (config.levels = config.levels.map(function(level) {
+            return path.resolve(level);
+        }));
 
-function writeGlobalConfig(data) {
-    fs.writeFileSync(getGlobalConfigPath(), JSON.stringify(data, null, 2));
-}
+        config.levelsOpts && Object.keys(config.levelsOpts).forEach(function(wildcardLevel) {
+            glob.sync(wildcardLevel).forEach(function(level) {
+                config.levelsOpts[path.resolve(level)] = config.levelsOpts[wildcardLevel];
+            });
 
-module.exports = function(config) {
-    var localConfig = {},
-        cwd = process.cwd();
+            delete config.levelsOpts[wildcardLevel];
+        });
 
-    do {
-        Object.assign(localConfig,
-            findConfig.require(getConfigFilename(), { cwd: cwd, home: false }));
+        return config;
+    });
 
-        cwd = path.resolve(cwd, '..');
-    } while(!localConfig.root && cwd !== '/');
-
-    if (localConfig.root) localConfig.root = cwd;
-
-    var globalConfig = {};
-    try {
-        globalConfig = require(path.join(tilde, getConfigFilename(true)));
-    } catch(e) {}
-
-    var extendedConfig = Object.assign({}, globalConfig, localConfig, config);
-
-    return {
-        global: globalConfig,
-        local: localConfig,
-        extended: extendedConfig
-    };
+    this.merged = Object.assign.apply(Object, [{}].concat(configs));
 };
 
-module.exports.getConfigFilename = getConfigFilename;
-module.exports.getGlobalConfigPath = getGlobalConfigPath;
-module.exports.writeGlobalConfig = writeGlobalConfig;
+BemConfig.prototype.getLevelOpts = function(levelPath) {
+    var absLevelPath = path.resolve(levelPath),
+        levelOpts = { __source: absLevelPath };
+
+    for (var i = 0; i < this.configs.length; i++) {
+        var conf = this.configs[i],
+            levelsOpts = conf.levelsOpts || {};
+
+        Object.assign(levelOpts, conf);
+
+        for (var level in levelsOpts) {
+            if (level === absLevelPath) {
+
+                // works like deep extend but overrides arrays
+                levelOpts = _.mergeWith({}, levelsOpts[level], levelOpts, function(objValue, srcValue) {
+                    if (Array.isArray(objValue)) {
+                        return srcValue;
+                    }
+                });
+            }
+        }
+
+        if (conf.root) break;
+    }
+
+    delete levelOpts.__source;
+    delete levelOpts.levelsOpts;
+    delete levelOpts.root;
+
+    if (!Object.keys(levelOpts).length) return;
+
+    return levelOpts;
+}
+
+module.exports = BemConfig;
