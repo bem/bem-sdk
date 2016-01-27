@@ -62,6 +62,19 @@ describe('normalize', function () {
             ]);
         });
 
+        it('must support several items', function () {
+            var decl = { name: 'block', mods: [
+                { name: 'mod-1', vals: [{ name: 'val' }] },
+                { name: 'mod-2', vals: [{ name: 'val' }] }
+            ] };
+
+            normalize(decl).must.eql([
+                { block: 'block' },
+                { block: 'block', modName: 'mod-1', modVal: 'val' },
+                { block: 'block', modName: 'mod-2', modVal: 'val' }
+            ]);
+        });
+
         it('must support mod shortcut', function () {
             var decl = { name: 'block', mods: [{ name: 'mod' }] };
 
