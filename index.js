@@ -1,7 +1,7 @@
 Object.assign || (Object.assign = require('object-assign'));
 
 var path = require('path'),
-    rc = require('rc'),
+    rc = require('./lib/rc'),
     mergeWith = require('lodash/mergeWith'),
     glob = require('glob');
 
