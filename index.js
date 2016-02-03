@@ -2,23 +2,25 @@ Object.assign || (Object.assign = require('object-assign'));
 
 var path = require('path'),
     rc = require('rc'),
-    _ = require('lodash'),
+    mergeWith = require('lodash/mergeWith'),
     glob = require('glob');
 
 function BemConfig(config) {
     var configs = rc('bem', config);
 
     this.configs = configs.map(function(config) {
-        config.levels && (config.levels = config.levels.map(function(level) {
-            return path.resolve(level);
-        }));
+        config.levels && Object.keys(config.levels).forEach(function(wildcardLevel) {
+            var resolvedWildcards = glob.sync(wildcardLevel);
 
-        config.levelsOpts && Object.keys(config.levelsOpts).forEach(function(wildcardLevel) {
-            glob.sync(wildcardLevel).forEach(function(level) {
-                config.levelsOpts[path.resolve(level)] = config.levelsOpts[wildcardLevel];
+            resolvedWildcards.forEach(function(level, idx) {
+                if (wildcardLevel === path.resolve(level)) return;
+
+                config.levels[path.resolve(level)] = config.levels[wildcardLevel];
+
+                if (resolvedWildcards.length === idx + 1) {
+                    delete config.levels[wildcardLevel];
+                }
             });
-
-            delete config.levelsOpts[wildcardLevel];
         });
 
         return config;
@@ -27,21 +29,21 @@ function BemConfig(config) {
     this.merged = Object.assign.apply(Object, [{}].concat(configs));
 };
 
-BemConfig.prototype.getLevelOpts = function(levelPath) {
+BemConfig.prototype.getLevel = function(levelPath) {
     var absLevelPath = path.resolve(levelPath),
         levelOpts = { __source: absLevelPath };
 
     for (var i = 0; i < this.configs.length; i++) {
         var conf = this.configs[i],
-            levelsOpts = conf.levelsOpts || {};
+            levels = conf.levels || {};
 
         Object.assign(levelOpts, conf);
 
-        for (var level in levelsOpts) {
+        for (var level in levels) {
             if (level === absLevelPath) {
 
                 // works like deep extend but overrides arrays
-                levelOpts = _.mergeWith({}, levelsOpts[level], levelOpts, function(objValue, srcValue) {
+                levelOpts = mergeWith({}, levels[level], levelOpts, function(objValue, srcValue) {
                     if (Array.isArray(objValue)) {
                         return srcValue;
                     }
@@ -53,12 +55,16 @@ BemConfig.prototype.getLevelOpts = function(levelPath) {
     }
 
     delete levelOpts.__source;
-    delete levelOpts.levelsOpts;
+    delete levelOpts.levels;
     delete levelOpts.root;
 
     if (!Object.keys(levelOpts).length) return;
 
     return levelOpts;
+}
+
+BemConfig.prototype.getPlugin = function(pluginName) {
+    return this.merged.plugins[pluginName];
 }
 
 module.exports = BemConfig;

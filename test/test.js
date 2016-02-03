@@ -45,17 +45,17 @@ describe('bem-config', function() {
         expect([{ def: true }, { argv: true, __source: 'argv.config' }]).eql(config.configs);
     });
 
-    describe('getLevelOpts', function() {
+    describe('getLevel', function() {
         it('should return undefined if no config found', function() {
             mock({ node_modules: nodeModules });
 
             var config = new Config(),
-                levelOpts = config.getLevelOpts('no-such-level');
+                levelOpts = config.getLevel('no-such-level');
 
             expect(levelOpts).eql(undefined);
         });
 
-        it('should return common config if no levelsOpts provided', function() {
+        it('should return common config if no levels provided', function() {
             mock({
                 node_modules: nodeModules,
                 cwd: {
@@ -67,39 +67,73 @@ describe('bem-config', function() {
             process.chdir('cwd');
 
             var config = new Config(),
-                levelOpts = config.getLevelOpts('level1');
+                levelOpts = config.getLevel('level1');
 
             expect(levelOpts).eql({ common: 'value' });
         });
 
-        it('should resolve levelsOpts keys', function() {
+        it('should resolve levels keys', function() {
             mock({
                 node_modules: nodeModules,
                 cwd: {
                     level1: {}
                 },
-                '.bemrc': '{ "levelsOpts": { "level1": { "l1o1": "l1v1" } } }'
+                '.bemrc': '{ "levels": { "level1": { "l1o1": "l1v1" } } }'
             });
 
             process.chdir('cwd');
 
             var config = new Config(),
-                levelOpts = config.getLevelOpts('level1');
+                levelOpts = config.getLevel('level1');
 
             expect(levelOpts).eql({ l1o1: 'l1v1' });
         });
 
-        it('should return level config extended with common if matched levelsOpts key', function() {
+        it('should respect absolute path', function() {
+            mock({
+                node_modules: nodeModules,
+                cwd: {
+                    level1: {}
+                },
+                '.bemrc': '{ "levels": { "/level1": { "l1o1": "l1v1" } } }'
+            });
+
+            process.chdir('cwd');
+
+            var config = new Config(),
+                levelOpts = config.getLevel('/level1');
+
+            expect(levelOpts).eql({ l1o1: 'l1v1' });
+        });
+
+        it('should respect "." path', function() {
+            mock({
+                node_modules: nodeModules,
+                cwd: {
+                    level1: {}
+                },
+                '.bemrc': '{ "levels": { ".": { "l1o1": "l1v1" } } }'
+            });
+
+            process.chdir('cwd');
+
+            var config = new Config(),
+                levelOpts = config.getLevel('.');
+
+            expect(levelOpts).eql({ l1o1: 'l1v1' });
+        });
+
+        it('should return level config extended with common if matched levels key', function() {
             mock({
                 node_modules: nodeModules,
                 parent: {
                     cwd: {
                         level1: {}
                     },
-                    '.bemrc': '{ "levelsOpts": { "level1": { "l1o1": "l1v1" } } }',
+                    '.bemrc': '{ "levels": { "level1": { "l1o1": "l1v1" } } }',
                 },
                 '.bemrc': JSON.stringify({
-                    levelsOpts: {
+                    levels: {
                         level1: { l1o2: 'l1v2' }
                     },
                     common: 'value'
@@ -109,7 +143,7 @@ describe('bem-config', function() {
             process.chdir('parent/cwd');
 
             var config = new Config(),
-                levelOpts = config.getLevelOpts('level1');
+                levelOpts = config.getLevel('level1');
 
             expect(levelOpts).eql({
                 l1o1: 'l1v1',
@@ -118,17 +152,17 @@ describe('bem-config', function() {
             });
         });
 
-        it('should go top to project root looking for levelsOpts', function() {
+        it('should go top to project root looking for levels', function() {
             mock({
                 node_modules: nodeModules,
                 parent: {
                     cwd: {
                         level1: {}
                     },
-                    '.bemrc': '{ "levelsOpts": { "level1": { "l1o1": "l1v1" } } }',
+                    '.bemrc': '{ "levels": { "level1": { "l1o1": "l1v1" } } }',
                 },
                 '.bemrc': JSON.stringify({
-                    levelsOpts: {
+                    levels: {
                         level1: { l1o2: 'l1v2' }
                     },
                     root: true
@@ -138,7 +172,7 @@ describe('bem-config', function() {
             process.chdir('parent/cwd');
 
             var config = new Config(),
-                levelOpts = config.getLevelOpts('level1');
+                levelOpts = config.getLevel('level1');
 
             expect(levelOpts).eql({
                 l1o1: 'l1v1',
@@ -154,17 +188,17 @@ describe('bem-config', function() {
                         cwd: {
                             level1: {}
                         },
-                        '.bemrc': '{ "levelsOpts": { "level1": { "l1o1": "l1v1" } } }',
+                        '.bemrc': '{ "levels": { "level1": { "l1o1": "l1v1" } } }',
                     },
                     '.bemrc': JSON.stringify({
-                        levelsOpts: {
+                        levels: {
                             level1: { l1o2: 'l1v2' }
                         },
                         root: true
                     })
                 },
                 '.bemrc': JSON.stringify({
-                    levelsOpts: {
+                    levels: {
                         level1: { l1o3: 'l1v3' }
                     },
                     common: 'value'
@@ -174,7 +208,7 @@ describe('bem-config', function() {
             process.chdir('grandParent/parent/cwd');
 
             var config = new Config(),
-                levelOpts = config.getLevelOpts('level1');
+                levelOpts = config.getLevel('level1');
 
             expect(levelOpts).eql({
                 l1o1: 'l1v1',
@@ -182,22 +216,27 @@ describe('bem-config', function() {
             });
         });
 
-        it('should support wildcards for levelsOpts keys', function() {
+        it('should support wildcards for levels keys', function() {
             mock({
                 node_modules: nodeModules,
                 cwd: {
                     level1: {},
                     level2: {}
                 },
-                '.bemrc': '{ "levelsOpts": { "level*": { "anyLevel": "any-value" } } }'
+                '.bemrc': '{ "levels": { "level*": { "anyLevel": "any-value" } } }'
             });
 
             process.chdir('cwd');
 
             var config = new Config(),
-                levelOpts = config.getLevelOpts('level1');
+                level1Opts = config.getLevel('level1'),
+                level2Opts = config.getLevel('level2');
 
-            expect(levelOpts).eql({
+            expect(level1Opts).eql({
+                anyLevel: 'any-value'
+            });
+
+            expect(level2Opts).eql({
                 anyLevel: 'any-value'
             });
         });
@@ -209,15 +248,15 @@ describe('bem-config', function() {
                     cwd: {
                         level1: {}
                     },
-                    '.bemrc': '{ "levelsOpts": { "level1": { "techs": ["bemhtml"] } } }'
+                    '.bemrc': '{ "levels": { "level1": { "techs": ["bemhtml"] } } }'
                 },
-                '.bemrc': '{ "levelsOpts": { "level1": { "techs": ["css", "js"] } } }'
+                '.bemrc': '{ "levels": { "level1": { "techs": ["css", "js"] } } }'
             });
 
             process.chdir('parent/cwd');
 
             var config = new Config(),
-                levelOpts = config.getLevelOpts('level1');
+                levelOpts = config.getLevel('level1');
 
             expect(levelOpts).eql({
                 techs: ['bemhtml']
@@ -232,7 +271,7 @@ describe('bem-config', function() {
                         level1: {}
                     },
                     '.bemrc': JSON.stringify({
-                        levelsOpts: {
+                        levels: {
                             level1: {
                                 techsTemplates: {
                                     js: 'js-ymodules'
@@ -242,7 +281,7 @@ describe('bem-config', function() {
                     })
                 },
                 '.bemrc': JSON.stringify({
-                    levelsOpts: {
+                    levels: {
                         level1: {
                             techsTemplates: {
                                 css: 'css'
@@ -255,14 +294,14 @@ describe('bem-config', function() {
             process.chdir('parent/cwd');
 
             var config = new Config({
-                levelsOpts: {
+                levels: {
                     level1: {
                         techsTemplates: {
                             bemhtml: 'bem-xjst'
                         }
                     }
                 }}),
-                levelOpts = config.getLevelOpts('level1');
+                levelOpts = config.getLevel('level1');
 
             expect(levelOpts).eql({
                 techsTemplates: {
@@ -270,6 +309,55 @@ describe('bem-config', function() {
                     js: 'js-ymodules',
                     bemhtml: 'bem-xjst'
                 }
+            });
+        });
+    });
+
+    describe('getPlugin', function() {
+        it('should return plugin options', function() {
+            mock({
+                node_modules: nodeModules,
+                cwd: {},
+                '.bemrc': JSON.stringify({
+                    root: true,
+                    levels: {
+                        'path/to/level': {
+                            scheme: 'nested'
+                        }
+                    },
+                    plugins: {
+                        create: {
+                            techs: [
+                                'css', 'js'
+                            ],
+                            templateFolder: 'bem/bem-tools-create/templates',
+                            templates: {
+                                'js-ymodules': 'bem/bem-tools-create/templates/js'
+                            },
+                            techsTemplates: {
+                                js: 'js-ymodules'
+                            },
+                            levels: {
+                                'path/to/level': {
+                                    techs: ['bemhtml.js', 'trololo.olo']
+                                }
+                            }
+                        }
+                    }
+                })
+            });
+
+            process.chdir('cwd');
+
+            var config = new Config(),
+                pluginOpts = config.getPlugin('create');
+
+            expect(pluginOpts).eql({
+                techs: [ 'css', 'js' ],
+                templateFolder: 'bem/bem-tools-create/templates',
+                templates: { 'js-ymodules': 'bem/bem-tools-create/templates/js' },
+                techsTemplates: { js: 'js-ymodules' },
+                levels: { 'path/to/level': { techs: ['bemhtml.js', 'trololo.olo'] } }
             });
         });
     });
