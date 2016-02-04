@@ -314,6 +314,19 @@ describe('bem-config', function() {
     });
 
     describe('getPlugin', function() {
+        it('should return undefined if no plugin found in config', function() {
+            mock({
+                node_modules: nodeModules
+            });
+
+            process.chdir('/');
+
+            var config = new Config(),
+                pluginOpts = config.getPlugin('no-such-plugin');
+
+            expect(pluginOpts).eql(undefined);
+        });
+
         it('should return plugin options', function() {
             mock({
                 node_modules: nodeModules,

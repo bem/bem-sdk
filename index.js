@@ -64,7 +64,9 @@ BemConfig.prototype.getLevel = function(levelPath) {
 }
 
 BemConfig.prototype.getPlugin = function(pluginName) {
-    return this.merged.plugins[pluginName];
+    var plugins = this.merged.plugins;
+
+    return plugins && plugins[pluginName];
 }
 
 module.exports = BemConfig;
