@@ -18,7 +18,7 @@ According to original BEM-naming convention it looks like the following:
 'block[_block-mod-name[_block-mod-val]][__elem-name[_elem-mod-name[_elem-mod-val]]]'
 ```
 
-*(Parameters whithin square brackets are optional)*
+*(Parameters within square brackets are optional)*
 
 * Block — `block-name`.
 * Block's modifier in key-value format — `block-name_mod-name_mod-val`.
