@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bem-incubator/bem-config.git"
+    "url": "git+https://github.com/bem-contrib/bem-config.git"
   },
   "keywords": [
     "BEM",
@@ -21,9 +21,9 @@
   "author": "",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/bem-incubator/bem-config/issues"
+    "url": "https://github.com/bem-contrib/bem-config/issues"
   },
-  "homepage": "https://github.com/bem-incubator/bem-config#readme",
+  "homepage": "https://github.com/bem-contrib/bem-config#readme",
   "dependencies": {
     "find-config": "^0.3.0",
     "glob": "^6.0.4",
