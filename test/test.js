@@ -313,8 +313,8 @@ describe('bem-config', function() {
         });
     });
 
-    describe('getPlugin', function() {
-        it('should return undefined if no plugin found in config', function() {
+    describe('getModule', function() {
+        it('should return undefined if no module found in config', function() {
             mock({
                 node_modules: nodeModules
             });
@@ -322,12 +322,12 @@ describe('bem-config', function() {
             process.chdir('/');
 
             var config = new Config(),
-                pluginOpts = config.getPlugin('no-such-plugin');
+                moduleOpts = config.getModule('no-such-module');
 
-            expect(pluginOpts).eql(undefined);
+            expect(moduleOpts).eql(undefined);
         });
 
-        it('should return plugin options', function() {
+        it('should return module options', function() {
             mock({
                 node_modules: nodeModules,
                 cwd: {},
@@ -338,23 +338,9 @@ describe('bem-config', function() {
                             scheme: 'nested'
                         }
                     },
-                    plugins: {
-                        create: {
-                            techs: [
-                                'css', 'js'
-                            ],
-                            templateFolder: 'bem/bem-tools-create/templates',
-                            templates: {
-                                'js-ymodules': 'bem/bem-tools-create/templates/js'
-                            },
-                            techsTemplates: {
-                                js: 'js-ymodules'
-                            },
-                            levels: {
-                                'path/to/level': {
-                                    techs: ['bemhtml.js', 'trololo.olo']
-                                }
-                            }
+                    modules: {
+                        'bem-tools': {
+                            plugins: {}
                         }
                     }
                 })
@@ -363,14 +349,10 @@ describe('bem-config', function() {
             process.chdir('cwd');
 
             var config = new Config(),
-                pluginOpts = config.getPlugin('create');
+                moduleOpts = config.getModule('bem-tools');
 
-            expect(pluginOpts).eql({
-                techs: [ 'css', 'js' ],
-                templateFolder: 'bem/bem-tools-create/templates',
-                templates: { 'js-ymodules': 'bem/bem-tools-create/templates/js' },
-                techsTemplates: { js: 'js-ymodules' },
-                levels: { 'path/to/level': { techs: ['bemhtml.js', 'trololo.olo'] } }
+            expect(moduleOpts).eql({
+                plugins: {}
             });
         });
     });

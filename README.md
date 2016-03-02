@@ -13,7 +13,7 @@ config(optionalConfig);
 // }
 
 config.getLevel('path/to/level'); // merged opts for resolved level
-config.getPlugin('pluginName'); // opts for pluginName
+config.getModule('moduleName'); // opts for moduleName
 
 ```
 
@@ -27,21 +27,25 @@ config.getPlugin('pluginName'); // opts for pluginName
             "scheme": "nested"
         }
     },
-    "plugins": {
-        "create": {
-            "techs": [
-                "css", "js"
-            ],
-            "templateFolder": "/Users/tadatuta/Sites/bem/bem-tools-create/templates",
-            "templates": {
-                "js-ymodules": "/Users/tadatuta/Sites/bem/bem-tools-create/templates/js"
-            },
-            "techsTemplates": {
-                "js": "js-ymodules"
-            },
-            "levels": {
-                "path/to/level": {
-                    "techs": ["bemhtml.js", "trololo.olo"]
+    "modules": {
+        "bem-tools": {
+            "plugins": {
+                "create": {
+                    "techs": [
+                        "css", "js"
+                    ],
+                    "templateFolder": "/Users/tadatuta/Sites/bem/bem-tools-create/templates",
+                    "templates": {
+                        "js-ymodules": "/Users/tadatuta/Sites/bem/bem-tools-create/templates/js"
+                    },
+                    "techsTemplates": {
+                        "js": "js-ymodules"
+                    },
+                    "levels": {
+                        "path/to/level": {
+                            "techs": ["bemhtml.js", "trololo.olo"]
+                        }
+                    }
                 }
             }
         }
