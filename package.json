@@ -26,7 +26,6 @@
   "dependencies": {
     "bem-naming": "^0.5.1",
     "deps-normalize": "github:tadatuta/deps-normalize#patch",
-    "lodash": "^3.10.0",
     "stringify-object": "^2.3.0"
   }
 }
