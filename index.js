@@ -1,5 +1,4 @@
-var _ = require('lodash'),
-    stringifyObj = require('stringify-object'),
+var stringifyObj = require('stringify-object'),
     depsNormalize = require('deps-normalize'),
     naming = require('bem-naming');
 
