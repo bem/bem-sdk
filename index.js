@@ -60,7 +60,7 @@ BEMNaming.prototype.validate = function (str) {
 /**
  * Returns a string indicating the type of the BEM entity.
  *
- * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
+ * @param {Object|String|undefined} obj BEM-naming object or string representation of BEM entity.
  * @returns {String}
  */
 BEMNaming.prototype.typeOf = function (obj) {
@@ -68,7 +68,7 @@ BEMNaming.prototype.typeOf = function (obj) {
         obj = this.parse(obj);
     }
 
-    if (!obj || !obj.block) { return; }
+    if (!obj || !obj.block) { return undefined; }
 
     var modName = obj.modName,
         isMod = modName && (obj.modVal || !obj.hasOwnProperty('modVal'));
@@ -131,7 +131,7 @@ BEMNaming.prototype.isElemMod = function (obj) {
 BEMNaming.prototype.parse = function (str) {
     var executed = this._regex.exec(str);
 
-    if (!executed) { return; }
+    if (!executed) { return undefined; }
 
     var notation = {
             block: executed[1] || executed[4]
@@ -159,7 +159,7 @@ BEMNaming.prototype.parse = function (str) {
  */
 BEMNaming.prototype.stringify = function (obj) {
     if (!obj || !obj.block) {
-        throw new Error('The field `block` is undefined. It is impossible to stringify BEM notation.');
+        return undefined;
     }
 
     var res = obj.block;
