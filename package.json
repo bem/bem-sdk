@@ -44,14 +44,12 @@
     "matcha": "0.6.0",
     "mocha": "2.1.0",
     "should": "4.5.0",
-    "uglify-js": "2.4.16",
-    "zuul": "1.16.4"
+    "uglify-js": "2.4.16"
   },
   "scripts": {
-    "test": "npm run lint && npm run unit && npm run browser",
+    "test": "npm run lint && npm run unit",
     "lint": "jshint . && jscs -c .jscs.js .",
     "unit": "mocha ./test/**/*.test.js",
-    "browser": "zuul -- ./test/**/*.test.js",
     "cover": "istanbul cover _mocha -- ./test/**/*.test.js",
     "bench": "matcha benchmark/*.js",
     "min": "uglifyjs lib/bem-naming.js > bem-naming.min.js",
