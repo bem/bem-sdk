@@ -41,8 +41,9 @@
     "bem-naming": "0.5.1"
   },
   "devDependencies": {
+    "eslint": "2.4.0",
+    "eslint-config-pedant": "0.1.1",
     "jscs": "1.10.0",
-    "jshint": "2.5.11",
     "matcha": "0.6.0",
     "mocha": "2.1.0",
     "must": "0.12.0",
@@ -50,7 +51,7 @@
   },
   "scripts": {
     "test": "npm run lint && npm run spec",
-    "lint": "jshint . && jscs .",
+    "lint": "eslint . && jscs .",
     "spec": "mocha ./spec/*.spec.js --opts ./spec/mocha.opts",
     "bench": "matcha benchmark/*.js",
     "cover": "unit-coverage run -s 'lib/**' -t 'spec/**/*.spec.js' -S relative -O sources=lib -O tests=spec -- --opts ./spec/mocha.opts lib spec",

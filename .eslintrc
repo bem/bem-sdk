@@ -1,0 +1,14 @@
+env:
+  node: true
+  mocha: true
+
+globals:
+  # matcha
+  set: false
+  bench: false
+  suite: false
+
+extends: pedant
+
+rules:
+  no-shadow: off
