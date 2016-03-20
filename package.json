@@ -38,21 +38,19 @@
     "LICENSE.txt"
   ],
   "devDependencies": {
+    "ava": "0.13.0",
     "eslint": "2.4.0",
     "eslint-config-pedant": "0.1.1",
-    "istanbul": "0.3.5",
     "jscs": "2.11.0",
     "matcha": "0.6.0",
-    "mocha": "2.1.0",
-    "should": "4.5.0"
+    "nyc": "6.1.1"
   },
   "scripts": {
-    "test": "npm run lint && npm run unit",
+    "test": "npm run lint && npm run cover",
     "lint": "eslint . && jscs -c .jscs.js .",
-    "unit": "mocha ./test/**/*.test.js",
-    "cover": "istanbul cover _mocha -- ./test/**/*.test.js",
-    "bench": "matcha benchmark/*.js",
-    "coveralls": "npm i coveralls && npm run cover && cat ./coverage/lcov.info | coveralls",
-    "travis": "npm run test && npm run coveralls"
+    "unit-test": "ava",
+    "cover": "nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "bench": "matcha benchmark/*.js"
   }
 }
