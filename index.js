@@ -195,6 +195,11 @@ BEMNaming.prototype._buildRegex = function () {
 
 var defineAsGlobal = true,
     cache = {},
+    methods = [
+        'validate', 'typeOf',
+        'parse', 'stringify',
+        'isBlock', 'isElem', 'isBlockMod', 'isElemMod'
+    ],
     bemNaming = function (options) {
         options || (options = {});
 
@@ -206,19 +211,26 @@ var defineAsGlobal = true,
             },
             id = JSON.stringify(naming);
 
-        return cache[id] || (cache[id] = new BEMNaming(naming));
+        if (cache[id]) {
+            return cache[id];
+        }
+
+        var instance = new BEMNaming(naming),
+            namespace = {};
+
+        methods.forEach(function (method) {
+            namespace[method] = instance[method].bind(instance);
+        });
+        cache[id] = namespace;
+
+        return namespace;
     },
     originalNaming = bemNaming();
 
-bemNaming.BEMNaming  = BEMNaming;
-bemNaming.validate   = function () { return originalNaming.validate.apply(originalNaming, arguments);   };
-bemNaming.parse      = function () { return originalNaming.parse.apply(originalNaming, arguments);      };
-bemNaming.stringify  = function () { return originalNaming.stringify.apply(originalNaming, arguments);  };
-bemNaming.typeOf     = function () { return originalNaming.typeOf.apply(originalNaming, arguments);     };
-bemNaming.isBlock    = function () { return originalNaming.isBlock.apply(originalNaming, arguments);    };
-bemNaming.isElem     = function () { return originalNaming.isElem.apply(originalNaming, arguments);     };
-bemNaming.isBlockMod = function () { return originalNaming.isBlockMod.apply(originalNaming, arguments); };
-bemNaming.isElemMod  = function () { return originalNaming.isElemMod.apply(originalNaming, arguments);  };
+bemNaming.BEMNaming = BEMNaming;
+methods.forEach(function (method) {
+    bemNaming[method] = originalNaming[method];
+});
 
 // Node.js
 /* istanbul ignore if */
