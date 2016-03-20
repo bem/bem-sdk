@@ -1,8 +1,7 @@
 module.exports = {
     excludeFiles: [
         'node_modules/**',
-        'coverage/**',
-        'bem-naming.min.js'
+        'coverage/**'
     ],
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
     requireSpaceBeforeBlockStatements: true,

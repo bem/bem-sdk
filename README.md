@@ -2,15 +2,11 @@ bem-naming
 ==========
 
 [![NPM Status][npm-img]][npm]
-[![Download][download-img]][download]
 [![Travis Status][test-img]][travis]
 [![Coverage Status][coverage-img]][coveralls]
 
 [npm]:          https://www.npmjs.org/package/bem-naming
 [npm-img]:      https://img.shields.io/npm/v/bem-naming.svg
-
-[download]:     https://github.com/bem/bem-naming/releases/v0.5.1
-[download-img]: https://img.shields.io/badge/download-1%20kB-blue.svg
 
 [travis]:       https://travis-ci.org/bem/bem-naming
 [test-img]:     https://img.shields.io/travis/bem/bem-naming.svg
