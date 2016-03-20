@@ -227,7 +227,6 @@ var defineAsGlobal = true,
     },
     originalNaming = bemNaming();
 
-bemNaming.BEMNaming = BemNaming;
 methods.forEach(function (method) {
     bemNaming[method] = originalNaming[method];
 });
