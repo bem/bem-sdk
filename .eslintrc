@@ -1,0 +1,17 @@
+env:
+  commonjs: true
+  amd: true
+  mocha: true
+
+globals:
+  # YModules
+  modules: false
+  # matcha
+  set: false
+  bench: false
+  suite: false
+
+extends: pedant
+
+rules:
+  no-unused-expressions: off
