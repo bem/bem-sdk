@@ -15,7 +15,7 @@ var TYPES = {
 };
 
 /**
- * BEMNaming allows getting information about BEM entity using string as well as forming string
+ * BemNaming allows getting information about BEM entity using string as well as forming string
  * representation based on BEM-naming.
  *
  * @param {Object} [options]           Options.
@@ -23,10 +23,10 @@ var TYPES = {
  * @param {Object} [options.mod='_']   Separates names and values of modifiers from blocks and elements.
  * @param {Object} [options.wordPattern='[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*] Defines which symbols can be used for block,
  *                                                                       element and modifier's names.
- * @name BEMNaming
+ * @name BemNaming
  * @class
  */
-function BEMNaming(options) {
+function BemNaming(options) {
     options || (options = {});
 
     /**
@@ -53,7 +53,7 @@ function BEMNaming(options) {
  * @param {String} str String representation of BEM entity.
  * @returns {Boolean}
  */
-BEMNaming.prototype.validate = function (str) {
+BemNaming.prototype.validate = function (str) {
     return this._regex.test(str);
 };
 
@@ -63,7 +63,7 @@ BEMNaming.prototype.validate = function (str) {
  * @param {Object|String|undefined} obj BEM-naming object or string representation of BEM entity.
  * @returns {String}
  */
-BEMNaming.prototype.typeOf = function (obj) {
+BemNaming.prototype.typeOf = function (obj) {
     if (typeof obj === 'string') {
         obj = this.parse(obj);
     }
@@ -88,7 +88,7 @@ BEMNaming.prototype.typeOf = function (obj) {
  * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
  * @returns {Boolean}
  */
-BEMNaming.prototype.isBlock = function (obj) {
+BemNaming.prototype.isBlock = function (obj) {
     return this.typeOf(obj) === TYPES.BLOCK;
 };
 
@@ -98,7 +98,7 @@ BEMNaming.prototype.isBlock = function (obj) {
  * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
  * @returns {Boolean}
  */
-BEMNaming.prototype.isBlockMod = function (obj) {
+BemNaming.prototype.isBlockMod = function (obj) {
     return this.typeOf(obj) === TYPES.BLOCK_MOD;
 };
 
@@ -108,7 +108,7 @@ BEMNaming.prototype.isBlockMod = function (obj) {
  * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
  * @returns {Boolean}
  */
-BEMNaming.prototype.isElem = function (obj) {
+BemNaming.prototype.isElem = function (obj) {
     return this.typeOf(obj) === TYPES.ELEM;
 };
 
@@ -118,7 +118,7 @@ BEMNaming.prototype.isElem = function (obj) {
  * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
  * @returns {Boolean}
  */
-BEMNaming.prototype.isElemMod = function (obj) {
+BemNaming.prototype.isElemMod = function (obj) {
     return this.typeOf(obj) === TYPES.ELEM_MOD;
 };
 
@@ -128,7 +128,7 @@ BEMNaming.prototype.isElemMod = function (obj) {
  * @param {String} str String representation of BEM entity.
  * @returns {Object|undefined}
  */
-BEMNaming.prototype.parse = function (str) {
+BemNaming.prototype.parse = function (str) {
     var executed = this._regex.exec(str);
 
     if (!executed) { return undefined; }
@@ -157,7 +157,7 @@ BEMNaming.prototype.parse = function (str) {
  * @param {Object} obj BEM-naming object
  * @returns {String}
  */
-BEMNaming.prototype.stringify = function (obj) {
+BemNaming.prototype.stringify = function (obj) {
     if (!obj || !obj.block) {
         return undefined;
     }
@@ -183,7 +183,7 @@ BEMNaming.prototype.stringify = function (obj) {
     return res;
 };
 
-BEMNaming.prototype._buildRegex = function () {
+BemNaming.prototype._buildRegex = function () {
     var word = this._wordPattern,
         block = '(' + word + ')',
         elem = '(?:' + this.elemDelim + '(' + word + '))?',
@@ -215,7 +215,7 @@ var defineAsGlobal = true,
             return cache[id];
         }
 
-        var instance = new BEMNaming(naming),
+        var instance = new BemNaming(naming),
             namespace = {};
 
         methods.forEach(function (method) {
@@ -227,7 +227,6 @@ var defineAsGlobal = true,
     },
     originalNaming = bemNaming();
 
-bemNaming.BEMNaming = BEMNaming;
 methods.forEach(function (method) {
     bemNaming[method] = originalNaming[method];
 });
