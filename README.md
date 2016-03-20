@@ -1,7 +1,22 @@
 bem-naming
 ==========
 
-[![NPM version](https://img.shields.io/npm/v/bem-naming.svg?style=flat)](http://www.npmjs.org/package/bem-naming) [![Download](https://img.shields.io/badge/download-1%20kB-blue.svg?style=flat)](https://github.com/bem/bem-naming/releases/v0.5.1) [![Build Status](https://img.shields.io/travis/bem/bem-naming/master.svg?style=flat)](https://travis-ci.org/bem/bem-naming) [![Coverage Status](https://img.shields.io/coveralls/bem/bem-naming.svg?branch=master&style=flat)](https://coveralls.io/r/bem/bem-naming) [![devDependency Status](https://img.shields.io/david/dev/bem/bem-naming.svg?style=flat)](https://david-dm.org/bem/bem-naming#info=devDependencies)
+[![NPM Status][npm-img]][npm]
+[![Download][download-img]][download]
+[![Travis Status][test-img]][travis]
+[![Coverage Status][coverage-img]][coveralls]
+
+[npm]:          https://www.npmjs.org/package/bem-naming
+[npm-img]:      https://img.shields.io/npm/v/bem-naming.svg
+
+[download]:     https://github.com/bem/bem-naming/releases/v0.5.1
+[download-img]: https://img.shields.io/badge/download-1%20kB-blue.svg
+
+[travis]:       https://travis-ci.org/bem/bem-naming
+[test-img]:     https://img.shields.io/travis/bem/bem-naming.svg
+
+[coveralls]:    https://coveralls.io/r/bem/bem-naming
+[coverage-img]: https://img.shields.io/coveralls/bem/bem-naming.svg
 
 About
 -----
