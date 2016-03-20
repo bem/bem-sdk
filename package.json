@@ -20,10 +20,9 @@
   "engines": {
     "node": ">= 4.0"
   },
-  "main": "lib/bem-naming",
+  "main": "index.js",
   "files": [
-    "lib/bem-naming.js",
-    "LICENSE.txt"
+    "index.js"
   ],
   "devDependencies": {
     "ava": "0.13.0",

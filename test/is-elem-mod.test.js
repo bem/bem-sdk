@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../lib/bem-naming');
+const naming = require('../index');
 
 test('should detect mod of elem', t => {
     const entity = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' };

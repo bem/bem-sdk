@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../lib/bem-naming')({ elem: '__', mod: '--' });
+const naming = require('../../../index')({ elem: '__', mod: '--' });
 
 test('should validate block', t => {
     t.true(naming.validate('block'));

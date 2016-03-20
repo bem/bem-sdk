@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../lib/bem-naming');
+const naming = require('../../../index');
 
 test('should not determine not valid string', t => {
     const type = naming.typeOf('(*)_(*)');

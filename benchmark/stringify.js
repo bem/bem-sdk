@@ -1,4 +1,4 @@
-var naming = require('../lib/bem-naming'),
+var naming = require('../index'),
     notations = {
         block: { block: 'block' },
         blockMod: { block: 'block', modName: 'mod-name', modVal: 'mod-val' },

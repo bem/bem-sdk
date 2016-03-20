@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../lib/bem-naming');
+const naming = require('../index');
 
 test('should cache instance of original naming', t => {
     const instance1 = naming();
