@@ -30,7 +30,7 @@
     "Andrew Abramov <mail@blond.im>"
   ],
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 4.0"
   },
   "main": "lib/bem-naming",
   "files": [
