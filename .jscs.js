@@ -1,4 +1,5 @@
 module.exports = {
+    esnext: true,
     excludeFiles: [
         'node_modules/**',
         'coverage/**'
@@ -15,7 +16,6 @@ module.exports = {
     disallowSpacesInNamedFunctionExpression: {
         beforeOpeningRoundBrace: true
     },
-    requireMultipleVarDecl: true,
     requireBlocksOnNewline: 1,
     disallowPaddingNewlinesInBlocks: true,
     disallowSpacesInsideArrayBrackets: 'nested',

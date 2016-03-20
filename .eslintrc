@@ -1,4 +1,5 @@
 env:
+  es6: true
   commonjs: true
   amd: true
   mocha: true
@@ -12,6 +13,3 @@ globals:
   suite: false
 
 extends: pedant
-
-rules:
-  no-unused-expressions: off
