@@ -204,10 +204,9 @@ var defineAsGlobal = true,
         options || (options = {});
 
         var naming = {
-                elem: options.elem || options.elemSeparator || '__',
-                mod: options.mod || options.modSeparator || '_',
-                wordPattern: options.wordPattern || options.literal && (options.literal + '+') ||
-                    '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*'
+                elem: options.elem || '__',
+                mod: options.mod || '_',
+                wordPattern: options.wordPattern || '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*'
             },
             id = JSON.stringify(naming);
 
