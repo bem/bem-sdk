@@ -18,10 +18,10 @@ var TYPES = {
  * BemNaming allows getting information about BEM entity using string as well as forming string
  * representation based on BEM-naming.
  *
- * @param {Object} [options]             Options.
- * @param {Object} [options.elem]        Separates element's name from block.
- * @param {Object} [options.mod]         Separates names and values of modifiers from blocks and elements.
- * @param {Object} [options.wordPattern] Defines which symbols can be used for block, element and modifier's names.
+ * @param {Object} options              Options.
+ * @param {String} options.elem         Separates element's name from block.
+ * @param {String} options.mod          Separates names and values of modifiers from blocks and elements.
+ * @param {String} options.wordPattern  Defines which symbols can be used for block, element and modifier's names.
  * @name BemNaming
  * @class
  */
