@@ -18,32 +18,28 @@ var TYPES = {
  * BemNaming allows getting information about BEM entity using string as well as forming string
  * representation based on BEM-naming.
  *
- * @param {Object} [options]           Options.
- * @param {Object} [options.elem='__'] Separates element's name from block.
- * @param {Object} [options.mod='_']   Separates names and values of modifiers from blocks and elements.
- * @param {Object} [options.wordPattern='[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*] Defines which symbols can be used for block,
- *                                                                       element and modifier's names.
+ * @param {Object} [options]             Options.
+ * @param {Object} [options.elem]        Separates element's name from block.
+ * @param {Object} [options.mod]         Separates names and values of modifiers from blocks and elements.
+ * @param {Object} [options.wordPattern] Defines which symbols can be used for block, element and modifier's names.
  * @name BemNaming
  * @class
  */
 function BemNaming(options) {
-    options || (options = {});
-
     /**
      * String to separate elem from block.
      *
      * @type {String}
      */
-    this.elemDelim = options.elem || options.elemSeparator || '__';
+    this.elemDelim = options.elem;
     /**
      * String to separate names and values of modifiers from blocks and elements.
      *
      * @type {String}
      */
-    this.modDelim = options.mod || options.modSeparator || '_';
-    this._wordPattern = options.wordPattern || options.literal && (options.literal + '+') ||
-        '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*';
+    this.modDelim = options.mod;
 
+    this._wordPattern = options.wordPattern;
     this._buildRegex();
 }
 
