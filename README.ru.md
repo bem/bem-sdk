@@ -369,7 +369,7 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 В стиле Гарри Робертса
 ----------------------
 
-Согласно этому соглашению элементы отделяются от блока с помощью двух символов подчёркивания (__), а булевые модификаторы с помощью двух символов дефиса (--). Модификаторы вида ключ-значение не используются.
+Согласно этому соглашению элементы отделяются от блока с помощью двух символов подчёркивания (`__`), модификаторы с помощью двух символов дефиса (`--`), а значения модификаторов с помощью одного символа подчёркивания (`_`).
 
 Подробнее читайте в [руководстве](http://cssguidelin.es/#bem-like-naming).
 
@@ -378,14 +378,14 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 ```js
 var csswizardry = bemNaming({
     elem: '__',
-    mod: '--'
+    mod: { name: '--', val: '_' }
 });
 
-csswizardry.parse('block__elem'); // { block: 'block', elem: 'elem' }
-csswizardry.parse('block--mod');  // { block: 'block',
-                                  //   modName: 'mod', modVal: true }
+csswizardry.parse('block__elem');    // { block: 'block', elem: 'elem' }
+csswizardry.parse('block--mod_val'); // { block: 'block',
+                                     //   modName: 'mod', modVal: `val` }
 
-csswizardry.stringify({           // 'block__elem--mod'
+csswizardry.stringify({              // 'block__elem--mod'
     block: 'block',
     elem: 'elem',
     modName: 'mod'
