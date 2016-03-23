@@ -126,6 +126,7 @@ API
 * [`isElemMod(obj)`](#iselemmodobj)
 * [`elemDelim`](#elemdelim)
 * [`modDelim`](#moddelim)
+* [`modValDelim`](#modvaldelim)
 
 ### `validate(str)`
 
@@ -316,7 +317,13 @@ String to separate elem from block.
 
 ### `modDelim`
 
-String to separate names and values of modifiers from blocks and elements.
+String to separate modifiers from blocks and elements.
+
+-------------------------------------------------------------------------------
+
+### `modValDelim`
+
+String to separate value of modifier from name of modifier.
 
 Custom naming convention
 ------------------------
