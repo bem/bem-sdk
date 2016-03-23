@@ -333,7 +333,17 @@ Use `bemNaming` function to create instance to manage naming of your own naming 
 Function `bemNaming` gets the object from the following options:
 
 * **String** `elem` — separates element's name from block. Default as `__`.
-* **String** `mod` — separates names and values of modifiers from blocks and elements. Default as `_`.
+* **String|Object** `mod` — separates modifiers from blocks and elements. Default as `_`.
+
+  This option can get object:
+
+  ```js
+  { name: String, val: String }
+  ```
+
+  * **String** `name` — separates name of modifier from blocks and elements. Default as `_`.
+  * **String** `val` — separates value of modifier from name of modifier. Default as the value of the `name`.
+
 * **String** `wordPattern` — defines which symbols can be used for block, element and modifier's names. Default as `[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 Example:
@@ -341,13 +351,13 @@ Example:
 ```js
 var myNaming = bemNaming({
     elem: '-',
-    mod: '--',
+    mod: { name: '--', val: '_' }
     wordPattern: '[a-zA-Z0-9]+'   // because element and modifier's separators include
 });                               // hyphen in it, we need to exclude it from block,
                                   // element and modifier's name
 
-myNaming.parse('block--mod');     // { block: 'block',
-                                  //   modName: 'mod', modVal: true }
+myNaming.parse('block--mod_val'); // { block: 'block',
+                                  //   modName: 'mod', modVal: 'val' }
 
 myNaming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',

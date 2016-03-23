@@ -333,7 +333,17 @@ bemNaming.isElemMod({ block: 'block',
 Функция принимает объект из следующих опций:
 
 * **String** `elem` — отделяет имя элемента от блока. По умолчанию — `__`.
-* **String** `mod` — отделяет названия и значения модификаторов от блоков и элементов. По умолчанию — `_`.
+* **String|Object** `mod` — отделяет модификаторы от блоков и элементов. По умолчанию — `_`.
+
+  Опция может принимать объект вида:
+
+  ```js
+  { name: String, val: String }
+  ```
+
+  * **String** `name` — отделяет название модификатора от блоков и элементов. По умолчанию — `_`.
+  * **String** `val` — отделяет значение модификатора от имени модификатора. По умолчанию принимает значение опции `name`.
+
 * **String** `wordPattern` — определяет, какие символы могут быть использованы в именах блоков, элементов и модификаторов. По умолчанию — `[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 Пример:
@@ -341,13 +351,13 @@ bemNaming.isElemMod({ block: 'block',
 ```js
 var myNaming = bemNaming({
     elem: '-',
-    mod: '--',
+    mod: { name: '--', val: '_' },
     wordPattern: '[a-zA-Z0-9]+'   // т.к. сепараторы элемента и модификатора включают
 });                               // в себя дефис, исключим его из имён блоков,
                                   // элементов и модификаторов
 
-myNaming.parse('block--mod');     // { block: 'block',
-                                  //   modName: 'mod', modVal: true }
+myNaming.parse('block--mod_val'); // { block: 'block',
+                                  //   modName: 'mod', modVal: 'val' }
 
 myNaming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',
