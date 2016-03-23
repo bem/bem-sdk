@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../index')({ elem: '__', mod: '--' });
+const naming = require('../../../index')({ elem: '__', mod: { name: '--', val: '_' } });
 
 test('should not parse not valid string', t => {
     const obj = naming.parse('(*)--(*)');
@@ -16,6 +16,12 @@ test('should have one filed if parse block', t => {
 });
 
 test('should have three filed if parse mod of block', t => {
+    const obj = naming.parse('block--mod_val');
+
+    t.is(Object.keys(obj).length, 3);
+});
+
+test('should have three filed if parse boolean mod of block', t => {
     const obj = naming.parse('block--mod');
 
     t.is(Object.keys(obj).length, 3);
@@ -28,6 +34,12 @@ test('should have two filed if parse elem of block', t => {
 });
 
 test('should have four filed if parse mod of elem', t => {
+    const obj = naming.parse('block__elem--mod_val');
+
+    t.is(Object.keys(obj).length, 4);
+});
+
+test('should have four filed if parse boolean mod of elem', t => {
     const obj = naming.parse('block__elem--mod');
 
     t.is(Object.keys(obj).length, 4);
@@ -42,7 +54,7 @@ test('should parse block', t => {
 test('should parse mod of block', t => {
     t.plan(3);
 
-    const obj = naming.parse('block--mod--val');
+    const obj = naming.parse('block--mod_val');
 
     t.is(obj.block, 'block');
     t.is(obj.modName, 'mod');
@@ -56,6 +68,7 @@ test('should parse boolean mod of block', t => {
 
     t.is(obj.block, 'block');
     t.is(obj.modName, 'mod');
+
     t.true(obj.modVal);
 });
 
@@ -71,7 +84,7 @@ test('should parse elem', t => {
 test('should parse mod of elem', t => {
     t.plan(4);
 
-    const obj = naming.parse('block__elem--mod--val');
+    const obj = naming.parse('block__elem--mod_val');
 
     t.is(obj.block, 'block');
     t.is(obj.elem, 'elem');
@@ -85,8 +98,8 @@ test('should parse boolean mod of elem', t => {
     const obj = naming.parse('block__elem--mod');
 
     t.is(obj.block, 'block');
-    t.is(obj.modName, 'mod');
     t.is(obj.elem, 'elem');
+    t.is(obj.modName, 'mod');
 
     t.true(obj.modVal);
 });
