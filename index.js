@@ -21,6 +21,7 @@ var TYPES = {
  * @param {Object} options              Options.
  * @param {String} options.elem         Separates element's name from block.
  * @param {String} options.mod          Separates names and values of modifiers from blocks and elements.
+ * @param {String} options.modVal       Separates separate value of modifier from name of modifier.
  * @param {String} options.wordPattern  Defines which symbols can be used for block, element and modifier's names.
  * @name BemNaming
  * @class
@@ -33,11 +34,17 @@ function BemNaming(options) {
      */
     this.elemDelim = options.elem;
     /**
-     * String to separate names and values of modifiers from blocks and elements.
+     * String to separate modifiers from blocks and elements.
      *
      * @type {String}
      */
-    this.modDelim = options.mod;
+    this.modDelim = options.modName;
+    /**
+     * String to separate value of modifier from name of modifier.
+     *
+     * @type {String}
+     */
+    this.modValDelim = options.modVal;
 
     this._wordPattern = options.wordPattern;
     this._buildRegex();
@@ -172,7 +179,7 @@ BemNaming.prototype.stringify = function (obj) {
         }
 
         if (modVal && modVal !== true) {
-            res += this.modDelim + modVal;
+            res += this.modValDelim + modVal;
         }
     }
 
@@ -183,8 +190,9 @@ BemNaming.prototype._buildRegex = function () {
     var word = this._wordPattern,
         block = '(' + word + ')',
         elem = '(?:' + this.elemDelim + '(' + word + '))?',
-        modPart = '(?:' + this.modDelim + '(' + word + '))?',
-        mod = modPart + modPart;
+        modName = '(?:' + this.modDelim + '(' + word + '))?',
+        modVal = '(?:' + this.modValDelim + '(' + word + '))?',
+        mod = modName + modVal;
 
     this._regex = new RegExp('^' + block + mod + '$|^' + block + elem + mod + '$');
 };
@@ -196,13 +204,25 @@ var defineAsGlobal = true,
         'parse', 'stringify',
         'isBlock', 'isElem', 'isBlockMod', 'isElemMod'
     ],
-    fields = ['elemDelim', 'modDelim'],
+    fields = ['elemDelim', 'modDelim', 'modValDelim'],
     bemNaming = function (options) {
         options || (options = {});
 
+        var mod = options.mod || '_',
+            modName, modVal;
+
+        if (typeof mod === 'string') {
+            modName = mod;
+            modVal = mod;
+        } else {
+            modName = mod.name || '_';
+            modVal = mod.val || modName;
+        }
+
         var naming = {
                 elem: options.elem || '__',
-                mod: options.mod || '_',
+                modName: modName,
+                modVal: modVal,
                 wordPattern: options.wordPattern || '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*'
             },
             id = JSON.stringify(naming);
