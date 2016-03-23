@@ -325,9 +325,9 @@ Use `bemNaming` function to create instance to manage naming of your own naming 
 
 Function `bemNaming` gets the object from the following options:
 
-* **String** `elem` — separates element's name from block. Default&nbsp;as&nbsp;`__`.
-* **String** `mod` — separates names and values of modifiers from blocks and elements. Default&nbsp;as&nbsp;`_`.
-* **String** `wordPattern` — defines which symbols can be used for block, element and modifier's names. Default&nbsp;as&nbsp;`[a-z0-9]+(?:-[a-z0-9]+)*`.
+* **String** `elem` — separates element's name from block. Default as `__`.
+* **String** `mod` — separates names and values of modifiers from blocks and elements. Default as `_`.
+* **String** `wordPattern` — defines which symbols can be used for block, element and modifier's names. Default as `[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 Example:
 
