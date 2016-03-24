@@ -111,24 +111,24 @@ bem-naming
 API
 ---
 
-* [`validate(str)`](#validatestr)
-* [`parse(str)`](#parsestr)
-* [`stringify(obj)`](#stringifyobj)
-* [`typeOf(str)`](#typeofstr)
-* [`typeOf(obj)`](#typeofobj)
-* [`isBlock(str)`](#isblockstr)
-* [`isBlock(obj)`](#isblockobj)
-* [`isBlockMod(str)`](#isblockmodstr)
-* [`isBlockMod(obj)`](#isblockmodobj)
-* [`isElem(str)`](#iselemstr)
-* [`isElem(obj)`](#iselemobj)
-* [`isElemMod(str)`](#iselemmodstr)
-* [`isElemMod(obj)`](#iselemmodobj)
-* [`elemDelim`](#elemdelim)
-* [`modDelim`](#moddelim)
-* [`modValDelim`](#modvaldelim)
+* [validate(str)](#validatestr)
+* [parse(str)](#parsestr)
+* [stringify(obj)](#stringifyobj)
+* [typeOf(str)](#typeofstr)
+* [typeOf(obj)](#typeofobj)
+* [isBlock(str)](#isblockstr)
+* [isBlock(obj)](#isblockobj)
+* [isBlockMod(str)](#isblockmodstr)
+* [isBlockMod(obj)](#isblockmodobj)
+* [isElem(str)](#iselemstr)
+* [isElem(obj)](#iselemobj)
+* [isElemMod(str)](#iselemmodstr)
+* [isElemMod(obj)](#iselemmodobj)
+* [elemDelim](#elemdelim)
+* [modDelim](#moddelim)
+* [modValDelim](#modvaldelim)
 
-### `validate(str)`
+### validate(str)
 
 Проверяет может ли строка `str` быть раскрыта в БЭМ-нотацию.
 
@@ -139,9 +139,7 @@ bemNaming.validate('block-name');  // true
 bemNaming.validate('^*^');         // false
 ```
 
-<hr/>
-
-### `parse(str)`
+### parse(str)
 
 Раскрывает строку `str` в БЭМ-нотацию.
 
@@ -152,9 +150,7 @@ bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
                                          //   modName: 'mod', modVal: 'val' }
 ```
 
-<hr/>
-
-### `stringify(obj)`
+### stringify(obj)
 
 Формирует строку по БЭМ-нотации `obj`.
 
@@ -167,9 +163,7 @@ bemNaming.stringify({
 }); // 'block__elem_mod_val'
 ```
 
-<hr/>
-
-### `typeOf(str)`
+### typeOf(str)
 
 Возвращает строку, указывающую тип БЭМ-сущности.
 
@@ -182,9 +176,7 @@ bemNaming.typeOf('block__elem');       // elem
 bemNaming.typeOf('block__elem_mod');   // elemMod
 ```
 
-<hr/>
-
-### `typeOf(obj)`
+### typeOf(obj)
 
 Возвращает строку, указывающую тип БЭМ-сущности.
 
@@ -197,9 +189,7 @@ bemNaming.typeOf({ block: 'block', elem: 'elem' });                 // elem
 bemNaming.typeOf({ block: 'block', elem: 'elem', modName: 'mod' }); // elemMod
 ```
 
-<hr/>
-
-### `isBlock(str)`
+### isBlock(str)
 
 Проверяет обозначает ли строка `str` блок.
 
@@ -210,9 +200,7 @@ bemNaming.isBlock('block-name');   // true
 bemNaming.isBlock('block__elem');  // false
 ```
 
-<hr/>
-
-### `isBlock(obj)`
+### isBlock(obj)
 
 Проверяет обозначает ли БЭМ-нотация `obj` блок.
 
@@ -223,9 +211,7 @@ bemNaming.isBlock({ block: 'block-name' });           // true
 bemNaming.isBlock({ block: 'block', elem: 'elem' });  // false
 ```
 
-<hr/>
-
-### `isBlockMod(str)`
+### isBlockMod(str)
 
 Проверяет обозначает ли строка `str` модификатор блока.
 
@@ -236,9 +222,7 @@ bemNaming.isBlockMod('block_mod');        // true
 bemNaming.isBlockMod('block__elem_mod');  // false
 ```
 
-<hr/>
-
-### `isBlockMod(obj)`
+### isBlockMod(obj)
 
 Проверяет обозначает ли БЭМ-нотация `obj` модификатор блока.
 
@@ -252,9 +236,7 @@ bemNaming.isBlockMod({ block: 'block', elem: 'elem',
     modName: 'mod', modVal: true });  // false
 ```
 
-<hr/>
-
-### `isElem(str)`
+### isElem(str)
 
 Проверяет обозначает ли строка `str` элемент блока.
 
@@ -265,9 +247,7 @@ bemNaming.isElem('block__elem');  // true
 bemNaming.isElem('block-name');   // false
 ```
 
-<hr/>
-
-### `isElem(obj)`
+### isElem(obj)
 
 Проверяет обозначает ли БЭМ-нотация `obj` элемент блока.
 
@@ -278,9 +258,7 @@ bemNaming.isElem({ block: 'block', elem: 'elem' });  // true
 bemNaming.isElem({ block: 'block-name' });           // false
 ```
 
-<hr/>
-
-### `isElemMod(str)`
+### isElemMod(str)
 
 Проверяет обозначает ли строка `str` модификатор элемента.
 
@@ -291,9 +269,7 @@ bemNaming.isElemMod('block__elem_mod');  // true
 bemNaming.isElemMod('block__elem');      // false
 ```
 
-<hr/>
-
-### `isElemMod(obj)`
+### isElemMod(obj)
 
 Проверяет обозначает ли БЭМ-нотация `obj` модификатор элемента.
 
@@ -307,21 +283,15 @@ bemNaming.isElemMod({ block: 'block',
     modName: 'mod', modVal: true});   // false
 ```
 
--------------------------------------------------------------------------------
-
-### `elemDelim`
+### elemDelim
 
 Строка для разделения элемента от блока.
 
--------------------------------------------------------------------------------
-
-### `modDelim`
+### modDelim
 
 Строка для разделения модификатора от блока и элемента.
 
--------------------------------------------------------------------------------
-
-### `modValDelim`
+### modValDelim
 
 Строка для разделения значения модификатора от названия модификатора.
 
@@ -329,22 +299,6 @@ bemNaming.isElemMod({ block: 'block',
 -----------------
 
 Используйте функцию `bemNaming`, чтобы создать новый объект для работы в вашем собственном стиле.
-
-Функция принимает объект из следующих опций:
-
-* **String** `elem` — отделяет имя элемента от блока. По умолчанию — `__`.
-* **String|Object** `mod` — отделяет модификаторы от блоков и элементов. По умолчанию — `_`.
-
-  Опция может принимать объект вида:
-
-  ```js
-  { name: String, val: String }
-  ```
-
-  * **String** `name` — отделяет название модификатора от блоков и элементов. По умолчанию — `_`.
-  * **String** `val` — отделяет значение модификатора от имени модификатора. По умолчанию принимает значение опции `name`.
-
-* **String** `wordPattern` — определяет, какие символы могут быть использованы в именах блоков, элементов и модификаторов. По умолчанию — `[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 Пример:
 
@@ -365,6 +319,40 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
     modName: 'boolElemMod'
 });
 ```
+
+### bemNaming({ elem, mod, wordPattern })
+
+#### elem
+
+Тип: `String`
+
+По умолчанию: `__`
+
+#### mod
+
+Тип: `String`, `{ name: String, val: String }`
+
+По умолчанию: `_`
+
+Отделяет модификаторы от блоков и элементов.
+
+Опция может принимать объект вида:
+
+* `name` — отделяет название модификатора от блоков и элементов.
+
+  По умолчанию — `_`.
+
+* `val` — отделяет значение модификатора от имени модификатора.
+
+  По умолчанию принимает значение опции `name`.
+
+#### wordPattern
+
+Тип: `String`
+
+По умолчанию: `[a-z0-9]+(?:-[a-z0-9]+)*`
+
+Определяет, какие символы могут быть использованы в именах блоков, элементов и модификаторов.
 
 В стиле Гарри Робертса
 ----------------------
