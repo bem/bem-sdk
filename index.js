@@ -196,6 +196,7 @@ var defineAsGlobal = true,
         'parse', 'stringify',
         'isBlock', 'isElem', 'isBlockMod', 'isElemMod'
     ],
+    fields = ['elemDelim', 'modDelim'],
     bemNaming = function (options) {
         options || (options = {});
 
@@ -216,14 +217,17 @@ var defineAsGlobal = true,
         methods.forEach(function (method) {
             namespace[method] = instance[method].bind(instance);
         });
+        fields.forEach(function (field) {
+            namespace[field] = instance[field];
+        });
         cache[id] = namespace;
 
         return namespace;
     },
     originalNaming = bemNaming();
 
-methods.forEach(function (method) {
-    bemNaming[method] = originalNaming[method];
+methods.concat(fields).forEach(function (name) {
+    bemNaming[name] = originalNaming[name];
 });
 
 // Node.js
