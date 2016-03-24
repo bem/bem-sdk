@@ -19,6 +19,13 @@ About
 
 This tool allows getting information about BEM entity using [string](#string-representation) as well as forming string representation based on [BEM-naming](#bem-naming).
 
+Install
+-------
+
+```
+$ npm install --save bem-naming
+```
+
 Usage
 -----
 
