@@ -19,6 +19,17 @@ About
 
 This tool allows getting information about BEM entity using [string](#string-representation) as well as forming string representation based on [BEM-naming](#bem-naming).
 
+Usage
+-----
+
+```js
+var bemNaming = require('bem-naming');
+
+bemNaming.parse('button__text'); // { block: 'button', elem: 'text' }
+
+bemNaming.stringify({ block: 'button', modName: 'checked' }); // button_checked
+```
+
 String representation
 ---------------------
 To define BEM entities we often use a special string format that allows us 100% define what entity exactly is represented.
