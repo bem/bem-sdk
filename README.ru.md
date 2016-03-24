@@ -126,6 +126,7 @@ API
 * [`isElemMod(obj)`](#iselemmodobj)
 * [`elemDelim`](#elemdelim)
 * [`modDelim`](#moddelim)
+* [`modValDelim`](#modvaldelim)
 
 ### `validate(str)`
 
@@ -312,11 +313,17 @@ bemNaming.isElemMod({ block: 'block',
 
 Строка для разделения элемента от блока.
 
-<hr/>
+-------------------------------------------------------------------------------
 
 ### `modDelim`
 
-Строка для разделения названия и значения модификатора от блока и элемента.
+Строка для разделения модификатора от блока и элемента.
+
+-------------------------------------------------------------------------------
+
+### `modValDelim`
+
+Строка для разделения значения модификатора от названия модификатора.
 
 Собственный стиль
 -----------------
@@ -325,22 +332,32 @@ bemNaming.isElemMod({ block: 'block',
 
 Функция принимает объект из следующих опций:
 
-* **String** `elem` — отделяет имя элемента от блока. По&nbsp;умолчанию&nbsp;—&nbsp;`__`.
-* **String** `mod` — отделяет названия и значения модификаторов от блоков и элементов. По&nbsp;умолчанию&nbsp;—&nbsp;`_`.
-* **String** `wordPattern` — определяет, какие символы могут быть использованы в именах блоков, элементов и модификаторов. По умолчанию&nbsp;—&nbsp;`[a-z0-9]+(?:-[a-z0-9]+)*`.
+* **String** `elem` — отделяет имя элемента от блока. По умолчанию — `__`.
+* **String|Object** `mod` — отделяет модификаторы от блоков и элементов. По умолчанию — `_`.
+
+  Опция может принимать объект вида:
+
+  ```js
+  { name: String, val: String }
+  ```
+
+  * **String** `name` — отделяет название модификатора от блоков и элементов. По умолчанию — `_`.
+  * **String** `val` — отделяет значение модификатора от имени модификатора. По умолчанию принимает значение опции `name`.
+
+* **String** `wordPattern` — определяет, какие символы могут быть использованы в именах блоков, элементов и модификаторов. По умолчанию — `[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 Пример:
 
 ```js
 var myNaming = bemNaming({
     elem: '-',
-    mod: '--',
+    mod: { name: '--', val: '_' },
     wordPattern: '[a-zA-Z0-9]+'   // т.к. сепараторы элемента и модификатора включают
 });                               // в себя дефис, исключим его из имён блоков,
                                   // элементов и модификаторов
 
-myNaming.parse('block--mod');     // { block: 'block',
-                                  //   modName: 'mod', modVal: true }
+myNaming.parse('block--mod_val'); // { block: 'block',
+                                  //   modName: 'mod', modVal: 'val' }
 
 myNaming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',
@@ -352,7 +369,7 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 В стиле Гарри Робертса
 ----------------------
 
-Согласно этому соглашению элементы отделяются от&nbsp;блока с&nbsp;помощью двух символов подчёркивания (__), а&nbsp;булевые модификаторы с&nbsp;помощью двух символов дефиса (--). Модификаторы вида ключ-значение не&nbsp;используются.
+Согласно этому соглашению элементы отделяются от блока с помощью двух символов подчёркивания (`__`), модификаторы с помощью двух символов дефиса (`--`), а значения модификаторов с помощью одного символа подчёркивания (`_`).
 
 Подробнее читайте в [руководстве](http://cssguidelin.es/#bem-like-naming).
 
@@ -361,14 +378,14 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 ```js
 var csswizardry = bemNaming({
     elem: '__',
-    mod: '--'
+    mod: { name: '--', val: '_' }
 });
 
-csswizardry.parse('block__elem'); // { block: 'block', elem: 'elem' }
-csswizardry.parse('block--mod');  // { block: 'block',
-                                  //   modName: 'mod', modVal: true }
+csswizardry.parse('block__elem');    // { block: 'block', elem: 'elem' }
+csswizardry.parse('block--mod_val'); // { block: 'block',
+                                     //   modName: 'mod', modVal: `val` }
 
-csswizardry.stringify({           // 'block__elem--mod'
+csswizardry.stringify({              // 'block__elem--mod'
     block: 'block',
     elem: 'elem',
     modName: 'mod'

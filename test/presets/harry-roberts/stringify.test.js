@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../index')({ elem: '__', mod: '--' });
+const naming = require('../../../index')({ elem: '__', mod: { name: '--', val: '_' } });
 
 test('should stringify block', t => {
     const str = naming.stringify({ block: 'block' });
@@ -12,13 +12,23 @@ test('should stringify block', t => {
 test('should stringify mod of block', t => {
     const str = naming.stringify({
         block: 'block',
+        modName: 'mod',
+        modVal: 'val'
+    });
+
+    t.is(str, 'block--mod_val');
+});
+
+test('should stringify boolean mod of block', t => {
+    const str = naming.stringify({
+        block: 'block',
         modName: 'mod'
     });
 
     t.is(str, 'block--mod');
 });
 
-test('should stringify mod of block by strict notation', t => {
+test('should stringify boolean mod of block by strict notation', t => {
     const str = naming.stringify({
         block: 'block',
         modName: 'mod',
@@ -52,13 +62,23 @@ test('should stringify mod of elem', t => {
         block: 'block',
         elem: 'elem',
         modName: 'mod',
-        modVal: true
+        modVal: 'val'
+    });
+
+    t.is(str, 'block__elem--mod_val');
+});
+
+test('should stringify boolean mod of elem', t => {
+    const str = naming.stringify({
+        block: 'block',
+        elem: 'elem',
+        modName: 'mod'
     });
 
     t.is(str, 'block__elem--mod');
 });
 
-test('should stringify mod of elem by strict notation', t => {
+test('should stringify boolean mod of elem by strict notation', t => {
     const str = naming.stringify({
         block: 'block',
         elem: 'elem',

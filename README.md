@@ -126,6 +126,7 @@ API
 * [`isElemMod(obj)`](#iselemmodobj)
 * [`elemDelim`](#elemdelim)
 * [`modDelim`](#moddelim)
+* [`modValDelim`](#modvaldelim)
 
 ### `validate(str)`
 
@@ -316,7 +317,13 @@ String to separate elem from block.
 
 ### `modDelim`
 
-String to separate names and values of modifiers from blocks and elements.
+String to separate modifiers from blocks and elements.
+
+-------------------------------------------------------------------------------
+
+### `modValDelim`
+
+String to separate value of modifier from name of modifier.
 
 Custom naming convention
 ------------------------
@@ -325,22 +332,32 @@ Use `bemNaming` function to create instance to manage naming of your own naming 
 
 Function `bemNaming` gets the object from the following options:
 
-* **String** `elem` — separates element's name from block. Default&nbsp;as&nbsp;`__`.
-* **String** `mod` — separates names and values of modifiers from blocks and elements. Default&nbsp;as&nbsp;`_`.
-* **String** `wordPattern` — defines which symbols can be used for block, element and modifier's names. Default&nbsp;as&nbsp;`[a-z0-9]+(?:-[a-z0-9]+)*`.
+* **String** `elem` — separates element's name from block. Default as `__`.
+* **String|Object** `mod` — separates modifiers from blocks and elements. Default as `_`.
+
+  This option can get object:
+
+  ```js
+  { name: String, val: String }
+  ```
+
+  * **String** `name` — separates name of modifier from blocks and elements. Default as `_`.
+  * **String** `val` — separates value of modifier from name of modifier. Default as the value of the `name`.
+
+* **String** `wordPattern` — defines which symbols can be used for block, element and modifier's names. Default as `[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 Example:
 
 ```js
 var myNaming = bemNaming({
     elem: '-',
-    mod: '--',
+    mod: { name: '--', val: '_' }
     wordPattern: '[a-zA-Z0-9]+'   // because element and modifier's separators include
 });                               // hyphen in it, we need to exclude it from block,
                                   // element and modifier's name
 
-myNaming.parse('block--mod');     // { block: 'block',
-                                  //   modName: 'mod', modVal: true }
+myNaming.parse('block--mod_val'); // { block: 'block',
+                                  //   modName: 'mod', modVal: 'val' }
 
 myNaming.stringify({              // 'blockName-elemName--boolElemMod'
     block: 'blockName',
@@ -352,8 +369,7 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 Convention by Harry Roberts
 ---------------------------
 
-According to this convention elements are delimited with two underscores (__), and boolean modifiers are delimited by two hyphens (--).
-Key-value modifiers are not used.
+According to this convention elements are delimited with two underscores (`__`), modifiers are delimited by two hyphens (`--`), and values of modifiers are delimited by one underscore (`_`).
 
 Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
 
@@ -362,14 +378,14 @@ Example:
 ```js
 var csswizardry = bemNaming({
     elem: '__',
-    mod: '--'
+    mod: { name: '--', val: '_' }
 });
 
-csswizardry.parse('block__elem'); // { block: 'block', elem: 'elem' }
-csswizardry.parse('block--mod');  // { block: 'block',
-                                  //   modName: 'mod', modVal: true }
+csswizardry.parse('block__elem');    // { block: 'block', elem: 'elem' }
+csswizardry.parse('block--mod_val'); // { block: 'block',
+                                     //   modName: 'mod', modVal: 'val' }
 
-csswizardry.stringify({           // 'block__elem--mod'
+csswizardry.stringify({              // 'block__elem--mod'
     block: 'block',
     elem: 'elem',
     modName: 'mod'
