@@ -37,6 +37,16 @@ bemNaming.parse('button__text'); // { block: 'button', elem: 'text' }
 bemNaming.stringify({ block: 'button', modName: 'checked' }); // button_checked
 ```
 
+Table of Contents
+-----------------
+
+* [String representation](#string-representation)
+* [Common misconceptions](#common-misconceptions)
+* [BEM-naming](#bem-naming-1)
+* [API](#api)
+* [Custom naming convention](#custom-naming-convention)
+* [Convention by Harry Roberts](#convention-by-harry-roberts)
+
 String representation
 ---------------------
 To define BEM entities we often use a special string format that allows us 100% define what entity exactly is represented.
