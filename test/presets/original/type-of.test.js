@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../index');
+const naming = require('../../../index')('origin');
 
 test('should not determine not valid string', t => {
     const type = naming.typeOf('(*)_(*)');

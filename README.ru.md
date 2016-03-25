@@ -392,16 +392,13 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
 Пример:
 
 ```js
-var csswizardry = bemNaming({
-    elem: '__',
-    mod: { name: '--', val: '_' }
-});
+var twoDashes = bemNaming('two-dashes');
 
-csswizardry.parse('block__elem');    // { block: 'block', elem: 'elem' }
-csswizardry.parse('block--mod_val'); // { block: 'block',
-                                     //   modName: 'mod', modVal: `val` }
+twoDashes.parse('block__elem');    // { block: 'block', elem: 'elem' }
+twoDashes.parse('block--mod_val'); // { block: 'block',
+                                   //   modName: 'mod', modVal: `val` }
 
-csswizardry.stringify({              // 'block__elem--mod'
+twoDashes.stringify({              // 'block__elem--mod'
     block: 'block',
     elem: 'elem',
     modName: 'mod'

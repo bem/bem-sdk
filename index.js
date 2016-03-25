@@ -205,28 +205,42 @@ var defineAsGlobal = true,
         'isBlock', 'isElem', 'isBlockMod', 'isElemMod'
     ],
     fields = ['elemDelim', 'modDelim', 'modValDelim'],
+    presets = {
+        'two-dashes': {
+            elem: '__',
+            modName: '--',
+            modVal: '_',
+            wordPattern: '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*'
+        }
+    },
     bemNaming = function (options) {
         options || (options = {});
 
-        var mod = options.mod || '_',
-            modName, modVal;
+        var naming;
 
-        if (typeof mod === 'string') {
-            modName = mod;
-            modVal = mod;
+        if (options === 'two-dashes') {
+            naming = presets['two-dashes'];
         } else {
-            modName = mod.name || '_';
-            modVal = mod.val || modName;
-        }
+            var mod = options.mod || '_',
+                modName, modVal;
 
-        var naming = {
+            if (typeof mod === 'string') {
+                modName = mod;
+                modVal = mod;
+            } else {
+                modName = mod.name || '_';
+                modVal = mod.val || modName;
+            }
+
+            naming = {
                 elem: options.elem || '__',
                 modName: modName,
                 modVal: modVal,
                 wordPattern: options.wordPattern || '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*'
-            },
-            id = JSON.stringify(naming);
+            }
+        }
 
+        var id = JSON.stringify(naming);
         if (cache[id]) {
             return cache[id];
         }
