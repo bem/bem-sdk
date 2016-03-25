@@ -19,6 +19,34 @@ About
 
 This tool allows getting information about BEM entity using [string](#string-representation) as well as forming string representation based on [BEM-naming](#bem-naming).
 
+Install
+-------
+
+```
+$ npm install --save bem-naming
+```
+
+Usage
+-----
+
+```js
+var bemNaming = require('bem-naming');
+
+bemNaming.parse('button__text'); // { block: 'button', elem: 'text' }
+
+bemNaming.stringify({ block: 'button', modName: 'checked' }); // button_checked
+```
+
+Table of Contents
+-----------------
+
+* [String representation](#string-representation)
+* [Common misconceptions](#common-misconceptions)
+* [BEM-naming](#bem-naming-1)
+* [API](#api)
+* [Custom naming convention](#custom-naming-convention)
+* [Convention by Harry Roberts](#convention-by-harry-roberts)
+
 String representation
 ---------------------
 To define BEM entities we often use a special string format that allows us 100% define what entity exactly is represented.
@@ -111,24 +139,24 @@ Example:
 API
 ---
 
-* [`validate(str)`](#validatestr)
-* [`parse(str)`](#parsestr)
-* [`stringify(obj)`](#stringifyobj)
-* [`typeOf(str)`](#typeofstr)
-* [`typeOf(obj)`](#typeofobj)
-* [`isBlock(str)`](#isblockstr)
-* [`isBlock(obj)`](#isblockobj)
-* [`isBlockMod(str)`](#isblockmodstr)
-* [`isBlockMod(obj)`](#isblockmodobj)
-* [`isElem(str)`](#iselemstr)
-* [`isElem(obj)`](#iselemobj)
-* [`isElemMod(str)`](#iselemmodstr)
-* [`isElemMod(obj)`](#iselemmodobj)
-* [`elemDelim`](#elemdelim)
-* [`modDelim`](#moddelim)
-* [`modValDelim`](#modvaldelim)
+* [validate(str)](#validatestr)
+* [parse(str)](#parsestr)
+* [stringify(obj)](#stringifyobj)
+* [typeOf(str)](#typeofstr)
+* [typeOf(obj)](#typeofobj)
+* [isBlock(str)](#isblockstr)
+* [isBlock(obj)](#isblockobj)
+* [isBlockMod(str)](#isblockmodstr)
+* [isBlockMod(obj)](#isblockmodobj)
+* [isElem(str)](#iselemstr)
+* [isElem(obj)](#iselemobj)
+* [isElemMod(str)](#iselemmodstr)
+* [isElemMod(obj)](#iselemmodobj)
+* [elemDelim](#elemdelim)
+* [modDelim](#moddelim)
+* [modValDelim](#modvaldelim)
 
-### `validate(str)`
+### validate(str)
 
 Checks a string to be valid BEM notation.
 
@@ -139,9 +167,7 @@ bemNaming.validate('block-name');  // true
 bemNaming.validate('^*^');         // false
 ```
 
--------------------------------------------------------------------------------
-
-### `parse(str)`
+### parse(str)
 
 It parses string `str` into BEM-naming.
 
@@ -152,9 +178,7 @@ bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
                                          //   modName: 'mod', modVal: 'val' }
 ```
 
--------------------------------------------------------------------------------
-
-### `stringify(obj)`
+### stringify(obj)
 
 It forms a string according to BEM-naming `obj`.
 
@@ -166,8 +190,6 @@ bemNaming.stringify({
     modName: 'mod', modVal: 'val'
 }); // 'block__elem_mod_val'
 ```
-
--------------------------------------------------------------------------------
 
 ### `typeOf(str)`
 
@@ -182,9 +204,7 @@ bemNaming.typeOf('block__elem');       // elem
 bemNaming.typeOf('block__elem_mod');   // elemMod
 ```
 
--------------------------------------------------------------------------------
-
-### `typeOf(obj)`
+### typeOf(obj)
 
 Returns a string indicating the type of the BEM entity.
 
@@ -197,9 +217,7 @@ bemNaming.typeOf({ block: 'block', elem: 'elem' });                 // elem
 bemNaming.typeOf({ block: 'block', elem: 'elem', modName: 'mod' }); // elemMod
 ```
 
--------------------------------------------------------------------------------
-
-### `isBlock(str)`
+### isBlock(str)
 
 Checks whether string `str` is a block.
 
@@ -210,9 +228,7 @@ bemNaming.isBlock('block-name');   // true
 bemNaming.isBlock('block__elem');  // false
 ```
 
--------------------------------------------------------------------------------
-
-### `isBlock(obj)`
+### isBlock(obj)
 
 Checks whether BEM-naming `obj` is a block.
 
@@ -223,9 +239,7 @@ bemNaming.isBlock({ block: 'block-name' });           // true
 bemNaming.isBlock({ block: 'block', elem: 'elem' });  // false
 ```
 
--------------------------------------------------------------------------------
-
-### `isBlockMod(str)`
+### isBlockMod(str)
 
 Checks whether string `str` is modifier of a block.
 
@@ -236,9 +250,7 @@ bemNaming.isBlockMod('block_mod');        // true
 bemNaming.isBlockMod('block__elem_mod');  // false
 ```
 
--------------------------------------------------------------------------------
-
-### `isBlockMod(obj)`
+### isBlockMod(obj)
 
 Checks whether BEM-naming `obj` is modifier of a block.
 
@@ -252,9 +264,7 @@ bemNaming.isBlockMod({ block: 'block', elem: 'elem',
     modName: 'mod', modVal: true });  // false
 ```
 
--------------------------------------------------------------------------------
-
-### `isElem(str)`
+### isElem(str)
 
 Checks whether string `str` is element of a block.
 
@@ -265,9 +275,7 @@ bemNaming.isElem('block__elem');  // true
 bemNaming.isElem('block-name');   // false
 ```
 
--------------------------------------------------------------------------------
-
-### `isElem(obj)`
+### isElem(obj)
 
 Checks whether BEM-naming `obj` is element of a block.
 
@@ -278,9 +286,7 @@ bemNaming.isElem({ block: 'block', elem: 'elem' });  // true
 bemNaming.isElem({ block: 'block-name' });           // false
 ```
 
--------------------------------------------------------------------------------
-
-### `isElemMod(str)`
+### isElemMod(str)
 
 Checks whether string `str` is modifier of an element.
 
@@ -291,9 +297,7 @@ bemNaming.isElemMod('block__elem_mod');  // true
 bemNaming.isElemMod('block__elem');      // false
 ```
 
--------------------------------------------------------------------------------
-
-### `isElemMod(obj)`
+### isElemMod(obj)
 
 Checks whether BEM-naming `obj` is modifier of an element.
 
@@ -307,21 +311,15 @@ bemNaming.isElemMod({ block: 'block',
     modName: 'mod', modVal: true});   // false
 ```
 
--------------------------------------------------------------------------------
-
-### `elemDelim`
+### elemDelim
 
 String to separate elem from block.
 
--------------------------------------------------------------------------------
-
-### `modDelim`
+### modDelim
 
 String to separate modifiers from blocks and elements.
 
--------------------------------------------------------------------------------
-
-### `modValDelim`
+### modValDelim
 
 String to separate value of modifier from name of modifier.
 
@@ -329,22 +327,6 @@ Custom naming convention
 ------------------------
 
 Use `bemNaming` function to create instance to manage naming of your own naming convention.
-
-Function `bemNaming` gets the object from the following options:
-
-* **String** `elem` — separates element's name from block. Default as `__`.
-* **String|Object** `mod` — separates modifiers from blocks and elements. Default as `_`.
-
-  This option can get object:
-
-  ```js
-  { name: String, val: String }
-  ```
-
-  * **String** `name` — separates name of modifier from blocks and elements. Default as `_`.
-  * **String** `val` — separates value of modifier from name of modifier. Default as the value of the `name`.
-
-* **String** `wordPattern` — defines which symbols can be used for block, element and modifier's names. Default as `[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 Example:
 
@@ -365,6 +347,42 @@ myNaming.stringify({              // 'blockName-elemName--boolElemMod'
     modName: 'boolElemMod'
 });
 ```
+
+### bemNaming({ elem, mod, wordPattern })
+
+#### elem
+
+Type: `String`
+
+Default: `__`
+
+Separates element's name from block
+
+#### mod
+
+Type: `String`, `{ name: String, val: String }`
+
+Default: `_`
+
+Separates modifiers from blocks and elements.
+
+This option can take object with following fields:
+
+* `name` — separates name of modifier from blocks and elements.
+
+  Default as `_`.
+
+* `val` — separates value of modifier from name of modifier.
+
+  Default as the value of the `name`.
+
+#### wordPattern
+
+Type: `String`
+
+Default: `[a-z0-9]+(?:-[a-z0-9]+)*`
+
+Defines which symbols can be used for block, element and modifier's names.
 
 Convention by Harry Roberts
 ---------------------------
