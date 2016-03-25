@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../index')({ elem: '__', mod: { name: '--', val: '_' } });
+const naming = require('../../../index')('two-dashes');
 
 test('should not determine not valid string', t => {
     const type = naming.typeOf('(*)--(*)');

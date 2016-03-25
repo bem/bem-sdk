@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../index');
+const naming = require('../../../index')('origin');
 
 test('should validate block', t => {
     t.true(naming.validate('block'));
