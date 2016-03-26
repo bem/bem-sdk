@@ -249,8 +249,14 @@ function createNaming(options) {
 function init(options) {
     options || (options = {});
 
-    if (options === 'two-dashes') {
-        return presets[options];
+    if (typeof options === 'string') {
+        var preset = presets[options];
+
+        if (!preset) {
+            throw new Error('The `' + options + '` naming is unknown.');
+        }
+
+        return preset;
     }
 
     var defaults = presets.origin,
