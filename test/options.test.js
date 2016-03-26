@@ -3,6 +3,15 @@
 const test = require('ava');
 const naming = require('../index');
 
+test('should throw error if specified preset is unknow', t => {
+    t.throws(
+        function () {
+            return naming('my-preset');
+        },
+        'The `my-preset` naming is unknown.'
+    );
+});
+
 test('should provide elem option', t => {
     const myNaming = naming({ elem: '==' });
 
