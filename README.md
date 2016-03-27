@@ -41,9 +41,9 @@ Table of Contents
 -----------------
 
 * [String representation](#string-representation)
-* [Common misconceptions](#common-misconceptions)
 * [Object representation of BEM entity](#object-representation-of-bem-entity)
 * [API](#api)
+* [Common misconceptions](#common-misconceptions)
 * [Custom naming convention](#custom-naming-convention)
 * [Convention by Harry Roberts](#convention-by-harry-roberts)
 
@@ -65,21 +65,6 @@ According to original BEM-naming convention it looks like the following:
 * Block's element — `block-name__elem-name`.
 * Element's modifier in key-value format — `block-name__elem-name_mod-name_mod-val`.
 * Element's boolean modifier — `block-name__elem_mod`.
-
-Common misconceptions
----------------------
-
-BEM methodology involves the use of flat structure inside a block. It means that BEM entity can not be represented as an element of the other element and the following string representation will be invalid:
-
-```js
-'block__some-elem__sub-elem'
-```
-
-Also there is no such BEM entity as a modifier and an element modifier simultaneously so the following string representation will be invalid:
-
-```js
-'block_block-mod-name_block-mod-val__elem-name_elem-mod-name_elem-mod-val'
-```
 
 Object representation of BEM entity
 -----------------------------------
@@ -322,6 +307,21 @@ String to separate modifiers from blocks and elements.
 ### modValDelim
 
 String to separate value of modifier from name of modifier.
+
+Common misconceptions
+---------------------
+
+BEM methodology involves the use of flat structure inside a block. It means that BEM entity can not be represented as an element of the other element and the following string representation will be invalid:
+
+```js
+'block__some-elem__sub-elem'
+```
+
+Also there is no such BEM entity as a modifier and an element modifier simultaneously so the following string representation will be invalid:
+
+```js
+'block_block-mod-name_block-mod-val__elem-name_elem-mod-name_elem-mod-val'
+```
 
 Custom naming convention
 ------------------------
