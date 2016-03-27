@@ -17,7 +17,7 @@ bem-naming
 About
 -----
 
-This tool allows getting information about BEM entity using [string](#string-representation) as well as forming string representation based on [BEM-naming](#bem-naming).
+This tool allows getting information about BEM entity using [string](#string-representation) as well as forming string representation based on [naming object](#object-representation-of-bem-entity).
 
 Install
 -------
@@ -42,7 +42,7 @@ Table of Contents
 
 * [String representation](#string-representation)
 * [Common misconceptions](#common-misconceptions)
-* [BEM-naming](#bem-naming-1)
+* [Object representation of BEM entity](#object-representation-of-bem-entity)
 * [API](#api)
 * [Custom naming convention](#custom-naming-convention)
 * [Convention by Harry Roberts](#convention-by-harry-roberts)
@@ -81,10 +81,10 @@ Also there is no such BEM entity as a modifier and an element modifier simultane
 'block_block-mod-name_block-mod-val__elem-name_elem-mod-name_elem-mod-val'
 ```
 
-BEM-naming
-----------
+Object representation of BEM entity
+-----------------------------------
 
-BEM entities can be defined with a help of js-object with the following fields:
+BEM entities can be defined with a help of JS object with the following fields:
 
 * `block` — a block name. The field is required because only a block exists as an independent BEM entity
 * `elem` — an element name.
@@ -169,7 +169,7 @@ bemNaming.validate('^*^');         // false
 
 ### parse(str)
 
-It parses string `str` into BEM-naming.
+It parses string into naming object.
 
 Example:
 
@@ -180,7 +180,7 @@ bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
 
 ### stringify(obj)
 
-It forms a string according to BEM-naming `obj`.
+It forms a string according to naming object.
 
 Example:
 
@@ -219,7 +219,7 @@ bemNaming.typeOf({ block: 'block', elem: 'elem', modName: 'mod' }); // elemMod
 
 ### isBlock(str)
 
-Checks whether string `str` is a block.
+Checks whether string is a block.
 
 Example:
 
@@ -230,7 +230,7 @@ bemNaming.isBlock('block__elem');  // false
 
 ### isBlock(obj)
 
-Checks whether BEM-naming `obj` is a block.
+Checks whether naming object is a block.
 
 Example:
 
@@ -241,7 +241,7 @@ bemNaming.isBlock({ block: 'block', elem: 'elem' });  // false
 
 ### isBlockMod(str)
 
-Checks whether string `str` is modifier of a block.
+Checks whether string is modifier of a block.
 
 Example:
 
@@ -252,7 +252,7 @@ bemNaming.isBlockMod('block__elem_mod');  // false
 
 ### isBlockMod(obj)
 
-Checks whether BEM-naming `obj` is modifier of a block.
+Checks whether naming object is modifier of a block.
 
 Example:
 
@@ -266,7 +266,7 @@ bemNaming.isBlockMod({ block: 'block', elem: 'elem',
 
 ### isElem(str)
 
-Checks whether string `str` is element of a block.
+Checks whether string is element of a block.
 
 Example:
 
@@ -277,7 +277,7 @@ bemNaming.isElem('block-name');   // false
 
 ### isElem(obj)
 
-Checks whether BEM-naming `obj` is element of a block.
+Checks whether naming object is element of a block.
 
 Example:
 
@@ -288,7 +288,7 @@ bemNaming.isElem({ block: 'block-name' });           // false
 
 ### isElemMod(str)
 
-Checks whether string `str` is modifier of an element.
+Checks whether string is modifier of an element.
 
 Example:
 
@@ -299,7 +299,7 @@ bemNaming.isElemMod('block__elem');      // false
 
 ### isElemMod(obj)
 
-Checks whether BEM-naming `obj` is modifier of an element.
+Checks whether naming object is modifier of an element.
 
 Example:
 

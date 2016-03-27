@@ -49,7 +49,7 @@ var cache = {};
 
 /**
  * Creates namespace with methods which allows getting information about BEM entity using string as well
- * as forming string representation based on BEM-naming object.
+ * as forming string representation based on naming object.
  *
  * @param {Object} [options]              Options.
  * @param {String} [options.elem=__]      Separates element's name from block.
@@ -73,7 +73,7 @@ function createNaming(options) {
     /**
      * Checks a string to be valid BEM notation.
      *
-     * @param {String} str String representation of BEM entity.
+     * @param {String} str - String representation of BEM entity.
      * @returns {Boolean}
      */
     function validate(str) {
@@ -81,9 +81,9 @@ function createNaming(options) {
     }
 
     /**
-     * Parses string into BEM-naming object.
+     * Parses string into naming object.
      *
-     * @param {String} str String representation of BEM entity.
+     * @param {String} str - string representation of BEM entity.
      * @returns {Object|undefined}
      */
     function parse(str) {
@@ -110,9 +110,9 @@ function createNaming(options) {
     }
 
     /**
-     * Forms a string according to BEM-naming object.
+     * Forms a string according to naming object.
      *
-     * @param {Object} obj BEM-naming object
+     * @param {Object} obj - naming object
      * @returns {String}
      */
     function stringify(obj) {
@@ -144,7 +144,7 @@ function createNaming(options) {
     /**
      * Returns a string indicating type of a BEM entity.
      *
-     * @param {Object|String|undefined} obj BEM-naming object or string representation of BEM entity.
+     * @param {Object|String|undefined} obj - naming object or string representation of BEM entity.
      * @returns {String}
      */
     function typeOf(obj) {
@@ -167,9 +167,9 @@ function createNaming(options) {
     }
 
     /**
-     * Checks whether BEM-naming object or string is a block.
+     * Checks whether naming object or string is a block.
      *
-     * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
+     * @param {Object|String} obj - naming object or string representation of BEM entity.
      * @returns {Boolean}
      */
     function isBlock(obj) {
@@ -177,9 +177,9 @@ function createNaming(options) {
     }
 
     /**
-     * Checks whether BEM-naming object or string is modifier of a block.
+     * Checks whether naming object or string is modifier of a block.
      *
-     * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
+     * @param {Object|String} obj - naming object or string representation of BEM entity.
      * @returns {Boolean}
      */
     function isBlockMod(obj) {
@@ -187,9 +187,9 @@ function createNaming(options) {
     }
 
     /**
-     * Checks whether BEM-naming object or string is element of a block.
+     * Checks whether naming object or string is element of a block.
      *
-     * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
+     * @param {Object|String} obj - naming object or string representation of BEM entity.
      * @returns {Boolean}
      */
     function isElem(obj) {
@@ -197,9 +197,9 @@ function createNaming(options) {
     }
 
     /**
-     * Checks whether BEM-naming object or string is element of a block.
+     * Checks whether naming object or string is element of a block.
      *
-     * @param {Object|String} obj BEM-naming object or string representation of BEM entity.
+     * @param {Object|String} obj - naming object or string representation of BEM entity.
      * @returns {Boolean}
      */
     function isElemMod(obj) {
