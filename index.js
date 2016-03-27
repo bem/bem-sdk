@@ -335,4 +335,4 @@ if (typeof define === 'function') {
 
 /* istanbul ignore next */
 defineAsGlobal && (global.bemNaming = createNaming);
-})(this);
+})(typeof window !== 'undefined' ? window : global);
