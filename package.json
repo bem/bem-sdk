@@ -2,12 +2,7 @@
   "name": "bem-naming",
   "version": "0.5.1",
   "description": "Manage naming of BEM entities",
-  "licenses": [
-    {
-      "type": "MPL-2.0",
-      "url": "https://github.com/bem/bem-naming/blob/master/LICENSE.txt"
-    }
-  ],
+  "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",
   "keywords": [
     "bem",
