@@ -8,32 +8,17 @@
     "level",
     "scheme"
   ],
-  "author": "Andrew Abramov <mail@blond.im>",
-  "licenses": [
-    {
-      "type": "MPL-2.0",
-      "url": "https://github.com/bem/bem-decl/blob/master/LICENSE.txt"
-    }
-  ],
-  "repository": "git://github.com/bem/bem-walk",
+  "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
+  "license": "MPL-2.0",
+  "repository": "bem/bem-walk",
   "homepage": "https://github.com/bem/bem-walk",
   "bugs": "https://github.com/bem/bem-walk/issues",
   "engines": {
     "node": ">= 4.0"
   },
-  "contributors": "Andrew Abramov <mail@blond.im>",
-  "maintainers": [
-    {
-      "name": "Andrew Abramov",
-      "email": "mail@blond.im",
-      "github-username": "blond"
-    }
-  ],
   "main": "lib/index.js",
   "files": [
-    "lib/**",
-    "schemes/**",
-    "LICENSE.txt"
+    "lib/**"
   ],
   "dependencies": {
     "bem-naming": "1.0.0"
