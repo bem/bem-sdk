@@ -48,11 +48,6 @@ module.exports = {
     requireCapitalizedConstructors: true,
     safeContextKeyword: ['_this'],
     disallowYodaConditions: true,
-    validateJSDoc: {
-        checkParamNames: true,
-        checkRedundantParams: true,
-        requireParamTypes: true
-    },
     requireSpaceAfterLineComment: true,
     disallowNewlineBeforeBlockStatements: true
 };
