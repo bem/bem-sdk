@@ -19,7 +19,7 @@
   "homepage": "https://github.com/bem/bem-walk",
   "bugs": "https://github.com/bem/bem-walk/issues",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 4.0"
   },
   "contributors": "Andrew Abramov <mail@blond.im>",
   "maintainers": [
@@ -46,7 +46,7 @@
     "jscs": "1.13.1",
     "matcha": "0.6.0",
     "mocha": "2.2.5",
-    "mock-fs": "3.0.0",
+    "mock-fs": "3.8.0",
     "must": "0.12.0"
   },
   "scripts": {
