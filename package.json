@@ -39,15 +39,15 @@
     "bem-naming": "0.5.1"
   },
   "devDependencies": {
-    "bluebird": "2.9.30",
+    "bluebird": "3.3.4",
     "eslint": "2.5.3",
     "eslint-config-pedant": "0.1.1",
-    "istanbul": "0.3.17",
-    "jscs": "1.13.1",
-    "matcha": "0.6.0",
-    "mocha": "2.2.5",
+    "istanbul": "0.4.2",
+    "jscs": "2.11.0",
+    "matcha": "0.7.0",
+    "mocha": "2.4.5",
     "mock-fs": "3.8.0",
-    "must": "0.12.0"
+    "must": "0.13.1"
   },
   "scripts": {
     "test": "npm run lint && npm run unit",
