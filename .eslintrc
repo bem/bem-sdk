@@ -1,0 +1,12 @@
+env:
+  node: true
+  mocha: true
+
+globals:
+  set: false
+  bench: false
+
+extends: pedant
+
+rules:
+  no-shadow: off

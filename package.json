@@ -40,9 +40,10 @@
   },
   "devDependencies": {
     "bluebird": "2.9.30",
+    "eslint": "2.5.3",
+    "eslint-config-pedant": "0.1.1",
     "istanbul": "0.3.17",
     "jscs": "1.13.1",
-    "jshint": "2.8.0",
     "matcha": "0.6.0",
     "mocha": "2.2.5",
     "mock-fs": "3.0.0",
@@ -50,7 +51,7 @@
   },
   "scripts": {
     "test": "npm run lint && npm run unit",
-    "lint": "jshint . && jscs . -c .jscs.js",
+    "lint": "eslint . && jscs . -c .jscs.js",
     "unit": "mocha test/**/*.test.js",
     "cover": "istanbul cover _mocha -- ./test/**/*.test.js",
     "bench": "npm run bench-deps && matcha benchmark/*.js",
