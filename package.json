@@ -36,7 +36,7 @@
     "LICENSE.txt"
   ],
   "dependencies": {
-    "bem-naming": "0.5.1"
+    "bem-naming": "1.0.0"
   },
   "devDependencies": {
     "bluebird": "3.3.4",
