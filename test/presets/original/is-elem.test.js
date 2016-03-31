@@ -2,7 +2,8 @@
 
 const test = require('ava');
 const naming = require('../../../index')('origin');
+const isElem = naming.isElem;
 
 test('should detect elem', t => {
-    t.true(naming.isElem('block__elem'));
+    t.true(isElem('block__elem'));
 });
