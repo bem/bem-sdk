@@ -1,6 +1,33 @@
 История изменений
 =================
 
+1.0.1
+-----
+
+### Исправления ошибок
+
+- Функции не работали без контекста ([#91]).
+
+  **Example:**
+
+  ```js
+
+  var stringifyEntity = require('bem-naming').stringify;
+
+  stringifyEntity({ block: 'button', modName: 'size', modVal: 's' });
+
+  // Uncaught TypeError: Cannot read property 'modDelim' of undefined
+  ```
+
+[#91]: https://github.com/bem/bem-naming/issues/91
+
+### Commits
+
+* [[`ff861f691e`](https://github.com/Andrew Abramov <mail@blond.im>/bem-naming/commit/ff861f691e)] - **fix**: functions should working without context (blond)
+* [[`d5b735f2a4`](https://github.com/Andrew Abramov <mail@blond.im>/bem-naming/commit/d5b735f2a4)] - **test**: use functions without context (blond)
+* [[`12909e709b`](https://github.com/Andrew Abramov <mail@blond.im>/bem-naming/commit/12909e709b)] - chore(package): update eslint to version 2.5.3 (greenkeeperio-bot)
+* [[`ff8f65fc1a`](https://github.com/Andrew Abramov <mail@blond.im>/bem-naming/commit/ff8f65fc1a)] - chore(package): update eslint to version 2.5.2 (greenkeeperio-bot)
+
 1.0.0
 -----
 
