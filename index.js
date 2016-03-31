@@ -123,18 +123,18 @@ function createNaming(options) {
         var res = obj.block;
 
         if (obj.elem) {
-            res += this.elemDelim + obj.elem;
+            res += delims.elem + obj.elem;
         }
 
         if (obj.modName) {
             var modVal = obj.modVal;
 
             if (modVal || modVal === 0 || !obj.hasOwnProperty('modVal')) {
-                res += this.modDelim + obj.modName;
+                res += delims.mod.name + obj.modName;
             }
 
             if (modVal && modVal !== true) {
-                res += this.modValDelim + modVal;
+                res += delims.mod.val + modVal;
             }
         }
 
