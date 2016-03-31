@@ -2,15 +2,16 @@
 
 const test = require('ava');
 const naming = require('../../../index')('two-dashes');
+const stringify = naming.stringify;
 
 test('should stringify block', t => {
-    const str = naming.stringify({ block: 'block' });
+    const str = stringify({ block: 'block' });
 
     t.is(str, 'block');
 });
 
 test('should stringify mod of block', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         modName: 'mod',
         modVal: 'val'
@@ -20,7 +21,7 @@ test('should stringify mod of block', t => {
 });
 
 test('should stringify boolean mod of block', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         modName: 'mod'
     });
@@ -29,7 +30,7 @@ test('should stringify boolean mod of block', t => {
 });
 
 test('should stringify boolean mod of block by strict notation', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         modName: 'mod',
         modVal: true
@@ -39,7 +40,7 @@ test('should stringify boolean mod of block by strict notation', t => {
 });
 
 test('should stringify block if `modVal` filed is `undefined`', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         modName: 'mod',
         modVal: undefined
@@ -49,7 +50,7 @@ test('should stringify block if `modVal` filed is `undefined`', t => {
 });
 
 test('should stringify elem', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         elem: 'elem'
     });
@@ -58,7 +59,7 @@ test('should stringify elem', t => {
 });
 
 test('should stringify mod of elem', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         elem: 'elem',
         modName: 'mod',
@@ -69,7 +70,7 @@ test('should stringify mod of elem', t => {
 });
 
 test('should stringify boolean mod of elem', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         elem: 'elem',
         modName: 'mod'
@@ -79,7 +80,7 @@ test('should stringify boolean mod of elem', t => {
 });
 
 test('should stringify boolean mod of elem by strict notation', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         elem: 'elem',
         modName: 'mod',
@@ -90,7 +91,7 @@ test('should stringify boolean mod of elem by strict notation', t => {
 });
 
 test('should stringify elem if `modVal` filed is `undefined`', t => {
-    const str = naming.stringify({
+    const str = stringify({
         block: 'block',
         elem: 'elem',
         modName: 'mod',
