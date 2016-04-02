@@ -8,7 +8,7 @@ module.exports = {
      * @param {String} dir – filename of directory (full path to directory)
      * @returns {Object} - object with duplicating fs
      */
-    duplicateFSInMemory: function (dir) {
+    duplicateFSInMemory: function(dir) {
         var _this = this,
             obj = {};
 
@@ -23,7 +23,7 @@ module.exports = {
                 basename = dir || root,
                 additionObj = obj[basename] = {};
 
-            fs.readdirSync(dirname).forEach(function (basename) {
+            fs.readdirSync(dirname).forEach(function(basename) {
                 var filename = path.join(dirname, basename),
                     stat = fs.statSync(filename);
 
@@ -35,7 +35,7 @@ module.exports = {
             });
         }
 
-        fs.readdirSync(dir).forEach(function (basename) {
+        fs.readdirSync(dir).forEach(function(basename) {
             var filename = path.join(dir, basename),
                 stat = fs.statSync(filename);
 
@@ -55,7 +55,7 @@ module.exports = {
      * @param {String} filename
      * @returns {*}
      */
-    readFile: function (filename) {
+    readFile: function(filename) {
         var ext = path.extname(filename);
 
         if (['.gif', '.png', '.jpg', '.jpeg', '.svg'].indexOf(ext) !== -1) {
@@ -71,7 +71,7 @@ module.exports = {
      * @param str {String}
      * @returns {String}
      */
-    normalizeFile: function (str) {
+    normalizeFile: function(str) {
         return str
             .replace(/(\r\n|\n|\r)/gm, '') // remove line breaks
             .replace(/(\/\*([\s\S]*?)\*\/)|(\/\/(.*)$)/gm, '') // spaces
