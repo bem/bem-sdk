@@ -3,18 +3,28 @@
 ## Usage
 
 ```js
-var config = require('bem-config');
+var Config = require('bem-config');
 var optionalConfig = { plugins: { create: { techs: ['styl', 'browser.js'] } } };
+var config = Config(options); // promise
+    options.projectRoot // process.cwd()
+    options.config // extend found bemconf with this obj
 
-config(optionalConfig);
+## API
 
-// {
-//   merged: {}  // is a merge of CLI args + optionalConfig + all configs found by `rc`
-// }
+```js
+config.getAll().then(function(all) {
+    all.merged: {}  // is a merge of CLI args + optionalConfig + all configs found by rc
 
-config.getLevel('path/to/level'); // merged opts for resolved level
-config.getModule('moduleName'); // opts for moduleName
+    all.configs: [] // all the configs found
+});
 
+config.getConfig('path/to/level').then(function(levelConf) {
+    levelConf // merged opts for resolved level
+});
+
+config.getModuleConfig('moduleName').then(function(moduleConf) {
+    moduleConf // opts for moduleName
+});
 ```
 
 ## Config example

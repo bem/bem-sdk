@@ -4,7 +4,7 @@
   "description": "Config module for bem-tools",
   "main": "index.js",
   "scripts": {
-    "test": "mocha",
+    "test": "ava test/test.js --verbose --serial",
     "cover": "istanbul cover _mocha",
     "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
@@ -29,12 +29,12 @@
     "lodash": "^4.1.0",
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
-    "os-homedir": "^1.0.1"
+    "os-homedir": "^1.0.1",
+    "pinkie-promise": "^2.0.0"
   },
   "devDependencies": {
-    "chai": "^3.4.1",
+    "ava": "tadatuta/ava#master",
     "istanbul": "^0.4.1",
-    "mocha": "^2.3.4",
     "mock-fs": "^3.5.0"
   }
 }
