@@ -14,34 +14,43 @@ BemConfig.prototype.getAll = function() {
     var options = this._options,
         projectRoot = options.projectRoot || process.cwd();
 
-    return new Promise(function(resolve, reject) {
-        var configs = rc({
-            name: options.name || 'bem',
-            defaults: options.config,
-            argv: options.argv,
-            projectRoot: projectRoot
-        }).map(function(config) {
-            config.levels && Object.keys(config.levels).forEach(function(wildcardLevel) {
-                var resolvedWildcards = glob.sync(wildcardLevel, { cwd: projectRoot });
+    return Promise.all(rc({
+        name: options.name || 'bem',
+        defaults: options.config,
+        argv: options.argv,
+        projectRoot: projectRoot
+    })
+    .map(function(config) {
+        if (!config.levels) return config;
 
-                resolvedWildcards.forEach(function(level, idx) {
-                    if (wildcardLevel === path.resolve(level)) return;
+        return Promise.all(Object.keys(config.levels).map(function(wildcardLevel) {
+            return new Promise(function(resolve, reject) {
+                // replace wildcard levels with resolved onces
+                // in the same config object by reference
+                glob(wildcardLevel, { cwd: projectRoot }, function(err, resolvedWildcards) {
+                    if (err) return reject(err);
 
-                    config.levels[path.resolve(level)] = config.levels[wildcardLevel];
+                    resolvedWildcards.forEach(function(level, idx) {
+                        if (wildcardLevel === path.resolve(level)) return;
 
-                    if (resolvedWildcards.length === idx + 1) {
-                        delete config.levels[wildcardLevel];
-                    }
+                        config.levels[path.resolve(level)] = config.levels[wildcardLevel];
+
+                        if (resolvedWildcards.length === idx + 1) {
+                            delete config.levels[wildcardLevel];
+                        }
+                    });
+
+                    resolve(config);
                 });
             });
-
+        })).then(function() {
             return config;
         });
-
-        resolve({
+    })).then(function(configs) {
+        return {
             configs: configs,
             merged: Object.assign.apply(Object, [{}].concat(configs))
-        });
+        };
     });
 };
 
