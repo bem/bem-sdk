@@ -4,7 +4,9 @@
   "description": "Config module for bem-tools",
   "main": "index.js",
   "scripts": {
-    "test": "ava test/test.js --verbose --serial",
+    "test": "npm run lint && npm run unit",
+    "unit": "ava test/test.js --verbose --serial",
+    "lint": "eslint .",
     "cover": "istanbul cover _mocha",
     "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   },
@@ -26,7 +28,7 @@
   "homepage": "https://github.com/bem-contrib/bem-config#readme",
   "dependencies": {
     "glob": "^6.0.4",
-    "lodash": "^4.1.0",
+    "lodash.mergewith": "^4.3.3",
     "minimist": "^1.2.0",
     "object-assign": "^4.0.1",
     "os-homedir": "^1.0.1",
@@ -34,6 +36,8 @@
   },
   "devDependencies": {
     "ava": "tadatuta/ava#master",
+    "eslint": "^2.6.0",
+    "eslint-config-pedant": "^0.1.1",
     "istanbul": "^0.4.1",
     "mock-fs": "^3.5.0"
   }

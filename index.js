@@ -8,7 +8,7 @@ var path = require('path'),
 
 function BemConfig(options) {
     this._options = options || {};
-};
+}
 
 BemConfig.prototype.getAll = function() {
     var options = this._options,
@@ -21,17 +21,17 @@ BemConfig.prototype.getAll = function() {
         projectRoot: projectRoot
     })
     .map(function(config) {
-        if (!config.levels) return config;
+        if (!config.levels) { return config; }
 
         return Promise.all(Object.keys(config.levels).map(function(wildcardLevel) {
             return new Promise(function(resolve, reject) {
                 // replace wildcard levels with resolved onces
                 // in the same config object by reference
                 glob(wildcardLevel, { cwd: projectRoot }, function(err, resolvedWildcards) {
-                    if (err) return reject(err);
+                    if (err) { return reject(err); }
 
                     resolvedWildcards.forEach(function(level, idx) {
-                        if (wildcardLevel === path.resolve(level)) return;
+                        if (wildcardLevel === path.resolve(level)) { return; }
 
                         config.levels[path.resolve(level)] = config.levels[wildcardLevel];
 
@@ -77,14 +77,14 @@ BemConfig.prototype.getConfig = function(levelPath) {
                 }
             }
 
-            if (conf.root) break;
+            if (conf.root) { break; }
         }
 
         delete levelOpts.__source;
         delete levelOpts.levels;
         delete levelOpts.root;
 
-        if (!Object.keys(levelOpts).length) return;
+        if (!Object.keys(levelOpts).length) { return; }
 
         return levelOpts;
     });

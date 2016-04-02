@@ -1,0 +1,6 @@
+extends:
+    pedant
+
+env:
+  node: true
+  es6: true
