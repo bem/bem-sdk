@@ -1,5 +1,7 @@
-var fs = require('fs'),
-    path = require('path');
+'use strict';
+
+const fs = require('fs');
+const path = require('path');
 
 module.exports = {
 
@@ -9,8 +11,8 @@ module.exports = {
      * @returns {Object} - object with duplicating fs
      */
     duplicateFSInMemory: function(dir) {
-        var _this = this,
-            obj = {};
+        const _this = this;
+        const obj = {};
 
         /**
          * Function to traverse the directory tree
@@ -19,12 +21,12 @@ module.exports = {
          * @param {String} dir
          */
         function process(obj, root, dir) {
-            var dirname = dir ? path.join(root, dir) : root,
-                basename = dir || root,
-                additionObj = obj[basename] = {};
+            const dirname = dir ? path.join(root, dir) : root;
+            const basename = dir || root;
+            const additionObj = obj[basename] = {};
 
             fs.readdirSync(dirname).forEach(function(basename) {
-                var filename = path.join(dirname, basename),
+                let filename = path.join(dirname, basename),
                     stat = fs.statSync(filename);
 
                 if (stat.isDirectory()) {
@@ -36,15 +38,15 @@ module.exports = {
         }
 
         fs.readdirSync(dir).forEach(function(basename) {
-            var filename = path.join(dir, basename),
+            let filename = path.join(dir, basename),
                 stat = fs.statSync(filename);
 
             if (stat.isDirectory()) {
                 process(obj, dir, basename);
             } else {
-                obj[basename] = _this.readFile(filename);
+                obj[basename] = this.readFile(filename);
             }
-        });
+        }, this);
 
         return obj;
     },
@@ -56,7 +58,7 @@ module.exports = {
      * @returns {*}
      */
     readFile: function(filename) {
-        var ext = path.extname(filename);
+        const ext = path.extname(filename);
 
         if (['.gif', '.png', '.jpg', '.jpeg', '.svg'].indexOf(ext) !== -1) {
             return fs.readFileSync(filename);

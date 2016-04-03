@@ -5,10 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "npm run lint && npm run unit",
-    "unit": "ava test/test.js --serial",
+    "unit": "ava",
     "lint": "eslint . && jscs .",
-    "cover": "istanbul cover _mocha",
-    "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
+    "cover": "nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "files": "test/test.js",
+    "serial": true
   },
   "repository": {
     "type": "git",
@@ -30,16 +34,15 @@
     "glob": "^6.0.4",
     "lodash.mergewith": "^4.3.3",
     "minimist": "^1.2.0",
-    "object-assign": "^4.0.1",
-    "os-homedir": "^1.0.1",
-    "pinkie-promise": "^2.0.0"
+    "os-homedir": "^1.0.1"
   },
   "devDependencies": {
     "ava": "tadatuta/ava#master",
+    "coveralls": "^2.11.9",
     "eslint": "^2.6.0",
     "eslint-config-pedant": "^0.1.1",
-    "istanbul": "^0.4.1",
     "jscs": "^2.11.0",
-    "mock-fs": "^3.5.0"
+    "mock-fs": "^3.5.0",
+    "nyc": "^6.1.1"
   }
 }

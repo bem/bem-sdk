@@ -3,39 +3,92 @@
 ## Usage
 
 ```js
-var Config = require('bem-config');
+var bemConfig = require('bem-config');
 var optionalConfig = { plugins: { create: { techs: ['styl', 'browser.js'] } } };
-var config = Config(options); // promise
-    options.projectRoot // process.cwd()
-    options.config // extend found bemconf with this obj
+var projectConfig = bemConfig(options); // returns promise
+```
+
+### options
+All options are optional:
+
+* `name` // 'bem'
+* `projectRoot` // process.cwd()
+* `config` // extends found configs with this object
+* `argv` // custom path to config on FS via command line argument `--config` (defaults to `null`)
 
 ## API
 
+### get
+
 ```js
-config.getAll().then(function(all) {
-    all.merged: {}  // is a merge of CLI args + optionalConfig + all configs found by rc
-
-    all.configs: [] // all the configs found
+var config = require('bem-config')();
+config.get().then(function(conf) {
+    console.log(conf); // config is a merge of CLI args + optionalConfig + all configs found by rc
 });
+```
 
-config.getConfig('path/to/level').then(function(levelConf) {
-    levelConf // merged opts for resolved level
+### level
+
+```js
+var config = require('bem-config')();
+config.level('path/to/level').then(function(levelConf) {
+    console.log(levelConf); // merged level config
 });
+```
 
-config.getModuleConfig('moduleName').then(function(moduleConf) {
-    moduleConf // opts for moduleName
+### library
+
+```js
+var config = require('bem-config')();
+config.library('bem-tools').then(function(libConf) {
+    console.log(libConf); // library config
+});
+```
+
+### levelMap
+
+```js
+var config = require('bem-config')();
+config.module('bem-tools').then(function(bemToolsConf) {
+    console.log(bemToolsConf); // merged config for required module
+});
+```
+
+### module
+
+```js
+var config = require('bem-config')();
+config.module('bem-tools').then(function(bemToolsConf) {
+    console.log(bemToolsConf); // merged config for required module
+});
+```
+
+### configs
+
+```js
+var config = require('bem-config')();
+config.configs().then(function(configs) {
+    console.log(configs); // all found configs from all dirs
 });
 ```
 
 ## Config example
 
-```json
+```js
 {
     "root": true,
     "levels": {
         "path/to/level": {
             "scheme": "nested"
         }
+    },
+    "libs": {
+        "libName": {
+            "path": "path/to/lib"
+        }
+    },
+    "sets": {
+        "setName": ["level1", "level2"]
     },
     "modules": {
         "bem-tools": {
@@ -58,6 +111,9 @@ config.getModuleConfig('moduleName').then(function(moduleConf) {
                     }
                 }
             }
+        },
+        "bem-libs-site-data": {
+            "someOption": "someValue"
         }
     }
 }
