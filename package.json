@@ -32,7 +32,7 @@
   "homepage": "https://github.com/bem-contrib/bem-config#readme",
   "dependencies": {
     "glob": "^6.0.4",
-    "lodash.mergewith": "^4.3.3",
+    "lodash": "^4.6.1",
     "minimist": "^1.2.0",
     "os-homedir": "^1.0.1"
   },
