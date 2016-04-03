@@ -2,7 +2,7 @@
 
 const path = require('path');
 const rc = require('./lib/rc');
-const mergeWith = require('lodash/mergeWith');
+const mergeWith = require('lodash.mergewith');
 const glob = require('glob');
 
 function BemConfig(options) {

@@ -40,7 +40,7 @@ config.level('path/to/level').then(function(levelConf) {
 
 ```js
 var config = require('bem-config')();
-config.library('bem-tools').then(function(libConf) {
+config.library('bem-components').then(function(libConf) {
     console.log(libConf); // library config
 });
 ```
@@ -49,8 +49,8 @@ config.library('bem-tools').then(function(libConf) {
 
 ```js
 var config = require('bem-config')();
-config.module('bem-tools').then(function(bemToolsConf) {
-    console.log(bemToolsConf); // merged config for required module
+config.levelMap().then(function(levelMap) {
+    console.log(levelMap); // all levels hash with their options
 });
 ```
 
