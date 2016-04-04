@@ -1,0 +1,45 @@
+{
+  "name": "bem-entity",
+  "version": "0.0.0",
+  "description": "",
+  "license": "MIT",
+  "repository": "bem/bem-entity",
+  "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
+  "keywords": [
+    "bem",
+    "entity",
+    "block",
+    "element",
+    "modifier",
+    "type",
+    "id",
+    "is",
+    "equal"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "dependencies": {
+    "bem-naming": "1.0.1"
+  },
+  "devDependencies": {
+    "ava": "0.13.0",
+    "coveralls": "2.11.9",
+    "eslint": "2.5.3",
+    "eslint-config-pedant": "0.1.1",
+    "nyc": "6.1.1",
+    "proxyquire": "1.7.4",
+    "sinon": "1.17.3"
+  },
+  "scripts": {
+    "test": "npm run lint && npm run cover",
+    "lint": "eslint .",
+    "unit-test": "ava",
+    "cover": "nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  }
+}
