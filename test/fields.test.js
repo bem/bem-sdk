@@ -4,31 +4,31 @@ const test = require('ava');
 const naming = require('../index');
 
 test('should have elemDelim field', t => {
-    t.ok(naming.elemDelim);
+    t.truthy(naming.elemDelim);
 });
 
 test('should have modDelim field', t => {
-    t.ok(naming.modDelim);
+    t.truthy(naming.modDelim);
 });
 
 test('should have modValDelim field', t => {
-    t.ok(naming.modValDelim);
+    t.truthy(naming.modValDelim);
 });
 
 test('should create namespace with elemDelim field', t => {
     const myNaming = naming();
 
-    t.ok(myNaming.elemDelim);
+    t.truthy(myNaming.elemDelim);
 });
 
 test('should create namespace with modDelim field', t => {
     const myNaming = naming();
 
-    t.ok(myNaming.modDelim);
+    t.truthy(myNaming.modDelim);
 });
 
 test('should create namespace with modValDelim field', t => {
     const myNaming = naming();
 
-    t.ok(myNaming.modValDelim);
+    t.truthy(myNaming.modValDelim);
 });
