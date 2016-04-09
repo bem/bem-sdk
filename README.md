@@ -1,7 +1,26 @@
 bem-walk
 ========
 
-[![NPM version](http://img.shields.io/npm/v/bem-walk.svg?style=flat)](http://www.npmjs.org/package/bem-walk) [![Build Status](http://img.shields.io/travis/bem/bem-walk/master.svg?style=flat&label=tests)](https://travis-ci.org/bem/bem-walk) [![Build status](http://img.shields.io/appveyor/ci/blond/bem-walk.svg?style=flat&label=windows)](https://ci.appveyor.com/project/blond/bem-walk) [![Coverage Status](https://img.shields.io/coveralls/bem/bem-walk.svg?branch=master&style=flat)](https://coveralls.io/r/bem/bem-walk) [![Dependency Status](http://img.shields.io/david/bem/bem-walk.svg?style=flat)](https://david-dm.org/bem/bem-walk)
+[![NPM Status][npm-img]][npm]
+[![Travis Status][test-img]][travis]
+[![Windows Status][appveyor-img]][appveyor]
+[![Coverage Status][coverage-img]][coveralls]
+[![Dependency Status][coverage-img]][coveralls]
+
+[npm]:          https://www.npmjs.org/package/bem-walk
+[npm-img]:      https://img.shields.io/npm/v/bem-walk.svg
+
+[travis]:       https://travis-ci.org/bem-sdk/bem-walk
+[test-img]:     https://img.shields.io/travis/bem-sdk/bem-walk.svg?label=tests
+
+[appveyor]:     https://ci.appveyor.com/project/blond/bem-walk
+[appveyor-img]: http://img.shields.io/appveyor/ci/blond/bem-walk.svg?style=flat&label=windows
+
+[coveralls]:    https://coveralls.io/r/bem-sdk/bem-walk
+[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-walk.svg
+
+[david]:        https://david-dm.org/bem-sdk/bem-walk
+[david-img]:    http://img.shields.io/david/bem/bem-walk.svg?style=flat
 
 Install
 -------
