@@ -21,7 +21,7 @@
     "lib/**"
   ],
   "dependencies": {
-    "bem-naming": "1.0.0"
+    "bem-naming": "1.0.1"
   },
   "devDependencies": {
     "eslint": "2.5.3",
