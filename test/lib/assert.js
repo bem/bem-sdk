@@ -1,16 +1,19 @@
-var walk = require('../../lib/index');
+'use strict';
+
+const walk = require('../../lib/index');
 
 function assert(levels, config, expected) {
-    var buffer = [],
-        walker = walk(levels, config),
-        hasError = false;
+    const buffer = [];
+    const walker = walk(levels, config);
 
-    return new Promise(function (resolve, reject) {
-        walker.on('data', function (obj) {
+    let hasError = false;
+
+    return new Promise((resolve, reject) => {
+        walker.on('data', obj => {
             buffer.push(obj);
         });
 
-        walker.on('end', function () {
+        walker.on('end', () => {
             if (!hasError) {
                 try {
                     buffer.must.eql(expected);
@@ -21,7 +24,7 @@ function assert(levels, config, expected) {
             }
         });
 
-        walker.on('error', function (err) {
+        walker.on('error', err => {
             hasError = true;
             reject(err);
         });

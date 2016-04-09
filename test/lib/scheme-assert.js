@@ -1,8 +1,10 @@
-var mockAndAssert = require('./mock-and-assert'),
-    schemes = {
-        flat: true,
-        nested: true
-    };
+'use strict';
+
+const mockAndAssert = require('./mock-and-assert');
+const schemes = {
+    flat: true,
+    nested: true
+};
 
 module.exports = function (fs, defaults, expected) {
     if (arguments.length === 2) {
@@ -10,12 +12,12 @@ module.exports = function (fs, defaults, expected) {
         defaults = {};
     }
 
-    var config = {
+    const config = {
         defaults: defaults,
         levels: {}
     };
 
-    Object.keys(fs).forEach(function (levelname) {
+    Object.keys(fs).forEach(levelname => {
         var scheme = levelname.indexOf('.') !== -1 && levelname.split('.')[0],
             info = {
                 path: levelname

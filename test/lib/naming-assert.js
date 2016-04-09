@@ -1,27 +1,29 @@
-var mockAndAssert = require('./mock-and-assert'),
-    defaults = { scheme: 'flat' },
-    conventions = {
-        original: { elem: '__', mod: '_' },
-        csswizardry: { elem: '__', mod: '--' },
-        custom: {
-            elem: '-',
-            mod: '--',
-            wordPattern: '[a-zA-Z0-9]+'
-        }
-    };
+'use strict';
+
+const mockAndAssert = require('./mock-and-assert');
+const defaults = { scheme: 'flat' };
+const conventions = {
+    original: { elem: '__', mod: '_' },
+    csswizardry: { elem: '__', mod: '--' },
+    custom: {
+        elem: '-',
+        mod: '--',
+        wordPattern: '[a-zA-Z0-9]+'
+    }
+};
 
 module.exports = function (fs, expected) {
-    var config = {
+    const config = {
         levels: {},
         defaults: defaults
     };
 
-    Object.keys(fs).forEach(function (levelname) {
-        var naming = levelname.indexOf('.') !== -1 && levelname.split('.')[0],
-            convention = conventions[naming],
-            info = {
-                path: levelname
-            };
+    Object.keys(fs).forEach(levelname => {
+        const naming = levelname.indexOf('.') !== -1 && levelname.split('.')[0];
+        const convention = conventions[naming];
+        const info = {
+            path: levelname
+        };
 
         convention && (info.naming = convention);
 

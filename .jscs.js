@@ -17,7 +17,6 @@ module.exports = {
     disallowSpacesInNamedFunctionExpression: {
         beforeOpeningRoundBrace: true
     },
-    requireMultipleVarDecl: true,
     requireBlocksOnNewline: 1,
     disallowPaddingNewlinesInBlocks: true,
     disallowSpacesInsideArrayBrackets: 'nested',
@@ -26,7 +25,6 @@ module.exports = {
     disallowQuotedKeysInObjects: 'allButReserved',
     disallowSpaceAfterObjectKeys: true,
     requireCommaBeforeLineBreak: true,
-    requireOperatorBeforeLineBreak: true,
     disallowSpaceAfterPrefixUnaryOperators: true,
     disallowSpaceBeforePostfixUnaryOperators: true,
     requireSpaceBeforeBinaryOperators: true,
