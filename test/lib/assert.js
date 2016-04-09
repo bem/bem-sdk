@@ -1,30 +1,31 @@
-var promisify = require('bluebird').promisify,
-    walk = require('../../lib/index');
+var walk = require('../../lib/index');
 
-function assert(levels, config, expected, cb) {
+function assert(levels, config, expected) {
     var buffer = [],
         walker = walk(levels, config),
         hasError = false;
 
-    walker.on('data', function (obj) {
-        buffer.push(obj);
-    });
+    return new Promise(function (resolve, reject) {
+        walker.on('data', function (obj) {
+            buffer.push(obj);
+        });
 
-    walker.on ('end', function () {
-        if (!hasError) {
-            try {
-                buffer.must.eql(expected);
-                cb();
-            } catch (err) {
-                cb(err);
+        walker.on('end', function () {
+            if (!hasError) {
+                try {
+                    buffer.must.eql(expected);
+                    resolve();
+                } catch (err) {
+                    reject(err);
+                }
             }
-        }
-    });
+        });
 
-    walker.on('error', function (err) {
-        hasError = true;
-        cb(err);
+        walker.on('error', function (err) {
+            hasError = true;
+            reject(err);
+        });
     });
 }
 
-module.exports = promisify(assert);
+module.exports = assert;

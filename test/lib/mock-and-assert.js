@@ -13,7 +13,10 @@ module.exports = function (fs, levels, config, expected) {
     mock(fs);
 
     return assert(levels, config, expected)
-        .finally(function () {
+        .then(function () {
+            mock.restore();
+        })
+        .catch(function () {
             mock.restore();
         });
 };
