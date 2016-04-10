@@ -1,35 +1,48 @@
 'use strict';
 
 const path = require('path');
-const assert = require('../lib/scheme-assert');
 
-describe('multi scheme', () => {
-    it('must support several schemes', () => {
-        const fs = {
-            'flat.level': {
+const test = require('ava');
+const mockFs = require('mock-fs');
+const toArray = require('stream-to-array');
+
+const walk = require('../../lib/index');
+
+test('should support several schemes', t => {
+    mockFs({
+        'flat.blocks': {
+            'block.tech': ''
+        },
+        'nested.blocks': {
+            'block': {
                 'block.tech': ''
-            },
-            'nested.level': {
-                block: {
-                    'block.tech': ''
-                }
             }
-        };
-        const expected = [
-            {
-                entity: { block: 'block' },
-                tech: 'tech',
-                level: 'flat.level',
-                path: path.join('flat.level', 'block.tech')
-            },
-            {
-                entity: { block: 'block' },
-                tech: 'tech',
-                level: 'nested.level',
-                path: path.join('nested.level', 'block', 'block.tech')
-            }
-        ];
-
-        return assert(fs, expected);
+        }
     });
+
+    const bemconfig = {
+        levels: {
+            'flat.blocks': { scheme: 'flat' },
+            'nested.blocks': { scheme: 'nested' }
+        }
+    };
+
+    return toArray(walk(['flat.blocks', 'nested.blocks'], bemconfig))
+        .finally(() => mockFs.restore())
+        .then(files => {
+            t.deepEqual(files, [
+                {
+                    entity: { block: 'block' },
+                    tech: 'tech',
+                    level: 'flat.blocks',
+                    path: path.join('flat.blocks', 'block.tech')
+                },
+                {
+                    entity: { block: 'block' },
+                    tech: 'tech',
+                    level: 'nested.blocks',
+                    path: path.join('nested.blocks', 'block', 'block.tech')
+                }
+            ]);
+        });
 });

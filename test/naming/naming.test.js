@@ -1,81 +1,144 @@
 'use strict';
 
-const path = require('path');
-const assert = require('../lib/naming-assert');
+const test = require('ava');
+const mockFs = require('mock-fs');
+const toArray = require('stream-to-array');
 
-describe('naming', () => {
-    it('must support original naming', () => {
-        const fs = {
+const walk = require('../../lib/index');
+
+test('should support original naming', t => {
+    mockFs({
+        blocks: {
+            'block__elem_mod_val.tech': ''
+        }
+    });
+
+    const bemconfig = {
+        levels: {
+            blocks: {
+                naming: { elem: '__', mod: '_' },
+                scheme: 'flat'
+            }
+        }
+    };
+
+    return toArray(walk(['blocks'], bemconfig))
+        .finally(() => mockFs.restore())
+        .then(files => {
+            const entities = files.map(file => file.entity);
+
+            t.deepEqual(entities, [{
+                block: 'block',
+                elem: 'elem',
+                modName: 'mod',
+                modVal: 'val'
+            }]);
+        });
+});
+
+test('should support Convention by Harry Roberts', t => {
+    mockFs({
+        blocks: {
+            'block__elem--mod_val.tech': ''
+        }
+    });
+
+    const bemconfig = {
+        levels: {
+            blocks: {
+                naming: { elem: '__', mod: { name: '--', val: '_' } },
+                scheme: 'flat'
+            }
+        }
+    };
+
+    return toArray(walk(['blocks'], bemconfig))
+        .finally(() => mockFs.restore())
+        .then(files => {
+            const entities = files.map(file => file.entity);
+
+            t.deepEqual(entities, [{
+                block: 'block',
+                elem: 'elem',
+                modName: 'mod',
+                modVal: 'val'
+            }]);
+        });
+});
+
+test('should support custom naming', t => {
+    mockFs({
+        blocks: {
+            'block-elem--boolMod.tech': ''
+        }
+    });
+
+    const bemconfig = {
+        levels: {
+            blocks: {
+                naming: {
+                    elem: '-',
+                    mod: '--',
+                    wordPattern: '[a-zA-Z0-9]+'
+                },
+                scheme: 'flat'
+            }
+        }
+    };
+
+    return toArray(walk(['blocks'], bemconfig))
+        .finally(() => mockFs.restore())
+        .then(files => {
+            const entities = files.map(file => file.entity);
+
+            t.deepEqual(entities, [{
+                block: 'block',
+                elem: 'elem',
+                modName: 'boolMod',
+                modVal: true
+            }]);
+        });
+});
+
+test('should support several naming', t => {
+    mockFs({
+        'original.blocks': {
+            'block_mod.tech': ''
+        },
+        'csswizardry.blocks': {
+            'block--mod_val.tech': ''
+        }
+    });
+
+    const bemconfig = {
+        levels: {
             'original.blocks': {
-                'block__elem_bool-mod.tech': ''
-            }
-        };
-        const expected = [{
-            entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
-            tech: 'tech',
-            level: 'original.blocks',
-            path: path.join('original.blocks', 'block__elem_bool-mod.tech')
-        }];
-
-        return assert(fs, expected);
-    });
-
-    it('must support Convention by Harry Roberts', () => {
-        const fs = {
+                naming: { elem: '__', mod: '_' },
+                scheme: 'flat'
+            },
             'csswizardry.blocks': {
-                'block__elem--bool-mod.tech': ''
+                naming: { elem: '__', mod: { name: '--', val: '_' } },
+                scheme: 'flat'
             }
-        };
-        const expected = [{
-            entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
-            tech: 'tech',
-            level: 'csswizardry.blocks',
-            path: path.join('csswizardry.blocks', 'block__elem--bool-mod.tech')
-        }];
+        }
+    };
 
-        return assert(fs, expected);
-    });
+    return toArray(walk(['original.blocks', 'csswizardry.blocks'], bemconfig))
+        .finally(() => mockFs.restore())
+        .then(files => {
+            const entities = files.map(file => file.entity);
 
-    it('must support custom naming', () => {
-        const fs = {
-            'custom.blocks': {
-                'block-elem--boolMod.tech': ''
-            }
-        };
-        const expected = [{
-            entity: { block: 'block', elem: 'elem', modName: 'boolMod', modVal: true },
-            tech: 'tech',
-            level: 'custom.blocks',
-            path: path.join('custom.blocks', 'block-elem--boolMod.tech')
-        }];
-
-        return assert(fs, expected);
-    });
-
-    it('must support several naming', () => {
-        const fs = {
-            'original.naming': {
-                'block__elem_bool-mod.tech': ''
-            },
-            'csswizardry.naming': {
-                'block__elem--bool-mod.tech': ''
-            }
-        };
-        const expected = [
-            {
-                entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
-                tech: 'tech',
-                level: 'original.naming',
-                path: path.join('original.naming', 'block__elem_bool-mod.tech')
-            },
-            {
-                entity: { block: 'block', elem: 'elem', modName: 'bool-mod', modVal: true },
-                tech: 'tech',
-                level: 'csswizardry.naming',
-                path: path.join('csswizardry.naming', 'block__elem--bool-mod.tech')
-            }
-        ];
-
-        return assert(fs, expected);
-    });
+            t.deepEqual(entities, [
+                {
+                    block: 'block',
+                    modName: 'mod',
+                    modVal: true
+                },
+                {
+                    block: 'block',
+                    modName: 'mod',
+                    modVal: 'val'
+                }
+            ]);
+        });
 });

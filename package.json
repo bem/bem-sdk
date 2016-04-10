@@ -24,22 +24,33 @@
     "bem-naming": "1.0.1"
   },
   "devDependencies": {
+    "ava": "0.14.0",
+    "coveralls": "2.11.9",
     "eslint": "2.7.0",
     "eslint-config-pedant": "0.2.0",
-    "istanbul": "0.4.3",
     "jscs": "2.11.0",
     "matcha": "0.7.0",
-    "mocha": "2.4.5",
     "mock-fs": "3.8.0",
-    "must": "0.13.1"
+    "nyc": "6.2.1",
+    "promise.prototype.finally": "1.0.1",
+    "stream-to-array": "2.3.0"
   },
   "scripts": {
-    "test": "npm run lint && npm run unit",
-    "lint": "eslint . && jscs . -c .jscs.js",
-    "unit": "mocha test/**/*.test.js",
-    "cover": "istanbul cover _mocha -- ./test/**/*.test.js",
+    "pretest": "eslint . && jscs . -c .jscs.js",
+    "test": "nyc ava",
+    "unit-test": "ava",
     "bench": "npm run bench-deps && matcha benchmark/*.js",
     "bench-deps": "cd benchmark && npm i && cd fixtures && bower i",
-    "coveralls": "npm i coveralls && npm run cover && cat ./coverage/lcov.info | coveralls"
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "serial": true,
+    "verbose": true,
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "require": [
+      "promise.prototype.finally"
+    ]
   }
 }

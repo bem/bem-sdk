@@ -22,7 +22,6 @@ module.exports = {
     disallowSpacesInsideArrayBrackets: 'nested',
     disallowSpacesInsideParentheses: true,
     requireSpacesInsideObjectBrackets: 'all',
-    disallowQuotedKeysInObjects: 'allButReserved',
     disallowSpaceAfterObjectKeys: true,
     requireCommaBeforeLineBreak: true,
     disallowSpaceAfterPrefixUnaryOperators: true,
