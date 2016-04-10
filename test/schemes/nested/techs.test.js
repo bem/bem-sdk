@@ -6,7 +6,7 @@ const toArray = require('stream-to-array');
 
 const walk = require('../../../lib/index');
 
-const bemconfig = {
+const options = {
     levels: {
         blocks: { scheme: 'nested' }
     }
@@ -22,7 +22,7 @@ test('should detect each techs of the same entity', t => {
         }
     });
 
-    return toArray(walk(['blocks'], bemconfig))
+    return toArray(walk(['blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             const techs = files.map(file => file.tech);
@@ -40,7 +40,7 @@ test('should support complex tech', t => {
         }
     });
 
-    return toArray(walk(['blocks'], bemconfig))
+    return toArray(walk(['blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             const techs = files.map(file => file.tech);

@@ -17,13 +17,13 @@ test('should support level name with extension', t => {
         }
     });
 
-    const bemconfig = {
+    const options = {
         levels: {
             'name.blocks': { scheme: 'nested' }
         }
     };
 
-    return toArray(walk(['name.blocks'], bemconfig))
+    return toArray(walk(['name.blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, [{
@@ -49,14 +49,14 @@ test('should support few levels', t => {
         }
     });
 
-    const bemconfig = {
+    const options = {
         levels: {
             'level-1': { scheme: 'nested' },
             'level-2': { scheme: 'nested' }
         }
     };
 
-    return toArray(walk(['level-1', 'level-2'], bemconfig))
+    return toArray(walk(['level-1', 'level-2'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, [
@@ -90,14 +90,14 @@ test('should detect entity with the same name on every level', t => {
         }
     });
 
-    const bemconfig = {
+    const options = {
         levels: {
             'level-1': { scheme: 'nested' },
             'level-2': { scheme: 'nested' }
         }
     };
 
-    return toArray(walk(['level-1', 'level-2'], bemconfig))
+    return toArray(walk(['level-1', 'level-2'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, [

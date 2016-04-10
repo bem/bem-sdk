@@ -20,14 +20,14 @@ test('should support several schemes', t => {
         }
     });
 
-    const bemconfig = {
+    const options = {
         levels: {
             'flat.blocks': { scheme: 'flat' },
             'nested.blocks': { scheme: 'nested' }
         }
     };
 
-    return toArray(walk(['flat.blocks', 'nested.blocks'], bemconfig))
+    return toArray(walk(['flat.blocks', 'nested.blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, [

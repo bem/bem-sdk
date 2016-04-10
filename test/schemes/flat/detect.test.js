@@ -6,7 +6,7 @@ const toArray = require('stream-to-array');
 
 const walk = require('../../../lib/index');
 
-const bemconfig = {
+const options = {
     levels: {
         blocks: { scheme: 'flat' }
     }
@@ -19,7 +19,7 @@ test('should detect block', t => {
         }
     });
 
-    return toArray(walk(['blocks'], bemconfig))
+    return toArray(walk(['blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
@@ -35,7 +35,7 @@ test('should detect bool mod of block', t => {
         }
     });
 
-    return toArray(walk(['blocks'], bemconfig))
+    return toArray(walk(['blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
@@ -54,7 +54,7 @@ test('should detect key-val mod of block', t => {
         }
     });
 
-    return toArray(walk(['blocks'], bemconfig))
+    return toArray(walk(['blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
@@ -73,7 +73,7 @@ test('should detect elem', t => {
         }
     });
 
-    return toArray(walk(['blocks'], bemconfig))
+    return toArray(walk(['blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
@@ -89,7 +89,7 @@ test('should detect bool mod of elem', t => {
         }
     });
 
-    return toArray(walk(['blocks'], bemconfig))
+    return toArray(walk(['blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
@@ -108,7 +108,7 @@ test('should detect key-val mod of elem', t => {
         }
     });
 
-    return toArray(walk(['blocks'], bemconfig))
+    return toArray(walk(['blocks'], options))
         .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
