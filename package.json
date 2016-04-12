@@ -21,10 +21,10 @@
     "lib/**"
   ],
   "dependencies": {
+    "async": "2.0.0-rc.3",
     "bem-naming": "1.0.1"
   },
   "devDependencies": {
-    "async": "2.0.0-rc.3",
     "ava": "0.14.0",
     "benchmark": "2.1.0",
     "coveralls": "2.11.9",

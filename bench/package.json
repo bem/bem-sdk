@@ -5,5 +5,8 @@
     "enb": "0.15.0",
     "scan-level": "0.0.4",
     "vow": "0.4.12"
+  },
+  "devDependencies": {
+    "bower": "1.7.9"
   }
 }
