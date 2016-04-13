@@ -10,9 +10,7 @@ test.cb('should throw error if level is not found', t => {
 
     const levelpath = path.resolve('./not-existing-level');
     const options = {
-        levels: {
-            'not-existing-level': { scheme: 'flat' }
-        }
+        defaults: { scheme: 'flat' }
     };
 
     walk([levelpath], options)
