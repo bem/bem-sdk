@@ -24,7 +24,7 @@
     "coveralls": "2.11.9",
     "eslint": "2.6.0",
     "eslint-config-pedant": "0.3.0",
-    "jscs": "2.11.0",
+    "jscs": "3.0.1",
     "matcha": "0.7.0",
     "nyc": "6.4.0"
   },
