@@ -25,11 +25,11 @@
   },
   "devDependencies": {
     "ava": "0.14.0",
+    "benchmark": "2.1.0",
     "coveralls": "2.11.9",
     "eslint": "2.7.0",
     "eslint-config-pedant": "0.2.0",
     "jscs": "2.11.0",
-    "matcha": "0.7.0",
     "mock-fs": "3.8.0",
     "nyc": "6.2.1",
     "promise.prototype.finally": "1.0.1",
@@ -39,8 +39,8 @@
     "pretest": "eslint . && jscs . -c .jscs.js",
     "test": "nyc ava",
     "unit-test": "ava",
-    "bench": "npm run bench-deps && matcha benchmark/*.js",
-    "bench-deps": "cd benchmark && npm i && cd fixtures && bower i",
+    "bench": "npm run bench-deps && node ./bench/run.js",
+    "bench-deps": "cd bench && npm i && cd fixtures && bower i",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "ava": {
