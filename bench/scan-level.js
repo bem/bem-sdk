@@ -1,27 +1,12 @@
-var scan = require('scan-level'),
-    fixtures = require('./fixtures');
+var scan = require('scan-level');
 
-suite('scan-level', function () {
-    set('mintime', 1000);
+module.exports = function run(levels, scheme, done) {
+    var opts = {};
 
-    bench('`flat` level', function (done) {
-        run(fixtures.levels.flat, { scanner: scanSimple }, done);
-    });
+    if (scheme === 'flat') {
+        opts.scanner = scanSimple;
+    }
 
-    bench('`nested` level', function (done) {
-        run(fixtures.levels.nested, {}, done);
-    });
-
-    bench('`bem-bl`', function (done) {
-        run(fixtures.libs['bem-bl'], {},  done);
-    });
-
-    bench('`bem-core` + `bem-components`', function (done) {
-        run(fixtures.libs.o2, {}, done);
-    });
-});
-
-function run(levels, opts, done) {
     var n = 0,
         l = levels.length;
 

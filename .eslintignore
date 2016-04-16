@@ -1,5 +1,5 @@
 .nyc_output
 node_modules
 coverage
-benchmark/fixtures/libs/**
-benchmark/node_modules/**
+bench/fixtures/libs/**
+bench/node_modules/**
