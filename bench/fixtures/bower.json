@@ -1,9 +1,9 @@
 {
-    "name": "enb-bem-techs-bench-fixtures",
+    "name": "bem-walk-bench-fixtures",
     "private": true,
     "dependencies": {
-        "bem-bl": "2.10.0",
-        "bem-core": "2.6.0",
-        "bem-components": "2.2.1"
+        "bem-bl": "2.11.0",
+        "bem-core": "2.9.0",
+        "bem-components": "2.5.0"
     }
 }
