@@ -104,8 +104,8 @@ test('should ignore elem if filename not match with dirname', t => {
     mockFs({
         blocks: {
             block: {
-                _mod: {
-                    'block_other-mod.tech': ''
+                __elem: {
+                    'block__other-elem.tech': ''
                 }
             }
         }
