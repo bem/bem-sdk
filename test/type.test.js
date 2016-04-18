@@ -11,7 +11,6 @@ test.beforeEach('setup', t => {
     });
 });
 
-
 test('should use `naming.typeOf()` for block', t => {
     const entity = new t.context.BemEntity({ block: 'block' });
 
