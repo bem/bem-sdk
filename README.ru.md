@@ -8,11 +8,11 @@ bem-naming
 [npm]:          https://www.npmjs.org/package/bem-naming
 [npm-img]:      https://img.shields.io/npm/v/bem-naming.svg
 
-[travis]:       https://travis-ci.org/bem/bem-naming
-[test-img]:     https://img.shields.io/travis/bem/bem-naming.svg
+[travis]:       https://travis-ci.org/bem-sdk/bem-naming
+[test-img]:     https://img.shields.io/travis/bem-sdk/bem-naming.svg?label=tests
 
-[coveralls]:    https://coveralls.io/r/bem/bem-naming
-[coverage-img]: https://img.shields.io/coveralls/bem/bem-naming.svg
+[coveralls]:    https://coveralls.io/r/bem-sdk/bem-naming
+[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-naming.svg
 
 Что это?
 --------

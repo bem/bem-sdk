@@ -11,7 +11,7 @@
     "parse",
     "stringify"
   ],
-  "repository": "bem/bem-naming",
+  "repository": "bem-sdk/bem-naming",
   "engines": {
     "node": ">= 4.0"
   },
