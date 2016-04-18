@@ -96,7 +96,7 @@ module.exports = class BemEntity {
      *
      * @returns {boolean} A Boolean indicating whether or not specified entity is the deepEqual entity.
      */
-    is(entity) {
+    isEqual(entity) {
         return entity && (this.id === entity.id);
     }
 };
