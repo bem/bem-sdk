@@ -15,7 +15,7 @@ test('should use `naming.typeOf()` for block', t => {
     /*eslint no-unused-expressions: "off"*/
     entity.type;
 
-    t.ok(spy.calledWith({ block: 'block' }));
+    t.truthy(spy.calledWith({ block: 'block' }));
 });
 
 test('should use `naming.typeOf()` for elem', t => {
@@ -24,7 +24,7 @@ test('should use `naming.typeOf()` for elem', t => {
     /*eslint no-unused-expressions: "off"*/
     entity.type;
 
-    t.ok(spy.calledWith({ block: 'block', elem: 'elem' }));
+    t.truthy(spy.calledWith({ block: 'block', elem: 'elem' }));
 });
 
 test('should use `naming.typeOf()` for block modifier', t => {
@@ -33,7 +33,7 @@ test('should use `naming.typeOf()` for block modifier', t => {
     /*eslint no-unused-expressions: "off"*/
     entity.type;
 
-    t.ok(spy.calledWith({ block: 'block', modName: 'mod', modVal: 'val' }));
+    t.truthy(spy.calledWith({ block: 'block', modName: 'mod', modVal: 'val' }));
 });
 
 test('should use naming.typeOf() for element modifier', t => {
@@ -42,5 +42,5 @@ test('should use naming.typeOf() for element modifier', t => {
     /*eslint no-unused-expressions: "off"*/
     entity.type;
 
-    t.ok(spy.calledWith({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }));
+    t.truthy(spy.calledWith({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }));
 });
