@@ -1,6 +1,6 @@
 {
   "name": "bem-naming",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Manage naming of BEM entities",
   "keywords": [
     "bem",
@@ -13,10 +13,10 @@
     "Andrew Abramov <mail@blond.im>"
   ],
   "license": "MPL-2.0",
-  "homepage": "https://github.com/bem/bem-naming",
+  "homepage": "https://github.com/bem-sdk/bem-naming",
   "repository": {
     "type": "git",
-    "url": "git://github.com/bem/bem-naming.git"
+    "url": "git://github.com/bem-sdk/bem-naming.git"
   },
   "main": "index.js",
   "moduleType": [
