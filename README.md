@@ -8,14 +8,14 @@ bem-entity
 [npm]:          https://www.npmjs.org/package/bem-entity
 [npm-img]:      https://img.shields.io/npm/v/bem-entity.svg
 
-[travis]:       https://travis-ci.org/bem-contrib/bem-entity
-[test-img]:     https://img.shields.io/travis/bem-contrib/bem-entity.svg
+[travis]:       https://travis-ci.org/bem-sdk/bem-entity
+[test-img]:     https://img.shields.io/travis/bem-sdk/bem-entity.svg
 
-[coveralls]:    https://coveralls.io/r/bem-contrib/bem-entity
-[coverage-img]: https://img.shields.io/coveralls/bem-contrib/bem-entity.svg
+[coveralls]:    https://coveralls.io/r/bem-sdk/bem-entity
+[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-entity.svg
 
-[david]:          https://david-dm.org/bem-contrib/bem-entity
-[dependency-img]: http://img.shields.io/david/bem-contrib/bem-entity.svg
+[david]:          https://david-dm.org/bem-sdk/bem-entity
+[dependency-img]: http://img.shields.io/david/bem-sdk/bem-entity.svg
 
 Install
 -------

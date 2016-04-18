@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "description": "",
   "license": "MIT",
-  "repository": "bem/bem-entity",
+  "repository": "bem-sdk/bem-entity",
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
   "keywords": [
     "bem",
