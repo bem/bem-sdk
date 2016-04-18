@@ -22,7 +22,7 @@
   "devDependencies": {
     "ava": "0.14.0",
     "coveralls": "2.11.9",
-    "eslint": "2.6.0",
+    "eslint": "2.8.0",
     "eslint-config-pedant": "0.3.0",
     "jscs": "3.0.3",
     "matcha": "0.7.0",
