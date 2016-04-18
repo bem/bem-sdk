@@ -17,5 +17,5 @@ test('should provide `elem` field', t => {
 test('should provide `mod` field', t => {
     const entity = new BemEntity({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    t.same(entity.mod, { name: 'mod', val: 'val' });
+    t.deepEqual(entity.mod, { name: 'mod', val: 'val' });
 });

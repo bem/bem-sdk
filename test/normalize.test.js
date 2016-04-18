@@ -17,7 +17,7 @@ test('should normalize short entry for boolean modifier', t => {
 test('should support `modName` and `modVal` fields', t => {
     const entity = new BemEntity({ block: 'block', modName: 'mod', modVal: 'val' });
 
-    t.same(entity.mod, { name: 'mod', val: 'val' });
+    t.deepEqual(entity.mod, { name: 'mod', val: 'val' });
 });
 
 test('should use `mod.name` field instead of `modName`', t => {

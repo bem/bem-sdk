@@ -90,11 +90,11 @@ module.exports = class BemEntity {
     valueOf()  { return this._obj; }
 
     /**
-     * Determines whether specified entity is the same entity.
+     * Determines whether specified entity is the deepEqual entity.
      *
      * @param {object} entity - the entity to compare.
      *
-     * @returns {boolean} A Boolean indicating whether or not specified entity is the same entity.
+     * @returns {boolean} A Boolean indicating whether or not specified entity is the deepEqual entity.
      */
     is(entity) {
         return entity && (this.id === entity.id);
