@@ -24,6 +24,8 @@ test.beforeEach(t => {
 });
 
 test.afterEach(t => {
+    mockFs.restore();
+
     t.context.flatStub.restore();
     t.context.nestedStub.restore();
 });
@@ -36,8 +38,6 @@ test.cb('should run nested walker by default', t => {
     t.context.walk(['blocks'])
         .resume()
         .on('end', () => {
-            mockFs.restore();
-
             t.true(t.context.nestedStub.calledOnce);
             t.end();
         })
@@ -52,8 +52,6 @@ test.cb('should run walker for default scheme', t => {
     t.context.walk(['blocks'], { defaults: { scheme: 'flat' } })
         .resume()
         .on('end', () => {
-            mockFs.restore();
-
             t.true(t.context.flatStub.calledOnce);
             t.end();
         })
@@ -68,8 +66,6 @@ test.cb('should run walker with default naming', t => {
     t.context.walk(['blocks'], { defaults: { naming: 'two-dashes' } })
         .resume()
         .on('end', () => {
-            mockFs.restore();
-
             t.true(t.context.nestedStub.calledWith(sinon.match({ naming: 'two-dashes' })));
             t.end();
         })

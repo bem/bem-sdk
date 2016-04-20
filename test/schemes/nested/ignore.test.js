@@ -12,11 +12,14 @@ const options = {
     }
 };
 
+test.afterEach('restore fs', () => {
+    mockFs.restore();
+});
+
 test('should end if levels are not specified', t => {
     mockFs({});
 
     return toArray(walk([], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });
 
@@ -26,7 +29,6 @@ test('should ignore empty level', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });
 
@@ -40,7 +42,6 @@ test('should ignore files without extension', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });
 
@@ -54,7 +55,6 @@ test('should ignore files with no BEM basename', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });
 
@@ -66,7 +66,6 @@ test('should ignore file in root of level', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });
 
@@ -80,7 +79,6 @@ test('should ignore block if filename not match with dirname', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });
 
@@ -96,7 +94,6 @@ test('should ignore block mod if filename not match with dirname', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });
 
@@ -112,7 +109,6 @@ test('should ignore elem if filename not match with dirname', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });
 
@@ -130,6 +126,5 @@ test('should ignore elem mod if filename not match with dirname', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => t.deepEqual(files, []));
 });

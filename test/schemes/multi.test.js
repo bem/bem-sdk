@@ -8,6 +8,10 @@ const toArray = require('stream-to-array');
 
 const walk = require('../../lib/index');
 
+test.afterEach('restore fs', () => {
+    mockFs.restore();
+});
+
 test('should support several schemes', t => {
     mockFs({
         'flat.blocks': {
@@ -28,7 +32,6 @@ test('should support several schemes', t => {
     };
 
     return toArray(walk(['flat.blocks', 'nested.blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, [
                 {

@@ -20,7 +20,6 @@ test('should end if levels are not specified', t => {
     mockFs({});
 
     return toArray(walk([], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, []);
         });
@@ -32,7 +31,6 @@ test('should ignore empty level', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, []);
         });
@@ -46,7 +44,6 @@ test('should ignore files without extension', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, []);
         });
@@ -60,7 +57,6 @@ test('should ignore files with no BEM basename', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, []);
         });

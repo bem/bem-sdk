@@ -12,6 +12,10 @@ const options = {
     }
 };
 
+test.afterEach('restore fs', () => {
+    mockFs.restore();
+});
+
 test('should detect each techs of the same entity', t => {
     mockFs({
         blocks: {
@@ -23,7 +27,6 @@ test('should detect each techs of the same entity', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const techs = files.map(file => file.tech);
 
@@ -41,7 +44,6 @@ test('should support complex tech', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const techs = files.map(file => file.tech);
 

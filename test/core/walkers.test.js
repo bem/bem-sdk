@@ -24,6 +24,8 @@ test.beforeEach(t => {
 });
 
 test.afterEach(t => {
+    mockFs.restore();
+
     t.context.flatStub.restore();
     t.context.nestedStub.restore();
 });
@@ -42,8 +44,6 @@ test.cb('should run walker for level', t => {
     t.context.walk(['blocks'], options)
         .resume()
         .on('end', () => {
-            mockFs.restore();
-
             t.true(t.context.flatStub.calledOnce);
             t.end();
         });
@@ -63,8 +63,6 @@ test.cb('should run walker with naming for level', t => {
     t.context.walk(['blocks'], options)
         .resume()
         .on('end', () => {
-            mockFs.restore();
-
             t.true(t.context.nestedStub.calledWith(sinon.match({ naming: 'two-dashes' })));
             t.end();
         });
@@ -86,8 +84,6 @@ test.cb('should run different walkers for different levels', t => {
     t.context.walk(['flat.blocks', 'nested.blocks'], options)
         .resume()
         .on('end', () => {
-            mockFs.restore();
-
             t.true(t.context.flatStub.calledWith(sinon.match({ path: 'flat.blocks' })));
             t.true(t.context.nestedStub.calledWith(sinon.match({ path: 'nested.blocks' })));
             t.end();
@@ -110,8 +106,6 @@ test.cb('should run walkers with different namings for different levels', t => {
     t.context.walk(['origin.blocks', 'two-dashes.blocks'], options)
         .resume()
         .on('end', () => {
-            mockFs.restore();
-
             t.true(t.context.nestedStub.calledWith({ path: 'origin.blocks', naming: 'origin' }));
             t.true(t.context.nestedStub.calledWith({ path: 'two-dashes.blocks', naming: 'two-dashes' }));
             t.end();

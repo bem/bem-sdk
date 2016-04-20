@@ -8,7 +8,7 @@ const toArray = require('stream-to-array');
 
 const walk = require('../../../lib/index');
 
-test.afterEach(() => {
+test.afterEach('restore fs', () => {
     mockFs.restore();
 });
 
@@ -26,7 +26,6 @@ test('should support level name with extension', t => {
     };
 
     return toArray(walk(['name.blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, [{
                 entity: { block: 'block' },
@@ -55,7 +54,6 @@ test('should support few levels', t => {
     };
 
     return toArray(walk(['level-1', 'level-2'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, [
                 {
@@ -92,7 +90,6 @@ test('should detect entity with the same name on every level', t => {
     };
 
     return toArray(walk(['level-1', 'level-2'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             t.deepEqual(files, [
                 {
