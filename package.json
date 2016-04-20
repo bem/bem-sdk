@@ -21,7 +21,7 @@
     "lib/**"
   ],
   "dependencies": {
-    "async": "2.0.0-rc.3",
+    "async-each": "1.0.0",
     "bem-naming": "1.0.1"
   },
   "devDependencies": {
