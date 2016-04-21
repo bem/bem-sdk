@@ -6,6 +6,10 @@ const toArray = require('stream-to-array');
 
 const walk = require('../../lib/index');
 
+test.afterEach('restore fs', () => {
+    mockFs.restore();
+});
+
 test('should support original naming', t => {
     mockFs({
         blocks: {
@@ -23,7 +27,6 @@ test('should support original naming', t => {
     };
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -53,7 +56,6 @@ test('should support Convention by Harry Roberts', t => {
     };
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -87,7 +89,6 @@ test('should support custom naming', t => {
     };
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -124,7 +125,6 @@ test('should support several naming', t => {
     };
 
     return toArray(walk(['original.blocks', 'csswizardry.blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 

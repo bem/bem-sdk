@@ -21,10 +21,10 @@
     "lib/**"
   ],
   "dependencies": {
+    "async-each": "1.0.0",
     "bem-naming": "1.0.1"
   },
   "devDependencies": {
-    "async": "2.0.0-rc.3",
     "ava": "0.14.0",
     "benchmark": "2.1.0",
     "coveralls": "2.11.9",
@@ -33,7 +33,9 @@
     "jscs": "2.11.0",
     "mock-fs": "3.8.0",
     "nyc": "6.2.1",
-    "promise.prototype.finally": "1.0.1",
+    "promise-map-series": "0.2.2",
+    "proxyquire": "1.7.4",
+    "sinon": "1.17.3",
     "stream-to-array": "2.3.0"
   },
   "scripts": {
@@ -49,9 +51,6 @@
     "verbose": true,
     "files": [
       "test/**/*.test.js"
-    ],
-    "require": [
-      "promise.prototype.finally"
     ]
   }
 }

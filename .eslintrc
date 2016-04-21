@@ -8,6 +8,3 @@ globals:
   bench: false
 
 extends: pedant
-
-rules:
-  no-shadow: off

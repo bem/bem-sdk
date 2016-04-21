@@ -12,6 +12,10 @@ const options = {
     }
 };
 
+test.afterEach('restore fs', () => {
+    mockFs.restore();
+});
+
 test('should detect block', t => {
     mockFs({
         blocks: {
@@ -22,7 +26,6 @@ test('should detect block', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -42,7 +45,6 @@ test('should detect bool mod of block', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -65,7 +67,6 @@ test('should detect key-val mod of block', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -88,7 +89,6 @@ test('should detect elem', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -110,7 +110,6 @@ test('should detect bool mod of elem', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -135,7 +134,6 @@ test('should detect key-val mod of elem', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
@@ -171,7 +169,6 @@ test('should detect complex entities', t => {
     });
 
     return toArray(walk(['blocks'], options))
-        .finally(() => mockFs.restore())
         .then(files => {
             const entities = files.map(file => file.entity);
 
