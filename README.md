@@ -26,7 +26,7 @@ Install
 -------
 
 ```
-$ npm install --save-dev bem-walk@alpha
+$ npm install --save-dev bem-walk
 ```
 
 Usage
