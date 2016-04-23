@@ -5,7 +5,7 @@ bem-walk
 [![Travis Status][test-img]][travis]
 [![Windows Status][appveyor-img]][appveyor]
 [![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][coverage-img]][coveralls]
+[![Dependency Status][david-img]][david]
 
 [npm]:          https://www.npmjs.org/package/bem-walk
 [npm-img]:      https://img.shields.io/npm/v/bem-walk.svg
@@ -20,7 +20,7 @@ bem-walk
 [coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-walk.svg
 
 [david]:        https://david-dm.org/bem-sdk/bem-walk
-[david-img]:    http://img.shields.io/david/bem/bem-walk.svg?style=flat
+[david-img]:    http://img.shields.io/david/bem-sdk/bem-walk.svg?style=flat
 
 Install
 -------
