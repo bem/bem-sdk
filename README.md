@@ -34,12 +34,13 @@ const entity = new BemEntity({ block: 'button', elem: 'text' });
 
 console.log(entity.block); // button
 console.log(entity.elem);  // text
+console.log(entity.mod);   // undefined
 
 console.log(entity.id);   // button__elem
 console.log(entity.type); // elem
 
-console.log(entity.is({ block: 'button' }));               // false
-console.log(entity.is({ block: 'button', elem: 'text' })); // true
+console.log(entity.isEqual({ block: 'button' }));               // false
+console.log(entity.isEqual({ block: 'button', elem: 'text' })); // true
 ```
 
 License
