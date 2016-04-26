@@ -132,13 +132,15 @@ BemConfig.prototype.levelMap = function() {
     return this.get().then(config => {
         const projectLevels = config.levels;
 
-        return Promise.all(Object.keys(config.libs).map(libName => {
+        return Promise.all((config.libs ? Object.keys(config.libs) : []).map(libName => {
             return this.library(libName)
                 .then(bemLibConf => bemLibConf.get())
                 .then(libConfig => libConfig.levels);
         }))
         .then(libLevels => libLevels.concat(projectLevels))
         .then(allLevels => _.merge.apply(this, allLevels));
+    });
+};
 
     });
 };
