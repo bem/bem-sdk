@@ -29,9 +29,10 @@ function BemConfig(options) {
 
 /**
  * Returns all found configs
- * @returns {Promise}
+ * @param {Boolean} isSync - flag to resolve configs synchronously
+ * @returns {Promise|Array}
  */
-BemConfig.prototype.configs = function() {
+BemConfig.prototype.configs = function(isSync) {
     const options = this._options;
     const projectRoot = options.projectRoot;
 
@@ -57,6 +58,20 @@ BemConfig.prototype.configs = function() {
         };
     }
 
+    if (isSync) {
+        return readConfigs.map(config => {
+            if (config.levels) {
+                Object.keys(config.levels).forEach(wildcardLevel => {
+                    glob.sync(wildcardLevel, { cwd: projectRoot })
+                        .forEach(createProcessConfigFunc(config, wildcardLevel));
+                    delete config.levels[wildcardLevel];
+                });
+            }
+
+            return config;
+        });
+    }
+
     return Promise.all(readConfigs.map(config => {
         return !config.levels ? config : Promise.all(Object.keys(config.levels).map(wildcardLevel => {
             return globPromise(wildcardLevel, { cwd: projectRoot })
@@ -76,42 +91,61 @@ BemConfig.prototype.get = function() {
 };
 
 /**
+ * Returns merged config synchronously
+ * @returns {Object}
+ */
+BemConfig.prototype.getSync = function() {
+    return Object.assign.apply(Object, [{}].concat(this.configs(true)));
+};
+
+function getLevelByConfigs(levelPath, options, allConfigs) {
+    const absLevelPath = path.resolve(options.projectRoot, levelPath);
+    let levelOpts = { __source: absLevelPath };
+
+    for (let i = 0; i < allConfigs.length; i++) {
+        let conf = allConfigs[i];
+        let levels = conf.levels || {};
+
+        Object.assign(levelOpts, conf);
+
+        for (let level in levels) {
+            if (level !== absLevelPath) { continue; }
+
+            // works like deep extend but overrides arrays
+            levelOpts = _.mergeWith({}, levels[level], levelOpts,
+                (objValue, srcValue) => {
+                if (Array.isArray(objValue)) {
+                    return srcValue;
+                }
+            });
+        }
+
+        if (conf.root) { break; }
+    }
+
+    delete levelOpts.__source;
+    delete levelOpts.levels;
+    delete levelOpts.root;
+
+    return !_.isEmpty(levelOpts) ? levelOpts : undefined;
+}
+
+/**
  * Resolves config for given level
  * @param {String} levelPath - level path
  * @returns {Promise}
  */
 BemConfig.prototype.level = function(levelPath) {
-    const absLevelPath = path.resolve(this._options.projectRoot, levelPath);
-    let levelOpts = { __source: absLevelPath };
+    return this.configs().then(allConfigs => getLevelByConfigs(levelPath, this._options, allConfigs));
+};
 
-    return this.configs().then(all => {
-        for (let i = 0; i < all.length; i++) {
-            let conf = all[i];
-            let levels = conf.levels || {};
-
-            Object.assign(levelOpts, conf);
-
-            for (let level in levels) {
-                if (level === absLevelPath) {
-
-                    // works like deep extend but overrides arrays
-                    levelOpts = _.mergeWith({}, levels[level], levelOpts, (objValue, srcValue) => {
-                        if (Array.isArray(objValue)) {
-                            return srcValue;
-                        }
-                    });
-                }
-            }
-
-            if (conf.root) { break; }
-        }
-
-        delete levelOpts.__source;
-        delete levelOpts.levels;
-        delete levelOpts.root;
-
-        return !_.isEmpty(levelOpts) ? levelOpts : undefined;
-    });
+/**
+ * Resolves config for given level synchronously
+ * @param {String} levelPath - level path
+ * @returns {Object}
+ */
+BemConfig.prototype.levelSync = function(levelPath) {
+    return getLevelByConfigs(levelPath, this._options, this.configs(true));
 };
 
 /**
@@ -122,6 +156,15 @@ BemConfig.prototype.level = function(levelPath) {
 BemConfig.prototype.library = function(libName) {
     return this.get()
         .then(config => new BemConfig({ projectRoot: config.libs[libName].path }));
+};
+
+/**
+ * Returns config for given library synchronously
+ * @param {String} libName - library name
+ * @returns {Object}
+ */
+BemConfig.prototype.librarySync = function(libName) {
+    return new BemConfig({ projectRoot: this.getSync().libs[libName].path });
 };
 
 /**
@@ -142,7 +185,24 @@ BemConfig.prototype.levelMap = function() {
     });
 };
 
+/**
+ * Returns map of settings for each of level synchronously
+ * @returns {Object}
+ */
+BemConfig.prototype.levelMapSync = function() {
+    const config = this.getSync();
+    const projectLevels = config.levels;
+    const libNames = config.libs ? Object.keys(config.libs) : [];
+    const libLevels = libNames.map(libName => {
+        const bemLibConf = this.librarySync(libName);
+        const libConfig = bemLibConf.getSync();
+
+        return libConfig.levels;
     });
+
+    const allLevels = libLevels.concat(projectLevels);
+
+    return _.merge.apply(this, allLevels);
 };
 
 /**
@@ -156,6 +216,17 @@ BemConfig.prototype.module = function(moduleName) {
 
         return modules && modules[moduleName];
     });
+};
+
+/**
+ * Returns config for given module name synchronously
+ * @param {String} moduleName - name of module
+ * @returns {Object}
+ */
+BemConfig.prototype.moduleSync = function(moduleName) {
+    const modules = this.getSync().modules;
+
+    return modules && modules[moduleName];
 };
 
 module.exports = options => new BemConfig(options);
