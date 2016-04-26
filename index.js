@@ -44,7 +44,7 @@ BemConfig.prototype.configs = function() {
 
     function createProcessConfigFunc(config, wildcardLevel) {
         return resolvedWildcards => {
-            resolvedWildcards.forEach((level, idx) => {
+            [].concat(resolvedWildcards).forEach((level, idx) => {
                 if (wildcardLevel === path.resolve(level)) { return; }
 
                 config.levels[path.resolve(projectRoot, level)] = config.levels[wildcardLevel];
