@@ -30,12 +30,12 @@ describe('default', function() {
     });
 
     describe('lib/schemes/nested', function() {
-        it('should return nested folder for a block', function() {
+        it('should return path for a block', function() {
             expect(scheme('nested').path({ block: 'a' }, 'js'))
                 .eql('a/a.js');
         });
 
-        it('should return nested folder for a block with modifier', function() {
+        it('should return path for a block with modifier', function() {
             expect(
                 scheme('nested').path({
                     block: 'a', modName: 'mn', modVal: 'mv'
@@ -43,13 +43,13 @@ describe('default', function() {
             ).eql('a/_mn/a_mn_mv.js');
         });
 
-        it('should return nested folder for elem', function() {
+        it('should return path for elem', function() {
             expect(
                 scheme('nested').path({ block: 'a', elem: 'e1' }, 'js')
             ).eql('a/__e1/a__e1.js');
         });
 
-        it('should return nested folder for modName elem', function() {
+        it('should return path for modName elem', function() {
             expect(
                 scheme('nested').path({
                     block: 'a',

@@ -1,6 +1,11 @@
 # bem-fs-scheme
 
-BEM file system schemes.
+[BEM file system](https://en.bem.info/method/filesystem/#principles-of-file-system-organization-for-bem-projects) [schemes](https://en.bem.info/faq/#why-create-separate-directories-and-files-for-every-block-and-technology).
+
+## Supported schemes
+
+* nested
+* flat
 
 ## Usage
 ```js
