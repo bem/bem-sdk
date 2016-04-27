@@ -16,7 +16,7 @@ All options are optional:
 * `config` // extends found configs with this object
 * `argv` // custom path to config on FS via command line argument `--config` (defaults to `null`)
 
-## API
+## Async API
 
 ### get
 
@@ -70,6 +70,56 @@ var config = require('bem-config')();
 config.configs().then(function(configs) {
     console.log(configs); // all found configs from all dirs
 });
+```
+
+## Sync API
+
+### getSync
+
+```js
+var config = require('bem-config')();
+var conf = config.getSync();
+console.log(conf); // config is a merge of CLI args + optionalConfig + all configs found by rc
+```
+
+### levelSync
+
+```js
+var config = require('bem-config')();
+var levelConf = config.levelSync('path/to/level');
+console.log(levelConf); // merged level config
+```
+
+### librarySync
+
+```js
+var config = require('bem-config')();
+var libConf = config.librarySync('bem-components');
+console.log(libConf); // library config
+```
+
+### levelMapSync
+
+```js
+var config = require('bem-config')();
+var levelMap = config.levelMapSync();
+console.log(levelMap); // all levels hash with their options
+```
+
+### moduleSync
+
+```js
+var config = require('bem-config')();
+var bemToolsConf = config.moduleSync('bem-tools')
+console.log(bemToolsConf); // merged config for required module
+```
+
+### configs
+
+```js
+var config = require('bem-config')();
+var configs = config.configs(true);
+console.log(configs); // all found configs from all dirs
 ```
 
 ## Config example
