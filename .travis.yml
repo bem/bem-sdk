@@ -1,4 +1,11 @@
+sudo: false
+
 language: node_js
-node_js:
-  - "0.10"
-script: "npm run travis"
+
+matrix:
+  include:
+    - node_js: "0.10"
+      env: COVERALLS=1
+
+after_success:
+  - if [ "x$COVERALLS" = "x1" ]; then npm run coveralls; fi
