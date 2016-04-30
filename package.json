@@ -9,33 +9,19 @@
     "merge",
     "normalize",
     "subtract",
-    "BEMDECL"
+    "bemdecl"
   ],
-  "author": "Andrew Abramov <mail@blond.im>",
-  "licenses": [
-    {
-      "type": "MPL-2.0",
-      "url": "https://github.com/bem/bem-decl/blob/master/LICENSE.txt"
-    }
-  ],
-  "repository": "git://github.com/bem/bem-decl",
-  "homepage": "https://github.com/bem/bem-decl",
-  "bugs": "https://github.com/bem/bem-decl/issues",
-  "contributors": "Andrew Abramov <mail@blond.im>",
-  "maintainers": [
-    {
-      "name": "Andrew Abramov",
-      "email": "mail@blond.im",
-      "github-username": "blond"
-    }
-  ],
+  "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
+  "license": "MPL-2.0",
+  "repository": "bem-sdk/bem-decl",
+  "homepage": "https://github.com/bem-sdk/bem-decl",
+  "bugs": "https://github.com/bem-sdk/bem-decl/issues",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 0.10"
   },
   "main": "lib/index.js",
   "files": [
-    "lib/**",
-    "LICENSE.txt"
+    "lib/**"
   ],
   "dependencies": {
     "bem-naming": "0.5.1"
@@ -44,10 +30,7 @@
     "eslint": "2.4.0",
     "eslint-config-pedant": "0.1.1",
     "jscs": "1.10.0",
-    "matcha": "0.6.0",
-    "mocha": "2.1.0",
-    "must": "0.12.0",
-    "unit-coverage": "3.3.0"
+    "matcha": "0.6.0"
   },
   "scripts": {
     "test": "npm run lint && npm run spec",
