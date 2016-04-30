@@ -1,18 +1,18 @@
 {
   "name": "bem-walk",
   "version": "1.0.0-1",
-  "description": "",
+  "description": "Walk easily thru BEM file structure",
   "keywords": [
     "bem",
     "walk",
     "level",
-    "scheme"
+    "scheme",
+    "nested",
+    "flat"
   ],
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
   "license": "MPL-2.0",
-  "repository": "bem/bem-walk",
-  "homepage": "https://github.com/bem/bem-walk",
-  "bugs": "https://github.com/bem/bem-walk/issues",
+  "repository": "bem-sdk/bem-walk",
   "engines": {
     "node": ">= 4.0"
   },
