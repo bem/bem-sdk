@@ -1,6 +1,6 @@
 {
   "name": "bem-decl",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Manage declaration of BEM entities",
   "keywords": [
     "bem",
