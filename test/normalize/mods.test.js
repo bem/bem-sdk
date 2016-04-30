@@ -1,8 +1,10 @@
-var test = require('ava'),
-    normalize = require('../../lib/normalize');
+'use strict';
 
-test('should support objects', function (t) {
-    var decl = { name: 'block', mods: [{ name: 'mod', vals: [{ name: 'val' }] }] };
+const test = require('ava');
+const normalize = require('../../lib/normalize');
+
+test('should support objects', t => {
+    const decl = { name: 'block', mods: [{ name: 'mod', vals: [{ name: 'val' }] }] };
 
     t.deepEqual(normalize(decl), [
         { block: 'block' },
@@ -10,8 +12,8 @@ test('should support objects', function (t) {
     ]);
 });
 
-test('should support several items', function (t) {
-    var decl = { name: 'block', mods: [
+test('should support several items', t => {
+    const decl = { name: 'block', mods: [
         { name: 'mod-1', vals: [{ name: 'val' }] },
         { name: 'mod-2', vals: [{ name: 'val' }] }
     ] };
@@ -23,8 +25,8 @@ test('should support several items', function (t) {
     ]);
 });
 
-test('should support mod shortcut', function (t) {
-    var decl = { name: 'block', mods: [{ name: 'mod' }] };
+test('should support mod shortcut', t => {
+    const decl = { name: 'block', mods: [{ name: 'mod' }] };
 
     t.deepEqual(normalize(decl), [
         { block: 'block' },

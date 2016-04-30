@@ -1,35 +1,37 @@
-var test = require('ava'),
-    normalize = require('../../lib/normalize-harmony');
+'use strict';
 
-test('should support undefined', function (t) {
+const test = require('ava');
+const normalize = require('../../lib/normalize-harmony');
+
+test('should support undefined', t => {
     t.deepEqual(normalize(), []);
 });
 
-test('should support empty array', function (t) {
+test('should support empty array', t => {
     t.deepEqual(normalize([]), []);
 });
 
-test('should support empty object', function (t) {
-    var decl = {};
+test('should support empty object', t => {
+    const decl = {};
 
     t.deepEqual(normalize(decl), []);
 });
 
-test('should return set', function (t) {
-    var A = { block: 'A' };
+test('should return set', t => {
+    const A = { block: 'A' };
 
     t.deepEqual(normalize([A, A]), [A]);
 });
 
-test('should save order', function (t) {
-    var A = { block: 'A' },
+test('should save order', t => {
+    const A = { block: 'A' },
         B = { block: 'B' };
 
     t.deepEqual(normalize([A, B, A]), [A, B]);
 });
 
-test('should support array', function (t) {
-    var decl = [
+test('should support array', t => {
+    const decl = [
         { block: 'A' },
         { block: 'B' }
     ];

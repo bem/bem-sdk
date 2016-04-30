@@ -1,8 +1,10 @@
-var test = require('ava'),
-    normalize = require('../../lib/normalize');
+'use strict';
 
-test('should support arrays', function (t) {
-    var decl = {
+const test = require('ava');
+const normalize = require('../../lib/normalize');
+
+test('should support arrays', t => {
+    const decl = {
         name: 'block',
         elems: [
             { name: 'elem-1' },
@@ -17,8 +19,8 @@ test('should support arrays', function (t) {
     ]);
 });
 
-test('should support objects', function (t) {
-    var decl = {
+test('should support objects', t => {
+    const decl = {
         name: 'block',
         elems: [
             { name: 'elem', mods: [{ name: 'mod', vals: [{ name: 'val' }] }] }
@@ -32,8 +34,8 @@ test('should support objects', function (t) {
     ]);
 });
 
-test('should support mod shortcut', function (t) {
-    var decl = {
+test('should support mod shortcut', t => {
+    const decl = {
         name: 'block',
         elems: [
             { name: 'elem', mods: [{ name: 'mod' }] }

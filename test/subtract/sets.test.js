@@ -1,27 +1,29 @@
-var test = require('ava'),
-    subtract = require('../../lib/subtract');
+'use strict';
 
-test('should subtract set from empty set', function (t) {
-    var A = [{ block: 'A' }];
+const test = require('ava');
+const subtract = require('../../lib/subtract');
+
+test('should subtract set from empty set', t => {
+    const A = [{ block: 'A' }];
 
     t.deepEqual(subtract([], A), []);
 });
 
-test('should subtract empty set from set', function (t) {
-    var A = [{ block: 'A' }];
+test('should subtract empty set from set', t => {
+    const A = [{ block: 'A' }];
 
     t.deepEqual(subtract(A, []), A);
 });
 
-test('should support disjoint sets', function (t) {
-    var A = [{ block: 'A' }],
+test('should support disjoint sets', t => {
+    const A = [{ block: 'A' }],
         B = [{ block: 'B' }];
 
     t.deepEqual(subtract(A, B), A);
 });
 
-test('should support intersecting sets', function (t) {
-    var ABC = [{ block: 'A' }, { block: 'B' }, { block: 'C' }],
+test('should support intersecting sets', t => {
+    const ABC = [{ block: 'A' }, { block: 'B' }, { block: 'C' }],
         B   = [{ block: 'B' }],
         AC  = [{ block: 'A' }, { block: 'C' }];
 

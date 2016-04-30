@@ -1,8 +1,10 @@
-var test = require('ava'),
-    normalize = require('../../lib/normalize-harmony');
+'use strict';
 
-test('should support mod in block scope', function (t) {
-    var decl = {
+const test = require('ava');
+const normalize = require('../../lib/normalize-harmony');
+
+test('should support mod in block scope', t => {
+    const decl = {
         scope: 'block',
         modName: 'mod',
         modVal: 'val'
@@ -13,8 +15,8 @@ test('should support mod in block scope', function (t) {
     ]);
 });
 
-test('should support mods in block scope', function (t) {
-    var decl = {
+test('should support mods in block scope', t => {
+    const decl = {
         scope: 'block',
         mods: { mod: 'val' }
     };
@@ -24,8 +26,8 @@ test('should support mods in block scope', function (t) {
     ]);
 });
 
-test('should support elem in block scope', function (t) {
-    var decl = {
+test('should support elem in block scope', t => {
+    const decl = {
         scope: 'block',
         elem: 'elem'
     };
@@ -35,8 +37,8 @@ test('should support elem in block scope', function (t) {
     ]);
 });
 
-test('should support elems in block scope', function (t) {
-    var decl = {
+test('should support elems in block scope', t => {
+    const decl = {
         scope: 'block',
         elems: ['elem-1', 'elem-2']
     };
@@ -47,8 +49,8 @@ test('should support elems in block scope', function (t) {
     ]);
 });
 
-test('should support elem mod in block scope', function (t) {
-    var decl = {
+test('should support elem mod in block scope', t => {
+    const decl = {
         scope: 'block',
         elem: 'elem', modName: 'mod', modVal: 'val'
     };
@@ -59,8 +61,8 @@ test('should support elem mod in block scope', function (t) {
     ]);
 });
 
-test('should support mod in elem scope', function (t) {
-    var decl = {
+test('should support mod in elem scope', t => {
+    const decl = {
         scope: { block: 'block', elem: 'elem' },
         modName: 'mod', modVal: 'val'
     };
@@ -70,8 +72,8 @@ test('should support mod in elem scope', function (t) {
     ]);
 });
 
-test('should support mix in elem scope', function (t) {
-    var decl = {
+test('should support mix in elem scope', t => {
+    const decl = {
         scope: 'block',
         elems: ['elem-1', 'elem-2'],
         mods: ['mod-1', 'mod-2']

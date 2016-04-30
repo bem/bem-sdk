@@ -1,8 +1,10 @@
-var test = require('ava'),
-    normalize = require('../../lib/normalize-harmony');
+'use strict';
 
-test('should support strings', function (t) {
-    var decl = {
+const test = require('ava');
+const normalize = require('../../lib/normalize-harmony');
+
+test('should support strings', t => {
+    const decl = {
         block: 'block',
         elems: ['elem-1', 'elem-2']
     };
@@ -14,8 +16,8 @@ test('should support strings', function (t) {
     ]);
 });
 
-test('should support objects', function (t) {
-    var decl = {
+test('should support objects', t => {
+    const decl = {
         block: 'block',
         elems: [{ elem: 'elem' }]
     };
@@ -26,8 +28,8 @@ test('should support objects', function (t) {
     ]);
 });
 
-test('should support mods for elem objects', function (t) {
-    var decl = {
+test('should support mods for elem objects', t => {
+    const decl = {
         block: 'block',
         elems: [{ elem: 'elem', mods: { mod: 'val' } }]
     };

@@ -1,8 +1,10 @@
-var test = require('ava'),
-    normalize = require('../../lib/normalize-harmony');
+'use strict';
 
-test('should support elem', function (t) {
-    var decl = { block: 'block', elem: 'elem' };
+const test = require('ava');
+const normalize = require('../../lib/normalize-harmony');
+
+test('should support elem', t => {
+    const decl = { block: 'block', elem: 'elem' };
 
     t.deepEqual(normalize(decl), [
         { block: 'block' },
@@ -10,8 +12,8 @@ test('should support elem', function (t) {
     ]);
 });
 
-test('should support shortcut for bool mod of elem', function (t) {
-    var decl = { block: 'block', elem: 'elem', modName: 'mod' };
+test('should support shortcut for bool mod of elem', t => {
+    const decl = { block: 'block', elem: 'elem', modName: 'mod' };
 
     t.deepEqual(normalize(decl), [
         { block: 'block' },
@@ -20,8 +22,8 @@ test('should support shortcut for bool mod of elem', function (t) {
     ]);
 });
 
-test('should support bool mod of elem', function (t) {
-    var decl = { block: 'block', elem: 'elem', modName: 'mod', modVal: true };
+test('should support bool mod of elem', t => {
+    const decl = { block: 'block', elem: 'elem', modName: 'mod', modVal: true };
 
     t.deepEqual(normalize(decl), [
         { block: 'block' },
@@ -30,8 +32,8 @@ test('should support bool mod of elem', function (t) {
     ]);
 });
 
-test('should support elem mod', function (t) {
-    var decl = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' };
+test('should support elem mod', t => {
+    const decl = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' };
 
     t.deepEqual(normalize(decl), [
         { block: 'block' },
@@ -40,8 +42,8 @@ test('should support elem mod', function (t) {
     ]);
 });
 
-test('should support elem mods as object', function (t) {
-    var decl = {
+test('should support elem mods as object', t => {
+    const decl = {
         block: 'block',
         elem: 'elem',
         mods: { mod: 'val' }
@@ -54,8 +56,8 @@ test('should support elem mods as object', function (t) {
     ]);
 });
 
-test('should support bool mods of elem as array', function (t) {
-    var decl = {
+test('should support bool mods of elem as array', t => {
+    const decl = {
         block: 'block',
         elem: 'elem',
         mods: ['mod-1', 'mod-2']
@@ -69,8 +71,8 @@ test('should support bool mods of elem as array', function (t) {
     ]);
 });
 
-test('should support mod values of elem as array', function (t) {
-    var decl = {
+test('should support mod values of elem as array', t => {
+    const decl = {
         block: 'block',
         elem: 'elem',
         mods: { mod: ['val-1', 'val-2'] }

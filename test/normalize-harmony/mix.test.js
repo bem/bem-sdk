@@ -1,8 +1,10 @@
-var test = require('ava'),
-    normalize = require('../../lib/normalize-harmony');
+'use strict';
 
-test('should support mix', function (t) {
-    var decl = {
+const test = require('ava');
+const normalize = require('../../lib/normalize-harmony');
+
+test('should support mix', t => {
+    const decl = {
         block: 'block',
         elems: ['elem-1', 'elem-2'],
         mods: ['mod-1', 'mod-2']
