@@ -31,7 +31,7 @@
     "coveralls": "2.11.9",
     "eslint": "2.9.0",
     "eslint-config-pedant": "0.4.0",
-    "nyc": "6.4.2",
+    "nyc": "6.4.3",
     "proxyquire": "1.7.4",
     "sinon": "1.17.4"
   },
