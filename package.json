@@ -26,7 +26,7 @@
     "eslint-config-pedant": "0.4.0",
     "jscs": "3.0.3",
     "matcha": "0.7.0",
-    "nyc": "6.4.3"
+    "nyc": "6.4.4"
   },
   "scripts": {
     "test": "npm run lint && npm run cover",
