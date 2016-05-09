@@ -49,9 +49,10 @@
     "clean": "rm -rf dist",
     "prepublish": "npm run clean && npm run dist",
     "pretest": "npm run lint",
-    "test": "npm run spec",
+    "test": "npm run spec && npm run unit-test",
     "lint": "jshint . && jscs . -c .jscs.js",
     "spec": "mocha -R spec --opts spec/mocha.opts spec/",
+    "unit-test": "mocha -R spec --opts test/mocha.opts test/",
     "cover": "istanbul cover _mocha --opts spec/mocha.opts",
     "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
     "dist": "gulp"

@@ -14,5 +14,6 @@ install:
 
 test_script:
   - npm run spec
+  - npm run unit-test
 
 build: off
