@@ -42,7 +42,7 @@
     "lint": "jshint . && jscs . -c .jscs.js",
     "spec": "mocha -R spec --opts spec/mocha.opts spec/",
     "unit-test": "mocha -R spec --opts test/mocha.opts test/",
-    "cover": "istanbul cover _mocha --opts spec/mocha.opts",
+    "cover": "istanbul cover _mocha spec/ test/",
     "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   }
 }
