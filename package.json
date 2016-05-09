@@ -1,20 +1,19 @@
 {
   "name": "bem-deps",
-  "version": "0.0.0",
-  "description": "",
+  "version": "0.0.10",
+  "description": "Manage BEM dependencies",
+  "license": "MPL-2.0",
+  "author": "Andrew Abramov <mail@blond.im>",
   "keywords": [
     "bem",
-    "deps"
+    "deps",
+    "dependencies",
+    "deps.js",
+    "read",
+    "parse",
+    "resolve"
   ],
-  "licenses": [
-    {
-      "type": "MPL-2.0",
-      "url": "https://github.com/bem-incubator/bem-deps/blob/master/LICENSE.txt"
-    }
-  ],
-  "repository": "git://github.com/bem-incubator/bem-deps",
-  "homepage": "https://github.com/bem-incubator/bem-deps",
-  "bugs": "https://github.com/bem-incubator/bem-deps/issues",
+  "repository": "bem-sdk/bem-deps",
   "engines": {
     "node": ">= 0.10.0"
   },
