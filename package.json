@@ -15,7 +15,7 @@
   ],
   "repository": "bem-sdk/bem-deps",
   "engines": {
-    "node": ">= 0.10.0"
+    "node": ">= 4"
   },
   "main": "lib/index.js",
   "files": [
