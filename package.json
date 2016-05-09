@@ -22,7 +22,7 @@
     "lib/**"
   ],
   "dependencies": {
-    "bem-naming": "0.5.1",
+    "bem-naming": "1.0.1",
     "bem-walk": "1.0.0-alpha1",
     "lodash": "3.10.1"
   },
