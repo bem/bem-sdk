@@ -4,7 +4,6 @@ module.exports = {
         'coverage',
         'dist'
     ],
-    esnext: true,
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
     requireSpaceBeforeBlockStatements: true,
     requireSpacesInConditionalExpression: true,
@@ -46,7 +45,7 @@ module.exports = {
     maximumLineLength: 120,
     requireCapitalizedConstructors: true,
     disallowYodaConditions: true,
-    validateJSDoc: {
+    jsDoc: {
         checkParamNames: true,
         checkRedundantParams: true,
         requireParamTypes: true
