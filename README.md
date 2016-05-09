@@ -1,10 +1,26 @@
 bem-deps
 ========
 
-[![Build Status](http://img.shields.io/travis/bem-incubator/bem-deps/master.svg?style=flat&label=tests)](https://travis-ci.org/bem/bem-deps)
-[![Build status](http://img.shields.io/appveyor/ci/blond/bem-deps.svg?style=flat&label=windows)](https://ci.appveyor.com/project/blond/bem-deps)
-[![Coverage Status](https://img.shields.io/coveralls/bem-incubator/bem-deps.svg?branch=master&style=flat)](https://coveralls.io/r/bem-incubator/bem-deps)
-[![Dependency Status](http://img.shields.io/david/bem-incubator/bem-deps.svg?style=flat)](https://david-dm.org/bem-incubator/bem-deps)
+[![NPM Status][npm-img]][npm]
+[![Travis Status][test-img]][travis]
+[![Windows Status][appveyor-img]][appveyor]
+[![Coverage Status][coverage-img]][coveralls]
+[![Dependency Status][david-img]][david]
+
+[npm]:          https://www.npmjs.org/package/@bem/deps
+[npm-img]:      https://img.shields.io/npm/v/@bem/deps.svg
+
+[travis]:       https://travis-ci.org/bem-sdk/bem-deps
+[test-img]:     https://img.shields.io/travis/bem-sdk/bem-deps.svg?label=tests
+
+[appveyor]:     https://ci.appveyor.com/project/blond/bem-walk
+[appveyor-img]: http://img.shields.io/appveyor/ci/blond/bem-walk.svg?style=flat&label=windows
+
+[coveralls]:    https://coveralls.io/r/bem-sdk/bem-deps
+[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-deps.svg
+
+[david]:        https://david-dm.org/bem-sdk/bem-deps
+[david-img]:    http://img.shields.io/david/bem-sdk/bem-walk.svg?style=flat
 
 Install
 -------
