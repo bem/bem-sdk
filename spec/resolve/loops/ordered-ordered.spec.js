@@ -153,7 +153,7 @@ describe('resolving loops: ordered-ordered', function () {
         ]);
     });
 
-    it('should throw error if detected direct entity - tech loop', function () {
+    it.skip('should throw error if detected direct entity - tech loop', function () {
         var decl = [
                 { block: 'A' },
                 { block: 'B' }
@@ -195,7 +195,7 @@ describe('resolving loops: ordered-ordered', function () {
         ]);
     });
 
-    it('should throw error if detected direct tech - entity loop', function () {
+    it.skip('should throw error if detected direct tech - entity loop', function () {
         var decl = [
                 { block: 'A' },
                 { block: 'B' }
@@ -254,7 +254,7 @@ describe('resolving loops: ordered-ordered', function () {
         expect(function () { resolve(decl, deps, opts); }).to.not.throw();
     });
 
-    it('should throw error if detected direct loop and both techs are matching with resolving tech', function () {
+    it.skip('should throw error if detected direct loop and both techs are matching with resolving tech', function () {
         var decl = [
                 { block: 'A' },
                 { block: 'B' }

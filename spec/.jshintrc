@@ -12,9 +12,9 @@
     "undef": true,
     "unused": true,
 
-    "esnext": true,
     "node": true,
     "mocha": true,
+    "esnext": true,
 
     "expr": true,
     "sub": true
