@@ -1,9 +1,10 @@
 module.exports = {
-    esnext: true,
     excludeFiles: [
         'node_modules',
-        'coverage'
+        'coverage',
+        'dist'
     ],
+    esnext: true,
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
     requireSpaceBeforeBlockStatements: true,
     requireSpacesInConditionalExpression: true,
@@ -16,7 +17,6 @@ module.exports = {
     disallowSpacesInNamedFunctionExpression: {
         beforeOpeningRoundBrace: true
     },
-    requireMultipleVarDecl: true,
     requireBlocksOnNewline: 1,
     disallowPaddingNewlinesInBlocks: true,
     disallowSpacesInsideArrayBrackets: 'nested',
@@ -45,7 +45,6 @@ module.exports = {
     requireLineFeedAtFileEnd: true,
     maximumLineLength: 120,
     requireCapitalizedConstructors: true,
-    safeContextKeyword: ['_this'],
     disallowYodaConditions: true,
     validateJSDoc: {
         checkParamNames: true,
