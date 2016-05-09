@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { findIndex } from '../../utils';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
+const findIndex = require('../../utils').findIndex;
 
 describe('resolve: natural BEM entities ordering for deps', function () {
     it('should place block before its element', function () {

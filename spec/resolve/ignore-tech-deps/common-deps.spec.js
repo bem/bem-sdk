@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
 
 describe('resolve: ignoring tech dependencies when resolving common deps', function () {
     it('should ignore unordered tech dependency on entity', function () {

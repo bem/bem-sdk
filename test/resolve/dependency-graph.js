@@ -1,6 +1,7 @@
-var expect = require('chai').expect;
+'use strict';
 
-import DependencyGraph from '../../lib/resolve/dependency-graph';
+const expect = require('chai').expect;
+const DependencyGraph = require('../../lib/resolve/dependency-graph');
 
 describe('resolve::DependencyGraph()', function () {
     describe('addDependency', function () {

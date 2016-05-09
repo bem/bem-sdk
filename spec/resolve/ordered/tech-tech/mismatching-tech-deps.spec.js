@@ -1,8 +1,9 @@
-import { expect } from 'chai';
-import _ from 'lodash';
-import { findIndex } from '../../../utils';
-import { findLastIndex } from '../../../utils';
-import { resolve } from '../../../../lib/index';
+const _ = require('lodash');
+const expect = require('chai').expect;
+
+const resolve = require('../../../../lib').resolve;
+const findIndex = require('../../../utils').findIndex;
+const findLastIndex = require('../../../utils').findLastIndex;
 
 describe('resolving ordered dependencies: tech - tech for mismatching tech', function () {
     it('should resolve tech depending on another tech', function () {

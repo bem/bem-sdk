@@ -1,5 +1,7 @@
-import { findIndex } from '../../spec/utils';
-import { expect } from 'chai';
+'use strict';
+
+const findIndex = require('../../spec/utils').findIndex;
+const expect = require('chai').expect;
 
 describe('spec utils: findIndex()', function () {
     it('should not find non existing block', function () {

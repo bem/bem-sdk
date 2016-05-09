@@ -17,11 +17,9 @@
   "engines": {
     "node": ">= 0.10.0"
   },
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "files": [
-    "dist",
-    "LICENSE.txt",
-    "README.txt"
+    "lib/**"
   ],
   "dependencies": {
     "babel-polyfill": "6.3.14",
@@ -30,11 +28,7 @@
     "lodash": "3.10.1"
   },
   "devDependencies": {
-    "babel-preset-es2015": "6.3.13",
-    "babel-register": "6.3.13",
     "chai": "3.4.1",
-    "gulp": "3.9.0",
-    "gulp-babel": "6.1.1",
     "istanbul": "0.3.14",
     "jscs": "1.13.1",
     "jshint": "2.8.0",
@@ -45,15 +39,12 @@
     "through2": "2.0.0"
   },
   "scripts": {
-    "clean": "rm -rf dist",
-    "prepublish": "npm run clean && npm run dist",
     "pretest": "npm run lint",
     "test": "npm run spec && npm run unit-test",
     "lint": "jshint . && jscs . -c .jscs.js",
     "spec": "mocha -R spec --opts spec/mocha.opts spec/",
     "unit-test": "mocha -R spec --opts test/mocha.opts test/",
     "cover": "istanbul cover _mocha --opts spec/mocha.opts",
-    "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls",
-    "dist": "gulp"
+    "coveralls": "npm i coveralls && npm run cover -- --report lcovonly && cat ./coverage/lcov.info | coveralls"
   }
 }

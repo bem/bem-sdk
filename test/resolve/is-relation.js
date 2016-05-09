@@ -1,6 +1,7 @@
-var expect = require('chai').expect;
+'use strict';
 
-import isRelation from '../../lib/resolve/is-relation';
+const expect = require('chai').expect;
+const isRelation = require('../../lib/resolve/is-relation');
 
 describe('resolve::isRelation()', function () {
     var relation = {

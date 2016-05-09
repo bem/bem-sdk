@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
 
 describe('resolving loops: ordered-ordered', function () {
     it('should not throw error if detected loop on itself', function () {
@@ -47,6 +47,7 @@ describe('resolving loops: ordered-ordered', function () {
         } catch (e) {
             error = e;
         }
+
         expect(error.loop).to.be.deep.equal([
             { entity: { block: 'A' } },
             { entity: { block: 'B' } },

@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { findIndex } from '../../utils';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
+const findIndex = require('../../utils').findIndex;
 
 describe('resolving unordered deps: recommended ordering', function () {
     it('should keep the ordering described in decl', function () {

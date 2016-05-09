@@ -1,6 +1,7 @@
-var expect = require('chai').expect;
+'use strict';
 
-import BemTypifier from '../../lib/resolve/bem-typifier';
+const expect = require('chai').expect;
+const BemTypifier = require('../../lib/resolve/bem-typifier');
 
 describe('resolve::BemTypifier()', function () {
     describe('constructor', function () {

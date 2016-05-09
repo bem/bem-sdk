@@ -1,7 +1,7 @@
-import { expect } from 'chai';
-import { findIndex } from '../../utils';
-import { findLastIndex } from '../../utils';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
+const findIndex = require('../../utils').findIndex;
+const findLastIndex = require('../../utils').findLastIndex;
 
 describe('resolving ordered deps: common', function () {
     it('should resolve entity depending on another entity', function () {
