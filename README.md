@@ -13,14 +13,14 @@ bem-deps
 [travis]:       https://travis-ci.org/bem-sdk/bem-deps
 [test-img]:     https://img.shields.io/travis/bem-sdk/bem-deps.svg?label=tests
 
-[appveyor]:     https://ci.appveyor.com/project/blond/bem-walk
-[appveyor-img]: http://img.shields.io/appveyor/ci/blond/bem-walk.svg?style=flat&label=windows
+[appveyor]:     https://ci.appveyor.com/project/blond/bem-deps
+[appveyor-img]: http://img.shields.io/appveyor/ci/blond/bem-deps.svg?style=flat&label=windows
 
 [coveralls]:    https://coveralls.io/r/bem-sdk/bem-deps
 [coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-deps.svg
 
 [david]:        https://david-dm.org/bem-sdk/bem-deps
-[david-img]:    http://img.shields.io/david/bem-sdk/bem-walk.svg?style=flat
+[david-img]:    http://img.shields.io/david/bem-sdk/bem-deps.svg?style=flat
 
 Install
 -------
