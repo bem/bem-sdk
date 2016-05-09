@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
 
 describe('resolve: ignoring tech if dependant techs mismatching resolving tech', function () {
     it('should ignore entity dependency on mismatched tech', function () {

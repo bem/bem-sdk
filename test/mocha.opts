@@ -1,4 +1,3 @@
 --ui bdd
 --recursive
 --require chai
---compilers js:babel-register

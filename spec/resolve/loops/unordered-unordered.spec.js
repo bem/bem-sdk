@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
 
 describe('resolving loops: unordered-unordered', function () {
     it('should not throw error if detected loop on itself', function () {

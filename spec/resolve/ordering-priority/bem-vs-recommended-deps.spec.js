@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { findIndex } from '../../utils';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
+const findIndex = require('../../utils').findIndex;
 
 describe('resolve: ordering priority - natural BEM ordering vs deps ordering', function () {
     it('should prioritise block-element natural ordering over recommended deps ordering', function () {

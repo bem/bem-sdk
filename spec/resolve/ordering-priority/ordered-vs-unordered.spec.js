@@ -1,6 +1,6 @@
-import { expect } from 'chai';
-import { findIndex } from '../../utils';
-import { resolve } from '../../../lib';
+const expect = require('chai').expect;
+const resolve = require('../../../lib').resolve;
+const findIndex = require('../../utils').findIndex;
 
 describe('resolve: ordering priority - ordered deps vs unordered deps', function () {
     it('should prioritise ordered dependency over decl recommended ordering', function () {

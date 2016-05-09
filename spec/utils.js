@@ -1,9 +1,11 @@
-import {
-    stringify as stringifyEntity,
-    typeOf as typeOfEntity
-} from 'bem-naming';
+'use strict';
 
-export function findIndex(entities, entity) {
+const naming = require('bem-naming');
+
+const stringifyEntity = naming.stringify;
+const typeOfEntity = naming.typeOf;
+
+function findIndex(entities, entity) {
     if (typeof entity !== 'object' || !typeOfEntity(entity)) {
         return -1;
     }
@@ -24,7 +26,7 @@ export function findIndex(entities, entity) {
     return firstIndex;
 }
 
-export function findLastIndex(entities, entity) {
+function findLastIndex(entities, entity) {
     if (typeof entity !== 'object' || !typeOfEntity(entity)) {
         return -1;
     }
@@ -44,3 +46,5 @@ export function findLastIndex(entities, entity) {
 
     return lastIndex;
 }
+
+module.exports = { findIndex, findLastIndex };
