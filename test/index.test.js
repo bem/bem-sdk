@@ -30,3 +30,7 @@ test('should have `merge` method', t => {
 test('should have `subtract` method', t => {
     t.truthy(typeof bemDecl.subtract === 'function');
 });
+
+test('should have `parse` method', t => {
+    t.truthy(typeof bemDecl.parse === 'function');
+});
