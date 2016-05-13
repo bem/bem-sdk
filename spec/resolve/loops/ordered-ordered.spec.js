@@ -1,428 +1,429 @@
+'use strict';
+
+const test = require('ava');
 const expect = require('chai').expect;
 const resolve = require('../../../lib').resolve;
 
-describe('resolving loops: ordered-ordered', function () {
-    it('should not throw error if detected loop on itself', function () {
-        var decl = [{ block: 'A' }],
-            deps = [{
+test('should not throw error if detected loop on itself', () => {
+    var decl = [{ block: 'A' }],
+        deps = [{
+            entity: { block: 'A' },
+            dependOn: [{
                 entity: { block: 'A' },
-                dependOn: [{
-                    entity: { block: 'A' },
-                    order: 'dependenceBeforeDependants'
-                }]
-            }];
+                order: 'dependenceBeforeDependants'
+            }]
+        }];
 
-        expect(function () { resolve(decl, deps); }).to.not.throw();
-    });
+    expect(function () { resolve(decl, deps); }).to.not.throw();
+});
 
-    it('should throw error if detected direct loop', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    dependOn: [
-                        {
-                            entity: { block: 'A' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            error = null;
+test('should throw error if detected direct loop', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                dependOn: [
+                    {
+                        entity: { block: 'A' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        error = null;
 
-        try {
-            resolve(decl, deps);
-        } catch (e) {
-            error = e;
-        }
+    try {
+        resolve(decl, deps);
+    } catch (e) {
+        error = e;
+    }
 
-        expect(error.loop).to.be.deep.equal([
-            { entity: { block: 'A' } },
-            { entity: { block: 'B' } },
-            { entity: { block: 'A' } }
-        ]);
-    });
+    expect(error.loop).to.be.deep.equal([
+        { entity: { block: 'A' } },
+        { entity: { block: 'B' } },
+        { entity: { block: 'A' } }
+    ]);
+});
 
-    it('should throw error if detected indirect loop', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' },
-                { block: 'C' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    dependOn: [
-                        {
-                            entity: { block: 'C' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'C' },
-                    dependOn: [
-                        {
-                            entity: { block: 'A' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            error = null;
+test('should throw error if detected indirect loop', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' },
+            { block: 'C' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                dependOn: [
+                    {
+                        entity: { block: 'C' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'C' },
+                dependOn: [
+                    {
+                        entity: { block: 'A' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        error = null;
 
-        try {
-            resolve(decl, deps);
-        } catch (e) {
-            error = e;
-        }
-        expect(error.loop).to.be.deep.equal([
-            { entity: { block: 'A' } },
-            { entity: { block: 'B' } },
-            { entity: { block: 'C' } },
-            { entity: { block: 'A' } }
-        ]);
-    });
+    try {
+        resolve(decl, deps);
+    } catch (e) {
+        error = e;
+    }
+    expect(error.loop).to.be.deep.equal([
+        { entity: { block: 'A' } },
+        { entity: { block: 'B' } },
+        { entity: { block: 'C' } },
+        { entity: { block: 'A' } }
+    ]);
+});
 
-    it('should throw error if detected intermediate loop', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' },
-                { block: 'C' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    dependOn: [
-                        {
-                            entity: { block: 'C' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'C' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            error = null;
+test('should throw error if detected intermediate loop', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' },
+            { block: 'C' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                dependOn: [
+                    {
+                        entity: { block: 'C' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'C' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        error = null;
 
-        try {
-            resolve(decl, deps);
-        } catch (e) {
-            error = e;
-        }
-        expect(error.loop).to.be.deep.equal([
-            { entity: { block: 'B' } },
-            { entity: { block: 'C' } },
-            { entity: { block: 'B' } }
-        ]);
-    });
+    try {
+        resolve(decl, deps);
+    } catch (e) {
+        error = e;
+    }
+    expect(error.loop).to.be.deep.equal([
+        { entity: { block: 'B' } },
+        { entity: { block: 'C' } },
+        { entity: { block: 'B' } }
+    ]);
+});
 
-    it.skip('should throw error if detected direct entity - tech loop', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    dependOn: [
-                        {
-                            entity: { block: 'A' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            error = null;
+test.skip('should throw error if detected direct entity - tech loop', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                dependOn: [
+                    {
+                        entity: { block: 'A' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        error = null;
 
-        try {
-            resolve(decl, deps, opts);
-        } catch (e) {
-            error = e;
-        }
+    try {
+        resolve(decl, deps, opts);
+    } catch (e) {
+        error = e;
+    }
 
-        expect(error.loop).to.be.deep.equal([
-            { entity: { block: 'A' } },
-            { entity: { block: 'B' }, tech: 'css' },
-            { entity: { block: 'A' } }
-        ]);
-    });
+    expect(error.loop).to.be.deep.equal([
+        { entity: { block: 'A' } },
+        { entity: { block: 'B' }, tech: 'css' },
+        { entity: { block: 'A' } }
+    ]);
+});
 
-    it.skip('should throw error if detected direct tech - entity loop', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    dependOn: [
-                        {
-                            entity: { block: 'A' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            error = null;
+test.skip('should throw error if detected direct tech - entity loop', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                dependOn: [
+                    {
+                        entity: { block: 'A' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        error = null;
 
-        try {
-            resolve(decl, deps, opts);
-        } catch (e) {
-            error = e;
-        }
+    try {
+        resolve(decl, deps, opts);
+    } catch (e) {
+        error = e;
+    }
 
-        expect(error.loop).to.be.deep.equal([
-            { entity: { block: 'A' } },
-            { entity: { block: 'B' } },
-            { entity: { block: 'A' }, tech: 'css' }
-        ]);
-    });
+    expect(error.loop).to.be.deep.equal([
+        { entity: { block: 'A' } },
+        { entity: { block: 'B' } },
+        { entity: { block: 'A' }, tech: 'css' }
+    ]);
+});
 
-    it('should not throw error if detected loop on itself and one of techs is matching with resolving ' +
-        'tech', function () {
-        var decl = [{ block: 'A' }],
-            deps = [{
+test('should not throw error if detected loop on itself and one of techs is matching with resolving ' +
+    'tech', () => {
+    var decl = [{ block: 'A' }],
+        deps = [{
+            entity: { block: 'A' },
+            tech: 'css',
+            dependOn: [{
+                entity: { block: 'A' },
+                tech: 'js',
+                order: 'dependenceBeforeDependants'
+            }]
+        }],
+        opts = { tech: 'css' };
+
+    expect(function () { resolve(decl, deps, opts); }).to.not.throw();
+});
+
+test.skip('should throw error if detected direct loop and both techs are matching with resolving tech', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
                 entity: { block: 'A' },
                 tech: 'css',
-                dependOn: [{
-                    entity: { block: 'A' },
-                    tech: 'js',
-                    order: 'dependenceBeforeDependants'
-                }]
-            }],
-            opts = { tech: 'css' };
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'A' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        error = null;
 
-        expect(function () { resolve(decl, deps, opts); }).to.not.throw();
-    });
+    try {
+        resolve(decl, deps, opts);
+    } catch (e) {
+        error = e;
+    }
 
-    it.skip('should throw error if detected direct loop and both techs are matching with resolving tech', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'A' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            error = null;
+    expect(error.loop).to.be.deep.equal([
+        { entity: { block: 'A' }, tech: 'css' },
+        { entity: { block: 'B' }, tech: 'css' },
+        { entity: { block: 'A' }, tech: 'css' }
+    ]);
+});
 
-        try {
-            resolve(decl, deps, opts);
-        } catch (e) {
-            error = e;
-        }
+test('should not throw error if detected direct loop and one of techs is not matching with resolving ' +
+    'tech', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'js',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'A' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' };
 
-        expect(error.loop).to.be.deep.equal([
-            { entity: { block: 'A' }, tech: 'css' },
-            { entity: { block: 'B' }, tech: 'css' },
-            { entity: { block: 'A' }, tech: 'css' }
-        ]);
-    });
+    expect(function () { resolve(decl, deps, opts); }).to.not.throw();
+});
 
-    it('should not throw error if detected direct loop and one of techs is not matching with resolving ' +
-        'tech', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'js',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'A' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' };
+test('should not throw error if detected indirect loop and one of techs is not matching with resolving ' +
+    'tech', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' },
+            { block: 'C' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'C' },
+                        tech: 'js',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'C' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'A' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' };
 
-        expect(function () { resolve(decl, deps, opts); }).to.not.throw();
-    });
+    expect(function () { resolve(decl, deps, opts); }).to.not.throw();
+});
 
-    it('should not throw error if detected indirect loop and one of techs is not matching with resolving ' +
-        'tech', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' },
-                { block: 'C' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'C' },
-                            tech: 'js',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'C' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'A' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' };
+test('should not throw error if detected intermediate loop and one of techs is matching with resolving ' +
+    'tech', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'css'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'C' },
+                        tech: 'js',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'C' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ];
 
-        expect(function () { resolve(decl, deps, opts); }).to.not.throw();
-    });
-
-    it('should not throw error if detected intermediate loop and one of techs is matching with resolving ' +
-        'tech', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'C' },
-                            tech: 'js',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'C' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ];
-
-        expect(function () { resolve(decl, deps); }).to.not.throw();
-    });
+    expect(function () { resolve(decl, deps); }).to.not.throw();
 });
