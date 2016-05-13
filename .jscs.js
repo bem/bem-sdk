@@ -1,8 +1,8 @@
 module.exports = {
     excludeFiles: [
+        '.nyc_output',
         'node_modules',
-        'coverage',
-        'dist'
+        'coverage'
     ],
     requireSpaceAfterKeywords: ['if', 'else', 'for', 'while', 'do', 'switch', 'return', 'try', 'catch'],
     requireSpaceBeforeBlockStatements: true,

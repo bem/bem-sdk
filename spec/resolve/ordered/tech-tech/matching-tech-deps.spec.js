@@ -1,366 +1,367 @@
+'use strict';
+
+const test = require('ava');
 const expect = require('chai').expect;
 const resolve = require('../../../../lib').resolve;
 const findIndex = require('../../../utils').findIndex;
 const findLastIndex = require('../../../utils').findLastIndex;
 
-describe('resolving ordered dependencies: tech - tech for matching tech', function () {
-    it('should resolve tech depending on another tech', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'A' },
+test('should resolve tech depending on another tech', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [{
+                    entity: { block: 'B' },
                     tech: 'css',
-                    dependOn: [{
+                    order: 'dependenceBeforeDependants'
+                }]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).to.contain({ block: 'B' });
+});
+
+test('should resolve tech depending on multiple techs', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [
+                    {
                         entity: { block: 'B' },
                         tech: 'css',
                         order: 'dependenceBeforeDependants'
-                    }]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).to.contain({ block: 'B' });
-    });
-
-    it('should resolve tech depending on multiple techs', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        },
-                        {
-                            entity: { block: 'B' },
-                            tech: 'js',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).to.contain({ block: 'B' });
-    });
-
-    it('should resolve multiple tech in entity depending on another tech', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'A' },
-                    tech: 'js',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).to.contain({ block: 'B' });
-    });
-
-    it('should resolve multiple techs in entity depending on multiple techs in another entity and one of this techs ' +
-        'matching with resolving tech', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'A' },
-                    tech: 'js',
-                    dependOn: [
-                        {
-                            entity: { block: 'B' },
-                            tech: 'js',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).to.contain({ block: 'B' });
-    });
-
-    it('should resolve tech in multiple entities depending on same with resolving tech in another ' +
-        'entity', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [{
-                        entity: { block: 'C' },
-                        tech: 'css',
-                        order: 'dependenceBeforeDependants'
-                    }]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [{
-                        entity: { block: 'C' },
-                        tech: 'css',
-                        order: 'dependenceBeforeDependants'
-                    }]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).to.contain({ block: 'C' });
-    });
-
-    it('should resolve tech in multiple entities depending on multiple techs of entity and 1 of this techs same ' +
-        'with resolving', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [{
-                        entity: { block: 'C' },
+                    },
+                    {
+                        entity: { block: 'B' },
                         tech: 'js',
                         order: 'dependenceBeforeDependants'
-                    }]
-                },
-                {
-                    entity: { block: 'B' },
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).to.contain({ block: 'B' });
+});
+
+test('should resolve multiple tech in entity depending on another tech', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'A' },
+                tech: 'js',
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).to.contain({ block: 'B' });
+});
+
+test('should resolve multiple techs in entity depending on multiple techs in another entity and one of this techs ' +
+    'matching with resolving tech', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'A' },
+                tech: 'js',
+                dependOn: [
+                    {
+                        entity: { block: 'B' },
+                        tech: 'js',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).to.contain({ block: 'B' });
+});
+
+test('should resolve tech in multiple entities depending on same with resolving tech in another ' +
+    'entity', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [{
+                    entity: { block: 'C' },
                     tech: 'css',
-                    dependOn: [{
+                    order: 'dependenceBeforeDependants'
+                }]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [{
+                    entity: { block: 'C' },
+                    tech: 'css',
+                    order: 'dependenceBeforeDependants'
+                }]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).to.contain({ block: 'C' });
+});
+
+test('should resolve tech in multiple entities depending on multiple techs of entity and 1 of this techs same ' +
+    'with resolving', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [{
+                    entity: { block: 'C' },
+                    tech: 'js',
+                    order: 'dependenceBeforeDependants'
+                }]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [{
+                    entity: { block: 'C' },
+                    tech: 'css',
+                    order: 'dependenceBeforeDependants'
+                }]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).to.contain({ block: 'C' });
+});
+
+test('should resolve tech dependency depending on tech same with resolving in another entity', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'A' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' }
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [
+                    {
                         entity: { block: 'C' },
                         tech: 'css',
                         order: 'dependenceBeforeDependants'
-                    }]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
 
-        expect(resolved.entities).to.contain({ block: 'C' });
-    });
+    expect(resolved.entities).to.contain({ block: 'C' });
+});
 
-    it('should resolve tech dependency depending on tech same with resolving in another entity', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' }
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'C' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).to.contain({ block: 'C' });
-    });
-
-    it('should resolve tech dependency depending on techs same with resolving tech', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' }
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'C' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        },
-                        {
-                            entity: { block: 'D' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).to.contain({ block: 'C' })
-            .and.to.contain({ block: 'D' });
-    });
-
-    it('should resolve multiple tech dependencies depending on another tech same with resolving tech', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    dependOn: [
-                        {
-                            entity: { block: 'B' }
-                        },
-                        {
-                            entity: { block: 'C' }
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [{
+test('should resolve tech dependency depending on techs same with resolving tech', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'A' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' }
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'C' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    },
+                    {
                         entity: { block: 'D' },
                         tech: 'css',
                         order: 'dependenceBeforeDependants'
-                    }]
-                },
-                {
-                    entity: { block: 'C' },
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).to.contain({ block: 'C' })
+        .and.to.contain({ block: 'D' });
+});
+
+test('should resolve multiple tech dependencies depending on another tech same with resolving tech', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'A' },
+                dependOn: [
+                    {
+                        entity: { block: 'B' }
+                    },
+                    {
+                        entity: { block: 'C' }
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [{
+                    entity: { block: 'D' },
                     tech: 'css',
-                    dependOn: [{
+                    order: 'dependenceBeforeDependants'
+                }]
+            },
+            {
+                entity: { block: 'C' },
+                tech: 'css',
+                dependOn: [{
+                    entity: { block: 'D' },
+                    tech: 'css',
+                    order: 'dependenceBeforeDependants'
+                }]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).to.contain({ block: 'D' });
+});
+
+test('should include tech to result once if tech of multiple entities depends on this tech and this tech matches' +
+    ' with resolving tech', () => {
+    var decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ],
+        deps = [
+            {
+                entity: { block: 'A' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'C' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            },
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'C' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts),
+        firstIndex = findIndex(resolved.entities, { block: 'C' }),
+        lastIndex = findLastIndex(resolved.entities, { block: 'C' });
+
+    expect(resolved.entities).to.contain({ block: 'C' });
+    expect(firstIndex).to.be.equal(lastIndex);
+});
+
+test('should not include tech dependency if no entity from decl depends on it and this entity has tech' +
+    'dependency on entity listed in decl', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'B' },
+                tech: 'css',
+                dependOn: [
+                    {
+                        entity: { block: 'A' },
+                        tech: 'css',
+                        order: 'dependenceBeforeDependants'
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
+
+    expect(resolved.entities).not.to.contain({ block: 'B' });
+});
+
+test('should not include tech dependencie\'s dependency if no entity from decl\'s dependencies depends ' +
+    'on it', () => {
+    var decl = [{ block: 'A' }],
+        deps = [
+            {
+                entity: { block: 'C' },
+                tech: 'css',
+                dependOn: [
+                    {
                         entity: { block: 'D' },
                         tech: 'css',
                         order: 'dependenceBeforeDependants'
-                    }]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
+                    }
+                ]
+            }
+        ],
+        opts = { tech: 'css' },
+        resolved = resolve(decl, deps, opts);
 
-        expect(resolved.entities).to.contain({ block: 'D' });
-    });
-
-    it('should include tech to result once if tech of multiple entities depends on this tech and this tech matches' +
-        ' with resolving tech', function () {
-        var decl = [
-                { block: 'A' },
-                { block: 'B' }
-            ],
-            deps = [
-                {
-                    entity: { block: 'A' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'C' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                },
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'C' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts),
-            firstIndex = findIndex(resolved.entities, { block: 'C' }),
-            lastIndex = findLastIndex(resolved.entities, { block: 'C' });
-
-        expect(resolved.entities).to.contain({ block: 'C' });
-        expect(firstIndex).to.be.equal(lastIndex);
-    });
-
-    it('should not include tech dependency if no entity from decl depends on it and this entity has tech' +
-        'dependency on entity listed in decl', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'B' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'A' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).not.to.contain({ block: 'B' });
-    });
-
-    it('should not include tech dependencie\'s dependency if no entity from decl\'s dependencies depends ' +
-        'on it', function () {
-        var decl = [{ block: 'A' }],
-            deps = [
-                {
-                    entity: { block: 'C' },
-                    tech: 'css',
-                    dependOn: [
-                        {
-                            entity: { block: 'D' },
-                            tech: 'css',
-                            order: 'dependenceBeforeDependants'
-                        }
-                    ]
-                }
-            ],
-            opts = { tech: 'css' },
-            resolved = resolve(decl, deps, opts);
-
-        expect(resolved.entities).to.not.contain({ block: 'D' });
-    });
+    expect(resolved.entities).to.not.contain({ block: 'D' });
 });
