@@ -3,8 +3,8 @@
 const test = require('ava');
 const expect = require('chai').expect;
 const resolve = require('../../../../lib').resolve;
-const findIndex = require('../../../utils').findIndex;
-const findLastIndex = require('../../../utils').findLastIndex;
+const findIndex = require('../../../../lib/utils').findIndex;
+const findLastIndex = require('../../../../lib/utils').findLastIndex;
 
 test('should resolve tech depending on another tech', () => {
     var decl = [{ block: 'A' }],

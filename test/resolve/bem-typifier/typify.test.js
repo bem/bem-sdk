@@ -3,7 +3,7 @@
 const test = require('ava');
 
 const BemTypifier = require('../../../lib/resolve/bem-typifier');
-const findIndex = require('../../../spec/utils').findIndex;
+const findIndex = require('../../../lib/utils').findIndex;
 
 test('should typify block', t => {
     var typifier = new BemTypifier(),

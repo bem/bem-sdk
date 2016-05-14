@@ -4,7 +4,7 @@ const test = require('ava');
 const expect = require('chai').expect;
 
 const resolve = require('../../../lib').resolve;
-const findIndex = require('../../utils').findIndex;
+const findIndex = require('../../../lib/utils').findIndex;
 
 test('should prioritise ordered dependency over decl recommended ordering', () => {
     var decl = [
