@@ -2,6 +2,7 @@
 
 const test = require('ava');
 const expect = require('chai').expect;
+
 const resolve = require('../../../lib').resolve;
 const findIndex = require('../../utils').findIndex;
 
@@ -51,4 +52,40 @@ test('should prioritise ordered dependency over deps recommended ordering', () =
         indexC = findIndex(resolved.entities, { block: 'C' });
 
     expect(indexC).to.be.below(indexB);
+});
+
+test('should resolve ordered dependencies independently of unordered dependency of declaration entity', () => {
+    const decl = [
+        { block: 'A' },
+    ];
+    const relations = [
+        {
+            entity: { block: 'A' },
+            dependOn: [
+                {
+                    entity: { block: 'B' }
+                },
+                {
+                    entity: { block: 'C' }
+                }
+            ]
+        },
+        {
+            entity: { block: 'C' },
+            dependOn: [{
+                entity: { block: 'D' },
+                order: 'dependenceBeforeDependants'
+            }]
+        }
+    ];
+
+    const resolved = resolve(decl, relations);
+
+    expect(resolved.entities).to.deep.equal([
+        { block: 'A' },
+        { block: 'B' },
+
+        { block: 'D' },
+        { block: 'C' }
+    ]);
 });
