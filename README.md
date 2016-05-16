@@ -124,6 +124,7 @@ console.log(configs); // all found configs from all dirs
 
 ## Config example
 
+`.bemrc`:
 ```js
 {
     "root": true,
