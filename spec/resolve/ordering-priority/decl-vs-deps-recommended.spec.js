@@ -48,3 +48,28 @@ test('should save user order for unordered dependencies', () => {
     expect(indexA).to.be.below(indexB)
         .and.to.be.below(indexC);
 });
+
+test('should save decl order when resolve ordered and unordered deps of another dependency', () => {
+    const decl = [{ block: 'A' }];
+    const deps = [
+        {
+            entity: { block: 'A' },
+            dependOn: [
+                {
+                    entity: { block: 'C' },
+                    order: 'dependenceBeforeDependants'
+                },
+                {
+                    entity: { block: 'D' }
+                }
+            ]
+        }
+    ];
+
+    const resolved = resolve(decl, deps);
+
+    const indexC = findIndex(resolved.entities, { block: 'C' });
+    const indexD = findIndex(resolved.entities, { block: 'D' });
+
+    expect(indexC).to.be.below(indexD);
+});
