@@ -23,25 +23,3 @@ test('should place dependency of dependency after entities from decl', () => {
 
     expect(indexA).to.be.below(indexC);
 });
-
-test('should keep ordering for dependencies of dependency', () => {
-    var decl = [{ block: 'A' }],
-        deps = [
-            {
-                entity: { block: 'A' },
-                dependOn: [{ entity: { block: 'B' } }]
-            },
-            {
-                entity: { block: 'B' },
-                dependOn: [
-                    { entity: { block: 'C' } },
-                    { entity: { block: 'D' } }
-                ]
-            }
-        ],
-        resolved = resolve(decl, deps),
-        indexC = findIndex(resolved.entities, { block: 'C' }),
-        indexD = findIndex(resolved.entities, { block: 'D' });
-
-    expect(indexC).to.be.below(indexD);
-});

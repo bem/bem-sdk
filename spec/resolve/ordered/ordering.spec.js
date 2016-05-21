@@ -213,36 +213,6 @@ test('should place ordered dependency before several dependencies depending on i
         .and.to.be.below(indexC);
 });
 
-test('should keep ordering for dependencies unaffected by explicit ordering', () => {
-    var decl = [
-            { block: 'A' }
-        ],
-        deps = [
-            {
-                entity: { block: 'A' },
-                dependOn: [
-                    { entity: { block: 'B' } },
-                    { entity: { block: 'C' } },
-                    { entity: { block: 'D' } }
-                ]
-            },
-            {
-                entity: { block: 'B' },
-                dependOn: [
-                    {
-                        entity: { block: 'C' },
-                        order: 'dependenceBeforeDependants'
-                    }
-                ]
-            }
-        ],
-        resolved = resolve(decl, deps),
-        indexB = findIndex(resolved.entities, { block: 'B' }),
-        indexD = findIndex(resolved.entities, { block: 'D' });
-
-    expect(indexB).to.be.below(indexD);
-});
-
 test('should place ordered dependency before entity from decl and another dependency if they depend on ' +
     'it', () => {
     var decl = [
