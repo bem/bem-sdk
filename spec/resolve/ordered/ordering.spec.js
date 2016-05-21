@@ -63,30 +63,6 @@ test('should place ordered entity from decl before several entities depending on
         .and.to.be.below(indexB);
 });
 
-test('should keep decl ordering for entities unaffected by ordering', () => {
-    var decl = [
-            { block: 'A' },
-            { block: 'B' },
-            { block: 'C' }
-        ],
-        deps = [
-            {
-                entity: { block: 'A' },
-                dependOn: [
-                    {
-                        entity: { block: 'B' },
-                        order: 'dependenceBeforeDependants'
-                    }
-                ]
-            }
-        ],
-        resolved = resolve(decl, deps),
-        indexA = findIndex(resolved.entities, { block: 'A' }),
-        indexC = findIndex(resolved.entities, { block: 'C' });
-
-    expect(indexA).to.be.below(indexC);
-});
-
 test('should place ordered dependency before entity from decl depending on it', () => {
     var decl = [
             { block: 'A' }
