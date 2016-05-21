@@ -5,9 +5,32 @@ const expect = require('chai').expect;
 const resolve = require('../../../lib').resolve;
 const findIndex = require('../../../lib/utils').findIndex;
 
+test.skip('should prioritise decl order over recommended deps order', () => {
+    const decl = [
+        { block: 'A' },
+        { block: 'C' },
+        { block: 'B' }
+    ];
+    const deps = [
+        {
+            entity: { block: 'A' },
+            dependOn: [
+                { entity: { block: 'B' } },
+                { entity: { block: 'C' } }
+            ]
+        }
+    ];
+
+    const resolved = resolve(decl, deps);
+    const indexB = findIndex(resolved.entities, { block: 'B' });
+    const indexC = findIndex(resolved.entities, { block: 'C' });
+
+    expect(indexC).to.be.below(indexB);
+});
+
 test('should save user order for unordered dependencies', () => {
     const decl = [{ block: 'A' }];
-    const relations = [
+    const deps = [
         {
             entity: { block: 'A' },
             dependOn: [
