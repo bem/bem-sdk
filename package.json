@@ -27,7 +27,7 @@
     "bem-naming": "1.0.1"
   },
   "devDependencies": {
-    "ava": "^0.14.0",
+    "ava": "^0.15.0",
     "coveralls": "^2.11.9",
     "eslint": "^2.9.0",
     "eslint-config-pedant": "^0.5.1",
