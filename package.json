@@ -24,8 +24,8 @@
   },
   "homepage": "https://github.com/tadatuta/bemjson-to-decl",
   "dependencies": {
+    "bem-decl": "^0.1.0",
     "bem-naming": "^0.5.1",
-    "deps-normalize": "github:tadatuta/deps-normalize#patch",
     "stringify-object": "^2.3.0"
   }
 }
