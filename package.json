@@ -44,10 +44,12 @@
   },
   "ava": {
     "files": [
-      "spec/**/*.spec.js"
+      "spec/**/*.spec.js",
+      "test/**/*.test.js"
     ],
     "source": [
       "lib/**/*.js"
-    ]
+    ],
+    "concurrency": 25
   }
 }
