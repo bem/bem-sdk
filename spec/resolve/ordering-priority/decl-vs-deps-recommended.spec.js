@@ -5,7 +5,7 @@ const expect = require('chai').expect;
 const resolve = require('../../../lib').resolve;
 const findIndex = require('../../../lib/utils').findIndex;
 
-test.skip('should prioritise decl order over recommended deps order', () => {
+test.failing('should prioritise decl order over recommended deps order', () => {
     const decl = [
         { block: 'A' },
         { block: 'C' },
