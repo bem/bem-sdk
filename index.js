@@ -1,5 +1,5 @@
 var stringifyObj = require('stringify-object'),
-    depsNormalize = require('deps-normalize'),
+    normalize = require('bem-decl').normalize,
     naming = require('bem-naming');
 
 function getEntities(bemjson, ctx) {
@@ -24,19 +24,27 @@ function getEntities(bemjson, ctx) {
 
         bemjson.block && (ctx.block = bemjson.block);
 
-        var depItem = {
+        var declItem = {
             block: ctx.block
         };
 
-        bemjson.elem && (depItem.elem = bemjson.elem);
-        bemjson.mods && (depItem.mods = bemjson.mods);
-        bemjson.elemMods && (depItem.mods = bemjson.elemMods);
+        bemjson.elem && (declItem.elem = bemjson.elem);
+        bemjson.mods && (declItem.mods = bemjson.mods);
+        bemjson.elem && bemjson.elemMods && (declItem.mods = bemjson.elemMods);
 
-        depsNormalize(depItem).forEach(function(depItem) {
-            var depName = naming.stringify(depItem);
-            if (visited.indexOf(depName) < 0) {
-                visited.push(depName);
-                deps.push(depItem);
+        var decl = normalize(declItem, {harmony: true});
+
+        decl.forEach(function(declItem) {
+            function pushTo(declItem) {
+                var depName = naming.stringify(declItem);
+                if (visited.indexOf(depName) < 0) {
+                    visited.push(depName);
+                    deps.push(declItem);
+                }
+            }
+            pushTo(declItem);
+            if (declItem.modName && declItem.modVal !== true) {
+                pushTo(Object.assign({}, declItem, {modVal: true}));
             }
         });
 
