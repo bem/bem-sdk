@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/tadatuta/bemjson-to-decl.git"
+    "url": "https://github.com/bem-sdk/bemjson-to-decl.git"
   },
   "keywords": [
     "BEM",
@@ -20,9 +20,9 @@
   "author": "Vladimir Grinenko",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/tadatuta/bemjson-to-decl/issues"
+    "url": "https://github.com/bem-sdk/bemjson-to-decl/issues"
   },
-  "homepage": "https://github.com/tadatuta/bemjson-to-decl",
+  "homepage": "https://github.com/bem-sdk/bemjson-to-decl",
   "dependencies": {
     "bem-decl": "^0.1.0",
     "bem-naming": "^0.5.1",
