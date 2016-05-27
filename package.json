@@ -51,5 +51,10 @@
       "lib/**/*.js"
     ],
     "concurrency": 25
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js"
+    ]
   }
 }
