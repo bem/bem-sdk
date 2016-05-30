@@ -2,7 +2,7 @@
   "name": "bem-entity",
   "version": "0.0.0",
   "description": "",
-  "license": "MIT",
+  "license": "MPL-2.0",
   "repository": "bem-sdk/bem-entity",
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
   "keywords": [
