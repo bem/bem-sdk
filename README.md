@@ -176,4 +176,4 @@ console.log(configs); // all found configs from all dirs
 License
 -------
 
-Code and documentation © 2012 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+Code and documentation © 2015 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
