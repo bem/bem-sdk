@@ -27,3 +27,8 @@ var options = {
 
 require('bem-fs-scheme')('nested').path(entity, tech, options); // b1/__e1/_m1/b1__e1_m1_v1.js
 ```
+
+License
+-------
+
+Code and documentation © 2015 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
