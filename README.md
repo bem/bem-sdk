@@ -171,3 +171,9 @@ console.log(configs); // all found configs from all dirs
 ```
 
 `levels` override common options.
+
+
+License
+-------
+
+Code and documentation © 2012 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
