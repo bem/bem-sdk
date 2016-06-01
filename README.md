@@ -46,4 +46,4 @@ console.log(entity.isEqual({ block: 'button', elem: 'text' })); // true
 License
 -------
 
-MIT © [Andrew Abramov](https://github.com/blond)
+Code and documentation © 2016 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
