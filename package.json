@@ -1,9 +1,9 @@
 {
-  "name": "bem-entity",
+  "name": "bem-entity-name",
   "version": "0.0.0",
   "description": "",
   "license": "MPL-2.0",
-  "repository": "bem-sdk/bem-entity",
+  "repository": "bem-sdk/bem-entity-name",
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
   "keywords": [
     "bem",
