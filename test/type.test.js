@@ -4,7 +4,7 @@ import proxyquire from 'proxyquire';
 
 test.beforeEach('setup', t => {
     t.context.stub = sinon.stub().returns('type');
-    t.context.BemEntity = proxyquire('../index', {
+    t.context.BemEntityName = proxyquire('../index', {
         'bem-naming': {
             typeOf: t.context.stub
         }
@@ -12,7 +12,7 @@ test.beforeEach('setup', t => {
 });
 
 test('should use `naming.typeOf()` for block', t => {
-    const entity = new t.context.BemEntity({ block: 'block' });
+    const entity = new t.context.BemEntityName({ block: 'block' });
 
     /*eslint no-unused-expressions: "off"*/
     entity.type;
@@ -21,7 +21,7 @@ test('should use `naming.typeOf()` for block', t => {
 });
 
 test('should use `naming.typeOf()` for elem', t => {
-    const entity = new t.context.BemEntity({ block: 'block', elem: 'elem' });
+    const entity = new t.context.BemEntityName({ block: 'block', elem: 'elem' });
 
     /*eslint no-unused-expressions: "off"*/
     entity.type;
@@ -30,7 +30,7 @@ test('should use `naming.typeOf()` for elem', t => {
 });
 
 test('should use `naming.typeOf()` for block modifier', t => {
-    const entity = new t.context.BemEntity({ block: 'block', modName: 'mod', modVal: 'val' });
+    const entity = new t.context.BemEntityName({ block: 'block', modName: 'mod', modVal: 'val' });
 
     /*eslint no-unused-expressions: "off"*/
     entity.type;
@@ -39,7 +39,7 @@ test('should use `naming.typeOf()` for block modifier', t => {
 });
 
 test('should use naming.typeOf() for element modifier', t => {
-    const entity = new t.context.BemEntity({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' });
+    const entity = new t.context.BemEntityName({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' });
 
     /*eslint no-unused-expressions: "off"*/
     entity.type;
@@ -48,7 +48,7 @@ test('should use naming.typeOf() for element modifier', t => {
 });
 
 test('should cache type value', t => {
-    const entity = new t.context.BemEntity({ block: 'block' });
+    const entity = new t.context.BemEntityName({ block: 'block' });
 
     /*eslint no-unused-expressions: "off"*/
     entity.type;

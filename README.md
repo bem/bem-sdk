@@ -28,19 +28,19 @@ Usage
 -----
 
 ```js
-import BemEntity from 'bem-entity-name';
+const BemEntityName = require('bem-entity-name');
 
-const entity = new BemEntity({ block: 'button', elem: 'text' });
+const entityName = new BemEntityName({ block: 'button', elem: 'text' });
 
-console.log(entity.block); // button
-console.log(entity.elem);  // text
-console.log(entity.mod);   // undefined
+console.log(entityName.block); // button
+console.log(entityName.elem);  // text
+console.log(entityName.mod);   // undefined
 
-console.log(entity.id);   // button__elem
-console.log(entity.type); // elem
+console.log(entityName.id);   // button__elem
+console.log(entityName.type); // elem
 
-console.log(entity.isEqual({ block: 'button' }));               // false
-console.log(entity.isEqual({ block: 'button', elem: 'text' })); // true
+console.log(entityName.isEqual({ block: 'button' }));               // false
+console.log(entityName.isEqual({ block: 'button', elem: 'text' })); // true
 ```
 
 License

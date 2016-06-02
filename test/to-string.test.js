@@ -3,14 +3,14 @@ import sinon from 'sinon';
 import proxyquire from 'proxyquire';
 
 const spy = sinon.spy();
-const BemEntity = proxyquire('../index', {
+const BemEntityName = proxyquire('../index', {
     'bem-naming': {
         stringify: spy
     }
 });
 
 test('should use `naming.stringify()` for block', t => {
-    const entity = new BemEntity({ block: 'block' });
+    const entity = new BemEntityName({ block: 'block' });
 
     entity.toString();
 
@@ -18,7 +18,7 @@ test('should use `naming.stringify()` for block', t => {
 });
 
 test('should use `naming.stringify()` for elem', t => {
-    const entity = new BemEntity({ block: 'block', elem: 'elem' });
+    const entity = new BemEntityName({ block: 'block', elem: 'elem' });
 
     entity.toString();
 
@@ -26,7 +26,7 @@ test('should use `naming.stringify()` for elem', t => {
 });
 
 test('should use `naming.stringify()` for block modifier', t => {
-    const entity = new BemEntity({ block: 'block', modName: 'mod', modVal: 'val' });
+    const entity = new BemEntityName({ block: 'block', modName: 'mod', modVal: 'val' });
 
     entity.toString();
 
@@ -34,7 +34,7 @@ test('should use `naming.stringify()` for block modifier', t => {
 });
 
 test('should use naming.stringify() for element modifier', t => {
-    const entity = new BemEntity({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' });
+    const entity = new BemEntityName({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' });
 
     entity.toString();
 
