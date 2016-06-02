@@ -1,11 +1,11 @@
 'use strict';
 
-var naming = require('bem-naming');
+const naming = require('bem-naming');
 
 const stringifyEntity = naming.stringify;
 const typeOfEntity = naming.typeOf;
 
-module.exports = class BemEntity {
+module.exports = class BemEntityName {
     constructor(obj) {
         if (!obj.block) {
              throw new Error('This is not valid BEM entity: the field `block` is undefined.');
