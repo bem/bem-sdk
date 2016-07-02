@@ -38,8 +38,8 @@ BemConfig.prototype.configs = function(isSync) {
 
     const rcOpts = {
         name: options.name || 'bem',
-        defaults: options.config,
-        projectRoot,
+        defaults: options.config && JSON.parse(JSON.stringify(options.config)),
+        projectRoot: projectRoot,
         fsRoot: options.fsRoot,
         fsHome: options.fsHome
     };

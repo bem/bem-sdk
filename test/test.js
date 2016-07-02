@@ -33,6 +33,67 @@ test('should respect default config', async t => {
     t.deepEqual(all, [{ def: true }]);
 });
 
+test('should override default config with .bemrc', async t => {
+    const bemrc = {
+        levels: {
+            level1: {
+                something: true
+            }
+        }
+    };
+
+    mock({
+        node_modules: nodeModules,
+        cwd: {
+            level1: {}
+        },
+        '.bemrc': JSON.stringify(bemrc)
+    });
+
+    process.chdir('cwd');
+
+    const conf = {
+        levels: {
+            level1: {
+                default: true
+            }
+        }
+    };
+
+    const expected = Object.keys(bemrc.levels).reduce((prev, levelPath) => {
+        prev[path.resolve(levelPath)] = bemrc.levels[levelPath];
+        delete prev[levelPath];
+        return prev;
+    }, {});
+
+    const actualResult = await bemConfig({ config: conf }).levelMapSync();
+
+    t.deepEqual(actualResult, expected);
+});
+
+test('should not mutate defaults', async t => {
+    mock({
+        node_modules: nodeModules,
+        level1: {}
+    });
+
+    const conf = {
+        levels: {
+            level1: {
+                default: true
+            }
+        }
+    };
+
+    const before = JSON.stringify(conf);
+
+    const actualResult = await bemConfig({ config: conf }).levelMapSync();
+
+    const after = JSON.stringify(conf);
+
+    t.is(before, after);
+});
+
 test('should respect argv config as CLI arg', async t => {
     mock({
         node_modules: nodeModules,

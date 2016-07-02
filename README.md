@@ -130,7 +130,8 @@ console.log(configs); // all found configs from all dirs
     "root": true,
     "levels": {
         "path/to/level": {
-            "scheme": "nested"
+            "scheme": "nested",
+            "default": true
         }
     },
     "libs": {
