@@ -741,3 +741,23 @@ test('should provide all levels for libs and project sync', t => {
 
     t.deepEqual(levelMap, expected);
 });
+
+test('should respect fsRoot option', async t => {
+    const testFolder = path.resolve('mocks', 'should-respect-fsRoot-option', 'root');
+    process.chdir(path.join(testFolder, 'cwd'));
+
+    const config = bemConfig({ fsRoot: testFolder });
+    const levelOpts = await config.level('level1');
+
+    t.deepEqual(levelOpts, { l1o1: 'l1v1' });
+});
+
+test('should respect fsHome option', async t => {
+    const testFolder = path.resolve('mocks', 'should-respect-fsHome-option');
+    process.chdir(path.join(testFolder, 'root', 'cwd'));
+
+    const config = bemConfig({ fsRoot: testFolder, fsHome: path.join(testFolder, 'homedir') });
+    const levelOpts = await config.level('level1');
+
+    t.deepEqual(levelOpts, { l1o1: 'l1v1' });
+});

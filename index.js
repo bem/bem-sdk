@@ -40,7 +40,9 @@ BemConfig.prototype.configs = function(isSync) {
         name: options.name || 'bem',
         defaults: options.config,
         argv: options.argv,
-        projectRoot
+        projectRoot,
+        fsRoot: options.fsRoot,
+        fsHome: options.fsHome
     });
 
     function createProcessConfigFunc(config, wildcardLevel) {
