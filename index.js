@@ -19,7 +19,7 @@ function globPromise(pattern, options) {
  * @param {String} [options.name='bem'] - config filename.
  * @param {String} [options.projectRoot=process.cwd()] project root directory.
  * @param {Object} [options.config={}] extends found configs with this object
- * @param {String} [options.argv] custom path to config on FS via command line argument `--config`
+ * @param {String} [options.pathToConfig] custom path to config on FS via command line argument `--config`
  * @constructor
  */
 function BemConfig(options) {
@@ -36,14 +36,19 @@ BemConfig.prototype.configs = function(isSync) {
     const options = this._options;
     const projectRoot = options.projectRoot;
 
-    const readConfigs = rc({
+    const rcOpts = {
         name: options.name || 'bem',
         defaults: options.config,
-        argv: options.argv,
         projectRoot,
         fsRoot: options.fsRoot,
         fsHome: options.fsHome
-    });
+    };
+
+    if (options.pathToConfig) {
+        rcOpts.argv = { config: options.pathToConfig };
+    }
+
+    const readConfigs = rc(rcOpts);
 
     function createProcessConfigFunc(config, wildcardLevel) {
         return resolvedWildcards => {

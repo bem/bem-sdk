@@ -33,7 +33,7 @@ test('should respect default config', async t => {
     t.deepEqual(all, [{ def: true }]);
 });
 
-test('should respect argv config', async t => {
+test('should respect argv config as CLI arg', async t => {
     mock({
         node_modules: nodeModules,
         'argv.config': '{"argv": true}'
@@ -42,6 +42,18 @@ test('should respect argv config', async t => {
     process.argv.push('--config=argv.config');
 
     const config = bemConfig({ config: { def: true } });
+    const all = await config.configs();
+
+    t.deepEqual(all, [{ def: true }, { argv: true, __source: 'argv.config' }]);
+});
+
+test('should respect argv config as JS API option', async t => {
+    mock({
+        node_modules: nodeModules,
+        'argv.config': '{"argv": true}'
+    });
+
+    const config = bemConfig({ config: { def: true }, pathToConfig: 'argv.config' });
     const all = await config.configs();
 
     t.deepEqual(all, [{ def: true }, { argv: true, __source: 'argv.config' }]);
