@@ -22,8 +22,13 @@
   "dependencies": {
   },
   "devDependencies": {
+    "ava": "^0.15.2",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
     "eslint": "^3.2.2",
-    "eslint-config-pedant": "^0.7.0"
+    "eslint-config-pedant": "^0.7.0",
+    "nyc": "^6.6.1",
+    "sinon": "^1.17.4"
   },
   "scripts": {
     "pretest": "npm run lint",
@@ -32,6 +37,7 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "ava": {
+    "require": "./test/.ava.js",
     "files": [
       "spec/**/*.spec.js",
       "test/**/*.test.js"
