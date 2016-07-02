@@ -7,8 +7,11 @@ const mockFsHelper = require(path.join(__dirname, 'lib', 'mock-fs-helper'));
 const bemConfig = require('..');
 const nodeModules = mockFsHelper.duplicateFSInMemory(path.resolve('..', 'node_modules'));
 
+const initialCwd = process.cwd();
+
 test.afterEach(() => {
     mock.restore();
+    process.chdir(initialCwd);
 });
 
 test('should return empty configs', async t => {
