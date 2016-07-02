@@ -31,18 +31,18 @@
   },
   "homepage": "https://github.com/bem-contrib/bem-config#readme",
   "dependencies": {
-    "glob": "^6.0.4",
-    "lodash": "^4.6.1",
+    "glob": "^7.0.5",
+    "lodash": "^4.13.1",
     "minimist": "^1.2.0",
     "os-homedir": "^1.0.1"
   },
   "devDependencies": {
-    "ava": "tadatuta/ava#master",
+    "ava": "^0.15.2",
     "coveralls": "^2.11.9",
-    "eslint": "^2.6.0",
-    "eslint-config-pedant": "^0.1.1",
+    "eslint": "^3.0.0",
+    "eslint-config-pedant": "^0.5.1",
     "jscs": "^2.11.0",
-    "mock-fs": "^3.5.0",
-    "nyc": "^6.1.1"
+    "mock-fs": "^3.9.0",
+    "nyc": "^6.6.1"
   }
 }

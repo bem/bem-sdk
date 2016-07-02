@@ -16,7 +16,7 @@ test('should return empty configs', async t => {
         node_modules: nodeModules
     });
 
-    t.same(await bemConfig().configs(), [{}]);
+    t.deepEqual(await bemConfig().configs(), [{}]);
 });
 
 test('should respect default config', async t => {
@@ -27,7 +27,7 @@ test('should respect default config', async t => {
     const config = bemConfig({ config: { def: true } });
     const all = await config.configs();
 
-    t.same(all, [{ def: true }]);
+    t.deepEqual(all, [{ def: true }]);
 });
 
 test('should respect argv config', async t => {
@@ -41,7 +41,7 @@ test('should respect argv config', async t => {
     const config = bemConfig({ config: { def: true } });
     const all = await config.configs();
 
-    t.same(all, [{ def: true }, { argv: true, __source: 'argv.config' }]);
+    t.deepEqual(all, [{ def: true }, { argv: true, __source: 'argv.config' }]);
 });
 
 test('should respect projectRoot option', async t => {
@@ -63,7 +63,7 @@ test('should respect projectRoot option', async t => {
     const config = bemConfig({ projectRoot: '../prjRoot' });
     const levelOpts = await config.level('level1');
 
-    t.same(levelOpts, { l1o1: 'l1v1', l1o2: 'l1v2' });
+    t.deepEqual(levelOpts, { l1o1: 'l1v1', l1o2: 'l1v2' });
 });
 
 test('should return undefined if no config found', async t => {
@@ -89,7 +89,7 @@ test('should return common config if no levels provided', async t => {
     const config = bemConfig();
     const levelOpts = await config.level('level1');
 
-    t.same(levelOpts, { common: 'value' });
+    t.deepEqual(levelOpts, { common: 'value' });
 });
 
 test('should resolve levels keys', async t => {
@@ -106,7 +106,7 @@ test('should resolve levels keys', async t => {
     const config = bemConfig();
     const levelOpts = await config.level('level1');
 
-    t.same(levelOpts, { l1o1: 'l1v1' });
+    t.deepEqual(levelOpts, { l1o1: 'l1v1' });
 });
 
 test('should resolve levels keys sync', t => {
@@ -123,7 +123,7 @@ test('should resolve levels keys sync', t => {
     const config = bemConfig();
     const levelOpts = config.levelSync('level1');
 
-    t.same(levelOpts, { l1o1: 'l1v1' });
+    t.deepEqual(levelOpts, { l1o1: 'l1v1' });
 });
 
 test('should respect absolute path', async t => {
@@ -140,7 +140,7 @@ test('should respect absolute path', async t => {
     const config = bemConfig();
     const levelOpts = await config.level('/level1');
 
-    t.same(levelOpts, { l1o1: 'l1v1' });
+    t.deepEqual(levelOpts, { l1o1: 'l1v1' });
 });
 
 test('should respect "." path', async t => {
@@ -157,7 +157,7 @@ test('should respect "." path', async t => {
     const config = bemConfig();
     const levelOpts = await config.level('.');
 
-    t.same(levelOpts, { l1o1: 'l1v1' });
+    t.deepEqual(levelOpts, { l1o1: 'l1v1' });
 });
 
 test('should return level config extended with common if matched levels key', async t => {
@@ -182,7 +182,7 @@ test('should return level config extended with common if matched levels key', as
     const config = bemConfig();
     const levelOpts = await config.level('level1');
 
-    t.same(levelOpts, {
+    t.deepEqual(levelOpts, {
         l1o1: 'l1v1',
         l1o2: 'l1v2',
         common: 'value'
@@ -211,7 +211,7 @@ test('should go top to project root looking for levels', async t => {
     const config = bemConfig();
     const levelOpts = await config.level('level1');
 
-    t.same(levelOpts, {
+    t.deepEqual(levelOpts, {
         l1o1: 'l1v1',
         l1o2: 'l1v2'
     });
@@ -247,7 +247,7 @@ test('should not extend with configs higher then root', async t => {
     const config = bemConfig();
     const levelOpts = await config.level('level1');
 
-    t.same(levelOpts, {
+    t.deepEqual(levelOpts, {
         l1o1: 'l1v1',
         l1o2: 'l1v2'
     });
@@ -269,11 +269,11 @@ test('should support wildcards for levels keys', async t => {
     const level1Opts = await config.level('level1');
     const level2Opts = await config.level('level2');
 
-    t.same(level1Opts, {
+    t.deepEqual(level1Opts, {
         anyLevel: 'any-value'
     });
 
-    t.same(level2Opts, {
+    t.deepEqual(level2Opts, {
         anyLevel: 'any-value'
     });
 });
@@ -295,7 +295,7 @@ test('should use last occurrence of array option', async t => {
     const config = bemConfig();
     const levelOpts = await config.level('level1');
 
-    t.same(levelOpts, { techs: ['bemhtml'] });
+    t.deepEqual(levelOpts, { techs: ['bemhtml'] });
 });
 
 test('should extend hash option by each upper config', async t => {
@@ -340,7 +340,7 @@ test('should extend hash option by each upper config', async t => {
         }});
     const levelOpts = await config.level('level1');
 
-    t.same(levelOpts, {
+    t.deepEqual(levelOpts, {
         techsTemplates: {
             css: 'css',
             js: 'js-ymodules',
@@ -360,7 +360,7 @@ test('should return undefined if no module found in config', async t => {
     const config = bemConfig();
     const moduleOpts = await config.module('no-such-module');
 
-    t.same(moduleOpts, undefined);
+    t.deepEqual(moduleOpts, undefined);
 });
 
 
@@ -388,7 +388,7 @@ test('should return module options', async t => {
     const config = bemConfig();
     const moduleOpts = await config.module('bem-tools');
 
-    t.same(moduleOpts, {
+    t.deepEqual(moduleOpts, {
         plugins: {}
     });
 });
@@ -417,7 +417,7 @@ test('should return module options sync', t => {
     const config = bemConfig();
     const moduleOpts = config.moduleSync('bem-tools');
 
-    t.same(moduleOpts, {
+    t.deepEqual(moduleOpts, {
         plugins: {}
     });
 });
@@ -468,7 +468,7 @@ test('should support library helper', async t => {
     const libConf = await library.get();
     const commonConf = await library.level('common.blocks');
 
-    t.same(libConf.sets.touch, ['common.blocks', 'touch.blocks']);
+    t.deepEqual(libConf.sets.touch, ['common.blocks', 'touch.blocks']);
     t.is(commonConf.scheme, 'nested');
 });
 
@@ -517,7 +517,7 @@ test('should support library helper sync', t => {
     const libConf = library.getSync();
     const commonConf = library.levelSync('common.blocks');
 
-    t.same(libConf.sets.touch, ['common.blocks', 'touch.blocks']);
+    t.deepEqual(libConf.sets.touch, ['common.blocks', 'touch.blocks']);
     t.is(commonConf.scheme, 'nested');
 });
 
@@ -629,7 +629,7 @@ test('should provide all levels for libs and project', async t => {
         return prev;
     }, {});
 
-    t.same(levelMap, expected);
+    t.deepEqual(levelMap, expected);
 });
 
 test('should provide all levels for libs and project sync', t => {
@@ -739,5 +739,5 @@ test('should provide all levels for libs and project sync', t => {
         return prev;
     }, {});
 
-    t.same(levelMap, expected);
+    t.deepEqual(levelMap, expected);
 });
