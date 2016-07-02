@@ -1,0 +1,47 @@
+{
+  "name": "bem-graph",
+  "version": "0.0.0",
+  "description": "Bem graph storage",
+  "license": "MPL-2.0",
+  "author": "Andrew Abramov <mail@blond.im>",
+  "keywords": [
+    "bem",
+    "graph",
+    "entity",
+    "successors",
+    "dependencies"
+  ],
+  "repository": "bem-sdk/bem-graph",
+  "engines": {
+    "node": ">= 4"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
+  "dependencies": {
+  },
+  "devDependencies": {
+  },
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "nyc ava",
+    "lint": "jshint . && jscs . -c .jscs.js",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "files": [
+      "spec/**/*.spec.js",
+      "test/**/*.test.js"
+    ],
+    "source": [
+      "lib/**/*.js"
+    ],
+    "concurrency": 25
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js"
+    ]
+  }
+}
