@@ -20,6 +20,12 @@
     "lib"
   ],
   "dependencies": {
+    "bem-entity-name": "0.0.2",
+    "bem-naming": "1.0.1",
+    "es6-error": "3.0.0",
+    "hash-set": "1.0.0",
+    "ho-iter": "0.3.0",
+    "lodash": "4.12.0"
   },
   "devDependencies": {
     "ava": "^0.15.2",
