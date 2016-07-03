@@ -2,7 +2,8 @@
     "excludeFiles": [
         ".githooks/**",
         "node_modules/**",
-        "test/**"
+        "test/**",
+        "coverage/**"
     ],
     "fileExtensions": [".js"],
     "validateQuoteMarks": "'",

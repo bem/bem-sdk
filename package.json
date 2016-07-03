@@ -11,15 +11,16 @@
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "ava": {
-    "files": "test/test.js",
-    "serial": true
+    "files": [
+      "test/async.js",
+      "test/sync.js"
+    ]
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bem-contrib/bem-config.git"
+    "url": "git+https://github.com/bem-sdk/bem-config.git"
   },
   "keywords": [
-    "BEM",
     "bem-tools",
     "bem",
     "config"
@@ -27,22 +28,30 @@
   "author": "",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/bem-contrib/bem-config/issues"
+    "url": "https://github.com/bem-sdk/bem-config/issues"
   },
-  "homepage": "https://github.com/bem-contrib/bem-config#readme",
+  "homepage": "https://github.com/bem-sdk/bem-config#readme",
   "dependencies": {
+    "betterc": "^1.0.0",
+    "es6-object-assign": "^1.0.2",
     "glob": "^7.0.5",
+    "is-glob": "^2.0.1",
+    "jsonpath": "^0.2.6",
     "lodash": "^4.13.1",
     "minimist": "^1.2.0",
-    "os-homedir": "^1.0.1"
+    "node-eval": "^1.0.2",
+    "os-homedir": "^1.0.1",
+    "pinkie-promise": "^2.0.1"
   },
   "devDependencies": {
-    "ava": "^0.15.2",
+    "ava": "tadatuta/ava#master",
+    "babel-eslint": "^6.1.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
-    "eslint-config-pedant": "^0.5.1",
+    "eslint-config-pedant": "^0.6.0",
     "jscs": "^2.11.0",
     "mock-fs": "^3.9.0",
-    "nyc": "^6.6.1"
+    "nyc": "^6.6.1",
+    "proxyquire": "^1.7.10"
   }
 }

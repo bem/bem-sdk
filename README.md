@@ -5,16 +5,19 @@
 ```js
 var bemConfig = require('bem-config');
 var optionalConfig = { plugins: { create: { techs: ['styl', 'browser.js'] } } };
-var projectConfig = bemConfig(options); // returns promise
+var projectConfig = bemConfig(optionalConfig); // returns BemConfig instance
 ```
 
 ### options
 All options are optional:
 
-* `name` // 'bem'
-* `projectRoot` // process.cwd()
-* `config` // extends found configs with this object
-* `argv` // custom path to config on FS via command line argument `--config` (defaults to `null`)
+* `name` // base name for rc files. Default value is `bem`.
+* `cwd` // Default value is `process.cwd()`.
+* `defaults` // extends found configs with this object
+* `pathToConfig` // custom path to config on FS
+* `fsRoot` // custom '/' directory
+* `fsHome` // custom $HOME directory
+* `plugins` // array of paths to plugings to require
 
 ## Async API
 
