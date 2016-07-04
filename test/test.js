@@ -43,6 +43,22 @@ describe('default', function() {
             ).eql('a/_mn/a_mn_mv.js');
         });
 
+        it('should return path for a block with boolean modifier', function() {
+            expect(
+                scheme('nested').path({
+                    block: 'a', modName: 'mn', modVal: true
+                }, 'js')
+            ).eql('a/_mn/a_mn.js');
+        });
+
+        it('should return path for a block with modifier without value', function() {
+            expect(
+                scheme('nested').path({
+                    block: 'a', modName: 'mn'
+                }, 'js')
+            ).eql('a/_mn/a_mn.js');
+        });
+
         it('should return path for elem', function() {
             expect(
                 scheme('nested').path({ block: 'a', elem: 'e1' }, 'js')
