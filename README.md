@@ -56,8 +56,8 @@ walk([
 // [{
 //     entity: { block: "page" },
 //     level: "libs/bem-core/desktop.blocks",
-//     tech: "bemhtml",
-//     path: "libs/bem-core/desktop.blocks/page/page.bemhtml"
+//     tech: "bemhtml.js",
+//     path: "libs/bem-core/desktop.blocks/page/page.bemhtml.js"
 // },
 // ...
 // ]
