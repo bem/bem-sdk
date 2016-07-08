@@ -34,7 +34,7 @@
     "mock-fs": "^3.9.0",
     "nyc": "^6.4.4",
     "promise-map-series": "^0.2.2",
-    "proxyquire": "^1.7.7",
+    "proxyquire": "^1.7.10",
     "sinon": "^1.17.4",
     "stream-to-array": "^2.3.0"
   },
