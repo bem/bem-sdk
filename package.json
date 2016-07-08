@@ -31,7 +31,7 @@
     "eslint": "^3.0.0",
     "eslint-config-pedant": "^0.7.0",
     "jscs": "^3.0.3",
-    "mock-fs": "^3.9.0",
+    "mock-fs": "^3.10.0",
     "nyc": "^6.4.4",
     "promise-map-series": "^0.2.2",
     "proxyquire": "^1.7.10",
