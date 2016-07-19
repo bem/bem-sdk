@@ -21,7 +21,7 @@
     "bem"
   ],
   "author": "Anton Krichevskii <mrskadi0@gmail.com> (github.com/skad0)",
-  "license": "ISC",
+  "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/bem-sdk/bem-bundle/issues"
   },
