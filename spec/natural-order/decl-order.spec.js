@@ -5,10 +5,10 @@ const test = require('ava');
 const BemGraph = lib.BemGraph;
 const findIndex = utils.findIndex;
 
-test.skip('should place block before its element', t => {
+test('should place block before its element', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', elem: 'elem' },
         { block: 'block' }
     ]));
@@ -19,10 +19,10 @@ test.skip('should place block before its element', t => {
     t.true(indexBlock < indexElem);
 });
 
-test.skip('should place block before its boolean modifier', t => {
+test('should place block before its boolean modifier', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', modName: 'mod', modVal: true },
         { block: 'block' }
     ]));
@@ -33,10 +33,10 @@ test.skip('should place block before its boolean modifier', t => {
     t.true(indexBlock < indexModifier);
 });
 
-test.skip('should place block before its key-value modifier', t => {
+test('should place block before its key-value modifier', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', modName: 'mod', modVal: 'val' },
         { block: 'block' }
     ]));
@@ -47,10 +47,10 @@ test.skip('should place block before its key-value modifier', t => {
     t.true(indexBlock < indexModifier);
 });
 
-test.skip('should place block before its element with boolean modifier', t => {
+test('should place block before its element with boolean modifier', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', elem: 'elem', modName: 'mod', modVal: true },
         { block: 'block' }
     ]));
@@ -61,10 +61,10 @@ test.skip('should place block before its element with boolean modifier', t => {
     t.true(indexBlock < indexElem);
 });
 
-test.skip('should place block before its element with key-value modifier', t => {
+test('should place block before its element with key-value modifier', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' },
         { block: 'block' }
     ]));
@@ -75,10 +75,10 @@ test.skip('should place block before its element with key-value modifier', t => 
     t.true(indexBlock < indexElem);
 });
 
-test.skip('should place block\'s boolean modifier before block\' key-value modifier', t => {
+test('should place block\'s boolean modifier before block\' key-value modifier', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', modName: 'mod', modVal: 'val' },
         { block: 'block', modName: 'mod', modVal: true }
     ]));
@@ -89,10 +89,10 @@ test.skip('should place block\'s boolean modifier before block\' key-value modif
     t.true(indexBoolean < indexKeyValue);
 });
 
-test.skip('should place elem before its boolean modifier', t => {
+test('should place elem before its boolean modifier', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', elem: 'elem', modName: 'mod', modVal: true },
         { block: 'block', elem: 'elem' }
     ]));
@@ -103,10 +103,10 @@ test.skip('should place elem before its boolean modifier', t => {
     t.true(indexElem < indexModifier);
 });
 
-test.skip('should place elem before its key-value modifier', t => {
+test('should place elem before its key-value modifier', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' },
         { block: 'block', elem: 'elem' }
     ]));
@@ -117,10 +117,10 @@ test.skip('should place elem before its key-value modifier', t => {
     t.true(indexElem < indexModifier);
 });
 
-test.skip('should place elem\'s boolean modifier before elem\' key-value modifier', t => {
+test('should place elem\'s boolean modifier before elem\' key-value modifier', t => {
     const graph = new BemGraph();
 
-    const decl = Array.from(graph.dependenciesOf([
+    const decl = Array.from(graph.naturalDependenciesOf([
         { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' },
         { block: 'block', elem: 'elem', modName: 'mod', modVal: true }
     ]));

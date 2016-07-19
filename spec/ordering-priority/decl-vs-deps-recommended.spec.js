@@ -5,7 +5,7 @@ const test = require('ava');
 const BemGraph = lib.BemGraph;
 const findIndex = utils.findIndex;
 
-test.failing('should prioritise decl order over recommended deps order', t => {
+test.only('should prioritise decl order over recommended deps order', t => {
     const graph = new BemGraph();
 
     graph
