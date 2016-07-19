@@ -12,7 +12,7 @@ describe('throw exception', function () {
 
     it('should throw if bemjson not an object', function () {
         assert.throws(function () {
-            new BemBundle ({ // eslint-disable-line no-new
+            new BemBundle({ // eslint-disable-line no-new
                 bemjson: 'bemjson'
             });
         }, Error, 'BEMJSON should be an object');

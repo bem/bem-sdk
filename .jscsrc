@@ -57,5 +57,6 @@
     "safeContextKeyword": ["_this"],
     "disallowYodaConditions": true,
     "requireSpaceAfterLineComment": true,
-    "disallowNewlineBeforeBlockStatements": true
+    "disallowNewlineBeforeBlockStatements": true,
+    "validateIndentation": 4
 }
