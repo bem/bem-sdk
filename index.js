@@ -17,7 +17,7 @@ module.exports = class BemEntityName {
         const modName = (typeof obj.mod === 'string' ? obj.mod : obj.mod && obj.mod.name) || obj.modName;
 
         if (modName) {
-            const modVal = obj.hasOwnProperty('modVal') || obj.mod.hasOwnProperty('val')
+            const modVal = obj.hasOwnProperty('modVal') || obj.mod && obj.mod.hasOwnProperty('val')
                 ? obj.mod && obj.mod.val || obj.modVal
                 : true;
 
