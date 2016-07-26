@@ -36,7 +36,8 @@
     "nyc": "^7.0.0"
   },
   "scripts": {
-    "pretest": "eslint . && jscs .",
+    "lint": "eslint . && jscs .",
+    "pretest": "npm run lint",
     "test": "nyc ava",
     "bench": "matcha benchmark/*.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"

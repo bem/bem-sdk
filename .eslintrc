@@ -2,6 +2,7 @@ parserOptions:
   ecmaVersion: 6
 
 env:
+  es6: true
   node: true
   mocha: true
 
@@ -11,7 +12,4 @@ globals:
   bench: false
   suite: false
 
-extends: pedant
-
-rules:
-  no-shadow: off
+extends: pedant/es6
