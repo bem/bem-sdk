@@ -1,5 +1,7 @@
 'use strict';
 
+const util = require('util');
+
 const naming = require('bem-naming');
 
 const stringifyEntity = naming.stringify;
@@ -88,7 +90,31 @@ module.exports = class BemEntityName {
 
     toString() { return this.id;  }
     valueOf()  { return this._obj; }
+    /**
+     * Returns object representing the entity name. Is needed for debug in Node.js.
+     *
+     * In Node.js, `console.log()` calls `util.inspect()` on each argument without a formatting placeholder.
+     * This method will be called to get custom string representation of the object.
+     *
+     * The representation object contains only `block`, `elem` and `mod` fields
+     * without private and deprecated fields (`modName` and `modVal`).
+     *
+     * @param {integer} depth — tells inspect how many times to recurse while formatting the object.
+     * @param {object} options — An optional `options` object may be passed
+     *                         	 that alters certain aspects of the formatted string.
+     *
+     * @returns {object}
+     * @example
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'button' });
+     *
+     * console.log(name); // { block: 'button' }
+     */
+    inspect(depth, options) {
+        const stringRepresentation = util.inspect(this._obj, options);
 
+        return `BemEntityName ${stringRepresentation}`;
+    }
     /**
      * Determines whether specified entity is the deepEqual entity.
      *
