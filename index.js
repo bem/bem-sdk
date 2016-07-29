@@ -87,9 +87,34 @@ module.exports = class BemEntityName {
 
         return this._type;
     }
-
-    toString() { return this.id;  }
-    valueOf()  { return this._obj; }
+    /**
+     * Returns string representing the entity name.
+     *
+     * @returns {string}
+     * @example
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'button' });
+     *
+     * console.log(`name: ${name}`); // button
+     */
+    toString() { return this.id; }
+    /**
+     * Returns object representing the entity name. Is needed for debug in Node.js.
+     *
+     * In some browsers `console.log()` calls `valueOf()` on each argument.
+     * This method will be called to get custom string representation of the object.
+     *
+     * The representation object contains only `block`, `elem` and `mod` fields
+     * without private and deprecated fields (`modName` and `modVal`).
+     *
+     * @returns {object}
+     * @example
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'button' });
+     *
+     * console.log(name); // { block: 'button' }
+     */
+    valueOf() { return this._obj; }
     /**
      * Returns object representing the entity name. Is needed for debug in Node.js.
      *
