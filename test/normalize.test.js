@@ -20,6 +20,12 @@ test('should support `modName` and `modVal` fields', t => {
     t.deepEqual(entity.mod, { name: 'mod', val: 'val' });
 });
 
+test('should support `modName` field only', t => {
+    const entity = new BemEntityName({ block: 'block', modName: 'mod' });
+
+    t.deepEqual(entity.mod, { name: 'mod', val: true });
+});
+
 test('should use `mod.name` field instead of `modName`', t => {
     const entity = new BemEntityName({ block: 'block', mod: { name: 'mod1' }, modName: 'mod2' });
 
