@@ -207,7 +207,7 @@ module.exports = class BemEntityName {
     /**
      * Determines whether specified entity is the deepEqual entity.
      *
-     * @param {object} entity - the entity to compare.
+     * @param {BemEntityName} entityName - the entity to compare.
      *
      * @returns {boolean} A Boolean indicating whether or not specified entity is the deepEqual entity.
      * @example
@@ -219,7 +219,7 @@ module.exports = class BemEntityName {
      * console.log(inputName.isEqual(buttonName)); // false
      * console.log(buttonName.isEqual(buttonName)); // true
      */
-    isEqual(entity) {
-        return entity && (this.id === entity.id);
+    isEqual(entityName) {
+        return entityName && (this.id === entityName.id);
     }
 };
