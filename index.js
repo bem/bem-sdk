@@ -52,6 +52,24 @@ module.exports = class BemEntityName {
      */
     get mod() { return this._obj.mod || {}; }
     /**
+     * Returns the name of modifier of this entity.
+     *
+     * If entity is not modifier then returns `undefined`.
+     *
+     * @returns {string} entity modifier name.
+     * @deprecated use `mod.name` instead.
+     */
+    get modName() { return this.mod.name; }
+    /**
+     * Returns the value of modifier of this entity.
+     *
+     * If entity is not modifier then returns `undefined`.
+     *
+     * @returns {string} entity modifier name.
+     * @deprecated use `mod.val` instead.
+     */
+    get modVal() { return this.mod.val; }
+    /**
      * Returns id for this entity.
      *
      * @returns {string} id of entity.
