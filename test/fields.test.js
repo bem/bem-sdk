@@ -19,3 +19,15 @@ test('should provide `mod` field', t => {
 
     t.deepEqual(entity.mod, { name: 'mod', val: 'val' });
 });
+
+test('should provide `modName` field', t => {
+    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+
+    t.is(entity.modName, 'mod');
+});
+
+test('should provide `modVal` field', t => {
+    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+
+    t.is(entity.modVal, 'val');
+});
