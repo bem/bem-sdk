@@ -2,10 +2,20 @@
 
 const util = require('util');
 
-const naming = require('bem-naming');
+const stringifyEntity = require('bem-naming').stringify;
 
-const stringifyEntity = naming.stringify;
-const typeOfEntity = naming.typeOf;
+/**
+ * Enum for types of BEM entities.
+ *
+ * @readonly
+ * @enum {String}
+ */
+const TYPES = {
+    BLOCK:     'block',
+    BLOCK_MOD: 'blockMod',
+    ELEM:      'elem',
+    ELEM_MOD:  'elemMod'
+};
 
 module.exports = class BemEntityName {
     /**
@@ -138,13 +148,12 @@ module.exports = class BemEntityName {
     get type() {
         if (this._type) { return this._type; }
 
-        const entity = { block: this._data.block };
+        const data = this._data;
+        const isMod = data.mod;
 
-        this.elem && (entity.elem = this.elem);
-        this.mod.name && (entity.modName = this.mod.name);
-        this.mod.val && (entity.modVal = this.mod.val);
-
-        this._type = typeOfEntity(entity);
+        this._type = data.elem
+            ? isMod ? TYPES.ELEM_MOD : TYPES.ELEM
+            : isMod ? TYPES.BLOCK_MOD : TYPES.BLOCK;
 
         return this._type;
     }
