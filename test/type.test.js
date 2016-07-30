@@ -1,6 +1,6 @@
-import test from 'ava';
-import sinon from 'sinon';
-import proxyquire from 'proxyquire';
+const test = require('ava');
+const sinon = require('sinon');
+const proxyquire = require('proxyquire');
 
 test.beforeEach('setup', t => {
     t.context.stub = sinon.stub().returns('type');

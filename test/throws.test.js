@@ -1,6 +1,6 @@
-import test from 'ava';
+const test = require('ava');
 
-import BemEntityName from '../index';
+const BemEntityName = require('../index');
 
 test('should throw error for if entity object is not valid', t => {
     t.throws(

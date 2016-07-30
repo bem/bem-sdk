@@ -1,8 +1,8 @@
-import test from 'ava';
-import sinon from 'sinon';
-import proxyquire from 'proxyquire';
+const test = require('ava');
+const sinon = require('sinon');
+const proxyquire = require('proxyquire');
 
-import BemEntityName from '../index';
+const BemEntityName = require('../index');
 
 test('should build equal id for equal blocks', t => {
     const entity1 = new BemEntityName({ block: 'block' });
