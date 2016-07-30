@@ -17,7 +17,7 @@ test('should use `naming.typeOf()` for block', t => {
     /*eslint no-unused-expressions: "off"*/
     entity.type;
 
-    t.ok(t.context.stub.calledWith({ block: 'block' }));
+    t.truthy(t.context.stub.calledWith({ block: 'block' }));
 });
 
 test('should use `naming.typeOf()` for elem', t => {
@@ -26,7 +26,7 @@ test('should use `naming.typeOf()` for elem', t => {
     /*eslint no-unused-expressions: "off"*/
     entity.type;
 
-    t.ok(t.context.stub.calledWith({ block: 'block', elem: 'elem' }));
+    t.truthy(t.context.stub.calledWith({ block: 'block', elem: 'elem' }));
 });
 
 test('should use `naming.typeOf()` for block modifier', t => {
@@ -35,7 +35,7 @@ test('should use `naming.typeOf()` for block modifier', t => {
     /*eslint no-unused-expressions: "off"*/
     entity.type;
 
-    t.ok(t.context.stub.calledWith({ block: 'block', modName: 'mod', modVal: 'val' }));
+    t.truthy(t.context.stub.calledWith({ block: 'block', modName: 'mod', modVal: 'val' }));
 });
 
 test('should use naming.typeOf() for element modifier', t => {
@@ -44,7 +44,7 @@ test('should use naming.typeOf() for element modifier', t => {
     /*eslint no-unused-expressions: "off"*/
     entity.type;
 
-    t.ok(t.context.stub.calledWith({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }));
+    t.truthy(t.context.stub.calledWith({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }));
 });
 
 test('should cache type value', t => {
