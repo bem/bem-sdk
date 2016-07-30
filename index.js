@@ -21,17 +21,17 @@ module.exports = class BemEntityName {
              throw new Error('This is not valid BEM entity: the field `block` is undefined.');
         }
 
-        this._obj = { block: obj.block };
-        obj.elem && (this._obj.elem = obj.elem);
-
+        const data = this._data = { block: obj.block };
         const modName = (typeof obj.mod === 'string' ? obj.mod : obj.mod && obj.mod.name) || obj.modName;
+
+        obj.elem && (data.elem = obj.elem);
 
         if (modName) {
             const modVal = obj.hasOwnProperty('modVal') || obj.mod && obj.mod.hasOwnProperty('val')
                 ? obj.mod && obj.mod.val || obj.modVal
                 : true;
 
-            this._obj.mod = {
+            data.mod = {
                 name: modName,
                 val: modVal
             };
@@ -47,7 +47,7 @@ module.exports = class BemEntityName {
      *
      * console.log(name.block); // button
      */
-    get block() { return this._obj.block; }
+    get block() { return this._data.block; }
     /**
      * Returns the element name of this entity.
      *
@@ -60,7 +60,7 @@ module.exports = class BemEntityName {
      *
      * console.log(name.elem); // text
      */
-    get elem() { return this._obj.elem; }
+    get elem() { return this._data.elem; }
     /**
      * Returns the modifier of this entity.
      *
@@ -73,7 +73,7 @@ module.exports = class BemEntityName {
      *
      * console.log(name.mod); // { name: 'disabled', val: true }
      */
-    get mod() { return this._obj.mod || {}; }
+    get mod() { return this._data.mod || {}; }
     /**
      * Returns the modifier name of this entity.
      *
@@ -110,7 +110,7 @@ module.exports = class BemEntityName {
     get id() {
         if (this._id) { return this._id; }
 
-        const entity = { block: this._obj.block };
+        const entity = { block: this._data.block };
 
         this.elem && (entity.elem = this.elem);
         this.mod.name && (entity.modName = this.mod.name);
@@ -138,7 +138,7 @@ module.exports = class BemEntityName {
     get type() {
         if (this._type) { return this._type; }
 
-        const entity = { block: this._obj.block };
+        const entity = { block: this._data.block };
 
         this.elem && (entity.elem = this.elem);
         this.mod.name && (entity.modName = this.mod.name);
@@ -178,7 +178,7 @@ module.exports = class BemEntityName {
      *
      * console.log(name); // { block: 'button' }
      */
-    valueOf() { return this._obj; }
+    valueOf() { return this._data; }
     /**
      * Returns object representing the entity name. Is needed for debug in Node.js.
      *
@@ -200,7 +200,7 @@ module.exports = class BemEntityName {
      * console.log(name); // { block: 'button' }
      */
     inspect(depth, options) {
-        const stringRepresentation = util.inspect(this._obj, options);
+        const stringRepresentation = util.inspect(this._data, options);
 
         return `BemEntityName ${stringRepresentation}`;
     }
