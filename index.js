@@ -8,6 +8,14 @@ const stringifyEntity = naming.stringify;
 const typeOfEntity = naming.typeOf;
 
 module.exports = class BemEntityName {
+    /**
+     * @param {[object]} obj — representation of entity name.
+     * @param {[string]} obj.block  — the block name of entity.
+     * @param {[string]} [obj.elem] — the element name of entity.
+     * @param {[object]} [obj.mod]  — the modifier of entity.
+     * @param {[string]} [obj.mod.name] — the modifier name of entity.
+     * @param {[string]} [obj.mod.val]  — the modifier value of entity.
+     */
     constructor(obj) {
         if (!obj.block) {
              throw new Error('This is not valid BEM entity: the field `block` is undefined.');
@@ -33,6 +41,11 @@ module.exports = class BemEntityName {
      * Returns the name of block to which this entity belongs.
      *
      * @returns {string} name of entity block.
+     * @example
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'button' });
+     *
+     * console.log(name.block); // button
      */
     get block() { return this._obj.block; }
     /**
@@ -41,6 +54,11 @@ module.exports = class BemEntityName {
      * If entity is not element or modifier of element then returns empty string.
      *
      * @returns {string} name of entity element.
+     * @example
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'button', elem: 'text' });
+     *
+     * console.log(name.elem); // text
      */
     get elem() { return this._obj.elem; }
     /**
@@ -49,10 +67,15 @@ module.exports = class BemEntityName {
      * If entity is not modifier then returns empty object.
      *
      * @returns {object} entity modifier.
+     * @example
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'button', mod: 'disabled' });
+     *
+     * console.log(name.mod); // { name: 'disabled', val: true }
      */
     get mod() { return this._obj.mod || {}; }
     /**
-     * Returns the name of modifier of this entity.
+     * Returns the modifier name of this entity.
      *
      * If entity is not modifier then returns `undefined`.
      *
@@ -61,7 +84,7 @@ module.exports = class BemEntityName {
      */
     get modName() { return this.mod.name; }
     /**
-     * Returns the value of modifier of this entity.
+     * Returns the modifier value of this entity.
      *
      * If entity is not modifier then returns `undefined`.
      *
@@ -72,7 +95,17 @@ module.exports = class BemEntityName {
     /**
      * Returns id for this entity.
      *
+     * Important: should only be used to determine uniqueness of entity.
+     *
+     * If you want to get string representation in accordance with the provisions naming convention
+     * you should use `bem-naming` package.
+     *
      * @returns {string} id of entity.
+     * @example
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'button', mod: 'disabled' });
+     *
+     * console.log(name.id); // button_disabled
      */
     get id() {
         if (this._id) { return this._id; }
@@ -91,6 +124,16 @@ module.exports = class BemEntityName {
      * Returns type for this entity.
      *
      * @returns {string} type of entity.
+     * @example <caption>type of element</caption>
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'button', elem: 'text' });
+     *
+     * console.log(name.type); // elem
+     * @example <caption>type of element modifier</caption>
+     * const BemEntityName = require('bem-entity-name');
+     * const name = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' });
+     *
+     * console.log(name.type); // elemMod
      */
     get type() {
         if (this._type) { return this._type; }
@@ -107,6 +150,9 @@ module.exports = class BemEntityName {
     }
     /**
      * Returns string representing the entity name.
+     *
+     * Important: If you want to get string representation in accordance with the provisions naming convention
+     * you should use `bem-naming` package.
      *
      * @returns {string}
      * @example
@@ -164,6 +210,14 @@ module.exports = class BemEntityName {
      * @param {object} entity - the entity to compare.
      *
      * @returns {boolean} A Boolean indicating whether or not specified entity is the deepEqual entity.
+     * @example
+     * const BemEntityName = require('bem-entity-name');
+     *
+     * const inputName = new BemEntityName({ block: 'input' });
+     * const buttonName = new BemEntityName({ block: 'button' });
+     *
+     * console.log(inputName.isEqual(buttonName)); // false
+     * console.log(buttonName.isEqual(buttonName)); // true
      */
     isEqual(entity) {
         return entity && (this.id === entity.id);
