@@ -19,3 +19,39 @@ test('should provide `mod` field', t => {
 
     t.deepEqual(entity.mod, { name: 'mod', val: 'val' });
 });
+
+test('should provide `modName` field', t => {
+    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+
+    t.is(entity.modName, 'mod');
+});
+
+test('should provide `modVal` field', t => {
+    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+
+    t.is(entity.modVal, 'val');
+});
+
+test('should return `undefined` if entity is not element', t => {
+    const entity = new BemEntityName({ block: 'block' });
+
+    t.is(entity.elem, undefined);
+});
+
+test('should return empty object if entity is not modifier', t => {
+    const entity = new BemEntityName({ block: 'block' });
+
+    t.deepEqual(entity.mod, {});
+});
+
+test('should return `undefined` in `modName` property if entity is not modifier', t => {
+    const entity = new BemEntityName({ block: 'block' });
+
+    t.is(entity.modName, undefined);
+});
+
+test('should return `undefined` in `modVal` property if entity is not modifier', t => {
+    const entity = new BemEntityName({ block: 'block' });
+
+    t.is(entity.modVal, undefined);
+});
