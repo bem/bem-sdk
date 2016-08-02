@@ -20,6 +20,7 @@ test('should support elem as object and mod', t => {
         { entity: { block: 'block', elem: 'elem', modName: 'mod1', modVal: 'v1' }, tech: undefined }
     ]);
 });
+
 test('should support elem of elem as array mods', t => {
     const decl = {
         block: 'block',
@@ -65,3 +66,18 @@ test('should support mods in elems and block', t => {
         { entity: { block: 'block', elem: 'elem', modName: 'm2', modVal: 'v2' }, tech: undefined }
     ]);
 });
+
+test('should support block mods with `elems` field without block', t => {
+    const decl = [
+        {
+            elems: ['close'],
+            mods: { theme: 'protect' }
+        }
+    ];
+
+    t.deepEqual(normalize(decl), [
+        { entity: { block: null }, tech: undefined },
+        { entity: { block: null, modName: 'theme', modVal: 'protect' }, tech: undefined },
+        { entity: { block: null, elem: 'close' }, tech: undefined }
+    ]);
+})

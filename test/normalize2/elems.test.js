@@ -69,3 +69,15 @@ test('should support elem of elems as array', t => {
         { entity: { block: 'block', elem: 'elem2' }, tech: undefined },
     ]);
 });
+
+test('should support `elems` field without block', t => {
+    const decl = {
+        elems: ['close', 'open']
+    };
+
+    t.deepEqual(normalize(decl), [
+        { entity: { block: null }, tech: undefined },
+        { entity: { block: null, elem: 'close' }, tech: undefined },
+        { entity: { block: null, elem: 'open' }, tech: undefined }
+    ]);
+})

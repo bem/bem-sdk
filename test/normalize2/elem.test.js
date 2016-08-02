@@ -62,3 +62,16 @@ test('should support elem of elem as array', t => {
         { entity: { block: 'block', elem: 'elem2' }, tech: undefined }
     ]);
 });
+
+test('should support elem without block', t => {
+    const decl = {
+        elem: [
+            { elem: ['elem1', 'elem2'] }
+        ]
+    };
+
+    t.deepEqual(normalize(decl), [
+        { entity: { block: null, elem: 'elem1' }, tech: undefined },
+        { entity: { block: null, elem: 'elem2' }, tech: undefined }
+    ]);
+});

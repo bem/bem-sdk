@@ -17,7 +17,7 @@ test('sould support mods', t => {
     ]);
 });
 
-test('should pass mods to block', t => {
+test('should pass mods to elem', t => {
     const decl = {
         block: 'block',
         elem: 'elem',
@@ -27,7 +27,6 @@ test('should pass mods to block', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
         { entity: { block: 'block', elem: 'elem' }, tech: undefined },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined }
     ]);

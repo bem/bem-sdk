@@ -138,6 +138,20 @@ test('should use modVal from scope if nothing given', t => {
         { entity: { block: 'sb', modName: 'sm', modVal: 'sv' }, tech: null });
 });
 
+test('should not use modVal from scope if only block given', t => {
+    t.deepEqual(assign(
+        { entity: { modVal: 'sv' } },
+        { entity: { block: 'sb' } }),
+        { entity: { block: 'sb' }, tech: null });
+});
+
+test('should not use modVal from scope if only elem given', t => {
+    t.deepEqual(assign(
+        { entity: { modVal: 'sv' } },
+        { entity: { block: 'sb', elem: 'se' } }),
+        { entity: { block: 'sb', elem: 'se' }, tech: null });
+});
+
 // Tech related specs
 
 test('assign should support tech grabbing from scope', t => {
@@ -166,4 +180,24 @@ test('should use modVal with scope if only tech given', t => {
         { tech: 'bemhtml' },
         { entity: { block: 'sb', modName: 'sm', modVal: 'sv' } }),
         { entity: { block: 'sb', modName: 'sm', modVal: 'sv' }, tech: 'bemhtml' });
+});
+
+test('should use scope vals if null given', t => {
+    t.deepEqual(
+        assign(
+            { entity: { block: null, modName: 'mod', modVal: 'val' } },
+            { entity: { block: 'block', elem: 'elem' }, tech: 'bemhtml' }
+        ),
+        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: 'bemhtml' }
+    )
+});
+
+test('should use scope elem if block null', t => {
+    t.deepEqual(
+        assign(
+            { entity: { block: null }, tech: 'js' },
+            { entity: { block: 'block', elem: 'elem' } }
+        ),
+        { entity: { block: 'block', elem: 'elem' }, tech: 'js' }
+    );
 });

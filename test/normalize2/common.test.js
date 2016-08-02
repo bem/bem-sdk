@@ -11,10 +11,12 @@ test('should support empty array', t => {
     t.deepEqual(normalize([]), []);
 });
 
-test('should support empty object', t => {
-    const decl = {};
+test('should support empty object in array', t => {
+    t.deepEqual(normalize([{}]), [{ entity: { block: null }, tech: undefined }]);
+});
 
-    t.deepEqual(normalize(decl), []);
+test('should support empty object', t => {
+    t.deepEqual(normalize({}), [{ entity: { block: null }, tech: undefined }])
 });
 
 test('should return set', t => {
