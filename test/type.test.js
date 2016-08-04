@@ -1,58 +1,43 @@
 const test = require('ava');
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
 
-test.beforeEach('setup', t => {
-    t.context.stub = sinon.stub().returns('type');
-    t.context.BemEntityName = proxyquire('../index', {
-        'bem-naming': {
-            typeOf: t.context.stub
-        }
-    });
+const BemEntityName = require('../index');
+
+test('should determine block', t => {
+    const entityName = new BemEntityName({ block: 'block' });
+
+    t.is(entityName.type, 'block');
 });
 
-test('should use `naming.typeOf()` for block', t => {
-    const entity = new t.context.BemEntityName({ block: 'block' });
+test('should determine modifier of block', t => {
+    const entityName = new BemEntityName({ block: 'block', mod: 'mod' });
 
-    /*eslint no-unused-expressions: "off"*/
-    entity.type;
-
-    t.truthy(t.context.stub.calledWith({ block: 'block' }));
+    t.is(entityName.type, 'blockMod');
 });
 
-test('should use `naming.typeOf()` for elem', t => {
-    const entity = new t.context.BemEntityName({ block: 'block', elem: 'elem' });
+test('should determine elem', t => {
+    const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
 
-    /*eslint no-unused-expressions: "off"*/
-    entity.type;
-
-    t.truthy(t.context.stub.calledWith({ block: 'block', elem: 'elem' }));
+    t.is(entityName.type, 'elem');
 });
 
-test('should use `naming.typeOf()` for block modifier', t => {
-    const entity = new t.context.BemEntityName({ block: 'block', modName: 'mod', modVal: 'val' });
+test('should determine modifier of element', t => {
+    const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
 
-    /*eslint no-unused-expressions: "off"*/
-    entity.type;
-
-    t.truthy(t.context.stub.calledWith({ block: 'block', modName: 'mod', modVal: 'val' }));
-});
-
-test('should use naming.typeOf() for element modifier', t => {
-    const entity = new t.context.BemEntityName({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' });
-
-    /*eslint no-unused-expressions: "off"*/
-    entity.type;
-
-    t.truthy(t.context.stub.calledWith({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }));
+    t.is(entityName.type, 'elemMod');
 });
 
 test('should cache type value', t => {
-    const entity = new t.context.BemEntityName({ block: 'block' });
+    const entity = new BemEntityName({ block: 'block' });
 
-    /*eslint no-unused-expressions: "off"*/
-    entity.type;
-    entity.type;
+    entity.type; // eslint-disable-line no-unused-expressions
 
-    t.is(t.context.stub.callCount, 1);
+    t.is(entity._type, 'block');
+});
+
+test('should get type from cache', t => {
+    const entity = new BemEntityName({ block: 'block' });
+
+    entity._type = 'fake';
+
+    t.is(entity.type, 'fake');
 });
