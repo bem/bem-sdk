@@ -19,12 +19,12 @@ const TYPES = {
 
 module.exports = class BemEntityName {
     /**
-     * @param {[object]} obj — representation of entity name.
-     * @param {[string]} obj.block  — the block name of entity.
-     * @param {[string]} [obj.elem] — the element name of entity.
-     * @param {[object]} [obj.mod]  — the modifier of entity.
-     * @param {[string]} [obj.mod.name] — the modifier name of entity.
-     * @param {[string]} [obj.mod.val]  — the modifier value of entity.
+     * @param {object} obj — representation of entity name.
+     * @param {string} obj.block  — the block name of entity.
+     * @param {string} [obj.elem] — the element name of entity.
+     * @param {object} [obj.mod]  — the modifier of entity.
+     * @param {string} [obj.mod.name] — the modifier name of entity.
+     * @param {string} [obj.mod.val]  — the modifier value of entity.
      */
     constructor(obj) {
         if (!obj.block) {
@@ -50,12 +50,13 @@ module.exports = class BemEntityName {
     /**
      * Returns the name of block to which this entity belongs.
      *
-     * @returns {string} name of entity block.
      * @example
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
      * console.log(name.block); // button
+     *
+     * @returns {string} name of entity block.
      */
     get block() { return this._data.block; }
     /**
@@ -63,12 +64,13 @@ module.exports = class BemEntityName {
      *
      * If entity is not element or modifier of element then returns empty string.
      *
-     * @returns {string} name of entity element.
      * @example
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button', elem: 'text' });
      *
      * console.log(name.elem); // text
+     *
+     * @returns {string} name of entity element.
      */
     get elem() { return this._data.elem; }
     /**
@@ -76,12 +78,13 @@ module.exports = class BemEntityName {
      *
      * If entity is not modifier then returns empty object.
      *
-     * @returns {object} entity modifier.
      * @example
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button', mod: 'disabled' });
      *
      * console.log(name.mod); // { name: 'disabled', val: true }
+     *
+     * @returns {{mod: string, val: *}} entity modifier.
      */
     get mod() { return this._data.mod || {}; }
     /**
@@ -110,12 +113,13 @@ module.exports = class BemEntityName {
      * If you want to get string representation in accordance with the provisions naming convention
      * you should use `bem-naming` package.
      *
-     * @returns {string} id of entity.
      * @example
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button', mod: 'disabled' });
      *
      * console.log(name.id); // button_disabled
+     *
+     * @returns {string} id of entity.
      */
     get id() {
         if (this._id) { return this._id; }
@@ -133,7 +137,6 @@ module.exports = class BemEntityName {
     /**
      * Returns type for this entity.
      *
-     * @returns {string} type of entity.
      * @example <caption>type of element</caption>
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button', elem: 'text' });
@@ -144,6 +147,8 @@ module.exports = class BemEntityName {
      * const name = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' });
      *
      * console.log(name.type); // elemMod
+     *
+     * @returns {string} type of entity.
      */
     get type() {
         if (this._type) { return this._type; }
@@ -163,12 +168,13 @@ module.exports = class BemEntityName {
      * Important: If you want to get string representation in accordance with the provisions naming convention
      * you should use `bem-naming` package.
      *
-     * @returns {string}
      * @example
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
-     * console.log(`name: ${name}`); // button
+     * console.log(`name: ${name}`); // name: button
+     *
+     * @returns {string}
      */
     toString() { return this.id; }
     /**
@@ -180,12 +186,13 @@ module.exports = class BemEntityName {
      * The representation object contains only `block`, `elem` and `mod` fields
      * without private and deprecated fields (`modName` and `modVal`).
      *
-     * @returns {object}
      * @example
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
      * console.log(name); // { block: 'button' }
+     *
+     * @returns {{block: string, elem: ?string, mod: ?{name: ?string, val: *}}}
      */
     valueOf() { return this._data; }
     /**
@@ -197,16 +204,17 @@ module.exports = class BemEntityName {
      * The representation object contains only `block`, `elem` and `mod` fields
      * without private and deprecated fields (`modName` and `modVal`).
      *
-     * @param {integer} depth — tells inspect how many times to recurse while formatting the object.
-     * @param {object} options — An optional `options` object may be passed
-     *                         	 that alters certain aspects of the formatted string.
-     *
-     * @returns {object}
      * @example
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
-     * console.log(name); // { block: 'button' }
+     * console.log(name); // BemEntityName { block: 'button' }
+     *
+     * @param {integer} depth — tells inspect how many times to recurse while formatting the object.
+     * @param {object} options — An optional `options` object may be passed
+     *                         	 that alters certain aspects of the formatted string.
+     *
+     * @returns {string}
      */
     inspect(depth, options) {
         const stringRepresentation = util.inspect(this._data, options);
