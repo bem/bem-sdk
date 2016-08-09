@@ -23,9 +23,11 @@
   ],
   "dependencies": {
     "bem-decl": "0.2.3",
+    "bem-entity-name": "0.0.2",
     "bem-naming": "1.0.1",
     "bem-walk": "1.0.0-1",
-    "lodash": "4.12.0"
+    "mz": "^2.4.0",
+    "node-eval": "^1.0.3"
   },
   "devDependencies": {
     "ava": "^0.15.0",
