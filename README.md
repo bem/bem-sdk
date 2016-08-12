@@ -66,6 +66,61 @@ graph.dependenciesOf(decl, 'js');
 // ]
 ```
 
+API
+---
+
+BemGraph based on [BemEntityName][] objects and [bem-decl][] format.
+
+[BemEntityName]: https://github.com/bem-sdk/bem-entity-name
+[bem-decl]: https://github.com/bem-sdk/bem-decl
+
+### `BemGraph.vertex`
+
+```js
+BemGraph.vertex(entityName: BemEntityName, tech: String): BemGraph~Vertex
+```
+
+Registers vertex in graph and makes a helper object `BemGraph~Vertex` with methods
+to link it with other vertices.
+
+### `BemGraph.dependenciesOf`
+
+```js
+BemGraph.dependenciesOf(declaration: Array<BemEntityName>, tech: String):
+    Array<{entity: BemEntityName, tech: String}>
+```
+
+Resolves ordered declaration and returns .
+
+NB: Will throw for cycles in ordered links.
+
+### `BemGraph.naturalize`
+
+```js
+BemGraph.naturalize(): void
+```
+
+Creates "natural" links between registered entities:
+- element should depend on block;
+- block modifier should also depend on block;
+- element modifier should depend on element.
+
+### `BemGraph~Vertex.dependsOn`
+
+```js
+Vertex.dependsOn(entityName: BemEntityName, tech: String): BemGraph~Vertex
+```
+
+Creates an ordered link between contained and passed vertices.
+
+### `BemGraph~Vertex.linkWith`
+
+```js
+Vertex.linkWith(entityName: BemEntityName, tech: String): BemGraph~Vertex
+```
+
+Creates an unordered link between contained and passed vertices.
+
 License
 -------
 
