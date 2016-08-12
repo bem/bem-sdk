@@ -1,6 +1,6 @@
 {
   "name": "bem-graph",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "description": "Bem graph storage",
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",
