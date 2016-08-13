@@ -6,7 +6,7 @@
  * @readonly
  * @enum {String}
  */
-var TYPES = {
+const TYPES = {
     BLOCK:     'block',
     BLOCK_MOD: 'blockMod',
     ELEM:      'elem',
@@ -17,13 +17,13 @@ var TYPES = {
  * Defines which symbols can be used for block, element and modifier's names.
  * @readonly
  */
-var WORD_PATTERN = '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*';
+const WORD_PATTERN = '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*';
 
 /**
  * Presets of options for various naming.
  * @readonly
  */
-var presets = {
+const presets = {
     origin: {
         delims: {
             elem: '__',
@@ -44,7 +44,7 @@ var presets = {
  * It is necessary not to create new instances for the same custom naming.
  * @readonly
  */
-var cache = {};
+const cache = {};
 
 /**
  * Creates namespace with methods which allows getting information about BEM entity using string as well
@@ -59,15 +59,15 @@ var cache = {};
  * @return {Object}
  */
 function createNaming(options) {
-    var opts = init(options),
-        id = JSON.stringify(opts);
+    const opts = init(options);
+    const id = JSON.stringify(opts);
 
     if (cache[id]) {
         return cache[id];
     }
 
-    var delims = opts.delims,
-        regex = buildRegex(delims, opts.wordPattern);
+    const delims = opts.delims;
+    const regex = buildRegex(delims, opts.wordPattern);
 
     /**
      * Checks a string to be valid BEM notation.
@@ -86,20 +86,20 @@ function createNaming(options) {
      * @returns {Object|undefined}
      */
     function parse(str) {
-        var executed = regex.exec(str);
+        const executed = regex.exec(str);
 
         if (!executed) { return undefined; }
 
-        var notation = {
-                block: executed[1] || executed[4]
-            },
-            elem = executed[5],
-            modName = executed[2] || executed[6];
+        const notation = {
+            block: executed[1] || executed[4]
+        };
+        const elem = executed[5];
+        const modName = executed[2] || executed[6];
 
         elem && (notation.elem = elem);
 
         if (modName) {
-            var modVal = executed[3] || executed[7];
+            const modVal = executed[3] || executed[7];
 
             notation.modName = modName;
             notation.modVal = modVal || true;
@@ -119,14 +119,14 @@ function createNaming(options) {
             return undefined;
         }
 
-        var res = obj.block;
+        let res = obj.block;
 
         if (obj.elem) {
             res += delims.elem + obj.elem;
         }
 
         if (obj.modName) {
-            var modVal = obj.modVal;
+            const modVal = obj.modVal;
 
             if (modVal || modVal === 0 || !obj.hasOwnProperty('modVal')) {
                 res += delims.mod.name + obj.modName;
@@ -153,8 +153,8 @@ function createNaming(options) {
 
         if (!obj || !obj.block) { return undefined; }
 
-        var modName = obj.modName,
-            isMod = modName && (obj.modVal || !obj.hasOwnProperty('modVal'));
+        const modName = obj.modName;
+        const isMod = modName && (obj.modVal || !obj.hasOwnProperty('modVal'));
 
         if (obj.elem) {
             if (isMod)    { return TYPES.ELEM_MOD; }
@@ -205,7 +205,7 @@ function createNaming(options) {
         return typeOf(obj) === TYPES.ELEM_MOD;
     }
 
-    var namespace = {
+    const namespace = {
         validate: validate,
         typeOf: typeOf,
         isBlock: isBlock,
@@ -249,7 +249,7 @@ function init(options) {
     options || (options = {});
 
     if (typeof options === 'string') {
-        var preset = presets[options];
+        const preset = presets[options];
 
         if (!preset) {
             throw new Error('The `' + options + '` naming is unknown.');
@@ -258,10 +258,10 @@ function init(options) {
         return preset;
     }
 
-    var defaults = presets.origin,
-        defaultDelims = defaults.delims,
-        defaultModDelims = defaultDelims.mod,
-        mod = options.mod || defaultDelims.mod;
+    const defaults = presets.origin;
+    const defaultDelims = defaults.delims;
+    const defaultModDelims = defaultDelims.mod;
+    const mod = options.mod || defaultDelims.mod;
 
     return {
         delims: {
@@ -285,22 +285,22 @@ function init(options) {
  * @returns {RegExp}
  */
 function buildRegex(delims, wordPattern) {
-    var block = '(' + wordPattern + ')',
-        elem = '(?:' + delims.elem + '(' + wordPattern + '))?',
-        modName = '(?:' + delims.mod.name + '(' + wordPattern + '))?',
-        modVal = '(?:' + delims.mod.val + '(' + wordPattern + '))?',
-        mod = modName + modVal;
+    const block = '(' + wordPattern + ')';
+    const elem = '(?:' + delims.elem + '(' + wordPattern + '))?';
+    const modName = '(?:' + delims.mod.name + '(' + wordPattern + '))?';
+    const modVal = '(?:' + delims.mod.val + '(' + wordPattern + '))?';
+    const mod = modName + modVal;
 
     return new RegExp('^' + block + mod + '$|^' + block + elem + mod + '$');
 }
 
-var api = [
-        'validate', 'typeOf',
-        'isBlock', 'isBlockMod', 'isElem', 'isElemMod',
-        'parse', 'stringify',
-        'elemDelim', 'modDelim', 'modValDelim'
-    ],
-    originalNaming = createNaming();
+const api = [
+    'validate', 'typeOf',
+    'isBlock', 'isBlockMod', 'isElem', 'isElemMod',
+    'parse', 'stringify',
+    'elemDelim', 'modDelim', 'modValDelim'
+];
+const originalNaming = createNaming();
 
 api.forEach(function (name) {
     createNaming[name] = originalNaming[name];
