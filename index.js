@@ -1,6 +1,5 @@
 'use strict';
 
-(function (global) {
 /**
  * Enum for types of BEM entities.
  *
@@ -297,8 +296,7 @@ function buildRegex(delims, wordPattern) {
     return new RegExp('^' + block + mod + '$|^' + block + elem + mod + '$');
 }
 
-var defineAsGlobal = true,
-    api = [
+var api = [
         'validate', 'typeOf',
         'isBlock', 'isBlockMod', 'isElem', 'isElemMod',
         'parse', 'stringify',
@@ -310,31 +308,4 @@ api.forEach(function (name) {
     createNaming[name] = originalNaming[name];
 });
 
-// Node.js
-/* istanbul ignore if */
-if (typeof exports === 'object') {
-    module.exports = createNaming;
-    defineAsGlobal = false;
-}
-
-// YModules
-/* istanbul ignore if */
-if (typeof modules === 'object') {
-    modules.define('bem-naming', function (provide) {
-        provide(createNaming);
-    });
-    defineAsGlobal = false;
-}
-
-// AMD
-/* istanbul ignore if */
-if (typeof define === 'function') {
-    define(function (require, exports, module) {
-        module.exports = createNaming;
-    });
-    defineAsGlobal = false;
-}
-
-/* istanbul ignore next */
-defineAsGlobal && (global.bemNaming = createNaming);
-})(typeof window !== 'undefined' ? window : global);
+module.exports = createNaming;
