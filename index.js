@@ -13,32 +13,7 @@ const TYPES = {
     ELEM_MOD:  'elemMod'
 };
 
-/**
- * Defines which symbols can be used for block, element and modifier's names.
- * @readonly
- */
-const WORD_PATTERN = '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*';
-
-/**
- * Presets of options for various naming.
- * @readonly
- */
-const presets = {
-    origin: {
-        delims: {
-            elem: '__',
-            mod: { name: '_', val: '_' }
-        },
-        wordPattern: WORD_PATTERN
-    },
-    'two-dashes': {
-        delims: {
-            elem: '__',
-            mod: { name: '--', val: '_' }
-        },
-        wordPattern: WORD_PATTERN
-    }
-};
+const presets = require('./lib/presets');
 
 /**
  * It is necessary not to create new instances for the same custom naming.
