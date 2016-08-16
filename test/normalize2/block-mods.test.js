@@ -29,8 +29,8 @@ test('should pass mods to elem', t => {
 
     t.deepEqual(normalize(decl), [
         { entity: { block: 'block', elem: 'elem' }, tech: undefined },
-        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem', modName: 'm1', modVal: true }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem', modName: 'm1', modVal: 'v1' }, tech: undefined }
     ]);
 });
 
