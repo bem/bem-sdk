@@ -5,15 +5,14 @@ const test = require('ava');
 const BemGraph = lib.BemGraph;
 const findIndex = utils.findIndex;
 
-test.only('should place block before its element', t => {
+test('should place block before its element', t => {
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', elem: 'e' }
+        { block: 'A', elem: 'e' },
+        { block: 'A' }
     ];
-
-    graph.vertex({ block: 'A', elem: 'e' })
-        .linkWith({ block: 'A' });
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
 
@@ -29,11 +28,10 @@ test('should place block before its boolean modifier', t => {
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', modName: 'm', modVal: true }
+        { block: 'A', modName: 'm', modVal: true },
+        { block: 'A' }
     ];
-
-    graph.vertex({ block: 'A', modName: 'm', modVal: true })
-        .linkWith({ block: 'A' });
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
 
@@ -49,11 +47,10 @@ test('should place block before its key-value modifier', t => {
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', modName: 'm', modVal: 'any' }
+        { block: 'A', modName: 'm', modVal: 'any' },
+        { block: 'A' }
     ];
-
-    graph.vertex({ block: 'A', modName: 'm', modVal: 'any' })
-        .linkWith({ block: 'A' });
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
 
@@ -69,13 +66,12 @@ test('should place block before its element with boolean modifier', t => {
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: true }
+        { block: 'A', elem: 'e', modName: 'm', modVal: true },
+        { block: 'A' }
     ];
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
-
-    graph.vertex({ block: 'A', elem: 'e', modName: 'm', modVal: true })
-        .linkWith({ block: 'A' });
 
     const resolved = Array.from(graph.dependenciesOf(decl));
 
@@ -89,13 +85,12 @@ test('should place block before its element with key-value modifier', t => {
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' }
+        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
+        { block: 'A' }
     ];
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
-
-    graph.vertex({ block: 'A', elem: 'e', modName: 'm', modVal: 'any' })
-        .linkWith({ block: 'A' });
 
     const resolved = Array.from(graph.dependenciesOf(decl));
 
@@ -109,11 +104,10 @@ test('should place block\'s boolean modifier before block key-value modifier', t
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', modName: 'm', modVal: 'any' }
+        { block: 'A', modName: 'm', modVal: 'any' },
+        { block: 'A', modName: 'm', modVal: true }
     ];
-
-    graph.vertex({ block: 'A', modName: 'm', modVal: 'any' })
-        .linkWith({ block: 'A', modName: 'm', modVal: true });
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
 
@@ -129,11 +123,10 @@ test('should place elem before its boolean modifier', t => {
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: true }
+        { block: 'A', elem: 'e', modName: 'm', modVal: true },
+        { block: 'A', elem: 'e' }
     ];
-
-    graph.vertex({ block: 'A', elem: 'e', modName: 'm', modVal: true })
-        .linkWith({ block: 'A', elem: 'e' });
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
 
@@ -149,11 +142,10 @@ test('should place elem before its key-value modifier', t => {
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' }
+        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
+        { block: 'A', elem: 'e' }
     ];
-
-    graph.vertex({ block: 'A', elem: 'e', modName: 'm', modVal: 'any' })
-        .linkWith({ block: 'A', elem: 'e' });
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
 
@@ -169,11 +161,10 @@ test('should place elem\'s boolean modifier before elem key-value modifier', t =
     const graph = new BemGraph();
 
     const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' }
+        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
+        { block: 'A', elem: 'e', modName: 'm', modVal: true }
     ];
-
-    graph.vertex({ block: 'A', elem: 'e', modName: 'm', modVal: 'any' })
-        .linkWith({ block: 'A', elem: 'e', modName: 'm', modVal: true });
+    decl.forEach(e => graph.vertex(e));
 
     graph.naturalize();
 
