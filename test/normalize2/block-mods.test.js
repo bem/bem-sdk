@@ -13,7 +13,8 @@ test('sould support mods', t => {
 
     t.deepEqual(normalize(decl), [
         { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined },
+        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
+        { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined }
     ]);
 });
 
@@ -28,6 +29,7 @@ test('should pass mods to elem', t => {
 
     t.deepEqual(normalize(decl), [
         { entity: { block: 'block', elem: 'elem' }, tech: undefined },
+        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined }
     ]);
 });
@@ -43,7 +45,9 @@ test('should support several mods', t => {
 
     t.deepEqual(normalize(decl), [
         { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined },
+        { entity: { block: 'block', modName: 'm2', modVal: true }, tech: undefined },
         { entity: { block: 'block', modName: 'm2', modVal: 'v2' }, tech: undefined }
     ]);
 });
@@ -58,6 +62,7 @@ test('should support array of mod values', t => {
 
     t.deepEqual(normalize(decl), [
         { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined },
         { entity: { block: 'block', modName: 'm1', modVal: 'v2' }, tech: undefined }
     ]);
