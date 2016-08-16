@@ -17,6 +17,8 @@ bem-entity-name
 [david]:          https://david-dm.org/bem-sdk/bem-entity-name
 [dependency-img]: http://img.shields.io/david/bem-sdk/bem-entity-name.svg
 
+BEM entity name representation.
+
 Install
 -------
 
@@ -32,15 +34,241 @@ const BemEntityName = require('bem-entity-name');
 
 const entityName = new BemEntityName({ block: 'button', elem: 'text' });
 
-console.log(entityName.block); // button
-console.log(entityName.elem);  // text
-console.log(entityName.mod);   // undefined
+entityName.block; // button
+entityName.elem;  // text
+entityName.mod;   // {}
 
-console.log(entityName.id);   // button__elem
-console.log(entityName.type); // elem
+entityName.id;   // button__elem
+entityName.type; // elem
 
-console.log(entityName.isEqual({ block: 'button' }));               // false
-console.log(entityName.isEqual({ block: 'button', elem: 'text' })); // true
+entityName.isEqual({ block: 'button' });               // false
+entityName.isEqual({ block: 'button', elem: 'text' }); // true
+```
+
+BEM Entity Name
+---------------
+
+BEM entities can be defined with a help of JS object with the following fields:
+
+* `block` — a block name. The field is required because only a block exists as an independent BEM entity
+* `elem` — an element name.
+* `mod` —  a modifier.
+
+The modifier consists of a pair of fields `mod.name` and `mod.val`. This means that the field `mod.val` without `mod.name` has no meaning.
+
+**Example:**
+
+```js
+const BemEntityName = require('bem-entity-name');
+
+// The modifier of block
+new BemEntityName({
+    block: 'button',
+    mod: { name 'view', val: 'action' }
+});
+
+// Not valid modifier
+new BemEntityName({
+    block: 'block',
+    mod: { val: 'action' }
+});
+```
+
+To describe the simple modifier field `mod.val` must be specified as `true`.
+
+**Example:**
+
+```js
+// Boolean modifier of a block
+new BemEntityName({
+    block: 'button',
+    modName: 'focused',
+    modVal: true
+});
+
+// Shorthand for the boolean modifier of a block
+new BemEntityName({
+    block: 'button',
+    mod: 'focused'
+});
+```
+
+API
+---
+
+* [constructor(obj)](#constructorobj)
+* [block](#block)
+* [elem](#elem)
+* [mod](#mod)
+* [id](#id)
+* [isEqual(entityName)](#isequalentityname)
+* [toString()](#tostring)
+* [valueOf()](#valueof)
+
+### constructor(obj)
+
+#### obj.block
+
+Type: `string`
+
+The block name of entity.
+
+#### obj.elem
+
+Type: `string`
+
+The element name of entity.
+
+#### obj.mod
+
+Type: `string`, `{ name: string, val: * }`
+
+The modifier of entity.
+
+If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
+
+### block
+
+The name of block to which this entity belongs.
+
+```js
+const BemEntityName = require('bem-entity-name');
+const name = new BemEntityName({ block: 'button' });
+
+name.block; // button
+```
+
+### elem
+
+The element name of this entity.
+
+If entity is not element or modifier of element then returns empty string.
+
+```js
+const BemEntityName = require('bem-entity-name');
+const name = new BemEntityName({ block: 'button', elem: 'text' });
+
+name.elem; // text
+```
+
+### mod
+
+The modifier of this entity.
+
+If entity is not modifier then returns empty object.
+
+```js
+const BemEntityName = require('bem-entity-name');
+const name = new BemEntityName({ block: 'button', mod: 'disabled' });
+
+name.mod; // { name: 'disabled', val: true }
+```
+
+### id
+
+The id for this entity.
+
+**Important:** should only be used to determine uniqueness of entity.
+
+If you want to get string representation in accordance with the provisions naming convention you should use [bem-naming](https://github.com/bem-sdk/bem-naming) package.
+
+```js
+const BemEntityName = require('bem-entity-name');
+const name = new BemEntityName({ block: 'button', mod: 'disabled' });
+
+name.id; // button_disabled
+```
+
+### type
+
+The type for this entity.
+
+Possible values: `block`, `elem`, `blockMod`, `elemMod`.
+
+```js
+const BemEntityName = require('bem-entity-name');
+
+const elemName = new BemEntityName({ block: 'button', elem: 'text' });
+const modName = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' });
+
+elemName.type; // elem
+modName.type;  // elemMod
+```
+
+### isEqual(entityName)
+
+Determines whether specified entity is the deepEqual entity.
+
+#### entityName
+
+Type: `BemEntityName`
+
+The entity to compare.
+
+```js
+const BemEntityName = require('bem-entity-name');
+
+const inputName = new BemEntityName({ block: 'input' });
+const buttonName = new BemEntityName({ block: 'button' });
+
+inputName.isEqual(buttonName);  // false
+buttonName.isEqual(buttonName); // true
+```
+
+### toString()
+
+Returns string representing the entity name.
+
+**Important:** if you want to get string representation in accordance with the provisions naming convention
+you should use [bem-naming](https://github.com/bem-sdk/bem-naming) package.
+
+```js
+const BemEntityName = require('bem-entity-name');
+const name = new BemEntityName({ block: 'button', mod: 'focused' });
+
+name.toString(); // button_focused
+```
+
+### valueOf()
+
+Returns object representing the entity name.
+
+```js
+const BemEntityName = require('bem-entity-name');
+const name = new BemEntityName({ block: 'button', mod: 'focused' });
+
+name.valueOf();
+
+// ➜ { block: 'button', mod: { name: 'focused', value: true } }
+```
+
+Debuggability
+-------------
+
+In Node.js, `console.log()` calls `util.inspect()` on each argument without a formatting placeholder.
+
+`BemEntityName` has `inspect()` method to get custom string representation of the object.
+
+```js
+const BemEntityName = require('bem-entity-name');
+
+const name = new BemEntityName({ block: 'input', mod: 'disabled' });
+
+console.log(name);
+
+// ➜ BemEntityName { block: 'input', mod: { name: 'available' } }
+```
+
+You can also convert `BemEntityName` object to `string`.
+
+```js
+const BemEntityName = require('bem-entity-name');
+
+const name = new BemEntityName({ block: 'input', mod: 'disabled' });
+
+console.log(`name: ${name}`);
+
+// ➜ name: input_available
 ```
 
 License
