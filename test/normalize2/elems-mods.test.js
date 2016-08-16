@@ -17,6 +17,7 @@ test('should support elem as object and mod', t => {
     t.deepEqual(normalize(decl), [
         { entity: { block: 'block' }, tech: undefined },
         { entity: { block: 'block', elem: 'elem' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem', modName: 'mod1', modVal: true }, tech: undefined },
         { entity: { block: 'block', elem: 'elem', modName: 'mod1', modVal: 'v1' }, tech: undefined }
     ]);
 });
@@ -37,8 +38,10 @@ test('should support elem of elem as array mods', t => {
     t.deepEqual(normalize(decl), [
         { entity: { block: 'block' }, tech: undefined },
         { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: undefined },
         { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: 'v1' }, tech: undefined },
         { entity: { block: 'block', elem: 'elem2' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: true }, tech: undefined },
         { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: 'v1' }, tech: undefined }
     ]);
 });
@@ -61,8 +64,10 @@ test('should support mods in elems and block', t => {
 
     t.deepEqual(normalize(decl), [
         { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined },
         { entity: { block: 'block', elem: 'elem' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem', modName: 'm2', modVal: true }, tech: undefined },
         { entity: { block: 'block', elem: 'elem', modName: 'm2', modVal: 'v2' }, tech: undefined }
     ]);
 });
@@ -77,6 +82,7 @@ test('should support block mods with `elems` field without block', t => {
 
     t.deepEqual(normalize(decl), [
         { entity: { block: null }, tech: undefined },
+        { entity: { block: null, modName: 'theme', modVal: true }, tech: undefined },
         { entity: { block: null, modName: 'theme', modVal: 'protect' }, tech: undefined },
         { entity: { block: null, elem: 'close' }, tech: undefined }
     ]);
