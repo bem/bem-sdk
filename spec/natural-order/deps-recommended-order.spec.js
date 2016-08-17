@@ -100,6 +100,25 @@ test('should place block before its element with key-value modifier', t => {
     t.true(indexBlock < indexElem);
 });
 
+test.only('should place block before its boolean modifier', t => {
+    const graph = new BemGraph();
+
+    const decl = [
+        { block: 'A', modName: 'm', modVal: true },
+        { block: 'A' }
+    ];
+    decl.forEach(e => graph.vertex(e));
+
+    graph.naturalize();
+
+    const resolved = Array.from(graph.dependenciesOf(decl));
+
+    const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
+    const indexBoolean = findIndex(resolved, { entity: { block: 'A', modName: 'm', modVal: true } });
+
+    t.true(indexBlock < indexBoolean);
+});
+
 test('should place block\'s boolean modifier before block key-value modifier', t => {
     const graph = new BemGraph();
 
