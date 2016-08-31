@@ -109,3 +109,21 @@ test('should use block and elem fields in objects as context', t => {
         'ba__ea -> ba__e2'
     ]);
 });
+
+test('should resolve elems with noDeps', t => {
+    t.deepEqual(parse([{
+        entity: { block: 'be' },
+        data: [{ shouldDeps: { elem: 'e1' }, noDeps: { elem: 'e2' } }]
+    }]), [
+        'be -> be__e1'
+    ]);
+});
+
+test('should resolve elems with noDeps and remove if needed', t => {
+    t.deepEqual(parse([{
+        entity: { block: 'be' },
+        data: [{ shouldDeps: { elem: ['e1', 'e2'] }, noDeps: { elem: 'e2' } }]
+    }]), [
+        'be -> be__e1'
+    ]);
+});
