@@ -31,6 +31,13 @@ test('entity modVal should dominate scope’s one for block', t => {
         { entity: { block: 'b', modName: 'm', modVal: 'v' }, tech: null });
 });
 
+test('entity elem should NOT be filled with scope elem for block', t => {
+    t.deepEqual(assign(
+        { entity: { block: 'b', modName: 'm', modVal: 'v' } },
+        { entity: { block: 'sb', elem: 'se' } }),
+        { entity: { block: 'b', modName: 'm', modVal: 'v' }, tech: null });
+});
+
 test('entity modName should dominate scope’s one for block and elem', t => {
     t.deepEqual(assign(
         { entity: { block: 'b', elem: 'e', modName: 'm' } },
