@@ -159,6 +159,48 @@ test('should return empty without scope', t => {
         { entity: { }, tech: null });
 });
 
+test('should use scope with block if entity has empty fields', t => {
+    t.deepEqual(assign(
+        { entity: { block: undefined, elem: undefined, modName: undefined, modVal: undefined } },
+        { entity: { block: 'sb' } }),
+        { entity: { block: 'sb' }, tech: null });
+});
+
+test('should use scope with block and boolean modifier if entity has empty fields', t => {
+    t.deepEqual(assign(
+        { entity: { block: undefined, elem: undefined, modName: undefined, modVal: undefined } },
+        { entity: { block: 'sb', modName: 'sm', modVal: true } }),
+        { entity: { block: 'sb', modName: 'sm', modVal: true }, tech: null });
+});
+
+test('should use scope with block and modifier if entity has empty fields', t => {
+    t.deepEqual(assign(
+        { entity: { block: undefined, elem: undefined, modName: undefined, modVal: undefined } },
+        { entity: { block: 'sb', modName: 'sm', modVal: 'sv' } }),
+        { entity: { block: 'sb', modName: 'sm', modVal: 'sv' }, tech: null });
+});
+
+test('should use scope with elem if entity has empty fields', t => {
+    t.deepEqual(assign(
+        { entity: { block: undefined, elem: undefined, modName: undefined, modVal: undefined } },
+        { entity: { block: 'sb', elem: 'se' } }),
+        { entity: { block: 'sb', elem: 'se' }, tech: null });
+});
+
+test('should use scope with elem and boolean modifier if entity has empty fields', t => {
+    t.deepEqual(assign(
+        { entity: { block: undefined, elem: undefined, modName: undefined, modVal: undefined } },
+        { entity: { block: 'sb', elem: 'se', modName: 'sm', modVal: true } }),
+        { entity: { block: 'sb', elem: 'se', modName: 'sm', modVal: true }, tech: null });
+});
+
+test('should use scope with elem and modifier if entity has empty fields', t => {
+    t.deepEqual(assign(
+        { entity: { block: undefined, elem: undefined, modName: undefined, modVal: undefined } },
+        { entity: { block: 'sb', elem: 'se', modName: 'sm', modVal: 'sv' } }),
+        { entity: { block: 'sb', elem: 'se', modName: 'sm', modVal: 'sv' }, tech: null });
+});
+
 test('should use modVal from scope if nothing given', t => {
     t.deepEqual(assign(
         { },
