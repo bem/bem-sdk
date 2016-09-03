@@ -23,7 +23,7 @@
     "ava": "^0.16.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
-    "eslint-config-pedant": "^0.7.0",
+    "eslint-config-pedant": "^0.8.0",
     "jscs": "^3.0.3",
     "matcha": "^0.7.0",
     "nyc": "^8.1.0"
