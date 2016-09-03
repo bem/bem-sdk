@@ -29,7 +29,7 @@ test('should ignore unordered tech dependency on same tech', () => {
     expect(decl).to.not.contain({ entity: { block: 'B' } });
 });
 
-test.only('should ignore unordered tech dependency on another tech', () => {
+test('should ignore unordered tech dependency on another tech', () => {
     const graph = new BemGraph();
 
     graph.vertex({ block: 'A' }, 'js')
