@@ -100,7 +100,7 @@ test('should place block before its element with key-value modifier', t => {
     t.true(indexBlock < indexElem);
 });
 
-test.only('should place block before its boolean modifier', t => {
+test('should place block before its boolean modifier', t => {
     const graph = new BemGraph();
 
     const decl = [
