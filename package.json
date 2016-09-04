@@ -22,9 +22,14 @@
     "lib/**"
   ],
   "dependencies": {
+    "bem-decl": "0.2.3",
+    "bem-entity-name": "0.0.2",
+    "bem-graph": "0.0.3",
     "bem-naming": "1.0.1",
     "bem-walk": "1.0.0-1",
-    "lodash": "4.12.0"
+    "debug": "^2.2.0",
+    "mz": "^2.4.0",
+    "node-eval": "^1.0.3"
   },
   "devDependencies": {
     "ava": "^0.15.0",
@@ -32,6 +37,7 @@
     "coveralls": "^2.11.9",
     "jscs": "^3.0.3",
     "jshint": "^2.9.2",
+    "mock-fs": "^3.11.0",
     "nyc": "^6.4.4",
     "stream-to-array": "^2.3.0",
     "through2": "^2.0.1"
@@ -44,7 +50,6 @@
   },
   "ava": {
     "files": [
-      "spec/**/*.spec.js",
       "test/**/*.test.js"
     ],
     "source": [
