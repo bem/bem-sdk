@@ -33,7 +33,7 @@
     "eslint-config-pedant": "^0.7.0",
     "jscs": "^3.0.3",
     "matcha": "^0.7.0",
-    "nyc": "^7.0.0"
+    "nyc": "^8.3.0"
   },
   "scripts": {
     "lint": "eslint . && jscs .",
