@@ -9,6 +9,13 @@ const parse = (z) => {
     return res.map(v => `${key(v.vertex)} ${v.ordered ? '=>' : '->'} ${key(v.dependOn)}`);
 };
 
+test('should resolve empty', t => {
+    t.deepEqual(parse([{
+        entity: { block: 'be' }
+    }]), [
+    ]);
+});
+
 test('should resolve block deps', t => {
     t.deepEqual(parse([{
         entity: { block: 'be' },
