@@ -4,7 +4,8 @@ const test = require('ava');
 const bemDecl = require('../lib/index');
 const decls = {
     v1: [{ name: 'block' }],
-    v2: [{ block: 'block' }]
+    v2: [{ block: 'block' }],
+    normalized: { block: 'block' }
 };
 
 test('should have `normalize` method', t => {
@@ -14,20 +15,20 @@ test('should have `normalize` method', t => {
 test('should support `BEMDECL 1.0` format', t => {
     var decl = bemDecl.normalize(decls.v1);
 
-    t.deepEqual(decl, decls.v2);
+    t.deepEqual(decl, [{ entity: decls.normalized, tech: undefined }]);
 });
 
 // TODO: define name of format
 test('should have support `BEMDECL x.0` format', t => {
     var decl = bemDecl.normalize(decls.v2, { v2: true });
 
-    t.deepEqual(decl, [{ entity: decls.v2[0], tech: undefined }]);
+    t.deepEqual(decl, [{ entity: decls.normalized, tech: undefined }]);
 })
 
 test('should support `BEMDECL 2.0` format', t => {
     var decl = bemDecl.normalize(decls.v2, { harmony: true });
 
-    t.deepEqual(decl, decls.v2);
+    t.deepEqual(decl, [{ entity: decls.normalized, tech: undefined }]);
 });
 
 test('should have `normalizer` method', t => {
@@ -37,32 +38,32 @@ test('should have `normalizer` method', t => {
 test('normalizer should support default value as `normalize`', t => {
     var decl = bemDecl.normalizer()(decls.v1);
 
-    t.deepEqual(decl, decls.v2);
+    t.deepEqual(decl, [{ entity: decls.normalized, tech: undefined }]);
 });
 
 test('should support `BEMDECL 1.0` format through normalizer', t => {
     var decl = bemDecl.normalizer('normalize')(decls.v1);
 
-    t.deepEqual(decl, decls.v2);
+    t.deepEqual(decl, [{ entity: decls.normalized, tech: undefined }]);
 });
 
 // TODO: define name of format
 test('should have support `BEMDECL x.0` format through normalizer', t => {
     var decl = bemDecl.normalizer('v2')(decls.v2);
 
-    t.deepEqual(decl, [{ entity: decls.v2[0], tech: undefined }]);
+    t.deepEqual(decl, [{ entity: decls.normalized, tech: undefined }]);
 })
 
 test('should support `BEMDECL 2.0` format through normalizer', t => {
     var decl = bemDecl.normalizer('harmony')(decls.v2);
 
-    t.deepEqual(decl, decls.v2);
+    t.deepEqual(decl, [{ entity: decls.normalized, tech: undefined }]);
 });
 
 test('should support uncorrect normalizer arg with default result', t => {
     var decl = bemDecl.normalizer('levoe')(decls.v1);
 
-    t.deepEqual(decl, decls.v2);
+    t.deepEqual(decl, [{ entity: decls.normalized, tech: undefined }]);
 });
 
 test('should have `merge` method', t => {

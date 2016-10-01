@@ -9,5 +9,6 @@ test.skip('should parse empty legacy blocks property', t => {
 
 test.skip('should parse blocks property with single entity', t => {
     t.deepEqual(parse({ version: 'next', decl: [{ block: 'doesnt-matter', elems: ['elem'] }] }),
-        [{ block: 'doesnt-matter' }, { block: 'doesnt-matter', elem: 'elem' }]);
+        [{ entity: { block: 'doesnt-matter' }, tech: null },
+         { entity: { block: 'doesnt-matter', elem: 'elem' }, tech: null }]);
 });

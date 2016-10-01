@@ -10,9 +10,9 @@ test('should support strings', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', elem: 'elem-1' },
-        { block: 'block',  elem: 'elem-2' }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem-1' }, tech: undefined },
+        { entity: { block: 'block',  elem: 'elem-2' }, tech: undefined }
     ]);
 });
 
@@ -23,8 +23,8 @@ test('should support objects', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', elem: 'elem' }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem' }, tech: undefined }
     ]);
 });
 
@@ -35,8 +35,8 @@ test('should support mods for elem objects', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', elem: 'elem' },
-        { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: undefined }
     ]);
 });

@@ -7,8 +7,8 @@ test('should support shortcut for bool mod', t => {
     const decl = { block: 'block', modName: 'mod' };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', modName: 'mod', modVal: true }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod', modVal: true }, tech: undefined }
     ]);
 });
 
@@ -16,8 +16,8 @@ test('should support bool mod', t => {
     const decl = { block: 'block', modName: 'mod', modVal: true };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', modName: 'mod', modVal: true }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod', modVal: true }, tech: undefined }
     ]);
 });
 
@@ -25,8 +25,8 @@ test('should support mod', t => {
     const decl = { block: 'block', modName: 'mod', modVal: 'val' };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', modName: 'mod', modVal: 'val' }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: undefined }
     ]);
 });
 
@@ -37,8 +37,8 @@ test('should support mods as objects', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', modName: 'mod', modVal: 'val' }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: undefined }
     ]);
 });
 
@@ -49,9 +49,9 @@ test('should support bool mods as array', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', modName: 'mod-1', modVal: true },
-        { block: 'block', modName: 'mod-2', modVal: true }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod-1', modVal: true }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod-2', modVal: true }, tech: undefined }
     ]);
 });
 
@@ -62,8 +62,8 @@ test('should support mod values as array', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block' },
-        { block: 'block', modName: 'mod', modVal: 'val-1' },
-        { block: 'block', modName: 'mod', modVal: 'val-2' }
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod', modVal: 'val-1' }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod', modVal: 'val-2' }, tech: undefined }
     ]);
 });
