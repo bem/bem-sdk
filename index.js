@@ -130,7 +130,7 @@ BemConfig.prototype.level = function(pathToLevel) {
 
     return this.configs()
         .then(function(configs) {
-            return getLevelByConfigs(pathToLevel, _this._options, configs);
+            return getLevelByConfigs(pathToLevel, _this._options, configs, _this._root);
         });
 };
 
@@ -226,7 +226,7 @@ BemConfig.prototype.levelSync = function(pathToLevel) {
     // return levels && levels[path.resolve(pathToLevel)];
 
     // TODO: cache
-    return getLevelByConfigs(pathToLevel, this._options, this.configs(true));
+    return getLevelByConfigs(pathToLevel, this._options, this.configs(true), this._root);
 };
 
 /**
@@ -301,8 +301,8 @@ function extend(configs) {
     }, {});
 }
 
-function getLevelByConfigs(pathToLevel, options, allConfigs) {
-    var absLevelPath = path.resolve(options.cwd, pathToLevel),
+function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
+    var absLevelPath = path.resolve(root || options.cwd, pathToLevel),
         // levelOpts = { __source: absLevelPath };
         levelOpts = {},
         commonOpts = {};
