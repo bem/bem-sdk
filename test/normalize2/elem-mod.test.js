@@ -7,8 +7,8 @@ test('should support shortcut for bool mod of elem', t => {
     const decl = { block: 'block', elem: 'elem', mod: 'mod' };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', elem: 'elem' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem' }, tech: null },
+        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
     ]);
 });
 
@@ -16,8 +16,8 @@ test('should support bool mod of elem', t => {
     const decl = { block: 'block', elem: 'elem', mod: 'mod', val: true };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', elem: 'elem' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem' }, tech: null },
+        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
     ]);
 });
 
@@ -30,12 +30,12 @@ test('should support elem array mod', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: 'v1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: 'v1' }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: null },
+        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: 'v1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: true }, tech: null },
+        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: 'v1' }, tech: null }
     ]);
 });
 
@@ -50,11 +50,11 @@ test('should support elem of elem as array with mod', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: 'v1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: 'v1' }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: null },
+        { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: 'v1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: true }, tech: null },
+        { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: 'v1' }, tech: null }
     ]);
 });

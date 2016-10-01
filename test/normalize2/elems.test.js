@@ -7,8 +7,8 @@ test('should support elems', t => {
     const decl = { block: 'block', elems: 'elem' };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem' }, tech: undefined }
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', elem: 'elem' }, tech: null }
     ]);
 });
 
@@ -19,9 +19,9 @@ test('should support elems as array', t => {
     }
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined }
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null }
     ]);
 });
 
@@ -34,8 +34,8 @@ test('should support elems as object', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem' }, tech: undefined }
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', elem: 'elem' }, tech: null }
     ]);
 });
 
@@ -49,9 +49,9 @@ test('should support elems as array of objects', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined },
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null },
     ]);
 });
 
@@ -64,9 +64,9 @@ test('should support elem of elems as array', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined },
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null },
     ]);
 });
 
@@ -76,8 +76,8 @@ test('should support `elems` field without block', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: null }, tech: undefined },
-        { entity: { block: null, elem: 'close' }, tech: undefined },
-        { entity: { block: null, elem: 'open' }, tech: undefined }
+        { entity: { block: null }, tech: null },
+        { entity: { block: null, elem: 'close' }, tech: null },
+        { entity: { block: null, elem: 'open' }, tech: null }
     ]);
 })

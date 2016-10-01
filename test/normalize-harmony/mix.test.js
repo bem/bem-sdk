@@ -11,10 +11,10 @@ test('should support mix', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem-1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem-2' }, tech: undefined },
-        { entity: { block: 'block', modName: 'mod-1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', modName: 'mod-2', modVal: true }, tech: undefined }
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', elem: 'elem-1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem-2' }, tech: null },
+        { entity: { block: 'block', modName: 'mod-1', modVal: true }, tech: null },
+        { entity: { block: 'block', modName: 'mod-2', modVal: true }, tech: null }
     ]);
 });

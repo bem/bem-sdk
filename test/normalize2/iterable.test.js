@@ -15,7 +15,7 @@ test('should support iterable set', t => {
     });
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block1', elem: 'elem' }, tech: undefined }
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block1', elem: 'elem' }, tech: null }
     ]);
 });

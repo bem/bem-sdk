@@ -11,8 +11,8 @@ test('should support mod', t => {
     }
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined }
+        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: null },
+        { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: null }
     ]);
 });
 
