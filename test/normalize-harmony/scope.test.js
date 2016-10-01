@@ -11,7 +11,7 @@ test('should support mod in block scope', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block', modName: 'mod', modVal: 'val' }
+        { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: undefined }
     ]);
 });
 
@@ -22,7 +22,7 @@ test('should support mods in block scope', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block', modName: 'mod', modVal: 'val' }
+        { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: undefined }
     ]);
 });
 
@@ -33,7 +33,7 @@ test('should support elem in block scope', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block', elem: 'elem' }
+        { entity: { block: 'block', elem: 'elem' }, tech: undefined }
     ]);
 });
 
@@ -44,8 +44,8 @@ test('should support elems in block scope', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block', elem: 'elem-1' },
-        { block: 'block', elem: 'elem-2' }
+        { entity: { block: 'block', elem: 'elem-1' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem-2' }, tech: undefined }
     ]);
 });
 
@@ -56,8 +56,8 @@ test('should support elem mod in block scope', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block', elem: 'elem' },
-        { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
+        { entity: { block: 'block', elem: 'elem' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: undefined }
     ]);
 });
 
@@ -68,7 +68,7 @@ test('should support mod in elem scope', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }
+        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: undefined }
     ]);
 });
 
@@ -80,9 +80,9 @@ test('should support mix in elem scope', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { block: 'block', elem: 'elem-1' },
-        { block: 'block', elem: 'elem-2' },
-        { block: 'block', modName: 'mod-1', modVal: true },
-        { block: 'block', modName: 'mod-2', modVal: true }
+        { entity: { block: 'block', elem: 'elem-1' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem-2' }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod-1', modVal: true }, tech: undefined },
+        { entity: { block: 'block', modName: 'mod-2', modVal: true }, tech: undefined }
     ]);
 });
