@@ -53,6 +53,13 @@ BemConfig.prototype.configs = function(isSync) {
     if (isSync) {
         var configs = rc.sync(rcOpts);
 
+        for (var i = 0; i < configs.length; i++) {
+            if (configs[i].root && configs[i].__source) {
+                this._root = path.dirname(configs[i].__source);
+                break;
+            }
+        }
+
         plugins.forEach(function(plugin) {
             return configs.map(function(config) {
                 // mutates initial configs
@@ -68,6 +75,13 @@ BemConfig.prototype.configs = function(isSync) {
     var _this = this;
 
     return rc(rcOpts).then(function(cfgs) {
+        for (var j = 0; j < cfgs.length; j++) {
+            if (cfgs[j].root && cfgs[j].__source) {
+                _this._root = path.dirname(cfgs[j].__source);
+                break;
+            }
+        }
+
         return Promise.all(plugins.map(function(plugin) {
             return new Promise(function(resolve) {
                 // mutates initial configs
@@ -78,6 +92,21 @@ BemConfig.prototype.configs = function(isSync) {
 
             return cfgs;
         })
+    });
+};
+
+/**
+ * Returns project root
+ * @returns {Promise}
+ */
+BemConfig.prototype.root = function() {
+    if (this._root) {
+        return Promise.resolve(this._root);
+    }
+
+    var _this = this;
+    return this.configs().then(function() {
+        return _this._root;
     });
 };
 
@@ -163,6 +192,19 @@ BemConfig.prototype.module = function(moduleName) {
 
         return modules && modules[moduleName];
     });
+};
+
+/**
+ * Returns project root
+ * @returns {String}
+ */
+BemConfig.prototype.rootSync = function() {
+    if (this._root) {
+        return this._root;
+    }
+
+    this.configs(true);
+    return this._root;
 };
 
 /**

@@ -41,6 +41,19 @@ test('should return configs', async t => {
     t.deepEqual(actual, [{ test: 1 }, { test: 2 }]);
 });
 
+// root()
+test('should return project root', async t => {
+    const bemConfig = config([
+        { test: 1, __source: 'some/path' },
+        { test: 2, root: true, __source: __filename },
+        { other: 'field', __source: 'some/other/path' }
+    ]);
+
+    const actual = await bemConfig().root();
+
+    t.deepEqual(actual, path.dirname(__filename));
+});
+
 // get()
 test('should return merged config', async t => {
     const bemConfig = config([
@@ -209,7 +222,7 @@ test('should not extend with configs higher then root', async t => {
                     'l1o1': 'l1v1'
                 }
             },
-            root: 'true'
+            root: true
         },
         {
             levels: {
