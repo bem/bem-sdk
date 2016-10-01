@@ -42,3 +42,17 @@ test('should support elem of elem as array mods', t => {
         { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: 'v1' }, tech: undefined }
     ]);
 });
+
+test('should support array of mod values', t => {
+    const decl = {
+        block: 'block',
+        elem: 'elem',
+        mods: ['m1', 'm2']
+    };
+
+    t.deepEqual(normalize(decl), [
+        { entity: { block: 'block', elem: 'elem' }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem', modName: 'm1', modVal: true }, tech: undefined },
+        { entity: { block: 'block', elem: 'elem', modName: 'm2', modVal: true }, tech: undefined }
+    ]);
+});
