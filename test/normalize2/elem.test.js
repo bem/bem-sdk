@@ -7,7 +7,7 @@ test('should support elem', t => {
     const decl = { block: 'block', elem: 'elem' };
 
     t.deepEqual(normalize(decl), [
-        { entity: decl, tech: undefined }
+        { entity: decl, tech: null }
     ]);
 });
 
@@ -18,8 +18,8 @@ test('should support elem as array', t => {
     }
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null }
     ]);
 });
 
@@ -30,7 +30,7 @@ test('should support elem as object', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', elem: 'elem' }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem' }, tech: null }
     ]);
 });
 
@@ -44,8 +44,8 @@ test('should support elem as array of objects', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null }
     ]);
 });
 
@@ -58,8 +58,8 @@ test('should support elem of elem as array', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined }
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null }
     ]);
 });
 
@@ -71,7 +71,7 @@ test('should support elem without block', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: null, elem: 'elem1' }, tech: undefined },
-        { entity: { block: null, elem: 'elem2' }, tech: undefined }
+        { entity: { block: null, elem: 'elem1' }, tech: null },
+        { entity: { block: null, elem: 'elem2' }, tech: null }
     ]);
 });

@@ -11,10 +11,10 @@ test('should support both mod and mods', t => {
     }
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', modName: 'mod', modVal: true }, tech: undefined },
-        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined }
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
+        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: null },
+        { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: null }
     ]);
 });
 
@@ -28,9 +28,9 @@ test('should support both elem and elems', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined }
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null }
     ]);
 });
 
@@ -49,12 +49,12 @@ test('should support both mod, mods, elem and elems :\'(', t => {
     };
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'block' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1', modName: 'mod1', modVal: true }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1', modName: 'mod1', modVal: 'v1' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1', modName: 'mod2', modVal: true }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem1', modName: 'mod2', modVal: 'v2' }, tech: undefined },
-        { entity: { block: 'block', elem: 'elem2' }, tech: undefined }
+        { entity: { block: 'block' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1', modName: 'mod1', modVal: true }, tech: null },
+        { entity: { block: 'block', elem: 'elem1', modName: 'mod1', modVal: 'v1' }, tech: null },
+        { entity: { block: 'block', elem: 'elem1', modName: 'mod2', modVal: true }, tech: null },
+        { entity: { block: 'block', elem: 'elem1', modName: 'mod2', modVal: 'v2' }, tech: null },
+        { entity: { block: 'block', elem: 'elem2' }, tech: null }
     ]);
 });

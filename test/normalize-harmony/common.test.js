@@ -20,14 +20,14 @@ test('should support empty object', t => {
 test('should return set', t => {
     const A = { block: 'A' };
 
-    t.deepEqual(normalize([A, A]), [{ entity: A, tech: undefined }]);
+    t.deepEqual(normalize([A, A]), [{ entity: A, tech: null }]);
 });
 
 test('should save order', t => {
     const A = { block: 'A' },
         B = { block: 'B' };
 
-    t.deepEqual(normalize([A, B, A]), [{ entity: A, tech: undefined }, { entity: B, tech: undefined }]);
+    t.deepEqual(normalize([A, B, A]), [{ entity: A, tech: null }, { entity: B, tech: null }]);
 });
 
 test('should support array', t => {
@@ -37,7 +37,7 @@ test('should support array', t => {
     ];
 
     t.deepEqual(normalize(decl), [
-        { entity: { block: 'A' }, tech: undefined },
-        { entity: { block: 'B' }, tech: undefined }
+        { entity: { block: 'A' }, tech: null },
+        { entity: { block: 'B' }, tech: null }
     ]);
 });
