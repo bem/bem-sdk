@@ -105,7 +105,7 @@ test('should return level with __source', async t => {
                 }
             },
             something: 'else',
-            __source: process.cwd()
+            __source: __filename
         }
     ]);
 

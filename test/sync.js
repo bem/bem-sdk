@@ -204,7 +204,8 @@ test('should return levels map', t => {
                     }
                 }
             }
-        }
+        },
+        __source: __filename
     }]);
 
     const expected = {};

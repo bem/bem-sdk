@@ -42,7 +42,7 @@ module.exports = function(config, configs, options, cb) {
         }
 
         var resolvedLevel = source ?
-                path.resolve(source, level) :
+                path.resolve(path.dirname(source), level) :
                 path.resolve(options.cwd || process.cwd(), level); // TODO: bubble
 
         if (resolvedLevel === level) { return; }
