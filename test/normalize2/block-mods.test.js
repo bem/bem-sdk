@@ -52,7 +52,7 @@ test('should support several mods', t => {
     ]);
 });
 
-test('should support array of mod values', t => {
+test('should support array of mod values in object', t => {
     const decl = {
         block: 'block',
         mods: {
@@ -65,5 +65,18 @@ test('should support array of mod values', t => {
         { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: undefined },
         { entity: { block: 'block', modName: 'm1', modVal: 'v2' }, tech: undefined }
+    ]);
+});
+
+test('should support array of mod values', t => {
+    const decl = {
+        block: 'block',
+        mods: ['m1', 'm2']
+    };
+
+    t.deepEqual(normalize(decl), [
+        { entity: { block: 'block' }, tech: undefined },
+        { entity: { block: 'block', modName: 'm1', modVal: true }, tech: undefined },
+        { entity: { block: 'block', modName: 'm2', modVal: true }, tech: undefined }
     ]);
 });
