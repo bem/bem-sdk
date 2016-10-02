@@ -1,5 +1,5 @@
 {
-  "name": "bem-bundle",
+  "name": "@bem/bundle",
   "version": "0.2.1",
   "description": "bem-bundle",
   "main": "lib/index.js",
