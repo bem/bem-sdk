@@ -35,6 +35,6 @@
     "mocha": "^2.5.3"
   },
   "dependencies": {
-    "bemjson-to-decl": "0.0.1"
+    "bemjson-to-decl": "1.0.1"
   }
 }
