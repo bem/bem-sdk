@@ -1,6 +1,6 @@
 {
   "name": "@bem/deps",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Manage BEM dependencies",
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",
