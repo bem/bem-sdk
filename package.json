@@ -24,7 +24,10 @@
     "lib/**"
   ],
   "dependencies": {
-    "bem-naming": "1.0.1"
+    "bem-naming": "1.0.1",
+    "es6-promisify": "5.0.0",
+    "graceful-fs": "4.1.9",
+    "node-eval": "1.0.3"
   },
   "devDependencies": {
     "ava": "^0.16.0",
