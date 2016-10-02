@@ -48,9 +48,15 @@ function getEntities(bemjson, ctx) {
             }
         });
 
-        bemjson.mix && (deps = deps.concat(_getEntities(bemjson.mix, ctx)));
+        ['mix', 'content'].forEach(function(k) {
+            bemjson[k] && (deps = deps.concat(_getEntities(bemjson[k], ctx)));
+        });
 
-        bemjson.content && (deps = deps.concat(_getEntities(bemjson.content, ctx)));
+        ['js', 'attrs'].forEach(function(k) {
+            bemjson[k] && Object.keys(bemjson[k]).forEach(function(kk) {
+                deps = deps.concat(_getEntities(bemjson[k][kk], ctx));
+            });
+        });
 
         return deps.filter(Boolean);
     }
