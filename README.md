@@ -3,7 +3,9 @@ bem-bundle
 
 ## Install
 
+```shell
 $ npm install --save @bem/bundle
+```
 
 ## License
 
