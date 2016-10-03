@@ -4,21 +4,21 @@ const test = require('ava');
 const parse = require('../..').parse;
 
 test('should parse empty legacy blocks property', t => {
-    t.deepEqual(parse('({ version: \'harmony\', decl: [] })'), []);
+    t.deepEqual(parse('({ format: \'harmony\', decl: [] })'), []);
 });
 
 test('should parse blocks property with single entity', t => {
-    t.deepEqual(parse('({ version: \'harmony\', decl: [{ block: \'doesnt-matter\', elems: [\'elem\'] }] })'),
+    t.deepEqual(parse('({ format: \'harmony\', decl: [{ block: \'doesnt-matter\', elems: [\'elem\'] }] })'),
         [{ entity: { block: 'doesnt-matter' }, tech: null },
          { entity: { block: 'doesnt-matter', elem: 'elem' }, tech: null }]);
 });
 
 test('should parse empty legacy blocks property of object', t => {
-    t.deepEqual(parse({ version: 'harmony', decl: [] }), []);
+    t.deepEqual(parse({ format: 'harmony', decl: [] }), []);
 });
 
 test('should parse blocks property with single entity of object', t => {
-    t.deepEqual(parse({ version: 'harmony', decl: [{ block: 'doesnt-matter', elems: ['elem'] }] }),
+    t.deepEqual(parse({ format: 'harmony', decl: [{ block: 'doesnt-matter', elems: ['elem'] }] }),
         [{ entity: { block: 'doesnt-matter' }, tech: null },
          { entity: { block: 'doesnt-matter', elem: 'elem' }, tech: null }]);
 });

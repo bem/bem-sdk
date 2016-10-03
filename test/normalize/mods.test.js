@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const normalize = require('../../lib/normalize');
+const normalize = require('../../lib/normalize/v1');
 
 test('should support objects', t => {
     const decl = { name: 'block', mods: [{ name: 'mod', vals: [{ name: 'val' }] }] };
