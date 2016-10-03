@@ -4,8 +4,8 @@
 
 ## Supported schemes
 
-* nested
-* flat
+* [nested](https://en.bem.info/methodology/filestructure/#nested)
+* [flat](https://en.bem.info/methodology/filestructure/#flat)
 
 ## Usage
 ```js
