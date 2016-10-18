@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const normalize = require('../../lib/normalize2');
+const normalize = require('../../lib/normalize/v2');
 
 test('should support elem as object and mod', t => {
     const decl = {

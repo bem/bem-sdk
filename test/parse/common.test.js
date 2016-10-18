@@ -8,9 +8,9 @@ test('should throw if undefined', t => {
 });
 
 test('should throw if unsupported', t => {
-    t.throws(() => parse('({ version: \'unknown\', components: [] })'), /Unknown BEMDECL format/);
+    t.throws(() => parse('({ format: \'unknown\', components: [] })'), /Unknown BEMDECL format/);
 });
 
 test('should throw if unsupported in object', t => {
-    t.throws(() => parse({ version: 'unknown', components: [] }), /Unknown BEMDECL format/);
+    t.throws(() => parse({ format: 'unknown', components: [] }), /Unknown BEMDECL format/);
 });

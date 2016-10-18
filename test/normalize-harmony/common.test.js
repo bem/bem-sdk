@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const normalize = require('../../lib/normalize-harmony');
+const normalize = require('../../lib/normalize/harmony');
 
 test('should support undefined', t => {
     t.deepEqual(normalize(), []);

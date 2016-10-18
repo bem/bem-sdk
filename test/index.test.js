@@ -31,41 +31,6 @@ test('should support `BEMDECL 2.0` format', t => {
     t.deepEqual(decl, [{ entity: decls.normalized, tech: null }]);
 });
 
-test('should have `normalizer` method', t => {
-    t.truthy(typeof bemDecl.normalizer === 'function');
-});
-
-test('normalizer should support default value as `normalize`', t => {
-    var decl = bemDecl.normalizer('v1')(decls.v1);
-
-    t.deepEqual(decl, [{ entity: decls.normalized, tech: null }]);
-});
-
-test('should support `BEMDECL 1.0` format through normalizer', t => {
-    var decl = bemDecl.normalizer('v1')(decls.v1);
-
-    t.deepEqual(decl, [{ entity: decls.normalized, tech: null }]);
-});
-
-// TODO: define name of format
-test('should have support `BEMDECL x.0` format through normalizer', t => {
-    var decl = bemDecl.normalizer('v2')(decls.v2);
-
-    t.deepEqual(decl, [{ entity: decls.normalized, tech: null }]);
-})
-
-test('should support `BEMDECL 2.0` format through normalizer', t => {
-    var decl = bemDecl.normalizer('harmony')(decls.v2);
-
-    t.deepEqual(decl, [{ entity: decls.normalized, tech: null }]);
-});
-
-test('should support uncorrect normalizer arg with default result', t => {
-    var decl = bemDecl.normalizer('levoe')(decls.v2);
-
-    t.deepEqual(decl, [{ entity: decls.normalized, tech: null }]);
-});
-
 test('should have `merge` method', t => {
     t.truthy(typeof bemDecl.merge === 'function');
 });
