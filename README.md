@@ -82,8 +82,7 @@ To describe the simple modifier field `mod.val` must be specified as `true`.
 // Boolean modifier of a block
 new BemEntityName({
     block: 'button',
-    modName: 'focused',
-    modVal: true
+    mod: { name: 'focused', val: true }
 });
 
 // Shorthand for the boolean modifier of a block
