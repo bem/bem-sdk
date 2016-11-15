@@ -21,7 +21,7 @@
   ],
   "devDependencies": {
     "ava": "^0.16.0",
-    "coveralls": "^2.11.9",
+    "coveralls": "^2.11.14",
     "eslint": "^3.0.0",
     "eslint-config-pedant": "^0.8.0",
     "jscs": "^3.0.3",
