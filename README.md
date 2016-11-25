@@ -101,6 +101,7 @@ API
 * [elem](#elem)
 * [mod](#mod)
 * [id](#id)
+* [type](#type)
 * [isEqual(entityName)](#isequalentityname)
 * [toString()](#tostring)
 * [valueOf()](#valueof)
