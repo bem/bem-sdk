@@ -4,6 +4,7 @@ bem-entity-name
 [![NPM Status][npm-img]][npm]
 [![Travis Status][test-img]][travis]
 [![Coverage Status][coverage-img]][coveralls]
+[![Dependency Status][dependency-img]][david]
 
 [npm]:          https://www.npmjs.org/package/bem-entity-name
 [npm-img]:      https://img.shields.io/npm/v/bem-entity-name.svg
