@@ -37,7 +37,7 @@ const entityName = new BemEntityName({ block: 'button', elem: 'text' });
 
 entityName.block; // button
 entityName.elem;  // text
-entityName.mod;   // {}
+entityName.mod;   // undefined
 
 entityName.id;   // button__elem
 entityName.type; // elem
@@ -143,13 +143,16 @@ name.elem; // text
 
 The modifier of this entity.
 
-If entity is not modifier then returns empty object.
+**Important:** If entity is not a modifier then returns `undefined`.
 
 ```js
 const BemEntityName = require('bem-entity-name');
-const name = new BemEntityName({ block: 'button', mod: 'disabled' });
 
-name.mod; // { name: 'disabled', val: true }
+const blockName = new BemEntityName({ block: 'button' });
+const modName = new BemEntityName({ block: 'button', mod: 'disabled' });
+
+modName.mod;   // { name: 'disabled', val: true }
+blockName.mod; // undefined
 ```
 
 ### id

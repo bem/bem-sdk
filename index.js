@@ -76,13 +76,16 @@ module.exports = class BemEntityName {
     /**
      * Returns the modifier of this entity.
      *
-     * If entity is not modifier then returns empty object.
+     * Important: If entity is not a modifier then returns `undefined`.
      *
      * @example
      * const BemEntityName = require('bem-entity-name');
-     * const name = new BemEntityName({ block: 'button', mod: 'disabled' });
      *
-     * console.log(name.mod); // { name: 'disabled', val: true }
+     * const blockName = new BemEntityName({ block: 'button' });
+     * const modName = new BemEntityName({ block: 'button', mod: 'disabled' });
+     *
+     * console.log(modName.mod);   // { name: 'disabled', val: true }
+     * console.log(blockName.mod); // undefined
      *
      * @returns {{mod: string, val: *}} entity modifier.
      */
