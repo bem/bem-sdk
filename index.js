@@ -53,7 +53,7 @@ module.exports = class BemEntityName {
      * Returns the name of block to which this entity belongs.
      *
      * @example
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
      * name.block; // button
@@ -68,7 +68,7 @@ module.exports = class BemEntityName {
      * If entity is not element or modifier of element then returns empty string.
      *
      * @example
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'button', elem: 'text' });
      *
      * name.elem; // text
@@ -83,7 +83,7 @@ module.exports = class BemEntityName {
      * Important: If entity is not a modifier then returns `undefined`.
      *
      * @example
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      *
      * const blockName = new BemEntityName({ block: 'button' });
      * const modName = new BemEntityName({ block: 'button', mod: 'disabled' });
@@ -124,7 +124,7 @@ module.exports = class BemEntityName {
      * you should use `bem-naming` package.
      *
      * @example
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'button', mod: 'disabled' });
      *
      * name.id; // button_disabled
@@ -149,13 +149,13 @@ module.exports = class BemEntityName {
      * Returns type for this entity.
      *
      * @example <caption>type of element</caption>
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'button', elem: 'text' });
      *
      * name.type; // elem
      *
      * @example <caption>type of element modifier</caption>
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' });
      *
      * name.type; // elemMod
@@ -181,7 +181,7 @@ module.exports = class BemEntityName {
      * you should use `bem-naming` package.
      *
      * @example
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'button', mod: 'focused' });
      *
      * name.toString(); // button_focused
@@ -200,7 +200,7 @@ module.exports = class BemEntityName {
      * without private and deprecated fields (`modName` and `modVal`).
      *
      * @example
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'button', mod: 'focused' });
      *
      * name.valueOf();
@@ -221,7 +221,7 @@ module.exports = class BemEntityName {
      * without private and deprecated fields (`modName` and `modVal`).
      *
      * @example
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
      * console.log(name); // BemEntityName { block: 'button' }
@@ -245,7 +245,7 @@ module.exports = class BemEntityName {
      *
      * @returns {boolean} A Boolean indicating whether or not specified entity is the deepEqual entity.
      * @example
-     * const BemEntityName = require('bem-entity-name');
+     * const BemEntityName = require('@bem/entity-name');
      *
      * const inputName = new BemEntityName({ block: 'input' });
      * const buttonName = new BemEntityName({ block: 'button' });
