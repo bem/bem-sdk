@@ -47,6 +47,7 @@ module.exports = class BemEntityName {
             };
         }
     }
+
     /**
      * Returns the name of block to which this entity belongs.
      *
@@ -54,11 +55,12 @@ module.exports = class BemEntityName {
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
-     * console.log(name.block); // button
+     * name.block; // button
      *
      * @returns {string} name of entity block.
      */
     get block() { return this._data.block; }
+
     /**
      * Returns the element name of this entity.
      *
@@ -68,11 +70,12 @@ module.exports = class BemEntityName {
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button', elem: 'text' });
      *
-     * console.log(name.elem); // text
+     * name.elem; // text
      *
      * @returns {string} name of entity element.
      */
     get elem() { return this._data.elem; }
+
     /**
      * Returns the modifier of this entity.
      *
@@ -84,12 +87,13 @@ module.exports = class BemEntityName {
      * const blockName = new BemEntityName({ block: 'button' });
      * const modName = new BemEntityName({ block: 'button', mod: 'disabled' });
      *
-     * console.log(modName.mod);   // { name: 'disabled', val: true }
-     * console.log(blockName.mod); // undefined
+     * modName.mod;   // { name: 'disabled', val: true }
+     * blockName.mod; // undefined
      *
      * @returns {{mod: string, val: *}} entity modifier.
      */
     get mod() { return this._data.mod; }
+
     /**
      * Returns the modifier name of this entity.
      *
@@ -99,6 +103,7 @@ module.exports = class BemEntityName {
      * @deprecated use `mod.name` instead.
      */
     get modName() { return this.mod && this.mod.name; }
+
     /**
      * Returns the modifier value of this entity.
      *
@@ -108,6 +113,7 @@ module.exports = class BemEntityName {
      * @deprecated use `mod.val` instead.
      */
     get modVal() { return this.mod && this.mod.val; }
+
     /**
      * Returns id for this entity.
      *
@@ -120,7 +126,7 @@ module.exports = class BemEntityName {
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button', mod: 'disabled' });
      *
-     * console.log(name.id); // button_disabled
+     * name.id; // button_disabled
      *
      * @returns {string} id of entity.
      */
@@ -137,6 +143,7 @@ module.exports = class BemEntityName {
 
         return this._id;
     }
+
     /**
      * Returns type for this entity.
      *
@@ -144,12 +151,13 @@ module.exports = class BemEntityName {
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button', elem: 'text' });
      *
-     * console.log(name.type); // elem
+     * name.type; // elem
+     *
      * @example <caption>type of element modifier</caption>
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' });
      *
-     * console.log(name.type); // elemMod
+     * name.type; // elemMod
      *
      * @returns {string} type of entity.
      */
@@ -175,11 +183,12 @@ module.exports = class BemEntityName {
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
-     * console.log(`name: ${name}`); // name: button
+     * name.toString(); // button_focused
      *
      * @returns {string}
      */
     toString() { return this.id; }
+
     /**
      * Returns object representing the entity name. Is needed for debug in Node.js.
      *
@@ -193,11 +202,14 @@ module.exports = class BemEntityName {
      * const BemEntityName = require('bem-entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
-     * console.log(name); // { block: 'button' }
+     * name.valueOf();
+     *
+     * // ➜ { block: 'button', mod: { name: 'focused', value: true } }
      *
      * @returns {{block: string, elem: ?string, mod: ?{name: ?string, val: *}}}
      */
     valueOf() { return this._data; }
+
     /**
      * Returns object representing the entity name. Is needed for debug in Node.js.
      *
@@ -224,6 +236,7 @@ module.exports = class BemEntityName {
 
         return `BemEntityName ${stringRepresentation}`;
     }
+
     /**
      * Determines whether specified entity is the deepEqual entity.
      *
