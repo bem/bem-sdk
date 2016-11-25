@@ -30,7 +30,7 @@ Usage
 -----
 
 ```js
-var bemNaming = require('bem-naming');
+const bemNaming = require('bem-naming');
 
 bemNaming.parse('button__text'); // { block: 'button', elem: 'text' }
 
@@ -148,6 +148,8 @@ Checks a string to be valid BEM notation.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.validate('block-name');  // true
 bemNaming.validate('^*^');         // false
 ```
@@ -159,6 +161,8 @@ It parses string into naming object.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
                                          //   modName: 'mod', modVal: 'val' }
 ```
@@ -170,6 +174,8 @@ It forms a string according to naming object.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.stringify({
     block: 'block', elem: 'elem',
     modName: 'mod', modVal: 'val'
@@ -183,6 +189,8 @@ Returns a string indicating the type of the BEM entity.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.typeOf('block');             // block
 bemNaming.typeOf('block_mod');         // blockMod
 bemNaming.typeOf('block__elem');       // elem
@@ -196,6 +204,8 @@ Returns a string indicating the type of the BEM entity.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.typeOf({ block: 'block' });                               // block
 bemNaming.typeOf({ block: 'block', modName: 'mod' });               // blockMod
 bemNaming.typeOf({ block: 'block', elem: 'elem' });                 // elem
@@ -209,6 +219,8 @@ Checks whether string is a block.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.isBlock('block-name');   // true
 bemNaming.isBlock('block__elem');  // false
 ```
@@ -220,6 +232,8 @@ Checks whether naming object is a block.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.isBlock({ block: 'block-name' });           // true
 bemNaming.isBlock({ block: 'block', elem: 'elem' });  // false
 ```
@@ -231,6 +245,8 @@ Checks whether string is modifier of a block.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.isBlockMod('block_mod');        // true
 bemNaming.isBlockMod('block__elem_mod');  // false
 ```
@@ -242,6 +258,8 @@ Checks whether naming object is modifier of a block.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.isBlockMod({ block: 'block',
     modName: 'mod', modVal: true });  // true
 
@@ -256,6 +274,8 @@ Checks whether string is element of a block.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.isElem('block__elem');  // true
 bemNaming.isElem('block-name');   // false
 ```
@@ -267,6 +287,8 @@ Checks whether naming object is element of a block.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.isElem({ block: 'block', elem: 'elem' });  // true
 bemNaming.isElem({ block: 'block-name' });           // false
 ```
@@ -278,6 +300,8 @@ Checks whether string is modifier of an element.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.isElemMod('block__elem_mod');  // true
 bemNaming.isElemMod('block__elem');      // false
 ```
@@ -289,6 +313,8 @@ Checks whether naming object is modifier of an element.
 Example:
 
 ```js
+const bemNaming = require('bem-naming');
+
 bemNaming.isElemMod({ block: 'block', elem: 'elem',
     modName: 'mod', modVal: true });  // true
 
@@ -331,7 +357,9 @@ Use `bemNaming` function to create instance to manage naming of your own naming 
 Example:
 
 ```js
-var myNaming = bemNaming({
+const bemNaming = require('bem-naming');
+
+const myNaming = bemNaming({
     elem: '-',
     mod: { name: '--', val: '_' }
     wordPattern: '[a-zA-Z0-9]+'   // because element and modifier's separators include
@@ -394,7 +422,9 @@ Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
 Example:
 
 ```js
-var twoDashes = bemNaming('two-dashes');
+const bemNaming = require('bem-naming');
+
+const twoDashes = bemNaming('two-dashes');
 
 twoDashes.parse('block__elem');    // { block: 'block', elem: 'elem' }
 twoDashes.parse('block--mod_val'); // { block: 'block',
