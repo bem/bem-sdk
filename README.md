@@ -6,8 +6,8 @@ bem-entity-name
 [![Coverage Status][coverage-img]][coveralls]
 [![Dependency Status][dependency-img]][david]
 
-[npm]:          https://www.npmjs.org/package/bem-entity-name
-[npm-img]:      https://img.shields.io/npm/v/bem-entity-name.svg
+[npm]:          https://www.npmjs.org/package/@bem/entity-name
+[npm-img]:      https://img.shields.io/npm/v/@bem/entity-name.svg
 
 [travis]:       https://travis-ci.org/bem-sdk/bem-entity-name
 [test-img]:     https://img.shields.io/travis/bem-sdk/bem-entity-name.svg
