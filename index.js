@@ -32,19 +32,20 @@ module.exports = class BemEntityName {
         }
 
         const data = this._data = { block: obj.block };
-        const modName = (typeof obj.mod === 'string' ? obj.mod : obj.mod && obj.mod.name) || obj.modName;
 
         obj.elem && (data.elem = obj.elem);
 
-        if (modName) {
-            const modVal = obj.hasOwnProperty('modVal') || obj.mod && obj.mod.hasOwnProperty('val')
-                ? obj.mod && obj.mod.val || obj.modVal
-                : true;
+        const modObj = obj.mod;
+        const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) || obj.modName;
+        const hasModVal = modObj && modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
 
+        if (modName) {
             data.mod = {
                 name: modName,
-                val: modVal
+                val: hasModVal ? modObj && modObj.val || obj.modVal : true
             };
+        } else if (modObj || hasModVal) {
+            throw new Error('This is not valid BEM entity: the field `mod.name` is undefined.');
         }
     }
 
