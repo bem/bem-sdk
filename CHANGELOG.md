@@ -4,13 +4,25 @@ Changelog
 2.0.0
 -----
 
-### Chore
+### BEM SDK
+
+The `bem-naming` became part of the [BEM SDK](https://github.com/bem-sdk/bem-sdk). In this regard, there have been several changes for consistency with other packages of BEM SDK.
+
+Now BEM SDK modules are used in assembly systems and `bem-tools` plugins. Therefore, the modules support `Node.js` only.
 
 * **[major]** Remove support `YModules` and `AMD` (@blond [#138]).
-* Run tests in `Node.js` v6 (@blond [#114]).
-* This package move to [bem-sdk](https://github.com/bem-sdk/bem-sdk) organization (@blond [b22dfc5]).
+* **[major]** Stop publishing to `Bower` (@blond [#118]).
+
+If it becomes necessary to use BEM SDK in browsers or other environments we'll figure out a system solution for all modules.
 
 [#138]: https://github.com/bem-sdk/bem-naming/issues/138
+[#118]: https://github.com/bem-sdk/bem-naming/issues/118
+
+### Chore
+
+* The package moved to [bem-sdk](https://github.com/bem-sdk/bem-sdk) organization (@blond [b22dfc5]).
+* Run tests in `Node.js` v6 (@blond [#114]).
+
 [#114]: https://github.com/bem-sdk/bem-naming/pull/114
 [b22dfc5]: https://github.com/bem-sdk/bem-naming/commit/b22dfc570aa3c99b9d5b6b335fd8eaa62e1f35c7
 
