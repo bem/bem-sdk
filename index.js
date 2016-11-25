@@ -181,7 +181,7 @@ module.exports = class BemEntityName {
      *
      * @example
      * const BemEntityName = require('bem-entity-name');
-     * const name = new BemEntityName({ block: 'button' });
+     * const name = new BemEntityName({ block: 'button', mod: 'focused' });
      *
      * name.toString(); // button_focused
      *
@@ -200,7 +200,7 @@ module.exports = class BemEntityName {
      *
      * @example
      * const BemEntityName = require('bem-entity-name');
-     * const name = new BemEntityName({ block: 'button' });
+     * const name = new BemEntityName({ block: 'button', mod: 'focused' });
      *
      * name.valueOf();
      *
