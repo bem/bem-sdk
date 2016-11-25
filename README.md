@@ -242,7 +242,7 @@ In Node.js, `console.log()` calls `util.inspect()` on each argument without a fo
 ```js
 const BemEntityName = require('@bem/entity-name');
 
-const name = new BemEntityName({ block: 'input', mod: 'disabled' });
+const name = new BemEntityName({ block: 'input', mod: 'available' });
 
 console.log(name);
 
@@ -254,7 +254,7 @@ You can also convert `BemEntityName` object to `string`.
 ```js
 const BemEntityName = require('@bem/entity-name');
 
-const name = new BemEntityName({ block: 'input', mod: 'disabled' });
+const name = new BemEntityName({ block: 'input', mod: 'available' });
 
 console.log(`name: ${name}`);
 

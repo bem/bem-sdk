@@ -250,8 +250,8 @@ module.exports = class BemEntityName {
      * const inputName = new BemEntityName({ block: 'input' });
      * const buttonName = new BemEntityName({ block: 'button' });
      *
-     * console.log(inputName.isEqual(buttonName)); // false
-     * console.log(buttonName.isEqual(buttonName)); // true
+     * inputName.isEqual(buttonName); // false
+     * buttonName.isEqual(buttonName); // true
      */
     isEqual(entityName) {
         return entityName && (this.id === entityName.id);
