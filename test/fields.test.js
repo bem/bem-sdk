@@ -38,10 +38,10 @@ test('should return `undefined` if entity is not element', t => {
     t.is(entity.elem, undefined);
 });
 
-test('should return empty object if entity is not modifier', t => {
+test('should return `undefined` if entity is not modifier', t => {
     const entity = new BemEntityName({ block: 'block' });
 
-    t.deepEqual(entity.mod, {});
+    t.deepEqual(entity.mod, undefined);
 });
 
 test('should return `undefined` in `modName` property if entity is not modifier', t => {
