@@ -86,7 +86,7 @@ module.exports = class BemEntityName {
      *
      * @returns {{mod: string, val: *}} entity modifier.
      */
-    get mod() { return this._data.mod || {}; }
+    get mod() { return this._data.mod; }
     /**
      * Returns the modifier name of this entity.
      *
@@ -95,7 +95,7 @@ module.exports = class BemEntityName {
      * @returns {string} entity modifier name.
      * @deprecated use `mod.name` instead.
      */
-    get modName() { return this.mod.name; }
+    get modName() { return this.mod && this.mod.name; }
     /**
      * Returns the modifier value of this entity.
      *
@@ -104,7 +104,7 @@ module.exports = class BemEntityName {
      * @returns {string} entity modifier name.
      * @deprecated use `mod.val` instead.
      */
-    get modVal() { return this.mod.val; }
+    get modVal() { return this.mod && this.mod.val; }
     /**
      * Returns id for this entity.
      *
@@ -127,8 +127,8 @@ module.exports = class BemEntityName {
         const entity = { block: this._data.block };
 
         this.elem && (entity.elem = this.elem);
-        this.mod.name && (entity.modName = this.mod.name);
-        this.mod.val && (entity.modVal = this.mod.val);
+        this.modName && (entity.modName = this.modName);
+        this.modVal && (entity.modVal = this.modVal);
 
         this._id = stringifyEntity(entity);
 
