@@ -106,25 +106,13 @@ API
 
 ### constructor(obj)
 
-#### obj.block
-
-Type: `string`
-
-The block name of entity.
-
-#### obj.elem
-
-Type: `string`
-
-The element name of entity.
-
-#### obj.mod
-
-Type: `string`, `{ name: string, val: * }`
-
-The modifier of entity.
-
-If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
+Parameter     | Type     | Description
+--------------|----------|------------------------------
+`obj.block`   | `string` | The block name of entity.
+`obj.elem`    | `string` | The element name of entity.
+`obj.mod`     | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
+`obj.mod.name`| `string` | The modifier name of entity.
+`obj.mod.val` | `*`      | The modifier value of entity.
 
 ### block
 
@@ -196,13 +184,12 @@ modName.type;  // elemMod
 
 ### isEqual(entityName)
 
+Parameter    | Type            | Description
+-------------|-----------------|-----------------------
+`entityName` | `BemEntityName` | The entity to compare.
+
+
 Determines whether specified entity is the deepEqual entity.
-
-#### entityName
-
-Type: `BemEntityName`
-
-The entity to compare.
 
 ```js
 const BemEntityName = require('bem-entity-name');
