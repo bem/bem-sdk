@@ -10,13 +10,19 @@ The `bem-naming` became part of the [BEM SDK](https://github.com/bem-sdk/bem-sdk
 
 Now BEM SDK modules are used in assembly systems and `bem-tools` plugins. Therefore, the modules support `Node.js` only.
 
-* **[major]** Remove support `YModules` and `AMD` (@blond [#138]).
-* **[major]** Stop publishing to `Bower` (@blond [#118]).
+* **[major]** Removed support of `YModules` and `AMD` (@blond [#138]).
+* **[major]** Stopped publishing to `Bower` (@blond [#118]).
 
 If it becomes necessary to use BEM SDK in browsers or other environments we'll figure out a system solution for all modules.
 
 [#138]: https://github.com/bem-sdk/bem-naming/issues/138
 [#118]: https://github.com/bem-sdk/bem-naming/issues/118
+
+### Performance
+
+* Accelerated initialization for `origin` naming (@tadatuta [#134]).
+
+[#134]: https://github.com/bem-sdk/bem-naming/pull/134
 
 ### Chore
 
