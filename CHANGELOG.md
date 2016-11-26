@@ -1,6 +1,19 @@
 Changelog
 =========
 
+2.0.0
+-----
+
+### Chore
+
+* **[major]** Remove support `YModules` and `AMD` (@blond [#138]).
+* Run tests in `Node.js` v6 (@blond [#114]).
+* This package move to [bem-sdk](https://github.com/bem-sdk/bem-sdk) organization (@blond [b22dfc5]).
+
+[#138]: https://github.com/bem-sdk/bem-naming/issues/138
+[#114]: https://github.com/bem-sdk/bem-naming/pull/114
+[b22dfc5]: https://github.com/bem-sdk/bem-naming/commit/b22dfc570aa3c99b9d5b6b335fd8eaa62e1f35c7
+
 1.0.1
 -----
 
@@ -44,7 +57,7 @@ var myNaming = bemNaming({
     mod: '--'
 });
 
-var obj = {              
+var obj = {
     block: 'block',
     modName: 'mod',
     modVal: 'val'
@@ -60,7 +73,7 @@ var myNaming = bemNaming({
     mod: { name: '--', val: '_' }
 });
 
-var obj = {              
+var obj = {
     block: 'block',
     modName: 'mod',
     modVal: 'val'
