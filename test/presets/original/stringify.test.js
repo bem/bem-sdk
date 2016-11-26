@@ -20,6 +20,16 @@ test('should stringify mod of block', t => {
     t.is(str, 'block_mod_val');
 });
 
+test('should stringify alternative mod and val syntax', t => {
+    const str = stringify({
+        block: 'block',
+        mod: 'mod',
+        val: 'val'
+    });
+
+    t.is(str, 'block_mod_val');
+});
+
 test('should stringify boolean mod of block', t => {
     const str = stringify({
         block: 'block',

@@ -3,6 +3,12 @@
 const test = require('ava');
 const naming = require('../index');
 
+test('should support mod field', t => {
+    const entity = { block: 'block', mod: 'mod', val: 'val' };
+
+    t.true(naming.isBlockMod(entity));
+});
+
 test('should detect mod of block', t => {
     const entity = { block: 'block', modName: 'mod', modVal: 'val' };
 

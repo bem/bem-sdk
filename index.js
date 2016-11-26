@@ -126,11 +126,12 @@ function createNaming(options) {
             res += delims.elem + obj.elem;
         }
 
-        if (obj.modName) {
-            var modVal = obj.modVal;
+        var modName = obj.modName || obj.mod;
+        if (modName) {
+            var modVal = obj.modVal || obj.val;
 
-            if (modVal || modVal === 0 || !obj.hasOwnProperty('modVal')) {
-                res += delims.mod.name + obj.modName;
+            if (modVal || modVal === 0 || (!obj.hasOwnProperty('modVal') && !obj.hasOwnProperty('val'))) {
+                res += delims.mod.name + modName;
             }
 
             if (modVal && modVal !== true) {
@@ -154,8 +155,9 @@ function createNaming(options) {
 
         if (!obj || !obj.block) { return undefined; }
 
-        var modName = obj.modName,
-            isMod = modName && (obj.modVal || !obj.hasOwnProperty('modVal'));
+        var modName = obj.modName || obj.mod,
+            modVal = obj.modVal || obj.val,
+            isMod = modName && (modVal || (!obj.hasOwnProperty('modVal') && !obj.hasOwnProperty('val')));
 
         if (obj.elem) {
             if (isMod)    { return TYPES.ELEM_MOD; }
