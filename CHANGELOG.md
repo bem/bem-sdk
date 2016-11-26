@@ -18,6 +18,46 @@ If it becomes necessary to use BEM SDK in browsers or other environments we'll f
 [#138]: https://github.com/bem-sdk/bem-naming/issues/138
 [#118]: https://github.com/bem-sdk/bem-naming/issues/118
 
+### API
+
+According to the principles of BEM SDK each module solves only one problem.
+
+The `bem-naming` module did more than just `parse` and `stringify` BEM names.
+
+* **[major]** Removed `typeOf` method (@blond [#98]).
+
+To work with BEM entities there are packages [@bem/entity](https://github.com/bem-sdk/bem-entity) and [@bem/entity-name](https://github.com/bem-sdk/bem-entity-name).
+
+**API v1.x.x**
+
+```js
+const bemNaming = require('bem-naming');
+
+// get type by string
+bemNaming.typeOf('button'); // block
+
+// get type by entity object
+bemNaming.typeOf({ block: 'button', modName: 'focused' }); // blockMod
+```
+
+**API v2.x.x**
+
+```js
+// get type by string
+const parseBemName = require('@bem/naming').parse;
+const blockName = parseBemName('button');
+
+blockName.type // block
+
+// get type by entity object
+const BemEntityName = require('@bem/entity-name');
+const modName = new BemEntityName({ block: 'button', mod: 'focused' });
+
+modName.type; // blockMod
+```
+
+[#98]: https://github.com/bem-sdk/bem-naming/issues/98
+
 ### Performance
 
 * Accelerated initialization for `origin` naming (@tadatuta [#134]).
