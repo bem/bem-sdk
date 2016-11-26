@@ -127,16 +127,6 @@ API
 * [validate(str)](#validatestr)
 * [parse(str)](#parsestr)
 * [stringify(obj)](#stringifyobj)
-* [typeOf(str)](#typeofstr)
-* [typeOf(obj)](#typeofobj)
-* [isBlock(str)](#isblockstr)
-* [isBlock(obj)](#isblockobj)
-* [isBlockMod(str)](#isblockmodstr)
-* [isBlockMod(obj)](#isblockmodobj)
-* [isElem(str)](#iselemstr)
-* [isElem(obj)](#iselemobj)
-* [isElemMod(str)](#iselemmodstr)
-* [isElemMod(obj)](#iselemmodobj)
 * [elemDelim](#elemdelim)
 * [modDelim](#moddelim)
 * [modValDelim](#modvaldelim)
@@ -210,116 +200,6 @@ bemNaming.typeOf({ block: 'block' });                               // block
 bemNaming.typeOf({ block: 'block', modName: 'mod' });               // blockMod
 bemNaming.typeOf({ block: 'block', elem: 'elem' });                 // elem
 bemNaming.typeOf({ block: 'block', elem: 'elem', modName: 'mod' }); // elemMod
-```
-
-### isBlock(str)
-
-Checks whether string is a block.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.isBlock('block-name');   // true
-bemNaming.isBlock('block__elem');  // false
-```
-
-### isBlock(obj)
-
-Checks whether naming object is a block.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.isBlock({ block: 'block-name' });           // true
-bemNaming.isBlock({ block: 'block', elem: 'elem' });  // false
-```
-
-### isBlockMod(str)
-
-Checks whether string is modifier of a block.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.isBlockMod('block_mod');        // true
-bemNaming.isBlockMod('block__elem_mod');  // false
-```
-
-### isBlockMod(obj)
-
-Checks whether naming object is modifier of a block.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.isBlockMod({ block: 'block',
-    modName: 'mod', modVal: true });  // true
-
-bemNaming.isBlockMod({ block: 'block', elem: 'elem',
-    modName: 'mod', modVal: true });  // false
-```
-
-### isElem(str)
-
-Checks whether string is element of a block.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.isElem('block__elem');  // true
-bemNaming.isElem('block-name');   // false
-```
-
-### isElem(obj)
-
-Checks whether naming object is element of a block.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.isElem({ block: 'block', elem: 'elem' });  // true
-bemNaming.isElem({ block: 'block-name' });           // false
-```
-
-### isElemMod(str)
-
-Checks whether string is modifier of an element.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.isElemMod('block__elem_mod');  // true
-bemNaming.isElemMod('block__elem');      // false
-```
-
-### isElemMod(obj)
-
-Checks whether naming object is modifier of an element.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.isElemMod({ block: 'block', elem: 'elem',
-    modName: 'mod', modVal: true });  // true
-
-bemNaming.isElemMod({ block: 'block',
-    modName: 'mod', modVal: true});   // false
 ```
 
 ### elemDelim

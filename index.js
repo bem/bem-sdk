@@ -1,18 +1,5 @@
 'use strict';
 
-/**
- * Enum for types of BEM entities.
- *
- * @readonly
- * @enum {String}
- */
-const TYPES = {
-    BLOCK:     'block',
-    BLOCK_MOD: 'blockMod',
-    ELEM:      'elem',
-    ELEM_MOD:  'elemMod'
-};
-
 const presets = require('./lib/presets');
 
 /**
@@ -115,78 +102,8 @@ function createNaming(options) {
         return res;
     }
 
-    /**
-     * Returns a string indicating type of a BEM entity.
-     *
-     * @param {Object|String|undefined} obj - naming object or string representation of BEM entity.
-     * @returns {String}
-     */
-    function typeOf(obj) {
-        if (typeof obj === 'string') {
-            obj = parse(obj);
-        }
-
-        if (!obj || !obj.block) { return undefined; }
-
-        const modName = obj.modName;
-        const isMod = modName && (obj.modVal || !obj.hasOwnProperty('modVal'));
-
-        if (obj.elem) {
-            if (isMod)    { return TYPES.ELEM_MOD; }
-            if (!modName) { return TYPES.ELEM;     }
-        }
-
-        if (isMod)    { return TYPES.BLOCK_MOD; }
-        if (!modName) { return TYPES.BLOCK;     }
-    }
-
-    /**
-     * Checks whether naming object or string is a block.
-     *
-     * @param {Object|String} obj - naming object or string representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function isBlock(obj) {
-        return typeOf(obj) === TYPES.BLOCK;
-    }
-
-    /**
-     * Checks whether naming object or string is modifier of a block.
-     *
-     * @param {Object|String} obj - naming object or string representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function isBlockMod(obj) {
-        return typeOf(obj) === TYPES.BLOCK_MOD;
-    }
-
-    /**
-     * Checks whether naming object or string is element of a block.
-     *
-     * @param {Object|String} obj - naming object or string representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function isElem(obj) {
-        return typeOf(obj) === TYPES.ELEM;
-    }
-
-    /**
-     * Checks whether naming object or string is element of a block.
-     *
-     * @param {Object|String} obj - naming object or string representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function isElemMod(obj) {
-        return typeOf(obj) === TYPES.ELEM_MOD;
-    }
-
     const namespace = {
         validate: validate,
-        typeOf: typeOf,
-        isBlock: isBlock,
-        isBlockMod: isBlockMod,
-        isElem: isElem,
-        isElemMod: isElemMod,
         parse: parse,
         stringify: stringify,
         /**
@@ -272,9 +189,7 @@ function buildRegex(delims, wordPattern) {
 }
 
 const api = [
-    'validate', 'typeOf',
-    'isBlock', 'isBlockMod', 'isElem', 'isElemMod',
-    'parse', 'stringify',
+    'validate', 'parse', 'stringify',
     'elemDelim', 'modDelim', 'modValDelim'
 ];
 const originalNaming = createNaming();
