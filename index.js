@@ -247,7 +247,9 @@ function createNaming(options) {
  * @returns {{delims: Object, wordPattern: String}}
  */
 function init(options) {
-    options || (options = {});
+    if (!options) {
+        return presets.origin;
+    }
 
     if (typeof options === 'string') {
         var preset = presets[options];
