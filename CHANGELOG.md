@@ -58,6 +58,30 @@ modName.type; // blockMod
 
 [#98]: https://github.com/bem-sdk/bem-naming/issues/98
 
+#### Removed `validate` method ([#147])
+
+Use `parse` method instead.
+
+**API v1.x.x**
+
+```js
+const validate = require('bem-naming').validate;
+
+validate('block-name'); // true
+validate('^*^');        // false
+```
+
+**API v2.x.x**
+
+```js
+const parse = require('@bem/naming').parse;
+
+Boolean(parse('block-name')); // true
+Boolean(parse('^*^'));        // false
+```
+
+[#147]: https://github.com/bem-sdk/bem-naming/issues/147
+
 #### The `parse` method returns [BemEntityName](https://github.com/bem-sdk/bem-entity-name) object ([#126]).
 
 It will allow to use helpers of `BemEntityName`.

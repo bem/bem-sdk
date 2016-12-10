@@ -33,16 +33,6 @@ function createNaming(options) {
     const regex = buildRegex(delims, opts.wordPattern);
 
     /**
-     * Checks a string to be valid BEM notation.
-     *
-     * @param {String} str - String representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function validate(str) {
-        return regex.test(str);
-    }
-
-    /**
      * Parses string into naming object.
      *
      * @param {String} str - string representation of BEM entity.
@@ -98,7 +88,6 @@ function createNaming(options) {
     }
 
     const namespace = {
-        validate: validate,
         parse: parse,
         stringify: stringify,
         /**
@@ -184,7 +173,7 @@ function buildRegex(delims, wordPattern) {
 }
 
 const api = [
-    'validate', 'parse', 'stringify',
+    'parse', 'stringify',
     'elemDelim', 'modDelim', 'modValDelim'
 ];
 const originalNaming = createNaming();

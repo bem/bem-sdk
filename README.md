@@ -124,25 +124,11 @@ Example:
 API
 ---
 
-* [validate(str)](#validatestr)
 * [parse(str)](#parsestr)
 * [stringify(obj)](#stringifyobj)
 * [elemDelim](#elemdelim)
 * [modDelim](#moddelim)
 * [modValDelim](#modvaldelim)
-
-### validate(str)
-
-Checks a string to be valid BEM notation.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.validate('block-name');  // true
-bemNaming.validate('^*^');         // false
-```
 
 ### parse(str)
 
