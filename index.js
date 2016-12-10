@@ -1,6 +1,7 @@
 'use strict';
 
 const presets = require('./lib/presets');
+const BemEntityName = require('@bem/entity-name');
 
 /**
  * It is necessary not to create new instances for the same custom naming.
@@ -52,22 +53,16 @@ function createNaming(options) {
 
         if (!executed) { return undefined; }
 
-        const notation = {
-            block: executed[1] || executed[4]
-        };
-        const elem = executed[5];
         const modName = executed[2] || executed[6];
 
-        elem && (notation.elem = elem);
-
-        if (modName) {
-            const modVal = executed[3] || executed[7];
-
-            notation.modName = modName;
-            notation.modVal = modVal || true;
-        }
-
-        return notation;
+        return new BemEntityName({
+            block: executed[1] || executed[4],
+            elem: executed[5],
+            mod: modName && {
+                name: modName,
+                val: executed[3] || executed[7] || true
+            }
+        });
     }
 
     /**

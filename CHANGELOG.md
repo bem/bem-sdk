@@ -24,7 +24,7 @@ According to the principles of BEM SDK each module solves only one problem.
 
 The `bem-naming` module did more than just `parse` and `stringify` BEM names.
 
-* **[major]** Removed `typeOf` method (@blond [#98]).
+#### Removed `typeOf` method ([#98])
 
 To work with BEM entities there are packages [@bem/entity](https://github.com/bem-sdk/bem-entity) and [@bem/entity-name](https://github.com/bem-sdk/bem-entity-name).
 
@@ -57,6 +57,42 @@ modName.type; // blockMod
 ```
 
 [#98]: https://github.com/bem-sdk/bem-naming/issues/98
+
+#### The `parse` method returns [BemEntityName](https://github.com/bem-sdk/bem-entity-name) object ([#126]).
+
+It will allow to use helpers of `BemEntityName`.
+
+**Important:** in `BemEntityName` the `modName` and `modVal` fields are deprecated. Use the `mod` field instead ([#95]).
+
+**API v1.x.x**
+
+```js
+const parse = require('bem-naming').parse;
+
+const entityName = parse('button_disabled');
+
+entityName.modName; // disabled
+entityName.modVal;  // true
+
+console.log(entityName); // { block: 'button', modName: 'disabled', modVal: true }
+```
+
+**API v2.x.x**
+
+```js
+const parse = require('@bem/naming').parse;
+
+const entityName = parse('button_disabled');
+
+entityName.mod;  // { name: 'disabled', val: true }
+entityName.id;   // button_disabled
+entityName.type; // mod
+
+console.log(entityName); // BemEntityName { block: 'button', mod: { name: 'disabled', val: true } }
+```
+
+[#126]: https://github.com/bem-sdk/bem-naming/issues/126
+[#95]: https://github.com/bem-sdk/bem-naming/issues/95
 
 ### Performance
 
