@@ -172,36 +172,6 @@ bemNaming.stringify({
 }); // 'block__elem_mod_val'
 ```
 
-### `typeOf(str)`
-
-Returns a string indicating the type of the BEM entity.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.typeOf('block');             // block
-bemNaming.typeOf('block_mod');         // blockMod
-bemNaming.typeOf('block__elem');       // elem
-bemNaming.typeOf('block__elem_mod');   // elemMod
-```
-
-### typeOf(obj)
-
-Returns a string indicating the type of the BEM entity.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.typeOf({ block: 'block' });                               // block
-bemNaming.typeOf({ block: 'block', modName: 'mod' });               // blockMod
-bemNaming.typeOf({ block: 'block', elem: 'elem' });                 // elem
-bemNaming.typeOf({ block: 'block', elem: 'elem', modName: 'mod' }); // elemMod
-```
-
 ### elemDelim
 
 String to separate elem from block.
