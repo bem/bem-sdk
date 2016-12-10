@@ -47,6 +47,8 @@ module.exports = class BemEntityName {
         } else if (modObj || hasModVal) {
             throw new Error('This is not valid BEM entity: the field `mod.name` is undefined.');
         }
+
+        this.__isBemEntityName__ = true;
     }
 
     /**
@@ -255,5 +257,23 @@ module.exports = class BemEntityName {
      */
     isEqual(entityName) {
         return entityName && (this.id === entityName.id);
+    }
+
+    /**
+     * Determines whether specified entity is instance of BemEntityName.
+     *
+     * @param {BemEntityName} entityName - the entity to check.
+     *
+     * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemEntityName.
+     * @example
+     * const BemEntityName = require('@bem/entity-name');
+     *
+     * const entityName = new BemEntityName({ block: 'input' });
+     *
+     * BemEntityName.isBemEntityName(entityName); // true
+     * BemEntityName.isBemEntityName({}); // false
+     */
+    static isBemEntityName(entityName) {
+        return entityName && entityName.__isBemEntityName__;
     }
 };
