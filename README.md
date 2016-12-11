@@ -43,6 +43,7 @@ const cell = new BemCell({
 cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text' }
 cell.tech;   // css
 cell.layer;  // common
+cell.id;     // button__text@common.css
 ```
 
 License
