@@ -72,4 +72,36 @@ module.exports = class BemCell {
      * @returns {string} layer of cell.
      */
     get layer() { return this._layer; }
+
+    /**
+     * Returns the identifier of this cell.
+     *
+     * Important: should only be used to determine uniqueness of cell.
+     *
+     * @example
+     * const BemCell = require('@bem/cell');
+     * const BemEntityName = require('@bem/entity-name');
+     *
+     * const cell = new BemCell({
+     *     entity: new BemEntityName({ block: 'button', elem: 'text' }),
+     *     tech: 'css',
+     *     layer: 'desktop'
+     * });
+     *
+     * cell.id; // ➜ "button__text@desktop.css"
+     *
+     * @returns {string} identifier of cell.
+     */
+    get id() {
+        if (this._id) {
+            return this._id;
+        }
+
+        const layer = this._layer ? `@${this._layer}` : '';
+        const tech = this._tech ? `.${this._tech}` : '';
+
+        this._id = `${this._entity}${layer}${tech}`;
+
+        return this._id;
+    }
 };
