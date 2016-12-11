@@ -27,6 +27,24 @@ Install
 $ npm install --save @bem/cell
 ```
 
+Usage
+-----
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'button', elem: 'text' }),
+    tech: 'css',
+    layer: 'common'
+});
+
+cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text' }
+cell.tech;   // css
+cell.layer;  // common
+```
+
 License
 -------
 
