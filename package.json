@@ -1,0 +1,23 @@
+{
+  "name": "bem-cell",
+  "version": "0.0.1",
+  "description": "Cell for realisations in technologies",
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "nyc ava"
+  },
+  "files": [
+    "lib/**"
+  ],
+  "author": "Alexey Yaroshevich <zxqfox@gmail.com>",
+  "license": "MPL-2.0",
+  "devDependencies": {
+    "ava": "^0.17.0",
+    "eslint": "^3.0.0",
+    "eslint-config-pedant": "^0.7.0",
+    "nyc": "^10.0.0",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  }
+}

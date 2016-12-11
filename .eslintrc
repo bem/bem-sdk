@@ -1,0 +1,15 @@
+parserOptions:
+  ecmaVersion: 6
+
+env:
+  es6: true
+  node: true
+  mocha: true
+
+globals:
+  # matcha
+  set: false
+  bench: false
+  suite: false
+
+extends: pedant/es6
