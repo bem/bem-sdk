@@ -46,6 +46,89 @@ cell.layer;  // common
 cell.id;     // button__text@common.css
 ```
 
+API
+---
+
+* [constructor(obj)](#constructorobj)
+* [entity](#entity)
+* [tech](#tech)
+* [layer](#layer)
+* [id](#id)
+
+### constructor(obj)
+
+Parameter     | Type            | Description
+--------------|-----------------|------------------------------
+`obj.entity`  | `BemEntityName` | Representation of entity name
+`obj.tech`    | `string`        | Tech of cell
+`obj.layer`   | `string`        | Layer of cell
+
+### entity
+
+Returns the name of entity.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'button', elem: 'text' })
+});
+
+cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text' }
+```
+
+### tech
+
+Returns the tech of cell.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'button', elem: 'text' }),
+    tech: 'css'
+});
+
+cell.tech; // ➜ css
+```
+
+### layer
+
+Returns the layer of this cell.
+
+ ```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'button', elem: 'text' }),
+    layer: 'desktop'
+});
+
+cell.layer; // ➜ desktop
+```
+
+### id
+
+Returns the identifier of this cell.
+
+**Important:** should only be used to determine uniqueness of cell.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'button', elem: 'text' }),
+    tech: 'css',
+    layer: 'desktop'
+});
+
+cell.id; // ➜ "button__text@desktop.css"
+```
+
 License
 -------
 
