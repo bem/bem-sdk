@@ -1,23 +1,43 @@
 {
-  "name": "bem-cell",
-  "version": "0.0.1",
-  "description": "Cell for realisations in technologies",
-  "main": "index.js",
-  "scripts": {
-    "lint": "eslint .",
-    "pretest": "npm run lint",
-    "test": "nyc ava"
-  },
-  "files": [
-    "lib/**"
-  ],
-  "author": "Alexey Yaroshevich <zxqfox@gmail.com>",
+  "name": "@bem/cell",
+  "version": "0.0.0",
+  "description": "Representation of identifier of a part of BEM entity.",
   "license": "MPL-2.0",
+  "repository": "bem-sdk/cell",
+  "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
+  "keywords": [
+    "bem",
+    "entity",
+    "tech",
+    "level",
+    "layer",
+    "cell",
+    "part",
+    "identifier"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "dependencies": {
+    "@bem/entity-name": "1.1.0"
+  },
   "devDependencies": {
     "ava": "^0.17.0",
+    "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
-    "eslint-config-pedant": "^0.7.0",
-    "nyc": "^10.0.0",
+    "eslint-config-pedant": "^0.8.0",
+    "nyc": "^10.0.0"
+  },
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "npm run cover",
+    "lint": "eslint .",
+    "unit-test": "ava",
+    "cover": "nyc ava",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   }
 }
