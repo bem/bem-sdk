@@ -25,7 +25,7 @@ test('should detect block', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{ block: 'block' }]);
         });
@@ -40,11 +40,11 @@ test('should detect bool mod of block', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{
                 block: 'block',
-                modName: 'mod', modVal: true
+                mod: { name: 'mod', val: true }
             }]);
         });
 });
@@ -58,11 +58,11 @@ test('should detect key-val mod of block', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{
                 block: 'block',
-                modName: 'mod', modVal: 'val'
+                mod: { name: 'mod', val: 'val' }
             }]);
         });
 });
@@ -76,7 +76,7 @@ test('should detect elem', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{ block: 'block', elem: 'elem' }]);
         });
@@ -91,11 +91,12 @@ test('should detect bool mod of elem', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{
-                block: 'block', elem: 'elem',
-                modName: 'mod', modVal: true
+                block: 'block',
+                elem: 'elem',
+                mod: { name: 'mod', val: true }
             }]);
         });
 });
@@ -109,11 +110,12 @@ test('should detect key-val mod of elem', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{
-                block: 'block', elem: 'elem',
-                modName: 'mod', modVal: 'val'
+                block: 'block',
+                elem: 'elem',
+                mod: { name: 'mod', val: 'val' }
             }]);
         });
 });
