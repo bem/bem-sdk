@@ -29,12 +29,12 @@ test('should support level name with extension', t => {
 
     return toArray(walk(['name.blocks'], options))
         .then(files => {
-            t.deepEqual(files, [{
-                entity: { block: 'block' },
-                level: 'name.blocks',
-                path: path.join('name.blocks', 'block', 'block.tech'),
-                tech: 'tech'
-            }]);
+            const file = files[0];
+
+            t.deepEqual(file.entity.valueOf(), { block: 'block' });
+            t.is(file.level, 'name.blocks');
+            t.is(file.path, path.join('name.blocks', 'block', 'block.tech'));
+            t.is(file.tech, 'tech');
         });
 });
 
@@ -61,20 +61,18 @@ test('should support few levels', t => {
 
     return toArray(walk(['level-1', 'level-2'], options))
         .then(files => {
-            t.deepEqual(files, [
-                {
-                    entity: { block: 'block-1' },
-                    level: 'level-1',
-                    path: path.join('level-1', 'block-1', 'block-1.tech'),
-                    tech: 'tech'
-                },
-                {
-                    entity: { block: 'block-2' },
-                    level: 'level-2',
-                    path: path.join('level-2', 'block-2', 'block-2.tech'),
-                    tech: 'tech'
-                }
-            ]);
+            const file1 = files[0];
+            const file2 = files[1];
+
+            t.deepEqual(file1.entity.valueOf(), { block: 'block-1' });
+            t.is(file1.level, 'level-1');
+            t.is(file1.path, path.join('level-1', 'block-1', 'block-1.tech'));
+            t.is(file1.tech, 'tech');
+
+            t.deepEqual(file2.entity.valueOf(), { block: 'block-2' });
+            t.is(file2.level, 'level-2');
+            t.is(file2.path, path.join('level-2', 'block-2', 'block-2.tech'));
+            t.is(file2.tech, 'tech');
         });
 });
 
@@ -101,19 +99,17 @@ test('should detect entity with the same name on every level', t => {
 
     return toArray(walk(['level-1', 'level-2'], options))
         .then(files => {
-            t.deepEqual(files, [
-                {
-                    entity: { block: 'block' },
-                    level: 'level-1',
-                    path: path.join('level-1', 'block', 'block.tech'),
-                    tech: 'tech'
-                },
-                {
-                    entity: { block: 'block' },
-                    level: 'level-2',
-                    path: path.join('level-2', 'block', 'block.tech'),
-                    tech: 'tech'
-                }
-            ]);
+            const file1 = files[0];
+            const file2 = files[1];
+
+            t.deepEqual(file1.entity.valueOf(), { block: 'block' });
+            t.is(file1.level, 'level-1');
+            t.is(file1.path, path.join('level-1', 'block', 'block.tech'));
+            t.is(file1.tech, 'tech');
+
+            t.deepEqual(file2.entity.valueOf(), { block: 'block' });
+            t.is(file2.level, 'level-2');
+            t.is(file2.path, path.join('level-2', 'block', 'block.tech'));
+            t.is(file2.tech, 'tech');
         });
 });
