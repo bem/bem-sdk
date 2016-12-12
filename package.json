@@ -21,6 +21,7 @@
     "lib/**"
   ],
   "dependencies": {
+    "@bem/cell": "0.2.0",
     "@bem/entity-name": "1.1.0",
     "async-each": "1.0.1",
     "bem-naming": "1.0.1"
