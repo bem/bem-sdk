@@ -221,7 +221,7 @@ const stream = walk(levels, {
 
 /*
 { button:
-   [ { entity: { block: 'button', modName: 'togglable', modVal: 'radio' },
+   [ { entity: { block: 'button', mod: { name: 'togglable', val: 'radio' } },
        tech: 'spec.js',
        path: 'libs/bem-components/common.blocks/button/_togglable/
        button_togglable_radio.spec.js',
@@ -260,7 +260,7 @@ const stream = walk(levels, {
     .on('end', () => console.log(files));
 
 /*
-[{ entity: { block: 'popup', modName: 'target', modVal: true },
+[{ entity: { block: 'popup', mod: { name: 'target', val: true } },
    tech: 'js',
    path: 'libs/bem-components/common.blocks/popup/_target/popup_target.js',
    level: 'libs/bem-components/common.blocks' },
