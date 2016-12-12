@@ -28,13 +28,12 @@ test('should support original naming', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{
                 block: 'block',
                 elem: 'elem',
-                modName: 'mod',
-                modVal: 'val'
+                mod: { name: 'mod', val: 'val' }
             }]);
         });
 });
@@ -57,13 +56,12 @@ test('should support Convention by Harry Roberts', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{
                 block: 'block',
                 elem: 'elem',
-                modName: 'mod',
-                modVal: 'val'
+                mod: { name: 'mod', val: 'val' }
             }]);
         });
 });
@@ -90,13 +88,12 @@ test('should support custom naming', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [{
                 block: 'block',
                 elem: 'elem',
-                modName: 'boolMod',
-                modVal: true
+                mod: { name: 'boolMod', val: true }
             }]);
         });
 });
@@ -126,18 +123,16 @@ test('should support several naming', t => {
 
     return toArray(walk(['original.blocks', 'csswizardry.blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity);
+            const entities = files.map(file => file.entity.valueOf());
 
             t.deepEqual(entities, [
                 {
                     block: 'block',
-                    modName: 'mod',
-                    modVal: true
+                    mod: { name: 'mod', val: true }
                 },
                 {
                     block: 'block',
-                    modName: 'mod',
-                    modVal: 'val'
+                    mod: { name: 'mod', val: 'val' }
                 }
             ]);
         });
