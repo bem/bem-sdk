@@ -13,7 +13,8 @@
     "layer",
     "cell",
     "part",
-    "identifier"
+    "identifier",
+    "id"
   ],
   "main": "index.js",
   "files": [
