@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('ava');
+const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/harmony');
 
 test('should support undefined', t => {
@@ -20,14 +21,14 @@ test('should support empty object', t => {
 test('should return set', t => {
     const A = { block: 'A' };
 
-    t.deepEqual(normalize([A, A]), [{ entity: A, tech: null }]);
+    t.deepEqual(normalize([A, A]).map(simplifyCell), [{ entity: A, tech: null }]);
 });
 
 test('should save order', t => {
     const A = { block: 'A' },
         B = { block: 'B' };
 
-    t.deepEqual(normalize([A, B, A]), [{ entity: A, tech: null }, { entity: B, tech: null }]);
+    t.deepEqual(normalize([A, B, A]).map(simplifyCell), [{ entity: A, tech: null }, { entity: B, tech: null }]);
 });
 
 test('should support array', t => {
@@ -36,7 +37,7 @@ test('should support array', t => {
         { block: 'B' }
     ];
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'A' }, tech: null },
         { entity: { block: 'B' }, tech: null }
     ]);
