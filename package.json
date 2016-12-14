@@ -46,5 +46,15 @@
     "test": "nyc ava",
     "bench": "matcha benchmark/*.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "files": [
+      "test/*.test.js",
+      "test/**/*.test.js"
+    ],
+    "source": [
+      "lib/*.js",
+      "lib/**/*.js"
+    ]
   }
 }
