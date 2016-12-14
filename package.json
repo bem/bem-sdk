@@ -26,7 +26,6 @@
   "dependencies": {
     "@bem/cell": "0.2.0",
     "@bem/entity-name": "1.1.0",
-    "bem-naming": "1.0.1",
     "es6-promisify": "5.0.0",
     "graceful-fs": "4.1.11",
     "node-eval": "1.0.4"
