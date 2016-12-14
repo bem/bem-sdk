@@ -16,7 +16,7 @@ test('should have `normalize` method', t => {
 test('should support `BEMDECL 1.0` format', t => {
     var decl = bemDecl.normalize(decls.v1, { format: 'v1' });
 
-    t.deepEqual(decl, [{ entity: decls.normalized, tech: null }]);
+    t.deepEqual(decl.map(simplifyCell), [{ entity: decls.normalized, tech: null }]);
 });
 
 // TODO: define name of format
