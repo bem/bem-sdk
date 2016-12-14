@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('ava');
+const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/v2');
 
 test('should support elem as object and mod', t => {
@@ -14,7 +15,7 @@ test('should support elem as object and mod', t => {
         }
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block', elem: 'elem' }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'mod1', modVal: true }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'mod1', modVal: 'v1' }, tech: null }
@@ -33,7 +34,7 @@ test('should support elem of elem as array mods', t => {
         ]
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block', elem: 'elem1' }, tech: null },
         { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: null },
         { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: 'v1' }, tech: null },
@@ -50,7 +51,7 @@ test('should support array of mod values', t => {
         mods: ['m1', 'm2']
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block', elem: 'elem' }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'm1', modVal: true }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'm2', modVal: true }, tech: null }

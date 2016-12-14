@@ -23,7 +23,7 @@ test('should support `BEMDECL 1.0` format', t => {
 test('should have support `BEMDECL x.0` format', t => {
     var decl = bemDecl.normalize(decls.v2, { v2: true });
 
-    t.deepEqual(decl, [{ entity: decls.normalized, tech: null }]);
+    t.deepEqual(decl.map(simplifyCell), [{ entity: decls.normalized, tech: null }]);
 })
 
 test('should support `BEMDECL 2.0` format', t => {
