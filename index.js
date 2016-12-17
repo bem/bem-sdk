@@ -72,11 +72,15 @@ function createNaming(options) {
             res += delims.elem + obj.elem;
         }
 
-        if (obj.modName) {
-            const modVal = obj.modVal;
+        const modObj = obj.mod;
+        const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) || obj.modName;
 
-            if (modVal || modVal === 0 || !obj.hasOwnProperty('modVal')) {
-                res += delims.mod.name + obj.modName;
+        if (modName) {
+            const hasModVal = modObj && modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
+            const modVal = modObj && modObj.val || obj.modVal;
+
+            if (modVal || modVal === 0 || !hasModVal) {
+                res += delims.mod.name + modName;
             }
 
             if (modVal && modVal !== true) {
