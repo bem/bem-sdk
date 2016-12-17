@@ -167,12 +167,12 @@ const myNaming = bemNaming({
                                   // element and modifier's name
 
 myNaming.parse('block--mod_val'); // { block: 'block',
-                                  //   modName: 'mod', modVal: 'val' }
+                                  //   mod: { name: 'mod', val: 'val' } }
 
-myNaming.stringify({              // 'blockName-elemName--boolElemMod'
+myNaming.stringify({              // 'blockName-elemName--simpleElemMod'
     block: 'blockName',
     elem: 'elemName',
-    modName: 'boolElemMod'
+    mod: 'simpleElemMod'
 });
 ```
 
@@ -222,19 +222,19 @@ Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
 Example:
 
 ```js
-const bemNaming = require('bem-naming');
+const twoDashesNaming = require('bem-naming')('two-dashes');
 
-const twoDashes = bemNaming('two-dashes');
+twoDashesNaming.parse('block__elem');    // { block: 'block', elem: 'elem' }
+twoDashesNaming.parse('block--mod_val'); // { block: 'block',
+                                         //   mod: { name: 'mod', val: 'val' } }
 
-twoDashes.parse('block__elem');    // { block: 'block', elem: 'elem' }
-twoDashes.parse('block--mod_val'); // { block: 'block',
-                                   //   modName: 'mod', modVal: 'val' }
-
-twoDashes.stringify({              // 'block__elem--mod'
+twoDashesNaming.stringify({
     block: 'block',
     elem: 'elem',
-    modName: 'mod'
+    mod: 'mod'
 });
+
+// ➜ block__elem--mod
 ```
 
 License
