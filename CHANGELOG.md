@@ -118,6 +118,36 @@ console.log(entityName); // BemEntityName { block: 'button', mod: { name: 'disab
 [#126]: https://github.com/bem-sdk/bem-naming/issues/126
 [#95]: https://github.com/bem-sdk/bem-naming/issues/95
 
+#### The `stringify` method supports [BemEntityName](https://github.com/bem-sdk/bem-entity-name) instance ([#152]).
+
+**Important:** in `BemEntityName` the `modName` and `modVal` fields are deprecated. Use the `mod` field instead ([#95]).
+
+**API v1.x.x**
+
+```js
+const stringify = require('bem-naming').stringify;
+
+stringify({ block: 'button', modName: 'disabled', modVal: true });
+
+// ➜ button_disabled
+```
+
+**API v2.x.x**
+
+```js
+const stringify = require('@bem/naming').stringify;
+const BemEntityName = require('@bem/entity-name');
+
+const entityName = new BemEntityName({ block: 'button', mod: 'disabled' });
+
+stringify(entityName);
+
+// ➜ button_disabled
+```
+
+[#152]: https://github.com/bem-sdk/bem-naming/issues/152
+[#95]: https://github.com/bem-sdk/bem-naming/issues/95
+
 ### Performance
 
 * Accelerated initialization for `origin` naming (@tadatuta [#134]).

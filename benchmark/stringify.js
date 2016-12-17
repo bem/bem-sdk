@@ -1,9 +1,9 @@
 var naming = require('../index'),
     notations = {
         block: { block: 'block' },
-        blockMod: { block: 'block', modName: 'mod-name', modVal: 'mod-val' },
+        blockMod: { block: 'block', mod: { name: 'mod-name', val: 'mod-val' } },
         elem: { block: 'block', elem: 'elem' },
-        elemMod: { block: 'block', elem: 'elem', modName: 'mod-name', modVal: 'mod-val' }
+        elemMod: { block: 'block', elem: 'elem', mod: { name: 'mod-name', val: 'mod-val' } }
     };
 
 suite('stringify', function () {
