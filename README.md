@@ -27,11 +27,14 @@ Usage
 -----
 
 ```js
-const bemNaming = require('bem-naming');
+const bemNaming = require('@bem/naming');
+const BemEntityName = require('@bem/entity-name');
 
 bemNaming.parse('button__text'); // { block: 'button', elem: 'text' }
 
-bemNaming.stringify({ block: 'button', modName: 'checked' }); // button_checked
+const entityName = new BemEntityName({ block: 'button', mod: 'checked' });
+
+bemNaming.stringify(entityName); // button_checked
 ```
 
 Table of Contents
