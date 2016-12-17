@@ -127,42 +127,6 @@ myNaming.stringify({              // 'blockName-elemName--simpleElemMod'
 });
 ```
 
-### bemNaming({ elem, mod, wordPattern })
-
-#### elem
-
-Type: `String`
-
-Default: `__`
-
-Separates element's name from block
-
-#### mod
-
-Type: `String`, `{ name: String, val: String }`
-
-Default: `_`
-
-Separates modifiers from blocks and elements.
-
-This option can take object with following fields:
-
-* `name` — separates name of modifier from blocks and elements.
-
-  Default as `_`.
-
-* `val` — separates value of modifier from name of modifier.
-
-  Default as the value of the `name`.
-
-#### wordPattern
-
-Type: `String`
-
-Default: `[a-z0-9]+(?:-[a-z0-9]+)*`
-
-Defines which symbols can be used for block, element and modifier's names.
-
 Convention by Harry Roberts
 ---------------------------
 
@@ -191,11 +155,22 @@ twoDashesNaming.stringify({
 API
 ---
 
+* [bemNaming({ elem, mod, wordPattern })](#bemnaming-elem-mod-wordpattern-)
 * [parse(str)](#parsestr)
 * [stringify(obj)](#stringifyobj)
 * [elemDelim](#elemdelim)
 * [modDelim](#moddelim)
 * [modValDelim](#modvaldelim)
+
+### bemNaming({ elem, mod, wordPattern })
+
+Parameter      | Type     | Description
+---------------|----------|------------------------------
+`opts.elem`    | `string` | Separates element's name from block. Default: `_`.
+`opts.mod`     | `string`, `{ name: string, val: string }` | Separates modifier from block or element. Default as `_`.
+`opts.mod.name`| `string` | Separates name of modifier from block or element. Default as `_`.
+`opts.mod.val` | `string` | Separates value of modifier from name of modifier. Default as the value of the `name`.
+`opts.wordPattern` | `string` | Defines which symbols can be used for block, element and modifier's names. Default: `[a-z0-9]+(?:-[a-z0-9]+)*`.
 
 ### parse(str)
 
