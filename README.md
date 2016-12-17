@@ -139,6 +139,10 @@ The BEM methodology uses a flat structure inside blocks. This means that a BEM e
 'block__some-elem__sub-elem'
 ```
 
+For more information, see the [FAQ](https://en.bem.info/methodology/faq/):
+
+> [Why doesn't BEM recommend using elements within elements (block__elem1__elem2)?](https://en.bem.info/methodology/faq/#why-does-bem-not-recommend-using-elements-within-elements-block__elem1__elem2)
+
 Also, a BEM entity can't be a block modifier and an element modifier simultaneously, so the following string representation will be invalid:
 
 ```js
