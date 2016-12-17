@@ -42,10 +42,10 @@ Table of Contents
 
 * [Object representation](#object-representation)
 * [String representation](#string-representation)
-* [API](#api)
 * [Common misconceptions](#common-misconceptions)
 * [Custom naming convention](#custom-naming-convention)
 * [Convention by Harry Roberts](#convention-by-harry-roberts)
+* [API](#api)
 
 Object representation
 ---------------------
@@ -80,55 +80,6 @@ The original naming uses the following delimiters:
 
 * `__` — to separate an element from a block
 * `_` — to separate a modifier name from a block or element and to separate a modifier value from a modifier name
-
-API
----
-
-* [parse(str)](#parsestr)
-* [stringify(obj)](#stringifyobj)
-* [elemDelim](#elemdelim)
-* [modDelim](#moddelim)
-* [modValDelim](#modvaldelim)
-
-### parse(str)
-
-It parses string into naming object.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
-                                         //   modName: 'mod', modVal: 'val' }
-```
-
-### stringify(obj)
-
-It forms a string according to naming object.
-
-Example:
-
-```js
-const bemNaming = require('bem-naming');
-
-bemNaming.stringify({
-    block: 'block', elem: 'elem',
-    modName: 'mod', modVal: 'val'
-}); // 'block__elem_mod_val'
-```
-
-### elemDelim
-
-String to separate element from block.
-
-### modDelim
-
-String to separate modifier name from block or element.
-
-### modValDelim
-
-String to separate value of modifier from name of modifier.
 
 Common misconceptions
 ---------------------
@@ -236,6 +187,55 @@ twoDashesNaming.stringify({
 
 // ➜ block__elem--mod
 ```
+
+API
+---
+
+* [parse(str)](#parsestr)
+* [stringify(obj)](#stringifyobj)
+* [elemDelim](#elemdelim)
+* [modDelim](#moddelim)
+* [modValDelim](#modvaldelim)
+
+### parse(str)
+
+It parses string into naming object.
+
+Example:
+
+```js
+const bemNaming = require('bem-naming');
+
+bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
+                                         //   modName: 'mod', modVal: 'val' }
+```
+
+### stringify(obj)
+
+It forms a string according to naming object.
+
+Example:
+
+```js
+const bemNaming = require('bem-naming');
+
+bemNaming.stringify({
+    block: 'block', elem: 'elem',
+    modName: 'mod', modVal: 'val'
+}); // 'block__elem_mod_val'
+```
+
+### elemDelim
+
+String to separate element from block.
+
+### modDelim
+
+String to separate a modifier name from a block or element.
+
+### modValDelim
+
+String to separate a modifier value from the name of the modifier.
 
 License
 -------
