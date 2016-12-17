@@ -1,0 +1,5 @@
+globals:
+  # matcha
+  set: false
+  bench: false
+  suite: false
