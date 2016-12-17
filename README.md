@@ -164,45 +164,62 @@ API
 
 ### bemNaming({ elem, mod, wordPattern })
 
-Parameter      | Type     | Description
----------------|----------|------------------------------
-`opts.elem`    | `string` | Separates element's name from block. Default: `_`.
-`opts.mod`     | `string`, `{ name: string, val: string }` | Separates modifier from block or element. Default as `_`.
-`opts.mod.name`| `string` | Separates name of modifier from block or element. Default as `_`.
-`opts.mod.val` | `string` | Separates value of modifier from name of modifier. Default as the value of the `name`.
-`opts.wordPattern` | `string` | Defines which symbols can be used for block, element and modifier's names. Default: `[a-z0-9]+(?:-[a-z0-9]+)*`.
+Parameter     | Type     | Description                                                                       | Default
+--------------|----------|-----------------------------------------------------------------------------------|----------------------------------------
+`elem`        | `string` | Separates element's name from block.                                              | `__`
+`mod`         | `string`, `{ name: string, val: string }` | Separates modifier from block or element.        | `_`
+`mod.name`    | `string` | Separates a modifier name from a block or an element.                             | `_`
+`mod.val`     | `string` | Separates the value of a modifier from the modifier name.                         | Default as the value of the `mod.name`.
+`wordPattern` | `string` | Defines which characters can be used in names of blocks, elements, and modifiers. | `[a-z0-9]+(?:-[a-z0-9]+)*`
 
 ### parse(str)
 
-It parses string into naming object.
+Parameter | Type     | Description
+----------|----------|--------------------------------
+`str`     | `string` | BEM entity name representation.
+
+Parses the string into an instance of `BemEntityName`.
 
 Example:
 
 ```js
 const bemNaming = require('bem-naming');
 
-bemNaming.parse('block__elem_mod_val');  // { block: 'block', elem: 'elem',
-                                         //   modName: 'mod', modVal: 'val' }
+bemNaming.parse('block__elem_mod_val');
+
+// ➜ BemEntityName {
+//     block: 'block',
+//     elem: 'elem',
+//     mod: { name: 'mod', val: 'val' }
+// }
 ```
 
-### stringify(obj)
+### stringify(entityName)
 
-It forms a string according to naming object.
+Parameter    | Type                      | Description
+-------------|---------------------------|--------------------------------
+`entityName` | `BemEntityName`, `object` | BEM entity name representation.
+
+Forms a string from the instance of `BemEntityName`.
 
 Example:
 
 ```js
 const bemNaming = require('bem-naming');
+const BemEntityName = require('@bem/entity-name');
 
-bemNaming.stringify({
-    block: 'block', elem: 'elem',
-    modName: 'mod', modVal: 'val'
-}); // 'block__elem_mod_val'
+bemNaming.stringify(new BemEntityName({
+    block: 'block',
+    elem: 'elem',
+    mod: { name: 'mod', val: 'val' }
+});
+
+// ➜ block__elem_mod_val
 ```
 
 ### elemDelim
 
-String to separate element from block.
+String to separate an element from a block.
 
 ### modDelim
 
