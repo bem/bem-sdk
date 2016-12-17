@@ -156,10 +156,14 @@ stringify(entityName);
 
 ### Chore
 
-* The package moved to [bem-sdk](https://github.com/bem-sdk/bem-sdk) organization (@blond [b22dfc5]).
+* Moved the package to [bem-sdk](https://github.com/bem-sdk/bem-sdk) organization (@blond [b22dfc5]).
+* Removed Russian docs (@blond [#142]).
+* Updated docs (@blond [#153]).
 * Run tests in `Node.js` v6 (@blond [#114]).
 
 [#114]: https://github.com/bem-sdk/bem-naming/pull/114
+[#142]: https://github.com/bem-sdk/bem-naming/pull/142
+[#153]: https://github.com/bem-sdk/bem-naming/pull/153
 [b22dfc5]: https://github.com/bem-sdk/bem-naming/commit/b22dfc570aa3c99b9d5b6b335fd8eaa62e1f35c7
 
 1.0.1
