@@ -43,8 +43,8 @@ Table of Contents
 * [Object representation](#object-representation)
 * [String representation](#string-representation)
 * [Common misconceptions](#common-misconceptions)
-* [Custom naming convention](#custom-naming-convention)
 * [Convention by Harry Roberts](#convention-by-harry-roberts)
+* [Custom naming convention](#custom-naming-convention)
 * [API](#api)
 
 Object representation
@@ -100,6 +100,31 @@ Also, a BEM entity can't be a block modifier and an element modifier simultaneou
 'block_block-mod-name_block-mod-val__elem-name_elem-mod-name_elem-mod-val'
 ```
 
+Convention by Harry Roberts
+---------------------------
+
+According to this convention elements are delimited with two underscores (`__`), modifiers are delimited by two hyphens (`--`), and values of modifiers are delimited by one underscore (`_`).
+
+Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
+
+Example:
+
+```js
+const twoDashesNaming = require('bem-naming')('two-dashes');
+
+twoDashesNaming.parse('block__elem');    // { block: 'block', elem: 'elem' }
+twoDashesNaming.parse('block--mod_val'); // { block: 'block',
+                                         //   mod: { name: 'mod', val: 'val' } }
+
+twoDashesNaming.stringify({
+    block: 'block',
+    elem: 'elem',
+    mod: 'mod'
+});
+
+// ➜ block__elem--mod
+```
+
 Custom naming convention
 ------------------------
 
@@ -125,31 +150,6 @@ myNaming.stringify({              // 'blockName-elemName--simpleElemMod'
     elem: 'elemName',
     mod: 'simpleElemMod'
 });
-```
-
-Convention by Harry Roberts
----------------------------
-
-According to this convention elements are delimited with two underscores (`__`), modifiers are delimited by two hyphens (`--`), and values of modifiers are delimited by one underscore (`_`).
-
-Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
-
-Example:
-
-```js
-const twoDashesNaming = require('bem-naming')('two-dashes');
-
-twoDashesNaming.parse('block__elem');    // { block: 'block', elem: 'elem' }
-twoDashesNaming.parse('block--mod_val'); // { block: 'block',
-                                         //   mod: { name: 'mod', val: 'val' } }
-
-twoDashesNaming.stringify({
-    block: 'block',
-    elem: 'elem',
-    mod: 'mod'
-});
-
-// ➜ block__elem--mod
 ```
 
 API
