@@ -1,9 +1,12 @@
 bem-naming
 ==========
 
+Tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representations: allows you to parse [string representation](#string-representation) and stringify [object representation](#object-representation).
+
 [![NPM Status][npm-img]][npm]
 [![Travis Status][test-img]][travis]
 [![Coverage Status][coverage-img]][coveralls]
+[![Dependency Status][dependency-img]][david]
 
 [npm]:          https://www.npmjs.org/package/bem-naming
 [npm-img]:      https://img.shields.io/npm/v/bem-naming.svg
@@ -14,7 +17,8 @@ bem-naming
 [coveralls]:    https://coveralls.io/r/bem-sdk/bem-naming
 [coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-naming.svg
 
-Tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representations: allows you to parse [string representation](#string-representation) and stringify [object representation](#object-representation).
+[david]:          https://david-dm.org/bem-sdk/bem-naming
+[dependency-img]: http://img.shields.io/david/bem-sdk/bem-naming.svg
 
 Install
 -------
