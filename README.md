@@ -120,11 +120,11 @@ bemNaming.stringify({
 
 ### elemDelim
 
-String to separate elem from block.
+String to separate element from block.
 
 ### modDelim
 
-String to separate modifiers from blocks and elements.
+String to separate modifier name from block or element.
 
 ### modValDelim
 
