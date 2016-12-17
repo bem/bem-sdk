@@ -14,10 +14,7 @@ bem-naming
 [coveralls]:    https://coveralls.io/r/bem-sdk/bem-naming
 [coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-naming.svg
 
-About
------
-
-This tool allows getting information about BEM entity using [string](#string-representation) as well as forming string representation based on [naming object](#object-representation-of-bem-entity).
+Tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representations: allows you to parse [string representation](#string-representation) and stringify [object representation](#object-representation-of-bem-entity).
 
 Install
 -------
