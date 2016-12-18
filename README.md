@@ -1,5 +1,5 @@
-bem-entity-name
-===============
+BemEntityName
+=============
 
 [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) name representation.
 
