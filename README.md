@@ -132,7 +132,7 @@ twoDashesNaming.stringify({
 Custom naming convention
 ------------------------
 
-Use `bemNaming` function to create instance to manage naming of your own naming convention.
+Use the [bemNaming](#bemnaming-elem-mod-wordpattern-) function to create an instance where you can manage your own naming convention.
 
 Example:
 
