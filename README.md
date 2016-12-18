@@ -12,10 +12,10 @@ BEM entity name representation.
 [npm-img]:      https://img.shields.io/npm/v/@bem/entity-name.svg
 
 [travis]:       https://travis-ci.org/bem-sdk/bem-entity-name
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-entity-name.svg
+[test-img]:     https://img.shields.io/travis/bem-sdk/bem-entity-name/master.svg
 
 [coveralls]:    https://coveralls.io/r/bem-sdk/bem-entity-name
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-entity-name.svg
+[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-entity-name/master.svg
 
 [david]:          https://david-dm.org/bem-sdk/bem-entity-name
 [dependency-img]: http://img.shields.io/david/bem-sdk/bem-entity-name.svg
