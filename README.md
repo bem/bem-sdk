@@ -1,6 +1,8 @@
 bem-entity-name
 ===============
 
+BEM entity name representation.
+
 [![NPM Status][npm-img]][npm]
 [![Travis Status][test-img]][travis]
 [![Coverage Status][coverage-img]][coveralls]
@@ -17,8 +19,6 @@ bem-entity-name
 
 [david]:          https://david-dm.org/bem-sdk/bem-entity-name
 [dependency-img]: http://img.shields.io/david/bem-sdk/bem-entity-name.svg
-
-BEM entity name representation.
 
 Install
 -------
