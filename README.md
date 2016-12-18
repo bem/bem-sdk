@@ -103,9 +103,9 @@ API
 * [id](#id)
 * [type](#type)
 * [isEqual(entityName)](#isequalentityname)
+* [isBemEntityName(entityName)](#isbementitynameentityname)
 * [toString()](#tostring)
 * [valueOf()](#valueof)
-* [isBemEntityName()](#isbementityname)
 
 ### constructor(obj)
 
@@ -206,6 +206,23 @@ inputName.isEqual(buttonName);  // false
 buttonName.isEqual(buttonName); // true
 ```
 
+### isBemEntityName(entityName)
+
+Determines whether specified entity is instance of BemEntityName.
+
+Parameter    | Type            | Description
+-------------|-----------------|-----------------------
+`entityName` | `BemEntityName` | The entity to check.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+const entityName = new BemEntityName({ block: 'input' });
+
+BemEntityName.isBemEntityName(entityName); // true
+BemEntityName.isBemEntityName({}); // false
+```
+
 ### toString()
 
 Returns string representing the entity name.
@@ -231,23 +248,6 @@ const name = new BemEntityName({ block: 'button', mod: 'focused' });
 name.valueOf();
 
 // ➜ { block: 'button', mod: { name: 'focused', value: true } }
-```
-
-### isBemEntityName(entityName)
-
-Determines whether specified entity is instance of BemEntityName.
-
-Parameter    | Type            | Description
--------------|-----------------|-----------------------
-`entityName` | `BemEntityName` | The entity to check.
-
-```js
-const BemEntityName = require('@bem/entity-name');
-
-const entityName = new BemEntityName({ block: 'input' });
-
-BemEntityName.isBemEntityName(entityName); // true
-BemEntityName.isBemEntityName({}); // false
 ```
 
 Debuggability
