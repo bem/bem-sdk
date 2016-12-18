@@ -96,7 +96,7 @@ new BemEntityName({
 API
 ---
 
-* [constructor(obj)](#constructorobj)
+* [constructor({ block, elem, mod })](#constructor-block-elem-mod-)
 * [block](#block)
 * [elem](#elem)
 * [mod](#mod)
@@ -107,15 +107,15 @@ API
 * [toString()](#tostring)
 * [valueOf()](#valueof)
 
-### constructor(obj)
+### constructor({ block, elem, mod })
 
-Parameter     | Type     | Description
---------------|----------|------------------------------
-`obj.block`   | `string` | The block name of entity.
-`obj.elem`    | `string` | The element name of entity.
-`obj.mod`     | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
-`obj.mod.name`| `string` | The modifier name of entity.
-`obj.mod.val` | `*`      | The modifier value of entity.
+Parameter | Type     | Description
+----------|----------|------------------------------
+`block`   | `string` | The block name of entity.
+`elem`    | `string` | The element name of entity.
+`mod`     | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
+`mod.name`| `string` | The modifier name of entity.
+`mod.val` | `*`      | The modifier value of entity.
 
 ### block
 
