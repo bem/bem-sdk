@@ -1,7 +1,7 @@
 bem-entity-name
 ===============
 
-BEM entity name representation.
+[BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) name representation.
 
 [![NPM Status][npm-img]][npm]
 [![Travis Status][test-img]][travis]
