@@ -233,7 +233,7 @@ name.valueOf();
 // ➜ { block: 'button', mod: { name: 'focused', value: true } }
 ```
 
-### isBemEntityName()
+### isBemEntityName(entityName)
 
 Determines whether specified entity is instance of BemEntityName.
 
