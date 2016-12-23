@@ -2,11 +2,18 @@ sudo: false
 
 language: node_js
 
+cache:
+  directories:
+    - $HOME/.npm
+
+before_script:
+   - npm prune
+
 matrix:
   include:
     - node_js: "4"
-      env: COVERALLS=1
     - node_js: "6"
+      env: COVERALLS=1
 
 after_success:
   - if [ "x$COVERALLS" = "x1" ]; then npm run coveralls; fi
