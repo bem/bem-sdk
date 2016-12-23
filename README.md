@@ -47,7 +47,7 @@ Table of Contents
 * [Object representation](#object-representation)
 * [String representation](#string-representation)
 * [Common misconceptions](#common-misconceptions)
-* [Convention by Harry Roberts](#convention-by-harry-roberts)
+* [Harry Roberts' naming convention](#harry-roberts-naming-convention)
 * [Custom naming convention](#custom-naming-convention)
 * [API](#api)
 
@@ -104,8 +104,8 @@ Also, a BEM entity can't be a block modifier and an element modifier simultaneou
 'block_block-mod-name_block-mod-val__elem-name_elem-mod-name_elem-mod-val'
 ```
 
-Convention by Harry Roberts
----------------------------
+Harry Roberts' naming convention
+--------------------------------
 
 According to this convention elements are delimited with two underscores (`__`), modifiers are delimited by two hyphens (`--`), and values of modifiers are delimited by one underscore (`_`).
 
