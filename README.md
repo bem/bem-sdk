@@ -8,14 +8,14 @@ Tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/
 [![Coverage Status][coverage-img]][coveralls]
 [![Dependency Status][dependency-img]][david]
 
-[npm]:          https://www.npmjs.org/package/bem-naming
-[npm-img]:      https://img.shields.io/npm/v/bem-naming.svg
+[npm]:            https://www.npmjs.org/package/@bem/naming
+[npm-img]:        https://img.shields.io/npm/v/@bem/naming.svg
 
-[travis]:       https://travis-ci.org/bem-sdk/bem-naming
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-naming.svg?label=tests
+[travis]:         https://travis-ci.org/bem-sdk/bem-naming
+[test-img]:       https://img.shields.io/travis/bem-sdk/bem-naming.svg?label=tests
 
-[coveralls]:    https://coveralls.io/r/bem-sdk/bem-naming
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-naming.svg
+[coveralls]:      https://coveralls.io/r/bem-sdk/bem-naming
+[coverage-img]:   https://img.shields.io/coveralls/bem-sdk/bem-naming.svg
 
 [david]:          https://david-dm.org/bem-sdk/bem-naming
 [dependency-img]: http://img.shields.io/david/bem-sdk/bem-naming.svg
@@ -24,7 +24,7 @@ Install
 -------
 
 ```
-$ npm install --save bem-naming
+$ npm install --save @bem/naming
 ```
 
 Usage
@@ -114,7 +114,7 @@ Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
 Example:
 
 ```js
-const twoDashesNaming = require('bem-naming')('two-dashes');
+const twoDashesNaming = require('@bem/naming')('two-dashes');
 
 twoDashesNaming.parse('block__elem');    // { block: 'block', elem: 'elem' }
 twoDashesNaming.parse('block--mod_val'); // { block: 'block',
@@ -137,7 +137,7 @@ Use the [bemNaming](#bemnaming-elem-mod-wordpattern-) function to create an inst
 Example:
 
 ```js
-const bemNaming = require('bem-naming');
+const bemNaming = require('@bem/naming');
 
 const myNaming = bemNaming({
     elem: '-',
@@ -187,7 +187,7 @@ Parses the string into an instance of `BemEntityName`.
 Example:
 
 ```js
-const bemNaming = require('bem-naming');
+const bemNaming = require('@bem/naming');
 
 bemNaming.parse('block__elem_mod_val');
 
@@ -209,7 +209,7 @@ Forms a string from the instance of `BemEntityName`.
 Example:
 
 ```js
-const bemNaming = require('bem-naming');
+const bemNaming = require('@bem/naming');
 const BemEntityName = require('@bem/entity-name');
 
 bemNaming.stringify(new BemEntityName({

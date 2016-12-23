@@ -1,5 +1,5 @@
 {
-  "name": "bem-naming",
+  "name": "@bem/naming",
   "version": "1.0.1",
   "description": "Manage naming of BEM entities",
   "license": "MPL-2.0",
