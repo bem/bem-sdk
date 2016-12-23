@@ -1,6 +1,171 @@
 Changelog
 =========
 
+2.0.0
+-----
+
+### BEM SDK
+
+The `bem-naming` became part of the [BEM SDK](https://github.com/bem-sdk/bem-sdk). In this regard, there have been several changes for consistency with other packages of BEM SDK.
+
+Now BEM SDK modules are used in assembly systems and `bem-tools` plugins. Therefore, the modules support `Node.js` only.
+
+* **[major]** Removed support of `YModules` and `AMD` (@blond [#138]).
+* **[major]** Stopped publishing to `Bower` (@blond [#118]).
+
+If it becomes necessary to use BEM SDK in browsers or other environments we'll figure out a system solution for all modules.
+
+[#138]: https://github.com/bem-sdk/bem-naming/issues/138
+[#118]: https://github.com/bem-sdk/bem-naming/issues/118
+
+### API
+
+According to the principles of BEM SDK each module solves only one problem.
+
+The `bem-naming` module did more than just `parse` and `stringify` BEM names.
+
+#### Removed `typeOf` method ([#98])
+
+To work with BEM entities there are packages [@bem/entity](https://github.com/bem-sdk/bem-entity) and [@bem/entity-name](https://github.com/bem-sdk/bem-entity-name).
+
+**API v1.x.x**
+
+```js
+const bemNaming = require('bem-naming');
+
+// get type by string
+bemNaming.typeOf('button'); // block
+
+// get type by entity object
+bemNaming.typeOf({ block: 'button', modName: 'focused' }); // blockMod
+```
+
+**API v2.x.x**
+
+```js
+// get type by string
+const parseBemName = require('@bem/naming').parse;
+const blockName = parseBemName('button');
+
+blockName.type // block
+
+// get type by entity object
+const BemEntityName = require('@bem/entity-name');
+const modName = new BemEntityName({ block: 'button', mod: 'focused' });
+
+modName.type; // blockMod
+```
+
+[#98]: https://github.com/bem-sdk/bem-naming/issues/98
+
+#### Removed `validate` method ([#147])
+
+Use `parse` method instead.
+
+**API v1.x.x**
+
+```js
+const validate = require('bem-naming').validate;
+
+validate('block-name'); // true
+validate('^*^');        // false
+```
+
+**API v2.x.x**
+
+```js
+const parse = require('@bem/naming').parse;
+
+Boolean(parse('block-name')); // true
+Boolean(parse('^*^'));        // false
+```
+
+[#147]: https://github.com/bem-sdk/bem-naming/issues/147
+
+#### The `parse` method returns [BemEntityName](https://github.com/bem-sdk/bem-entity-name) object ([#126]).
+
+It will allow to use helpers of `BemEntityName`.
+
+**Important:** in `BemEntityName` the `modName` and `modVal` fields are deprecated. Use the `mod` field instead ([#95]).
+
+**API v1.x.x**
+
+```js
+const parse = require('bem-naming').parse;
+
+const entityName = parse('button_disabled');
+
+entityName.modName; // disabled
+entityName.modVal;  // true
+
+console.log(entityName); // { block: 'button', modName: 'disabled', modVal: true }
+```
+
+**API v2.x.x**
+
+```js
+const parse = require('@bem/naming').parse;
+
+const entityName = parse('button_disabled');
+
+entityName.mod;  // { name: 'disabled', val: true }
+entityName.id;   // button_disabled
+entityName.type; // mod
+
+console.log(entityName); // BemEntityName { block: 'button', mod: { name: 'disabled', val: true } }
+```
+
+[#126]: https://github.com/bem-sdk/bem-naming/issues/126
+[#95]: https://github.com/bem-sdk/bem-naming/issues/95
+
+#### The `stringify` method supports [BemEntityName](https://github.com/bem-sdk/bem-entity-name) instance ([#152]).
+
+**Important:** in `BemEntityName` the `modName` and `modVal` fields are deprecated. Use the `mod` field instead ([#95]).
+
+**API v1.x.x**
+
+```js
+const stringify = require('bem-naming').stringify;
+
+stringify({ block: 'button', modName: 'disabled', modVal: true });
+
+// ➜ button_disabled
+```
+
+**API v2.x.x**
+
+```js
+const stringify = require('@bem/naming').stringify;
+const BemEntityName = require('@bem/entity-name');
+
+const entityName = new BemEntityName({ block: 'button', mod: 'disabled' });
+
+stringify(entityName);
+
+// ➜ button_disabled
+```
+
+[#152]: https://github.com/bem-sdk/bem-naming/issues/152
+[#95]: https://github.com/bem-sdk/bem-naming/issues/95
+
+### Performance
+
+* Accelerated initialization for `origin` naming (@tadatuta [#134]).
+
+[#134]: https://github.com/bem-sdk/bem-naming/pull/134
+
+### Chore
+
+* Moved the package to [bem-sdk](https://github.com/bem-sdk/bem-sdk) organization (@blond [b22dfc5]).
+* Removed Russian docs (@blond [#142]).
+* Updated docs (@blond [#153]).
+* Run tests in `Node.js` v6 (@blond [#114]).
+
+[#114]: https://github.com/bem-sdk/bem-naming/pull/114
+[#142]: https://github.com/bem-sdk/bem-naming/pull/142
+[#153]: https://github.com/bem-sdk/bem-naming/pull/153
+[b22dfc5]: https://github.com/bem-sdk/bem-naming/commit/b22dfc570aa3c99b9d5b6b335fd8eaa62e1f35c7
+
 1.0.1
 -----
 
@@ -44,7 +209,7 @@ var myNaming = bemNaming({
     mod: '--'
 });
 
-var obj = {              
+var obj = {
     block: 'block',
     modName: 'mod',
     modVal: 'val'
@@ -60,7 +225,7 @@ var myNaming = bemNaming({
     mod: { name: '--', val: '_' }
 });
 
-var obj = {              
+var obj = {
     block: 'block',
     modName: 'mod',
     modVal: 'val'

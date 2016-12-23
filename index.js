@@ -1,51 +1,13 @@
 'use strict';
 
-(function (global) {
-/**
- * Enum for types of BEM entities.
- *
- * @readonly
- * @enum {String}
- */
-var TYPES = {
-    BLOCK:     'block',
-    BLOCK_MOD: 'blockMod',
-    ELEM:      'elem',
-    ELEM_MOD:  'elemMod'
-};
-
-/**
- * Defines which symbols can be used for block, element and modifier's names.
- * @readonly
- */
-var WORD_PATTERN = '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*';
-
-/**
- * Presets of options for various naming.
- * @readonly
- */
-var presets = {
-    origin: {
-        delims: {
-            elem: '__',
-            mod: { name: '_', val: '_' }
-        },
-        wordPattern: WORD_PATTERN
-    },
-    'two-dashes': {
-        delims: {
-            elem: '__',
-            mod: { name: '--', val: '_' }
-        },
-        wordPattern: WORD_PATTERN
-    }
-};
+const presets = require('./lib/presets');
+const BemEntityName = require('@bem/entity-name');
 
 /**
  * It is necessary not to create new instances for the same custom naming.
  * @readonly
  */
-var cache = {};
+const cache = {};
 
 /**
  * Creates namespace with methods which allows getting information about BEM entity using string as well
@@ -60,25 +22,15 @@ var cache = {};
  * @return {Object}
  */
 function createNaming(options) {
-    var opts = init(options),
-        id = JSON.stringify(opts);
+    const opts = init(options);
+    const id = JSON.stringify(opts);
 
     if (cache[id]) {
         return cache[id];
     }
 
-    var delims = opts.delims,
-        regex = buildRegex(delims, opts.wordPattern);
-
-    /**
-     * Checks a string to be valid BEM notation.
-     *
-     * @param {String} str - String representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function validate(str) {
-        return regex.test(str);
-    }
+    const delims = opts.delims;
+    const regex = buildRegex(delims, opts.wordPattern);
 
     /**
      * Parses string into naming object.
@@ -87,26 +39,20 @@ function createNaming(options) {
      * @returns {Object|undefined}
      */
     function parse(str) {
-        var executed = regex.exec(str);
+        const executed = regex.exec(str);
 
         if (!executed) { return undefined; }
 
-        var notation = {
-                block: executed[1] || executed[4]
-            },
-            elem = executed[5],
-            modName = executed[2] || executed[6];
+        const modName = executed[2] || executed[6];
 
-        elem && (notation.elem = elem);
-
-        if (modName) {
-            var modVal = executed[3] || executed[7];
-
-            notation.modName = modName;
-            notation.modVal = modVal || true;
-        }
-
-        return notation;
+        return new BemEntityName({
+            block: executed[1] || executed[4],
+            elem: executed[5],
+            mod: modName && {
+                name: modName,
+                val: executed[3] || executed[7] || true
+            }
+        });
     }
 
     /**
@@ -120,17 +66,21 @@ function createNaming(options) {
             return undefined;
         }
 
-        var res = obj.block;
+        let res = obj.block;
 
         if (obj.elem) {
             res += delims.elem + obj.elem;
         }
 
-        if (obj.modName) {
-            var modVal = obj.modVal;
+        const modObj = obj.mod;
+        const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) || obj.modName;
 
-            if (modVal || modVal === 0 || !obj.hasOwnProperty('modVal')) {
-                res += delims.mod.name + obj.modName;
+        if (modName) {
+            const hasModVal = modObj && modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
+            const modVal = modObj && modObj.val || obj.modVal;
+
+            if (modVal || modVal === 0 || !hasModVal) {
+                res += delims.mod.name + modName;
             }
 
             if (modVal && modVal !== true) {
@@ -141,78 +91,7 @@ function createNaming(options) {
         return res;
     }
 
-    /**
-     * Returns a string indicating type of a BEM entity.
-     *
-     * @param {Object|String|undefined} obj - naming object or string representation of BEM entity.
-     * @returns {String}
-     */
-    function typeOf(obj) {
-        if (typeof obj === 'string') {
-            obj = parse(obj);
-        }
-
-        if (!obj || !obj.block) { return undefined; }
-
-        var modName = obj.modName,
-            isMod = modName && (obj.modVal || !obj.hasOwnProperty('modVal'));
-
-        if (obj.elem) {
-            if (isMod)    { return TYPES.ELEM_MOD; }
-            if (!modName) { return TYPES.ELEM;     }
-        }
-
-        if (isMod)    { return TYPES.BLOCK_MOD; }
-        if (!modName) { return TYPES.BLOCK;     }
-    }
-
-    /**
-     * Checks whether naming object or string is a block.
-     *
-     * @param {Object|String} obj - naming object or string representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function isBlock(obj) {
-        return typeOf(obj) === TYPES.BLOCK;
-    }
-
-    /**
-     * Checks whether naming object or string is modifier of a block.
-     *
-     * @param {Object|String} obj - naming object or string representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function isBlockMod(obj) {
-        return typeOf(obj) === TYPES.BLOCK_MOD;
-    }
-
-    /**
-     * Checks whether naming object or string is element of a block.
-     *
-     * @param {Object|String} obj - naming object or string representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function isElem(obj) {
-        return typeOf(obj) === TYPES.ELEM;
-    }
-
-    /**
-     * Checks whether naming object or string is element of a block.
-     *
-     * @param {Object|String} obj - naming object or string representation of BEM entity.
-     * @returns {Boolean}
-     */
-    function isElemMod(obj) {
-        return typeOf(obj) === TYPES.ELEM_MOD;
-    }
-
-    var namespace = {
-        validate: validate,
-        typeOf: typeOf,
-        isBlock: isBlock,
-        isBlockMod: isBlockMod,
-        isElem: isElem,
-        isElemMod: isElemMod,
+    const namespace = {
         parse: parse,
         stringify: stringify,
         /**
@@ -252,7 +131,7 @@ function init(options) {
     }
 
     if (typeof options === 'string') {
-        var preset = presets[options];
+        const preset = presets[options];
 
         if (!preset) {
             throw new Error('The `' + options + '` naming is unknown.');
@@ -261,10 +140,10 @@ function init(options) {
         return preset;
     }
 
-    var defaults = presets.origin,
-        defaultDelims = defaults.delims,
-        defaultModDelims = defaultDelims.mod,
-        mod = options.mod || defaultDelims.mod;
+    const defaults = presets.origin;
+    const defaultDelims = defaults.delims;
+    const defaultModDelims = defaultDelims.mod;
+    const mod = options.mod || defaultDelims.mod;
 
     return {
         delims: {
@@ -288,53 +167,23 @@ function init(options) {
  * @returns {RegExp}
  */
 function buildRegex(delims, wordPattern) {
-    var block = '(' + wordPattern + ')',
-        elem = '(?:' + delims.elem + '(' + wordPattern + '))?',
-        modName = '(?:' + delims.mod.name + '(' + wordPattern + '))?',
-        modVal = '(?:' + delims.mod.val + '(' + wordPattern + '))?',
-        mod = modName + modVal;
+    const block = '(' + wordPattern + ')';
+    const elem = '(?:' + delims.elem + '(' + wordPattern + '))?';
+    const modName = '(?:' + delims.mod.name + '(' + wordPattern + '))?';
+    const modVal = '(?:' + delims.mod.val + '(' + wordPattern + '))?';
+    const mod = modName + modVal;
 
     return new RegExp('^' + block + mod + '$|^' + block + elem + mod + '$');
 }
 
-var defineAsGlobal = true,
-    api = [
-        'validate', 'typeOf',
-        'isBlock', 'isBlockMod', 'isElem', 'isElemMod',
-        'parse', 'stringify',
-        'elemDelim', 'modDelim', 'modValDelim'
-    ],
-    originalNaming = createNaming();
+const api = [
+    'parse', 'stringify',
+    'elemDelim', 'modDelim', 'modValDelim'
+];
+const originalNaming = createNaming();
 
 api.forEach(function (name) {
     createNaming[name] = originalNaming[name];
 });
 
-// Node.js
-/* istanbul ignore if */
-if (typeof exports === 'object') {
-    module.exports = createNaming;
-    defineAsGlobal = false;
-}
-
-// YModules
-/* istanbul ignore if */
-if (typeof modules === 'object') {
-    modules.define('bem-naming', function (provide) {
-        provide(createNaming);
-    });
-    defineAsGlobal = false;
-}
-
-// AMD
-/* istanbul ignore if */
-if (typeof define === 'function') {
-    define(function (require, exports, module) {
-        module.exports = createNaming;
-    });
-    defineAsGlobal = false;
-}
-
-/* istanbul ignore next */
-defineAsGlobal && (global.bemNaming = createNaming);
-})(typeof window !== 'undefined' ? window : global);
+module.exports = createNaming;

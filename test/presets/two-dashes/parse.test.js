@@ -10,42 +10,6 @@ test('should not parse not valid string', t => {
     t.is(obj, undefined);
 });
 
-test('should have one filed if parse block', t => {
-    const obj = parse('block');
-
-    t.is(Object.keys(obj).length, 1);
-});
-
-test('should have three filed if parse mod of block', t => {
-    const obj = parse('block--mod_val');
-
-    t.is(Object.keys(obj).length, 3);
-});
-
-test('should have three filed if parse boolean mod of block', t => {
-    const obj = parse('block--mod');
-
-    t.is(Object.keys(obj).length, 3);
-});
-
-test('should have two filed if parse elem of block', t => {
-    const obj = parse('block__elem');
-
-    t.is(Object.keys(obj).length, 2);
-});
-
-test('should have four filed if parse mod of elem', t => {
-    const obj = parse('block__elem--mod_val');
-
-    t.is(Object.keys(obj).length, 4);
-});
-
-test('should have four filed if parse boolean mod of elem', t => {
-    const obj = parse('block__elem--mod');
-
-    t.is(Object.keys(obj).length, 4);
-});
-
 test('should parse block', t => {
     const obj = parse('block');
 
@@ -58,8 +22,8 @@ test('should parse mod of block', t => {
     const obj = parse('block--mod_val');
 
     t.is(obj.block, 'block');
-    t.is(obj.modName, 'mod');
-    t.is(obj.modVal, 'val');
+    t.is(obj.mod && obj.mod.name, 'mod');
+    t.is(obj.mod && obj.mod.val, 'val');
 });
 
 test('should parse boolean mod of block', t => {
@@ -68,9 +32,9 @@ test('should parse boolean mod of block', t => {
     const obj = parse('block--mod');
 
     t.is(obj.block, 'block');
-    t.is(obj.modName, 'mod');
+    t.is(obj.mod && obj.mod.name, 'mod');
 
-    t.true(obj.modVal);
+    t.true(obj.mod && obj.mod.val);
 });
 
 test('should parse elem', t => {
@@ -89,8 +53,8 @@ test('should parse mod of elem', t => {
 
     t.is(obj.block, 'block');
     t.is(obj.elem, 'elem');
-    t.is(obj.modName, 'mod');
-    t.is(obj.modVal, 'val');
+    t.is(obj.mod && obj.mod.name, 'mod');
+    t.is(obj.mod && obj.mod.val, 'val');
 });
 
 test('should parse boolean mod of elem', t => {
@@ -100,7 +64,7 @@ test('should parse boolean mod of elem', t => {
 
     t.is(obj.block, 'block');
     t.is(obj.elem, 'elem');
-    t.is(obj.modName, 'mod');
+    t.is(obj.mod && obj.mod.name, 'mod');
 
-    t.true(obj.modVal);
+    t.true(obj.mod && obj.mod.val);
 });

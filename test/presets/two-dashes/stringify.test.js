@@ -10,46 +10,43 @@ test('should stringify block', t => {
     t.is(str, 'block');
 });
 
-test('should stringify mod of block', t => {
+test('should stringify modifier of block', t => {
     const str = stringify({
         block: 'block',
-        modName: 'mod',
-        modVal: 'val'
+        mod: { name: 'mod', val: 'val' }
     });
 
     t.is(str, 'block--mod_val');
 });
 
-test('should stringify boolean mod of block', t => {
+test('should stringify simple modifier of block', t => {
     const str = stringify({
         block: 'block',
-        modName: 'mod'
+        mod: 'mod'
     });
 
     t.is(str, 'block--mod');
 });
 
-test('should stringify boolean mod of block by strict notation', t => {
+test('should stringify boolean modifier of block', t => {
     const str = stringify({
         block: 'block',
-        modName: 'mod',
-        modVal: true
+        mod: { name: 'mod', val: true }
     });
 
     t.is(str, 'block--mod');
 });
 
-test('should stringify block if `modVal` filed is `undefined`', t => {
+test('should stringify block if modifier value is `undefined`', t => {
     const str = stringify({
         block: 'block',
-        modName: 'mod',
-        modVal: undefined
+        mod: { name: 'mod', val: undefined }
     });
 
     t.is(str, 'block');
 });
 
-test('should stringify elem', t => {
+test('should stringify element', t => {
     const str = stringify({
         block: 'block',
         elem: 'elem'
@@ -58,44 +55,41 @@ test('should stringify elem', t => {
     t.is(str, 'block__elem');
 });
 
-test('should stringify mod of elem', t => {
+test('should stringify simple modifier of element', t => {
     const str = stringify({
         block: 'block',
         elem: 'elem',
-        modName: 'mod',
-        modVal: 'val'
+        mod: { name: 'mod', val: 'val' }
     });
 
     t.is(str, 'block__elem--mod_val');
 });
 
-test('should stringify boolean mod of elem', t => {
+test('should stringify boolean modifier of element', t => {
     const str = stringify({
         block: 'block',
         elem: 'elem',
-        modName: 'mod'
+        mod: 'mod'
     });
 
     t.is(str, 'block__elem--mod');
 });
 
-test('should stringify boolean mod of elem by strict notation', t => {
+test('should stringify boolean modifier of element', t => {
     const str = stringify({
         block: 'block',
         elem: 'elem',
-        modName: 'mod',
-        modVal: true
+        mod: { name: 'mod', val: true }
     });
 
     t.is(str, 'block__elem--mod');
 });
 
-test('should stringify elem if `modVal` filed is `undefined`', t => {
+test('should stringify element if modifier value is `undefined`', t => {
     const str = stringify({
         block: 'block',
         elem: 'elem',
-        modName: 'mod',
-        modVal: undefined
+        mod: { name: 'mod', val: undefined }
     });
 
     t.is(str, 'block__elem');
