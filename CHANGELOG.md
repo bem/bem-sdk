@@ -10,8 +10,8 @@ The `bem-naming` became part of the [BEM SDK](https://github.com/bem-sdk/bem-sdk
 
 Now BEM SDK modules are used in assembly systems and `bem-tools` plugins. Therefore, the modules support `Node.js` only.
 
-* **[major]** Removed support of `YModules` and `AMD` (@blond [#138]).
-* **[major]** Stopped publishing to `Bower` (@blond [#118]).
+* Removed support of `YModules` and `AMD` (@blond [#138]).
+* Stopped publishing to `Bower` (@blond [#118]).
 
 If it becomes necessary to use BEM SDK in browsers or other environments we'll figure out a system solution for all modules.
 
@@ -147,6 +147,26 @@ stringify(entityName);
 
 [#152]: https://github.com/bem-sdk/bem-naming/issues/152
 [#95]: https://github.com/bem-sdk/bem-naming/issues/95
+
+### NPM
+
+Now BEM SDK modules are published in `@bem` scope, so the `bem-naming` module was renamed to [@bem/naming](https://www.npmjs.org/package/@bem/naming) (@blond [#158]).
+
+> Read more about [scopes](https://docs.npmjs.com/misc/scope) in NPM Documentation.
+
+To install `1.x` version of the module you need to run the command:
+
+```shell
+$ npm i bem-naming
+```
+
+To install `2.x` version of the module you need to run the command:
+
+```shell
+$ npm i @bem/naming
+```
+
+[#158]: https://github.com/bem-sdk/bem-naming/pull/158
 
 ### Performance
 
