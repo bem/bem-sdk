@@ -54,6 +54,7 @@ API
 * [tech](#tech)
 * [layer](#layer)
 * [id](#id)
+* [isBemCell(cell)](#isbemcellcell)
 
 ### constructor(obj)
 
@@ -127,6 +128,26 @@ const cell = new BemCell({
 });
 
 cell.id; // ➜ "button__text@desktop.css"
+```
+
+### isBemCell(cell)
+
+Determines whether specified cell is instance of BemCell.
+
+Parameter | Type            | Description
+----------|-----------------|-----------------------
+`cell`    | `BemCell`       | The cell to check.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'button', elem: 'text' })
+});
+
+BemCell.isBemCell(cell); // true
+BemCell.isBemCell({}); // false
 ```
 
 License
