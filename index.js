@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+const util = require('util');
 
 const BemEntityName = require('@bem/entity-name');
 
@@ -103,6 +104,91 @@ module.exports = class BemCell {
         this._id = `${this._entity}${layer}${tech}`;
 
         return this._id;
+    }
+
+    /**
+     * Returns string representing the bem cell.
+     *
+     * Important: If you want to get string representation in accordance with the provisions naming convention
+     * you should use `bem-naming` package.
+     *
+     * @example
+     * const BemCell = require('@bem/cell');
+     * const BemEntityName = require('@bem/entity-name');
+     * const cell = new BemCell({ entity: new BemEntityName({ block: 'button', mod: 'focused' }),
+     *     tech: 'css', layer: 'desktop' });
+     *
+     * cell.toString(); // button_focused@desktop.css
+     *
+     * @returns {string}
+     */
+    toString() { return this.id; }
+
+    /**
+     * Returns object representing the bem cell. Is needed for debug in Node.js.
+     *
+     * In some browsers `console.log()` calls `valueOf()` on each argument.
+     * This method will be called to get custom string representation of the object.
+     *
+     * The representation object contains only `entity`, `tech` and `layer`
+     * without private and deprecated fields (`modName` and `modVal`).
+     *
+     * @example
+     * const BemCell = require('@bem/cell');
+     * const BemEntityName = require('@bem/entity-name');
+     * const cell = new BemCell({ entity: new BemEntityName({ block: 'button', mod: 'focused' }),
+     *     tech: 'css', layer: 'desktop' });
+     *
+     * cell.valueOf();
+     *
+     * // ➜ { entity: { block: 'button', mod: { name: 'focused', value: true } },
+     * //     tech: 'css',
+     * //     layer: 'desktop' }
+     *
+     * @returns {{ entity: {block: string, elem: ?string, mod: ?{name: string, val: *}}, tech: *, layer: *}}
+     */
+    valueOf() {
+        const res = { entity: this._entity.valueOf() };
+        this._tech && (res.tech = this._tech);
+        this._layer && (res.layer = this._layer);
+        return res;
+    }
+
+    /**
+     * Returns object representing the bem cell. Is needed for debug in Node.js.
+     *
+     * In Node.js, `console.log()` calls `util.inspect()` on each argument without a formatting placeholder.
+     * This method will be called to get custom string representation of the object.
+     *
+     * The representation object contains only `entity`, `tech` and `layer` fields
+     * without private fields.
+     *
+     * @example
+     * const BemCell = require('@bem/cell');
+     * const BemEntityName = require('@bem/entity-name');
+     * const cell = new BemCell({ entity: new BemEntityName({ block: 'button' }), tech: 'css', layer: 'desktop' });
+     *
+     * console.log(cell); // BemCell { entity: { block: 'button' }, tech: 'css', layer: 'desktop' }
+     *
+     * @param {integer} depth — tells inspect how many times to recurse while formatting the object.
+     * @param {object} options — An optional `options` object may be passed
+     *                           that alters certain aspects of the formatted string.
+     *
+     * @returns {string}
+     */
+    inspect(depth, options) {
+        const stringRepresentation = util.inspect(this.valueOf(), options);
+
+        return `BemCell ${stringRepresentation}`;
+    }
+
+    /**
+     * Return raw data for `JSON.stringify()`.
+     *
+     * @returns {{ entity: {block: string, elem: ?string, mod: ?{name: string, val: *}}, tech: *, layer: *}}
+     */
+    toJSON() {
+        return this.valueOf();
     }
 
     /**
