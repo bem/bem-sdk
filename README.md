@@ -54,6 +54,9 @@ API
 * [tech](#tech)
 * [layer](#layer)
 * [id](#id)
+* [toString()](#tostring)
+* [valueOf()](#valueof)
+* [toJSON()](#tojson)
 * [isBemCell(cell)](#isbemcellcell)
 
 ### constructor(obj)
@@ -130,7 +133,45 @@ const cell = new BemCell({
 cell.id; // ➜ "button__text@desktop.css"
 ```
 
-### isBemCell(cell)
+### toString()
+
+Returns a string representing this cell.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'button', mod: 'focused' }),
+    tech: 'css',
+    layer: 'desktop'
+});
+
+cell.toString(); // button_focused@desktop.css
+```
+
+### valueOf()
+
+Returns an object representing this cell.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'button', mod: 'focused' })
+    tech: 'css',
+    layer: 'desktop'
+});
+
+cell.valueOf();
+
+// ➜ { entity: { block: 'button', mod: { name: 'focused', value: true } }, tech: 'css', layer: 'desktop' }
+```
+
+### toJSON()
+
+Returns an object for `JSON.stringify()` purpose.
+
+### #isBemCell(cell)
 
 Determines whether specified cell is instance of BemCell.
 
@@ -148,6 +189,59 @@ const cell = new BemCell({
 
 BemCell.isBemCell(cell); // true
 BemCell.isBemCell({}); // false
+```
+
+Debuggability
+-------------
+
+In Node.js, `console.log()` calls `util.inspect()` on each argument without a formatting placeholder.
+
+`BemCell` has `inspect()` method to get custom string representation of the object.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'input', mod: 'available' }),
+    tech: 'css'
+});
+
+console.log(cell);
+
+// ➜ BemCell { entity: { block: 'input', mod: { name: 'available' } }, tech: 'css' }
+```
+
+You can also convert `BemCell` object to a `string`.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'input', mod: 'available' }),
+    tech: 'css'
+});
+
+console.log(`cell: ${cell}`);
+
+// ➜ cell: input_available.css
+```
+
+Also `BemCell` has `toJSON` method to support `JSON.stringify()` behaviour.
+
+```js
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+
+const cell = new BemCell({
+    entity: new BemEntityName({ block: 'input', mod: 'available' }),
+    tech: 'css'
+});
+
+console.log(JSON.stringify(cell));
+
+// ➜ {"entity":{"block":"input","mod":{"name":"available","val":true}},"tech":"css"}
 ```
 
 License
