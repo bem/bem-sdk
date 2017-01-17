@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('ava');
+const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/v1');
 
 test('should support arrays', t => {
@@ -12,7 +13,7 @@ test('should support arrays', t => {
         ]
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', elem: 'elem-1' }, tech: null },
         { entity: { block: 'block', elem: 'elem-2' }, tech: null }
@@ -27,7 +28,7 @@ test('should support objects', t => {
         ]
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', elem: 'elem' }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
@@ -42,7 +43,7 @@ test('should support mod shortcut', t => {
         ]
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', elem: 'elem' }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }

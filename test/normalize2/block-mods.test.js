@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('ava');
+const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/v2');
 
 test('sould support mods', t => {
@@ -11,7 +12,7 @@ test('sould support mods', t => {
         }
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: true }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: null }
@@ -27,7 +28,7 @@ test('should pass mods to elem', t => {
         }
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block', elem: 'elem' }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'm1', modVal: true }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'm1', modVal: 'v1' }, tech: null }
@@ -43,7 +44,7 @@ test('should support several mods', t => {
         }
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: true }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: null },
@@ -60,7 +61,7 @@ test('should support array of mod values in object', t => {
         }
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: true }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: null },
@@ -74,7 +75,7 @@ test('should support array of mod values', t => {
         mods: ['m1', 'm2']
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: true }, tech: null },
         { entity: { block: 'block', modName: 'm2', modVal: true }, tech: null }

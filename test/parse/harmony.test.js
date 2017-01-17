@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('ava');
+const simplifyCell = require('../util').simplifyCell;
 const parse = require('../..').parse;
 
 test('should parse empty legacy blocks property', t => {
@@ -8,7 +9,8 @@ test('should parse empty legacy blocks property', t => {
 });
 
 test('should parse blocks property with single entity', t => {
-    t.deepEqual(parse('({ format: \'harmony\', decl: [{ block: \'doesnt-matter\', elems: [\'elem\'] }] })'),
+    t.deepEqual(parse('({ format: \'harmony\', decl: [{ block: \'doesnt-matter\', elems: [\'elem\'] }] })')
+            .map(simplifyCell),
         [{ entity: { block: 'doesnt-matter' }, tech: null },
          { entity: { block: 'doesnt-matter', elem: 'elem' }, tech: null }]);
 });
@@ -18,7 +20,7 @@ test('should parse empty legacy blocks property of object', t => {
 });
 
 test('should parse blocks property with single entity of object', t => {
-    t.deepEqual(parse({ format: 'harmony', decl: [{ block: 'doesnt-matter', elems: ['elem'] }] }),
+    t.deepEqual(parse({ format: 'harmony', decl: [{ block: 'doesnt-matter', elems: ['elem'] }] }).map(simplifyCell),
         [{ entity: { block: 'doesnt-matter' }, tech: null },
          { entity: { block: 'doesnt-matter', elem: 'elem' }, tech: null }]);
 });

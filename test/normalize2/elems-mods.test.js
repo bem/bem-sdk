@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('ava');
+const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/v2');
 
 test('should support elem as object and mod', t => {
@@ -14,7 +15,7 @@ test('should support elem as object and mod', t => {
         }
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', elem: 'elem' }, tech: null },
         { entity: { block: 'block', elem: 'elem', modName: 'mod1', modVal: true }, tech: null },
@@ -35,7 +36,7 @@ test('should support elem of elem as array mods', t => {
         ]
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', elem: 'elem1' }, tech: null },
         { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: null },
@@ -62,7 +63,7 @@ test('should support mods in elems and block', t => {
         ]
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: true }, tech: null },
         { entity: { block: 'block', modName: 'm1', modVal: 'v1' }, tech: null },
@@ -80,10 +81,10 @@ test('should support block mods with `elems` field without block', t => {
         }
     ];
 
-    t.deepEqual(normalize(decl), [
-        { entity: { block: null }, tech: null },
-        { entity: { block: null, modName: 'theme', modVal: true }, tech: null },
-        { entity: { block: null, modName: 'theme', modVal: 'protect' }, tech: null },
-        { entity: { block: null, elem: 'close' }, tech: null }
+    t.deepEqual(normalize(decl, { entity: { block: 'sb' } }).map(simplifyCell), [
+        { entity: { block: 'sb' }, tech: null },
+        { entity: { block: 'sb', modName: 'theme', modVal: true }, tech: null },
+        { entity: { block: 'sb', modName: 'theme', modVal: 'protect' }, tech: null },
+        { entity: { block: 'sb', elem: 'close' }, tech: null }
     ]);
 })

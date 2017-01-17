@@ -1,6 +1,7 @@
 'use strict';
 
 const test = require('ava');
+const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/harmony');
 
 test('should support mix', t => {
@@ -10,7 +11,7 @@ test('should support mix', t => {
         mods: ['mod-1', 'mod-2']
     };
 
-    t.deepEqual(normalize(decl), [
+    t.deepEqual(normalize(decl).map(simplifyCell), [
         { entity: { block: 'block' }, tech: null },
         { entity: { block: 'block', elem: 'elem-1' }, tech: null },
         { entity: { block: 'block', elem: 'elem-2' }, tech: null },

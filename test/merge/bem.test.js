@@ -1,74 +1,81 @@
 'use strict';
 
 const test = require('ava');
+const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/entity-name');
+const createCell = (cell) => new BemCell({
+    entity: new BemEntityName(cell.entity),
+    tech: cell.tech
+});
+
 const merge = require('../../lib/merge');
 
 test('should merge block with its elem', t => {
-    const block = { block: 'block' };
-    const elem = { block: 'block', elem: 'elem' };
+    const block = [{ entity: { block: 'block' } }].map(createCell);
+    const elem = [{ entity: { block: 'block', elem: 'elem' } }].map(createCell);
 
-    t.deepEqual(merge([block], [elem]), [block, elem]);
+    t.deepEqual(merge(block, elem), [].concat(block, elem));
 });
 
 test('should merge block with its mod', t => {
-    const block = { block: 'block' };
-    const mod = { block: 'block', modName: 'mod', modVal: 'val' };
+    const block = [{ entity: { block: 'block' } }].map(createCell);
+    const mod = [{ entity: { block: 'block', modName: 'mod', modVal: 'val' } }].map(createCell);
 
-    t.deepEqual(merge([block], [mod]), [block, mod]);
+    t.deepEqual(merge(block, mod), [].concat(block, mod));
 });
 
 test('should merge block with its bool mod', t => {
-    const block = { block: 'block' };
-    const mod = { block: 'block', modName: 'mod', modVal: true };
+    const block = [{ entity: { block: 'block' } }].map(createCell);
+    const mod = [{ entity: { block: 'block', modName: 'mod', modVal: true } }].map(createCell);
 
-    t.deepEqual(merge([block], [mod]), [block, mod]);
+    t.deepEqual(merge(block, mod), [].concat(block, mod));
 });
 
 test('should merge elems of block', t => {
-    const elem1 = { block: 'block', elem: 'elem-1' };
-    const elem2 = { block: 'block', elem: 'elem-2' };
+    const elem1 = [{ entity: { block: 'block', elem: 'elem-1' } }].map(createCell);
+    const elem2 = [{ entity: { block: 'block', elem: 'elem-2' } }].map(createCell);
 
-    t.deepEqual(merge([elem1], [elem2]), [elem1, elem2]);
+    t.deepEqual(merge(elem1, elem2), [].concat(elem1, elem2));
 });
 
 test('should merge mods of block', t => {
-    const mod1 = { block: 'block', modName: 'mod-1', modVal: true };
-    const mod2 = { block: 'block', modName: 'mod-2', modVal: true };
+    const mod1 = [{ entity: { block: 'block', modName: 'mod-1', modVal: true } }].map(createCell);
+    const mod2 = [{ entity: { block: 'block', modName: 'mod-2', modVal: true } }].map(createCell);
 
-    t.deepEqual(merge([mod1], [mod2]), [mod1, mod2]);
+    t.deepEqual(merge(mod1, mod2), [].concat(mod1, mod2));
 });
 
 test('should merge mod vals of block mod', t => {
-    const val1 = { block: 'block', modName: 'mod', modVal: 'val-1' };
-    const val2 = { block: 'block', modName: 'mod', modVal: 'val-2' };
+    const val1 = [{ entity: { block: 'block', modName: 'mod', modVal: 'val-1' } }].map(createCell);
+    const val2 = [{ entity: { block: 'block', modName: 'mod', modVal: 'val-2' } }].map(createCell);
 
-    t.deepEqual(merge([val1], [val2]), [val1, val2]);
+    t.deepEqual(merge(val1, val2), [].concat(val1, val2));
 });
 
 test('should merge elem with its mod', t => {
-    const elem = { block: 'block', elem: 'elem' };
-    const mod = { block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' };
+    const elem = [{ entity: { block: 'block', elem: 'elem' } }].map(createCell);
+    const mod = [{ entity: { block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' } }].map(createCell);
 
-    t.deepEqual(merge([elem], [mod]), [elem, mod]);
+    t.deepEqual(merge(elem, mod), [].concat(elem, mod));
 });
 
 test('should merge elem with its bool mod', t => {
-    const elem = { block: 'block', elem: 'elem' };
-    const mod = { block: 'block', elem: 'elem' , modName: 'mod', modVal: true };
+    const elem = [{ entity: { block: 'block', elem: 'elem' } }].map(createCell);
+    const mod = [{ entity: { block: 'block', elem: 'elem' , modName: 'mod', modVal: true } }].map(createCell);
 
-    t.deepEqual(merge([elem], [mod]), [elem, mod]);
+    t.deepEqual(merge(elem, mod), [].concat(elem, mod));
 });
 
 test('should merge mods of elem', t => {
-    const mod1 = { block: 'block', elem: 'elem', modName: 'mod-1', modVal: true };
-    const mod2 = { block: 'block', elem: 'elem', modName: 'mod-2', modVal: true };
+    const mod1 = [{ entity: { block: 'block', elem: 'elem', modName: 'mod-1', modVal: true } }].map(createCell);
+    const mod2 = [{ entity: { block: 'block', elem: 'elem', modName: 'mod-2', modVal: true } }].map(createCell);
 
-    t.deepEqual(merge([mod1], [mod2]), [mod1, mod2]);
+    t.deepEqual(merge(mod1, mod2), [].concat(mod1, mod2));
 });
 
-test('should merge mod vals of elem mod', t => {
-    const val1 = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-1' };
-    const val2 = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-2' };
+test('should merge block in different techs', t => {
+    const blockJs = [{ entity: { block: 'block' }, tech: 'js' }].map(createCell);
+    const blockCss = [{ entity: { block: 'block' }, tech: 'css' }].map(createCell);
 
-    t.deepEqual(merge([val1], [val2]), [val1, val2]);
+    t.deepEqual(merge(blockJs, blockCss), [].concat(blockJs, blockCss));
 });
