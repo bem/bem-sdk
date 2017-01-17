@@ -106,6 +106,7 @@ API
 * [isBemEntityName(entityName)](#isbementitynameentityname)
 * [toString()](#tostring)
 * [valueOf()](#valueof)
+* [toJSON()](#tojson)
 
 ### constructor({ block, elem, mod })
 
@@ -250,6 +251,10 @@ name.valueOf();
 // ➜ { block: 'button', mod: { name: 'focused', value: true } }
 ```
 
+### toJSON()
+
+Returns object for `JSON.stringify()` purposes.
+
 Debuggability
 -------------
 
@@ -278,6 +283,19 @@ console.log(`name: ${name}`);
 
 // ➜ name: input_available
 ```
+
+Also `BemEntityName` has `toJSON` method to support `JSON.stringify()` behaviour.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+const name = new BemEntityName({ block: 'input', mod: 'available' });
+
+console.log(JSON.stringify(name));
+
+// ➜ {"block":"input","mod":{"name":"available","val":true}}
+```
+
 
 License
 -------
