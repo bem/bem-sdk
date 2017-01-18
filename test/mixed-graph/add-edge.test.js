@@ -3,14 +3,14 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const BemEntityName = require('bem-entity-name');
+const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/cell');
 
-const Vertex = require('../../lib/vertex');
 const MixedGraph = require('../../lib/mixed-graph');
 const DirectedGraph = require('../../lib/directed-graph');
 
-const vertex1 = new Vertex(new BemEntityName({ block: 'button' }), 'css');
-const vertex2 = new Vertex(new BemEntityName({ block: 'control' }), 'css');
+const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'button' }), tech: 'css' });
+const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'control' }), tech: 'css' });
 
 test.beforeEach(t => {
     const mixedGraph = new MixedGraph();

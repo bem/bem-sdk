@@ -2,13 +2,13 @@
 
 const test = require('ava');
 
-const BemEntityName = require('bem-entity-name');
+const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/cell');
 
-const Vertex = require('../../lib/vertex');
 const DirectedGraph = require('../../lib/directed-graph');
 
-const vertex1 = new Vertex(new BemEntityName({ block: 'button' }));
-const vertex2 = new Vertex(new BemEntityName({ block: 'control' }));
+const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
+const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'control' }) });
 
 test('should be chainable', t => {
     const graph = new DirectedGraph();
@@ -28,7 +28,7 @@ test('should add edge', t => {
 
 test('should add edge to itself', t => {
     const graph = new DirectedGraph();
-    const vertex = new Vertex(new BemEntityName({ block: 'button' }));
+    const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 
     t.falsy(graph.hasEdge(vertex, vertex));
 
@@ -52,7 +52,7 @@ test('should add loop', t => {
 
 test('should add vertices', t => {
     const graph = new DirectedGraph();
-    
+
     t.falsy(graph.hasEdge(vertex1, vertex2));
 
     graph.addEdge(vertex1, vertex2);
