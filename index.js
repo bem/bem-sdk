@@ -104,4 +104,25 @@ module.exports = class BemCell {
 
         return this._id;
     }
+
+    /**
+     * Determines whether specified cell is instance of BemCell.
+     *
+     * @param {BemCell} cell - the cell to check.
+     *
+     * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemCell.
+     * @example
+     * const BemCell = require('@bem/cell');
+     * const BemEntityName = require('@bem/entity-name');
+     *
+     * const cell = new BemCell({
+     *     entity: new BemEntityName({ block: 'button', elem: 'text' })
+     * });
+     *
+     * BemCell.isBemCell(cell); // true
+     * BemCell.isBemCell({}); // false
+     */
+    static isBemCell(cell) {
+        return cell && this.name === cell.constructor.name;
+    }
 };
