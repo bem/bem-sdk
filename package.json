@@ -20,7 +20,8 @@
     "lib"
   ],
   "dependencies": {
-    "bem-entity-name": "0.0.2",
+    "@bem/cell": "0.2.0",
+    "@bem/entity-name": "1.1.0",
     "bem-naming": "1.0.1",
     "debug": "^2.2.0",
     "es6-error": "3.0.0",

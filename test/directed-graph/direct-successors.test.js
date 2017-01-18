@@ -2,15 +2,15 @@
 
 const test = require('ava');
 
-const BemEntityName = require('bem-entity-name');
+const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/cell');
 
-const Vertex = require('../../lib/vertex');
 const DirectedGraph = require('../../lib/directed-graph');
 
 test('should return successors', t => {
     const graph = new DirectedGraph();
-    const vertex1 = new Vertex(new BemEntityName({ block: 'button' }));
-    const vertex2 = new Vertex(new BemEntityName({ block: 'control' }));
+    const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
+    const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'control' }) });
 
     graph.addEdge(vertex1, vertex2);
 
@@ -21,7 +21,7 @@ test('should return successors', t => {
 
 test('should return empty set if no successors', t => {
     const graph = new DirectedGraph();
-    const vertex = new Vertex(new BemEntityName({ block: 'button' }));
+    const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 
     const successors = graph.directSuccessors(vertex);
 

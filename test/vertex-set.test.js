@@ -2,15 +2,15 @@
 
 const test = require('ava');
 
-const BemEntityName = require('bem-entity-name');
+const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/cell');
 
-const Vertex = require('../lib/vertex');
 const VertexSet = require('../lib/vertex-set');
 
 test('should add different vertices', t => {
     const set = new VertexSet();
-    const vertex1 = new Vertex(new BemEntityName({ block: 'input' }));
-    const vertex2 = new Vertex(new BemEntityName({ block: 'button' }));
+    const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'input' }) });
+    const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 
     set.add(vertex1).add(vertex2);
 
@@ -20,8 +20,8 @@ test('should add different vertices', t => {
 test('should not add equal vertex', t => {
     const set = new VertexSet();
     const entity = new BemEntityName({ block: 'input' });
-    const vertex1 = new Vertex(entity);
-    const vertex2 = new Vertex(entity);
+    const vertex1 = new BemCell({ entity });
+    const vertex2 = new BemCell({ entity });
 
     set.add(vertex1).add(vertex2);
 

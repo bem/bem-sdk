@@ -2,14 +2,14 @@
 
 const test = require('ava');
 
-const BemEntityName = require('bem-entity-name');
+const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/cell');
 
-const Vertex = require('../../lib/vertex');
 const DirectedGraph = require('../../lib/directed-graph');
 
-const vertex1 = new Vertex(new BemEntityName({ block: 'select' }));
-const vertex2 = new Vertex(new BemEntityName({ block: 'button' }));
-const vertex3 = new Vertex(new BemEntityName({ block: 'control' }));
+const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'select' }) });
+const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
+const vertex3 = new BemCell({ entity: new BemEntityName({ block: 'control' }) });
 
 test('should return empty iterator', t => {
     const graph = new DirectedGraph();

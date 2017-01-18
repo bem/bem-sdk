@@ -2,12 +2,12 @@
 
 const test = require('ava');
 
-const BemEntityName = require('bem-entity-name');
+const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/cell');
 
-const Vertex = require('../../lib/vertex');
 const MixedGraph = require('../../lib/mixed-graph');
 
-const vertex = new Vertex(new BemEntityName({ block: 'button' }));
+const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 
 test('should be chainable', t => {
     const graph = new MixedGraph();
