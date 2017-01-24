@@ -45,6 +45,51 @@ describe('default', function() {
         ).eql('a/%%%e1/###mn/a%%%e1###mn###mv.js');
     });
 
+    it('should support optional naming style with different delim for elem/mod dirs', function() {
+        expect(
+            scheme('nested').path({
+                block: 'a',
+                elem: 'e1',
+                modName: 'mn',
+                modVal: 'mv'
+            }, 'js', {naming: {elem: '%%%', mod: '###'}})
+        ).eql('a/%%%e1/###mn/a%%%e1###mn###mv.js');
+
+        expect(
+            scheme('nested').path(
+                new BemCell({
+                    entity: new BemEntityName({
+                        block: 'a',
+                        elem: 'e1',
+                        mod: {name: 'mn', val: 'mv'}
+                    }),
+                    tech: 'js'
+                }),
+                {
+                    naming: {elem: '%%%', mod: '###'},
+                    elemDirDelim: '*',
+                    modDirDelim: '^'
+                })
+        ).eql('a/*e1/^mn/a%%%e1###mn###mv.js', 'bemCell - api');
+
+        expect(
+            scheme('nested').path(
+                new BemCell({
+                    entity: new BemEntityName({
+                        block: 'a',
+                        elem: 'e1',
+                        mod: {name: 'mn', val: 'mv'}
+                    }),
+                    tech: 'js'
+                }),
+                {
+                    naming: {elem: '%%%', mod: '###'},
+                    elemDirDelim: '',
+                    modDirDelim: ''
+                })
+        ).eql('a/e1/mn/a%%%e1###mn###mv.js', 'bemCell - api empty string');
+    });
+
     describe('lib/schemes/nested', function() {
         it('should return path for a block', function() {
             expect(scheme('nested').path(
