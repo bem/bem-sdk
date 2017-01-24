@@ -184,6 +184,20 @@ describe('default', function() {
             ).eql('a/%%%e1/###mn/a%%%e1###mn###mv.js', 'bemCell - api');
         });
 
+        it('should support optional tech for BemCell', function() {
+            expect(
+                scheme('nested').path(
+                    new BemCell({
+                        entity: new BemEntityName({
+                            block: 'a',
+                            elem: 'e1',
+                            mod: {name: 'mn', val: 'mv'}
+                        })
+                    })
+                )
+            ).eql('a/__e1/_mn/a__e1_mn_mv', 'bemCell - api');
+        });
+
         it('should support layer for BemCell', function() {
             expect(
                 scheme('nested').path(
@@ -291,6 +305,20 @@ describe('default', function() {
                     {naming: {elem: '%%%', mod: '###'}}
                 )
             ).eql('a%%%e1###mn###mv.js', 'bemCell - api');
+        });
+
+        it('should support optional tech for BemCell', function() {
+            expect(
+                scheme('flat').path(
+                    new BemCell({
+                        entity: new BemEntityName({
+                            block: 'a',
+                            elem: 'e1',
+                            mod: {name: 'mn', val: 'mv'}
+                        })
+                    })
+                )
+            ).eql('a__e1_mn_mv', 'bemCell - api');
         });
 
         it('should support layer for BemCell', function() {
