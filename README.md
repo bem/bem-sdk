@@ -9,14 +9,19 @@
 
 ## Usage
 ```js
-var entity = {
-    block: 'b1',
-    elem: 'e1',
-    modName: 'm1',
-    modVal: 'v1'
-};
+var BemCell = require('@bem/cell'),
+    BemEntityName = require('@bem/entity-name');
 
-var tech = 'js';
+var atom = new BemCell(
+    {
+        entity: new BemEntityName({
+            block: 'b1',
+            elem: 'e1',
+            mod: {name: 'm1', val: 'v1'}
+        }),
+        tech: 'js'
+    }
+);
 
 var options = {
     naming: {
@@ -25,7 +30,9 @@ var options = {
     }
 }; // this is default value
 
-require('bem-fs-scheme')('nested').path(entity, tech, options); // b1/__e1/_m1/b1__e1_m1_v1.js
+var bemFs = require('bem-fs-scheme')('nested')
+
+bemFs.path(atom, options); // b1/__e1/_m1/b1__e1_m1_v1.js
 ```
 
 License
