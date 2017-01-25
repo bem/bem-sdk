@@ -55,6 +55,12 @@ describe('default', function() {
             )).eql('a/a.js');
         });
 
+        it('should throw when you use not BemCell', function() {
+            expect(
+                scheme('nested').path.bind(null, new BemEntityName({block: 'a'}))
+            ).to.throw(/@bem\/cell/);
+        });
+
         it('should return path for a block with modifier', function() {
             expect(
                 scheme('nested').path(
@@ -168,6 +174,12 @@ describe('default', function() {
                     tech: 'js'
                 })
             )).eql('a.js');
+        });
+
+        it('should throw when you use not BemCell', function() {
+            expect(
+                scheme('flat').path.bind(null, new BemEntityName({block: 'a'}))
+            ).to.throw(/@bem\/cell/);
         });
 
         it('should return path for a block with modifier', function() {
