@@ -211,4 +211,46 @@ module.exports = class BemCell {
     static isBemCell(cell) {
         return cell && this.name === cell.constructor.name;
     }
+
+    /**
+     * Creates BemCell instance by any object representation.
+     *
+     * @param {object} obj  — representation of cell.
+     * @param {string} obj.block   — the block name of entity.
+     * @param {string} [obj.elem]  — the element name of entity.
+     * @param {object|string} [obj.mod]   — the modifier of entity.
+     * @param {string} obj.mod.name — the modifier name of entity.
+     * @param {string} [obj.mod.val]  — the modifier value of entity.
+     * @param {string} [obj.modName] — the modifier name of entity.
+     * @param {string} [obj.modVal]  — the modifier value of entity.
+     * @param {string} [obj.tech]  — technology of cell.
+     * @param {string} [obj.layer] — layer of cell.
+     *
+     * @returns {BemCell} An object representing cell.
+     * @example
+     * const BemCell = require('@bem/cell');
+     *
+     * BemCell.create({ block: 'my-button', mod: 'theme', val: 'red', tech: 'css' });
+     * BemCell.create({ block: 'my-button', modName: 'theme', modVal: 'red', tech: 'css' });
+     * BemCell.create({ entity: { block: 'my-button', modName: 'theme', modVal: 'red' }, tech: 'css' });
+     * // BemCell { block: 'my-button', mod: { name: 'theme', val: 'red' }, tech: 'css' }
+     */
+    static create(obj) {
+        if (BemEntityName.isBemEntityName(obj)) {
+            return new BemCell({ entity: obj });
+        }
+
+        if (BemCell.isBemCell(obj)) {
+            return obj;
+        }
+
+        const data = {};
+
+        data.entity = BemEntityName.create(obj.entity || obj);
+
+        obj.tech && (data.tech = obj.tech);
+        obj.layer && (data.layer = obj.layer);
+
+        return new BemCell(data);
+    }
 };
