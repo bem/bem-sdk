@@ -75,7 +75,7 @@ new BemEntityName({
 });
 ```
 
-To describe the simple modifier field `mod.val` must be specified as `true`.
+To describe the simple modifier, field `mod.val` must be specified as `true`.
 
 **Example:**
 
@@ -103,10 +103,11 @@ API
 * [id](#id)
 * [type](#type)
 * [isEqual(entityName)](#isequalentityname)
-* [isBemEntityName(entityName)](#isbementitynameentityname)
 * [toString()](#tostring)
 * [valueOf()](#valueof)
 * [toJSON()](#tojson)
+* [#isBemEntityName(entityName)](#isbementitynameentityname)
+* [#create(object)](#createobject)
 
 ### constructor({ block, elem, mod })
 
@@ -207,23 +208,6 @@ inputName.isEqual(buttonName);  // false
 buttonName.isEqual(buttonName); // true
 ```
 
-### isBemEntityName(entityName)
-
-Determines whether specified entity is instance of BemEntityName.
-
-Parameter    | Type            | Description
--------------|-----------------|-----------------------
-`entityName` | `BemEntityName` | The entity to check.
-
-```js
-const BemEntityName = require('@bem/entity-name');
-
-const entityName = new BemEntityName({ block: 'input' });
-
-BemEntityName.isBemEntityName(entityName); // true
-BemEntityName.isBemEntityName({}); // false
-```
-
 ### toString()
 
 Returns string representing the entity name.
@@ -254,6 +238,57 @@ name.valueOf();
 ### toJSON()
 
 Returns object for `JSON.stringify()` purposes.
+
+### #isBemEntityName(entityName)
+
+Determines whether specified entity is an instance of BemEntityName.
+
+Parameter    | Type            | Description
+-------------|-----------------|-----------------------
+`entityName` | `BemEntityName` | The entity to check.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+const entityName = new BemEntityName({ block: 'input' });
+
+BemEntityName.isBemEntityName(entityName); // true
+BemEntityName.isBemEntityName({ block: 'button' }); // false
+```
+
+### #create(object)
+
+Creates BemEntityName instance by any object representation.
+
+Helper for sugar-free simplicity.
+
+Parameter    | Type               | Description
+-------------|--------------------|--------------------------
+`object`     | `object`           | Representation of entity name.
+
+Passed Object could have the common field names for entities:
+
+Object field | Type     | Description
+-------------|----------|------------------------------
+`block`      | `string` | The block name of entity.
+`elem`       | `string` | The element name of entity.
+`mod`        | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
+`val`        | `string` | The modifier value of entity. Used if `mod` is a string.
+`mod.name`   | `string` | The modifier name of entity.
+`mod.val`    | `*`      | The modifier value of entity.
+`modName`    | `string` | The modifier name of entity. Used if `mod.name` wasn't specified.
+`modVal`     | `*`      | The modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+BemEntityName.create({ block: 'my-button', mod: 'theme', val: 'red' });
+BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
+// ➜ BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
+
+BemEntityName.create({ block: 'my-button', mod: 'focused' });
+// ➜ BemEntityName { block: 'my-button', mod: { name: 'focused', val: true } }
+```
 
 Debuggability
 -------------
