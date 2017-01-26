@@ -311,6 +311,30 @@ class BemEntityName {
     }
 
     /**
+     * Determines whether specified entity belongs to this.
+     *
+     * @example
+     * const BemEntityName = require('@bem/entity-name');
+     *
+     * const buttonName = new BemEntityName({ block: 'button' });
+     * const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
+     *
+     * buttonTextName.belongsTo(buttonName); // true
+     * buttonName.belongsTo(buttonTextName); // false
+     *
+     * @param {BemEntityName} entityName - the entity to compare.
+     *
+     * @returns {boolean}
+     */
+    belongsTo(entityName) {
+        return entityName && entityName.id !== this.id && this.id.startsWith(entityName.id) &&
+            (entityName.type !== 'block' || this.type !== 'elemMod') &&
+            (!entityName.elem || this.elem === entityName.elem) &&
+            (!entityName.modName || this.modName === entityName.modName) &&
+            (!entityName.modVal || entityName.modVal === true || this.modVal === entityName.modVal);
+    }
+
+    /**
      * Determines whether specified entity is instance of BemEntityName.
      *
      * @example
