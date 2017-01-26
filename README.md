@@ -58,6 +58,7 @@ API
 * [valueOf()](#valueof)
 * [toJSON()](#tojson)
 * [isBemCell(cell)](#isbemcellcell)
+* [create(object)](#createobject)
 
 ### constructor(obj)
 
@@ -189,6 +190,40 @@ const cell = new BemCell({
 
 BemCell.isBemCell(cell); // true
 BemCell.isBemCell({}); // false
+```
+
+### #create(object)
+
+Creates BemCell instance by any object representation.
+
+Helper for sugar-free simplicity.
+
+Parameter    | Type     | Description
+-------------|----------|--------------------------
+`object`     | `object` | Representation of entity name.
+
+Passed Object could have fields for BemEntityName and cell itself:
+
+Object field | Type     | Description
+-------------|----------|------------------------------
+`block`      | `string` | The block name of entity.
+`elem`       | `string` | The element name of entity.
+`mod`        | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
+`val`        | `string` | The modifier value of entity. Used if `mod` is a string.
+`mod.name`   | `string` | The modifier name of entity.
+`mod.val`    | `*`      | The modifier value of entity.
+`modName`    | `string` | The modifier name of entity. Used if `mod.name` wasn't specified.
+`modVal`     | `*`      | The modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
+`tech`       | `string` | Technology of cell.
+`layer`      | `string` | Layer of cell.
+
+```js
+const BemCell = require('@bem/cell');
+
+BemCell.create({ block: 'my-button', mod: 'theme', val: 'red', tech: 'css', layer: 'common' });
+BemCell.create({ block: 'my-button', modName: 'theme', modVal: 'red', tech: 'css', layer: 'common' });
+BemCell.create({ entity: { block: 'my-button', modName: 'theme', modVal: 'red' }, tech: 'css' }); // valueOf() format
+// BemCell { entity: { block: 'my-button', mod: { name: 'theme', val: 'red' } }, tech: 'css', layer: 'common' }
 ```
 
 Debuggability
