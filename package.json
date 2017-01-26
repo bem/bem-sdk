@@ -31,7 +31,8 @@
     "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
     "eslint-config-pedant": "^0.8.0",
-    "nyc": "^10.0.0"
+    "nyc": "^10.0.0",
+    "sinon": "^1.17.7"
   },
   "scripts": {
     "pretest": "npm run lint",
