@@ -1,7 +1,7 @@
 var inspect = require('util').inspect,
     assert = require('assert'),
     bemjsonToDecl = require('..'),
-    testsNumber = 4;
+    testsNumber = 5;
 
 while (testsNumber) {
     var bemjson = require('./test' + testsNumber + '.bemjson.js'),
