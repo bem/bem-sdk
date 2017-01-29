@@ -6,7 +6,7 @@ function getEntities(bemjson, ctx) {
     var visited = [];
 
     function _getEntities(bemjson, ctx) {
-        ctx = ctx || {};
+        ctx = Object.assign({}, ctx || {});
 
         var deps = [],
             contentDeps;
