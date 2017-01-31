@@ -1,6 +1,6 @@
 {
   "name": "@bem/naming",
-  "version": "2.0.0-2",
+  "version": "2.0.0-3",
   "description": "Manage naming of BEM entities",
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",
