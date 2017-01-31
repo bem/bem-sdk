@@ -19,7 +19,7 @@ test('should be a original namespace', t => {
 });
 
 test('should be a custom namespace', t => {
-    const myNaming = bemNaming({ elem: '==' });
+    const myNaming = bemNaming({ delims: { elem: '==' } });
     const entities = ['block==elem'].map(myNaming.parse);
     const entity = entities[0];
 

@@ -140,41 +140,48 @@ Example:
 const bemNaming = require('@bem/naming');
 
 const myNaming = bemNaming({
-    elem: '-',
-    mod: { name: '--', val: '_' }
+    delims: {
+        elem: '-',
+        mod: { name: '--', val: '_' }
+    },
     wordPattern: '[a-zA-Z0-9]+'   // because element and modifier's separators include
 });                               // hyphen in it, we need to exclude it from block,
                                   // element and modifier's name
 
-myNaming.parse('block--mod_val'); // { block: 'block',
+myNaming.parse('block--mod_val'); // BemEntityName
+                                  // { block: 'block',
                                   //   mod: { name: 'mod', val: 'val' } }
 
-myNaming.stringify({              // 'blockName-elemName--simpleElemMod'
+const BemEntityName = require('@bem/entity-name');
+
+myNaming.stringify(new BemEntityName({
     block: 'blockName',
     elem: 'elemName',
     mod: 'simpleElemMod'
-});
+});                               // 'blockName-elemName--simpleElemMod'
+
 ```
 
 API
 ---
 
-* [bemNaming({ elem, mod, wordPattern })](#bemnaming-elem-mod-wordpattern-)
+* [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-elem-mod-wordpattern-)
 * [parse(str)](#parsestr)
 * [stringify(obj)](#stringifyobj)
 * [elemDelim](#elemdelim)
 * [modDelim](#moddelim)
 * [modValDelim](#modvaldelim)
 
-### bemNaming({ elem, mod, wordPattern })
+### bemNaming({ delims: {elem, mod}, wordPattern })
 
-Parameter     | Type     | Description                                                                       | Default
---------------|----------|-----------------------------------------------------------------------------------|----------------------------------------
-`elem`        | `string` | Separates element's name from block.                                              | `__`
-`mod`         | `string`, `{ name: string, val: string }` | Separates modifier from block or element.        | `_`
-`mod.name`    | `string` | Separates a modifier name from a block or an element.                             | `_`
-`mod.val`     | `string` | Separates the value of a modifier from the modifier name.                         | Default as the value of the `mod.name`.
-`wordPattern` | `string` | Defines which characters can be used in names of blocks, elements, and modifiers. | `[a-z0-9]+(?:-[a-z0-9]+)*`
+Parameter         | Type     | Description                                                                       | Default
+------------------|----------|-----------------------------------------------------------------------------------|----------------------------------------
+`delims`          | `object` | Defines delimeters for elem and/or mods                                           |
+`delims.elem`     | `string` | Separates element's name from block.                                              | `__`
+`delims.mod`      | `string`, `{ name: string, val: string }` | Separates modifier from block or element.        | `_`
+`delims.mod.name` | `string` | Separates a modifier name from a block or an element.                             | `_`
+`delims.mod.val`  | `string` | Separates the value of a modifier from the modifier name.                         | Default as the value of the `mod.name`.
+`wordPattern`     | `string` | Defines which characters can be used in names of blocks, elements, and modifiers. | `[a-z0-9]+(?:-[a-z0-9]+)*`
 
 ### parse(str)
 

@@ -10,14 +10,21 @@ const BemEntityName = require('@bem/entity-name');
 const cache = {};
 
 /**
+ * Delims of bem entity, elem and/or mod.
+ *
+ * @typedef {Object} Delims
+ * @param {String} [elem='__']      Separates element's name from block.
+ * @param {String|Object} [mod='_'] Separates modifiers from blocks and elements.
+ * @param {String} [mod.name='_']   Separates name of modifier from blocks and elements.
+ * @param {String} [mod.val='_']    Separates value of modifier from name of modifier.
+ */
+
+/**
  * Creates namespace with methods which allows getting information about BEM entity using string as well
  * as forming string representation based on naming object.
  *
  * @param {Object} [options]              Options.
- * @param {String} [options.elem=__]      Separates element's name from block.
- * @param {String|Object} [options.mod=_] Separates modifiers from blocks and elements.
- * @param {String} [options.mod.name=_]   Separates name of modifier from blocks and elements.
- * @param {String} [options.mod.val=_]    Separates value of modifier from name of modifier.
+ * @param {Delims} [options.delims]       Defines delims for bem entity.
  * @param {String} [options.wordPattern]  Defines which symbols can be used for block, element and modifier's names.
  * @return {Object}
  */
@@ -123,7 +130,7 @@ function createNaming(options) {
  * Returns delims and wordPattern.
  *
  * @param {Object} options - user options
- * @returns {{delims: Object, wordPattern: String}}
+ * @returns {{delims: Delims, wordPattern: String}}
  */
 function init(options) {
     if (!options) {
@@ -143,11 +150,12 @@ function init(options) {
     const defaults = presets.origin;
     const defaultDelims = defaults.delims;
     const defaultModDelims = defaultDelims.mod;
-    const mod = options.mod || defaultDelims.mod;
+    const optionsDelims = options.delims || {};
+    const mod = optionsDelims.mod || defaultDelims.mod;
 
     return {
         delims: {
-            elem: options.elem || defaultDelims.elem,
+            elem: optionsDelims.elem || defaultDelims.elem,
             mod: typeof mod === 'string'
                 ? { name: mod, val: mod }
                 : {
@@ -162,7 +170,7 @@ function init(options) {
 /**
  * Builds regex for specified naming.
  *
- * @param {Object} delims      Separates block names, elements and modifiers.
+ * @param {Delims} delims      Separates block names, elements and modifiers.
  * @param {String} wordPattern Defines which symbols can be used for block, element and modifier's names.
  * @returns {RegExp}
  */

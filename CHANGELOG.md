@@ -148,6 +148,46 @@ stringify(entityName);
 [#152]: https://github.com/bem-sdk/bem-naming/issues/152
 [#95]: https://github.com/bem-sdk/bem-naming/issues/95
 
+#### The `bem-naming` constructor signature for custom-naming was changed ([#160]).
+
+`{ elem: '…', mod: '…' }` → `{ delims: { elem: '…', mod: '…' } }`
+
+**API v1.x.x**
+
+```js
+const bemNaming = require('bem-naming');
+
+const myNaming = bemNaming({
+    elem: '-',
+    mod: { name: '--', val: '_' }
+    wordPattern: '[a-zA-Z0-9]+'
+});
+
+myNaming.parse('block--mod_val'); // { block: 'block'
+                                  //   modName: 'mod',
+                                  //   modVal: 'val' }
+```
+
+**API v2.x.x**
+
+```js
+const bemNaming = require('@bem/naming');
+
+const myNaming = bemNaming({
+    delims: {
+        elem: '-',
+        mod: { name: '--', val: '_' }
+    },
+    wordPattern: '[a-zA-Z0-9]+'
+});
+
+myNaming.parse('block--mod_val'); // BemEntityName
+                                  // { block: 'block',
+                                  //   mod: { name: 'mod', val: 'val' } }
+```
+
+[#160]: https://github.com/bem-sdk/bem-naming/pull/160/files
+
 ### NPM
 
 Now BEM SDK modules are published in `@bem` scope, so the `bem-naming` module was renamed to [@bem/naming](https://www.npmjs.org/package/@bem/naming) (@blond [#158]).
