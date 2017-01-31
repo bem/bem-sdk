@@ -30,15 +30,21 @@ $ npm install --save @bem/naming
 Usage
 -----
 
+**Parse**
+```js
+const bemNaming = require('@bem/naming');
+
+bemNaming.parse('button__text'); // BemEntityName { block: 'button', elem: 'text' }
+```
+
+**Stringify**
 ```js
 const bemNaming = require('@bem/naming');
 const BemEntityName = require('@bem/entity-name');
 
-bemNaming.parse('button__text'); // { block: 'button', elem: 'text' }
-
 const entityName = new BemEntityName({ block: 'button', mod: 'checked' });
 
-bemNaming.stringify(entityName); // button_checked
+bemNaming.stringify(entityName); // String 'button_checked'
 ```
 
 Table of Contents
