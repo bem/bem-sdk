@@ -208,6 +208,12 @@ $ npm i @bem/naming
 
 [#158]: https://github.com/bem-sdk/bem-naming/pull/158
 
+### Presets
+
+* Added react preset (@yeti-or [#161]).
+
+[#161]: https://github.com/bem-sdk/bem-naming/pull/161
+
 ### Performance
 
 * Accelerated initialization for `origin` naming (@tadatuta [#134]).
