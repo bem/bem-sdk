@@ -48,6 +48,7 @@ Table of Contents
 * [String representation](#string-representation)
 * [Common misconceptions](#common-misconceptions)
 * [Harry Roberts' naming convention](#harry-roberts-naming-convention)
+* [React naming convention](#react-naming-convention)
 * [Custom naming convention](#custom-naming-convention)
 * [API](#api)
 
@@ -127,6 +128,31 @@ twoDashesNaming.stringify({
 });
 
 // ➜ block__elem--mod
+```
+
+React naming convention
+-----------------------
+
+According to this convention elements are delimited with one hyphen (`-`), modifiers are delimited by one underscore (`_`), and values of modifiers are delimited by one underscore (`_`).
+
+You can explore this convention at [bem-react-components](https://github.com/bem/bem-react-components).
+
+Example:
+
+```js
+const reactNaming = require('@bem/naming')('react');
+
+reactNaming.parse('block-elem');    // BemEntityName { block: 'block', elem: 'elem' }
+reactNaming.parse('block_mod_val'); // BemEntityName { block: 'block',
+                                    //                 mod: { name: 'mod', val: 'val' } }
+
+reactNaming.stringify({
+    block: 'block',
+    elem: 'elem',
+    mod: 'mod'
+});
+
+// ➜ block-elem_mod
 ```
 
 Custom naming convention
