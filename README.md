@@ -43,6 +43,7 @@ const bemNaming = require('@bem/naming');
 const BemEntityName = require('@bem/entity-name');
 
 const entityName = new BemEntityName({ block: 'button', mod: 'checked' });
+
 bemNaming.stringify(entityName); // returns string 'button_checked'
 ```
 
