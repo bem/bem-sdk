@@ -26,7 +26,7 @@ test('should use `naming.stringify()` for elem', t => {
 });
 
 test('should use `naming.stringify()` for block modifier', t => {
-    const entity = new BemEntityName({ block: 'block', modName: 'mod', modVal: 'val' });
+    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
     entity.toString();
 
@@ -34,7 +34,7 @@ test('should use `naming.stringify()` for block modifier', t => {
 });
 
 test('should use naming.stringify() for element modifier', t => {
-    const entity = new BemEntityName({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' });
+    const entity = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } });
 
     entity.toString();
 

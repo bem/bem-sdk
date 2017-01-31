@@ -9,7 +9,7 @@ test('should determine block', t => {
 });
 
 test('should determine modifier of block', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: 'mod' });
+    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod' } });
 
     t.is(entityName.type, 'blockMod');
 });
@@ -21,7 +21,7 @@ test('should determine elem', t => {
 });
 
 test('should determine modifier of element', t => {
-    const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
+    const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod' } });
 
     t.is(entityName.type, 'elemMod');
 });

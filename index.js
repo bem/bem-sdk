@@ -285,4 +285,52 @@ module.exports = class BemEntityName {
     static isBemEntityName(entityName) {
         return entityName && entityName.__isBemEntityName__;
     }
+
+    /**
+     * Creates BemEntityName instance by any object representation.
+     *
+     * @param {object} obj — representation of entity name.
+     * @param {string} obj.block  — the block name of entity.
+     * @param {string} [obj.elem] — the element name of entity.
+     * @param {object|string} [obj.mod]  — the modifier of entity.
+     * @param {string} [obj.val] - the modifier value of entity. Used if `obj.mod` is a string.
+     * @param {string} [obj.mod.name] — the modifier name of entity.
+     * @param {string} [obj.mod.val]  — the modifier value of entity.
+     * @param {string} [obj.modName] — the modifier name of entity. Used if `obj.mod.name` wasn't specified.
+     * @param {string} [obj.modVal]  — the modifier value of entity.
+     *   Used if neither `obj.mod.val` nor `obj.val` were not specified.
+     *
+     * @returns {BemEntityName} An object representing entity name.
+     * @example
+     * const BemEntityName = require('@bem/entity-name');
+     *
+     * BemEntityName.create('my-button_theme_red');
+     * BemEntityName.create({ block: 'my-button', mod: 'theme', val: 'red' });
+     * BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
+     * // BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
+     */
+    static create(obj) {
+        if (BemEntityName.isBemEntityName(obj)) {
+            return obj;
+        }
+
+        const data = { block: obj.block };
+        const mod = obj.mod;
+
+        obj.elem && (data.elem = obj.elem);
+
+        if (mod || obj.modName) {
+            const isString = typeof mod === 'string';
+            const modName = (isString ? mod : mod && mod.name) || obj.modName;
+            const modObj = !isString && mod || obj;
+            const hasModVal = modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
+
+            data.mod = {
+                name: modName,
+                val: hasModVal ? modObj.val || obj.modVal : true
+            };
+        }
+
+        return new BemEntityName(data);
+    }
 };
