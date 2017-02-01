@@ -42,8 +42,8 @@ entityName.mod;   // undefined
 entityName.id;   // button__elem
 entityName.type; // elem
 
-entityName.isEqual({ block: 'button' });               // false
-entityName.isEqual({ block: 'button', elem: 'text' }); // true
+entityName.isEqual(new BemEntityName({ block: 'button' }));               // false
+entityName.isEqual(new BemEntityName({ block: 'button', elem: 'text' })); // true
 ```
 
 BEM Entity Name
