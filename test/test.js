@@ -180,11 +180,10 @@ describe('default', function() {
                             tech: 'js'
                         }),
                         {
-                            naming: {elem: '%%%', mod: '###'},
                             elemDirDelim: '',
                             modDirDelim: ''
                         })
-                ).eql('a/e1/mn/a%%%e1###mn###mv.js');
+                ).eql('a/e1/mn/a__e1_mn_mv.js');
             });
 
             it('should allow options as String', function() {
