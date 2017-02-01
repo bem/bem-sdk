@@ -3,7 +3,7 @@
   "version": "0.2.1",
   "description": "Representation of identifier of a part of BEM entity.",
   "license": "MPL-2.0",
-  "repository": "bem-sdk/cell",
+  "repository": "bem-sdk/bem-cell",
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
   "keywords": [
     "bem",
@@ -24,7 +24,7 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/entity-name": "1.1.0"
+    "@bem/entity-name": "1.2.0"
   },
   "devDependencies": {
     "ava": "^0.17.0",
