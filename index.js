@@ -1,12 +1,13 @@
 var stringifyObj = require('stringify-object'),
     normalize = require('bem-decl').normalize,
+    BemEntity = require('@bem/entity-name'),
     naming = require('bem-naming');
 
 function getEntities(bemjson, ctx) {
     var visited = [];
 
     function _getEntities(bemjson, ctx) {
-        ctx = Object.assign({}, ctx || {});
+        ctx = Object.assign({}, ctx);
 
         var deps = [],
             contentDeps;
@@ -39,7 +40,7 @@ function getEntities(bemjson, ctx) {
                 var depName = naming.stringify(declItem);
                 if (visited.indexOf(depName) < 0) {
                     visited.push(depName);
-                    deps.push(declItem);
+                    deps.push(new BemEntity(declItem));
                 }
             }
             pushTo(declItem);
