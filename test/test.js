@@ -11,8 +11,7 @@ describe('default', function() {
                 new BemCell({
                     entity: new BemEntityName({block: 'a'}),
                     tech: 'js'
-                })),
-                'bemCell - api'
+                }))
             );
     });
 
@@ -28,21 +27,6 @@ describe('default', function() {
     it('should return error', function() {
         var s = scheme;
         expect(s.bind(s, 'scheme-not-found')).to.throw(/Scheme not found/);
-    });
-
-    it('should support optional naming style', function() {
-        expect(
-            scheme('nested').path(
-                new BemCell({
-                    entity: new BemEntityName({
-                        block: 'a',
-                        elem: 'e1',
-                        mod: {name: 'mn', val: 'mv'}
-                    }),
-                    tech: 'js'
-                }),
-                {naming: {elem: '%%%', mod: '###'}})
-        ).eql('a/%%%e1/###mn/a%%%e1###mn###mv.js');
     });
 
     describe('lib/schemes/nested', function() {
@@ -119,22 +103,6 @@ describe('default', function() {
             ).eql('a/__e1/_mn/a__e1_mn_mv.js');
         });
 
-        it('should support optional naming style', function() {
-            expect(
-                scheme('nested').path(
-                    new BemCell({
-                        entity: new BemEntityName({
-                            block: 'a',
-                            elem: 'e1',
-                            mod: {name: 'mn', val: 'mv'}
-                        }),
-                        tech: 'js'
-                    }),
-                    {naming: {elem: '%%%', mod: '###'}}
-                )
-            ).eql('a/%%%e1/###mn/a%%%e1###mn###mv.js');
-        });
-
         it('should support optional tech for BemCell', function() {
             expect(
                 scheme('nested').path(
@@ -163,6 +131,98 @@ describe('default', function() {
                     })
                 )
             ).eql('common.blocks/a/__e1/_mn/a__e1_mn_mv.js');
+        });
+
+        describe('options', function() {
+            it('should support optional naming style', function() {
+                expect(
+                    scheme('nested').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }),
+                        {naming: {elem: '%%%', mod: '###'}})
+                ).eql('a/%%%e1/###mn/a%%%e1###mn###mv.js');
+            });
+
+            it('should support optional naming style with different delim for elem/mod dirs', function() {
+                expect(
+                    scheme('nested').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }),
+                        {
+                            naming: {elem: '%%%', mod: '###'},
+                            elemDirDelim: '*',
+                            modDirDelim: '^'
+                        })
+                ).eql('a/*e1/^mn/a%%%e1###mn###mv.js');
+            });
+
+            it('should allow elemDirDelim and modDirDelim as empty string', function() {
+                expect(
+                    scheme('nested').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }),
+                        {
+                            elemDirDelim: '',
+                            modDirDelim: ''
+                        })
+                ).eql('a/e1/mn/a__e1_mn_mv.js');
+            });
+
+            it('should allow options as String', function() {
+                expect(
+                    scheme('nested').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }), 'origin')
+                ).eql('a/__e1/_mn/a__e1_mn_mv.js', 'origin');
+
+                expect(
+                    scheme('nested').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }), 'two-dashes')
+                ).eql('a/__e1/--mn/a__e1--mn_mv.js', 'two-dashes');
+
+                expect(
+                    scheme('nested').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }), 'react')
+                ).eql('a/e1/_mn/a-e1_mn_mv.js', 'react');
+            });
         });
     });
 
@@ -261,6 +321,61 @@ describe('default', function() {
                     })
                 )
             ).eql('common.blocks/a__e1_mn_mv.js');
+        });
+
+        describe('options', function() {
+            it('should support optional naming style', function() {
+                expect(
+                    scheme('flat').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }),
+                        {naming: {elem: '%%%', mod: '###'}})
+                ).eql('a%%%e1###mn###mv.js');
+            });
+
+            it('should allow options as String', function() {
+                expect(
+                    scheme('flat').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }), 'origin')
+                ).eql('a__e1_mn_mv.js', 'origin');
+
+                expect(
+                    scheme('flat').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }), 'two-dashes')
+                ).eql('a__e1--mn_mv.js', 'two-dashes');
+
+                expect(
+                    scheme('flat').path(
+                        new BemCell({
+                            entity: new BemEntityName({
+                                block: 'a',
+                                elem: 'e1',
+                                mod: {name: 'mn', val: 'mv'}
+                            }),
+                            tech: 'js'
+                        }), 'react')
+                ).eql('a-e1_mn_mv.js', 'react');
+            });
         });
     });
 });
