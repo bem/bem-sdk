@@ -22,9 +22,12 @@ module.exports = class BemEntityName {
      * @param {object} obj — representation of entity name.
      * @param {string} obj.block  — the block name of entity.
      * @param {string} [obj.elem] — the element name of entity.
-     * @param {object} [obj.mod]  — the modifier of entity.
-     * @param {string} [obj.mod.name] — the modifier name of entity.
-     * @param {string} [obj.mod.val]  — the modifier value of entity.
+     * @param {object} [obj.mod] — the modifier of entity.
+     * @param {string} obj.mod.name — the modifier name of entity.
+     * @param {string} [obj.mod.val] — the modifier value of entity.
+     * @param {string} [obj.modName] — the modifier name of entity. Used if `mod.name` wasn't specified.
+     * @param {string} [obj.modVal] — the modifier value of entity.
+     *   Used if neither `mod.val` nor `val` were not specified.
      */
     constructor(obj) {
         if (!obj.block) {
@@ -75,7 +78,7 @@ module.exports = class BemEntityName {
      *
      * name.elem; // text
      *
-     * @returns {string} name of entity element.
+     * @returns {string|undefined} - name of entity element.
      */
     get elem() { return this._data.elem; }
 
@@ -93,7 +96,7 @@ module.exports = class BemEntityName {
      * modName.mod;   // { name: 'disabled', val: true }
      * blockName.mod; // undefined
      *
-     * @returns {{mod: string, val: *}} entity modifier.
+     * @returns {{mod: string, val: (string|true)}|undefined} - entity modifier.
      */
     get mod() { return this._data.mod; }
 
@@ -102,8 +105,8 @@ module.exports = class BemEntityName {
      *
      * If entity is not modifier then returns `undefined`.
      *
-     * @returns {string} entity modifier name.
-     * @deprecated use `mod.name` instead.
+     * @returns {string|undefined} - entity modifier name.
+     * @deprecated - use `mod.name` instead.
      */
     get modName() { return this.mod && this.mod.name; }
 
@@ -112,8 +115,8 @@ module.exports = class BemEntityName {
      *
      * If entity is not modifier then returns `undefined`.
      *
-     * @returns {string} entity modifier name.
-     * @deprecated use `mod.val` instead.
+     * @returns {string|undefined} - entity modifier name.
+     * @deprecated - use `mod.val` instead.
      */
     get modVal() { return this.mod && this.mod.val; }
 
@@ -131,7 +134,7 @@ module.exports = class BemEntityName {
      *
      * name.id; // button_disabled
      *
-     * @returns {string} id of entity.
+     * @returns {string} - id of entity.
      */
     get id() {
         if (this._id) { return this._id; }
@@ -162,7 +165,7 @@ module.exports = class BemEntityName {
      *
      * name.type; // elemMod
      *
-     * @returns {string} type of entity.
+     * @returns {string} - type of entity. One of 'block', 'elem', 'blockMod', 'elemMod'.
      */
     get type() {
         if (this._type) { return this._type; }
@@ -176,6 +179,7 @@ module.exports = class BemEntityName {
 
         return this._type;
     }
+
     /**
      * Returns string representing the entity name.
      *
@@ -209,7 +213,7 @@ module.exports = class BemEntityName {
      *
      * // ➜ { block: 'button', mod: { name: 'focused', value: true } }
      *
-     * @returns {{block: string, elem: ?string, mod: ?{name: ?string, val: *}}}
+     * @returns {{block: string, elem: (string|undefined), mod: ({name: string, val: (string|true)}|undefined)}}
      */
     valueOf() { return this._data; }
 
@@ -228,9 +232,9 @@ module.exports = class BemEntityName {
      *
      * console.log(name); // BemEntityName { block: 'button' }
      *
-     * @param {integer} depth — tells inspect how many times to recurse while formatting the object.
+     * @param {number} depth — tells inspect how many times to recurse while formatting the object.
      * @param {object} options — An optional `options` object may be passed
-     *                         	 that alters certain aspects of the formatted string.
+     *   that alters certain aspects of the formatted string.
      *
      * @returns {string}
      */
@@ -243,7 +247,8 @@ module.exports = class BemEntityName {
     /**
      * Return raw data for `JSON.stringify()`.
      *
-     * @returns {{block: string, elem: ?string, mod: ?{name: string, val: *}}}
+     * @returns {{block: string, elem: (string|undefined),
+     *   mod: ({name: string, val: (string|true|undefined)}|undefined)}}
      */
     toJSON() {
         return this._data;
@@ -254,7 +259,7 @@ module.exports = class BemEntityName {
      *
      * @param {BemEntityName} entityName - the entity to compare.
      *
-     * @returns {boolean} A Boolean indicating whether or not specified entity is the deepEqual entity.
+     * @returns {boolean} - A Boolean indicating whether or not specified entity is the deepEqual entity.
      * @example
      * const BemEntityName = require('@bem/entity-name');
      *
@@ -294,7 +299,7 @@ module.exports = class BemEntityName {
      * @param {string} [obj.elem] — the element name of entity.
      * @param {object|string} [obj.mod]  — the modifier of entity.
      * @param {string} [obj.val] - the modifier value of entity. Used if `obj.mod` is a string.
-     * @param {string} [obj.mod.name] — the modifier name of entity.
+     * @param {string} obj.mod.name — the modifier name of entity.
      * @param {string} [obj.mod.val]  — the modifier value of entity.
      * @param {string} [obj.modName] — the modifier name of entity. Used if `obj.mod.name` wasn't specified.
      * @param {string} [obj.modVal]  — the modifier value of entity.
@@ -307,7 +312,7 @@ module.exports = class BemEntityName {
      * BemEntityName.create('my-button_theme_red');
      * BemEntityName.create({ block: 'my-button', mod: 'theme', val: 'red' });
      * BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
-     * // BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
+     * // → BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
      */
     static create(obj) {
         if (BemEntityName.isBemEntityName(obj)) {
