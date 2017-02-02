@@ -26,7 +26,7 @@
     "bem-naming": "1.0.1"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.0",
     "benchmark": "^2.1.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
