@@ -75,6 +75,43 @@ module.exports = class BemCell {
     get layer() { return this._layer; }
 
     /**
+     * Proxies `block` field from entity.
+     *
+     * @returns {string}
+     */
+    get block() { return this._entity.block; }
+
+    /**
+     * Proxies `elem` field from entity.
+     *
+     * @returns {string|undefined}
+     */
+    get elem() { return this._entity.elem; }
+
+    /**
+     * Proxies `mod` field from entity.
+     *
+     * @returns {object|undefined} - field with `name` and `val`
+     */
+    get mod() { return this._entity.mod; }
+
+    /**
+     * Proxies `modVal` field from entity.
+     *
+     * @deprecated - just for compatibility and can be dropped in future
+     * @returns {string|undefined} - modifier name
+     */
+    get modName() { return this._entity.modName; }
+
+    /**
+     * Proxies `modName` field from entity.
+     *
+     * @deprecated - just for compatibility and can be dropped in future
+     * @returns {string|true|undefined} - modifier value
+     */
+    get modVal() { return this._entity.modVal; }
+
+    /**
      * Returns the identifier of this cell.
      *
      * Important: should only be used to determine uniqueness of cell.
