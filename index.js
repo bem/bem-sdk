@@ -253,14 +253,15 @@ module.exports = class BemCell {
      * Creates BemCell instance by any object representation.
      *
      * @param {object} obj  — representation of cell.
-     * @param {string} obj.block   — the block name of entity.
-     * @param {string} [obj.elem]  — the element name of entity.
+     * @param {string} obj.block — the block name of entity.
+     * @param {string} [obj.elem] — the element name of entity.
      * @param {object|string} [obj.mod]   — the modifier of entity.
+     * @param {string} [obj.val] — The modifier value of entity. Used if `mod` is a string.
      * @param {string} obj.mod.name — the modifier name of entity.
-     * @param {string} [obj.mod.val]  — the modifier value of entity.
-     * @param {string} [obj.modName] — the modifier name of entity.
-     * @param {string} [obj.modVal]  — the modifier value of entity.
-     * @param {string} [obj.tech]  — technology of cell.
+     * @param {string} [obj.mod.val] — the modifier value of entity.
+     * @param {string} [obj.modName] — the modifier name of entity. Used if `mod.name` wasn't specified.
+     * @param {string} [obj.modVal] — the modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
+     * @param {string} [obj.tech] — technology of cell.
      * @param {string} [obj.layer] — layer of cell.
      *
      * @returns {BemCell} An object representing cell.

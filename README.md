@@ -227,7 +227,7 @@ const BemCell = require('@bem/cell');
 BemCell.create({ block: 'my-button', mod: 'theme', val: 'red', tech: 'css', layer: 'common' });
 BemCell.create({ block: 'my-button', modName: 'theme', modVal: 'red', tech: 'css', layer: 'common' });
 BemCell.create({ entity: { block: 'my-button', modName: 'theme', modVal: 'red' }, tech: 'css' }); // valueOf() format
-// BemCell { entity: { block: 'my-button', mod: { name: 'theme', val: 'red' } }, tech: 'css', layer: 'common' }
+// → BemCell { entity: { block: 'my-button', mod: { name: 'theme', val: 'red' } }, tech: 'css', layer: 'common' }
 ```
 
 Debuggability
