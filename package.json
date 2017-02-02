@@ -24,7 +24,7 @@
     "@bem/entity-name": "1.1.0"
   },
   "devDependencies": {
-    "ava": "^0.17.0",
+    "ava": "^0.18.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
     "eslint-config-pedant": "^0.8.0",
