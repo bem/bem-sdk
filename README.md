@@ -115,9 +115,9 @@ Parameter | Type     | Description
 ----------|----------|------------------------------
 `block`   | `string` | The block name of entity.
 `elem`    | `string` | The element name of entity.
-`mod`     | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
+`mod`     | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`. Optional
 `mod.name`| `string` | The modifier name of entity.
-`mod.val` | `*`      | The modifier value of entity.
+`mod.val` | `string`, `true` | The modifier value of entity. Optional
 
 ### block
 
@@ -271,13 +271,13 @@ Passed Object could have the common field names for entities:
 Object field | Type     | Description
 -------------|----------|------------------------------
 `block`      | `string` | The block name of entity.
-`elem`       | `string` | The element name of entity.
-`mod`        | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`.
-`val`        | `string` | The modifier value of entity. Used if `mod` is a string.
-`mod.name`   | `string` | The modifier name of entity.
-`mod.val`    | `*`      | The modifier value of entity.
-`modName`    | `string` | The modifier name of entity. Used if `mod.name` wasn't specified.
-`modVal`     | `*`      | The modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
+`elem`       | `string` | The element name of entity. Optional
+`mod`        | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`. Optional
+`val`        | `string` | The modifier value of entity. Used if `mod` is a string. Optional
+`mod.name`   | `string` | The modifier name of entity. Optional
+`mod.val`    | `string`, `true` | The modifier value of entity. Optional
+`modName`    | `string` | The modifier name of entity. Used if `mod.name` wasn't specified. Optional
+`modVal`     | `string`, `true` | The modifier value of entity. Used if neither `mod.val` nor `val` were not specified. Optional
 
 ```js
 const BemEntityName = require('@bem/entity-name');
