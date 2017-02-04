@@ -1,0 +1,28 @@
+{
+  "name": "bem-import",
+  "version": "0.0.0",
+  "description": "BEM import transformer",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem/bem-import.git"
+  },
+  "keywords": [
+    "bem",
+    "import"
+  ],
+  "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem/bem-import/issues"
+  },
+  "homepage": "https://github.com/bem/bem-import#readme",
+  "devDependencies": {
+    "@bem/cell": "^0.2.2",
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
+}
