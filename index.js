@@ -41,36 +41,36 @@ function parse(importString, ctx) {
             tail = split[1];
 
         switch(type) {
-            case 'b':
-                main.block = tail;
-                res.push(main);
+        case 'b':
+            main.block = tail;
+            res.push(main);
             break;
 
-            case 'e':
-                if (ctx.elem !== tail) {
-                    main.elem = tail;
-                    if(!main.block) {
-                        main.block = ctx.block;
-                        res.push(main);
-                    }
+        case 'e':
+            if(ctx.elem !== tail) {
+                main.elem = tail;
+                if(!main.block) {
+                    main.block = ctx.block;
+                    res.push(main);
                 }
+            }
             break;
 
-            case 'm':
-                const splitMod = tail.split('='),
-                    modName = splitMod[0],
-                    modVals = splitMod[1];
+        case 'm':
+            const splitMod = tail.split('='),
+                modName = splitMod[0],
+                modVals = splitMod[1];
 
-                main.elem || main.block || (main.elem = ctx.elem);
-                main.block || (main.block = ctx.block);
+            main.elem || main.block || (main.elem = ctx.elem);
+            main.block || (main.block = ctx.block);
 
-                res.push(Object.assign({}, main, {mod: {name: modName}}));
+            res.push(Object.assign({}, main, { mod : { name : modName } }));
 
-                if(modVals) {
-                    modVals.split('|').forEach(modVal => {
-                        res.push(Object.assign({}, main, {mod: {name: modName, val: modVal}}));
-                    });
-                }
+            if(modVals) {
+                modVals.split('|').forEach(modVal => {
+                    res.push(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
+                });
+            }
             break;
         }
     });
@@ -80,4 +80,4 @@ function parse(importString, ctx) {
 
 module.exports = {
     parse
-}
+};

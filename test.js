@@ -10,7 +10,7 @@ describe('', () => {
     });
 
     function _assertBlock(entity, blockName) {
-        var cell = new BemCell({entity: BemEntity.create(entity)});
+        var cell = new BemCell({ entity : BemEntity.create(entity) });
 
         expect(cell.entity.block).to.eql(blockName, 'blockName');
 
@@ -94,14 +94,14 @@ describe('', () => {
             describe('context is block', () => {
 
                 it('should extract blockMod', () => {
-                    var entities = parse('m:autoclosable', {block: 'popup'});
+                    var entities = parse('m:autoclosable', { block : 'popup' });
                     expect(entities).to.have.lengthOf(1);
 
                     assertBlockMod(entities[0], 'popup', 'autoclosable', true);
                 });
 
                 it('should extract block with modifier', () => {
-                    var entities = parse('m:autoclosable=yes', {block: 'popup'});
+                    var entities = parse('m:autoclosable=yes', { block : 'popup' });
                     expect(entities).to.have.lengthOf(2);
 
                     assertBlockMod(entities[0], 'popup', 'autoclosable', true);
@@ -109,7 +109,7 @@ describe('', () => {
                 });
 
                 it('should extract blockMod with several values', () => {
-                    var entities = parse('m:theme=normal|action', {block: 'popup'});
+                    var entities = parse('m:theme=normal|action', { block : 'popup' });
                     expect(entities).to.have.lengthOf(3);
 
                     assertBlockMod(entities[0], 'popup', 'theme', true);
@@ -118,7 +118,7 @@ describe('', () => {
                 });
 
                 it('should extract blockMod with several modifiers', () => {
-                    var entities = parse('m:theme m:autoclosable', {block: 'popup'});
+                    var entities = parse('m:theme m:autoclosable', { block : 'popup' });
                     expect(entities).to.have.lengthOf(2);
 
                     assertBlockMod(entities[0], 'popup', 'theme', true);
@@ -126,7 +126,7 @@ describe('', () => {
                 });
 
                 it('should extract blockMods with several modifiers and several values', () => {
-                    var entities = parse('m:theme=normal|action m:autoclosable=yes', {block: 'popup'});
+                    var entities = parse('m:theme=normal|action m:autoclosable=yes', { block : 'popup' });
                     expect(entities).to.have.lengthOf(5);
 
                     assertBlockMod(entities[0], 'popup', 'theme', true);
@@ -141,7 +141,7 @@ describe('', () => {
             describe('context is elem of another block', () => {
 
                 it('should extract block', () => {
-                    var entities = parse('b:popup', {block: 'button2', elem: 'tail'});
+                    var entities = parse('b:popup', { block : 'button2', elem : 'tail' });
                     expect(entities).to.have.lengthOf(1);
 
                     assertBlock(entities[0], 'popup');
@@ -150,7 +150,7 @@ describe('', () => {
                 it('should extract block with simple modifier', () => {
                     var entities = parse(
                         'b:popup m:autoclosable',
-                        {block: 'button2', elem: 'tail'}
+                        { block : 'button2', elem : 'tail' }
                     );
 
                     expect(entities).to.have.lengthOf(2);
@@ -162,7 +162,7 @@ describe('', () => {
                 it('should extract block with modifier', () => {
                     var entities = parse(
                         'b:popup m:autoclosable=yes',
-                        {block: 'button2', elem: 'tail'}
+                        { block : 'button2', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(3);
 
@@ -174,7 +174,7 @@ describe('', () => {
                 it('should extract block with modifier and several values', () => {
                     var entities = parse(
                         'b:popup m:theme=normal|action',
-                        {block: 'button2', elem: 'tail'}
+                        { block : 'button2', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(4);
 
@@ -187,7 +187,7 @@ describe('', () => {
                 it('should extract block with several modifiers', () => {
                     var entities = parse(
                         'b:popup m:theme m:autoclosable',
-                        {block: 'button2', elem: 'tail'}
+                        { block : 'button2', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(3);
 
@@ -199,7 +199,7 @@ describe('', () => {
                 it('should extract block with several modifiers and several values', () => {
                     var entities = parse(
                         'b:popup m:theme=normal|action m:autoclosable=yes',
-                        {block: 'button2', elem: 'tail'}
+                        { block : 'button2', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(6);
 
@@ -216,7 +216,7 @@ describe('', () => {
             describe('context is elem of current block', () => {
 
                 it('should extract block', () => {
-                    var entities = parse('b:popup', {block: 'popup', elem: 'tail'});
+                    var entities = parse('b:popup', { block : 'popup', elem : 'tail' });
                     expect(entities).to.have.lengthOf(1);
 
                     assertBlock(entities[0], 'popup');
@@ -225,7 +225,7 @@ describe('', () => {
                 it('should extract block with simple modifier', () => {
                     var entities = parse(
                         'b:popup m:autoclosable',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(2);
 
@@ -236,7 +236,7 @@ describe('', () => {
                 it('should extract block with modifier', () => {
                     var entities = parse(
                         'b:popup m:autoclosable=yes',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(3);
 
@@ -248,7 +248,7 @@ describe('', () => {
                 it('should extract block with modifier and several values', () => {
                     var entities = parse(
                         'b:popup m:theme=normal|action',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(4);
 
@@ -261,7 +261,7 @@ describe('', () => {
                 it('should extract block with several modifiers', () => {
                     var entities = parse(
                         'b:popup m:theme m:autoclosable',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(3);
 
@@ -273,7 +273,7 @@ describe('', () => {
                 it('should extract block with several modifiers and several values', () => {
                     var entities = parse(
                         'b:popup m:theme=normal|action m:autoclosable=yes',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(6);
 
@@ -374,14 +374,14 @@ describe('', () => {
             describe('context is block', () => {
 
                 it('should extract elem', () => {
-                    var entities = parse('e:text', {block: 'button2'});
+                    var entities = parse('e:text', { block : 'button2' });
                     expect(entities).to.have.lengthOf(1);
 
                     assertElem(entities[0], 'button2', 'text');
                 });
 
                 it('should extract elem with simple modifier', () => {
-                    var entities = parse('e:text m:pseudo', {block: 'button2'});
+                    var entities = parse('e:text m:pseudo', { block : 'button2' });
                     expect(entities).to.have.lengthOf(2);
 
                     assertElem(entities[0], 'button2', 'text');
@@ -389,7 +389,7 @@ describe('', () => {
                 });
 
                 it('should extract elem with modifier', () => {
-                    var entities = parse('e:text m:pseudo=yes', {block: 'button2'});
+                    var entities = parse('e:text m:pseudo=yes', { block : 'button2' });
                     expect(entities).to.have.lengthOf(3);
 
                     assertElem(entities[0], 'button2', 'text');
@@ -398,7 +398,7 @@ describe('', () => {
                 });
 
                 it('should extract elem with modifier and several values', () => {
-                    var entities = parse('e:text m:theme=normal|action', {block: 'button2'});
+                    var entities = parse('e:text m:theme=normal|action', { block : 'button2' });
                     expect(entities).to.have.lengthOf(4);
 
                     assertElem(entities[0], 'button2', 'text');
@@ -410,7 +410,7 @@ describe('', () => {
                 it('should extract elem with several modifiers', () => {
                     var entities = parse(
                         'b:popup e:tail m:theme m:autoclosable',
-                        {block: 'button2'}
+                        { block : 'button2' }
                     );
                     expect(entities).to.have.lengthOf(3);
 
@@ -422,7 +422,7 @@ describe('', () => {
                 it('should extract elem with several modifiers and several values', () => {
                     var entities = parse(
                         'b:popup e:tail m:theme=normal|action m:autoclosable=yes',
-                        {block: 'button2'}
+                        { block : 'button2' }
                     );
                     expect(entities).to.have.lengthOf(6);
 
@@ -439,14 +439,14 @@ describe('', () => {
             describe('context is elem', () => {
 
                 it('should extract elem with simple modifier', () => {
-                    var entities = parse('m:pseudo', {block: 'button2', elem: 'text'});
+                    var entities = parse('m:pseudo', { block : 'button2', elem : 'text' });
                     expect(entities).to.have.lengthOf(1);
 
                     assertElemMod(entities[0], 'button2', 'text', 'pseudo', true);
                 });
 
                 it('should extract elem with modifier', () => {
-                    var entities = parse('m:pseudo=yes', {block: 'button2', elem: 'text'});
+                    var entities = parse('m:pseudo=yes', { block : 'button2', elem : 'text' });
                     expect(entities).to.have.lengthOf(2);
 
                     assertElemMod(entities[0], 'button2', 'text', 'pseudo', true);
@@ -454,7 +454,7 @@ describe('', () => {
                 });
 
                 it('should extract elem with modifier and several values', () => {
-                    var entities = parse('m:theme=normal|action', {block: 'button2', elem: 'text'});
+                    var entities = parse('m:theme=normal|action', { block : 'button2', elem : 'text' });
                     expect(entities).to.have.lengthOf(3);
 
                     assertElemMod(entities[0], 'button2', 'text', 'theme', true);
@@ -465,7 +465,7 @@ describe('', () => {
                 it('should extract elem with several modifiers', () => {
                     var entities = parse(
                         'm:theme m:autoclosable',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(2);
 
@@ -476,7 +476,7 @@ describe('', () => {
                 it('should extract elem with several modifiers and several values', () => {
                     var entities = parse(
                         'm:theme=normal|action m:autoclosable=yes',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(5);
 
@@ -492,14 +492,14 @@ describe('', () => {
             describe('context is another elem', () => {
 
                 it('should extract elem', () => {
-                    var entities = parse('e:text', {block: 'button2', elem: 'control'});
+                    var entities = parse('e:text', { block : 'button2', elem : 'control' });
                     expect(entities).to.have.lengthOf(1);
 
                     assertElem(entities[0], 'button2', 'text');
                 });
 
                 it('should extract elem with simple modifier', () => {
-                    var entities = parse('e:text m:pseudo', {block: 'button2', elem: 'control'});
+                    var entities = parse('e:text m:pseudo', { block : 'button2', elem : 'control' });
                     expect(entities).to.have.lengthOf(2);
 
                     assertElem(entities[0], 'button2', 'text');
@@ -507,7 +507,7 @@ describe('', () => {
                 });
 
                 it('should extract elem with modifier', () => {
-                    var entities = parse('e:text m:pseudo=yes', {block: 'button2', elem: 'control'});
+                    var entities = parse('e:text m:pseudo=yes', { block : 'button2', elem : 'control' });
                     expect(entities).to.have.lengthOf(3);
 
                     assertElem(entities[0], 'button2', 'text');
@@ -516,7 +516,7 @@ describe('', () => {
                 });
 
                 it('should extract elem with modifier and several values', () => {
-                    var entities = parse('e:text m:theme=normal|action', {block: 'button2', elem: 'control'});
+                    var entities = parse('e:text m:theme=normal|action', { block : 'button2', elem : 'control' });
                     expect(entities).to.have.lengthOf(4);
 
                     assertElem(entities[0], 'button2', 'text');
@@ -528,7 +528,7 @@ describe('', () => {
                 it('should extract elem with several modifiers', () => {
                     var entities = parse(
                         'e:tail m:theme m:autoclosable',
-                        {block: 'popup', elem: 'control'}
+                        { block : 'popup', elem : 'control' }
                     );
                     expect(entities).to.have.lengthOf(3);
 
@@ -540,7 +540,7 @@ describe('', () => {
                 it('should extract elem with several modifiers and several values', () => {
                     var entities = parse(
                         'e:tail m:theme=normal|action m:autoclosable=yes',
-                        {block: 'popup', elem: 'control'}
+                        { block : 'popup', elem : 'control' }
                     );
                     expect(entities).to.have.lengthOf(6);
 
@@ -552,19 +552,19 @@ describe('', () => {
                     assertElemMod(entities[5], 'popup', 'tail', 'autoclosable', 'yes');
                 });
 
-           });
+            });
 
             describe('context is current elem', () => {
 
                 it('should extract elem with simple modifier', () => {
-                    var entities = parse('e:text m:pseudo', {block: 'button2', elem: 'text'});
+                    var entities = parse('e:text m:pseudo', { block : 'button2', elem : 'text' });
                     expect(entities).to.have.lengthOf(1);
 
                     assertElemMod(entities[0], 'button2', 'text', 'pseudo', true);
                 });
 
                 it('should extract elem with modifier', () => {
-                    var entities = parse('e:text m:pseudo=yes', {block: 'button2', elem: 'text'});
+                    var entities = parse('e:text m:pseudo=yes', { block : 'button2', elem : 'text' });
                     expect(entities).to.have.lengthOf(2);
 
                     assertElemMod(entities[0], 'button2', 'text', 'pseudo', true);
@@ -572,7 +572,7 @@ describe('', () => {
                 });
 
                 it('should extract elem with modifier and several values', () => {
-                    var entities = parse('e:text m:theme=normal|action', {block: 'button2', elem: 'text'});
+                    var entities = parse('e:text m:theme=normal|action', { block : 'button2', elem : 'text' });
                     expect(entities).to.have.lengthOf(3);
 
                     assertElemMod(entities[0], 'button2', 'text', 'theme', true);
@@ -583,7 +583,7 @@ describe('', () => {
                 it('should extract elem with several modifiers', () => {
                     var entities = parse(
                         'e:tail m:theme m:autoclosable',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(2);
 
@@ -594,7 +594,7 @@ describe('', () => {
                 it('should extract elem with several modifiers and several values', () => {
                     var entities = parse(
                         'e:tail m:theme=normal|action m:autoclosable=yes',
-                        {block: 'popup', elem: 'tail'}
+                        { block : 'popup', elem : 'tail' }
                     );
                     expect(entities).to.have.lengthOf(5);
 
