@@ -42,15 +42,17 @@ function parse(importString, ctx) {
 
         switch(type) {
             case 'b':
-                main.block = tail || ctx.block;
+                main.block = tail;
                 res.push(main);
             break;
 
             case 'e':
-                main.elem = tail;
-                if(!main.block) {
-                    main.block = ctx.block;
-                    res.push(main);
+                if (ctx.elem !== tail) {
+                    main.elem = tail;
+                    if(!main.block) {
+                        main.block = ctx.block;
+                        res.push(main);
+                    }
                 }
             break;
 
@@ -62,12 +64,12 @@ function parse(importString, ctx) {
                 main.elem || main.block || (main.elem = ctx.elem);
                 main.block || (main.block = ctx.block);
 
+                res.push(Object.assign({}, main, {mod: {name: modName}}));
+
                 if(modVals) {
                     modVals.split('|').forEach(modVal => {
                         res.push(Object.assign({}, main, {mod: {name: modName, val: modVal}}));
                     });
-                } else {
-                    res.push(Object.assign({}, main, {mod: {name: modName}}));
                 }
             break;
         }

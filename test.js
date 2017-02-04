@@ -49,9 +49,8 @@ describe('', () => {
             assertBlockMod(entities[1], 'popup', 'autoclosable', true);
         });
 
-        xit('should extract block with modifier simple and with value', () => {
+        it('should extract block with modifier', () => {
             var entities = parse('b:popup m:autoclosable=yes');
-
             expect(entities).to.have.lengthOf(3);
 
             assertBlock(entities[0], 'popup');
@@ -59,19 +58,14 @@ describe('', () => {
             assertBlockMod(entities[2], 'popup', 'autoclosable', 'yes');
         });
 
-        it('should extract block with modifier', () => {
-            var entities = parse('b:popup m:autoclosable=yes');
-
-            assertBlock(entities[0], 'popup');
-            assertBlockMod(entities[1], 'popup', 'autoclosable', 'yes');
-        });
-
         it('should extract block with modifier and several values', () => {
             var entities = parse('b:popup m:theme=normal|action');
+            expect(entities).to.have.lengthOf(4);
 
             assertBlock(entities[0], 'popup');
-            assertBlockMod(entities[1], 'popup', 'theme', 'normal');
-            assertBlockMod(entities[2], 'popup', 'theme', 'action');
+            assertBlockMod(entities[1], 'popup', 'theme', true);
+            assertBlockMod(entities[2], 'popup', 'theme', 'normal');
+            assertBlockMod(entities[3], 'popup', 'theme', 'action');
         });
 
         it('should extract block with several modifiers', () => {
@@ -85,11 +79,14 @@ describe('', () => {
 
         it('should extract block with several modifiers and several values', () => {
             var entities = parse('b:popup m:theme=normal|action m:autoclosable=yes');
+            expect(entities).to.have.lengthOf(6);
 
             assertBlock(entities[0], 'popup');
-            assertBlockMod(entities[1], 'popup', 'theme', 'normal');
-            assertBlockMod(entities[2], 'popup', 'theme', 'action');
-            assertBlockMod(entities[3], 'popup', 'autoclosable', 'yes');
+            assertBlockMod(entities[1], 'popup', 'theme', true);
+            assertBlockMod(entities[2], 'popup', 'theme', 'normal');
+            assertBlockMod(entities[3], 'popup', 'theme', 'action');
+            assertBlockMod(entities[4], 'popup', 'autoclosable', true);
+            assertBlockMod(entities[5], 'popup', 'autoclosable', 'yes');
         });
 
         describe('ctx', () => {
@@ -105,15 +102,19 @@ describe('', () => {
 
                 it('should extract block with modifier', () => {
                     var entities = parse('m:autoclosable=yes', {block: 'popup'});
+                    expect(entities).to.have.lengthOf(2);
 
-                    assertBlockMod(entities[0], 'popup', 'autoclosable', 'yes');
+                    assertBlockMod(entities[0], 'popup', 'autoclosable', true);
+                    assertBlockMod(entities[1], 'popup', 'autoclosable', 'yes');
                 });
 
                 it('should extract blockMod with several values', () => {
                     var entities = parse('m:theme=normal|action', {block: 'popup'});
+                    expect(entities).to.have.lengthOf(3);
 
-                    assertBlockMod(entities[0], 'popup', 'theme', 'normal');
-                    assertBlockMod(entities[1], 'popup', 'theme', 'action');
+                    assertBlockMod(entities[0], 'popup', 'theme', true);
+                    assertBlockMod(entities[1], 'popup', 'theme', 'normal');
+                    assertBlockMod(entities[2], 'popup', 'theme', 'action');
                 });
 
                 it('should extract blockMod with several modifiers', () => {
@@ -126,10 +127,13 @@ describe('', () => {
 
                 it('should extract blockMods with several modifiers and several values', () => {
                     var entities = parse('m:theme=normal|action m:autoclosable=yes', {block: 'popup'});
+                    expect(entities).to.have.lengthOf(5);
 
-                    assertBlockMod(entities[0], 'popup', 'theme', 'normal');
-                    assertBlockMod(entities[1], 'popup', 'theme', 'action');
-                    assertBlockMod(entities[2], 'popup', 'autoclosable', 'yes');
+                    assertBlockMod(entities[0], 'popup', 'theme', true);
+                    assertBlockMod(entities[1], 'popup', 'theme', 'normal');
+                    assertBlockMod(entities[2], 'popup', 'theme', 'action');
+                    assertBlockMod(entities[3], 'popup', 'autoclosable', true);
+                    assertBlockMod(entities[4], 'popup', 'autoclosable', 'yes');
                 });
 
             });
@@ -160,9 +164,11 @@ describe('', () => {
                         'b:popup m:autoclosable=yes',
                         {block: 'button2', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(3);
 
                     assertBlock(entities[0], 'popup');
-                    assertBlockMod(entities[1], 'popup', 'autoclosable', 'yes');
+                    assertBlockMod(entities[1], 'popup', 'autoclosable', true);
+                    assertBlockMod(entities[2], 'popup', 'autoclosable', 'yes');
                 });
 
                 it('should extract block with modifier and several values', () => {
@@ -170,10 +176,12 @@ describe('', () => {
                         'b:popup m:theme=normal|action',
                         {block: 'button2', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(4);
 
                     assertBlock(entities[0], 'popup');
-                    assertBlockMod(entities[1], 'popup', 'theme', 'normal');
-                    assertBlockMod(entities[2], 'popup', 'theme', 'action');
+                    assertBlockMod(entities[1], 'popup', 'theme', true);
+                    assertBlockMod(entities[2], 'popup', 'theme', 'normal');
+                    assertBlockMod(entities[3], 'popup', 'theme', 'action');
                 });
 
                 it('should extract block with several modifiers', () => {
@@ -181,7 +189,6 @@ describe('', () => {
                         'b:popup m:theme m:autoclosable',
                         {block: 'button2', elem: 'tail'}
                     );
-
                     expect(entities).to.have.lengthOf(3);
 
                     assertBlock(entities[0], 'popup');
@@ -194,11 +201,14 @@ describe('', () => {
                         'b:popup m:theme=normal|action m:autoclosable=yes',
                         {block: 'button2', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(6);
 
                     assertBlock(entities[0], 'popup');
-                    assertBlockMod(entities[1], 'popup', 'theme', 'normal');
-                    assertBlockMod(entities[2], 'popup', 'theme', 'action');
-                    assertBlockMod(entities[3], 'popup', 'autoclosable', 'yes');
+                    assertBlockMod(entities[1], 'popup', 'theme', true);
+                    assertBlockMod(entities[2], 'popup', 'theme', 'normal');
+                    assertBlockMod(entities[3], 'popup', 'theme', 'action');
+                    assertBlockMod(entities[4], 'popup', 'autoclosable', true);
+                    assertBlockMod(entities[5], 'popup', 'autoclosable', 'yes');
                 });
 
             });
@@ -217,7 +227,6 @@ describe('', () => {
                         'b:popup m:autoclosable',
                         {block: 'popup', elem: 'tail'}
                     );
-
                     expect(entities).to.have.lengthOf(2);
 
                     assertBlock(entities[0], 'popup');
@@ -229,9 +238,11 @@ describe('', () => {
                         'b:popup m:autoclosable=yes',
                         {block: 'popup', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(3);
 
                     assertBlock(entities[0], 'popup');
-                    assertBlockMod(entities[1], 'popup', 'autoclosable', 'yes');
+                    assertBlockMod(entities[1], 'popup', 'autoclosable', true);
+                    assertBlockMod(entities[2], 'popup', 'autoclosable', 'yes');
                 });
 
                 it('should extract block with modifier and several values', () => {
@@ -239,10 +250,12 @@ describe('', () => {
                         'b:popup m:theme=normal|action',
                         {block: 'popup', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(4);
 
                     assertBlock(entities[0], 'popup');
-                    assertBlockMod(entities[1], 'popup', 'theme', 'normal');
-                    assertBlockMod(entities[2], 'popup', 'theme', 'action');
+                    assertBlockMod(entities[1], 'popup', 'theme', true);
+                    assertBlockMod(entities[2], 'popup', 'theme', 'normal');
+                    assertBlockMod(entities[3], 'popup', 'theme', 'action');
                 });
 
                 it('should extract block with several modifiers', () => {
@@ -250,7 +263,6 @@ describe('', () => {
                         'b:popup m:theme m:autoclosable',
                         {block: 'popup', elem: 'tail'}
                     );
-
                     expect(entities).to.have.lengthOf(3);
 
                     assertBlock(entities[0], 'popup');
@@ -263,11 +275,14 @@ describe('', () => {
                         'b:popup m:theme=normal|action m:autoclosable=yes',
                         {block: 'popup', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(6);
 
                     assertBlock(entities[0], 'popup');
-                    assertBlockMod(entities[1], 'popup', 'theme', 'normal');
-                    assertBlockMod(entities[2], 'popup', 'theme', 'action');
-                    assertBlockMod(entities[3], 'popup', 'autoclosable', 'yes');
+                    assertBlockMod(entities[1], 'popup', 'theme', true);
+                    assertBlockMod(entities[2], 'popup', 'theme', 'normal');
+                    assertBlockMod(entities[3], 'popup', 'theme', 'action');
+                    assertBlockMod(entities[4], 'popup', 'autoclosable', true);
+                    assertBlockMod(entities[5], 'popup', 'autoclosable', 'yes');
                 });
 
             });
@@ -316,17 +331,21 @@ describe('', () => {
 
         it('should extract elem with modifier', () => {
             var entities = parse('b:button2 e:text m:pseudo=yes');
+            expect(entities).to.have.lengthOf(3);
 
             assertElem(entities[0], 'button2', 'text');
-            assertElemMod(entities[1], 'button2', 'text', 'pseudo', 'yes');
+            assertElemMod(entities[1], 'button2', 'text', 'pseudo', true);
+            assertElemMod(entities[2], 'button2', 'text', 'pseudo', 'yes');
         });
 
         it('should extract elem with modifier and several values', () => {
             var entities = parse('b:button2 e:text m:theme=normal|action');
+            expect(entities).to.have.lengthOf(4);
 
             assertElem(entities[0], 'button2', 'text');
-            assertElemMod(entities[1], 'button2', 'text', 'theme', 'normal');
-            assertElemMod(entities[2], 'button2', 'text', 'theme', 'action');
+            assertElemMod(entities[1], 'button2', 'text', 'theme', true);
+            assertElemMod(entities[2], 'button2', 'text', 'theme', 'normal');
+            assertElemMod(entities[3], 'button2', 'text', 'theme', 'action');
         });
 
         it('should extract elem with several modifiers', () => {
@@ -340,11 +359,14 @@ describe('', () => {
 
         it('should extract elem with several modifiers and several values', () => {
             var entities = parse('b:popup e:tail m:theme=normal|action m:autoclosable=yes');
+            expect(entities).to.have.lengthOf(6);
 
             assertElem(entities[0], 'popup', 'tail');
-            assertElemMod(entities[1], 'popup', 'tail', 'theme', 'normal');
-            assertElemMod(entities[2], 'popup', 'tail', 'theme', 'action');
-            assertElemMod(entities[3], 'popup', 'tail', 'autoclosable', 'yes');
+            assertElemMod(entities[1], 'popup', 'tail', 'theme', true);
+            assertElemMod(entities[2], 'popup', 'tail', 'theme', 'normal');
+            assertElemMod(entities[3], 'popup', 'tail', 'theme', 'action');
+            assertElemMod(entities[4], 'popup', 'tail', 'autoclosable', true);
+            assertElemMod(entities[5], 'popup', 'tail', 'autoclosable', 'yes');
         });
 
         describe('ctx', () => {
@@ -368,17 +390,21 @@ describe('', () => {
 
                 it('should extract elem with modifier', () => {
                     var entities = parse('e:text m:pseudo=yes', {block: 'button2'});
+                    expect(entities).to.have.lengthOf(3);
 
                     assertElem(entities[0], 'button2', 'text');
-                    assertElemMod(entities[1], 'button2', 'text', 'pseudo', 'yes');
+                    assertElemMod(entities[1], 'button2', 'text', 'pseudo', true);
+                    assertElemMod(entities[2], 'button2', 'text', 'pseudo', 'yes');
                 });
 
                 it('should extract elem with modifier and several values', () => {
                     var entities = parse('e:text m:theme=normal|action', {block: 'button2'});
+                    expect(entities).to.have.lengthOf(4);
 
                     assertElem(entities[0], 'button2', 'text');
-                    assertElemMod(entities[1], 'button2', 'text', 'theme', 'normal');
-                    assertElemMod(entities[2], 'button2', 'text', 'theme', 'action');
+                    assertElemMod(entities[1], 'button2', 'text', 'theme', true);
+                    assertElemMod(entities[2], 'button2', 'text', 'theme', 'normal');
+                    assertElemMod(entities[3], 'button2', 'text', 'theme', 'action');
                 });
 
                 it('should extract elem with several modifiers', () => {
@@ -398,11 +424,14 @@ describe('', () => {
                         'b:popup e:tail m:theme=normal|action m:autoclosable=yes',
                         {block: 'button2'}
                     );
+                    expect(entities).to.have.lengthOf(6);
 
                     assertElem(entities[0], 'popup', 'tail');
-                    assertElemMod(entities[1], 'popup', 'tail', 'theme', 'normal');
-                    assertElemMod(entities[2], 'popup', 'tail', 'theme', 'action');
-                    assertElemMod(entities[3], 'popup', 'tail', 'autoclosable', 'yes');
+                    assertElemMod(entities[1], 'popup', 'tail', 'theme', true);
+                    assertElemMod(entities[2], 'popup', 'tail', 'theme', 'normal');
+                    assertElemMod(entities[3], 'popup', 'tail', 'theme', 'action');
+                    assertElemMod(entities[4], 'popup', 'tail', 'autoclosable', true);
+                    assertElemMod(entities[5], 'popup', 'tail', 'autoclosable', 'yes');
                 });
 
             });
@@ -411,21 +440,26 @@ describe('', () => {
 
                 it('should extract elem with simple modifier', () => {
                     var entities = parse('m:pseudo', {block: 'button2', elem: 'text'});
+                    expect(entities).to.have.lengthOf(1);
 
                     assertElemMod(entities[0], 'button2', 'text', 'pseudo', true);
                 });
 
                 it('should extract elem with modifier', () => {
                     var entities = parse('m:pseudo=yes', {block: 'button2', elem: 'text'});
+                    expect(entities).to.have.lengthOf(2);
 
-                    assertElemMod(entities[0], 'button2', 'text', 'pseudo', 'yes');
+                    assertElemMod(entities[0], 'button2', 'text', 'pseudo', true);
+                    assertElemMod(entities[1], 'button2', 'text', 'pseudo', 'yes');
                 });
 
                 it('should extract elem with modifier and several values', () => {
                     var entities = parse('m:theme=normal|action', {block: 'button2', elem: 'text'});
+                    expect(entities).to.have.lengthOf(3);
 
-                    assertElemMod(entities[0], 'button2', 'text', 'theme', 'normal');
-                    assertElemMod(entities[1], 'button2', 'text', 'theme', 'action');
+                    assertElemMod(entities[0], 'button2', 'text', 'theme', true);
+                    assertElemMod(entities[1], 'button2', 'text', 'theme', 'normal');
+                    assertElemMod(entities[2], 'button2', 'text', 'theme', 'action');
                 });
 
                 it('should extract elem with several modifiers', () => {
@@ -433,6 +467,7 @@ describe('', () => {
                         'm:theme m:autoclosable',
                         {block: 'popup', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(2);
 
                     assertElemMod(entities[0], 'popup', 'tail', 'theme', true);
                     assertElemMod(entities[1], 'popup', 'tail', 'autoclosable', true);
@@ -443,10 +478,13 @@ describe('', () => {
                         'm:theme=normal|action m:autoclosable=yes',
                         {block: 'popup', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(5);
 
-                    assertElemMod(entities[0], 'popup', 'tail', 'theme', 'normal');
-                    assertElemMod(entities[1], 'popup', 'tail', 'theme', 'action');
-                    assertElemMod(entities[2], 'popup', 'tail', 'autoclosable', 'yes');
+                    assertElemMod(entities[0], 'popup', 'tail', 'theme', true);
+                    assertElemMod(entities[1], 'popup', 'tail', 'theme', 'normal');
+                    assertElemMod(entities[2], 'popup', 'tail', 'theme', 'action');
+                    assertElemMod(entities[3], 'popup', 'tail', 'autoclosable', true);
+                    assertElemMod(entities[4], 'popup', 'tail', 'autoclosable', 'yes');
                 });
 
             });
@@ -470,17 +508,21 @@ describe('', () => {
 
                 it('should extract elem with modifier', () => {
                     var entities = parse('e:text m:pseudo=yes', {block: 'button2', elem: 'control'});
+                    expect(entities).to.have.lengthOf(3);
 
                     assertElem(entities[0], 'button2', 'text');
-                    assertElemMod(entities[1], 'button2', 'text', 'pseudo', 'yes');
+                    assertElemMod(entities[1], 'button2', 'text', 'pseudo', true);
+                    assertElemMod(entities[2], 'button2', 'text', 'pseudo', 'yes');
                 });
 
                 it('should extract elem with modifier and several values', () => {
                     var entities = parse('e:text m:theme=normal|action', {block: 'button2', elem: 'control'});
+                    expect(entities).to.have.lengthOf(4);
 
                     assertElem(entities[0], 'button2', 'text');
-                    assertElemMod(entities[1], 'button2', 'text', 'theme', 'normal');
-                    assertElemMod(entities[2], 'button2', 'text', 'theme', 'action');
+                    assertElemMod(entities[1], 'button2', 'text', 'theme', true);
+                    assertElemMod(entities[2], 'button2', 'text', 'theme', 'normal');
+                    assertElemMod(entities[3], 'button2', 'text', 'theme', 'action');
                 });
 
                 it('should extract elem with several modifiers', () => {
@@ -500,11 +542,14 @@ describe('', () => {
                         'e:tail m:theme=normal|action m:autoclosable=yes',
                         {block: 'popup', elem: 'control'}
                     );
+                    expect(entities).to.have.lengthOf(6);
 
                     assertElem(entities[0], 'popup', 'tail');
-                    assertElemMod(entities[1], 'popup', 'tail', 'theme', 'normal');
-                    assertElemMod(entities[2], 'popup', 'tail', 'theme', 'action');
-                    assertElemMod(entities[3], 'popup', 'tail', 'autoclosable', 'yes');
+                    assertElemMod(entities[1], 'popup', 'tail', 'theme', true);
+                    assertElemMod(entities[2], 'popup', 'tail', 'theme', 'normal');
+                    assertElemMod(entities[3], 'popup', 'tail', 'theme', 'action');
+                    assertElemMod(entities[4], 'popup', 'tail', 'autoclosable', true);
+                    assertElemMod(entities[5], 'popup', 'tail', 'autoclosable', 'yes');
                 });
 
            });
@@ -513,23 +558,24 @@ describe('', () => {
 
                 it('should extract elem with simple modifier', () => {
                     var entities = parse('e:text m:pseudo', {block: 'button2', elem: 'text'});
-                    expect(entities).to.have.lengthOf(2);
+                    expect(entities).to.have.lengthOf(1);
 
-                    assertElem(entities[0], 'button2', 'text');
-                    assertElemMod(entities[1], 'button2', 'text', 'pseudo', true);
+                    assertElemMod(entities[0], 'button2', 'text', 'pseudo', true);
                 });
 
                 it('should extract elem with modifier', () => {
                     var entities = parse('e:text m:pseudo=yes', {block: 'button2', elem: 'text'});
+                    expect(entities).to.have.lengthOf(2);
 
-                    assertElem(entities[0], 'button2', 'text');
+                    assertElemMod(entities[0], 'button2', 'text', 'pseudo', true);
                     assertElemMod(entities[1], 'button2', 'text', 'pseudo', 'yes');
                 });
 
                 it('should extract elem with modifier and several values', () => {
                     var entities = parse('e:text m:theme=normal|action', {block: 'button2', elem: 'text'});
+                    expect(entities).to.have.lengthOf(3);
 
-                    assertElem(entities[0], 'button2', 'text');
+                    assertElemMod(entities[0], 'button2', 'text', 'theme', true);
                     assertElemMod(entities[1], 'button2', 'text', 'theme', 'normal');
                     assertElemMod(entities[2], 'button2', 'text', 'theme', 'action');
                 });
@@ -539,11 +585,10 @@ describe('', () => {
                         'e:tail m:theme m:autoclosable',
                         {block: 'popup', elem: 'tail'}
                     );
-                    expect(entities).to.have.lengthOf(3);
+                    expect(entities).to.have.lengthOf(2);
 
-                    assertElem(entities[0], 'popup', 'tail');
-                    assertElemMod(entities[1], 'popup', 'tail', 'theme', true);
-                    assertElemMod(entities[2], 'popup', 'tail', 'autoclosable', true);
+                    assertElemMod(entities[0], 'popup', 'tail', 'theme', true);
+                    assertElemMod(entities[1], 'popup', 'tail', 'autoclosable', true);
                 });
 
                 it('should extract elem with several modifiers and several values', () => {
@@ -551,11 +596,13 @@ describe('', () => {
                         'e:tail m:theme=normal|action m:autoclosable=yes',
                         {block: 'popup', elem: 'tail'}
                     );
+                    expect(entities).to.have.lengthOf(5);
 
-                    assertElem(entities[0], 'popup', 'tail');
+                    assertElemMod(entities[0], 'popup', 'tail', 'theme', true);
                     assertElemMod(entities[1], 'popup', 'tail', 'theme', 'normal');
                     assertElemMod(entities[2], 'popup', 'tail', 'theme', 'action');
-                    assertElemMod(entities[3], 'popup', 'tail', 'autoclosable', 'yes');
+                    assertElemMod(entities[3], 'popup', 'tail', 'autoclosable', true);
+                    assertElemMod(entities[4], 'popup', 'tail', 'autoclosable', 'yes');
                 });
 
             });
