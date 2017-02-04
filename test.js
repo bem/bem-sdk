@@ -1,7 +1,7 @@
 var expect = require('chai').expect,
     BemCell = require('@bem/cell'),
     BemEntity = require('@bem/entity-name'),
-    parse = require('.');
+    parse = require('.').parse;
 
 describe('', () => {
 
@@ -212,7 +212,7 @@ describe('', () => {
                     assertBlock(entities[0], 'popup');
                 });
 
-                xit('should extract block with simple modifier', () => {
+                it('should extract block with simple modifier', () => {
                     var entities = parse(
                         'b:popup m:autoclosable',
                         {block: 'popup', elem: 'tail'}
@@ -224,7 +224,7 @@ describe('', () => {
                     assertBlockMod(entities[1], 'popup', 'autoclosable', true);
                 });
 
-                xit('should extract block with modifier', () => {
+                it('should extract block with modifier', () => {
                     var entities = parse(
                         'b:popup m:autoclosable=yes',
                         {block: 'popup', elem: 'tail'}
@@ -234,7 +234,7 @@ describe('', () => {
                     assertBlockMod(entities[1], 'popup', 'autoclosable', 'yes');
                 });
 
-                xit('should extract block with modifier and several values', () => {
+                it('should extract block with modifier and several values', () => {
                     var entities = parse(
                         'b:popup m:theme=normal|action',
                         {block: 'popup', elem: 'tail'}
@@ -245,7 +245,7 @@ describe('', () => {
                     assertBlockMod(entities[2], 'popup', 'theme', 'action');
                 });
 
-                xit('should extract block with several modifiers', () => {
+                it('should extract block with several modifiers', () => {
                     var entities = parse(
                         'b:popup m:theme m:autoclosable',
                         {block: 'popup', elem: 'tail'}
@@ -258,7 +258,7 @@ describe('', () => {
                     assertBlockMod(entities[2], 'popup', 'autoclosable', true);
                 });
 
-                xit('should extract block with several modifiers and several values', () => {
+                it('should extract block with several modifiers and several values', () => {
                     var entities = parse(
                         'b:popup m:theme=normal|action m:autoclosable=yes',
                         {block: 'popup', elem: 'tail'}

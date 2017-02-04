@@ -28,28 +28,30 @@
  *                                                           `import 'm:modOfThisBlock`
  * @returns {BemCell[]}
  */
-function parseImport(importString, ctx) {
+
+function parse(importString, ctx) {
     const res = [],
         main = {};
 
     ctx || (ctx = {});
 
-    importString.split(' ').forEach((importToken, i) => {
+    importString.split(' ').forEach(importToken => {
         const split = importToken.split(':'),
             type = split[0],
             tail = split[1];
 
-        if(!i) {
-            main.block = type === 'b'? tail : ctx.block;
-            type === 'e' && (main.elem = tail);
-        } else if(type === 'e') {
-            main.elem = tail;
-        }
-
         switch(type) {
             case 'b':
+                main.block = tail || ctx.block;
+                res.push(main);
+            break;
+
             case 'e':
-                res.length || res.push(main);
+                main.elem = tail;
+                if(!main.block) {
+                    main.block = ctx.block;
+                    res.push(main);
+                }
             break;
 
             case 'm':
@@ -57,9 +59,8 @@ function parseImport(importString, ctx) {
                     modName = splitMod[0],
                     modVals = splitMod[1];
 
-                if(main.block === ctx.block) {
-                    main.elem || (main.elem = ctx.elem);
-                }
+                main.elem || main.block || (main.elem = ctx.elem);
+                main.block || (main.block = ctx.block);
 
                 if(modVals) {
                     modVals.split('|').forEach(modVal => {
@@ -75,4 +76,6 @@ function parseImport(importString, ctx) {
     return res;
 }
 
-module.exports = parseImport;
+module.exports = {
+    parse
+}
