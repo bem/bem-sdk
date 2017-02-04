@@ -2,6 +2,7 @@
 
 const util = require('util');
 
+const ExtendableError = require('es6-error');
 const stringifyEntity = require('@bem/naming').stringify;
 
 /**
@@ -17,6 +18,19 @@ const TYPES = {
     ELEM_MOD:  'elemMod'
 };
 
+class NotValidEntityError extends ExtendableError {
+    /**
+     * @param {object} obj — not valid object
+     * @param {str} [reason] — reason why object is not valid
+     */
+    constructor(obj, reason) {
+        const str = util.inspect(obj, { depth: 1 });
+        const message = `The object \`${str}\` is not valid BEM entity`;
+
+        super(reason ? `${message}: ${reason}` : message);
+    }
+}
+
 module.exports = class BemEntityName {
     /**
      * @param {object} obj — representation of entity name.
@@ -31,7 +45,7 @@ module.exports = class BemEntityName {
      */
     constructor(obj) {
         if (!obj.block) {
-             throw new Error('This is not valid BEM entity: the field `block` is undefined.');
+            throw new NotValidEntityError(obj, 'the field `block` is undefined');
         }
 
         const data = this._data = { block: obj.block };
@@ -48,7 +62,7 @@ module.exports = class BemEntityName {
                 val: hasModVal ? modObj && modObj.val || obj.modVal : true
             };
         } else if (modObj || hasModVal) {
-            throw new Error('This is not valid BEM entity: the field `mod.name` is undefined.');
+            throw new NotValidEntityError(obj, 'the field `mod.name` is undefined');
         }
 
         this.__isBemEntityName__ = true;

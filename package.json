@@ -29,7 +29,8 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/naming": "2.0.0-5"
+    "@bem/naming": "2.0.0-5",
+    "es6-error": "4.0.2"
   },
   "devDependencies": {
     "ava": "^0.18.0",
