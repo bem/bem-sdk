@@ -1,6 +1,5 @@
 var expect = require('chai').expect,
     BemCell = require('@bem/cell'),
-    BemEntity = require('@bem/entity-name'),
     parse = require('.').parse;
 
 describe('', () => {
@@ -10,7 +9,7 @@ describe('', () => {
     });
 
     function _assertBlock(entity, blockName) {
-        var cell = new BemCell({ entity : BemEntity.create(entity) });
+        var cell = BemCell.create(entity);
 
         expect(cell.entity.block).to.eql(blockName, 'blockName');
 
@@ -609,6 +608,23 @@ describe('', () => {
 
         });
 
+    });
+
+    describe('tech', () => {
+
+        it('should extract tech', () => {
+            var entities = parse('b:buton2 t:css');
+
+            var cell = BemCell.create(entities[0]);
+            expect(cell.tech).to.eql('css');
+        });
+
+        it('should extract tech for each entity', () => {
+            var entities = parse('b:popup m:autoclosable=yes t:js');
+
+            expect(BemCell.create(entities[0]).tech).to.eql('js');
+            expect(BemCell.create(entities[1]).tech).to.eql('js');
+        });
     });
 
 });

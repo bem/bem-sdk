@@ -14,9 +14,9 @@
  * ```
  * Check https://github.com/bem/bem-react-core for full docs.
  *
- * Example of parseImport:
+ * Example of parse:
  * ```js
- * var entity = parseImport('b:button e:text')[0];
+ * var entity = parse('b:button e:text')[0];
  * entity.block // 'button'
  * entity.text // 'text'
  * ```
@@ -30,12 +30,10 @@
  */
 
 function parse(importString, ctx) {
-    const res = [],
-        main = {};
-
+    const main = {};
     ctx || (ctx = {});
 
-    importString.split(' ').forEach(importToken => {
+    return importString.split(' ').reduce((acc, importToken) => {
         const split = importToken.split(':'),
             type = split[0],
             tail = split[1];
@@ -43,7 +41,7 @@ function parse(importString, ctx) {
         switch(type) {
         case 'b':
             main.block = tail;
-            res.push(main);
+            acc.push(main);
             break;
 
         case 'e':
@@ -51,7 +49,7 @@ function parse(importString, ctx) {
                 main.elem = tail;
                 if(!main.block) {
                     main.block = ctx.block;
-                    res.push(main);
+                    acc.push(main);
                 }
             }
             break;
@@ -64,18 +62,23 @@ function parse(importString, ctx) {
             main.elem || main.block || (main.elem = ctx.elem);
             main.block || (main.block = ctx.block);
 
-            res.push(Object.assign({}, main, { mod : { name : modName } }));
+            acc.push(Object.assign({}, main, { mod : { name : modName } }));
 
-            if(modVals) {
-                modVals.split('|').forEach(modVal => {
-                    res.push(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
-                });
-            }
+            modVals && modVals.split('|').forEach(modVal => {
+                acc.push(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
+            });
+            break;
+
+        case 't':
+            acc = acc.map(e => {
+                e.tech = tail;
+                return e;
+            });
             break;
         }
-    });
 
-    return res;
+        return acc;
+    }, []);
 }
 
 module.exports = {
