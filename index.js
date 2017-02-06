@@ -22,8 +22,8 @@
  * ```
  *
  * @public
- * @property {String} importString - string Literal from import statement
- * @property {BemEntity} [ctx] - entity to restore `block` part
+ * @param {String} importString - string Literal from import statement
+ * @param {BemEntity} [ctx] - entity to restore `block` part
  *                             it's needed for short syntax: `import 'e:elemOfThisBlock'`
  *                                                           `import 'm:modOfThisBlock`
  * @returns {BemCell[]}
@@ -70,7 +70,9 @@ function parse(importString, ctx) {
             break;
 
         case 't':
-            acc = acc.map(e => {
+            main.elem || main.block || (main.elem = ctx.elem);
+            main.block || (main.block = ctx.block);
+            acc = (acc.length ? acc : [main]).map(e => {
                 e.tech = tail;
                 return e;
             });
@@ -82,5 +84,6 @@ function parse(importString, ctx) {
 }
 
 module.exports = {
+    matchRegExp : /^(b|e|m|t)\:/,
     parse
 };

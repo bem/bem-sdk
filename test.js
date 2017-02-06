@@ -625,6 +625,24 @@ describe('', () => {
             expect(BemCell.create(entities[0]).tech).to.eql('js');
             expect(BemCell.create(entities[1]).tech).to.eql('js');
         });
+
+        describe('ctx', () => {
+            it('should extract tech for block in ctx', () => {
+                var entities = parse('t:css', { block : 'button2' });
+
+                var cell = BemCell.create(entities[0]);
+                expect(cell.entity.block).to.eql('button2');
+                expect(cell.tech).to.eql('css');
+            });
+
+            it('should extract tech for elem in ctx', () => {
+                var entities = parse('t:css', { block : 'button2', elem : 'text' });
+
+                var cell = BemCell.create(entities[0]);
+                expect(cell.entity.elem).to.eql('text');
+                expect(cell.tech).to.eql('css');
+            });
+        });
     });
 
 });
