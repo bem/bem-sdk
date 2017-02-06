@@ -1,6 +1,6 @@
 {
   "name": "@bem/cell",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "Representation of identifier of a part of BEM entity.",
   "license": "MPL-2.0",
   "repository": "bem-sdk/bem-cell",
