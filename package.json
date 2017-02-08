@@ -25,7 +25,7 @@
     "bem-naming": "1.0.1",
     "debug": "^2.2.0",
     "es6-error": "3.0.0",
-    "hash-set": "1.0.0",
+    "hash-set": "1.0.1",
     "ho-iter": "0.3.0",
     "lodash": "4.12.0"
   },
