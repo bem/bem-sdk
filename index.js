@@ -38,13 +38,10 @@ function parse(importString, ctx) {
             type = split[0],
             tail = split[1];
 
-        switch(type) {
-        case 'b':
+        if(type === 'b') {
             main.block = tail;
             acc.push(main);
-            break;
-
-        case 'e':
+        } else if(type === 'e') {
             if(ctx.elem !== tail) {
                 main.elem = tail;
                 if(!main.block) {
@@ -52,38 +49,31 @@ function parse(importString, ctx) {
                     acc.push(main);
                 }
             }
-            break;
+        } else if(type === 'm' || type === 't') {
+            if(!main.block) {
+                main.block = ctx.block;
+                main.elem || (main.elem = ctx.elem);
+            }
 
-        case 'm':
-            const splitMod = tail.split('='),
-                modName = splitMod[0],
-                modVals = splitMod[1];
+            if(type === 'm') {
+                const splitMod = tail.split('='),
+                    modName = splitMod[0],
+                    modVals = splitMod[1];
 
-            main.elem || main.block || (main.elem = ctx.elem);
-            main.block || (main.block = ctx.block);
+                acc.push(Object.assign({}, main, { mod : { name : modName } }));
 
-            acc.push(Object.assign({}, main, { mod : { name : modName } }));
-
-            modVals && modVals.split('|').forEach(modVal => {
-                acc.push(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
-            });
-            break;
-
-        case 't':
-            main.elem || main.block || (main.elem = ctx.elem);
-            main.block || (main.block = ctx.block);
-            acc = (acc.length ? acc : [main]).map(e => {
-                e.tech = tail;
-                return e;
-            });
-            break;
+                modVals && modVals.split('|').forEach(modVal => {
+                    acc.push(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
+                });
+            } else {
+                acc.push(main);
+                acc.forEach(e => e.tech = tail);
+            }
         }
-
         return acc;
     }, []);
 }
 
 module.exports = {
-    matchRegExp : /^(b|e|m|t)\:/,
     parse
 };
