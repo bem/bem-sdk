@@ -52,7 +52,7 @@ function parse(importString, ctx) {
         } else if(type === 'm' || type === 't') {
             if(!main.block) {
                 main.block = ctx.block;
-                main.elem || (main.elem = ctx.elem);
+                main.elem || ctx.elem && (main.elem = ctx.elem);
             }
 
             if(type === 'm') {
@@ -66,7 +66,7 @@ function parse(importString, ctx) {
                     acc.push(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
                 });
             } else {
-                acc.push(main);
+                acc.length || acc.push(main);
                 acc.forEach(e => e.tech = tail);
             }
         }
