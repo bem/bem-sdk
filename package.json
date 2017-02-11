@@ -4,7 +4,11 @@
   "description": "BEM import transformer",
   "main": "index.js",
   "scripts": {
-    "test": "mocha"
+    "pretest": "npm run lint",
+    "test": "npm run specs",
+    "specs": "mocha",
+    "cover": "nyc mocha",
+    "lint": "eslint ."
   },
   "repository": {
     "type": "git",
@@ -23,6 +27,8 @@
   "devDependencies": {
     "@bem/cell": "^0.2.2",
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "eslint": "^3.15.0",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2"
   }
 }

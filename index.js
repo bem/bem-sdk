@@ -14,65 +14,66 @@
  * ```
  * Check https://github.com/bem/bem-react-core for full docs.
  *
- * Example of parseImport:
+ * Example of parse:
  * ```js
- * var entity = parseImport('b:button e:text')[0];
+ * var entity = parse('b:button e:text')[0];
  * entity.block // 'button'
  * entity.text // 'text'
  * ```
  *
  * @public
- * @property {String} importString - string Literal from import statement
- * @property {BemEntity} [ctx] - entity to restore `block` part
+ * @param {String} importString - string Literal from import statement
+ * @param {BemEntity} [ctx] - entity to restore `block` part
  *                             it's needed for short syntax: `import 'e:elemOfThisBlock'`
  *                                                           `import 'm:modOfThisBlock`
  * @returns {BemCell[]}
  */
-function parseImport(importString, ctx) {
-    const res = [],
-        main = {};
 
+function parse(importString, ctx) {
+    const main = {};
     ctx || (ctx = {});
 
-    importString.split(' ').forEach((importToken, i) => {
+    return importString.split(' ').reduce((acc, importToken) => {
         const split = importToken.split(':'),
             type = split[0],
             tail = split[1];
 
-        if(!i) {
-            main.block = type === 'b'? tail : ctx.block;
-            type === 'e' && (main.elem = tail);
+        if(type === 'b') {
+            main.block = tail;
+            acc.push(main);
         } else if(type === 'e') {
-            main.elem = tail;
-        }
+            if(ctx.elem !== tail) {
+                main.elem = tail;
+                if(!main.block) {
+                    main.block = ctx.block;
+                    acc.push(main);
+                }
+            }
+        } else if(type === 'm' || type === 't') {
+            if(!main.block) {
+                main.block = ctx.block;
+                main.elem || ctx.elem && (main.elem = ctx.elem);
+            }
 
-        switch(type) {
-            case 'b':
-            case 'e':
-                res.length || res.push(main);
-            break;
-
-            case 'm':
+            if(type === 'm') {
                 const splitMod = tail.split('='),
                     modName = splitMod[0],
                     modVals = splitMod[1];
 
-                if(main.block === ctx.block) {
-                    main.elem || (main.elem = ctx.elem);
-                }
+                acc.push(Object.assign({}, main, { mod : { name : modName } }));
 
-                if(modVals) {
-                    modVals.split('|').forEach(modVal => {
-                        res.push(Object.assign({}, main, {mod: {name: modName, val: modVal}}));
-                    });
-                } else {
-                    res.push(Object.assign({}, main, {mod: {name: modName}}));
-                }
-            break;
+                modVals && modVals.split('|').forEach(modVal => {
+                    acc.push(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
+                });
+            } else {
+                acc.length || acc.push(main);
+                acc.forEach(e => e.tech = tail);
+            }
         }
-    });
-
-    return res;
+        return acc;
+    }, []);
 }
 
-module.exports = parseImport;
+module.exports = {
+    parse
+};
