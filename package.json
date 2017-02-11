@@ -1,7 +1,7 @@
 {
-  "name": "bem-import",
+  "name": "@bem/import-notation",
   "version": "0.0.1",
-  "description": "BEM import transformer",
+  "description": "BEM import notation parser",
   "main": "index.js",
   "scripts": {
     "pretest": "npm run lint",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bem/bem-import.git"
+    "url": "git+https://github.com/bem-sdk/bem-import-notation.git"
   },
   "keywords": [
     "bem",
@@ -21,11 +21,10 @@
   "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/bem/bem-import/issues"
+    "url": "https://github.com/bem-sdk/bem-import-notation/issues"
   },
-  "homepage": "https://github.com/bem/bem-import#readme",
+  "homepage": "https://github.com/bem-sdk/bem-import-notation#readme",
   "devDependencies": {
-    "@bem/cell": "^0.2.2",
     "chai": "^3.5.0",
     "eslint": "^3.15.0",
     "mocha": "^3.2.0",
