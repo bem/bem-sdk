@@ -18,7 +18,7 @@
  * ```js
  * var entity = parse('b:button e:text')[0];
  * entity.block // 'button'
- * entity.text // 'text'
+ * entity.elem // 'text'
  * ```
  *
  * @public
