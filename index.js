@@ -181,6 +181,33 @@ module.exports = class BemEntityName {
     }
 
     /**
+     * Determines whether modifier simple or not
+     *
+     * @example <caption>simple mod</caption>
+     * const BemEntityName = require('@bem/entity-name');
+     * const name = new BemEntityName({ block: 'button', mod: { name: 'theme' } });
+     *
+     * name.isSimpleMod(); // true
+     *
+     * @example <caption>mod with value</caption>
+     * const BemEntityName = require('@bem/entity-name');
+     * const name = new BemEntityName({ block: 'button', mod: { name: 'theme', val: 'normal' } });
+     *
+     * name.isSimpleMod(); // false
+     *
+     * @example <caption>block</caption>
+     * const BemEntityName = require('@bem/entity-name');
+     * const name = new BemEntityName({ block: 'button' });
+     *
+     * name.isSimpleMod(); // false
+     *
+     * @returns {boolean}
+     */
+    isSimpleMod() {
+        return this.mod ? this.mod.val === true : false;
+    }
+
+    /**
      * Returns string representing the entity name.
      *
      * Important: If you want to get string representation in accordance with the provisions naming convention
