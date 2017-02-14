@@ -102,6 +102,7 @@ API
 * [mod](#mod)
 * [id](#id)
 * [type](#type)
+* [isSimpleMod()](#issimplemod)
 * [isEqual(entityName)](#isequalentityname)
 * [toString()](#tostring)
 * [valueOf()](#valueof)
@@ -189,6 +190,18 @@ const modName = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' 
 elemName.type; // elem
 modName.type;  // elemMod
 ```
+
+### isSimple()
+
+Determines whether modifier simple or not.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+const modName = new BemEntityName({ block: 'button', mod: { name: 'theme' } });
+const modVal = new BemEntityName({ block: 'button', mod: { name: 'theme', val: 'normal' } });
+
+modName.isSimpleMod(); // true
+modVal.isSimpleMod(); // false
 
 ### isEqual(entityName)
 
