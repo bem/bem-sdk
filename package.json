@@ -24,7 +24,7 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/entity-name": "1.3.0"
+    "@bem/entity-name": "1.3.1"
   },
   "devDependencies": {
     "ava": "^0.17.0",
