@@ -20,7 +20,7 @@ test('should support original naming', t => {
     const options = {
         levels: {
             blocks: {
-                naming: { elem: '__', mod: '_' },
+                naming: { delims: { elem: '__', mod: '_' } },
                 scheme: 'flat'
             }
         }
@@ -48,7 +48,7 @@ test('should support Convention by Harry Roberts', t => {
     const options = {
         levels: {
             blocks: {
-                naming: { elem: '__', mod: { name: '--', val: '_' } },
+                naming: { delims: { elem: '__', mod: { name: '--', val: '_' } } },
                 scheme: 'flat'
             }
         }
@@ -77,8 +77,10 @@ test('should support custom naming', t => {
         levels: {
             blocks: {
                 naming: {
-                    elem: '-',
-                    mod: '--',
+                    delims: {
+                        elem: '-',
+                        mod: '--'
+                    },
                     wordPattern: '[a-zA-Z0-9]+'
                 },
                 scheme: 'flat'
@@ -111,11 +113,11 @@ test('should support several naming', t => {
     const options = {
         levels: {
             'original.blocks': {
-                naming: { elem: '__', mod: '_' },
+                naming: { delims: { elem: '__', mod: '_' } },
                 scheme: 'flat'
             },
             'csswizardry.blocks': {
-                naming: { elem: '__', mod: { name: '--', val: '_' } },
+                naming: { delims: { elem: '__', mod: { name: '--', val: '_' } } },
                 scheme: 'flat'
             }
         }
