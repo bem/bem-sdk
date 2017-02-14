@@ -1,5 +1,5 @@
 {
-  "name": "bem-walk",
+  "name": "@bem/walk",
   "version": "1.0.0-1",
   "description": "Walk easily thru BEM file structure",
   "keywords": [
