@@ -210,7 +210,6 @@ module.exports = class BemCell {
      * @param {integer} depth — tells inspect how many times to recurse while formatting the object.
      * @param {object} options — An optional `options` object may be passed
      *                           that alters certain aspects of the formatted string.
-     *
      * @returns {string}
      */
     inspect(depth, options) {
@@ -229,10 +228,27 @@ module.exports = class BemCell {
     }
 
     /**
+     * Determines whether specified cell is deep equal to cell or not
+     *
+     * @param  {BemCell} cell - the cell to compare
+     * @returns {Boolean}
+     * @example
+     * const BemCell = require('@bem/cell');
+     * const buttonCell1 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
+     * const buttonCell2 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
+     * const inputCell = BemCell.create({ block: 'input', tech: 'css', layer: 'common' });
+     *
+     * buttonCell1.isEqual(buttonCell2); // true
+     * buttonCell1.isEqual(inputCell); // false
+     */
+    isEqual(cell) {
+        return (cell.tech === this.tech) && (cell.layer === this.layer) && cell.entity.isEqual(this.entity);
+    }
+
+    /**
      * Determines whether specified cell is instance of BemCell.
      *
      * @param {BemCell} cell - the cell to check.
-     *
      * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemCell.
      * @example
      * const BemCell = require('@bem/cell');
@@ -263,7 +279,6 @@ module.exports = class BemCell {
      * @param {string} [obj.modVal] — the modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
      * @param {string} [obj.tech] — technology of cell.
      * @param {string} [obj.layer] — layer of cell.
-     *
      * @returns {BemCell} An object representing cell.
      * @example
      * const BemCell = require('@bem/cell');

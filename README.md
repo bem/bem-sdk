@@ -61,6 +61,7 @@ API
 * [toString()](#tostring)
 * [valueOf()](#valueof)
 * [toJSON()](#tojson)
+* [isEqual(cell)](#isequalcell)
 * [isBemCell(cell)](#isbemcellcell)
 * [create(object)](#createobject)
 
@@ -175,6 +176,24 @@ cell.valueOf();
 ### toJSON()
 
 Returns an object for `JSON.stringify()` purpose.
+
+### isEqual(cell)
+
+Determines whether specified cell is deep equal to cell or not.
+
+Parameter | Type            | Description
+----------|-----------------|-----------------------
+`cell`    | `BemCell`       | The cell to compare.
+
+```js
+const BemCell = require('@bem/cell');
+const buttonCell1 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
+const buttonCell2 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
+const inputCell = BemCell.create({ block: 'input', tech: 'css', layer: 'common' });
+
+buttonCell1.isEqual(buttonCell2); // true
+buttonCell1.isEqual(inputCell); // false
+```
 
 ### #isBemCell(cell)
 
