@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.3.0
+-----
+
+* Added `isSimpleMod` method (@yeti-or [#79]).
+
+[#79]: https://github.com/bem-sdk/bem-entity-name/pull/79
+
 1.2.0
 -----
 
