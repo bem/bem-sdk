@@ -8,8 +8,8 @@ Tool for traversing a BEM project's file system.
 [![Coverage Status][coverage-img]][coveralls]
 [![Dependency Status][david-img]][david]
 
-[npm]:          https://www.npmjs.org/package/bem-walk
-[npm-img]:      https://img.shields.io/npm/v/bem-walk.svg
+[npm]:          https://www.npmjs.org/package/@bem/walk
+[npm-img]:      https://img.shields.io/npm/v/@bem/walk.svg
 
 [travis]:       https://travis-ci.org/bem-sdk/bem-walk
 [test-img]:     https://img.shields.io/travis/bem-sdk/bem-walk.svg?label=tests
@@ -36,7 +36,7 @@ It returns the following information about found files:
 ### 1. Install bem-walk
 
 ```
-$ npm install --save bem-walk
+$ npm install --save @bem/walk
 ```
 
 ### 2. Enable bem-walk
@@ -44,7 +44,7 @@ $ npm install --save bem-walk
 Create a JavaScript file with any name and add the following string:
 
 ```js
-const walk = require('bem-walk');
+const walk = require('@bem/walk');
 ```
 
 **Note** You will use this JavaScript file for all the following steps.
@@ -136,7 +136,7 @@ stream.on('end', () => console.log(files));
 When all these steps have been completed, the full code of the JavaScript file should look like this:
 
 ```js
-const walk = require('bem-walk');
+const walk = require('@bem/walk');
 const config = require('bem-config')();
 const levels = [
     'libs/bem-components/common.blocks',
@@ -195,7 +195,7 @@ Typical tasks that use the resulting JavaScript objects:
 > Grouping found files by block name.
 
 ```js
-const walk = require('bem-walk');
+const walk = require('@bem/walk');
 const config = require('bem-config')();
 const util = require('util');
 const levels = [
@@ -239,7 +239,7 @@ const stream = walk(levels, {
 > Finding files for the `popup` block.
 
 ```js
-const walk = require('bem-walk');
+const walk = require('@bem/walk');
 const config = require('bem-config')();
 const levels = [
     'libs/bem-components/common.blocks',
@@ -282,7 +282,7 @@ const stream = walk(levels, {
 
 ```js
 const fs = require('fs');
-const walk = require('bem-walk');
+const walk = require('@bem/walk');
 const config = require('bem-config')();
 const stringify = require('JSONStream').stringify;
 const through2 = require('through2');
