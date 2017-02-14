@@ -179,7 +179,7 @@ Readable stream (`stream.Readable`) that has the following events:
 
 | Event | Description |
 |----------|-----|
-|'data'|Returns a JavaScript object with information about a found file. </br></br>The example below shows a JSON interface with elements that are in the response for the `walk` method. Objects and keys have sample values.</br></br> **Example** </br></br><code> {</code></br><code>"entity": { "block": "page" },</code></br><code> "level": "libs/bem-core/desktop.blocks",</code></br><code>"tech": "bemhtml",</code></br><code>"path": "libs/bem-core/desktop.blocks/page/page.bemhtml.js"</code></br><code>}</code></br></br>`entity` — BEM entity.</br>`level` — Directory path.</br>`tech` — Implementation technology.</br>`path` — Relative path to the file.|
+|'data'|Returns a JavaScript object with information about a found file. <br><br>The example below shows a JSON interface with elements that are in the response for the `walk` method. Objects and keys have sample values.<br><br> **Example** <br><br><code>{</code><br><code>  "cell": {</code><br><code>    "entity": { "block": "page" },</code><br><code>    "layer": "libs/bem-core/desktop.blocks",</code><br><code>    "tech": "bemhtml"</code><br><code>  },</code><br><code>  "path": "libs/bem-core/desktop.blocks/page/page.bemhtml.js"</code><br><code>}</code><br><br>`cell` — BEM cell instance.<br>`entity` — BEM entity name instance.<br>`layer` — Directory path.<br>`tech` — Implementation technology.<br>`path` — Relative path to the file.|
 | 'error' | Generated if an error occurred while traversing the levels. Returns an object with the error description.|
 | 'end' | Generated when `bem-walk` finishes traversing the levels defined in the `levels` object. |
 
@@ -221,11 +221,14 @@ const stream = walk(levels, {
 
 /*
 { button:
-   [ { entity: { block: 'button', mod: { name: 'togglable', val: 'radio' } },
-       tech: 'spec.js',
-       path: 'libs/bem-components/common.blocks/button/_togglable/
-       button_togglable_radio.spec.js',
-       level: 'libs/bem-components/common.blocks' } ],
+   [ BemFile {
+      cell: BemCell {
+         entity: BemEntityName { block: 'button', mod: { name: 'togglable', val: 'radio' } },
+         tech: 'spec.js',
+         layer: 'libs/bem-components/common.blocks'
+      },
+      path: 'libs/bem-components/common.blocks/button/_togglable/
+        button_togglable_radio.spec.js' } ] },
  ...
 }
 */
@@ -260,10 +263,14 @@ const stream = walk(levels, {
     .on('end', () => console.log(files));
 
 /*
-[{ entity: { block: 'popup', mod: { name: 'target', val: true } },
-   tech: 'js',
-   path: 'libs/bem-components/common.blocks/popup/_target/popup_target.js',
-   level: 'libs/bem-components/common.blocks' },
+[BemFile {
+   cell: BemCell {
+     entity: BemEntityName { block: 'popup', mod: { name: 'target', val: true } },
+     tech: 'js',
+     layer: 'libs/bem-components/common.blocks'
+   },
+   path: 'libs/bem-components/common.blocks/popup/_target/popup_target.js'
+},
 ...
 ]
 */
@@ -304,10 +311,12 @@ const stream = walk(levels, {
     .pipe(process.stdout);
 
 /*
-[{"entity":{"block":"search","elem":"header"},
-  "tech":"css",
+[{"cell":{
+    "entity":{"block":"search","elem":"header"},
+    "tech":"css",
+    "layer":"common.blocks"
+  },
   "path":"common.blocks/search/__header/search__header.css",
-  "level":"common.blocks",
   "source":".search__header {\n\tdisplay: block;\n\tfont-size: 20px;\n\tcolor:
   rgba(0,0,0,0.84);\n\tmargin: 0;\n\tpadding: 0 0 16px;\n\n}\n\n"},
 ...

@@ -28,7 +28,7 @@ test('should support original naming', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity.valueOf());
+            const entities = files.map(file => file.cell.entity.valueOf());
 
             t.deepEqual(entities, [{
                 block: 'block',
@@ -56,7 +56,7 @@ test('should support Convention by Harry Roberts', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity.valueOf());
+            const entities = files.map(file => file.cell.entity.valueOf());
 
             t.deepEqual(entities, [{
                 block: 'block',
@@ -88,7 +88,7 @@ test('should support custom naming', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity.valueOf());
+            const entities = files.map(file => file.cell.entity.valueOf());
 
             t.deepEqual(entities, [{
                 block: 'block',
@@ -123,7 +123,7 @@ test('should support several naming', t => {
 
     return toArray(walk(['original.blocks', 'csswizardry.blocks'], options))
         .then(files => {
-            const entities = files.map(file => file.entity.valueOf());
+            const entities = files.map(file => file.cell.entity.valueOf());
 
             t.deepEqual(entities, [
                 {

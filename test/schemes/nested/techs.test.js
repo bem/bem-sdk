@@ -28,7 +28,7 @@ test('should detect each techs of the same entity', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const techs = files.map(file => file.tech);
+            const techs = files.map(file => file.cell.tech);
 
             t.deepEqual(techs, ['tech-1', 'tech-2']);
         });
@@ -45,7 +45,7 @@ test('should support complex tech', t => {
 
     return toArray(walk(['blocks'], options))
         .then(files => {
-            const techs = files.map(file => file.tech);
+            const techs = files.map(file => file.cell.tech);
 
             t.deepEqual(techs, ['tech-1.tech-2']);
         });
