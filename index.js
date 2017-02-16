@@ -204,7 +204,7 @@ module.exports = class BemEntityName {
      * @returns {boolean}
      */
     isSimpleMod() {
-        return this.mod ? this.mod.val === true : false;
+        return this.mod ? this.mod.val === true : null;
     }
 
     /**
