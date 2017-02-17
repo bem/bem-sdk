@@ -5,69 +5,69 @@ const normalize = require('bem-decl').normalize;
 const BemEntity = require('@bem/entity-name');
 const naming = require('bem-naming');
 
-function getEntities(bemjson, context) {
+function getEntities(bemjson, ctx) {
     const visited = [];
 
-    function _getEntities(bemjsonChunk, ctx) {
-        ctx = Object.assign({}, ctx);
+    function _getEntities(bemjson_, ctx_) {
+        ctx_ = Object.assign({}, ctx_);
 
         let deps = [];
         let contentDeps;
 
-        if (Array.isArray(bemjsonChunk)) {
-            bemjsonChunk.forEach(function(item) {
-                contentDeps = _getEntities(item, ctx);
+        if (Array.isArray(bemjson_)) {
+            bemjson_.forEach(function(item) {
+                contentDeps = _getEntities(item, ctx_);
                 contentDeps && (deps = deps.concat(contentDeps));
             });
 
             return deps;
         }
 
-        if (typeof bemjsonChunk !== 'object') {
+        if (typeof bemjson_ !== 'object') {
             return;
         }
 
-        bemjsonChunk.block && (ctx.block = bemjsonChunk.block);
+        bemjson_.block && (ctx_.block = bemjson_.block);
 
-        const declarationItem = {
-            block: ctx.block
+        const declItem = {
+            block: ctx_.block
         };
 
-        bemjsonChunk.elem && (declarationItem.elem = bemjsonChunk.elem);
-        bemjsonChunk.mods && (declarationItem.mods = bemjsonChunk.mods);
-        bemjsonChunk.elem && bemjsonChunk.elemMods && (declarationItem.mods = bemjsonChunk.elemMods);
+        bemjson_.elem && (declItem.elem = bemjson_.elem);
+        bemjson_.mods && (declItem.mods = bemjson_.mods);
+        bemjson_.elem && bemjson_.elemMods && (declItem.mods = bemjson_.elemMods);
 
-        const decl = normalize(declarationItem, { harmony: true });
+        const decl = normalize(declItem, { harmony: true });
 
-        decl.forEach(function(item) {
-            function pushTo(declItem) {
-                const depName = naming.stringify(declItem);
+        decl.forEach(function(declItem_) {
+            function pushTo(declItem__) {
+                const depName = naming.stringify(declItem__);
                 if (visited.indexOf(depName) < 0) {
                     visited.push(depName);
-                    deps.push(new BemEntity(declItem));
+                    deps.push(new BemEntity(declItem__));
                 }
             }
 
-            pushTo(item);
-            if (declarationItem.modName && declarationItem.modVal !== true) {
-                pushTo(Object.assign({}, declarationItem, { modVal: true }));
+            pushTo(declItem_);
+            if (declItem_.modName && declItem_.modVal !== true) {
+                pushTo(Object.assign({}, declItem_, { modVal: true }));
             }
         });
 
         ['mix', 'content'].forEach(function(k) {
-            bemjsonChunk[k] && (deps = deps.concat(_getEntities(bemjsonChunk[k], ctx)));
+            bemjson_[k] && (deps = deps.concat(_getEntities(bemjson_[k], ctx_)));
         });
 
         ['js', 'attrs'].forEach(function(k) {
-            bemjsonChunk[k] && Object.keys(bemjsonChunk[k]).forEach(function(kk) {
-                deps = deps.concat(_getEntities(bemjsonChunk[k][kk], ctx));
+            bemjson_[k] && Object.keys(bemjson_[k]).forEach(function(kk) {
+                deps = deps.concat(_getEntities(bemjson_[k][kk], ctx_));
             });
         });
 
         return deps.filter(Boolean);
     }
 
-    return _getEntities(bemjson, context);
+    return _getEntities(bemjson, ctx);
 }
 
 function stringify(bemjson, ctx, opts) {

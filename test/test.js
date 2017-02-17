@@ -8,9 +8,9 @@ const BemEntity = require('@bem/entity-name');
 let testsNumber = 5;
 
 while (testsNumber) {
-    const bemjson = require('./test' + testsNumber + '.bemjson.js'),
-        reference = require('./reference' + testsNumber + '.deps.js'),
-        result = bemjsonToDecl.convert(bemjson);
+    const bemjson = require('./test' + testsNumber + '.bemjson.js');
+    const reference = require('./reference' + testsNumber + '.deps.js');
+    const result = bemjsonToDecl.convert(bemjson);
 
     try {
         // eslint-disable-next-line no-loop-func
