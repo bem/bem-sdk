@@ -1,3 +1,5 @@
+'use strict';
+
 const stringifyObj = require('stringify-object');
 const normalize = require('bem-decl').normalize;
 const BemEntity = require('@bem/entity-name');

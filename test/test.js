@@ -1,8 +1,11 @@
-let inspect = require('util').inspect,
-    assert = require('assert'),
-    bemjsonToDecl = require('..'),
-    BemEntity = require('@bem/entity-name'),
-    testsNumber = 5;
+'use strict';
+
+const inspect = require('util').inspect;
+const assert = require('assert');
+const bemjsonToDecl = require('..');
+const BemEntity = require('@bem/entity-name');
+
+let testsNumber = 5;
 
 while (testsNumber) {
     const bemjson = require('./test' + testsNumber + '.bemjson.js'),
