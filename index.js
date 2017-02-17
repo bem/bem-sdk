@@ -7,10 +7,10 @@ const BemEntityName = require('@bem/entity-name');
 
 module.exports = class BemCell {
     /**
-     * @param {object} obj — representation of cell.
+     * @param {Object} obj — representation of cell.
      * @param {BemEntityName} obj.entity — representation of entity name.
-     * @param {string} [obj.tech] - tech of cell.
-     * @param {string} [obj.layer] - layer of cell.
+     * @param {String} [obj.tech] - tech of cell.
+     * @param {String} [obj.layer] - layer of cell.
      */
     constructor(obj) {
         assert(obj && obj.entity, 'Required `entity` field');
@@ -52,7 +52,7 @@ module.exports = class BemCell {
      *
      * cell.tech; // ➜ css
      *
-     * @returns {string} tech of cell.
+     * @returns {String} tech of cell.
      */
     get tech() { return this._tech; }
 
@@ -70,28 +70,28 @@ module.exports = class BemCell {
      *
      * cell.layer; // ➜ desktop
      *
-     * @returns {string} layer of cell.
+     * @returns {String} layer of cell.
      */
     get layer() { return this._layer; }
 
     /**
      * Proxies `block` field from entity.
      *
-     * @returns {string}
+     * @returns {String}
      */
     get block() { return this._entity.block; }
 
     /**
      * Proxies `elem` field from entity.
      *
-     * @returns {string|undefined}
+     * @returns {String|undefined}
      */
     get elem() { return this._entity.elem; }
 
     /**
      * Proxies `mod` field from entity.
      *
-     * @returns {object|undefined} - field with `name` and `val`
+     * @returns {Object|undefined} - field with `name` and `val`
      */
     get mod() { return this._entity.mod; }
 
@@ -99,7 +99,7 @@ module.exports = class BemCell {
      * Proxies `modVal` field from entity.
      *
      * @deprecated - just for compatibility and can be dropped in future
-     * @returns {string|undefined} - modifier name
+     * @returns {String|undefined} - modifier name
      */
     get modName() { return this._entity.modName; }
 
@@ -107,7 +107,7 @@ module.exports = class BemCell {
      * Proxies `modName` field from entity.
      *
      * @deprecated - just for compatibility and can be dropped in future
-     * @returns {string|true|undefined} - modifier value
+     * @returns {String|true|undefined} - modifier value
      */
     get modVal() { return this._entity.modVal; }
 
@@ -128,7 +128,7 @@ module.exports = class BemCell {
      *
      * cell.id; // ➜ "button__text@desktop.css"
      *
-     * @returns {string} identifier of cell.
+     * @returns {String} identifier of cell.
      */
     get id() {
         if (this._id) {
@@ -151,13 +151,13 @@ module.exports = class BemCell {
      *
      * @example
      * const BemCell = require('@bem/cell');
-     * const BemEntityName = require('@bem/entity-name');
+     * const BemEntityName§ = require('@bem/entity-name');
      * const cell = new BemCell({ entity: new BemEntityName({ block: 'button', mod: 'focused' }),
      *     tech: 'css', layer: 'desktop' });
      *
      * cell.toString(); // button_focused@desktop.css
      *
-     * @returns {string}
+     * @returns {String}
      */
     toString() { return this.id; }
 
@@ -182,7 +182,7 @@ module.exports = class BemCell {
      * //     tech: 'css',
      * //     layer: 'desktop' }
      *
-     * @returns {{ entity: {block: string, elem: ?string, mod: ?{name: string, val: *}}, tech: *, layer: *}}
+     * @returns {{ entity: {block: String, elem: ?String, mod: ?{name: String, val: *}}, tech: *, layer: *}}
      */
     valueOf() {
         const res = { entity: this._entity.valueOf() };
@@ -207,10 +207,10 @@ module.exports = class BemCell {
      *
      * console.log(cell); // BemCell { entity: { block: 'button' }, tech: 'css', layer: 'desktop' }
      *
-     * @param {integer} depth — tells inspect how many times to recurse while formatting the object.
-     * @param {object} options — An optional `options` object may be passed
+     * @param {Number} depth — tells inspect how many times to recurse while formatting the object.
+     * @param {Object} [options] — An optional `options` object may be passed
      *                           that alters certain aspects of the formatted string.
-     * @returns {string}
+     * @returns {String}
      */
     inspect(depth, options) {
         const stringRepresentation = util.inspect(this.valueOf(), options);
@@ -221,7 +221,7 @@ module.exports = class BemCell {
     /**
      * Return raw data for `JSON.stringify()`.
      *
-     * @returns {{ entity: {block: string, elem: ?string, mod: ?{name: string, val: *}}, tech: *, layer: *}}
+     * @returns {{ entity: {block: String, elem: ?String, mod: ?{name: String, val: *}}, tech: *, layer: *}}
      */
     toJSON() {
         return this.valueOf();
@@ -230,8 +230,6 @@ module.exports = class BemCell {
     /**
      * Determines whether specified cell is deep equal to cell or not
      *
-     * @param  {BemCell} cell - the cell to compare
-     * @returns {Boolean}
      * @example
      * const BemCell = require('@bem/cell');
      * const buttonCell1 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
@@ -240,6 +238,9 @@ module.exports = class BemCell {
      *
      * buttonCell1.isEqual(buttonCell2); // true
      * buttonCell1.isEqual(inputCell); // false
+     *
+     * @param  {BemCell} cell - the cell to compare
+     * @returns {Boolean}
      */
     isEqual(cell) {
         return (cell.tech === this.tech) && (cell.layer === this.layer) && cell.entity.isEqual(this.entity);
@@ -248,8 +249,6 @@ module.exports = class BemCell {
     /**
      * Determines whether specified cell is instance of BemCell.
      *
-     * @param {BemCell} cell - the cell to check.
-     * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemCell.
      * @example
      * const BemCell = require('@bem/cell');
      * const BemEntityName = require('@bem/entity-name');
@@ -260,6 +259,9 @@ module.exports = class BemCell {
      *
      * BemCell.isBemCell(cell); // true
      * BemCell.isBemCell({}); // false
+     *
+     * @param {BemCell} cell - the cell to check.
+     * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemCell.
      */
     static isBemCell(cell) {
         return cell && this.name === cell.constructor.name;
@@ -268,18 +270,6 @@ module.exports = class BemCell {
     /**
      * Creates BemCell instance by any object representation.
      *
-     * @param {object} obj  — representation of cell.
-     * @param {string} obj.block — the block name of entity.
-     * @param {string} [obj.elem] — the element name of entity.
-     * @param {object|string} [obj.mod]   — the modifier of entity.
-     * @param {string} [obj.val] — The modifier value of entity. Used if `mod` is a string.
-     * @param {string} obj.mod.name — the modifier name of entity.
-     * @param {string} [obj.mod.val] — the modifier value of entity.
-     * @param {string} [obj.modName] — the modifier name of entity. Used if `mod.name` wasn't specified.
-     * @param {string} [obj.modVal] — the modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
-     * @param {string} [obj.tech] — technology of cell.
-     * @param {string} [obj.layer] — layer of cell.
-     * @returns {BemCell} An object representing cell.
      * @example
      * const BemCell = require('@bem/cell');
      *
@@ -287,6 +277,19 @@ module.exports = class BemCell {
      * BemCell.create({ block: 'my-button', modName: 'theme', modVal: 'red', tech: 'css' });
      * BemCell.create({ entity: { block: 'my-button', modName: 'theme', modVal: 'red' }, tech: 'css' });
      * // BemCell { block: 'my-button', mod: { name: 'theme', val: 'red' }, tech: 'css' }
+     *
+     * @param {Object} obj — representation of cell.
+     * @param {String} obj.block — the block name of entity.
+     * @param {String} [obj.elem] — the element name of entity.
+     * @param {Object|String} [obj.mod] — the modifier of entity.
+     * @param {String} [obj.val] — The modifier value of entity. Used if `mod` is a string.
+     * @param {String} obj.mod.name — the modifier name of entity.
+     * @param {String} [obj.mod.val] — the modifier value of entity.
+     * @param {String} [obj.modName] — the modifier name of entity. Used if `mod.name` wasn't specified.
+     * @param {String} [obj.modVal] — the modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
+     * @param {String} [obj.tech] — technology of cell.
+     * @param {String} [obj.layer] — layer of cell.
+     * @returns {BemCell} An object representing cell.
      */
     static create(obj) {
         if (BemEntityName.isBemEntityName(obj)) {
