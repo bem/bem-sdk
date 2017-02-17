@@ -195,13 +195,17 @@ modName.type;  // elemMod
 
 Determines whether modifier simple or not.
 
+**NOTE**: For entity without modifier `isSimpleMod()` returns `null`.
+
 ```js
 const BemEntityName = require('@bem/entity-name');
 const modName = new BemEntityName({ block: 'button', mod: { name: 'theme' } });
 const modVal = new BemEntityName({ block: 'button', mod: { name: 'theme', val: 'normal' } });
+const block = new BemEntityName({ block: 'button' });
 
 modName.isSimpleMod(); // true
 modVal.isSimpleMod(); // false
+block.isSimpleMod(); // null
 
 ### isEqual(entityName)
 

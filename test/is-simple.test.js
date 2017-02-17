@@ -17,22 +17,22 @@ test('should be false for complex modifiers', t => {
     t.false(entity.isSimpleMod());
 });
 
-test('should be false for sneaky modifiers', t => {
-    const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme', val: false } });
-    t.false(entity.isSimpleMod());
-});
-
 test('should be false for crafty modifiers', t => {
     const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme', val: 42 } });
     t.false(entity.isSimpleMod());
 });
 
+test('should be false for sneaky modifiers', t => {
+    const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme', val: false } });
+    t.falsy(entity.isSimpleMod());
+});
+
 test('should be false for block', t => {
     const entity = BemEntityName.create({ block: 'button2' });
-    t.false(entity.isSimpleMod());
+    t.falsy(entity.isSimpleMod());
 });
 
 test('should be false for elem', t => {
     const entity = BemEntityName.create({ block: 'button2', elem: 'text' });
-    t.false(entity.isSimpleMod());
+    t.falsy(entity.isSimpleMod());
 });
