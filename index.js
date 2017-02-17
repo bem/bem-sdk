@@ -199,9 +199,9 @@ module.exports = class BemEntityName {
      * const BemEntityName = require('@bem/entity-name');
      * const name = new BemEntityName({ block: 'button' });
      *
-     * name.isSimpleMod(); // false
+     * name.isSimpleMod(); // null
      *
-     * @returns {boolean}
+     * @returns {boolean|null}
      */
     isSimpleMod() {
         return this.mod ? this.mod.val === true : null;
