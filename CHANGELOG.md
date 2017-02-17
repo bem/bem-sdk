@@ -1,6 +1,14 @@
 Changelog
 =========
 
+1.3.1
+-----
+
+* Improve `isSimpleMod` method (@yeti-or [#82]).
+Now it returns `null` for entities without modifier.
+
+[#82]: https://github.com/bem-sdk/bem-entity-name/pull/82
+
 1.3.0
 -----
 
