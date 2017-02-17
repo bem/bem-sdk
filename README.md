@@ -163,7 +163,7 @@ Returns an object representing this cell.
 const BemCell = require('@bem/cell');
 const BemEntityName = require('@bem/entity-name');
 const cell = new BemCell({
-    entity: new BemEntityName({ block: 'button', mod: 'focused' })
+    entity: new BemEntityName({ block: 'button', mod: 'focused' }),
     tech: 'css',
     layer: 'desktop'
 });
@@ -300,6 +300,15 @@ const cell = new BemCell({
 console.log(JSON.stringify(cell));
 
 // ➜ {"entity":{"block":"input","mod":{"name":"available","val":true}},"tech":"css"}
+```
+
+Deprecation
+-----------
+
+Deprecation is performed with [depd](https://github.com/dougwilson/nodejs-depd)
+To silencing deprecation warnings from being output simply use this. [Details](https://github.com/dougwilson/nodejs-depd#processenvno_deprecation)
+```
+NO_DEPRECATION=@bem/cell node app.js
 ```
 
 License

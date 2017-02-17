@@ -3,6 +3,8 @@
 const assert = require('assert');
 const util = require('util');
 
+const deprecate = require('depd')(require('./package.json').name);
+
 const BemEntityName = require('@bem/entity-name');
 
 module.exports = class BemCell {
@@ -98,18 +100,24 @@ module.exports = class BemCell {
     /**
      * Proxies `modVal` field from entity.
      *
-     * @deprecated - just for compatibility and can be dropped in future
+     * @deprecated - just for compatibility. Use {@link BemCell#mod.name}
      * @returns {String|undefined} - modifier name
      */
-    get modName() { return this._entity.modName; }
+    get modName() {
+        deprecate('modName: just for compatibility and can be dropped in future. Instead use \'mod.name\'');
+        return this._entity.modName;
+    }
 
     /**
-     * Proxies `modName` field from entity.
+     * Proxies `modVal` field from entity.
      *
-     * @deprecated - just for compatibility and can be dropped in future
+     * @deprecated - just for compatibility. Use {@link BemCell#mod.val}
      * @returns {String|true|undefined} - modifier value
      */
-    get modVal() { return this._entity.modVal; }
+    get modVal() {
+        deprecate('modVal: just for compatibility and can be dropped in future. Instead use \'mod.val\'');
+        return this._entity.modVal;
+    }
 
     /**
      * Returns the identifier of this cell.
@@ -286,7 +294,8 @@ module.exports = class BemCell {
      * @param {String} obj.mod.name — the modifier name of entity.
      * @param {String} [obj.mod.val] — the modifier value of entity.
      * @param {String} [obj.modName] — the modifier name of entity. Used if `mod.name` wasn't specified.
-     * @param {String} [obj.modVal] — the modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
+     * @param {String} [obj.modVal] — the modifier value of entity. Used if neither `mod.val` nor `val` were not
+     *   specified.
      * @param {String} [obj.tech] — technology of cell.
      * @param {String} [obj.layer] — layer of cell.
      * @returns {BemCell} An object representing cell.
