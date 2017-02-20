@@ -152,9 +152,9 @@ console.log(configs); // all found configs from all dirs
                     "techs": [
                         "css", "js"
                     ],
-                    "templateFolder": "/Users/tadatuta/Sites/bem/bem-tools-create/templates",
+                    "templateFolder": "path/to/templates",
                     "templates": {
-                        "js-ymodules": "/Users/tadatuta/Sites/bem/bem-tools-create/templates/js"
+                        "js-ymodules": "path/to/templates/js"
                     },
                     "techsTemplates": {
                         "js": "js-ymodules"
