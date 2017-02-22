@@ -13,10 +13,7 @@ while (testsNumber) {
     const result = bemjsonToDecl.convert(bemjson);
 
     try {
-        // eslint-disable-next-line no-loop-func
-        const errors = result.reduce((acc, entity, i) => {
-            return acc.concat(entity.isEqual(BemEntity.create(reference[i])) ? [] : [i]);
-        }, []);
+        const errors = reduceErrors(result, reference);
         assert(!errors.length, 'Test #' + testsNumber + ' failed');
     } catch (err) {
         console.log('bemjson', bemjson);
@@ -28,4 +25,10 @@ while (testsNumber) {
     }
 
     testsNumber--;
+}
+
+function reduceErrors(result, reference) {
+    return result.reduce((acc, entity, i) => {
+        return acc.concat(entity.isEqual(BemEntity.create(reference[i])) ? [] : [i]);
+    }, []);
 }

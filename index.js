@@ -39,18 +39,11 @@ function getEntities(bemjson, ctx) {
 
         const decl = normalize(declItem, { harmony: true });
 
-        decl.forEach(function(declItem_) {
-            function pushTo(declItem__) {
-                const depName = naming.stringify(declItem__);
-                if (visited.indexOf(depName) < 0) {
-                    visited.push(depName);
-                    deps.push(new BemEntity(declItem__));
-                }
-            }
+        decl.forEach(declItem_ => {
+            _pushTo(declItem_, deps, visited);
 
-            pushTo(declItem_);
             if (declItem_.modName && declItem_.modVal !== true) {
-                pushTo(Object.assign({}, declItem_, { modVal: true }));
+                _pushTo(Object.assign({}, declItem_, { modVal: true }), deps, visited);
             }
         });
 
@@ -68,6 +61,14 @@ function getEntities(bemjson, ctx) {
     }
 
     return _getEntities(bemjson, ctx);
+}
+
+function _pushTo(declItem, deps, visited) {
+    const depName = naming.stringify(declItem);
+    if (visited.indexOf(depName) < 0) {
+        visited.push(depName);
+        deps.push(new BemEntity(declItem));
+    }
 }
 
 function stringify(bemjson, ctx, opts) {
