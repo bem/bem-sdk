@@ -6,6 +6,7 @@
   "scripts": {
     "pretest": "npm run lint",
     "specs": "node test/test.js",
+    "cover": "nyc mocha tests/",
     "test": "npm run specs",
     "lint": "eslint ."
   },
@@ -36,7 +37,10 @@
     "stringify-object": "^2.4.0"
   },
   "devDependencies": {
+    "chai": "^3.5.0",
     "eslint": "^3.0.0",
-    "eslint-config-pedant": "^0.8.0"
+    "eslint-config-pedant": "^0.8.0",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2"
   }
 }
