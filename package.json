@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "pretest": "npm run lint",
-    "specs": "node test/test.js",
-    "cover": "nyc mocha tests/",
+    "specs": "mocha tests",
+    "cover": "nyc mocha tests",
     "test": "npm run specs",
     "lint": "eslint ."
   },
