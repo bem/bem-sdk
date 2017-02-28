@@ -1,6 +1,6 @@
 {
   "name": "@bem/import-notation",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "BEM import notation parser",
   "main": "index.js",
   "scripts": {
