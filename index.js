@@ -42,12 +42,10 @@ function parse(importString, ctx) {
             main.block = tail;
             acc.push(main);
         } else if(type === 'e') {
-            if(ctx.elem !== tail) {
-                main.elem = tail;
-                if(!main.block) {
-                    main.block = ctx.block;
-                    acc.push(main);
-                }
+            main.elem = tail;
+            if(!main.block && ctx.elem !== tail) {
+                main.block = ctx.block;
+                acc.push(main);
             }
         } else if(type === 'm' || type === 't') {
             if(!main.block) {
