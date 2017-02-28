@@ -504,6 +504,13 @@ describe('elem', () => {
             });
 
             describe('context is elem', () => {
+
+                it('should extract elem', () => {
+                    expect(p('b:button1 e:text', { block : 'button2', elem : 'control' })).to.eql([
+                        { block : 'button1', elem : 'text' }
+                    ]);
+                });
+
                 it('should extract elem with simple modifier', () => {
                     expect(p('b:button1 e:control m:pseudo', { block : 'button2', elem : 'text' })).to.eql([
                         { block : 'button1', elem : 'control' },
@@ -556,6 +563,12 @@ describe('elem', () => {
             });
 
             describe('context is elem with same name', () => {
+                it('should extract elem', () => {
+                    expect(p('b:button1 e:text', { block : 'button2', elem : 'text' })).to.eql([
+                        { block : 'button1', elem : 'text' }
+                    ]);
+                });
+
                 it('should extract elem with simple modifier', () => {
                     expect(p('b:button1 e:control m:pseudo', { block : 'button2', elem : 'control' })).to.eql([
                         { block : 'button1', elem : 'control' },
