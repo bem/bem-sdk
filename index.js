@@ -16,7 +16,6 @@
  *                                                           `import 'm:modOfThisBlock`
  * @returns {BemCell[]}
  */
-
 function parse(importString, ctx) {
     const main = {};
     ctx || (ctx = {});
@@ -60,6 +59,41 @@ function parse(importString, ctx) {
     }, []);
 }
 
+/**
+ * Get bem-import string notation representation of a bem-cells array.
+ *
+ * Example:
+ * ```js
+ * stringify([{ block : 'button' }, { block : 'button', mod : { name : 'theme', val : 'normal' } }])
+ * // 'b:button m:theme=normal'
+ * ```
+ * @public
+ * @param {BemCell[]} - Array of bem-entites to merge into bem-import string notation
+ * @returns {String}
+ */
+function stringify(cells) {
+    const merged = [].concat(cells).reduce((acc, cell) => {
+        cell.block && (acc.b = cell.block);
+        cell.elem && (acc.e = cell.elem);
+        cell.mod && (acc.m[cell.mod.name] || (acc.m[cell.mod.name] = []))
+            && cell.mod.val && acc.m[cell.mod.name].push(cell.mod.val);
+        cell.tech && (acc.t = cell.tech);
+        return acc;
+    }, { m : {} });
+
+    return ['b', 'e', 'm', 't'].reduce((str, k) => str += tmpl[k](merged[k]), '');
+}
+
+const tmpl = {
+    b : b => `b:${b}`,
+    e : e => e ? ` e:${e}` : '',
+    m : m => Object.keys(m).reduce((acc, name) => acc + `${tmpl.mn(name)}${tmpl.mv(m[name])}`, ''),
+    mn : m => ` m:${m}`,
+    mv : v => v.length ? `=${v.join('|')}` : '',
+    t : t => t ? ` t:${t}` : ''
+};
+
 module.exports = {
-    parse
+    parse,
+    stringify
 };

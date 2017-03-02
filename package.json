@@ -6,8 +6,8 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "npm run specs",
-    "specs": "mocha",
-    "cover": "nyc mocha",
+    "specs": "mocha tests",
+    "cover": "nyc mocha tests",
     "lint": "eslint ."
   },
   "repository": {

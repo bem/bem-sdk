@@ -84,6 +84,15 @@ Note that, using context exludes `{ block: 'button'}` from result.
 
 So `parse('m:theme=normal', { block: 'button' })` is not same as `parse('b:button m:theme=normal')`
 
+### stringify
+
+Parameter | Type     | Description
+----------|----------|-------------------------------------------------------------------
+`entities`| `array`  | Array of [bem-entities] to merge into bem-import string [notation]
+
+Forms a string from `bem-entities`. Be aware to merge only one type of entities.
+Array must contain block and its mods, or elem and its mods.
+
 Notation
 --------
 
