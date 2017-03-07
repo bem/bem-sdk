@@ -10,6 +10,6 @@ matrix:
       env: COVERALLS=1
 
 after_success:
-  - if [ "x$COVERALLS" = "x1" ] && npm i coveralls; then
-      npm run cover && nyc report --reporter=text-lcov | coveralls;
+  - if [ "x$COVERALLS" = "x1" ]; then
+      npm i coveralls && npm run cover && nyc report --reporter=text-lcov | coveralls;
     fi
