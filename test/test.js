@@ -1,20 +1,21 @@
-var inspect = require('util').inspect,
-    assert = require('assert'),
-    bemjsonToDecl = require('..'),
-    BemEntity = require('@bem/entity-name'),
-    testsNumber = 5;
+'use strict';
+
+const inspect = require('util').inspect;
+const assert = require('assert');
+const bemjsonToDecl = require('..');
+const BemEntity = require('@bem/entity-name');
+
+let testsNumber = 5;
 
 while (testsNumber) {
-    var bemjson = require('./test' + testsNumber + '.bemjson.js'),
-        reference = require('./reference' + testsNumber + '.deps.js'),
-        result = bemjsonToDecl.convert(bemjson);
+    const bemjson = require('./test' + testsNumber + '.bemjson.js');
+    const reference = require('./reference' + testsNumber + '.deps.js');
+    const result = bemjsonToDecl.convert(bemjson);
 
     try {
-        var errors = result.reduce((acc, entity, i) => {
-            return acc.concat(entity.isEqual(BemEntity.create(reference[i])) ? [] : [i])
-        }, []);
+        const errors = reduceErrors(result, reference);
         assert(!errors.length, 'Test #' + testsNumber + ' failed');
-    } catch(err) {
+    } catch (err) {
         console.log('bemjson', bemjson);
 
         console.log(err.message);
@@ -24,4 +25,10 @@ while (testsNumber) {
     }
 
     testsNumber--;
+}
+
+function reduceErrors(result, reference) {
+    return result.reduce((acc, entity, i) => {
+        return acc.concat(entity.isEqual(BemEntity.create(reference[i])) ? [] : [i]);
+    }, []);
 }
