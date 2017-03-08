@@ -21,7 +21,7 @@ test('should build not equal id for not equal blocks', t => {
 test('should cache id value', t => {
     const stub = sinon.stub().returns('id');
     const StubBemEntityName = proxyquire('../index', {
-        'bem-naming': {
+        '@bem/naming': {
             stringify: stub
         }
     });
