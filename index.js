@@ -1,7 +1,28 @@
 'use strict';
 
-const presets = require('./lib/presets');
+/**
+ * Delims of bem entity, elem and/or mod.
+ *
+ * @typedef {Object} BemNamingDelims
+ * @param {String} [elem='__'] — separates element's name from block.
+ * @param {String|Object} [mod='_'] — separates modifiers from blocks and elements.
+ * @param {String} [mod.name='_'] — separates name of modifier from blocks and elements.
+ * @param {String} [mod.val='_'] — separates value of modifier from name of modifier.
+ */
+
+ /**
+  * BEM naming convention options.
+  *
+  * @typedef {Object} BemNamingConvention
+  * @param {BemNamingDelims} delims — separates entity names from each other.
+  * @param {String|Object} [wordPattern='[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*'] — defines which symbols can be used for block,
+  *                                                                         element and modifier's names.
+  */
+
 const BemEntityName = require('@bem/entity-name');
+
+const createStringify = require('./lib/create-stringify');
+const presets = require('./lib/presets');
 
 /**
  * It is necessary not to create new instances for the same custom naming.
@@ -10,22 +31,10 @@ const BemEntityName = require('@bem/entity-name');
 const cache = {};
 
 /**
- * Delims of bem entity, elem and/or mod.
- *
- * @typedef {Object} Delims
- * @param {String} [elem='__']      Separates element's name from block.
- * @param {String|Object} [mod='_'] Separates modifiers from blocks and elements.
- * @param {String} [mod.name='_']   Separates name of modifier from blocks and elements.
- * @param {String} [mod.val='_']    Separates value of modifier from name of modifier.
- */
-
-/**
  * Creates namespace with methods which allows getting information about BEM entity using string as well
  * as forming string representation based on naming object.
  *
- * @param {Object} [options]              Options.
- * @param {Delims} [options.delims]       Defines delims for bem entity.
- * @param {String} [options.wordPattern]  Defines which symbols can be used for block, element and modifier's names.
+ * @param {BemNamingConvention} [options] - options for naming convention.
  * @return {Object}
  */
 function createNaming(options) {
@@ -62,45 +71,9 @@ function createNaming(options) {
         });
     }
 
-    /**
-     * Forms a string according to naming object.
-     *
-     * @param {Object} obj - naming object
-     * @returns {String}
-     */
-    function stringify(obj) {
-        if (!obj || !obj.block) {
-            return undefined;
-        }
-
-        let res = obj.block;
-
-        if (obj.elem) {
-            res += delims.elem + obj.elem;
-        }
-
-        const modObj = obj.mod;
-        const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) || obj.modName;
-
-        if (modName) {
-            const hasModVal = modObj && modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
-            const modVal = modObj && modObj.val || obj.modVal;
-
-            if (modVal || modVal === 0 || !hasModVal) {
-                res += delims.mod.name + modName;
-            }
-
-            if (modVal && modVal !== true) {
-                res += delims.mod.val + modVal;
-            }
-        }
-
-        return res;
-    }
-
     const namespace = {
         parse: parse,
-        stringify: stringify,
+        stringify: createStringify(opts),
         /**
          * String to separate elem from block.
          *
