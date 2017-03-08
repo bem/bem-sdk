@@ -3,6 +3,8 @@ bem-naming
 
 Tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representations: allows you to parse [string representation](#string-representation) and stringify [object representation](#object-representation).
 
+Supports various [naming conventions](#naming-conventions): [origin](#origin-naming-convention), [two-dashes](#harry-roberts-naming-convention), [react]((#react-naming-convention)) and allows to create your convention.
+
 [![NPM Status][npm-img]][npm]
 [![Travis Status][test-img]][travis]
 [![Coverage Status][coverage-img]][coveralls]
