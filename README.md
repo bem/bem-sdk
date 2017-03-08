@@ -52,6 +52,12 @@ Table of Contents
   * [React naming convention](#react-naming-convention)
   * [Custom naming convention](#custom-naming-convention)
 * [API](#api)
+  * [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
+  * [parse(str)](#parsestr)
+  * [stringify(obj)](#stringifyobj)
+  * [elemDelim](#elemdelim)
+  * [modDelim](#moddelim)
+  * [modValDelim](#modvaldelim)
 
 BEM Entity representation
 -------------------------
@@ -246,7 +252,7 @@ myNaming.stringify(new BemEntityName({
 API
 ---
 
-* [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-elem-mod-wordpattern-)
+* [bemNaming({ delims: {elem, mod}, wordPattern })](##bemnaming-delims-elem-mod-wordpattern-)
 * [parse(str)](#parsestr)
 * [stringify(obj)](#stringifyobj)
 * [elemDelim](#elemdelim)
