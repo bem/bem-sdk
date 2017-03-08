@@ -40,21 +40,29 @@ bemNaming.stringify({ block: 'button', mod: 'checked' }); // String 'button_chec
 Table of Contents
 -----------------
 
-* [Object representation](#object-representation)
-* [String representation](#string-representation)
+* [BEM Entity representation](#bem-entity-representation)
+  * [Object representation](#object-representation)
+  * [String representation](#string-representation)
 * [Common misconceptions](#common-misconceptions)
 * [Harry Roberts' naming convention](#harry-roberts-naming-convention)
 * [React naming convention](#react-naming-convention)
 * [Custom naming convention](#custom-naming-convention)
 * [API](#api)
 
-Object representation
----------------------
+BEM Entity representation
+-------------------------
+
+With [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representation you can define block, element, block modifier and element modifier.
+
+The representation can include name of block, name of element, name of modifier and value of modifier.
+
+BEM entity can be represented using `Object` or `String`.
+
+### Object representation
 
 The [BemEntityName](https://github.com/bem-sdk/bem-entity-name) class describes the representation of a BEM entity name.
 
-String representation
----------------------
+### String representation
 
 To define BEM entities, we often use a special string format that allows us to define exactly which entity is represented.
 
@@ -66,21 +74,30 @@ According to the original BEM naming convention, it looks like this:
 
 *(Parameters within square brackets are optional)*
 
-**Examples:**
+#### Delimiters
 
-* Block — `block-name`.
-* Block modifier — `block-name_mod-name_mod-val`.
-* Simple modifier of block — `block-name_mod`.
-* Block element — `block-name__elem-name`.
-* Element modifier — `block-name__elem-name_mod-name_mod-val`.
-* Simple modifier of element — `block-name__elem_mod`.
-
-### Delimiters
+The names are separated from each other by means of special delimiters.
 
 The original naming uses the following delimiters:
 
 * `__` — to separate an element from a block
 * `_` — to separate a modifier name from a block or element and to separate a modifier value from a modifier name
+
+#### Examples
+
+| BEM Entity Type  | String Representation                      |
+|------------------|--------------------------------------------|
+| Block            | `block-name`                               |
+| Block modifier   | `block-scope_mod-name_mod-val`             |
+| Element          | `block-scope__elem-name`                   |
+| Element modifier | `block-scope__elem-scope_mod-name_mod-val` |
+
+The simple modifier doesn't have value. Therefore, in the string representation the value should be omitted.
+
+| BEM Entity Type  | String Representation              |
+|------------------|------------------------------------|
+| Block modifier   | `block-scope_mod-name`             |
+| Element modifier | `block-scope__elem-scope_mod-name` |
 
 Common misconceptions
 ---------------------
