@@ -2,7 +2,7 @@
 
 const util = require('util');
 
-const stringifyEntity = require('bem-naming').stringify;
+const stringifyEntity = require('@bem/naming').stringify;
 
 /**
  * Enum for types of BEM entities.
@@ -126,7 +126,7 @@ module.exports = class BemEntityName {
      * Important: should only be used to determine uniqueness of entity.
      *
      * If you want to get string representation in accordance with the provisions naming convention
-     * you should use `bem-naming` package.
+     * you should use `@bem/naming` package.
      *
      * @example
      * const BemEntityName = require('@bem/entity-name');
@@ -139,13 +139,7 @@ module.exports = class BemEntityName {
     get id() {
         if (this._id) { return this._id; }
 
-        const entity = { block: this._data.block };
-
-        this.elem && (entity.elem = this.elem);
-        this.modName && (entity.modName = this.modName);
-        this.modVal && (entity.modVal = this.modVal);
-
-        this._id = stringifyEntity(entity);
+        this._id = stringifyEntity(this._data);
 
         return this._id;
     }
@@ -211,7 +205,7 @@ module.exports = class BemEntityName {
      * Returns string representing the entity name.
      *
      * Important: If you want to get string representation in accordance with the provisions naming convention
-     * you should use `bem-naming` package.
+     * you should use `@bem/naming` package.
      *
      * @example
      * const BemEntityName = require('@bem/entity-name');
