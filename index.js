@@ -19,9 +19,8 @@
   *                                                                         element and modifier's names.
   */
 
-const BemEntityName = require('@bem/entity-name');
-
 const createStringify = require('./lib/create-stringify');
+const createParse = require('./lib/create-parse');
 const presets = require('./lib/presets');
 
 /**
@@ -46,33 +45,8 @@ function createNaming(options) {
     }
 
     const delims = opts.delims;
-    const regex = buildRegex(delims, opts.wordPattern);
-
-    /**
-     * Parses string into naming object.
-     *
-     * @param {String} str - string representation of BEM entity.
-     * @returns {Object|undefined}
-     */
-    function parse(str) {
-        const executed = regex.exec(str);
-
-        if (!executed) { return undefined; }
-
-        const modName = executed[2] || executed[6];
-
-        return new BemEntityName({
-            block: executed[1] || executed[4],
-            elem: executed[5],
-            mod: modName && {
-                name: modName,
-                val: executed[3] || executed[7] || true
-            }
-        });
-    }
-
     const namespace = {
-        parse: parse,
+        parse: createParse(opts),
         stringify: createStringify(opts),
         /**
          * String to separate elem from block.
@@ -103,7 +77,7 @@ function createNaming(options) {
  * Returns delims and wordPattern.
  *
  * @param {Object} options - user options
- * @returns {{delims: Delims, wordPattern: String}}
+ * @returns {BemNamingDelims}
  */
 function init(options) {
     if (!options) {
@@ -138,23 +112,6 @@ function init(options) {
         },
         wordPattern: options.wordPattern || defaults.wordPattern
     };
-}
-
-/**
- * Builds regex for specified naming.
- *
- * @param {Delims} delims      Separates block names, elements and modifiers.
- * @param {String} wordPattern Defines which symbols can be used for block, element and modifier's names.
- * @returns {RegExp}
- */
-function buildRegex(delims, wordPattern) {
-    const block = '(' + wordPattern + ')';
-    const elem = '(?:' + delims.elem + '(' + wordPattern + '))?';
-    const modName = '(?:' + delims.mod.name + '(' + wordPattern + '))?';
-    const modVal = '(?:' + delims.mod.val + '(' + wordPattern + '))?';
-    const mod = modName + modVal;
-
-    return new RegExp('^' + block + mod + '$|^' + block + elem + mod + '$');
 }
 
 const api = [
