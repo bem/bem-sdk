@@ -55,9 +55,7 @@ Table of Contents
   * [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
   * [parse(str)](#parsestr)
   * [stringify(obj)](#stringifyobj)
-  * [elemDelim](#elemdelim)
-  * [modDelim](#moddelim)
-  * [modValDelim](#modvaldelim)
+  * [delims](#delims)
 
 BEM Entity representation
 -------------------------
@@ -255,9 +253,7 @@ API
 * [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
 * [parse(str)](#parsestr)
 * [stringify(obj)](#stringifyobj)
-* [elemDelim](#elemdelim)
-* [modDelim](#moddelim)
-* [modValDelim](#modvaldelim)
+* [delims](#delims)
 
 ### bemNaming({ delims: {elem, mod}, wordPattern })
 
@@ -315,17 +311,35 @@ bemNaming.stringify(new BemEntityName({
 // ➜ block__elem_mod_val
 ```
 
-### elemDelim
+### delims
+
+Strings to separate names of bem entities.
+
+Type: `Object`
+
+#### delims.elem
 
 String to separate an element from a block.
 
-### modDelim
+Type: `String`
+
+Default: `__`
+
+#### delims.mod.name
 
 String to separate a modifier name from a block or element.
 
-### modValDelim
+Type: `String`
+
+Default: `_`
+
+#### delims.mod.val
 
 String to separate a modifier value from the name of the modifier.
+
+Type: `String`
+
+Default: `_`
 
 License
 -------
