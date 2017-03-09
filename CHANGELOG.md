@@ -186,7 +186,35 @@ myNaming.parse('block--mod_val'); // BemEntityName
                                   //   mod: { name: 'mod', val: 'val' } }
 ```
 
-[#160]: https://github.com/bem-sdk/bem-naming/pull/160/files
+**Important:** now if the delimiter of modifier value is not specified it doesn't inherit from delimiter of modifier name and falls back to default `bemNaming.modValDelim` ([#169]).
+
+**API v1.x.x**
+
+```js
+const bemNaming = require('bem-naming');
+
+// myNaming1 is equal myNaming2
+const myNaming1 = bemNaming({ mod: { name: '--' } });
+const myNaming2 = bemNaming({ mod: { name: '--', val: '--' } });
+```
+
+**API v2.x.x**
+
+```js
+const bemNaming = require('@bem/naming');
+
+// myNaming1 is equal myNaming2
+const myNaming1 = bemNaming({ delims: { mod: '--' } });
+const myNaming2 = bemNaming({ delims: { mod: { name: '--', val: '--' } } });
+
+// but myNaming1 is not equal myNaming3
+const myNaming3 = bemNaming({ delims: { mod: { name: '--' } } });
+// because myNaming3 is equal myNaming4
+const myNaming4 = bemNaming({ delims: { mod: { name: '--', val: bemNaming.modValDelim } } });
+```
+
+[#160]: https://github.com/bem-sdk/bem-naming/pull/160
+[#169]: https://github.com/bem-sdk/bem-naming/pull/169
 
 ### NPM
 
