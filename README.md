@@ -3,6 +3,8 @@ bem-naming
 
 Tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representations: allows you to parse [string representation](#string-representation) and stringify [object representation](#object-representation).
 
+Supports various [naming conventions](#naming-conventions): [origin](#origin-naming-convention), [two-dashes](#harry-roberts-naming-convention), [react]((#react-naming-convention)) and allows to create your convention.
+
 [![NPM Status][npm-img]][npm]
 [![Travis Status][test-img]][travis]
 [![Coverage Status][coverage-img]][coveralls]
@@ -30,41 +32,47 @@ $ npm install --save @bem/naming
 Usage
 -----
 
-**Parse**
 ```js
 const bemNaming = require('@bem/naming');
 
 bemNaming.parse('button__text'); // BemEntityName { block: 'button', elem: 'text' }
-```
-
-**Stringify**
-```js
-const bemNaming = require('@bem/naming');
-const BemEntityName = require('@bem/entity-name');
-
-const entityName = new BemEntityName({ block: 'button', mod: 'checked' });
-
-bemNaming.stringify(entityName); // String 'button_checked'
+bemNaming.stringify({ block: 'button', mod: 'checked' }); // String 'button_checked'
 ```
 
 Table of Contents
 -----------------
 
-* [Object representation](#object-representation)
-* [String representation](#string-representation)
+* [BEM Entity representation](#bem-entity-representation)
+  * [Object representation](#object-representation)
+  * [String representation](#string-representation)
 * [Common misconceptions](#common-misconceptions)
-* [Harry Roberts' naming convention](#harry-roberts-naming-convention)
-* [React naming convention](#react-naming-convention)
-* [Custom naming convention](#custom-naming-convention)
+* [Naming conventions](#naming-conventions)
+  * [Origin naming convention](#origin-naming-convention)
+  * [Harry Roberts' naming convention](#harry-roberts-naming-convention)
+  * [React naming convention](#react-naming-convention)
+  * [Custom naming convention](#custom-naming-convention)
 * [API](#api)
+  * [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
+  * [parse(str)](#parsestr)
+  * [stringify(obj)](#stringifyobj)
+  * [elemDelim](#elemdelim)
+  * [modDelim](#moddelim)
+  * [modValDelim](#modvaldelim)
 
-Object representation
----------------------
+BEM Entity representation
+-------------------------
+
+With [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representation you can define block, element, block modifier and element modifier.
+
+The representation can include name of block, name of element, name of modifier and value of modifier.
+
+BEM entity can be represented using `Object` or `String`.
+
+### Object representation
 
 The [BemEntityName](https://github.com/bem-sdk/bem-entity-name) class describes the representation of a BEM entity name.
 
-String representation
----------------------
+### String representation
 
 To define BEM entities, we often use a special string format that allows us to define exactly which entity is represented.
 
@@ -76,21 +84,30 @@ According to the original BEM naming convention, it looks like this:
 
 *(Parameters within square brackets are optional)*
 
-**Examples:**
+#### Delimiters
 
-* Block — `block-name`.
-* Block modifier — `block-name_mod-name_mod-val`.
-* Simple modifier of block — `block-name_mod`.
-* Block element — `block-name__elem-name`.
-* Element modifier — `block-name__elem-name_mod-name_mod-val`.
-* Simple modifier of element — `block-name__elem_mod`.
-
-### Delimiters
+The names are separated from each other by means of special delimiters.
 
 The original naming uses the following delimiters:
 
 * `__` — to separate an element from a block
 * `_` — to separate a modifier name from a block or element and to separate a modifier value from a modifier name
+
+#### Examples
+
+| BEM Entity Type  | String Representation                      |
+|------------------|--------------------------------------------|
+| Block            | `block-name`                               |
+| Block modifier   | `block-scope_mod-name_mod-val`             |
+| Element          | `block-scope__elem-name`                   |
+| Element modifier | `block-scope__elem-scope_mod-name_mod-val` |
+
+The simple modifier doesn't have value. Therefore, in the string representation the value should be omitted.
+
+| BEM Entity Type  | String Representation              |
+|------------------|------------------------------------|
+| Block modifier   | `block-scope_mod-name`             |
+| Element modifier | `block-scope__elem-scope_mod-name` |
 
 Common misconceptions
 ---------------------
@@ -111,12 +128,51 @@ Also, a BEM entity can't be a block modifier and an element modifier simultaneou
 'block_block-mod-name_block-mod-val__elem-name_elem-mod-name_elem-mod-val'
 ```
 
-Harry Roberts' naming convention
---------------------------------
+Naming conventions
+------------------
+
+The main idea of the naming convention is to make names of [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) as informative and clear as possible.
+
+> Read more in the section [naming convention](https://en.bem.info/methodology/naming-convention/) of the [BEM methodology](https://en.bem.info/methodology/).
+
+The BEM methodology provides an idea for creating naming rules and implements that idea in its canonical naming convention: [origin naming convention](#origin-naming-convention).
+
+However, a number of alternative schemes based on the BEM principles also exist in the world of web development:
+
+* [Harry Roberts' naming convention](#harry-roberts-naming-convention)
+* [React naming convention](#react-naming-convention)
+
+In addition, you can invent your naming convention. How to do this, see the [Custom naming convention](#custom-naming-convention) section.
+
+### Origin naming convention
+
+According to this convention elements are delimited with two underscores (`__`), modifiers and values of modifiers are delimited by one underscore (`_`).
+
+> Read more in the section [naming convention](https://en.bem.info/methodology/naming-convention/) of the [BEM methodology](https://en.bem.info/methodology/).
+
+Example:
+
+```js
+const originNaming = require('@bem/naming')('origin');
+
+originNaming.parse('block__elem');    // BemEntityName { block: 'block', elem: 'elem' }
+originNaming.parse('block_mod_val');  // BemEntityName { block: 'block',
+                                      //                 mod: { name: 'mod', val: 'val' } }
+
+originNaming.stringify({
+    block: 'block',
+    elem: 'elem',
+    mod: 'mod'
+});
+
+// ➜ block__elem_mod
+```
+
+### Harry Roberts' naming convention
 
 According to this convention elements are delimited with two underscores (`__`), modifiers are delimited by two hyphens (`--`), and values of modifiers are delimited by one underscore (`_`).
 
-Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
+> Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
 
 Example:
 
@@ -136,42 +192,40 @@ twoDashesNaming.stringify({
 // ➜ block__elem--mod
 ```
 
-React naming convention
------------------------
+### React naming convention
 
 According to this convention elements are delimited with one hyphen (`-`), modifiers are delimited by one underscore (`_`), and values of modifiers are delimited by one underscore (`_`).
 
-You can explore this convention at [bem-react-components](https://github.com/bem/bem-react-components).
+> You can explore this convention at [bem-react-components](https://github.com/bem/bem-react-components).
 
 Example:
 
 ```js
 const reactNaming = require('@bem/naming')('react');
 
-reactNaming.parse('block-elem');    // BemEntityName { block: 'block', elem: 'elem' }
-reactNaming.parse('block_mod_val'); // BemEntityName { block: 'block',
-                                    //                 mod: { name: 'mod', val: 'val' } }
+reactNaming.parse('Block-Elem');    // BemEntityName { block: 'Block', elem: 'Elem' }
+reactNaming.parse('Block_Mod_Val'); // BemEntityName { block: 'Block',
+                                    //                 mod: { name: 'Mod', val: 'Val' } }
 
 reactNaming.stringify({
-    block: 'block',
-    elem: 'elem',
-    mod: 'mod'
+    block: 'Block',
+    elem: 'Elem',
+    mod: 'Mod'
 });
 
-// ➜ block-elem_mod
+// ➜ Block-Elem_Mod
 ```
 
-Custom naming convention
-------------------------
+### Custom naming convention
 
-Use the [bemNaming](#bemnaming-elem-mod-wordpattern-) function to create an instance where you can manage your own naming convention.
+To create an instance where you can manage your own naming convention use the [bemNaming](#bemnaming-elem-mod-wordpattern-) function.
 
 Example:
 
 ```js
-const bemNaming = require('@bem/naming');
+const createBemNaming = require('@bem/naming');
 
-const myNaming = bemNaming({
+const myNaming = createBemNaming({
     delims: {
         elem: '-',
         mod: { name: '--', val: '_' }
@@ -190,14 +244,15 @@ myNaming.stringify(new BemEntityName({
     block: 'blockName',
     elem: 'elemName',
     mod: 'simpleElemMod'
-});                               // 'blockName-elemName--simpleElemMod'
+});
 
+// ➜ blockName-elemName--simpleElemMod
 ```
 
 API
 ---
 
-* [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-elem-mod-wordpattern-)
+* [bemNaming({ delims: {elem, mod}, wordPattern })](##bemnaming-delims-elem-mod-wordpattern-)
 * [parse(str)](#parsestr)
 * [stringify(obj)](#stringifyobj)
 * [elemDelim](#elemdelim)

@@ -7,9 +7,15 @@
   "keywords": [
     "bem",
     "naming",
-    "entities",
+    "entity",
+    "name",
+    "representation",
     "parse",
-    "stringify"
+    "stringify",
+    "conventions",
+    "origin",
+    "react",
+    "two-dashes"
   ],
   "repository": "bem-sdk/bem-naming",
   "engines": {
