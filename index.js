@@ -2,18 +2,6 @@
 /**
  * Parse import statement and extract bem entities
  *
- * @example
- * Example of import statements:
- * ```js
- * import 'b:button';
- * import 'b:button e:text';
- * import 'e:control e:text';
- * import 'b:button t:css';
- * import 'b:popup m:autoclosable';
- * import 'm:theme=normal|action m:size=xs|s|m|l';
- * ```
- * Check https://github.com/bem/bem-react-core for full docs.
- *
  * Example of parse:
  * ```js
  * var entity = parse('b:button e:text')[0];
