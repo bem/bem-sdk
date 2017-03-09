@@ -252,7 +252,7 @@ myNaming.stringify(new BemEntityName({
 API
 ---
 
-* [bemNaming({ delims: {elem, mod}, wordPattern })](##bemnaming-delims-elem-mod-wordpattern-)
+* [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
 * [parse(str)](#parsestr)
 * [stringify(obj)](#stringifyobj)
 * [elemDelim](#elemdelim)
