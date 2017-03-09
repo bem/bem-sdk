@@ -212,7 +212,7 @@ Parameter         | Type     | Description                                      
 `delims.elem`     | `string` | Separates element's name from block.                                              | `__`
 `delims.mod`      | `string`, `{ name: string, val: string }` | Separates modifier from block or element.        | `_`
 `delims.mod.name` | `string` | Separates a modifier name from a block or an element.                             | `_`
-`delims.mod.val`  | `string` | Separates the value of a modifier from the modifier name.                         | Default as the value of the `mod.name`.
+`delims.mod.val`  | `string` | Separates the value of a modifier from the modifier name.                         | `_`
 `wordPattern`     | `string` | Defines which characters can be used in names of blocks, elements, and modifiers. | `[a-z0-9]+(?:-[a-z0-9]+)*`
 
 ### parse(str)
