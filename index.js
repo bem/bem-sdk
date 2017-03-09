@@ -2,14 +2,10 @@
 
 const createNaming = require('./lib/create-naming');
 
-const api = [
-    'parse', 'stringify',
-    'elemDelim', 'modDelim', 'modValDelim'
-];
 const originalNaming = createNaming();
 
-api.forEach(function (name) {
-    createNaming[name] = originalNaming[name];
+Object.keys(originalNaming).forEach(key => {
+    createNaming[key] = originalNaming[key];
 });
 
 module.exports = createNaming;
