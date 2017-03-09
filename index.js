@@ -160,7 +160,7 @@ function init(options) {
                 ? { name: mod, val: mod }
                 : {
                     name: mod.name || defaultModDelims.name,
-                    val: mod.val || mod.name || defaultModDelims.val
+                    val: mod.val || defaultModDelims.val
                 }
         },
         wordPattern: options.wordPattern || defaults.wordPattern

@@ -32,9 +32,9 @@ test('should support mod option as object', t => {
     t.is(myNaming.modValDelim, '_');
 });
 
-test('should use modDelim if mod.val is not specified', t => {
+test('should use default value if mod.val is not specified', t => {
     const myNaming = naming({ delims: { mod: { name: '--' } } });
 
     t.is(myNaming.modDelim, '--');
-    t.is(myNaming.modValDelim, '--');
+    t.is(myNaming.modValDelim, naming.modValDelim);
 });
