@@ -60,7 +60,7 @@ function parse(importString, ctx) {
 }
 
 /**
- * Get bem-import string notation representation of a bem-cells array.
+ * Create import string notation of passed bem-cells.
  *
  * Example:
  * ```js
@@ -68,7 +68,7 @@ function parse(importString, ctx) {
  * // 'b:button m:theme=normal'
  * ```
  * @public
- * @param {BemCell[]} - Array of bem-entites to merge into bem-import string notation
+ * @param {BemCell[]} - Set of BEM entites to merge into import string notation
  * @returns {String}
  */
 function stringify(cells) {
@@ -81,13 +81,13 @@ function stringify(cells) {
         return acc;
     }, { m : {} });
 
-    return ['b', 'e', 'm', 't'].reduce((str, k) => str += tmpl[k](merged[k]), '');
+    return ['b', 'e', 'm', 't'].map(k => tmpl[k](merged[k])).join('');
 }
 
 const tmpl = {
     b : b => `b:${b}`,
     e : e => e ? ` e:${e}` : '',
-    m : m => Object.keys(m).reduce((acc, name) => acc + `${tmpl.mn(name)}${tmpl.mv(m[name])}`, ''),
+    m : m => Object.keys(m).map(name => `${tmpl.mn(name)}${tmpl.mv(m[name])}`).join(''),
     mn : m => ` m:${m}`,
     mv : v => v.length ? `=${v.join('|')}` : '',
     t : t => t ? ` t:${t}` : ''

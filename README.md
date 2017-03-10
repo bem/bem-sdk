@@ -21,7 +21,7 @@ Tool for working with BEM import strings.
 [dependency-img]: http://img.shields.io/david/bem-sdk/bem-import-notation.svg
 
 
-Extract [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) from import strings.
+Extract [BEM entities] from import strings.
 
 Installation
 ------------
@@ -51,6 +51,7 @@ API
 ---
 
 * [parse](#parsestr-ctx)
+* [stringify](#stringify)
 
 ### parse(str, ctx)
 
@@ -87,11 +88,11 @@ So `parse('m:theme=normal', { block: 'button' })` is not same as `parse('b:butto
 ### stringify
 
 Parameter | Type     | Description
-----------|----------|-------------------------------------------------------------------
-`entities`| `array`  | Array of [bem-entities] to merge into bem-import string [notation]
+----------|----------|------------------------------------------------------------------------------
+`entities`| `array`  | Array of [BEM entities] to merge into import string [notation](#notation)
 
-Forms a string from `bem-entities`. Be aware to merge only one type of entities.
-Array must contain block and its mods, or elem and its mods.
+Forms a string from [BEM entities]. Be aware to merge only one type of entities.
+The array should contains one block or one elem and optionally it's modifiers.
 
 Notation
 --------
@@ -220,3 +221,5 @@ License
 -------
 
 Code and documentation copyright 2017 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+
+[BEM entities]: https://en.bem.info/methodology/key-concepts/#bem-entity
