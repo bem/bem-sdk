@@ -216,6 +216,32 @@ const myNaming4 = bemNaming({ delims: { mod: { name: '--', val: bemNaming.modVal
 [#160]: https://github.com/bem-sdk/bem-naming/pull/160
 [#169]: https://github.com/bem-sdk/bem-naming/pull/169
 
+#### Delims field ([#167]).
+
+Added `delims` field instead of `elemDelim`, `modDelim` and `modValDelim` for consistency with [bemNaming](README.md#bemnaming-delims-elem-mod-wordpattern-) function.
+
+**API v1.x.x**
+
+```js
+const bemNaming = require('bem-naming');
+
+bemNaming.elemDelim
+bemNaming.modDelim
+bemNaming.modValDelim
+```
+
+**API v2.x.x**
+
+```js
+const bemNaming = require('@bem/naming');
+
+bemNaming.delims.elem
+bemNaming.delims.mod.name
+bemNaming.delims.mod.val
+```
+
+[#167]: https://github.com/bem-sdk/bem-naming/pull/167
+
 ### NPM
 
 Now BEM SDK modules are published in `@bem` scope, so the `bem-naming` module was renamed to [@bem/naming](https://www.npmjs.org/package/@bem/naming) (@blond [#158]).
