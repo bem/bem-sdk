@@ -8,7 +8,6 @@ module.exports = function bemeql(chai) {
 
         if (Array.isArray(obj) && Array.isArray(this._obj)) {
             if (obj.length !== this._obj.length) {
-                console.log(this._obj);
                 this.assert(false,
                     'expected #{act} to deeply equal #{exp}',
                     'expected #{act} to not deeply equal #{exp}',

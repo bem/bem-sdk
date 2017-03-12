@@ -33,8 +33,9 @@ function getEntities(bemjson, ctx) {
         };
 
         bemjson_.elem && (declItem.elem = bemjson_.elem);
-        bemjson_.mods && (declItem.mods = bemjson_.mods);
-        bemjson_.elem && bemjson_.elemMods && (declItem.mods = bemjson_.elemMods);
+        bemjson_.elem ?
+            bemjson_.elemMods && (declItem.mods = bemjson_.elemMods) :
+            bemjson_.mods && (declItem.mods = bemjson_.mods);
 
         const decl = normalize(declItem, { harmony: true });
 
