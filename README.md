@@ -54,7 +54,7 @@ Table of Contents
 * [API](#api)
   * [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
   * [parse(str)](#parsestr)
-  * [stringify(obj)](#stringifyobj)
+  * [stringify(entityName)](#stringifyentityname)
   * [delims](#delims)
 
 BEM Entity representation
@@ -252,7 +252,7 @@ API
 
 * [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
 * [parse(str)](#parsestr)
-* [stringify(obj)](#stringifyobj)
+* [stringify(entityName)](#stringifyentityname)
 * [delims](#delims)
 
 ### bemNaming({ delims: {elem, mod}, wordPattern })
