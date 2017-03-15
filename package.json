@@ -38,7 +38,7 @@
     "eslint-config-pedant": "^0.8.0",
     "nyc": "^10.0.0",
     "proxyquire": "^1.7.7",
-    "sinon": "^1.17.4"
+    "sinon": "^2.0.0"
   },
   "scripts": {
     "test": "npm run lint && npm run cover",
