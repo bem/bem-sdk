@@ -30,7 +30,7 @@ module.exports = function bemeql(chai) {
         }
 
         function inspect(el) {
-            return util.inspect(el, { breakLength: Infinity });
+            return util.inspect(el, { breakLength: Infinity, maxArrayLength: null, depth: null });
         }
 
     });
