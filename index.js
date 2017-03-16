@@ -3,10 +3,9 @@
 const stringifyObj = require('stringify-object');
 const normalize = require('bem-decl').normalize;
 const BemEntity = require('@bem/entity-name');
-const naming = require('bem-naming');
 
 function getEntities(bemjson, ctx) {
-    const visited = [];
+    const visited = {};
 
     function _getEntities(bemjson_, ctx_) {
         ctx_ = Object.assign({}, ctx_);
@@ -40,10 +39,11 @@ function getEntities(bemjson, ctx) {
         const decl = normalize(declItem, { harmony: true });
 
         decl.forEach(declItem_ => {
-            _pushTo(declItem_, deps, visited);
+            const entity = new BemEntity(declItem_.entity);
+            _pushTo(entity, deps, visited);
 
-            if (declItem_.modName && declItem_.modVal !== true) {
-                _pushTo(Object.assign({}, declItem_, { modVal: true }), deps, visited);
+            if (entity.isSimpleMod() === false) {
+                _pushTo(BemEntity.create(Object.assign({}, declItem, { modVal: true })), deps, visited);
             }
         });
 
@@ -64,10 +64,9 @@ function getEntities(bemjson, ctx) {
 }
 
 function _pushTo(declItem, deps, visited) {
-    const depName = naming.stringify(declItem);
-    if (visited.indexOf(depName) < 0) {
-        visited.push(depName);
-        deps.push(new BemEntity(declItem));
+    if (!visited[declItem.id]) {
+        visited[declItem.id] = true;
+        deps.push(declItem);
     }
 }
 
