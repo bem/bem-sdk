@@ -14,3 +14,19 @@ it('should accept object', () => {
 it('should accept array', () => {
     expect(() => transform([{ tag: 'span' }])).not.to.throw();
 });
+
+it('should transform block', () => {
+    expect(
+        transform({ block: 'button2' }).toString()
+    ).to.equal(
+        '<Button2 />'
+    );
+});
+
+it('should transform block with prop', () => {
+    expect(
+        transform({ block: 'button2', text: 'hello' }).toString()
+    ).to.equal(
+        '<Button2 text="hello"/>'
+    );
+});
