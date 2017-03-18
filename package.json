@@ -22,5 +22,9 @@
   "bugs": {
     "url": "https://github.com/Yeti-or/bemjson-to-jsx/issues"
   },
-  "homepage": "https://github.com/Yeti-or/bemjson-to-jsx#readme"
+  "homepage": "https://github.com/Yeti-or/bemjson-to-jsx#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "mocha": "^3.2.0"
+  }
 }

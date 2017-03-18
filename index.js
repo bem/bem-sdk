@@ -5,10 +5,6 @@ function JSXNode(tag, props, children) {
     this.children = children || [];
 }
 
-// TODO [object Object] -> { a: 'b', b: { c: 'c' }}
-function objToStr(obj) {
-}
-
 JSXNode.prototype.toString = function() {
     // var objToStr => obj => Object.keys(obj).map(k => `{${k}: ${
     // var propVal = val => typeof val === 'object' ? `{
@@ -39,4 +35,3 @@ function transform(bemjson) {
 }
 
 module.exports = transform;
-module.exports.objToStr = objToStr;

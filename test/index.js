@@ -1,5 +1,16 @@
+const chai = require('chai');
+const expect = require('chai').expect;
+
 var transform = require('..');
 
-var jsx = transform({ block: 'button2', text: 'push me', icon: 'yes', content: {block: 'icon'} });
+it('should return string', () => {
+    expect(transform({ block: 'button2' }).toString()).to.be.a('String');
+});
 
-console.log(jsx.toString());
+it('should accept object', () => {
+    expect(() => transform({ tag: 'span' })).not.to.throw();
+});
+
+it('should accept array', () => {
+    expect(() => transform([{ tag: 'span' }])).not.to.throw();
+});
