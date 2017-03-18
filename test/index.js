@@ -1,7 +1,7 @@
 const chai = require('chai');
 const expect = require('chai').expect;
 
-var transform = require('..');
+var transform = require('../lib');
 
 it('should return string', () => {
     expect(transform({ block: 'button2' }).toString()).to.be.a('String');
