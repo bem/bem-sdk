@@ -4,7 +4,7 @@ const expect = require('chai').expect;
 const { objToStr } = require('../lib/helpers');
 
 
-describe('objToStr', () => {
+describe('helpers: objToStr', () => {
     it('should stringify object', () => {
         expect(objToStr({ hello: 'world' })).to.equal('{ \'hello\': \'world\' }');
     });
