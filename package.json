@@ -1,0 +1,26 @@
+{
+  "name": "bemjson-to-jsx",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "node test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Yeti-or/bemjson-to-jsx.git"
+  },
+  "keywords": [
+    "bemjson",
+    "jsx"
+  ],
+  "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Yeti-or/bemjson-to-jsx/issues"
+  },
+  "homepage": "https://github.com/Yeti-or/bemjson-to-jsx#readme"
+}
