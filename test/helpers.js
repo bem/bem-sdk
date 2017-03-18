@@ -6,7 +6,7 @@ const { objToStr } = require('../lib/helpers');
 
 describe('objToStr', () => {
     it('should stringify object', () => {
-        expect(objToStr({ hello: 'world' })).to.equal('{ hello: \'world\' }');
+        expect(objToStr({ hello: 'world' })).to.equal('{ \'hello\': \'world\' }');
     });
 
     it('should return empty string for empty obj', () => {
@@ -14,10 +14,10 @@ describe('objToStr', () => {
     });
 
     it('should process many keys', () => {
-        expect(objToStr({ 42: 42, hello: 'world' })).to.equal('{ 42: 42, hello: \'world\' }');
+        expect(objToStr({ 42: 42, hello: 'world' })).to.equal('{ \'42\': 42, \'hello\': \'world\' }');
     });
 
-    xit('should process property names as strings', () => {
+    it('should process property names as strings', () => {
         expect(objToStr({ 'hello world': 42 })).to.equal('{ \'hello world\': 42 }');
     });
 
@@ -27,35 +27,35 @@ describe('objToStr', () => {
 
     describe('value', () => {
         it('::string', () => {
-            expect(objToStr({ hello: 'string' })).to.equal('{ hello: \'string\' }');
+            expect(objToStr({ hello: 'string' })).to.equal('{ \'hello\': \'string\' }');
         });
 
         it('::number', () => {
-            expect(objToStr({ hello: 42 })).to.equal('{ hello: 42 }');
+            expect(objToStr({ hello: 42 })).to.equal('{ \'hello\': 42 }');
         });
 
         it('::bool', () => {
-            expect(objToStr({ hello: true })).to.equal('{ hello: true }');
+            expect(objToStr({ hello: true })).to.equal('{ \'hello\': true }');
         });
 
         it('::null', () => {
-            expect(objToStr({ hello: null })).to.equal('{ hello: null }');
+            expect(objToStr({ hello: null })).to.equal('{ \'hello\': null }');
         });
 
         it('::undefined', () => {
-            expect(objToStr({ hello: undefined })).to.equal('{ hello: undefined }');
+            expect(objToStr({ hello: undefined })).to.equal('{ \'hello\': undefined }');
         });
 
         it('::object', () => {
-            expect(objToStr({ hello: { 42: 42 } })).to.equal('{ hello: { 42: 42 } }');
+            expect(objToStr({ hello: { 42: 42 } })).to.equal('{ \'hello\': { \'42\': 42 } }');
         });
 
         it('::function', () => {
-            expect(objToStr({ hello: () => 42 })).to.equal('{ hello: () => 42 }');
+            expect(objToStr({ hello: () => 42 })).to.equal('{ \'hello\': () => 42 }');
         });
 
         it('::array', () => {
-            expect(objToStr({ hello: [1, 2, 3] })).to.equal('{ hello: [1, 2, 3] }');
+            expect(objToStr({ hello: [1, 2, 3] })).to.equal('{ \'hello\': [1, 2, 3] }');
         });
     });
 });
