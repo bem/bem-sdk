@@ -98,4 +98,16 @@ describe('transform', () => {
             ]).toString()
         ).to.equal(`<span ><Button2 text={'hello'}/>\n<Button2 text={'world'}/></span>`);
     });
+
+    it('should treat mods as props', () => {
+        expect(
+            transform({ block: 'button2',  mods: {theme: 'normal', size: 's'} }).toString()
+        ).to.equal(`<Button2 theme={'normal'} size={'s'}/>`);
+    });
+
+    it('should provide mix as obj', () => {
+        expect(
+            transform({ block: 'button2',  mix: {block: 'header', elem: 'button' } }).toString()
+        ).to.equal(`<Button2 mix={{ 'block': 'header', 'elem': 'button' }}/>`);
+    });
 });
