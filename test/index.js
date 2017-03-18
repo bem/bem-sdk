@@ -79,4 +79,23 @@ describe('transform', () => {
         });
     });
 
+    it('should transform several blocks', () => {
+        expect(
+            transform([
+                { block: 'button2', text: 'hello' },
+                { block: 'button2', text: 'world' }
+            ]).toString()
+        ).to.equal(`<Button2 text={'hello'}/>\n<Button2 text={'world'}/>`);
+    });
+
+    it('should content with several blocks', () => {
+        expect(
+            transform([
+                { tag: 'span', content: [
+                    { block: 'button2', text: 'hello' },
+                    { block: 'button2', text: 'world' }
+                ]}
+            ]).toString()
+        ).to.equal(`<span ><Button2 text={'hello'}/>\n<Button2 text={'world'}/></span>`);
+    });
 });
