@@ -42,6 +42,13 @@ describe('block', () => {
             { block : 'popup', mod : { name : 'autoclosable' } }
         ]);
     });
+
+    it('should not extract block modifier from elemMod', () => {
+        expect(parse({ block: 'popup', elemMods: { autoclosable: true } })).to.not.bemeql([
+            { block: 'popup' },
+            { block: 'popup', mod: { name: 'autoclosable' } }
+        ]);
+    });
 });
 
 describe('elem', () => {
@@ -76,6 +83,12 @@ describe('elem', () => {
         ]);
     });
 
+    it('should not extract elem modifier from blocks mod', () => {
+        expect(parse({ block: 'button2', elem: 'text', mods: { pseudo: true } })).to.not.bemeql([
+            { block : 'button2', elem : 'text' },
+            { block : 'button2', elem : 'text', mod : { name : 'pseudo' } }
+        ]);
+    });
 });
 
 describe('content', () => {
@@ -115,7 +128,7 @@ describe('content', () => {
         ]);
     });
 
-    xit('should extract elems using elem context', () => {
+    it('should extract elems using elem context', () => {
         expect(parse({ block: 'button2', elem: 'text', content: { elem: 'icon' } })).to.bemeql([
             { block: 'button2', elem: 'text' },
             { block: 'button2', elem: 'icon' }
@@ -161,7 +174,7 @@ describe('mix', () => {
         ]);
     });
 
-    xit('should extract elems using elem context', () => {
+    it('should extract elems using elem context', () => {
         expect(parse({ block: 'button2', elem: 'text', mix: { elem: 'icon' } })).to.bemeql([
             { block: 'button2', elem: 'text'},
             { block: 'button2', elem: 'icon'}
@@ -206,7 +219,7 @@ describe('js', () => {
         ]);
     });
 
-    xit('should extract elems using elem context', () => {
+    it('should extract elems using elem context', () => {
         expect(parse({ block: 'button2', elem: 'text', js: { id: { elem: 'icon' } } })).to.bemeql([
             { block: 'button2', elem: 'text' },
             { block: 'button2', elem: 'icon' }
@@ -252,7 +265,7 @@ describe('attrs', () => {
         ]);
     });
 
-    xit('should extract elems using elem context', () => {
+    it('should extract elems using elem context', () => {
         expect(parse({ block: 'button2', elem: 'text', attrs: { id: { elem: 'icon' } } })).to.bemeql([
             { block: 'button2', elem: 'text' },
             { block: 'button2', elem: 'icon' }
