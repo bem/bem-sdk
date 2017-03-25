@@ -29,7 +29,7 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "bem-naming": "1.0.1"
+    "@bem/naming": "2.0.0-5"
   },
   "devDependencies": {
     "ava": "^0.18.0",

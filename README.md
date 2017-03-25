@@ -166,7 +166,7 @@ The id for this entity.
 
 **Important:** should only be used to determine uniqueness of entity.
 
-If you want to get string representation in accordance with the provisions naming convention you should use [bem-naming](https://github.com/bem-sdk/bem-naming) package.
+If you want to get string representation in accordance with the provisions naming convention you should use [@bem/naming](https://github.com/bem-sdk/bem-naming) package.
 
 ```js
 const BemEntityName = require('@bem/entity-name');
@@ -230,7 +230,7 @@ buttonName.isEqual(buttonName); // true
 Returns string representing the entity name.
 
 **Important:** if you want to get string representation in accordance with the provisions naming convention
-you should use [bem-naming](https://github.com/bem-sdk/bem-naming) package.
+you should use [@bem/naming](https://github.com/bem-sdk/bem-naming) package.
 
 ```js
 const BemEntityName = require('@bem/entity-name');

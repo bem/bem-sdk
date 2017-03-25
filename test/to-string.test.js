@@ -4,7 +4,7 @@ const proxyquire = require('proxyquire');
 
 const spy = sinon.spy();
 const BemEntityName = proxyquire('../index', {
-    'bem-naming': {
+    '@bem/naming': {
         stringify: spy
     }
 });
@@ -30,7 +30,7 @@ test('should use `naming.stringify()` for block modifier', t => {
 
     entity.toString();
 
-    t.truthy(spy.calledWith({ block: 'block', modName: 'mod', modVal: 'val' }));
+    t.truthy(spy.calledWith({ block: 'block', mod: { name: 'mod', val: 'val' } }));
 });
 
 test('should use naming.stringify() for element modifier', t => {
@@ -38,5 +38,5 @@ test('should use naming.stringify() for element modifier', t => {
 
     entity.toString();
 
-    t.truthy(spy.calledWith({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }));
+    t.truthy(spy.calledWith({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } }));
 });
