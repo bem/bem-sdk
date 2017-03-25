@@ -315,7 +315,7 @@ module.exports = class BemEntityName {
     /**
      * Creates BemEntityName instance by any object representation.
      *
-     * @param {object} obj — representation of entity name.
+     * @param {object|string} obj — representation of entity name.
      * @param {string} obj.block  — the block name of entity.
      * @param {string} [obj.elem] — the element name of entity.
      * @param {object|string} [obj.mod]  — the modifier of entity.
@@ -337,6 +337,10 @@ module.exports = class BemEntityName {
     static create(obj) {
         if (BemEntityName.isBemEntityName(obj)) {
             return obj;
+        }
+
+        if (typeof obj === 'string') {
+            obj = { block: obj };
         }
 
         const data = { block: obj.block };
