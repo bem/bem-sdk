@@ -191,7 +191,7 @@ elemName.type; // elem
 modName.type;  // elemMod
 ```
 
-### isSimple()
+### isSimpleMod()
 
 Determines whether modifier simple or not.
 
@@ -206,6 +206,7 @@ const block = new BemEntityName({ block: 'button' });
 modName.isSimpleMod(); // true
 modVal.isSimpleMod(); // false
 block.isSimpleMod(); // null
+```
 
 ### isEqual(entityName)
 
