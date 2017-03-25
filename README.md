@@ -1,7 +1,5 @@
 # bem-decl
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/bem-sdk/bem-decl.svg)](https://greenkeeper.io/)
-
 The library contains a number of methods to work with sets of [BEM-entities](https://en.bem.info/methodology/key-concepts/#bem-entity), aka BEMDECL files.
 
 [![NPM Status][npm-img]][npm]
