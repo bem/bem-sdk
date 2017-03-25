@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.4.0
+-----
+
+* Support string in `BemEntityName.create()` method (@zxqfox [#89]).
+
+[#89]: https://github.com/bem-sdk/bem-entity-name/pull/89
+
 1.3.2
 -----
 
