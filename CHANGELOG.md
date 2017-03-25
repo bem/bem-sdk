@@ -1,6 +1,13 @@
 Changelog
 =========
 
+1.3.2
+-----
+
+* Update `@bem/naming` to `2.x` (@blond [#84]).
+
+[#84]: https://github.com/bem-sdk/bem-entity-name/pull/84
+
 1.3.1
 -----
 
