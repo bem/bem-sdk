@@ -330,7 +330,6 @@ module.exports = class BemEntityName {
      * @example
      * const BemEntityName = require('@bem/entity-name');
      *
-     * BemEntityName.create('my-button_theme_red');
      * BemEntityName.create({ block: 'my-button', mod: 'theme', val: 'red' });
      * BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
      * // → BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
