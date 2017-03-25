@@ -27,7 +27,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@bem/entity-name": "1.3.1"
+    "@bem/entity-name": "1.3.2"
   },
   "devDependencies": {
     "ava": "^0.18.0",
