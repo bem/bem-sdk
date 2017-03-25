@@ -39,7 +39,7 @@ bemFs.path(atom, options); // b1/__e1/_m1/b1__e1_m1_v1.js
 Parameter                    | Type                | Description                                                         | Default
 -----------------------------|---------------------|---------------------------------------------------------------------|--------------------------
 `options`                    | `object`, `string`  |                                                                     | '"origin"'
-`options.naming`             | `object`, `string`  | Defines delimeters and wordPattern check [bem-naming]               | '"origin"'
+`options.naming`             | `object`, `string`  | Defines delimeters and wordPattern check [@bem/naming]               | '"origin"'
 `options.elemDirDelim`       | `string`            | Separates element's directory                                       | `"__"`
 `options.modDirDelim`        | `string`            | Separates mod's directory                                           | `"_"`
 
@@ -58,4 +58,4 @@ License
 Code and documentation © 2015 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
 
 
-[bem-naming] : https://github.com/bem-sdk/bem-naming#bemnaming-elem-mod-wordpattern-
+[@bem/naming] : https://github.com/bem-sdk/bem-naming#bemnaming-elem-mod-wordpattern-

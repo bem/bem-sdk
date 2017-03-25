@@ -145,7 +145,7 @@ describe('default', function() {
                             }),
                             tech: 'js'
                         }),
-                        {naming: {elem: '%%%', mod: '###'}})
+                        {naming: {delims: {elem: '%%%', mod: '###'}}})
                 ).eql('a/%%%e1/###mn/a%%%e1###mn###mv.js');
             });
 
@@ -161,7 +161,7 @@ describe('default', function() {
                             tech: 'js'
                         }),
                         {
-                            naming: {elem: '%%%', mod: '###'},
+                            naming: {delims: {elem: '%%%', mod: '###'}},
                             elemDirDelim: '*',
                             modDirDelim: '^'
                         })
@@ -288,7 +288,7 @@ describe('default', function() {
                         }),
                         tech: 'js'
                     }),
-                    {naming: {elem: '%%%', mod: '###'}}
+                    {naming: {delims: {elem: '%%%', mod: '###'}}}
                 )
             ).eql('a%%%e1###mn###mv.js');
         });
@@ -335,7 +335,7 @@ describe('default', function() {
                             }),
                             tech: 'js'
                         }),
-                        {naming: {elem: '%%%', mod: '###'}})
+                        {naming: {delims:{elem: '%%%', mod: '###'}}})
                 ).eql('a%%%e1###mn###mv.js');
             });
 
