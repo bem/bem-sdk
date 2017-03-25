@@ -275,13 +275,13 @@ BemEntityName.isBemEntityName({ block: 'button' }); // false
 
 ### #create(object)
 
-Creates BemEntityName instance by any object representation.
+Creates BemEntityName instance by any object representation or a string.
 
 Helper for sugar-free simplicity.
 
 Parameter    | Type               | Description
 -------------|--------------------|--------------------------
-`object`     | `object`           | Representation of entity name.
+`object`     | `object`, `string` | Representation of entity name.
 
 Passed Object could have the common field names for entities:
 
@@ -293,11 +293,15 @@ Object field | Type     | Description
 `val`        | `string` | The modifier value of entity. Used if `mod` is a string. Optional.
 `mod.name`   | `string` | The modifier name of entity. Optional.
 `mod.val`    | `string`, `true` | The modifier value of entity. Optional.
-`modName`    | `string` | The modifier name of entity. Used if `mod.name` wasn't specified. Optional.
+`modName`    | `string` | The modifier name of entity. Used if `mod.name` was not specified. Optional.
 `modVal`     | `string`, `true` | The modifier value of entity. Used if neither `mod.val` nor `val` were not specified. Optional.
 
 ```js
 const BemEntityName = require('@bem/entity-name');
+
+BemEntityName.create('my-button');
+BemEntityName.create({ block: 'my-button' });
+// ➜ BemEntityName { block: 'my-button' }
 
 BemEntityName.create({ block: 'my-button', mod: 'theme', val: 'red' });
 BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
