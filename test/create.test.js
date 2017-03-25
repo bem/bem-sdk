@@ -80,3 +80,9 @@ test('should use `mod.name` and `mod.val` instead of `modVal` and `val`', t => {
 
     t.is(entity.mod.val, 'v1');
 });
+
+test('should create block entity by a string', t => {
+    const entity = BemEntityName.create('my-block');
+
+    t.deepEqual(entity.valueOf(), { block: 'my-block' });
+});
