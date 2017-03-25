@@ -2,53 +2,61 @@
 
 var path = require('path'),
     isGlob = require('is-glob'),
-    glob = require('glob');
+    glob = require('glob'),
+    _ = require('lodash'),
+    merge = require('../lib/merge');
 
-module.exports = function(config, configs, options, cb) {
-    var levels = config.levels,
-        source = config.__source;
+module.exports = function(config, configs, customLevelsConfig, options, cb) {
+    var cwd = options.cwd || process.cwd(),
+        source = config.__source,
+        res = _.cloneDeep(config),
+        levels = merge(res.levels, customLevelsConfig),
+        levelsKeys = Object.keys(levels);
 
-    if (!levels) { return cb && cb(); }
+    if (!levelsKeys.length) { return cb ? cb(res) : res; }
 
-    Object.keys(levels).forEach(function(globLevel) {
+    levelsKeys.forEach(function(globLevel) {
         if (!isGlob(globLevel)) {
             onLevel(globLevel, true);
-            return cb && cb();
+            cb && cb(res);
+            return;
         }
 
         if (!cb) { // sync
-            var globbedLevels = glob.sync(globLevel, { cwd: options.cwd });
+            var globbedLevels = glob.sync(globLevel, { cwd: cwd });
 
-            return globbedLevels.forEach(function(level, idx) {
+            globbedLevels.forEach(function(level, idx) {
                 onLevel(level, globLevel, globbedLevels.length === idx - 1);
             });
+
+            return;
         }
 
         // async
-        glob(globLevel, { cwd: options.cwd }, function(err, asyncGlobbedLevels) {
+        glob(globLevel, { cwd: cwd }, function(err, asyncGlobbedLevels) {
             // TODO: if (err) { throw err; }
             asyncGlobbedLevels.forEach(function(level, idx) {
                 onLevel(level, globLevel, asyncGlobbedLevels.length === idx - 1);
             });
 
-            cb();
+            cb(res);
         });
     });
 
-    function onLevel(level, globLevel, needRemoveGlobKey) {
-        if (typeof globLevel === 'boolean') {
-            needRemoveGlobKey = globLevel;
+    return res;
+
+    function onLevel(level, globLevel, needRemoveKey) {
+        if (arguments.length === 2) {
+            needRemoveKey = globLevel;
             globLevel = level;
         }
 
-        var resolvedLevel = source ?
-                path.resolve(path.dirname(source), level) :
-                path.resolve(options.cwd || process.cwd(), level); // TODO: bubble
+        var resolvedLevel = path.resolve(source ? path.dirname(source) : cwd, level);
 
         if (resolvedLevel === level) { return; }
 
-        levels[resolvedLevel] = levels[globLevel];
+        merge(levels[resolvedLevel] || (levels[resolvedLevel] = {}), levels[globLevel]);
 
-        needRemoveGlobKey && delete levels[globLevel];
+        needRemoveKey && delete levels[globLevel];
     }
 };

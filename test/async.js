@@ -405,3 +405,19 @@ test('should return common config if no levels provided', async t => {
 
     t.deepEqual(actual, { common: 'value' });
 });
+
+test('should merge levels configs', async t => {
+    const bemConfig = config([
+        {
+            levels: {
+                'path/to/level': {
+                    test1: 1
+                }
+            }
+        }
+    ]);
+
+    const actual = await bemConfig().level('path/to/level', { 'path/to/level': { test2: 2 } });
+
+    t.deepEqual(actual, { test1: 1, test2: 2 });
+});

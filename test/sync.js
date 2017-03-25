@@ -320,3 +320,19 @@ test('should respect rc options', t => {
 
     t.deepEqual(actual, { conf: 'def', argv: true, __source: pathToConfig });
 });
+
+test('should merge levels configs', t => {
+    const bemConfig = config([
+        {
+            levels: {
+                'path/to/level': {
+                    test1: 1
+                }
+            }
+        }
+    ]);
+
+    t.deepEqual(
+        bemConfig().levelSync('path/to/level', { 'path/to/level': { test2: 2 } }),
+        { test1: 1, test2: 2 });
+});
