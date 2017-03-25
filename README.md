@@ -91,9 +91,8 @@ There are several formats:
 
 ## API
 
-<!-- * [`save(file: String, decl: BemCell[], opts: *): Promise<?>`](#savefile-string-decl-bemcell-opts-promise) -->
-
 * [load()](#load-method)
+* [save()](#save-method)
 * [merge()](#merge-method)
 * [intersect()](#intersect-method)
 * [subtract()](#subtract-method)
@@ -128,20 +127,37 @@ bemDecl.load('set1.bemdecl.js')
     });
 ```
 
-<!--
-### `save(file: String, decl: BemCell[], opts: *): Promise<?>`
+### save method
 
 Formats and saves a file with BEM-entities from a file in any format
+
+#### Syntax
+
+`save(file, decl, opts)`
+
+#### Input data
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+|**file**|`string`|`bemdecl.js`-filename or path to the file. </br>Examples: </br> &#149; `example.bemdecl.js`; </br> &#149; `./desktop.bundles/example/example.bemdecl.js`.|
+|**decl**|`BemCell[]`|Set of BEM-entities to save in specific format.|
+|**options**|`Object`|Options for stringify and saveFile methods.</br> &#149; format `String`; &#149; exportType `String` (default = `'cjs'`); </br> &#149; encoding `String` (default = `'utf8'`); </br> &#149; flag `String` (default = `'r'`). </br> [Read more](https://nodejs.org/api/fs.html#fs_fs_savefile_file_options_callback).|
+
+#### Output data
+
+A promise resolved when file was stored.
+
+#### Example
 
 ```js
 const decl = [
     new BemCell({ entity: new BemEntityName({ block: 'button' }) })
 ];
-bemDecl.save('set1.bemdecl.js', decl, { format: 'enb' });
+bemDecl.save('set1.bemdecl.js', decl, { format: 'enb' })
+    .then(() => {
+        console.log('saved');
+    });
 ```
-
-TODO: https://github.com/bem-sdk/bem-decl/issues/4
--->
 
 ### merge method
 
