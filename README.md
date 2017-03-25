@@ -79,10 +79,10 @@ The table shows the possible values that can be set for each of the schemes.
 | `scheme` | File system.|`nested`|`nested`, `flat`|
 
 More information:
-* [ bem-naming]( https://en.bem.info/toolbox/sdk/bem-naming/)
+* [ @bem/naming]( https://en.bem.info/toolbox/sdk/bem-naming/)
 * [ bem-fs-scheme]( https://en.bem.info/toolbox/sdk/bem-fs-scheme/)
 
-**Note** Instead of defining the project's levels manually, use the [` bem-config`]( https://en.bem.info/toolbox/sdk/bem-config/) tool.
+**Note** Instead of defining the project's levels manually, use the [`bem-config`]( https://en.bem.info/toolbox/sdk/bem-config/) tool.
 
 ```js
 const config = require('bem-config')();

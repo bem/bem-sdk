@@ -20,7 +20,7 @@ test('should support original naming', t => {
     const options = {
         levels: {
             blocks: {
-                naming: { elem: '__', mod: '_' },
+                naming: 'origin',
                 scheme: 'flat'
             }
         }
@@ -38,7 +38,7 @@ test('should support original naming', t => {
         });
 });
 
-test('should support Convention by Harry Roberts', t => {
+test('should support two-dashes naming', t => {
     mockFs({
         blocks: {
             'block__elem--mod_val.tech': ''
@@ -48,7 +48,7 @@ test('should support Convention by Harry Roberts', t => {
     const options = {
         levels: {
             blocks: {
-                naming: { elem: '__', mod: { name: '--', val: '_' } },
+                naming: 'two-dashes',
                 scheme: 'flat'
             }
         }
@@ -77,8 +77,10 @@ test('should support custom naming', t => {
         levels: {
             blocks: {
                 naming: {
-                    elem: '-',
-                    mod: '--',
+                    delims: {
+                        elem: '-',
+                        mod: '--'
+                    },
                     wordPattern: '[a-zA-Z0-9]+'
                 },
                 scheme: 'flat'
@@ -100,28 +102,28 @@ test('should support custom naming', t => {
 
 test('should support several naming', t => {
     mockFs({
-        'original.blocks': {
+        'origin.blocks': {
             'block_mod.tech': ''
         },
-        'csswizardry.blocks': {
+        'two-dashes.blocks': {
             'block--mod_val.tech': ''
         }
     });
 
     const options = {
         levels: {
-            'original.blocks': {
-                naming: { elem: '__', mod: '_' },
+            'origin.blocks': {
+                naming: 'origin',
                 scheme: 'flat'
             },
-            'csswizardry.blocks': {
-                naming: { elem: '__', mod: { name: '--', val: '_' } },
+            'two-dashes.blocks': {
+                naming: 'two-dashes',
                 scheme: 'flat'
             }
         }
     };
 
-    return toArray(walk(['original.blocks', 'csswizardry.blocks'], options))
+    return toArray(walk(['origin.blocks', 'two-dashes.blocks'], options))
         .then(files => {
             const entities = files.map(file => file.cell.entity.valueOf());
 

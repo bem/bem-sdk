@@ -5,7 +5,7 @@ const stream = require('stream');
 
 const Benchmark = require('Benchmark');
 const series = require('promise-map-series');
-const stringifyEntity = require('bem-naming').stringify;
+const stringifyEntity = require('@bem/naming').stringify;
 
 const fixtures = require('./fixtures');
 
