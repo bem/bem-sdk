@@ -336,3 +336,20 @@ test('should merge levels configs', t => {
         bemConfig().levelSync('path/to/level', { 'path/to/level': { test2: 2 } }),
         { test1: 1, test2: 2 });
 });
+
+test('should merge levels configs with customLevelsConfig', t => {
+    const bemConfig = config([
+        {
+            levels: {
+                'path/to/level': {
+                    test1: 1,
+                    same: 'initial'
+                }
+            }
+        }
+    ]);
+
+    const actual = bemConfig().levelSync('path/to/level', { 'path/to/level': { test2: 2, same: 'new' } });
+
+    t.deepEqual(actual, { test1: 1, test2: 2, same: 'new' });
+});

@@ -75,7 +75,7 @@ BemConfig.prototype.configs = function(isSync, customLevelsConfig) {
                     }));
                 });
             },
-            Promise.resolve(cfgs))
+            Promise.resolve(cfgs));
     });
 };
 
