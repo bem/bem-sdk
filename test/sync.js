@@ -216,14 +216,16 @@ test('should return levels map', t => {
                 }
             }
         },
-        __source: __filename
+        __source: path.join(process.cwd(), path.basename(__filename))
     }]);
 
     const expected = {};
     expected[path.resolve('l1')] = { some: 'conf1' };
 
+    const actual = bemConfig().levelMapSync();
+
     // because of mocked rc, all instances of bemConfig has always the same data
-    t.deepEqual(bemConfig().levelMapSync(), expected);
+    t.deepEqual(actual, expected);
 });
 
 // library()

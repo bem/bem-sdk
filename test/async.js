@@ -118,7 +118,7 @@ test('should return level with __source', async t => {
                 }
             },
             something: 'else',
-            __source: __filename
+            __source: path.join(process.cwd(), path.basename(__filename))
         }
     ]);
 
