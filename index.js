@@ -26,10 +26,9 @@ function BemConfig(options) {
 /**
  * Returns all found configs
  * @param {Boolean} isSync - flag to resolve configs synchronously
- * @param {Object} [customLevelsConfig] - additional config for levels
  * @returns {Promise|Array}
  */
-BemConfig.prototype.configs = function(isSync, customLevelsConfig) {
+BemConfig.prototype.configs = function(isSync) {
     var options = this._options,
         cwd = options.cwd,
         rcOpts = {
@@ -37,7 +36,8 @@ BemConfig.prototype.configs = function(isSync, customLevelsConfig) {
             cwd: cwd,
             fsRoot: options.fsRoot,
             fsHome: options.fsHome,
-            name: options.name || 'bem'
+            name: options.name || 'bem',
+            extendBy: options.extendBy
         };
 
     if (options.pathToConfig) {
@@ -47,13 +47,14 @@ BemConfig.prototype.configs = function(isSync, customLevelsConfig) {
     var plugins = [require('./plugins/resolve-level')].concat(options.plugins || []);
 
     if (isSync) {
+
         var configs = this._configs || (this._configs = rc.sync(rcOpts));
 
         this._root = getConfigsRootDir(configs);
 
         return plugins.reduce(function(configs, plugin) {
             return configs.map(function(config) {
-                return plugin(config, configs, customLevelsConfig, options);
+                return plugin(config, configs, options);
             });
         }, configs);
     }
@@ -70,7 +71,7 @@ BemConfig.prototype.configs = function(isSync, customLevelsConfig) {
                 return cfgsPromise.then(function(configs) {
                     return Promise.all(configs.map(function(config) {
                         return new Promise(function(resolve) {
-                            plugin(config, configs, customLevelsConfig, options, resolve);
+                            plugin(config, configs, options, resolve);
                         });
                     }));
                 });
@@ -96,11 +97,10 @@ BemConfig.prototype.root = function() {
 
 /**
  * Returns merged config
- * @param {Object} [customLevelsConfig] - additional config for levels
  * @returns {Promise}
  */
-BemConfig.prototype.get = function(customLevelsConfig) {
-    return this.configs(false, customLevelsConfig).then(function(configs) {
+BemConfig.prototype.get = function() {
+    return this.configs().then(function(configs) {
         return merge(configs);
     });
 };
@@ -108,13 +108,12 @@ BemConfig.prototype.get = function(customLevelsConfig) {
 /**
  * Resolves config for given level
  * @param {String} pathToLevel - level path
- * @param {Object} [customLevelsConfig] - additional config for levels
  * @returns {Promise}
  */
-BemConfig.prototype.level = function(pathToLevel, customLevelsConfig) {
+BemConfig.prototype.level = function(pathToLevel) {
     var _this = this;
 
-    return this.configs(false, customLevelsConfig)
+    return this.configs()
         .then(function(configs) {
             return getLevelByConfigs(
                 pathToLevel,
@@ -145,13 +144,12 @@ BemConfig.prototype.library = function(libName) {
 
 /**
  * Returns map of settings for each of level
- * @param {Object} [customLevelsConfig] - additional config for levels
  * @returns {Promise}
  */
-BemConfig.prototype.levelMap = function(customLevelsConfig) {
+BemConfig.prototype.levelMap = function() {
     var _this = this;
 
-    return this.get(customLevelsConfig).then(function(config) {
+    return this.get().then(function(config) {
         var projectLevels = config.levels,
             libNames = config.libs ? Object.keys(config.libs) : [];
 
@@ -197,25 +195,23 @@ BemConfig.prototype.rootSync = function() {
 
 /**
  * Returns merged config synchronously
- * @param {Object} [customLevelsConfig] - additional config for levels
  * @returns {Object}
  */
-BemConfig.prototype.getSync = function(customLevelsConfig) {
-    return merge(this.configs(true, customLevelsConfig));
+BemConfig.prototype.getSync = function() {
+    return merge(this.configs(true));
 }
 
 /**
  * Resolves config for given level synchronously
  * @param {String} pathToLevel - level path
- * @param {Object} [customLevelsConfig] - additional config for levels
  * @returns {Object}
  */
-BemConfig.prototype.levelSync = function(pathToLevel, customLevelsConfig) {
+BemConfig.prototype.levelSync = function(pathToLevel) {
     // TODO: cache
     return getLevelByConfigs(
         pathToLevel,
         this._options,
-        this.configs(true, customLevelsConfig),
+        this.configs(true),
         this._root);
 };
 
@@ -239,11 +235,10 @@ BemConfig.prototype.librarySync = function(libName) {
 
 /**
  * Returns map of settings for each of level synchronously
- * @param {Object} [customLevelsConfig] - additional config for levels
  * @returns {Object}
  */
-BemConfig.prototype.levelMapSync = function(customLevelsConfig) {
-    var config = this.getSync(customLevelsConfig),
+BemConfig.prototype.levelMapSync = function() {
+    var config = this.getSync(),
         projectLevels = config.levels,
         libNames = config.libs ? Object.keys(config.libs) : [];
 

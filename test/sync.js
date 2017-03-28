@@ -323,35 +323,38 @@ test('should respect rc options', t => {
     t.deepEqual(actual, { conf: 'def', argv: true, __source: pathToConfig });
 });
 
-test('should merge levels configs', t => {
-    const bemConfig = config([
-        {
-            levels: {
-                'path/to/level': {
-                    test1: 1
-                }
-            }
-        }
-    ]);
-
-    t.deepEqual(
-        bemConfig().levelSync('path/to/level', { 'path/to/level': { test2: 2 } }),
-        { test1: 1, test2: 2 });
-});
-
-test('should merge levels configs with customLevelsConfig', t => {
-    const bemConfig = config([
-        {
+test('should respect extendedBy from rc options', t => {
+    const pathToConfig = path.resolve(__dirname, 'mocks', 'argv-conf.json');
+    const actual = notStubbedBemConfig({
+        defaults: {
             levels: {
                 'path/to/level': {
                     test1: 1,
                     same: 'initial'
                 }
-            }
-        }
-    ]);
+            },
+            common: 'initial',
+            original: 'blah'
+        },
+         extendBy: {
+            levels: { 'path/to/level': { test2: 2, same: 'new' } },
+            common: 'overriden',
+            extended: 'yo'
+        },
+        pathToConfig: pathToConfig,
+        fsRoot: process.cwd(),
+        fsHome: process.cwd()
+    }).levelSync('path/to/level');
 
-    const actual = bemConfig().levelSync('path/to/level', { 'path/to/level': { test2: 2, same: 'new' } });
+    const expected = {
+        test1: 1,
+        test2: 2,
+        same: 'new',
+        common: 'overriden',
+        original: 'blah',
+        extended: 'yo',
+        argv: true
+    };
 
-    t.deepEqual(actual, { test1: 1, test2: 2, same: 'new' });
+    t.deepEqual(actual, expected);
 });

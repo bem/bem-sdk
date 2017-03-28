@@ -6,11 +6,11 @@ var path = require('path'),
     _ = require('lodash'),
     merge = require('../lib/merge');
 
-module.exports = function(config, configs, customLevelsConfig, options, cb) {
+module.exports = function(config, configs, options, cb) {
     var cwd = options.cwd || process.cwd(),
         source = config.__source,
         res = _.cloneDeep(config),
-        levels = merge(res.levels, customLevelsConfig),
+        levels = res.levels || {},
         levelsKeys = Object.keys(levels);
 
     if (!levelsKeys.length) { return cb ? cb(res) : res; }
