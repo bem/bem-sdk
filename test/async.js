@@ -150,6 +150,43 @@ test('should resolve wildcard levels', async t => {
     t.deepEqual(actual2, { test: 1, something: 'else' });
 });
 
+test('should resolve wildcard levels with absolute path', async t => {
+    const conf = {
+        levels: {},
+        something: 'else'
+    };
+    conf.levels[path.join(__dirname, 'mocks', 'l*')] = { test: 1 };
+    const bemConfig = config([conf]);
+
+    t.deepEqual(await bemConfig({ cwd: path.resolve(__dirname, 'mocks')})
+        .level('level1'), { test: 1, something: 'else' });
+});
+
+
+test('should return globbed levels map', async t => {
+    const mockDir = path.resolve(__dirname, 'mocks');
+    const levelPath = path.join(mockDir, 'l*');
+    const levels = {};
+    levels[levelPath] = { some: 'conf1' };
+    const bemConfig = config([{
+        levels,
+        libs: {
+            'lib1': {
+                levels
+            }
+        },
+        __source: mockDir
+    }]);
+
+    const expected = {};
+    expected[path.join(mockDir, 'level1')] = { some: 'conf1' };
+    expected[path.join(mockDir, 'level2')] = { some: 'conf1' };
+
+    const actual = await bemConfig().levelMap();
+
+    t.deepEqual(actual, expected);
+});
+
 test('should respect absolute path for level', async t => {
     const bemConfig = config([
         {

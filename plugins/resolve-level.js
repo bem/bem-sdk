@@ -26,7 +26,7 @@ module.exports = function(config, configs, options, cb) {
             var globbedLevels = glob.sync(globLevel, { cwd: cwd });
 
             globbedLevels.forEach(function(level, idx) {
-                onLevel(level, globLevel, globbedLevels.length === idx - 1);
+                onLevel(level, globLevel, globbedLevels.length - 1 === idx);
             });
 
             return;
@@ -36,7 +36,7 @@ module.exports = function(config, configs, options, cb) {
         glob(globLevel, { cwd: cwd }, function(err, asyncGlobbedLevels) {
             // TODO: if (err) { throw err; }
             asyncGlobbedLevels.forEach(function(level, idx) {
-                onLevel(level, globLevel, asyncGlobbedLevels.length === idx - 1);
+                onLevel(level, globLevel, asyncGlobbedLevels.length - 1 === idx);
             });
 
             cb(res);
@@ -53,7 +53,7 @@ module.exports = function(config, configs, options, cb) {
 
         var resolvedLevel = path.resolve(source ? path.dirname(source) : cwd, level);
 
-        if (resolvedLevel === level) { return; }
+        if (resolvedLevel === level && level === globLevel) { return; }
 
         merge(levels[resolvedLevel] || (levels[resolvedLevel] = {}), levels[globLevel]);
 

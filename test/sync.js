@@ -112,6 +112,18 @@ test('should resolve wildcard levels', t => {
         .levelSync('level1'), { test: 1, something: 'else' });
 });
 
+test('should resolve wildcard levels with absolute path', t => {
+    const conf = {
+        levels: {},
+        something: 'else'
+    };
+    conf.levels[path.join(__dirname, 'mocks', 'l*')] = { test: 1 };
+    const bemConfig = config([conf]);
+
+    t.deepEqual(bemConfig({ cwd: path.resolve(__dirname, 'mocks')})
+        .levelSync('level1'), { test: 1, something: 'else' });
+});
+
 test('should merge levels from different configs', t => {
     const bemConfig = config([
         {
@@ -225,6 +237,30 @@ test('should return levels map', t => {
     const actual = bemConfig().levelMapSync();
 
     // because of mocked rc, all instances of bemConfig has always the same data
+    t.deepEqual(actual, expected);
+});
+
+test('should return globbed levels map', t => {
+    const mockDir = path.resolve(__dirname, 'mocks');
+    const levelPath = path.join(mockDir, 'l*');
+    const levels = {};
+    levels[levelPath] = { some: 'conf1' };
+    const bemConfig = config([{
+        levels,
+        libs: {
+            'lib1': {
+                levels
+            }
+        },
+        __source: mockDir
+    }]);
+
+    const expected = {};
+    expected[path.join(mockDir, 'level1')] = { some: 'conf1' };
+    expected[path.join(mockDir, 'level2')] = { some: 'conf1' };
+
+    const actual = bemConfig().levelMapSync();
+
     t.deepEqual(actual, expected);
 });
 
