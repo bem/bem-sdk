@@ -25,7 +25,8 @@
   "typings": "index.d.ts",
   "files": [
     "index.js",
-    "index.d.ts"
+    "index.d.ts",
+    "globals.d.ts"
   ],
   "engines": {
     "node": ">= 4.0"

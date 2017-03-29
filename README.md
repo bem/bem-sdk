@@ -262,7 +262,7 @@ Determines whether specified entity is an instance of BemEntityName.
 
 Parameter    | Type            | Description
 -------------|-----------------|-----------------------
-`entityName` | `BemEntityName` | The entity to check.
+`entityName` | `*`             | The entity to check.
 
 ```js
 const BemEntityName = require('@bem/entity-name');
