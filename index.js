@@ -33,7 +33,7 @@ class EntityTypeError extends ExtendableError {
     }
 }
 
-module.exports = class BemEntityName {
+class BemEntityName {
     /**
      * @param {object} obj — representation of entity name.
      * @param {string} obj.block  — the block name of entity.
@@ -378,4 +378,11 @@ module.exports = class BemEntityName {
 
         return new BemEntityName(data);
     }
-};
+}
+
+module.exports = BemEntityName;
+
+// TypeScript imports the `default` property for
+// an ES2015 default import (`import BemEntityName from '@bem/entity-name'`)
+// See: https://github.com/Microsoft/TypeScript/issues/2242#issuecomment-83694181
+module.exports.default = BemEntityName;
