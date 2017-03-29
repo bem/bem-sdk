@@ -68,8 +68,8 @@ API
 * [toString()](#tostring)
 * [valueOf()](#valueof)
 * [toJSON()](#tojson)
-* [#isBemEntityName(entityName)](#isbementitynameentityname)
-* [#create(object)](#createobject)
+* [static isBemEntityName(entityName)](#static-isbementitynameentityname)
+* [static create(obj)](#static-createobj)
 
 ### constructor({ block, elem, mod })
 
@@ -256,7 +256,7 @@ name.valueOf();
 
 Returns object for `JSON.stringify()` purposes.
 
-### #isBemEntityName(entityName)
+### static isBemEntityName(entityName)
 
 Determines whether specified entity is an instance of BemEntityName.
 
@@ -273,7 +273,7 @@ BemEntityName.isBemEntityName(entityName); // true
 BemEntityName.isBemEntityName({ block: 'button' }); // false
 ```
 
-### #create(object)
+### static create(object)
 
 Creates BemEntityName instance by any object representation or a string.
 
