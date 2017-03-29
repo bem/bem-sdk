@@ -44,11 +44,16 @@
     "eslint-config-pedant": "^0.8.0",
     "nyc": "^10.0.0",
     "proxyquire": "^1.7.7",
-    "sinon": "^2.1.0"
+    "sinon": "^2.1.0",
+    "tslint": "^5.0.0",
+    "tslint-config-typings": "^0.3.1",
+    "typescript": "^2.2.2"
   },
   "scripts": {
     "test": "npm run lint && npm run cover",
-    "lint": "eslint .",
+    "lint": "npm run lint:js && npm run lint:dts",
+    "lint:js": "eslint .",
+    "lint:dts": "tslint **.d.ts",
     "unit-test": "ava",
     "cover": "nyc ava",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
