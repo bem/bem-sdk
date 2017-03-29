@@ -50,12 +50,11 @@
     "typescript": "^2.2.2"
   },
   "scripts": {
-    "test": "npm run lint && npm run cover",
+    "pretest": "npm run lint",
+    "test": "nyc ava",
     "lint": "npm run lint:js && npm run lint:dts",
     "lint:js": "eslint .",
     "lint:dts": "tslint **.d.ts",
-    "unit-test": "ava",
-    "cover": "nyc ava",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   }
 }
