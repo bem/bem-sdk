@@ -1,6 +1,6 @@
 {
   "name": "bem-config",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "Config module for bem-tools",
   "main": "index.js",
   "scripts": {
