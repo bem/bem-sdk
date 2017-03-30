@@ -285,9 +285,6 @@ class BemEntityName {
     /**
      * Determines whether specified entity is the deepEqual entity.
      *
-     * @param {BemEntityName} entityName - the entity to compare.
-     *
-     * @returns {boolean} - A Boolean indicating whether or not specified entity is the deepEqual entity.
      * @example
      * const BemEntityName = require('@bem/entity-name');
      *
@@ -296,6 +293,9 @@ class BemEntityName {
      *
      * inputName.isEqual(buttonName); // false
      * buttonName.isEqual(buttonName); // true
+     *
+     * @param {BemEntityName} entityName - the entity to compare.
+     * @returns {boolean} - A Boolean indicating whether or not specified entity is the deepEqual entity.
      */
     isEqual(entityName) {
         return entityName && (this.id === entityName.id);
@@ -304,9 +304,6 @@ class BemEntityName {
     /**
      * Determines whether specified entity is instance of BemEntityName.
      *
-     * @param {*} entityName - the entity to check.
-     *
-     * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemEntityName.
      * @example
      * const BemEntityName = require('@bem/entity-name');
      *
@@ -314,6 +311,9 @@ class BemEntityName {
      *
      * BemEntityName.isBemEntityName(entityName); // true
      * BemEntityName.isBemEntityName({}); // false
+     *
+     * @param {*} entityName - the entity to check.
+     * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemEntityName.
      */
     static isBemEntityName(entityName) {
         return entityName && entityName.__isBemEntityName__;
@@ -322,14 +322,15 @@ class BemEntityName {
     /**
      * Creates BemEntityName instance by any object representation.
      *
-     * @param {(BemSDK.EntityName.NonStrictRepresentation|string)} obj — representation of entity name.
-     * @returns {BemEntityName} An object representing entity name.
      * @example
      * const BemEntityName = require('@bem/entity-name');
      *
      * BemEntityName.create({ block: 'my-button', mod: 'theme', val: 'red' });
      * BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
      * // → BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
+     *
+     * @param {(BemSDK.EntityName.NonStrictRepresentation|string)} obj — representation of entity name.
+     * @returns {BemEntityName} An object representing entity name.
      */
     static create(obj) {
         if (BemEntityName.isBemEntityName(obj)) {
