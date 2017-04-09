@@ -57,8 +57,6 @@ BEM entities can be defined with a help of JS object with the following fields:
 
 The modifier consists of a pair of fields `mod.name` and `mod.val`. This means that the field `mod.val` without `mod.name` has no meaning.
 
-**Example:**
-
 ```js
 const BemEntityName = require('@bem/entity-name');
 
@@ -77,8 +75,6 @@ new BemEntityName({
 ```
 
 To describe a simple modifier the `mod.val` field must be omitted.
-
-**Example:**
 
 ```js
 // Simple modifier of a block
