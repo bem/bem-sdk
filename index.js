@@ -277,17 +277,17 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
         levelOpts = {},
         commonOpts = {};
 
-    for (var i = 0; i < allConfigs.length; i++) {
+    for (var i = allConfigs.length - 1; i >= 0; i--) {
         var conf = allConfigs[i],
             levels = conf.levels || {};
 
-        merge(commonOpts, conf);
+        commonOpts = merge({}, conf, commonOpts);
 
         for (var level in levels) {
             if (level !== absLevelPath) { continue; }
 
             // works like deep extend but overrides arrays
-            merge(levelOpts, levels[level]);
+            levelOpts = merge({}, levels[level], levelOpts);
         }
 
         if (conf.root) { break; }

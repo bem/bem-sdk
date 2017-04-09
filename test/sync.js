@@ -345,7 +345,38 @@ test('should return module', t => {
     t.deepEqual(bemConfig().moduleSync('m1'), { conf: 'of m1' });
 });
 
-// TODO: add test for root: true
+test('should not extend with configs higher then root', t => {
+    const bemConfig = config([
+        {
+            levels: {
+                level1: {
+                    l1o1: 'should not be used',
+                    l1o2: 'should not be used either'
+                }
+            }
+        },
+        {
+            levels: {
+                level1: {
+                    something: 'from root level',
+                    l1o1: 'should be overwritten'
+                }
+            },
+            root: true
+        },
+        {
+            levels: {
+                level1: {
+                    l1o1: 'should win'
+                }
+            }
+        }
+    ]);
+
+    const actual = bemConfig().levelSync('level1');
+
+    t.deepEqual(actual, { something: 'from root level', l1o1: 'should win' });
+});
 
 test('should respect rc options', t => {
     const pathToConfig = path.resolve(__dirname, 'mocks', 'argv-conf.json');

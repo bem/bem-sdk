@@ -256,7 +256,16 @@ test('should not extend with configs higher then root', async t => {
         {
             levels: {
                 level1: {
-                    'l1o1': 'l1v1'
+                    l1o1: 'should not be used',
+                    l1o2: 'should not be used either'
+                }
+            }
+        },
+        {
+            levels: {
+                level1: {
+                    something: 'from root level',
+                    l1o1: 'should be overwritten'
                 }
             },
             root: true
@@ -264,7 +273,7 @@ test('should not extend with configs higher then root', async t => {
         {
             levels: {
                 level1: {
-                    'l1o2': 'l1v2'
+                    l1o1: 'should win'
                 }
             }
         }
@@ -272,7 +281,7 @@ test('should not extend with configs higher then root', async t => {
 
     const actual = await bemConfig().level('level1');
 
-    t.deepEqual(actual, { l1o1: 'l1v1' });
+    t.deepEqual(actual, { something: 'from root level', l1o1: 'should win' });
 });
 
 // test.skip('should use last occurrence of array option', async t => {
