@@ -1,7 +1,7 @@
-const test = require('ava');
+import test from 'ava';
 const sinon = require('sinon');
 
-const BemEntityName = require('../index');
+import BemEntityName from '../index';
 
 const EOL = require('os').EOL;
 

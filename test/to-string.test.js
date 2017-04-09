@@ -1,4 +1,4 @@
-const test = require('ava');
+import test from 'ava';
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 

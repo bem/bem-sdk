@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const BemEntityName = require('../index');
+import BemEntityName from '../index';
 
 test('should provide `block` field', t => {
     const entity = new BemEntityName({ block: 'block' });
