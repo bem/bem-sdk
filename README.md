@@ -26,6 +26,7 @@ Contents
 * [Install](#install)
 * [Usage](#usage)
 * [API](#api)
+* [TypeScript support](#typescript-support)
 * [Debuggability](#debuggability)
 
 Install
@@ -68,8 +69,8 @@ API
 * [toString()](#tostring)
 * [valueOf()](#valueof)
 * [toJSON()](#tojson)
-* [#isBemEntityName(entityName)](#isbementitynameentityname)
-* [#create(object)](#createobject)
+* [static isBemEntityName(entityName)](#static-isbementitynameentityname)
+* [static create(obj)](#static-createobj)
 
 ### constructor({ block, elem, mod })
 
@@ -256,13 +257,13 @@ name.valueOf();
 
 Returns object for `JSON.stringify()` purposes.
 
-### #isBemEntityName(entityName)
+### static isBemEntityName(entityName)
 
 Determines whether specified entity is an instance of BemEntityName.
 
 Parameter    | Type            | Description
 -------------|-----------------|-----------------------
-`entityName` | `BemEntityName` | The entity to check.
+`entityName` | `*`             | The entity to check.
 
 ```js
 const BemEntityName = require('@bem/entity-name');
@@ -273,7 +274,7 @@ BemEntityName.isBemEntityName(entityName); // true
 BemEntityName.isBemEntityName({ block: 'button' }); // false
 ```
 
-### #create(object)
+### static create(object)
 
 Creates BemEntityName instance by any object representation or a string.
 
@@ -310,6 +311,13 @@ BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
 BemEntityName.create({ block: 'my-button', mod: 'focused' });
 // ➜ BemEntityName { block: 'my-button', mod: { name: 'focused', val: true } }
 ```
+
+TypeScript support
+------------------
+
+The package includes [typings](./index.d.ts) for TypeScript. You have to set up transpilation yourself. When you set `module` to `commonjs` in your `tsconfig.json` file, TypeScript will automatically find the type definitions for `@bem/entity-name`.
+
+The interfaces are provided in global namespace `BemSDK.EntityName`. It is necessary to use interfaces in JsDoc.
 
 Debuggability
 -------------

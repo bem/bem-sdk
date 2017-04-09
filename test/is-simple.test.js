@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const BemEntityName = require('../index');
+import BemEntityName from '../index';
 
 test('should be true for simple modifiers', t => {
     const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme' } });

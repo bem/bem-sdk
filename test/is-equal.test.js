@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const BemEntityName = require('../index');
+import BemEntityName from '../index';
 
 test('should detect equal block', t => {
     const entity1 = new BemEntityName({ block: 'block' });

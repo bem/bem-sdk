@@ -9,7 +9,7 @@ const stringifyEntity = require('@bem/naming').stringify;
  * Enum for types of BEM entities.
  *
  * @readonly
- * @enum {String}
+ * @enum {string}
  */
 const TYPES = {
     BLOCK:     'block',
@@ -33,17 +33,9 @@ class EntityTypeError extends ExtendableError {
     }
 }
 
-module.exports = class BemEntityName {
+class BemEntityName {
     /**
-     * @param {object} obj — representation of entity name.
-     * @param {string} obj.block  — the block name of entity.
-     * @param {string} [obj.elem] — the element name of entity.
-     * @param {object} [obj.mod] — the modifier of entity.
-     * @param {string} obj.mod.name — the modifier name of entity.
-     * @param {string} [obj.mod.val] — the modifier value of entity.
-     * @param {string} [obj.modName] — the modifier name of entity. Used if `mod.name` wasn't specified.
-     * @param {string} [obj.modVal] — the modifier value of entity.
-     *   Used if neither `mod.val` nor `val` were not specified.
+     * @param {BemSDK.EntityName.Options} obj — representation of entity name.
      */
     constructor(obj) {
         if (!obj.block) {
@@ -94,7 +86,7 @@ module.exports = class BemEntityName {
      *
      * name.elem; // text
      *
-     * @returns {string|undefined} - name of entity element.
+     * @returns {?string} - name of entity element.
      */
     get elem() { return this._data.elem; }
 
@@ -112,7 +104,7 @@ module.exports = class BemEntityName {
      * modName.mod;   // { name: 'disabled', val: true }
      * blockName.mod; // undefined
      *
-     * @returns {{mod: string, val: (string|true)}|undefined} - entity modifier.
+     * @returns {?BemSDK.EntityName.ModifierRepresentation} - entity modifier.
      */
     get mod() { return this._data.mod; }
 
@@ -121,7 +113,7 @@ module.exports = class BemEntityName {
      *
      * If entity is not modifier then returns `undefined`.
      *
-     * @returns {string|undefined} - entity modifier name.
+     * @returns {?string} - entity modifier name.
      * @deprecated - use `mod.name` instead.
      */
     get modName() { return this.mod && this.mod.name; }
@@ -131,7 +123,7 @@ module.exports = class BemEntityName {
      *
      * If entity is not modifier then returns `undefined`.
      *
-     * @returns {string|undefined} - entity modifier name.
+     * @returns {?(string|true)} - entity modifier name.
      * @deprecated - use `mod.val` instead.
      */
     get modVal() { return this.mod && this.mod.val; }
@@ -211,7 +203,7 @@ module.exports = class BemEntityName {
      *
      * name.isSimpleMod(); // null
      *
-     * @returns {boolean|null}
+     * @returns {(boolean|null)}
      */
     isSimpleMod() {
         return this.mod ? this.mod.val === true : null;
@@ -250,7 +242,7 @@ module.exports = class BemEntityName {
      *
      * // ➜ { block: 'button', mod: { name: 'focused', value: true } }
      *
-     * @returns {{block: string, elem: (string|undefined), mod: ({name: string, val: (string|true)}|undefined)}}
+     * @returns {BemSDK.EntityName.StrictRepresentation}
      */
     valueOf() { return this._data; }
 
@@ -284,8 +276,7 @@ module.exports = class BemEntityName {
     /**
      * Return raw data for `JSON.stringify()`.
      *
-     * @returns {{block: string, elem: (string|undefined),
-     *   mod: ({name: string, val: (string|true|undefined)}|undefined)}}
+     * @returns {BemSDK.EntityName.StrictRepresentation}
      */
     toJSON() {
         return this._data;
@@ -294,9 +285,6 @@ module.exports = class BemEntityName {
     /**
      * Determines whether specified entity is the deepEqual entity.
      *
-     * @param {BemEntityName} entityName - the entity to compare.
-     *
-     * @returns {boolean} - A Boolean indicating whether or not specified entity is the deepEqual entity.
      * @example
      * const BemEntityName = require('@bem/entity-name');
      *
@@ -305,6 +293,9 @@ module.exports = class BemEntityName {
      *
      * inputName.isEqual(buttonName); // false
      * buttonName.isEqual(buttonName); // true
+     *
+     * @param {BemEntityName} entityName - the entity to compare.
+     * @returns {boolean} - A Boolean indicating whether or not specified entity is the deepEqual entity.
      */
     isEqual(entityName) {
         return entityName && (this.id === entityName.id);
@@ -313,9 +304,6 @@ module.exports = class BemEntityName {
     /**
      * Determines whether specified entity is instance of BemEntityName.
      *
-     * @param {BemEntityName} entityName - the entity to check.
-     *
-     * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemEntityName.
      * @example
      * const BemEntityName = require('@bem/entity-name');
      *
@@ -323,6 +311,9 @@ module.exports = class BemEntityName {
      *
      * BemEntityName.isBemEntityName(entityName); // true
      * BemEntityName.isBemEntityName({}); // false
+     *
+     * @param {*} entityName - the entity to check.
+     * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemEntityName.
      */
     static isBemEntityName(entityName) {
         return entityName && entityName.__isBemEntityName__;
@@ -331,24 +322,15 @@ module.exports = class BemEntityName {
     /**
      * Creates BemEntityName instance by any object representation.
      *
-     * @param {object|string} obj — representation of entity name.
-     * @param {string} obj.block  — the block name of entity.
-     * @param {string} [obj.elem] — the element name of entity.
-     * @param {object|string} [obj.mod]  — the modifier of entity.
-     * @param {string} [obj.val] - the modifier value of entity. Used if `obj.mod` is a string.
-     * @param {string} obj.mod.name — the modifier name of entity.
-     * @param {string} [obj.mod.val]  — the modifier value of entity.
-     * @param {string} [obj.modName] — the modifier name of entity. Used if `obj.mod.name` wasn't specified.
-     * @param {string} [obj.modVal]  — the modifier value of entity.
-     *   Used if neither `obj.mod.val` nor `obj.val` were not specified.
-     *
-     * @returns {BemEntityName} An object representing entity name.
      * @example
      * const BemEntityName = require('@bem/entity-name');
      *
      * BemEntityName.create({ block: 'my-button', mod: 'theme', val: 'red' });
      * BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
      * // → BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
+     *
+     * @param {(BemSDK.EntityName.NonStrictRepresentation|string)} obj — representation of entity name.
+     * @returns {BemEntityName} An object representing entity name.
      */
     static create(obj) {
         if (BemEntityName.isBemEntityName(obj)) {
@@ -378,4 +360,11 @@ module.exports = class BemEntityName {
 
         return new BemEntityName(data);
     }
-};
+}
+
+module.exports = BemEntityName;
+
+// TypeScript imports the `default` property for
+// an ES2015 default import (`import BemEntityName from '@bem/entity-name'`)
+// See: https://github.com/Microsoft/TypeScript/issues/2242#issuecomment-83694181
+module.exports.default = BemEntityName;

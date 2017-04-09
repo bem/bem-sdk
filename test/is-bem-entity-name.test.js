@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const BemEntityName = require('../index');
+import BemEntityName from '../index';
 
 test('should check valid entities', t => {
     const entityName = new BemEntityName({ block: 'block' });

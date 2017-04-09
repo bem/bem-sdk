@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const BemEntityName = require('../index');
+import BemEntityName from '../index';
 
 test('should normalize boolean modifier', t => {
     const entity = new BemEntityName({ block: 'block', mod: { name: 'mod' } });
