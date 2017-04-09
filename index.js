@@ -27,9 +27,9 @@ class EntityTypeError extends ExtendableError {
      */
     constructor(obj, reason) {
         const str = util.inspect(obj, { depth: 1 });
-        const message = `The object \`${str}\` is not valid BEM entity`;
+        const message = `the object \`${str}\` is not valid BEM entity`;
 
-        super(reason ? `${message}: ${reason}` : message);
+        super(reason ? `${message}, ${reason}` : message);
     }
 }
 

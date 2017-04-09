@@ -29,20 +29,20 @@ test('should create object and normalize boolean modifier', t => {
 test('should throw error for if entity object is not valid', t => {
     t.throws(
         () => new BemEntityName({ elem: 'elem' }),
-        "The object `{ elem: 'elem' }` is not valid BEM entity: the field `block` is undefined"
+        "the object `{ elem: 'elem' }` is not valid BEM entity, the field `block` is undefined"
     );
 });
 
 test('should throw error for if mod object is empty', t => {
     t.throws(
         () => new BemEntityName({ block: 'block', mod: {} }),
-        "The object `{ block: 'block', mod: {} }` is not valid BEM entity: the field `mod.name` is undefined"
+        "the object `{ block: 'block', mod: {} }` is not valid BEM entity, the field `mod.name` is undefined"
     );
 });
 
 test('should throw error for if mod name is undefined', t => {
     t.throws(
         () => new BemEntityName({ block: 'block', mod: { val: 'val' } }),
-        "The object `{ block: 'block', mod: { val: 'val' } }` is not valid BEM entity: the field `mod.name` is undefined"
+        "the object `{ block: 'block', mod: { val: 'val' } }` is not valid BEM entity, the field `mod.name` is undefined"
     );
 });
