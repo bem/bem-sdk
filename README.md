@@ -20,6 +20,14 @@ BemEntityName
 [david]:          https://david-dm.org/bem-sdk/bem-entity-name
 [dependency-img]: http://img.shields.io/david/bem-sdk/bem-entity-name.svg
 
+Contents
+--------
+
+* [Install](#install)
+* [Usage](#usage)
+* [API](#api)
+* [Debuggability](#debuggability)
+
 Install
 -------
 
@@ -343,7 +351,6 @@ console.log(JSON.stringify(name));
 
 // ➜ {"block":"input","mod":{"name":"available","val":true}}
 ```
-
 
 License
 -------
