@@ -57,39 +57,33 @@ BEM entities can be defined with a help of JS object with the following fields:
 
 The modifier consists of a pair of fields `mod.name` and `mod.val`. This means that the field `mod.val` without `mod.name` has no meaning.
 
-**Example:**
-
 ```js
 const BemEntityName = require('@bem/entity-name');
 
 // The modifier of block
 new BemEntityName({
     block: 'button',
-    mod: { name 'view', val: 'action' }
+    mod: { name: 'view', val: 'action' }
 });
 
 // Not valid modifier
 new BemEntityName({
-    block: 'block',
+    block: 'button',
     mod: { val: 'action' }
 });
+// ➜ EntityTypeError: the object `{ block: 'block', mod: { val: 'action' } }` is not valid BEM entity, the field `mod.name` is undefined
 ```
 
-To describe the simple modifier, field `mod.val` must be specified as `true`.
-
-**Example:**
+To describe a simple modifier the `mod.val` field must be omitted.
 
 ```js
-// Boolean modifier of a block
+// Simple modifier of a block
+new BemEntityName({ block: 'button', mod: 'focused' });
+
+// Is equivalent to simple modifier, if `mod.val` is `true`
 new BemEntityName({
     block: 'button',
     mod: { name: 'focused', val: true }
-});
-
-// Shorthand for the boolean modifier of a block
-new BemEntityName({
-    block: 'button',
-    mod: 'focused'
 });
 ```
 

@@ -17,17 +17,19 @@ const TYPES = {
     ELEM:      'elem',
     ELEM_MOD:  'elemMod'
 };
-
-class NotValidEntityError extends ExtendableError {
+/**
+ * The EntityTypeError object represents an error when a value is not valid BEM entity.
+ */
+class EntityTypeError extends ExtendableError {
     /**
      * @param {object} obj — not valid object
-     * @param {str} [reason] — reason why object is not valid
+     * @param {string} [reason] — human-readable reason why object is not valid
      */
     constructor(obj, reason) {
         const str = util.inspect(obj, { depth: 1 });
-        const message = `The object \`${str}\` is not valid BEM entity`;
+        const message = `the object \`${str}\` is not valid BEM entity`;
 
-        super(reason ? `${message}: ${reason}` : message);
+        super(reason ? `${message}, ${reason}` : message);
     }
 }
 
@@ -45,7 +47,7 @@ module.exports = class BemEntityName {
      */
     constructor(obj) {
         if (!obj.block) {
-            throw new NotValidEntityError(obj, 'the field `block` is undefined');
+            throw new EntityTypeError(obj, 'the field `block` is undefined');
         }
 
         const data = this._data = { block: obj.block };
@@ -62,7 +64,7 @@ module.exports = class BemEntityName {
                 val: hasModVal ? modObj && modObj.val || obj.modVal : true
             };
         } else if (modObj || hasModVal) {
-            throw new NotValidEntityError(obj, 'the field `mod.name` is undefined');
+            throw new EntityTypeError(obj, 'the field `mod.name` is undefined');
         }
 
         this.__isBemEntityName__ = true;
