@@ -65,14 +65,15 @@ const BemEntityName = require('@bem/entity-name');
 // The modifier of block
 new BemEntityName({
     block: 'button',
-    mod: { name 'view', val: 'action' }
+    mod: { name: 'view', val: 'action' }
 });
 
 // Not valid modifier
 new BemEntityName({
-    block: 'block',
+    block: 'button',
     mod: { val: 'action' }
 });
+// ➜ EntityTypeError: the object `{ block: 'block', mod: { val: 'action' } }` is not valid BEM entity, the field `mod.name` is undefined
 ```
 
 To describe the simple modifier, field `mod.val` must be specified as `true`.
