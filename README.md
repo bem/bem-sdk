@@ -26,6 +26,7 @@ Contents
 * [Install](#install)
 * [Usage](#usage)
 * [API](#api)
+* [TypeScript support](#typescript-support)
 * [Debuggability](#debuggability)
 
 Install
@@ -310,6 +311,13 @@ BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
 BemEntityName.create({ block: 'my-button', mod: 'focused' });
 // ➜ BemEntityName { block: 'my-button', mod: { name: 'focused', val: true } }
 ```
+
+TypeScript support
+------------------
+
+The package includes [typings](./index.d.ts) for TypeScript. You have to set up transpilation yourself. When you set `module` to `commonjs` in your `tsconfig.json` file, TypeScript will automatically find the type definitions for `@bem/entity-name`.
+
+The interfaces are provided in global namespace `BemSDK.EntityName`. It is necessary to use interfaces in JsDoc.
 
 Debuggability
 -------------
