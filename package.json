@@ -33,6 +33,7 @@
   },
   "dependencies": {
     "@bem/naming": "2.0.0-5",
+    "depd": "1.1.0",
     "es6-error": "4.0.2"
   },
   "devDependencies": {

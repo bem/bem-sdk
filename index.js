@@ -4,6 +4,7 @@ const util = require('util');
 
 const ExtendableError = require('es6-error');
 const stringifyEntity = require('@bem/naming').stringify;
+const deprecate = require('depd')(require('./package.json').name);
 
 /**
  * Enum for types of BEM entities.
@@ -114,9 +115,13 @@ class BemEntityName {
      * If entity is not modifier then returns `undefined`.
      *
      * @returns {?string} - entity modifier name.
-     * @deprecated - use `mod.name` instead.
+     * @deprecated use {@link BemEntityName#mod.name}
      */
-    get modName() { return this.mod && this.mod.name; }
+    get modName() {
+        deprecate(`modName is kept just for compatibility and can be dropped in the future. Use mod.name instead in ${this.inspect()} at`);
+
+        return this.mod && this.mod.name;
+    }
 
     /**
      * Returns the modifier value of this entity.
@@ -124,9 +129,13 @@ class BemEntityName {
      * If entity is not modifier then returns `undefined`.
      *
      * @returns {?(string|true)} - entity modifier name.
-     * @deprecated - use `mod.val` instead.
+     * @deprecated use {@link BemEntityName#mod.val}
      */
-    get modVal() { return this.mod && this.mod.val; }
+    get modVal() {
+        deprecate(`modVal is kept just for compatibility and can be dropped in the future. Use mod.val instead in ${this.inspect()} at`);
+
+        return this.mod && this.mod.val;
+    }
 
     /**
      * Returns id for this entity.
