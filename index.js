@@ -18,7 +18,7 @@ const TYPES = {
     ELEM_MOD:  'elemMod'
 };
 
-class NotValidEntityError extends ExtendableError {
+class EntityTypeError extends ExtendableError {
     /**
      * @param {object} obj — not valid object
      * @param {str} [reason] — reason why object is not valid
@@ -45,7 +45,7 @@ module.exports = class BemEntityName {
      */
     constructor(obj) {
         if (!obj.block) {
-            throw new NotValidEntityError(obj, 'the field `block` is undefined');
+            throw new EntityTypeError(obj, 'the field `block` is undefined');
         }
 
         const data = this._data = { block: obj.block };
@@ -62,7 +62,7 @@ module.exports = class BemEntityName {
                 val: hasModVal ? modObj && modObj.val || obj.modVal : true
             };
         } else if (modObj || hasModVal) {
-            throw new NotValidEntityError(obj, 'the field `mod.name` is undefined');
+            throw new EntityTypeError(obj, 'the field `mod.name` is undefined');
         }
 
         this.__isBemEntityName__ = true;
