@@ -28,6 +28,7 @@ Contents
 * [API](#api)
 * [TypeScript support](#typescript-support)
 * [Debuggability](#debuggability)
+* [Deprecation](#deprecation)
 
 Install
 -------
@@ -359,6 +360,19 @@ console.log(JSON.stringify(name));
 
 // ➜ {"block":"input","mod":{"name":"available","val":true}}
 ```
+
+Deprecation
+-----------
+
+Deprecation is performed with [depd](https://github.com/dougwilson/nodejs-depd).
+
+To silencing deprecation warnings from being output use the `NO_DEPRECATION` environment variable.
+
+```
+NO_DEPRECATION=@bem/entity-name node app.js
+```
+
+> More [details](https://github.com/dougwilson/nodejs-depd#processenvno_deprecation) in `depd` documentation
 
 License
 -------
