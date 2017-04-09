@@ -46,8 +46,32 @@ entityName.isEqual(new BemEntityName({ block: 'button' }));               // fal
 entityName.isEqual(new BemEntityName({ block: 'button', elem: 'text' })); // true
 ```
 
-BEM Entity Name
----------------
+API
+---
+
+* [constructor({ block, elem, mod })](#constructor-block-elem-mod-)
+* [block](#block)
+* [elem](#elem)
+* [mod](#mod)
+* [id](#id)
+* [type](#type)
+* [isSimpleMod()](#issimplemod)
+* [isEqual(entityName)](#isequalentityname)
+* [toString()](#tostring)
+* [valueOf()](#valueof)
+* [toJSON()](#tojson)
+* [#isBemEntityName(entityName)](#isbementitynameentityname)
+* [#create(object)](#createobject)
+
+### constructor({ block, elem, mod })
+
+Parameter | Type     | Description
+----------|----------|------------------------------
+`block`   | `string` | The block name of entity.
+`elem`    | `string` | The element name of entity.
+`mod`     | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`. Optional.
+`mod.name`| `string` | The modifier name of entity.
+`mod.val` | `string`, `true` | The modifier value of entity. Optional.
 
 BEM entities can be defined with a help of JS object with the following fields:
 
@@ -86,33 +110,6 @@ new BemEntityName({
     mod: { name: 'focused', val: true }
 });
 ```
-
-API
----
-
-* [constructor({ block, elem, mod })](#constructor-block-elem-mod-)
-* [block](#block)
-* [elem](#elem)
-* [mod](#mod)
-* [id](#id)
-* [type](#type)
-* [isSimpleMod()](#issimplemod)
-* [isEqual(entityName)](#isequalentityname)
-* [toString()](#tostring)
-* [valueOf()](#valueof)
-* [toJSON()](#tojson)
-* [#isBemEntityName(entityName)](#isbementitynameentityname)
-* [#create(object)](#createobject)
-
-### constructor({ block, elem, mod })
-
-Parameter | Type     | Description
-----------|----------|------------------------------
-`block`   | `string` | The block name of entity.
-`elem`    | `string` | The element name of entity.
-`mod`     | `string`, `object` | The modifier of entity.<br><br> If specified value is `string` then it will be equivalent to `{ name: string, val: true }`. Optional.
-`mod.name`| `string` | The modifier name of entity.
-`mod.val` | `string`, `true` | The modifier value of entity. Optional.
 
 ### block
 
