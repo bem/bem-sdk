@@ -17,11 +17,13 @@ const TYPES = {
     ELEM:      'elem',
     ELEM_MOD:  'elemMod'
 };
-
+/**
+ * The EntityTypeError object represents an error when a value is not valid BEM entity.
+ */
 class EntityTypeError extends ExtendableError {
     /**
      * @param {object} obj — not valid object
-     * @param {str} [reason] — reason why object is not valid
+     * @param {string} [reason] — human-readable reason why object is not valid
      */
     constructor(obj, reason) {
         const str = util.inspect(obj, { depth: 1 });
