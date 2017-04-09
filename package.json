@@ -52,7 +52,7 @@
   },
   "scripts": {
     "pretest": "npm run lint",
-    "test": "nyc ava",
+    "test": "NO_DEPRECATION=@bem/entity-name nyc ava",
     "lint": "npm run lint:js && npm run lint:dts",
     "lint:js": "eslint .",
     "lint:dts": "tslint **.d.ts",

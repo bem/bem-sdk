@@ -368,11 +368,11 @@ Deprecation is performed with [depd](https://github.com/dougwilson/nodejs-depd).
 
 To silencing deprecation warnings from being output use the `NO_DEPRECATION` environment variable.
 
-> More [details](https://github.com/dougwilson/nodejs-depd#processenvno_deprecation) in `depd` documentation
-
 ```
 NO_DEPRECATION=@bem/entity-name node app.js
 ```
+
+> More [details](https://github.com/dougwilson/nodejs-depd#processenvno_deprecation) in `depd` documentation
 
 License
 -------
