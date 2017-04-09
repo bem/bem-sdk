@@ -76,21 +76,18 @@ new BemEntityName({
 // ➜ EntityTypeError: the object `{ block: 'block', mod: { val: 'action' } }` is not valid BEM entity, the field `mod.name` is undefined
 ```
 
-To describe the simple modifier, field `mod.val` must be specified as `true`.
+To describe a simple modifier the `mod.val` field must be omitted.
 
 **Example:**
 
 ```js
-// Boolean modifier of a block
+// Simple modifier of a block
+new BemEntityName({ block: 'button', mod: 'focused' });
+
+// Is equivalent to simple modifier, if `mod.val` is `true`
 new BemEntityName({
     block: 'button',
     mod: { name: 'focused', val: true }
-});
-
-// Shorthand for the boolean modifier of a block
-new BemEntityName({
-    block: 'button',
-    mod: 'focused'
 });
 ```
 
