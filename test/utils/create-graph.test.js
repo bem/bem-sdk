@@ -14,7 +14,14 @@ test('should create simple graph', t => {
 });
 
 test('should create and resolve cyclic graph', t => {
-    t.deepEqual(depsOfGraph('a => b -> c -> d => a', {block: 'a'}), ['b', 'a', 'c', 'd']);
+    const decl = depsOfGraph('a => b -> c -> d => a', {block: 'a'});
+
+    const indexA = decl.indexOf('a');
+    const indexB = decl.indexOf('b');
+    const indexD = decl.indexOf('d');
+
+    t.true(indexB < indexA);
+    t.true(indexA < indexD);
 });
 
 test('should create and resolve another cyclic graph', t => {

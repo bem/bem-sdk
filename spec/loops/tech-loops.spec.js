@@ -21,9 +21,10 @@ test('should throw error if detected ordered loop between same techs', t => {
         graph.dependenciesOf({ block: 'A' }, 'css');
     } catch (error) {
         t.deepEqual(error.loop, [
-            { entity: { block: 'A' }/*, tech: 'css'*/ },
+            { entity: { block: 'A' } },
             { entity: { block: 'B' }, tech: 'css' },
-            { entity: { block: 'A' }, tech: 'css' }
+            { entity: { block: 'A' }, tech: 'css' },
+            { entity: { block: 'B' }, tech: 'css' }
         ]);
     }
 });
@@ -61,7 +62,8 @@ test('should throw error if detected loop between common and specific techs', t 
         t.deepEqual(error.loop, [
             { entity: { block: 'A' } },
             { entity: { block: 'B' } },
-            { entity: { block: 'A' }, tech: 'css' }
+            { entity: { block: 'A' }, tech: 'css' },
+            { entity: { block: 'B' } }
         ]);
     }
 });
@@ -85,7 +87,8 @@ test('should throw error if detected loop between common and other techs', t => 
         t.deepEqual(error.loop, [
             { entity: { block: 'A' } },
             { entity: { block: 'B' } },
-            { entity: { block: 'A' }, tech: 'css' }
+            { entity: { block: 'A' }, tech: 'css' },
+            { entity: { block: 'B' } }
         ]);
     }
 });
