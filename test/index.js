@@ -1,4 +1,3 @@
-const chai = require('chai');
 const expect = require('chai').expect;
 
 var transform = require('../lib');

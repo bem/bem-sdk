@@ -1,30 +1,36 @@
 {
   "name": "bemjson-to-jsx",
   "version": "0.0.1",
-  "description": "",
+  "description": "Transform BEMJSON to JSX",
   "main": "lib/index.js",
-  "directories": {
-    "test": "test"
-  },
+  "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
+  "license": "MPL-2.0",
+  "files": [
+    "lib/"
+  ],
   "scripts": {
-    "test": "node test"
+    "pretest": "npm run lint",
+    "test": "npm run specs",
+    "specs": "nyc mocha",
+    "lint": "eslint ."
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Yeti-or/bemjson-to-jsx.git"
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-pedant": "^0.8.1",
+    "mocha": "^3.2.0",
+    "nyc": "^10.2.0"
   },
   "keywords": [
     "bemjson",
     "jsx"
   ],
-  "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/Yeti-or/bemjson-to-jsx/issues"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem-sdk/bemjson-to-jsx.git"
   },
-  "homepage": "https://github.com/Yeti-or/bemjson-to-jsx#readme",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^3.2.0"
-  }
+  "bugs": {
+    "url": "https://github.com/bem-sdk/bemjson-to-jsx/issues"
+  },
+  "homepage": "https://github.com/bem-sdk/bemjson-to-jsx#readme"
 }
