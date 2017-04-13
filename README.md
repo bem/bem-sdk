@@ -12,7 +12,7 @@ Transforms BEMJSON objects to JSX markup.
 [npm-img]:        https://img.shields.io/npm/v/bemjson-to-jsx.svg
 
 [travis]:         https://travis-ci.org/bem-sdk/bemjson-to-jsx
-[test-img]:       https://img.shields.io/travis/bem-sdk/bem-to-jsx.svg?label=tests
+[test-img]:       https://img.shields.io/travis/bem-sdk/bemjson-to-jsx.svg?label=tests
 
 [coveralls]:      https://coveralls.io/r/bem-sdk/bemjson-to-jsx
 [coverage-img]:   https://img.shields.io/coveralls/bem-sdk/bemjson-to-jsx.svg
