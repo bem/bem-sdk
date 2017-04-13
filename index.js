@@ -318,9 +318,14 @@ class BemEntityName {
      *
      * const buttonName = new BemEntityName({ block: 'button' });
      * const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
+     * const buttonTextBoldName = new BemEntityName(
+     *    { block: 'button', elem: 'text', mod: { name: 'bold', val: true } }
+     * );
      *
      * buttonTextName.belongsTo(buttonName); // true
      * buttonName.belongsTo(buttonTextName); // false
+     * buttonTextBoldName.belongsTo(buttonTextName); // true
+     * buttonTextBoldName.belongsTo(buttonName); // false
      *
      * @param {BemEntityName} entityName - the entity to compare.
      *

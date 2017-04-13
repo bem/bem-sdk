@@ -67,6 +67,7 @@ API
 * [type](#type)
 * [isSimpleMod()](#issimplemod)
 * [isEqual(entityName)](#isequalentityname)
+* [belongsTo(entityName)](#belongstoentityname)
 * [toString()](#tostring)
 * [valueOf()](#valueof)
 * [toJSON()](#tojson)
@@ -225,6 +226,29 @@ const buttonName = new BemEntityName({ block: 'button' });
 
 inputName.isEqual(buttonName);  // false
 buttonName.isEqual(buttonName); // true
+```
+
+### belongsTo(entityName)
+
+Parameter    | Type            | Description
+-------------|-----------------|-----------------------
+`entityName` | `BemEntityName` | The entity to compare.
+
+Determines whether specified entity belongs to this.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+const buttonName = new BemEntityName({ block: 'button' });
+const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
+const buttonTextBoldName = new BemEntityName(
+   { block: 'button', elem: 'text', mod: { name: 'bold', val: true } }
+);
+
+buttonTextName.belongsTo(buttonName);         // true
+buttonName.belongsTo(buttonTextName);         // false
+buttonTextBoldName.belongsTo(buttonTextName); // true
+buttonTextBoldName.belongsTo(buttonName);     // false
 ```
 
 ### toString()
