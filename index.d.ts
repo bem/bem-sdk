@@ -12,6 +12,7 @@ declare class BemEntityName {
     readonly type: BemSDK.EntityName.TYPE;
 
     isSimpleMod(): boolean | null;
+    belongsTo(entityName: BemEntityName): boolean;
     toString(): string;
     valueOf(): BemSDK.EntityName.StrictRepresentation;
     inspect(depth: number, options: object): string;
