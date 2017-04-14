@@ -1,6 +1,6 @@
 {
   "name": "bemjson-to-jsx",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Transform BEMJSON to JSX",
   "main": "lib/index.js",
   "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
