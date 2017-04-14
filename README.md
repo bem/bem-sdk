@@ -241,9 +241,7 @@ const BemEntityName = require('@bem/entity-name');
 
 const buttonName = new BemEntityName({ block: 'button' });
 const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
-const buttonTextBoldName = new BemEntityName(
-   { block: 'button', elem: 'text', mod: { name: 'bold', val: true } }
-);
+const buttonTextBoldName = new BemEntityName({ block: 'button', elem: 'text', mod: 'bold' });
 
 buttonTextName.belongsTo(buttonName);         // true
 buttonName.belongsTo(buttonTextName);         // false

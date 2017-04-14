@@ -318,9 +318,7 @@ class BemEntityName {
      *
      * const buttonName = new BemEntityName({ block: 'button' });
      * const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
-     * const buttonTextBoldName = new BemEntityName(
-     *    { block: 'button', elem: 'text', mod: { name: 'bold', val: true } }
-     * );
+     * const buttonTextBoldName = new BemEntityName({ block: 'button', elem: 'text', mod: 'bold' });
      *
      * buttonTextName.belongsTo(buttonName); // true
      * buttonName.belongsTo(buttonTextName); // false
@@ -332,11 +330,10 @@ class BemEntityName {
      * @returns {boolean}
      */
     belongsTo(entityName) {
-        return entityName && entityName.id !== this.id && this.id.startsWith(entityName.id) &&
-            (entityName.type !== 'block' || this.type !== 'elemMod') &&
-            (!entityName.elem || this.elem === entityName.elem) &&
-            (!entityName.modName || this.modName === entityName.modName) &&
-            (!entityName.modVal || entityName.modVal === true || this.modVal === entityName.modVal);
+        if (entityName.block !== this.block) { return false; }
+
+        return entityName.type === TYPES.BLOCK && (this.type === TYPES.BLOCK_MOD || this.type === TYPES.ELEM)
+            || entityName.elem === this.elem && (entityName.type === TYPES.ELEM && this.type === TYPES.ELEM_MOD);
     }
 
     /**

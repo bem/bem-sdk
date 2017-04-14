@@ -82,7 +82,7 @@ test('should not detect belonging between block and its elem mod', t => {
     t.false(blockName.belongsTo(elemModName));
 });
 
-test('should not detect belonging between block and its elem with the same mod', t => {
+test('should not detect belonging between block mod and its elem with the same mod', t => {
     const blockModName = new BemEntityName({ block: 'block', mod: 'mod' });
     const elemModName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
 
@@ -90,19 +90,19 @@ test('should not detect belonging between block and its elem with the same mod',
     t.false(blockModName.belongsTo(elemModName));
 });
 
-test('should resolve belonging between boolean and key-value mod of block', t => {
+test('should not detect belonging between boolean and key-value mod of block', t => {
     const boolModName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: true } });
     const modName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key' } });
 
-    t.true(modName.belongsTo(boolModName));
+    t.false(modName.belongsTo(boolModName));
     t.false(boolModName.belongsTo(modName));
 });
 
-test('should resolve belonging between boolean and key-value mod of element', t => {
+test('should not detect belonging between boolean and key-value mod of element', t => {
     const boolModName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: true } });
     const modName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key' } });
 
-    t.true(modName.belongsTo(boolModName));
+    t.false(modName.belongsTo(boolModName));
     t.false(boolModName.belongsTo(modName));
 });
 
