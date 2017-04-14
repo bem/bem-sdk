@@ -31,7 +31,7 @@ Usage
 -----
 
 ```js
-const bemjsonToJSX = require('bemjson-to-jsx');
+const bemjsonToJSX = require('bemjson-to-jsx')();
 
 var bemjson = {
     block: 'button2',
@@ -39,9 +39,9 @@ var bemjson = {
     text: 'hello world'
 };
 
-var jsxTree = bemjsonToJSX(bemjson);
+var jsxTree = bemjsonToJSX.process(bemjson);
 
-console.log(jsxTree.toString());
+console.log(jsxTree.JSX));
 // → "<Button2 theme={'normal'} size={'m'} text={'hello world'}/>"
 ```
 
