@@ -3,43 +3,25 @@ import test from 'ava';
 import BemEntityName from '../index';
 
 test('should be true for simple modifiers', t => {
-    const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme' } });
+    const entityName = new BemEntityName({ block: 'block', mod: 'mod' });
 
-    t.true(entity.isSimpleMod());
-});
-
-test('should be true for tricky modifiers', t => {
-    const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme', val: true } });
-
-    t.true(entity.isSimpleMod());
+    t.true(entityName.isSimpleMod());
 });
 
 test('should be false for complex modifiers', t => {
-    const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme', val: 'normal' } });
+    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    t.false(entity.isSimpleMod());
+    t.false(entityName.isSimpleMod());
 });
 
-test('should be false for crafty modifiers', t => {
-    const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme', val: 42 } });
+test('should be null for block', t => {
+    const entityName = BemEntityName.create({ block: 'button2' });
 
-    t.false(entity.isSimpleMod());
+    t.is(entityName.isSimpleMod(), null);
 });
 
-test('should be false for sneaky modifiers', t => {
-    const entity = BemEntityName.create({ block: 'button2', mod: { name: 'theme', val: false } });
+test('should be null for element', t => {
+    const entityName = BemEntityName.create({ block: 'button2', elem: 'text' });
 
-    t.falsy(entity.isSimpleMod());
-});
-
-test('should be false for block', t => {
-    const entity = BemEntityName.create({ block: 'button2' });
-
-    t.falsy(entity.isSimpleMod());
-});
-
-test('should be false for elem', t => {
-    const entity = BemEntityName.create({ block: 'button2', elem: 'text' });
-
-    t.falsy(entity.isSimpleMod());
+    t.is(entityName.isSimpleMod(), null);
 });

@@ -10,33 +10,33 @@ const BemEntityName = proxyquire('../index', {
 });
 
 test('should use `naming.stringify()` for block', t => {
-    const entity = new BemEntityName({ block: 'block' });
+    const entityName = new BemEntityName({ block: 'block' });
 
-    entity.toString();
+    entityName.toString();
 
     t.truthy(spy.calledWith({ block: 'block' }));
 });
 
 test('should use `naming.stringify()` for elem', t => {
-    const entity = new BemEntityName({ block: 'block', elem: 'elem' });
+    const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
 
-    entity.toString();
+    entityName.toString();
 
     t.truthy(spy.calledWith({ block: 'block', elem: 'elem' }));
 });
 
 test('should use `naming.stringify()` for block modifier', t => {
-    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    entity.toString();
+    entityName.toString();
 
     t.truthy(spy.calledWith({ block: 'block', mod: { name: 'mod', val: 'val' } }));
 });
 
 test('should use naming.stringify() for element modifier', t => {
-    const entity = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } });
+    const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } });
 
-    entity.toString();
+    entityName.toString();
 
     t.truthy(spy.calledWith({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } }));
 });

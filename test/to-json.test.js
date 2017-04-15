@@ -2,8 +2,14 @@ import test from 'ava';
 
 import BemEntityName from '../index';
 
-test('should return stringified cell', t => {
-    const cell = new BemEntityName({ block: 'button' });
+test('should create stringified object', t => {
+    const entityName = new BemEntityName({ block: 'button' });
 
-    t.is(JSON.stringify([cell]), '[{"block":"button"}]');
+    t.is(JSON.stringify([entityName]), '[{"block":"button"}]');
+});
+
+test('should return normalized object', t => {
+    const entityName = new BemEntityName({ block: 'button' });
+
+    t.deepEqual(entityName.toJSON(), entityName.valueOf());
 });
