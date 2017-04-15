@@ -26,6 +26,7 @@ Contents
 * [Install](#install)
 * [Usage](#usage)
 * [API](#api)
+* [Serialization](#serialization)
 * [TypeScript support](#typescript-support)
 * [Debuggability](#debuggability)
 * [Deprecation](#deprecation)
@@ -362,6 +363,31 @@ BemEntityName.isBemEntityName(entityName); // true
 BemEntityName.isBemEntityName({ block: 'button' }); // false
 ```
 
+Serialization
+-------------
+
+The `BemEntityName` has `toJSON` method to support `JSON.stringify()` behaviour.
+
+Use `JSON.stringify` to serialize an instance of `BemEntityName`.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+const name = new BemEntityName({ block: 'input', mod: 'available' });
+
+JSON.stringify(name); // {"block":"input","mod":{"name":"available","val":true}}
+```
+
+Use `JSON.parse` to deserialize JSON string and create an instance of `BemEntityName`.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+const str = '{"block":"input","mod":{"name":"available","val":true}}';
+
+new BemEntityName(JSON.parse(str)); // BemEntityName({ block: 'input', mod: 'available' });
+```
+
 TypeScript support
 ------------------
 
@@ -396,18 +422,6 @@ const name = new BemEntityName({ block: 'input', mod: 'available' });
 console.log(`name: ${name}`);
 
 // ➜ name: input_available
-```
-
-Also `BemEntityName` has `toJSON` method to support `JSON.stringify()` behaviour.
-
-```js
-const BemEntityName = require('@bem/entity-name');
-
-const name = new BemEntityName({ block: 'input', mod: 'available' });
-
-console.log(JSON.stringify(name));
-
-// ➜ {"block":"input","mod":{"name":"available","val":true}}
 ```
 
 Deprecation
