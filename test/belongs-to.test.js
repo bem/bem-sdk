@@ -1,6 +1,6 @@
 const test = require('ava');
 
-const BemEntityName = require('../index');
+const BemEntityName = require('../lib/entity-name');
 
 test('should not detect belonging between block and itself', t => {
     const blockName = new BemEntityName({ block: 'block' });

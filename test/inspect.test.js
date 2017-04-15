@@ -1,7 +1,7 @@
 import test from 'ava';
 const sinon = require('sinon');
 
-import BemEntityName from '../index';
+import BemEntityName from '../lib/entity-name';
 
 const EOL = require('os').EOL;
 
@@ -15,9 +15,9 @@ test.afterEach(t => {
 
 test('should return entity object', t => {
     const obj = { block: 'block' };
-    const entity = new BemEntityName(obj);
+    const entityName = new BemEntityName(obj);
 
-    console.log(entity);
+    console.log(entityName);
 
     const message = `BemEntityName { block: 'block' }${EOL}`;
 

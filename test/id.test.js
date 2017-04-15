@@ -2,35 +2,35 @@ import test from 'ava';
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
-import BemEntityName from '../index';
+import BemEntityName from '../lib/entity-name';
 
 test('should build equal id for equal blocks', t => {
-    const entity1 = new BemEntityName({ block: 'block' });
-    const entity2 = new BemEntityName({ block: 'block' });
+    const entityName1 = new BemEntityName({ block: 'block' });
+    const entityName2 = new BemEntityName({ block: 'block' });
 
-    t.is(entity1.id, entity2.id);
+    t.is(entityName1.id, entityName2.id);
 });
 
 test('should build not equal id for not equal blocks', t => {
-    const entity1 = new BemEntityName({ block: 'block1' });
-    const entity2 = new BemEntityName({ block: 'block2' });
+    const entityName1 = new BemEntityName({ block: 'block1' });
+    const entityName2 = new BemEntityName({ block: 'block2' });
 
-    t.not(entity1.id, entity2.id);
+    t.not(entityName1.id, entityName2.id);
 });
 
 test('should cache id value', t => {
     const stub = sinon.stub().returns('id');
-    const StubBemEntityName = proxyquire('../index', {
+    const StubBemEntityName = proxyquire('../lib/entity-name', {
         '@bem/naming': {
             stringify: stub
         }
     });
 
-    const entity = new StubBemEntityName({ block: 'block' });
+    const entityName = new StubBemEntityName({ block: 'block' });
 
     /*eslint no-unused-expressions: "off"*/
-    entity.id;
-    entity.id;
+    entityName.id;
+    entityName.id;
 
     t.is(stub.callCount, 1);
 });

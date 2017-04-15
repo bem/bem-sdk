@@ -1,6 +1,12 @@
 import test from 'ava';
 
-import BemEntityName from '../index';
+import BemEntityName from '../../lib/entity-name';
+
+test('should normalize simple modifier', t => {
+    const entity = new BemEntityName({ block: 'block', mod: 'mod' });
+
+    t.true(entity.mod.val);
+});
 
 test('should normalize boolean modifier', t => {
     const entity = new BemEntityName({ block: 'block', mod: { name: 'mod' } });
@@ -8,8 +14,8 @@ test('should normalize boolean modifier', t => {
     t.true(entity.mod.val);
 });
 
-test('should normalize short entry for boolean modifier', t => {
-    const entity = new BemEntityName({ block: 'block', mod: 'mod' });
+test('should save normalized boolean modifier', t => {
+    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: true } });
 
     t.true(entity.mod.val);
 });

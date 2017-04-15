@@ -1,17 +1,17 @@
 import test from 'ava';
 
-import BemEntityName from '../index';
+import BemEntityName from '../lib/entity-name';
 
 test('should detect equal block', t => {
-    const entity1 = new BemEntityName({ block: 'block' });
-    const entity2 = new BemEntityName({ block: 'block' });
+    const entityName1 = new BemEntityName({ block: 'block' });
+    const entityName2 = new BemEntityName({ block: 'block' });
 
-    t.true(entity1.isEqual(entity2));
+    t.true(entityName1.isEqual(entityName2));
 });
 
 test('should not detect another block', t => {
-    const entity1 = new BemEntityName({ block: 'block1' });
-    const entity2 = new BemEntityName({ block: 'block2' });
+    const entityName1 = new BemEntityName({ block: 'block1' });
+    const entityName2 = new BemEntityName({ block: 'block2' });
 
-    t.false(entity1.isEqual(entity2));
+    t.false(entityName1.isEqual(entityName2));
 });
