@@ -14,7 +14,7 @@ test('should use `naming.stringify()` for block', t => {
 
     entityName.toString();
 
-    t.truthy(spy.calledWith({ block: 'block' }));
+    t.true(spy.calledWith({ block: 'block' }));
 });
 
 test('should use `naming.stringify()` for elem', t => {
@@ -22,7 +22,7 @@ test('should use `naming.stringify()` for elem', t => {
 
     entityName.toString();
 
-    t.truthy(spy.calledWith({ block: 'block', elem: 'elem' }));
+    t.true(spy.calledWith({ block: 'block', elem: 'elem' }));
 });
 
 test('should use `naming.stringify()` for block modifier', t => {
@@ -30,7 +30,7 @@ test('should use `naming.stringify()` for block modifier', t => {
 
     entityName.toString();
 
-    t.truthy(spy.calledWith({ block: 'block', mod: { name: 'mod', val: 'val' } }));
+    t.true(spy.calledWith({ block: 'block', mod: { name: 'mod', val: 'val' } }));
 });
 
 test('should use naming.stringify() for element modifier', t => {
@@ -38,5 +38,5 @@ test('should use naming.stringify() for element modifier', t => {
 
     entityName.toString();
 
-    t.truthy(spy.calledWith({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } }));
+    t.true(spy.calledWith({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } }));
 });
