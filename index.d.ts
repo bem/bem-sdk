@@ -9,6 +9,7 @@ declare class BemEntityName {
     readonly modName: string | undefined;
     readonly modVal: string | true | undefined;
     readonly type: BemSDK.EntityName.TYPE;
+    readonly scope: BemEntityName | null;
     readonly id: string;
 
     isSimpleMod(): boolean | null;

@@ -64,6 +64,7 @@ API
 * [elem](#elem)
 * [mod](#mod)
 * [type](#type)
+* [scope](#scope)
 * [id](#id)
 * [isSimpleMod()](#issimplemod)
 * [isEqual(entityName)](#isequalentityname)
@@ -176,6 +177,24 @@ const modName = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' 
 
 elemName.type; // elem
 modName.type;  // elemMod
+```
+
+### scope
+
+The scope of this entity.
+
+**Important:** block-typed entities has no scope.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+const buttonName = new BemEntityName({ block: 'button' });
+const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
+const buttonTextBoldName = new BemEntityName({ block: 'button', elem: 'text', mod: 'bold' });
+
+buttonName.scope;         // null
+buttonTextName.scope;     // BemEntityName { block: 'button' }
+buttonTextBoldName.scope; // BemEntityName { block: 'button', elem: 'elem' }
 ```
 
 ### id
