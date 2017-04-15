@@ -8,19 +8,19 @@ declare class BemEntityName {
     readonly mod: BemSDK.EntityName.ModifierRepresentation | undefined;
     readonly modName: string | undefined;
     readonly modVal: string | true | undefined;
-    readonly id: string;
     readonly type: BemSDK.EntityName.TYPE;
+    readonly id: string;
 
     isSimpleMod(): boolean | null;
-    belongsTo(entityName: BemEntityName): boolean;
-    toString(): string;
-    valueOf(): BemSDK.EntityName.StrictRepresentation;
-    inspect(depth: number, options: object): string;
-    toJSON(): BemSDK.EntityName.StrictRepresentation;
     isEqual(entityName: BemEntityName): boolean;
+    belongsTo(entityName: BemEntityName): boolean;
+    valueOf(): BemSDK.EntityName.StrictRepresentation;
+    toJSON(): BemSDK.EntityName.StrictRepresentation;
+    toString(): string;
+    inspect(depth: number, options: object): string;
 
-    static isBemEntityName(entityName: any): boolean;
     static create(obj: BemSDK.EntityName.NonStrictRepresentation | string): BemEntityName;
+    static isBemEntityName(entityName: any): boolean;
 }
 
 export = BemEntityName;

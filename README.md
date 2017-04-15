@@ -63,16 +63,16 @@ API
 * [block](#block)
 * [elem](#elem)
 * [mod](#mod)
-* [id](#id)
 * [type](#type)
+* [id](#id)
 * [isSimpleMod()](#issimplemod)
 * [isEqual(entityName)](#isequalentityname)
 * [belongsTo(entityName)](#belongstoentityname)
-* [toString()](#tostring)
 * [valueOf()](#valueof)
 * [toJSON()](#tojson)
-* [static isBemEntityName(entityName)](#static-isbementitynameentityname)
+* [toString()](#tostring)
 * [static create(obj)](#static-createobj)
+* [static isBemEntityName(entityName)](#static-isbementitynameentityname)
 
 ### constructor({ block, elem, mod })
 
@@ -162,21 +162,6 @@ modName.mod;   // { name: 'disabled', val: true }
 blockName.mod; // undefined
 ```
 
-### id
-
-The id for this entity.
-
-**Important:** should only be used to determine uniqueness of entity.
-
-If you want to get string representation in accordance with the provisions naming convention you should use [@bem/naming](https://github.com/bem-sdk/bem-naming) package.
-
-```js
-const BemEntityName = require('@bem/entity-name');
-const name = new BemEntityName({ block: 'button', mod: 'disabled' });
-
-name.id; // button_disabled
-```
-
 ### type
 
 The type for this entity.
@@ -191,6 +176,21 @@ const modName = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' 
 
 elemName.type; // elem
 modName.type;  // elemMod
+```
+
+### id
+
+The id for this entity.
+
+**Important:** should only be used to determine uniqueness of entity.
+
+If you want to get string representation in accordance with the provisions naming convention you should use [@bem/naming](https://github.com/bem-sdk/bem-naming) package.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+const name = new BemEntityName({ block: 'button', mod: 'disabled' });
+
+name.id; // button_disabled
 ```
 
 ### isSimpleMod()
@@ -249,20 +249,6 @@ buttonTextBoldName.belongsTo(buttonTextName); // true
 buttonTextBoldName.belongsTo(buttonName);     // false
 ```
 
-### toString()
-
-Returns string representing the entity name.
-
-**Important:** if you want to get string representation in accordance with the provisions naming convention
-you should use [@bem/naming](https://github.com/bem-sdk/bem-naming) package.
-
-```js
-const BemEntityName = require('@bem/entity-name');
-const name = new BemEntityName({ block: 'button', mod: 'focused' });
-
-name.toString(); // button_focused
-```
-
 ### valueOf()
 
 Returns object representing the entity name.
@@ -280,21 +266,18 @@ name.valueOf();
 
 Returns object for `JSON.stringify()` purposes.
 
-### static isBemEntityName(entityName)
+### toString()
 
-Determines whether specified entity is an instance of BemEntityName.
+Returns string representing the entity name.
 
-Parameter    | Type            | Description
--------------|-----------------|-----------------------
-`entityName` | `*`             | The entity to check.
+**Important:** if you want to get string representation in accordance with the provisions naming convention
+you should use [@bem/naming](https://github.com/bem-sdk/bem-naming) package.
 
 ```js
 const BemEntityName = require('@bem/entity-name');
+const name = new BemEntityName({ block: 'button', mod: 'focused' });
 
-const entityName = new BemEntityName({ block: 'input' });
-
-BemEntityName.isBemEntityName(entityName); // true
-BemEntityName.isBemEntityName({ block: 'button' }); // false
+name.toString(); // button_focused
 ```
 
 ### static create(object)
@@ -333,6 +316,23 @@ BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
 
 BemEntityName.create({ block: 'my-button', mod: 'focused' });
 // ➜ BemEntityName { block: 'my-button', mod: { name: 'focused', val: true } }
+```
+
+### static isBemEntityName(entityName)
+
+Determines whether specified entity is an instance of BemEntityName.
+
+Parameter    | Type            | Description
+-------------|-----------------|-----------------------
+`entityName` | `*`             | The entity to check.
+
+```js
+const BemEntityName = require('@bem/entity-name');
+
+const entityName = new BemEntityName({ block: 'input' });
+
+BemEntityName.isBemEntityName(entityName); // true
+BemEntityName.isBemEntityName({ block: 'button' }); // false
 ```
 
 TypeScript support
