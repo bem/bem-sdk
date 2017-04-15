@@ -52,10 +52,18 @@
   },
   "scripts": {
     "pretest": "npm run lint",
-    "test": "NO_DEPRECATION=@bem/entity-name nyc ava",
+    "test": "nyc ava",
     "lint": "npm run lint:js && npm run lint:dts",
     "lint:js": "eslint .",
     "lint:dts": "tslint **.d.ts",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "require": [
+      "./test/setup.js"
+    ]
   }
 }
