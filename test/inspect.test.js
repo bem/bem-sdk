@@ -1,7 +1,7 @@
 import test from 'ava';
 const sinon = require('sinon');
 
-import BemEntityName from '../index';
+import BemEntityName from '../lib/entity-name';
 
 const EOL = require('os').EOL;
 

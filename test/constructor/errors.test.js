@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import BemEntityName from '../../index';
+import BemEntityName from '../../lib/entity-name';
 
 test('should throw error if not `block` field', t => {
     t.throws(

@@ -2,7 +2,7 @@ import test from 'ava';
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
-import BemEntityName from '../index';
+import BemEntityName from '../lib/entity-name';
 
 test('should build equal id for equal blocks', t => {
     const entityName1 = new BemEntityName({ block: 'block' });
@@ -20,7 +20,7 @@ test('should build not equal id for not equal blocks', t => {
 
 test('should cache id value', t => {
     const stub = sinon.stub().returns('id');
-    const StubBemEntityName = proxyquire('../index', {
+    const StubBemEntityName = proxyquire('../lib/entity-name', {
         '@bem/naming': {
             stringify: stub
         }

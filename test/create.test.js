@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import BemEntityName from '../index';
+import BemEntityName from '../lib/entity-name';
 
 test('should return object as is if it`s a BemEntityName', t => {
     const entityName = new BemEntityName({ block: 'block' });

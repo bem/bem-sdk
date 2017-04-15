@@ -3,7 +3,7 @@ const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
 const spy = sinon.spy();
-const BemEntityName = proxyquire('../index', {
+const BemEntityName = proxyquire('../lib/entity-name', {
     '@bem/naming': {
         stringify: spy
     }

@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import BemEntityName from '../index';
+import BemEntityName from '../lib/entity-name';
 
 test('should create stringified object', t => {
     const entityName = new BemEntityName({ block: 'button' });
