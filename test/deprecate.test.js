@@ -1,8 +1,8 @@
-const test = require('ava');
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
+import test from 'ava';
+import sinon from 'sinon';
+import proxyquire from 'proxyquire';
 
-const BemEntityName = require('../lib/entity-name');
+import BemEntityName from '..';
 
 const deprecateSpy = sinon.spy();
 const deprecate = proxyquire('../lib/deprecate', {

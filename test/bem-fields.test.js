@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import BemEntityName from '../lib/entity-name';
+import BemEntityName from '..';
 
 test('should provide `block` field', t => {
     const entityName = new BemEntityName({ block: 'block' });

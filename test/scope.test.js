@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import BemEntityName from '../lib/entity-name';
+import BemEntityName from '..';
 
 test('should return scope of block', t => {
     const entityName = new BemEntityName({ block: 'block' });
