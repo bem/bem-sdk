@@ -3,24 +3,24 @@ import './globals.d';
 declare class BemEntityName {
     constructor(obj: BemSDK.EntityName.Options);
 
-    readonly block: string;
-    readonly elem: string | undefined;
-    readonly mod: BemSDK.EntityName.ModifierRepresentation | undefined;
-    readonly modName: string | undefined;
-    readonly modVal: string | true | undefined;
-    readonly type: BemSDK.EntityName.TYPE;
+    readonly block: BemSDK.EntityName.BlockName;
+    readonly elem: BemSDK.EntityName.ElementName | undefined;
+    readonly mod: BemSDK.EntityName.Modifier | undefined;
+    readonly modName: BemSDK.EntityName.ModifierName | undefined;
+    readonly modVal: BemSDK.EntityName.ModifierValue | undefined;
+    readonly type: BemSDK.EntityName.Type;
     readonly scope: BemEntityName | null;
-    readonly id: string;
+    readonly id: BemSDK.EntityName.Id;
 
     isSimpleMod(): boolean | null;
     isEqual(entityName: BemEntityName): boolean;
     belongsTo(entityName: BemEntityName): boolean;
-    valueOf(): BemSDK.EntityName.StrictRepresentation;
-    toJSON(): BemSDK.EntityName.StrictRepresentation;
+    valueOf(): BemSDK.EntityName.Representation;
+    toJSON(): BemSDK.EntityName.Representation;
     toString(): string;
     inspect(depth: number, options: object): string;
 
-    static create(obj: BemSDK.EntityName.NonStrictRepresentation | string): BemEntityName;
+    static create(obj: BemSDK.EntityName.CreateOptions | string): BemEntityName;
     static isBemEntityName(entityName: any): boolean;
 }
 
