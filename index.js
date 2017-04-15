@@ -2,9 +2,10 @@
 
 const util = require('util');
 
-const ExtendableError = require('es6-error');
 const stringifyEntity = require('@bem/naming').stringify;
 const deprecate = require('depd')(require('./package.json').name);
+
+const EntityTypeError = require('./lib/entity-type-error');
 
 /**
  * Enum for types of BEM entities.
@@ -18,21 +19,6 @@ const TYPES = {
     ELEM:      'elem',
     ELEM_MOD:  'elemMod'
 };
-/**
- * The EntityTypeError object represents an error when a value is not valid BEM entity.
- */
-class EntityTypeError extends ExtendableError {
-    /**
-     * @param {object} obj — not valid object
-     * @param {string} [reason] — human-readable reason why object is not valid
-     */
-    constructor(obj, reason) {
-        const str = util.inspect(obj, { depth: 1 });
-        const message = `the object \`${str}\` is not valid BEM entity`;
-
-        super(reason ? `${message}, ${reason}` : message);
-    }
-}
 
 class BemEntityName {
     /**
