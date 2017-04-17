@@ -21,7 +21,7 @@ describe('transform', () => {
         expect(
             transform({ block: 'button2' }).JSX
         ).to.equal(
-            '<Button2 />'
+            '<Button2/>'
         );
     });
 
@@ -96,7 +96,7 @@ describe('transform', () => {
                     { block: 'button2', text: 'world' }
                 ]}
             ]).JSX
-        ).to.equal(`<span ><Button2 text={'hello'}/>\n<Button2 text={'world'}/></span>`);
+        ).to.equal(`<span>\n<Button2 text={'hello'}/>\n<Button2 text={'world'}/>\n</span>`);
     });
 
     it('should treat mods as props', () => {
@@ -114,6 +114,6 @@ describe('transform', () => {
     it('should treat strings as text', () => {
         expect(
             transform(['Hello I am a string', { block: 'button2', content: 'Hello I am a string'}]).JSX
-        ).to.equal(`Hello I am a string\n<Button2 >Hello I am a string</Button2>`);
+        ).to.equal(`Hello I am a string\n<Button2>\nHello I am a string\n</Button2>`);
     });
 });
