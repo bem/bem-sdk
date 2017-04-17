@@ -17,6 +17,13 @@ describe('block', () => {
         ])).to.be.equal('b:popup m:autoclosable');
     });
 
+    it('should stringify block with explicit simple modifier', () => {
+        expect(s([
+            { block : 'popup' },
+            { block : 'popup', mod : { name : 'autoclosable', val : true } }
+        ])).to.be.equal('b:popup m:autoclosable');
+    });
+
     it('should stringify block with modifier', () => {
         expect(s([
             { block : 'popup' },

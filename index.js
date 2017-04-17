@@ -76,7 +76,7 @@ function stringify(cells) {
         cell.block && (acc.b = cell.block);
         cell.elem && (acc.e = cell.elem);
         cell.mod && (acc.m[cell.mod.name] || (acc.m[cell.mod.name] = []))
-            && cell.mod.val && acc.m[cell.mod.name].push(cell.mod.val);
+            && typeof cell.mod.val === 'string' && acc.m[cell.mod.name].push(cell.mod.val);
         cell.tech && (acc.t = cell.tech);
         return acc;
     }, { m : {} });
