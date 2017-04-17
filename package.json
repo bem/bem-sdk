@@ -25,9 +25,9 @@
   "typings": "index.d.ts",
   "files": [
     "lib/**",
+    "types/**",
     "index.js",
-    "index.d.ts",
-    "globals.d.ts"
+    "index.d.ts"
   ],
   "engines": {
     "node": ">= 4.0"
@@ -56,7 +56,7 @@
     "test": "nyc ava",
     "lint": "npm run lint:js && npm run lint:dts",
     "lint:js": "eslint .",
-    "lint:dts": "tslint **.d.ts",
+    "lint:dts": "tslint types/*.d.ts",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "ava": {
