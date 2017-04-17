@@ -110,4 +110,10 @@ describe('transform', () => {
             transform({ block: 'button2',  mix: {block: 'header', elem: 'button' } }).JSX
         ).to.equal(`<Button2 mix={{ 'block': 'header', 'elem': 'button' }}/>`);
     });
+
+    it('should treat strings as text', () => {
+        expect(
+            transform(['Hello I am a string', { block: 'button2', content: 'Hello I am a string'}]).JSX
+        ).to.equal(`Hello I am a string\n<Button2 >Hello I am a string</Button2>`);
+    });
 });
