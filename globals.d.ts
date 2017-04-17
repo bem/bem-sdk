@@ -1,4 +1,4 @@
-declare namespace BemSDK {
+declare namespace BEMSDK {
     export namespace EntityName {
         /**
          * Types of BEM entities.

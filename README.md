@@ -393,7 +393,7 @@ TypeScript support
 
 The package includes [typings](./index.d.ts) for TypeScript. You have to set up transpilation yourself. When you set `module` to `commonjs` in your `tsconfig.json` file, TypeScript will automatically find the type definitions for `@bem/entity-name`.
 
-The interfaces are provided in global namespace `BemSDK.EntityName`. It is necessary to use interfaces in JsDoc.
+The interfaces are provided in global namespace `BEMSDK.EntityName`. It is necessary to use interfaces in JsDoc.
 
 Debuggability
 -------------
