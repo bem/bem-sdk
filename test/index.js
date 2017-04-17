@@ -30,7 +30,7 @@ describe('transform', () => {
             expect(
                 transform({ block: 'button2', text: 'hello' }).JSX
             ).to.equal(
-                '<Button2 text={\'hello\'}/>'
+                '<Button2 text=\'hello\'/>'
             );
         });
 
@@ -66,7 +66,7 @@ describe('transform', () => {
             expect(
                 transform({ block: 'button2', text: 'hello', val: { 42: 42 } }).JSX
             ).to.equal(
-                '<Button2 text={\'hello\'} val={{ \'42\': 42 }}/>'
+                '<Button2 text=\'hello\' val={{ \'42\': 42 }}/>'
             );
         });
 
@@ -74,7 +74,7 @@ describe('transform', () => {
             expect(
                 transform({ block: 'button2', text: 'hello', val: { 42: { 42: 42 } } }).JSX
             ).to.equal(
-                '<Button2 text={\'hello\'} val={{ \'42\': { \'42\': 42 } }}/>'
+                '<Button2 text=\'hello\' val={{ \'42\': { \'42\': 42 } }}/>'
             );
         });
     });
@@ -85,7 +85,7 @@ describe('transform', () => {
                 { block: 'button2', text: 'hello' },
                 { block: 'button2', text: 'world' }
             ]).JSX
-        ).to.equal(`<Button2 text={'hello'}/>\n<Button2 text={'world'}/>`);
+        ).to.equal(`<Button2 text='hello'/>\n<Button2 text='world'/>`);
     });
 
     it('should content with several blocks', () => {
@@ -96,13 +96,13 @@ describe('transform', () => {
                     { block: 'button2', text: 'world' }
                 ]}
             ]).JSX
-        ).to.equal(`<span>\n<Button2 text={'hello'}/>\n<Button2 text={'world'}/>\n</span>`);
+        ).to.equal(`<span>\n<Button2 text='hello'/>\n<Button2 text='world'/>\n</span>`);
     });
 
     it('should treat mods as props', () => {
         expect(
             transform({ block: 'button2',  mods: {theme: 'normal', size: 's'} }).JSX
-        ).to.equal(`<Button2 theme={'normal'} size={'s'}/>`);
+        ).to.equal(`<Button2 theme='normal' size='s'/>`);
     });
 
     it('should provide mix as obj', () => {
