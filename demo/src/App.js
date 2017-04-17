@@ -3,11 +3,18 @@ import MonacoEditor from 'react-monaco-editor';
 import BemjsonToJSX from '../..';
 import './App.css';
 
+const defaultCode =
+`({
+    block: 'button',
+    text: 'Hello world'
+})`;
+const defaultJSX = `<button text='Hello world' />`;
+
 class App extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            jsx: `<Button text='Hello world' />`,
+            jsx: undefined
         }
 
         this.onBemjsonChange = this.onBemjsonChange.bind(this);
@@ -23,11 +30,6 @@ class App extends Component {
         const options = {
              scrollBeyondLastLine: false
         };
-        const code =
-`({
-    block: 'button',
-    text: 'Hello world'
-})`;
         const jsx = this.state.jsx;
         return (
             <div className='App'>
@@ -36,14 +38,15 @@ class App extends Component {
                         language: 'javascript',
                         options: options,
                         onChange: this.onBemjsonChange,
-                        defaultValue: code
+                        defaultValue: defaultCode
                     }}/>
                 </span>
                 <span className='App__editor jsx'>
                     <MonacoEditor {...{
                         language: 'jsx',
                         options: options,
-                        value: jsx
+                        value: jsx,
+                        defaultValue: defaultJSX
                     }}/>
                 </span>
            </div>
