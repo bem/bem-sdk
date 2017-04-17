@@ -21,7 +21,7 @@ describe('transform', () => {
         expect(
             transform({ block: 'button2' }).JSX
         ).to.equal(
-            '<Button2 />'
+            '<Button2/>'
         );
     });
 
@@ -30,7 +30,7 @@ describe('transform', () => {
             expect(
                 transform({ block: 'button2', text: 'hello' }).JSX
             ).to.equal(
-                '<Button2 text={\'hello\'}/>'
+                '<Button2 text=\'hello\'/>'
             );
         });
 
@@ -66,7 +66,7 @@ describe('transform', () => {
             expect(
                 transform({ block: 'button2', text: 'hello', val: { 42: 42 } }).JSX
             ).to.equal(
-                '<Button2 text={\'hello\'} val={{ \'42\': 42 }}/>'
+                '<Button2 text=\'hello\' val={{ \'42\': 42 }}/>'
             );
         });
 
@@ -74,7 +74,7 @@ describe('transform', () => {
             expect(
                 transform({ block: 'button2', text: 'hello', val: { 42: { 42: 42 } } }).JSX
             ).to.equal(
-                '<Button2 text={\'hello\'} val={{ \'42\': { \'42\': 42 } }}/>'
+                '<Button2 text=\'hello\' val={{ \'42\': { \'42\': 42 } }}/>'
             );
         });
     });
@@ -85,7 +85,7 @@ describe('transform', () => {
                 { block: 'button2', text: 'hello' },
                 { block: 'button2', text: 'world' }
             ]).JSX
-        ).to.equal(`<Button2 text={'hello'}/>\n<Button2 text={'world'}/>`);
+        ).to.equal(`<Button2 text='hello'/>\n<Button2 text='world'/>`);
     });
 
     it('should content with several blocks', () => {
@@ -96,18 +96,24 @@ describe('transform', () => {
                     { block: 'button2', text: 'world' }
                 ]}
             ]).JSX
-        ).to.equal(`<span ><Button2 text={'hello'}/>\n<Button2 text={'world'}/></span>`);
+        ).to.equal(`<span>\n<Button2 text='hello'/>\n<Button2 text='world'/>\n</span>`);
     });
 
     it('should treat mods as props', () => {
         expect(
             transform({ block: 'button2',  mods: {theme: 'normal', size: 's'} }).JSX
-        ).to.equal(`<Button2 theme={'normal'} size={'s'}/>`);
+        ).to.equal(`<Button2 theme='normal' size='s'/>`);
     });
 
     it('should provide mix as obj', () => {
         expect(
             transform({ block: 'button2',  mix: {block: 'header', elem: 'button' } }).JSX
         ).to.equal(`<Button2 mix={{ 'block': 'header', 'elem': 'button' }}/>`);
+    });
+
+    it('should treat strings as text', () => {
+        expect(
+            transform(['Hello I am a string', { block: 'button2', content: 'Hello I am a string'}]).JSX
+        ).to.equal(`Hello I am a string\n<Button2>\nHello I am a string\n</Button2>`);
     });
 });
