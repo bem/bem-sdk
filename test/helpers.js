@@ -8,8 +8,8 @@ describe('helpers: objToStr', () => {
         expect(objToStr({ hello: 'world' })).to.equal('{ \'hello\': \'world\' }');
     });
 
-    it('should return empty string for empty obj', () => {
-        expect(objToStr({})).to.equal('');
+    it('should return empty obj for empty obj', () => {
+        expect(objToStr({})).to.equal('{}');
     });
 
     it('should process many keys', () => {
