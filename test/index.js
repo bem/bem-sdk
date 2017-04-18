@@ -99,6 +99,12 @@ describe('transform', () => {
         ).to.equal(`<span>\n<Button2 text='hello'/>\n<Button2 text='world'/>\n</span>`);
     });
 
+    it('should transform elem in context of block', () => {
+        expect(
+            transform({ block: 'button2', content: { elem: 'text', content: 'Hello' } }).JSX
+        ).to.equal(`<Button2>\n<Button2Text>\nHello\n</Button2Text>\n</Button2>`);
+    });
+
     it('should treat mods as props', () => {
         expect(
             transform({ block: 'button2',  mods: {theme: 'normal', size: 's'} }).JSX
