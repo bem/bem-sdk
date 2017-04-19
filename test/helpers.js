@@ -68,7 +68,7 @@ describe('helpers: styleToObj', () => {
     });
 
     it('should not transform style obj to smth else', () => {
-        var obj = { width: '200px', height: '100px' };
+        var obj = styleToObj({ width: '200px', height: '100px' });
         expect(obj).to.eql({ width: '200px', height: '100px' });
     });
 });
