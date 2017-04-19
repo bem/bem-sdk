@@ -1,6 +1,8 @@
 const expect = require('chai').expect;
 
-const objToStr = require('../lib/helpers').objToStr;
+const helpers = require('../lib/helpers');
+const objToStr = helpers.objToStr;
+const styleToObj = helpers.styleToObj;
 
 
 describe('helpers: objToStr', () => {
@@ -8,8 +10,8 @@ describe('helpers: objToStr', () => {
         expect(objToStr({ hello: 'world' })).to.equal('{ \'hello\': \'world\' }');
     });
 
-    it('should return empty string for empty obj', () => {
-        expect(objToStr({})).to.equal('');
+    it('should return empty obj for empty obj', () => {
+        expect(objToStr({})).to.equal('{}');
     });
 
     it('should process many keys', () => {
@@ -56,5 +58,17 @@ describe('helpers: objToStr', () => {
         it('::array', () => {
             expect(objToStr({ hello: [1, 2, 3] })).to.equal('{ \'hello\': [1, 2, 3] }');
         });
+    });
+});
+
+describe('helpers: styleToObj', () => {
+    it('should transform style string to style obj', () => {
+        var obj = styleToObj('width:200px;height:100px;');
+        expect(obj).to.eql({ width: '200px', height: '100px' });
+    });
+
+    it('should not transform style obj to smth else', () => {
+        var obj = styleToObj({ width: '200px', height: '100px' });
+        expect(obj).to.eql({ width: '200px', height: '100px' });
     });
 });
