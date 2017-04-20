@@ -1,6 +1,26 @@
 Changelog
 =========
 
+1.5.0 (2017-04-20)
+------------------
+
+* Add [scope](./README.md#scope) field (@blond [#110]).
+* Add [belongsTo](./README.md#belongstoentityname) method (@zxqfox @blond [#71], [#99]).
+* Support [TypeScript](./README.md#typescript-support) (@blond [#93], [#113]).
+* Handy error messages for invalid entities (@Yeti-or @blond [#77], [#95]).
+* [Deprecation](./README.md#deprecation) messages for `modName` and `modVal` fields (@blond [#98], [#105]).
+* [Serialization](./README.md#serialization) recipe (@blond [#113]).
+
+[#113]: https://github.com/bem-sdk/bem-entity-name/pull/113
+[#110]: https://github.com/bem-sdk/bem-entity-name/pull/110
+[#105]: https://github.com/bem-sdk/bem-entity-name/pull/105
+[#99]: https://github.com/bem-sdk/bem-entity-name/pull/99
+[#98]: https://github.com/bem-sdk/bem-entity-name/pull/98
+[#95]: https://github.com/bem-sdk/bem-entity-name/pull/95
+[#93]: https://github.com/bem-sdk/bem-entity-name/pull/93
+[#77]: https://github.com/bem-sdk/bem-entity-name/pull/77
+[#71]: https://github.com/bem-sdk/bem-entity-name/pull/71
+
 1.4.0
 -----
 
