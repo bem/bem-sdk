@@ -1,6 +1,6 @@
-const test = require('ava');
+import test from 'ava';
 
-const EntityTypeError = require('../lib/entity-type-error');
+import EntityTypeError from '../lib/entity-type-error';
 
 test('should create type error', t => {
     const error = new EntityTypeError();

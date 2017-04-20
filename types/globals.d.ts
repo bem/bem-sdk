@@ -1,109 +1,93 @@
-declare namespace BemSDK {
+declare namespace BEMSDK {
     export namespace EntityName {
         /**
          * Types of BEM entities.
          */
-        export type TYPE = 'block' | 'blockMod' | 'elem' | 'elemMod';
+        export type Type = 'block' | 'blockMod' | 'elem' | 'elemMod';
+        export type BlockName = string;
+        export type ElementName = string;
+        export type ModifierName = string;
+        export type ModifierValue = string | true;
+        export type Id = string;
 
         /**
          * Abstract object to represent entity name
          */
-        interface AbstractEntityRepresentation {
+        interface AbstractRepresentation {
             /**
              * The block name of entity.
              */
-            block: string;
+            block: BlockName;
             /**
              * The element name of entity.
              */
-            elem?: string;
+            elem?: ElementName;
             mod?: any;
         }
 
         /**
          * Object to represent modifier of entity name.
          */
-        export interface ModifierRepresentation {
+        export interface Modifier {
             /**
              * The modifier name of entity.
              */
-            name: string;
+            name: ModifierName;
             /**
              * The modifier value of entity.
              */
-            val: string | true;
+            val: ModifierValue;
         }
 
         /**
          * Strict object to represent entity name.
          */
-        export interface StrictRepresentation extends AbstractEntityRepresentation {
+        export interface Representation extends AbstractRepresentation {
             /**
              * The modifier of entity.
              */
-            mod?: ModifierRepresentation;
+            mod?: Modifier;
         }
 
         /**
          * Object to create representation of entity name.
          */
-        export interface Options extends AbstractEntityRepresentation {
+        export interface Options extends AbstractRepresentation {
             /**
              * The modifier of entity.
              */
-            mod?: string | {
+            mod?: ModifierName | {
                 /**
                  * The modifier name of entity.
                  */
-                name: string;
+                name: ModifierName;
                 /**
                  * The modifier value of entity.
                  */
-                val?: string | boolean;
+                val?: ModifierValue;
             };
             /**
              * The modifier name of entity. Used if `mod.name` wasn't specified.
              * @deprecated use `mod.name` instead.
              */
-            modName?: string;
+            modName?: ModifierName;
             /**
              * The modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
              * @deprecated use `mod.name` instead.
              */
-            modVal?: string;
+            modVal?: ModifierValue;
         }
 
         /**
-         * Non-strict object to represent entity name.
+         * Object to create representation of entity name with `create` method.
          *
          * Contains old field: `val`, `modName` and `modVal.
          */
-        export interface NonStrictRepresentation extends AbstractEntityRepresentation {
-            /**
-             * The modifier of entity.
-             */
-            mod?: string | {
-                /**
-                 * The modifier name of entity.
-                 */
-                name: string;
-                /**
-                 * The modifier value of entity.
-                 */
-                val?: string | boolean;
-            };
+        export interface CreateOptions extends Options {
             /**
              * The modifier value of entity. Used if neither `mod.val` were not specified.
              */
-            val?: string;
-            /**
-             * The modifier name of entity. Used if `mod.name` wasn't specified.
-             */
-            modName?: string;
-            /**
-             * The modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
-             */
-            modVal?: string;
+            val?: ModifierValue;
         }
     }
 }

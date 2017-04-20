@@ -1,6 +1,6 @@
 import test from 'ava';
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
+import sinon from 'sinon';
+import proxyquire from 'proxyquire';
 
 const spy = sinon.spy();
 const BemEntityName = proxyquire('../lib/entity-name', {

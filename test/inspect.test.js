@@ -1,9 +1,9 @@
+import {EOL} from 'os';
+
 import test from 'ava';
-const sinon = require('sinon');
+import sinon from 'sinon';
 
-import BemEntityName from '../lib/entity-name';
-
-const EOL = require('os').EOL;
+import BemEntityName from '..';
 
 test.beforeEach(t => {
     t.context.stdoutWriteStub = sinon.stub(process.stdout, 'write');

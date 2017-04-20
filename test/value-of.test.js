@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import BemEntityName from '../lib/entity-name';
+import BemEntityName from '..';
 
 test('should return normalized object', t => {
     const entity = new BemEntityName({ block: 'block', mod: 'mod' });

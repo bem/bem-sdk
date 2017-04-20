@@ -1,6 +1,6 @@
 import test from 'ava';
 
-import BemEntityName from '../lib/entity-name';
+import BemEntityName from '..';
 
 test('should detect equal block', t => {
     const entityName1 = new BemEntityName({ block: 'block' });
