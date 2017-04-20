@@ -99,6 +99,17 @@ describe('transform', () => {
         ).to.equal(`<span>\n<Button2 text='hello'/>\n<Button2 text='world'/>\n</span>`);
     });
 
+    it('should content with several blocks inside nested arrays', () => {
+        expect(
+            transform([[
+                { tag: 'span', content: [
+                    [[{ block: 'button2', text: 'hello' }]],
+                    { block: 'button2', text: 'world' }
+                ]}
+            ],[]]).JSX
+        ).to.equal(`<span>\n<Button2 text='hello'/>\n<Button2 text='world'/>\n</span>`);
+    });
+
     it('should transform elem in context of block', () => {
         expect(
             transform({ block: 'button2', content: { elem: 'text', content: 'Hello' } }).JSX
