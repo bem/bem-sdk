@@ -24,6 +24,13 @@ describe('block', () => {
         ])).to.be.equal('b:popup m:autoclosable');
     });
 
+    it('should stringify block with number modifier', () => {
+        expect(s([
+            { block : 'popup' },
+            { block : 'popup', mod : { name : 'fuck', val : 42 } }
+        ])).to.be.equal('b:popup m:fuck=42');
+    });
+
     it('should stringify block with modifier', () => {
         expect(s([
             { block : 'popup' },
