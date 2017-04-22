@@ -22,7 +22,7 @@
   ],
   "dependencies": {
     "@bem/cell": "0.2.5",
-    "@bem/entity-name": "1.4.0",
+    "@bem/entity-name": "1.5.0",
     "@bem/naming": "2.0.0-6",
     "async-each": "1.0.1"
   },
