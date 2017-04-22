@@ -1,6 +1,6 @@
 {
   "name": "@bem/entity-name",
-  "version": "1.4.0",
+  "version": "1.5.0",
   "description": "BEM entity name representation",
   "license": "MPL-2.0",
   "repository": "bem-sdk/bem-entity-name",
