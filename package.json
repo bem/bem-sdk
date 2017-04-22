@@ -31,7 +31,7 @@
     "benchmark": "^2.1.0",
     "coveralls": "^2.11.9",
     "eslint": "^3.0.0",
-    "eslint-config-pedant": "^0.8.0",
+    "eslint-config-pedant": "^0.9.0",
     "jscs": "^3.0.3",
     "mock-fs": "^4.0.0",
     "nyc": "^10.0.0",
