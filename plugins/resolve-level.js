@@ -3,13 +3,13 @@
 var path = require('path'),
     isGlob = require('is-glob'),
     glob = require('glob'),
-    _ = require('lodash'),
+    cloneDeep = require('lodash.clonedeep'),
     merge = require('../lib/merge');
 
 module.exports = function(config, configs, options, cb) {
     var cwd = options.cwd || process.cwd(),
         source = config.__source,
-        res = _.cloneDeep(config),
+        res = cloneDeep(config),
         levels = res.levels || {},
         levelsKeys = Object.keys(levels);
 

@@ -2,7 +2,6 @@
 
 var path = require('path'),
     rc = require('betterc'),
-    _ = require('lodash'),
     Promise = require('pinkie-promise'),
     merge = require('./lib/merge');
 
@@ -299,9 +298,7 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
     delete levelOpts.levels;
     delete levelOpts.root;
 
-    if (!_.isEmpty(levelOpts)) {
-        return levelOpts;
-    }
+    return Object.keys(levelOpts).length ? levelOpts : undefined;
 }
 
 module.exports = function(opts) {
