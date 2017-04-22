@@ -156,7 +156,7 @@ BemConfig.prototype.levelMap = function() {
             return _this.library(libName).then(function(bemLibConf) {
                 return bemLibConf.get().then(function(libConfig) {
                     return libConfig.levels;
-                })
+                });
             });
         })).then(function(libLevels) {
             var allLevels = libLevels.concat(projectLevels);
@@ -230,7 +230,7 @@ BemConfig.prototype.librarySync = function(libName) {
     if (!lib) { return; }
 
     return new BemConfig({ projectRoot: lib.path });
-}
+};
 
 /**
  * Returns map of settings for each of level synchronously
