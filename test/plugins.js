@@ -46,4 +46,38 @@ describe('pluginis', () => {
         });
     });
 
+    describe('keepWhiteSpaces', () => {
+        it('should keep spaces before simple text', ()  => {
+            var res = T().process({ block: 'button2', content: ' space before' });
+
+            expect(res.JSX).to.equal(
+                `<Button2>\n{' space before'}\n</Button2>`
+            );
+        });
+
+        it('should keep spaces after simple text', ()  => {
+            var res = T().process({ block: 'button2', content: 'space after ' });
+
+            expect(res.JSX).to.equal(
+                `<Button2>\n{'space after '}\n</Button2>`
+            );
+        });
+
+        it('should keep spaces before & after simple text', ()  => {
+            var res = T().process({ block: 'button2', content: ' space before & after ' });
+
+            expect(res.JSX).to.equal(
+                `<Button2>\n{' space before & after '}\n</Button2>`
+            );
+        });
+
+        it('should keep spaces in only spaces simple text', ()  => {
+            var res = T().process({ block: 'button2', content: [' ', '  ', '   ']});
+
+            expect(res.JSX).to.equal(
+                `<Button2>\n{' '}\n{'  '}\n{'   '}\n</Button2>`
+            );
+        });
+    });
+
 });
