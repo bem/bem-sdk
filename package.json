@@ -67,5 +67,10 @@
     "require": [
       "./test/setup.js"
     ]
+  },
+  "greenkeeper": {
+    "ignore": [
+      "@types/node"
+    ]
   }
 }
