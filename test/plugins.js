@@ -28,6 +28,32 @@ describe('pluginis', () => {
         });
     });
 
+    describe('camelCaseProps', () => {
+        it('should transform mod-name to modName', () => {
+            var res = T().process({ block: 'button2', mods: { 'has-clear': 'yes' } });
+
+            expect(res.JSX).to.equal(
+                `<Button2 hasClear='yes'/>`
+            );
+        });
+
+        it('should transform several mod-names to modName', () => {
+            var res = T().process({ block: 'button2', mods: { 'has-clear': 'yes', 'has-tick': 'too' } });
+
+            expect(res.JSX).to.equal(
+                `<Button2 hasClear='yes' hasTick='too'/>`
+            );
+        });
+
+        it('should distinguish mod-name and modname', () => {
+            var res = T().process({ block: 'button2', mods: { 'has-clear': 'yes', 'hasclear': 'yes' } });
+
+            expect(res.JSX).to.equal(
+                `<Button2 hasClear='yes' hasclear='yes'/>`
+            );
+        });
+    });
+
     describe('stylePropToObj', () => {
         it('styleProp to obj', () => {
             var res = T().process({ block: 'button2', style: 'width:200px' });

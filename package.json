@@ -36,6 +36,7 @@
   "dependencies": {
     "@bem/entity-name": "github:bem-sdk/bem-entity-name",
     "@bem/naming": "^2.0.0-6",
+    "camel-case": "^3.0.0",
     "pascal-case": "^2.0.1"
   }
 }
