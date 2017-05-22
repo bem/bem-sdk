@@ -1,7 +1,7 @@
 {
   "name": "@bem/bemjson-node",
-  "version": "1.5.0",
-  "description": "BEM entity name representation",
+  "version": "0.0.1",
+  "description": "BEM tree node representation",
   "license": "MPL-2.0",
   "repository": "bem-sdk/bemjson-node",
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
