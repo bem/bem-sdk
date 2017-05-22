@@ -1,4 +1,4 @@
-© YANDEX LLC, 2016
+© YANDEX LLC, 2017
 
 The Source Code called `bemjson-node` available at https://github.com/bem-sdk/bemjson-node is subject to the terms of the Mozilla Public License, v. 2.0 (hereinafter - MPL). The text of MPL is the following:
 
