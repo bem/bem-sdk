@@ -1,6 +1,6 @@
 {
   "name": "@bem/bemjson-node",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "BEM tree node representation",
   "license": "MPL-2.0",
   "repository": "bem-sdk/bemjson-node",
