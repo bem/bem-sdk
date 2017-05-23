@@ -1,0 +1,40 @@
+{
+  "name": "bem-sdk",
+  "version": "0.0.1",
+  "description": "BEM SDK",
+  "keywords": [
+    "bem",
+    "sdk"
+  ],
+  "repository": "bem-sdk/bem-sdk",
+  "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem-sdk/bem-sdk/issues"
+  },
+  "homepage": "https://github.com/bem-sdk/bem-sdk#readme",
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "main": "lib/index.js",
+  "files": [],
+  "dependencies": {},
+  "devDependencies": {
+    "lerna": "^2.0.0-rc.5"
+  },
+  "scripts": {
+    "pretest": "eslint . && jscs . -c .jscs.js",
+    "test": "nyc ava",
+    "unit-test": "ava",
+    "bench": "npm run bench-deps && node ./bench/run.js",
+    "bench-deps": "cd bench && npm i && cd fixtures && bower i",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "serial": true,
+    "verbose": true,
+    "files": [
+      "test/**/*.test.js"
+    ]
+  }
+}
