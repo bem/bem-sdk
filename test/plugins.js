@@ -6,6 +6,34 @@ var BemEntity = require('@bem/entity-name');
 
 describe('pluginis', () => {
 
+    describe('copyMods', () => {
+        it('without elem', () => {
+            var res = T().process({
+                    block: 'button2',
+                    mods: {size: 'm', theme: 'normal'},
+                    elemMods: {size: 'l', theme: 'dark'}
+                });
+
+            expect(res.JSX).to.equal(
+                `<Button2 size='m' theme='normal'/>`
+            );
+        });
+
+        it('with elem', () => {
+            var res = T()
+                .process({
+                    block: 'button2',
+                    elem: 'text',
+                    mods: {size: 'm', theme: 'normal'},
+                    elemMods: {size: 'l', theme: 'dark'}
+                });
+
+            expect(res.JSX).to.equal(
+                `<Button2Text size='l' theme='dark'/>`
+            );
+        });
+    });
+
     describe('whiteList', () => {
         it('without opts', () => {
             var res = T()
