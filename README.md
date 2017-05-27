@@ -21,6 +21,7 @@ declarations:
 
 * [bem-decl](https://github.com/bem-sdk/bem-decl) — working with sets of [bem-entity], intersecting, merging, substracting...
 * [bemjson-to-decl](https://github.com/bem-sdk/bemjson-to-decl) – extracting declarations from [bemjson]
+* [bemjson-to-jsx](https://github.com/bem-sdk/bemjson-to-jsx) – transforming [bemjson] to [JSX] markup
 * [bem-import-notation](https://github.com/bem-sdk/bem-import-notation) — extracting declarations from es6-import/require strings
 
 dependencies:
@@ -37,4 +38,4 @@ containers:
 [BEM]: https://en.bem.info
 [bem-entity]: https://en.bem.info/methodology/key-concepts/#bem-entity
 [bemjson]: https://en.bem.info/platform/bemjson/
-
+[JSX]: https://facebook.github.io/react/docs/introducing-jsx.html

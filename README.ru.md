@@ -21,6 +21,7 @@ bem-sdk
 
 * [bem-decl](https://github.com/bem-sdk/bem-decl) — работа с группами [БЭМ-сущностей](БЭМ-сущность), нахождение их пересечения, объединения, вычитания...
 * [bemjson-to-decl](https://github.com/bem-sdk/bemjson-to-decl) – вычленение декларации из [bemjson]-структуры
+* [bemjson-to-jsx](https://github.com/bem-sdk/bemjson-to-jsx) – трансформация [bemjson] в [JSX]-разметку
 * [bem-import-notation](https://github.com/bem-sdk/bem-import-notation) — вычленение декларации из строк в формате `es6-import` и `require`
 
 зависимости:
@@ -37,4 +38,4 @@ bem-sdk
 [БЭМ]: https://ru.bem.info
 [БЭМ-сущность]: https://ru.bem.info/methodology/key-concepts/#БЭМ-сущность
 [bemjson]: https://ru.bem.info/platform/bemjson/
-
+[JSX]: https://facebook.github.io/react/docs/introducing-jsx.html
