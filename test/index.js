@@ -128,6 +128,12 @@ describe('transform', () => {
         ).to.equal(`<Button2 mix={{ 'block': 'header', 'elem': 'button' }}/>`);
     });
 
+    it('should provide custom prop as jsx', () => {
+        expect(
+            transform({ block: 'button2',  custom: {block: 'header', elem: 'button' } }).JSX
+        ).to.equal(`<Button2 custom={<HeaderButton/>}/>`);
+    });
+
     it('should treat strings as text', () => {
         expect(
             transform(['Hello I am a string', { block: 'button2', content: 'Hello I am a string'}]).JSX
