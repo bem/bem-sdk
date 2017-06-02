@@ -1,6 +1,6 @@
 {
   "name": "bemjson-to-decl",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "BEMJSON to BEMDECL helper",
   "main": "index.js",
   "scripts": {
