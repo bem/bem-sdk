@@ -225,8 +225,6 @@ describe('js', () => {
             { block: 'button2', elem: 'icon' }
         ]);
     });
-
-
 });
 
 describe('attrs', () => {
@@ -271,5 +269,21 @@ describe('attrs', () => {
             { block: 'button2', elem: 'icon' }
         ]);
     });
+});
 
+describe('aggressive', () => {
+    it('should resolve custom props object', () => {
+        expect(parse({ block: 'button2', icon: { block: 'icon' } })).to.bemeql([
+            { block: 'button2' },
+            { block: 'icon' }
+        ]);
+    });
+
+    it('should resolve custom props array', () => {
+        expect(parse({ block: 'button2', icon: [{ block: 'icon' }, { block: 'input', elem: 'control' }] }, {}, { aggressive: true })).to.bemeql([
+            { block: 'button2' },
+            { block: 'icon' },
+            { block: 'input', elem: 'control' }
+        ]);
+    });
 });

@@ -6,6 +6,7 @@ const BemEntity = require('@bem/entity-name');
 
 function getEntities(bemjson, ctx) {
     const visited = {};
+    const collectDeps = (ent, deps, ctx_) => deps.concat(_getEntities(ent, ctx_));
 
     function _getEntities(bemjson_, ctx_) {
         ctx_ = Object.assign({}, ctx_);
@@ -48,13 +49,17 @@ function getEntities(bemjson, ctx) {
             }
         });
 
-        ['mix', 'content'].forEach(function(k) {
-            bemjson_[k] && (deps = deps.concat(_getEntities(bemjson_[k], ctx_)));
+        ['js', 'attrs'].forEach(k => {
+            bemjson_[k] && Object.keys(bemjson_[k]).forEach(function(kk) {
+                deps = collectDeps(bemjson_[k][kk], deps, ctx_);
+            });
         });
 
-        ['js', 'attrs'].forEach(function(k) {
-            bemjson_[k] && Object.keys(bemjson_[k]).forEach(function(kk) {
-                deps = deps.concat(_getEntities(bemjson_[k][kk], ctx_));
+        Object.keys(bemjson_).forEach(key => {
+            if (~['js', 'attrs', 'mods', 'elemMods', 'block', 'elem'].indexOf(key)) return;
+
+            [].concat(bemjson_[key]).forEach(ent => {
+                deps = collectDeps(ent, deps, ctx_);
             });
         });
 
