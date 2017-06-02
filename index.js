@@ -56,7 +56,7 @@ function getEntities(bemjson, ctx) {
         });
 
         Object.keys(bemjson_).forEach(key => {
-            if (~['js', 'attrs', 'mods', 'elemMods', 'block', 'elem'].indexOf(key)) return;
+            if (~['js', 'attrs', 'mods', 'elemMods', 'block', 'elem'].indexOf(key)) { return; }
 
             [].concat(bemjson_[key]).forEach(ent => {
                 deps = collectDeps(ent, deps, ctx_);
