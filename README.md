@@ -41,7 +41,7 @@ var bemjson = {
 
 var jsxTree = bemjsonToJSX.process(bemjson);
 
-console.log(jsxTree.JSX));
+console.log(jsxTree.JSX);
 // → "<Button2 theme={'normal'} size={'m'} text={'hello world'}/>"
 ```
 
