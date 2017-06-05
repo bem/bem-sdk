@@ -36,36 +36,43 @@ bemjsonToDecl.convert([
     {elem: 'control', elemMods: {theme: 'normal'}},
     {elem: 'control', elemMods: {theme: 'ghost'}}
 ], {block: 'button'});
-// [ { block: 'button' },
-//   { block: 'button', elem: 'control' },
-//   { block: 'button', elem: 'control', modName: 'theme', modVal: true },
-//   { block: 'button', elem: 'control', modName: 'theme', modVal: 'normal' },
-//   { block: 'button', elem: 'control', modName: 'theme', modVal: 'ghost' } ]
+
+// →
+//  [ BemEntityName { block: 'button', elem: 'control' },
+//    BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: true } },
+//    BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: 'normal' } },
+//    BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: 'ghost' } }
+//  ]
 ```
 
 ## API
 
-### `convert(bemjson: BEMJSON, scope: ?BemEntityName): BemCell[]`
+### `convert(bemjson: BEMJSON, scope: ?BemEntityName): BemEntityName[]`
 
-Fetchs BEM-entities from BEMJSON object.
+Extract BEM-entities from BEMJSON object.
 
 ```js
 const bemjsonToDecl = require('bemjson-to-decl');
 
 bemjsonToDecl.convert({block: 'button', mods: {theme: 'normal'}});
-// [ { block: 'button' },
-//   { block: 'button', modName: 'theme', modVal: true },
-//   { block: 'button', modName: 'theme', modVal: 'normal' } ]
+
+// →
+//  [ BemEntityName { block: 'button' },
+//    BemEntityName { block: 'button', mod: { name: 'theme', val: true } },
+//    BemEntityName { block: 'button', mod: { name: 'theme', val: 'normal' } }
+//  ]
 ```
 
 ### `stringify(bemjson: BEMJSON, scope: ?BemEntityName, opts: ?{indent: string}): string`
 
-Fetchs BEM-entities and stringifies result to the string.
+Extract BEM-entities and stringify result to the string.
 
 ```js
 const bemjsonToDecl = require('bemjson-to-decl');
 
 bemjsonToDecl.stringify({block: 'button'}, null, {indent: '\t'});
+
+// →
 // "[\n\t{\n\t\tblock: 'button'\n\t}\n]"
 ```
 
