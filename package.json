@@ -36,7 +36,7 @@
     "coveralls": "^2.11.9",
     "jscs": "^3.0.3",
     "jshint": "^2.9.2",
-    "mock-fs": "^3.11.0",
+    "mock-fs": "^4.3.0",
     "nyc": "^6.4.4",
     "stream-to-array": "^2.3.0",
     "through2": "^2.0.1"
