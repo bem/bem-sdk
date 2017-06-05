@@ -80,7 +80,7 @@ function stringify(bemjson, ctx, opts) {
     opts || (opts = {});
     opts.indent || (opts.indent = '    ');
 
-    return stringifyObj(getEntities(bemjson, ctx), opts);
+    return stringifyObj(getEntities(bemjson, ctx).map(entity => entity.toJSON()), opts);
 }
 
 module.exports = {
