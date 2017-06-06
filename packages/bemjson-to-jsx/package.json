@@ -1,0 +1,42 @@
+{
+  "name": "bemjson-to-jsx",
+  "version": "1.5.0",
+  "description": "Transform BEMJSON to JSX",
+  "main": "lib/index.js",
+  "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
+  "license": "MPL-2.0",
+  "files": [
+    "lib/"
+  ],
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "npm run specs",
+    "specs": "nyc mocha",
+    "lint": "eslint ."
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.19.0",
+    "eslint-config-pedant": "^0.8.1",
+    "mocha": "^3.2.0",
+    "nyc": "^10.2.0"
+  },
+  "keywords": [
+    "bemjson",
+    "jsx"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem-sdk/bemjson-to-jsx.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bem-sdk/bemjson-to-jsx/issues"
+  },
+  "homepage": "https://github.com/bem-sdk/bemjson-to-jsx#readme",
+  "dependencies": {
+    "@bem/entity-name": "github:bem-sdk/bem-entity-name",
+    "@bem/naming": "^2.0.0-6",
+    "camel-case": "^3.0.0",
+    "pascal-case": "^2.0.1"
+  }
+}
