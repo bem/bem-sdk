@@ -1,0 +1,62 @@
+{
+  "name": "bem-decl",
+  "version": "0.3.0",
+  "description": "Manage declaration of BEM entities",
+  "keywords": [
+    "bem",
+    "declaration",
+    "entities",
+    "merge",
+    "normalize",
+    "subtract",
+    "bemdecl"
+  ],
+  "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
+  "license": "MPL-2.0",
+  "repository": "bem-sdk/bem-decl",
+  "homepage": "https://github.com/bem-sdk/bem-decl",
+  "bugs": "https://github.com/bem-sdk/bem-decl/issues",
+  "engines": {
+    "node": ">= 4"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib/**"
+  ],
+  "dependencies": {
+    "@bem/cell": "0.2.5",
+    "@bem/entity-name": "1.5.0",
+    "es6-promisify": "5.0.0",
+    "graceful-fs": "4.1.11",
+    "json5": "0.5.1",
+    "node-eval": "1.1.0"
+  },
+  "devDependencies": {
+    "ava": "^0.19.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^3.0.0",
+    "eslint-config-pedant": "^0.9.0",
+    "jscs": "^3.0.3",
+    "matcha": "^0.7.0",
+    "nyc": "^10.0.0",
+    "proxyquire": "^1.7.10",
+    "sinon": "^2.1.0"
+  },
+  "scripts": {
+    "lint": "eslint . && jscs .",
+    "pretest": "npm run lint",
+    "test": "nyc ava",
+    "bench": "matcha benchmark/*.js",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "files": [
+      "test/*.test.js",
+      "test/**/*.test.js"
+    ],
+    "source": [
+      "lib/*.js",
+      "lib/**/*.js"
+    ]
+  }
+}
