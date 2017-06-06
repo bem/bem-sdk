@@ -2,7 +2,7 @@ bem-sdk
 =======
 
 <div align="center">
-    <img width="300" height="300" src="https://bem-sdk.github.io/bem-sdk/logo.svg" alt="logo" />
+    <img width="300" height="300" src="https://bem.github.io/bem-sdk/logo.svg" alt="logo" />
 </div>
 
 Usefull modules to work with [BEM] methodology:
