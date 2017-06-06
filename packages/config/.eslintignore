@@ -1,0 +1,3 @@
+test/lib/mock-fs-helper.js
+test/test.js
+coverage/

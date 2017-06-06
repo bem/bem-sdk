@@ -1,0 +1,53 @@
+{
+    "excludeFiles": [
+        ".githooks/**",
+        "node_modules/**",
+        "test/**",
+        "coverage/**"
+    ],
+    "fileExtensions": [".js"],
+    "validateQuoteMarks": "'",
+    "requireSpaceAfterKeywords": ["if", "else", "for", "while", "do", "switch", "return", "try", "catch"],
+    "requireSpaceBeforeKeywords": ["else", "while", "catch"],
+    "disallowKeywords": ["with"],
+    "disallowKeywordsOnNewLine": ["else", "catch"],
+    "requireOperatorBeforeLineBreak": true,
+    "disallowOperatorBeforeLineBreak": ["."],
+    "requireSpaceBeforeBinaryOperators": true,
+    "requireSpaceAfterBinaryOperators": true,
+    "disallowSpaceBeforeBinaryOperators": [","],
+    "disallowSpaceAfterPrefixUnaryOperators": true,
+    "disallowSpaceBeforePostfixUnaryOperators": true,
+    "requireSpacesInsideObjectBrackets": "all",
+    "disallowSpaceAfterObjectKeys": true,
+    "requireSpaceBeforeObjectValues": true,
+    "disallowSpacesInsideArrayBrackets": true,
+    "disallowSpacesInCallExpression": true,
+    "requireSpacesInFunctionDeclaration": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInFunctionDeclaration": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningCurlyBrace": true
+    },
+    "disallowSpacesInAnonymousFunctionExpression": {
+        "beforeOpeningRoundBrace": true
+    },
+    "requireBlocksOnNewline": 1,
+    "disallowSpacesInsideParentheses": true,
+    "requireCommaBeforeLineBreak": true,
+    "disallowMultipleLineStrings": true,
+    "disallowMultipleLineBreaks": true,
+    "validateLineBreaks": "LF",
+    "disallowMixedSpacesAndTabs": true,
+    "requireCapitalizedConstructors": true,
+    "disallowYodaConditions": true,
+    "disallowNewlineBeforeBlockStatements": true,
+    "requireSpacesInConditionalExpression": true,
+    "requireLineFeedAtFileEnd": true,
+    "disallowTrailingWhitespace": true,
+    "requireSpaceBeforeBlockStatements": true,
+    "safeContextKeyword": ["_this"]
+}

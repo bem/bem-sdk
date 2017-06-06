@@ -1,0 +1,56 @@
+{
+  "name": "bem-config",
+  "version": "3.2.3",
+  "description": "Config module for bem-tools",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint && npm run unit",
+    "unit": "ava",
+    "lint": "eslint . && jscs .",
+    "cover": "nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "files": [
+      "test/async.js",
+      "test/sync.js"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem-sdk/bem-config.git"
+  },
+  "keywords": [
+    "bem-tools",
+    "bem",
+    "config"
+  ],
+  "author": "",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem-sdk/bem-config/issues"
+  },
+  "homepage": "https://github.com/bem-sdk/bem-config#readme",
+  "engines": {
+    "node": ">=4"
+  },
+  "dependencies": {
+    "betterc": "^1.3.0",
+    "glob": "^7.0.5",
+    "is-glob": "^3.1.0",
+    "lodash.clonedeep": "^4.5.0",
+    "lodash.mergewith": "^4.6.0",
+    "pinkie-promise": "^2.0.1"
+  },
+  "devDependencies": {
+    "ava": "^0.18.2",
+    "babel-eslint": "^7.2.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^3.0.0",
+    "eslint-config-pedant": "^0.8.0",
+    "jscs": "^2.11.0",
+    "mock-fs": "^4.2.0",
+    "nyc": "^10.1.2",
+    "proxyquire": "^1.7.10"
+  }
+}
