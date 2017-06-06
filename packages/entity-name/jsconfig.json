@@ -1,0 +1,17 @@
+{
+  "compilerOptions": {
+    "target": "ES6",
+    "module": "commonjs"
+  },
+  "include": [
+    "lib",
+    "types"
+  ],
+  "exclude": [
+    "node_modules"
+  ],
+  "files": [
+    "index.js",
+    "index.d.ts"
+  ]
+}
