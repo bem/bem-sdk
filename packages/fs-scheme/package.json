@@ -1,0 +1,41 @@
+{
+  "name": "@bem/fs-scheme",
+  "version": "2.1.1-0",
+  "description": "BEM file system schemes",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint && npm run unit",
+    "unit": "mocha",
+    "cover": "nyc mocha",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem-sdk/bem-fs-scheme.git"
+  },
+  "keywords": [
+    "BEM",
+    "bem",
+    "file system",
+    "fs",
+    "bem scheme"
+  ],
+  "author": "",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem-sdk/bem-fs-scheme/issues"
+  },
+  "homepage": "https://github.com/bem-sdk/bem-fs-scheme#readme",
+  "dependencies": {
+    "@bem/cell": "0.2.5",
+    "@bem/naming": "2.0.0-6"
+  },
+  "devDependencies": {
+    "@bem/entity-name": "^1.1.0",
+    "chai": "^3.5.0",
+    "eslint": "^3.1.1",
+    "eslint-config-pedant": "^0.7.0",
+    "mocha": "^2.5.3",
+    "nyc": "^10.1.2"
+  }
+}
