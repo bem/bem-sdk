@@ -1,0 +1,46 @@
+{
+  "name": "@bem/cell",
+  "version": "0.2.6",
+  "description": "Representation of identifier of a part of BEM entity.",
+  "license": "MPL-2.0",
+  "repository": "bem-sdk/bem-cell",
+  "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
+  "keywords": [
+    "bem",
+    "entity",
+    "tech",
+    "level",
+    "layer",
+    "cell",
+    "part",
+    "identifier",
+    "id"
+  ],
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "dependencies": {
+    "@bem/entity-name": "1.5.0",
+    "depd": "1.1.0"
+  },
+  "devDependencies": {
+    "ava": "^0.19.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^3.0.0",
+    "eslint-config-pedant": "^0.9.0",
+    "nyc": "^10.0.0",
+    "sinon": "^2.0.0"
+  },
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "npm run cover",
+    "lint": "eslint .",
+    "unit-test": "ava",
+    "cover": "nyc ava",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  }
+}
