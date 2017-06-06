@@ -1,0 +1,61 @@
+{
+  "name": "@bem/bemjson-node",
+  "version": "0.1.0",
+  "description": "BEM tree node representation",
+  "license": "MPL-2.0",
+  "repository": "bem-sdk/bemjson-node",
+  "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
+  "keywords": [
+    "bem",
+    "bemjson",
+    "node",
+    "tree"
+  ],
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "files": [
+    "lib/**",
+    "types/**",
+    "index.js",
+    "index.d.ts"
+  ],
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "devDependencies": {
+    "@types/node": "^4.2.5",
+    "@types/proxyquire": "^1.3.27",
+    "@types/sinon": "^2.1.2",
+    "ava": "^0.19.0",
+    "coveralls": "^2.11.9",
+    "eslint": "^3.0.0",
+    "eslint-config-pedant": "^0.9.0",
+    "nyc": "^10.0.0",
+    "proxyquire": "^1.7.7",
+    "sinon": "^2.1.0",
+    "tslint": "^5.0.0",
+    "tslint-config-typings": "^0.3.1",
+    "typescript": "^2.2.2"
+  },
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "nyc ava",
+    "lint": "npm run lint:js && npm run lint:dts",
+    "lint:js": "eslint .",
+    "lint:dts": "tslint types/*.d.ts",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "require": [
+      "./test/setup.js"
+    ]
+  },
+  "greenkeeper": {
+    "ignore": [
+      "@types/node"
+    ]
+  }
+}
