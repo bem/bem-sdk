@@ -1,0 +1,40 @@
+{
+  "name": "@bem/bundle",
+  "version": "0.2.2",
+  "description": "bem-bundle",
+  "main": "lib/index.js",
+  "engines": {
+    "node": ">= 4"
+  },
+  "files": [
+    "lib/**"
+  ],
+  "scripts": {
+    "pretest": "eslint . && jscs .",
+    "test": "mocha test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem-sdk/bem-bundle.git"
+  },
+  "keywords": [
+    "bem"
+  ],
+  "author": "Anton Krichevskii <mrskadi0@gmail.com> (github.com/skad0)",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem-sdk/bem-bundle/issues"
+  },
+  "homepage": "https://github.com/bem-sdk/bem-bundle#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^2.9.0",
+    "eslint-config-pedant": "^0.5.1",
+    "eslint-plugin-mocha": "^4.0.0",
+    "jscs": "^3.0.3",
+    "mocha": "^2.5.3"
+  },
+  "dependencies": {
+    "bemjson-to-decl": "1.0.1"
+  }
+}
