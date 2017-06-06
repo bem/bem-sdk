@@ -1,0 +1,25 @@
+{
+    "bitwise": true,
+    "eqeqeq": true,
+    "forin": true,
+    "freeze": true,
+    "immed": true,
+    "latedef": "nofunc",
+    "noarg": true,
+    "noempty": true,
+    "nonbsp": true,
+    "nonew": true,
+    "undef": true,
+    "unused": true,
+
+    "node": true,
+    "mocha": true,
+    "esnext": true,
+    "globals": {
+      "expect": true,
+      "test": true
+    },
+
+    "expr": true,
+    "sub": true
+}

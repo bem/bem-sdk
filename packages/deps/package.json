@@ -1,0 +1,64 @@
+{
+  "name": "@bem/deps",
+  "version": "0.2.2",
+  "description": "Manage BEM dependencies",
+  "license": "MPL-2.0",
+  "author": "Andrew Abramov <mail@blond.im>",
+  "keywords": [
+    "bem",
+    "deps",
+    "dependencies",
+    "deps.js",
+    "read",
+    "parse",
+    "resolve"
+  ],
+  "repository": "bem-sdk/bem-deps",
+  "engines": {
+    "node": ">= 4.6.2"
+  },
+  "main": "lib/index.js",
+  "files": [
+    "lib/**"
+  ],
+  "dependencies": {
+    "bem-decl": "0.3.0",
+    "bem-entity-name": "0.0.2",
+    "bem-graph": "0.0.3",
+    "bem-walk": "1.0.0-1",
+    "debug": "^2.2.0",
+    "mz": "^2.4.0",
+    "node-eval": "^1.0.3"
+  },
+  "devDependencies": {
+    "ava": "^0.15.0",
+    "chai": "^3.5.0",
+    "coveralls": "^2.11.9",
+    "jscs": "^3.0.3",
+    "jshint": "^2.9.2",
+    "mock-fs": "^4.3.0",
+    "nyc": "^6.4.4",
+    "stream-to-array": "^2.3.0",
+    "through2": "^2.0.1"
+  },
+  "scripts": {
+    "pretest": "npm run lint",
+    "test": "nyc ava",
+    "lint": "jshint . && jscs . -c .jscs.js",
+    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.test.js"
+    ],
+    "source": [
+      "lib/**/*.js"
+    ],
+    "concurrency": 25
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js"
+    ]
+  }
+}
