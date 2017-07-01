@@ -12,13 +12,10 @@ matrix:
     - node_js: "6"
       env: COVERALLS=1
     - node_js: "8"
-      env: NPM_4=1
 
 before_install:
-  - if [ "x$NPM_4" = "x1" ]; then
-      npm install -g npm@4;
-      npm -v;
-    fi
+    npm install -g npm@4;
+    npm -v;
 
 install:
   - npm install
