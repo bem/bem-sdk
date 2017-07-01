@@ -2,7 +2,7 @@
 
 const test = require('ava');
 
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const BemCell = require('../index');
 

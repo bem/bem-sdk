@@ -1,8 +1,8 @@
 'use strict';
 
 const debug = require('debug')('bem-graph');
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const MixedGraph = require('./mixed-graph');
 const resolve = require('./mixed-graph-resolve');

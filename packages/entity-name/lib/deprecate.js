@@ -2,7 +2,7 @@
 
 const util = require('util');
 
-const deprecate = require('depd')('@bem/entity-name');
+const deprecate = require('depd')('@bem/sdk.entity-name');
 
 /**
  * Logs deprecation messages.

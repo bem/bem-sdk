@@ -1,7 +1,7 @@
 'use strict';
 
-var bn = require('@bem/naming');
-var BemEntity = require('@bem/entity-name');
+var bn = require('@bem/sdk.naming');
+var BemEntity = require('@bem/sdk.entity-name');
 var pascalCase = require('pascal-case');
 
 var reactMappings = require('./reactMappings');

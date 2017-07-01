@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const BemCell = require('@bem/cell');
+const BemCell = require('@bem/sdk.cell');
 
 const format = require('../../lib/format');
 

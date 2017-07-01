@@ -2,15 +2,15 @@
 
 var path = require('path');
 var assert = require('assert');
-var BemCell = require('@bem/cell');
-var bemNaming = require('@bem/naming');
+var BemCell = require('@bem/sdk.cell');
+var bemNaming = require('@bem/sdk.naming');
 
 var presets = require('../presets');
 
 module.exports = {
     path: function(cell, options) {
         assert(BemCell.isBemCell(cell),
-            'Provide instance of [@bem/cell](https://github.com/bem-sdk/bem-cell).'
+            'Provide instance of [@bem/sdk.cell](https://github.com/bem/bem-sdk/tree/master/packages/cell).'
         );
 
         var opts;

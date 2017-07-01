@@ -5,7 +5,7 @@ const util = require('util');
 
 const deprecate = require('depd')(require('./package.json').name);
 
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 module.exports = class BemCell {
     /**
@@ -27,8 +27,8 @@ module.exports = class BemCell {
      * Returns the name of entity.
      *
      * @example
-     * const BemCell = require('@bem/cell');
-     * const BemEntityName = require('@bem/entity-name');
+     * const BemCell = require('@bem/sdk.cell');
+     * const BemEntityName = require('@bem/sdk.entity-name');
      *
      * const cell = new BemCell({
      *     entity: new BemEntityName({ block: 'button', elem: 'text' })
@@ -44,8 +44,8 @@ module.exports = class BemCell {
      * Returns the tech of cell.
      *
      * @example
-     * const BemCell = require('@bem/cell');
-     * const BemEntityName = require('@bem/entity-name');
+     * const BemCell = require('@bem/sdk.cell');
+     * const BemEntityName = require('@bem/sdk.entity-name');
      *
      * const cell = new BemCell({
      *     entity: new BemEntityName({ block: 'button', elem: 'text' }),
@@ -62,8 +62,8 @@ module.exports = class BemCell {
      * Returns the layer of this cell.
      *
      * @example
-     * const BemCell = require('@bem/cell');
-     * const BemEntityName = require('@bem/entity-name');
+     * const BemCell = require('@bem/sdk.cell');
+     * const BemEntityName = require('@bem/sdk.entity-name');
      *
      * const cell = new BemCell({
      *     entity: new BemEntityName({ block: 'button', elem: 'text' }),
@@ -125,8 +125,8 @@ module.exports = class BemCell {
      * Important: should only be used to determine uniqueness of cell.
      *
      * @example
-     * const BemCell = require('@bem/cell');
-     * const BemEntityName = require('@bem/entity-name');
+     * const BemCell = require('@bem/sdk.cell');
+     * const BemEntityName = require('@bem/sdk.entity-name');
      *
      * const cell = new BemCell({
      *     entity: new BemEntityName({ block: 'button', elem: 'text' }),
@@ -155,11 +155,11 @@ module.exports = class BemCell {
      * Returns string representing the bem cell.
      *
      * Important: If you want to get string representation in accordance with the provisions naming convention
-     * you should use `bem-naming` package.
+     * you should use `@bem/sdk.naming` package.
      *
      * @example
-     * const BemCell = require('@bem/cell');
-     * const BemEntityName§ = require('@bem/entity-name');
+     * const BemCell = require('@bem/sdk.cell');
+     * const BemEntityName§ = require('@bem/sdk.entity-name');
      * const cell = new BemCell({ entity: new BemEntityName({ block: 'button', mod: 'focused' }),
      *     tech: 'css', layer: 'desktop' });
      *
@@ -179,8 +179,8 @@ module.exports = class BemCell {
      * without private and deprecated fields (`modName` and `modVal`).
      *
      * @example
-     * const BemCell = require('@bem/cell');
-     * const BemEntityName = require('@bem/entity-name');
+     * const BemCell = require('@bem/sdk.cell');
+     * const BemEntityName = require('@bem/sdk.entity-name');
      * const cell = new BemCell({ entity: new BemEntityName({ block: 'button', mod: 'focused' }),
      *     tech: 'css', layer: 'desktop' });
      *
@@ -209,8 +209,8 @@ module.exports = class BemCell {
      * without private fields.
      *
      * @example
-     * const BemCell = require('@bem/cell');
-     * const BemEntityName = require('@bem/entity-name');
+     * const BemCell = require('@bem/sdk.cell');
+     * const BemEntityName = require('@bem/sdk.entity-name');
      * const cell = new BemCell({ entity: new BemEntityName({ block: 'button' }), tech: 'css', layer: 'desktop' });
      *
      * console.log(cell); // BemCell { entity: { block: 'button' }, tech: 'css', layer: 'desktop' }
@@ -239,7 +239,7 @@ module.exports = class BemCell {
      * Determines whether specified cell is deep equal to cell or not
      *
      * @example
-     * const BemCell = require('@bem/cell');
+     * const BemCell = require('@bem/sdk.cell');
      * const buttonCell1 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
      * const buttonCell2 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
      * const inputCell = BemCell.create({ block: 'input', tech: 'css', layer: 'common' });
@@ -258,8 +258,8 @@ module.exports = class BemCell {
      * Determines whether specified cell is instance of BemCell.
      *
      * @example
-     * const BemCell = require('@bem/cell');
-     * const BemEntityName = require('@bem/entity-name');
+     * const BemCell = require('@bem/sdk.cell');
+     * const BemEntityName = require('@bem/sdk.entity-name');
      *
      * const cell = new BemCell({
      *     entity: new BemEntityName({ block: 'button', elem: 'text' })
@@ -279,7 +279,7 @@ module.exports = class BemCell {
      * Creates BemCell instance by any object representation.
      *
      * @example
-     * const BemCell = require('@bem/cell');
+     * const BemCell = require('@bem/sdk.cell');
      *
      * BemCell.create({ block: 'my-button', mod: 'theme', val: 'red', tech: 'css' });
      * BemCell.create({ block: 'my-button', modName: 'theme', modVal: 'red', tech: 'css' });

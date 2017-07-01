@@ -4,7 +4,7 @@ const assert = require('assert');
 
 const isNotSupported = () => {
     throw new Error(
-        'This format isn\'t supported yet, file an issue: https://github.com/bem-sdk/bem-decl/issues/new'
+        'This format isn\'t supported yet, file an issue: https://github.com/bem/bem-sdk/issues/new?labels=pkg:decl'
     );
 };
 

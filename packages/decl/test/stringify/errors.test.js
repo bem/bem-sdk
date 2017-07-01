@@ -2,7 +2,7 @@
 
 const test = require('ava');
 
-const BemCell = require('@bem/cell');
+const BemCell = require('@bem/sdk.cell');
 const stringify = require('../../lib/stringify');
 
 const cell = BemCell.create({ block: 'block' });

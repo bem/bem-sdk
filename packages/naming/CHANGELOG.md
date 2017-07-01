@@ -50,7 +50,7 @@ const blockName = parseBemName('button');
 blockName.type // block
 
 // get type by entity object
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 const modName = new BemEntityName({ block: 'button', mod: 'focused' });
 
 modName.type; // blockMod
@@ -136,7 +136,7 @@ stringify({ block: 'button', modName: 'disabled', modVal: true });
 
 ```js
 const stringify = require('@bem/naming').stringify;
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const entityName = new BemEntityName({ block: 'button', mod: 'disabled' });
 

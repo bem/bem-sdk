@@ -1,8 +1,8 @@
 'use strict';
 
 const test = require('ava');
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 const createCell = (cell) => new BemCell({
     entity: new BemEntityName(cell.entity),
     tech: cell.tech

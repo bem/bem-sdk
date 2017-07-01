@@ -1,7 +1,7 @@
 'use strict';
 
 const series = require('ho-iter').series;
-const BemCell = require('@bem/cell');
+const BemCell = require('@bem/sdk.cell');
 
 const VertexSet = require('./vertex-set');
 const DirectedGraph = require('./directed-graph');

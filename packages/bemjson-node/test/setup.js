@@ -1,2 +1,2 @@
 // To silence deprecation warnings from being output
-process.env.NO_DEPRECATION = '@bem/entity-name';
+process.env.NO_DEPRECATION = '@bem/sdk.entity-name';
