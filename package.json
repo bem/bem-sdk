@@ -16,25 +16,13 @@
   "engines": {
     "node": ">= 4.0"
   },
-  "main": "lib/index.js",
-  "files": [],
-  "dependencies": {},
   "devDependencies": {
     "lerna": "^2.0.0-rc.5"
   },
   "scripts": {
-    "pretest": "eslint . && jscs . -c .jscs.js",
-    "test": "nyc ava",
-    "unit-test": "ava",
-    "bench": "npm run bench-deps && node ./bench/run.js",
-    "bench-deps": "cd bench && npm i && cd fixtures && bower i",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
-  },
-  "ava": {
-    "serial": true,
-    "verbose": true,
-    "files": [
-      "test/**/*.test.js"
-    ]
+    "postinstall": "[ \"x$NO_LERNA\" = 'x1' ] && exit 0; which lerna && lerna bootstrap",
+    "lint": "echo 'lint: TODO'",
+    "pretest": "npm run lint",
+    "test": "lerna run test"
   }
 }
