@@ -1,8 +1,0 @@
-env:
-  node: true
-
-globals:
-  describe: true
-  it: true
-
-extends: pedant

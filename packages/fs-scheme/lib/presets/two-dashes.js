@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     naming: 'two-dashes',
     elemDirDelim: '__',

@@ -1,8 +1,0 @@
-extends: ../.eslintrc
-
-globals:
-  lib: false
-  utils: false
-
-rules:
-  no-unexpected-multiline: 0

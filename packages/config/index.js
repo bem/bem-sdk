@@ -51,9 +51,9 @@ BemConfig.prototype.configs = function(isSync) {
 
         this._root = getConfigsRootDir(configs);
 
-        return plugins.reduce(function(configs, plugin) {
-            return configs.map(function(config) {
-                return plugin(config, configs, options);
+        return plugins.reduce(function(acc, plugin) {
+            return acc.map(function(config) {
+                return plugin(config, acc, options);
             });
         }, configs);
     }
@@ -67,10 +67,10 @@ BemConfig.prototype.configs = function(isSync) {
 
         return plugins.reduce(
             function(cfgsPromise, plugin) {
-                return cfgsPromise.then(function(configs) {
-                    return Promise.all(configs.map(function(config) {
+                return cfgsPromise.then(function(configs_) {
+                    return Promise.all(configs_.map(function(config) {
                         return new Promise(function(resolve) {
-                            plugin(config, configs, options, resolve);
+                            plugin(config, configs_, options, resolve);
                         });
                     }));
                 });

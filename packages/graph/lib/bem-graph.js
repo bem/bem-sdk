@@ -21,7 +21,7 @@ class BemGraph {
         return new BemGraph.Vertex(this, vertex);
     }
     naturalDependenciesOf(entities, tech) {
-        return this.dependenciesOf(this._sortNaturally(entities), tech);
+        return this.dependenciesOf(BemGraph._sortNaturally(entities), tech);
     }
     dependenciesOf(entities, tech) {
         if (!Array.isArray(entities)) {
@@ -117,7 +117,7 @@ class BemGraph {
             }
         }
     }
-    _sortNaturally(entities) {
+    static _sortNaturally(entities) {
         const order = {};
         let idx = 0;
         for (let entity of entities) {

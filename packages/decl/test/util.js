@@ -1,3 +1,5 @@
+'use strict';
+
 const BemCell = require('@bem/cell');
 const BemEntityName = require('@bem/entity-name');
 

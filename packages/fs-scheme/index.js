@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = function(name) {
     try {
         return require('./lib/schemes/' + (name || 'nested'));

@@ -1,3 +1,5 @@
+'use strict';
+
 const test = require('ava');
 const sinon = require('sinon');
 const BemEntityName = require('@bem/entity-name');

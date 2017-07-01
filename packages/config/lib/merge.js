@@ -1,3 +1,5 @@
+'use strict';
+
 var mergeWith = require('lodash.mergewith');
 
 /**

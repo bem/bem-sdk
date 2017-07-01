@@ -1,0 +1,7 @@
+.nyc_output
+node_modules
+coverage
+
+
+#Remove after AVA done
+packages/config/test/*.test.js
