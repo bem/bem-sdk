@@ -44,6 +44,7 @@
   "scripts": {
     "pretest": "npm run lint",
     "test": "nyc ava",
+    "unit-test": "ava",
     "lint": "jshint . && jscs . -c .jscs.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },

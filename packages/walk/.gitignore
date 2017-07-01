@@ -1,4 +1,1 @@
-.nyc_output
-node_modules
-coverage
 bench/fixtures/libs
