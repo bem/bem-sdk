@@ -13,13 +13,17 @@ matrix:
       env: COVERALLS=1
     - node_js: "8"
 
+before_install:
+  - if [ "x$node_js" = "x8" ]; then
+      npm install -g npm@4;
+    fi
+
 install:
   - npm install
   - lerna bootstrap
 
 after_success:
   - if [ "x$COVERALLS" = "x1" ]; then
-      npm i coveralls
+      npm i coveralls;
       nyc report --reporter=text-lcov | coveralls;
     fi
-
