@@ -43,3 +43,16 @@ test('should use `mod.val` field instead of `modVal`', t => {
 
     t.is(entity.mod.val, 'val1');
 });
+
+test('should return the same instance for same class', t => {
+    const entity = new BemEntityName({ block: 'block', mod: 'mod' });
+    const entity2 = new BemEntityName(entity);
+
+    t.is(entity, entity2);
+});
+
+test('should not use modName field for BemEntityName instances of another versions', t => {
+    const entity = new BemEntityName({ block: 'block', modName: 'mod', __isBemEntityName__: true });
+
+    t.is(entity.mod, undefined);
+});

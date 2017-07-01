@@ -29,15 +29,24 @@ class BemEntityName {
             throw new EntityTypeError(obj, 'the field `block` is undefined');
         }
 
-        obj.modName && deprecate(obj, 'modName', 'mod.name');
-        obj.modVal && deprecate(obj, 'modVal', 'mod.val');
+        if (obj instanceof BemEntityName) {
+            return obj;
+        }
+
+        const isBemEntityName = obj.__isBemEntityName__;
+
+        if (!isBemEntityName) {
+            obj.modName && deprecate(obj, 'modName', 'mod.name');
+            obj.modVal && deprecate(obj, 'modVal', 'mod.val');
+        }
 
         const data = this._data = { block: obj.block };
 
         obj.elem && (data.elem = obj.elem);
 
         const modObj = obj.mod;
-        const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) || obj.modName;
+        const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) ||
+            !isBemEntityName && obj.modName;
         const hasModVal = modObj && modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
 
         if (modName) {
