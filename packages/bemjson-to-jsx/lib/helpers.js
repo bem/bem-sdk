@@ -1,3 +1,4 @@
+'use strict';
 
 function valToStr(val) {
     switch(typeof val) {

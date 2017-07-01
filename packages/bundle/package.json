@@ -28,10 +28,6 @@
   "homepage": "https://github.com/bem-sdk/bem-bundle#readme",
   "devDependencies": {
     "chai": "^3.5.0",
-    "eslint": "^2.9.0",
-    "eslint-config-pedant": "^0.5.1",
-    "eslint-plugin-mocha": "^4.0.0",
-    "jscs": "^3.0.3",
     "mocha": "^2.5.3"
   },
   "dependencies": {

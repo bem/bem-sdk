@@ -1,3 +1,5 @@
+'use strict';
+
 const test = require('ava');
 const BemCell = require('@bem/cell');
 const JSON5 = require('json5');

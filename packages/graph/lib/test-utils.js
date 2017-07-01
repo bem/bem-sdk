@@ -63,7 +63,7 @@ function simplifyVertices(items) {
 
 function createGraph(str) {
     const graph = new BemGraph();
-    const keyRe = /^[\w_\.]+$/;
+    const keyRe = /^[\w_.]+$/;
     const operatorRe = /^[-=]>$/;
 
     str.split(/[\n,]/g).map(s => s.trim()).filter(Boolean).forEach(expr => {
@@ -71,7 +71,7 @@ function createGraph(str) {
         expr = expr.trim();
         if (!expr) { return; }
 
-        const exprs = expr.match(/(\s*[\w_\.]+\s*|\s*[-=]>\s*)/g).map(s => s.trim()).filter(Boolean);
+        const exprs = expr.match(/(\s*[\w_.]+\s*|\s*[-=]>\s*)/g).map(s => s.trim()).filter(Boolean);
 
         if (!(exprs.length % 2) || !exprs.every((s, i) => (i % 2 ? operatorRe : keyRe).test(s))) { return err(); }
 

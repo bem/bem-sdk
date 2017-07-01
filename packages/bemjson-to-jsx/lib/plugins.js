@@ -1,3 +1,5 @@
+'use strict';
+
 var camelCase = require('camel-case');
 var helpers = require('./helpers');
 var styleToObj = helpers.styleToObj;

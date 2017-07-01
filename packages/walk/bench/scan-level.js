@@ -1,3 +1,5 @@
+'use strict';
+
 var scan = require('scan-level');
 
 module.exports = function run(levels, scheme, done) {

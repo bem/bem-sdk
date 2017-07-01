@@ -5,7 +5,7 @@ const defaultReader = require('./formats/deps.js/reader');
 /**
  * Generic serial reader generator
  *
- * @param {function: {file: BemFile, data: *, scope: BemEntityName}} reader
+ * @param {function(f: BemFile): Promise<{file: BemFile, data: *, scope: BemEntityName}>} reader - Reads and evaluates BemFiles.
  * @returns {Function}
  */
 module.exports = function read(reader) {

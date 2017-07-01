@@ -52,23 +52,32 @@ function parse(importString, ctx) {
                 });
             } else {
                 acc.length || acc.push(main);
-                acc.forEach(e => e.tech = tail);
+                acc.forEach(e => (e.tech = tail));
             }
         }
         return acc;
     }, []);
 }
 
+const tmpl = {
+    b : b => `b:${b}`,
+    e : e => e ? ` e:${e}` : '',
+    m : m => Object.keys(m).map(name => `${tmpl.mn(name)}${tmpl.mv(m[name])}`).join(''),
+    mn : m => ` m:${m}`,
+    mv : v => v.length ? `=${v.join('|')}` : '',
+    t : t => t ? ` t:${t}` : ''
+};
+
 /**
  * Create import string notation of passed bem-cells.
  *
- * Example:
+ * @example
  * ```js
  * stringify([{ block : 'button' }, { block : 'button', mod : { name : 'theme', val : 'normal' } }])
  * // 'b:button m:theme=normal'
  * ```
  * @public
- * @param {BemCell[]} - Set of BEM entites to merge into import string notation
+ * @param {BemCell[]} cells - Set of BEM entities to merge into import string notation
  * @returns {String}
  */
 function stringify(cells) {
@@ -83,15 +92,6 @@ function stringify(cells) {
 
     return ['b', 'e', 'm', 't'].map(k => tmpl[k](merged[k])).join('');
 }
-
-const tmpl = {
-    b : b => `b:${b}`,
-    e : e => e ? ` e:${e}` : '',
-    m : m => Object.keys(m).map(name => `${tmpl.mn(name)}${tmpl.mv(m[name])}`).join(''),
-    mn : m => ` m:${m}`,
-    mv : v => v.length ? `=${v.join('|')}` : '',
-    t : t => t ? ` t:${t}` : ''
-};
 
 module.exports = {
     parse,

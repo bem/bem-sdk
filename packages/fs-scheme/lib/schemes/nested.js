@@ -1,3 +1,5 @@
+'use strict';
+
 var path = require('path');
 var assert = require('assert');
 var BemCell = require('@bem/cell');

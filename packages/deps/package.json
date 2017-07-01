@@ -34,18 +34,14 @@
     "ava": "^0.15.0",
     "chai": "^3.5.0",
     "coveralls": "^2.11.9",
-    "jscs": "^3.0.3",
-    "jshint": "^2.9.2",
     "mock-fs": "^4.3.0",
     "nyc": "^6.4.4",
     "stream-to-array": "^2.3.0",
     "through2": "^2.0.1"
   },
   "scripts": {
-    "pretest": "npm run lint",
     "test": "nyc ava",
     "unit-test": "ava",
-    "lint": "jshint . && jscs . -c .jscs.js",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },
   "ava": {

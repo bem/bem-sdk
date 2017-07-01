@@ -12,8 +12,8 @@
   },
   "ava": {
     "files": [
-      "test/async.js",
-      "test/sync.js"
+      "test/async.test.js",
+      "test/sync.test.js"
     ]
   },
   "repository": {
@@ -44,11 +44,7 @@
   },
   "devDependencies": {
     "ava": "^0.18.2",
-    "babel-eslint": "^7.2.0",
     "coveralls": "^2.11.9",
-    "eslint": "^3.0.0",
-    "eslint-config-pedant": "^0.8.0",
-    "jscs": "^2.11.0",
     "mock-fs": "^4.2.0",
     "nyc": "^10.1.2",
     "proxyquire": "^1.7.10"

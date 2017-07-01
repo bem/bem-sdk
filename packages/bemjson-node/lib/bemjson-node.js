@@ -27,7 +27,11 @@ class BemjsonNode {
             mix: []
         };
 
-        obj.elem && (data.elem = obj.elem, data.elemMods = {});
+        if(obj.elem) {
+            data.elem = obj.elem;
+            data.elemMods = {};
+        }
+
         obj.mods && Object.assign(data.mods, obj.mods);
         obj.elemMods && Object.assign(data.elemMods, obj.elemMods);
 
@@ -125,10 +129,12 @@ class BemjsonNode {
 
         res.block = d.block;
         res.mods = Object.assign({}, d.mods);
-        d.elem && (
-            res.elem = d.elem,
-            res.elemMods = Object.assign({}, d.elemMods)
-        );
+
+        if (d.elem) {
+            res.elem = d.elem;
+            res.elemMods = Object.assign({}, d.elemMods);
+        }
+
         d.mix.length && (res.mix = d.mix.map(n => n.valueOf()));
 
         return res;

@@ -1,3 +1,5 @@
+'use strict';
+
 module.exports = {
     origin: require('./origin'),
     react: require('./react'),
