@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.deps",
-  "version": "0.2.2",
+  "version": "0.0.1",
   "description": "Manage BEM dependencies",
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",

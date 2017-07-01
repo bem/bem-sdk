@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.config",
-  "version": "3.2.3",
+  "version": "0.0.1",
   "description": "Config module for bem-tools",
   "main": "index.js",
   "scripts": {

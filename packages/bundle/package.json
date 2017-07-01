@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.bundle",
-  "version": "0.2.2",
+  "version": "0.0.1",
   "description": "bem-bundle",
   "main": "lib/index.js",
   "engines": {

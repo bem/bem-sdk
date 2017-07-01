@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.fs-scheme",
-  "version": "2.1.1-0",
+  "version": "0.0.1",
   "description": "BEM file system schemes",
   "main": "index.js",
   "scripts": {
@@ -23,11 +23,11 @@
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/fs-scheme#readme",
   "dependencies": {
-    "@bem/sdk.cell": "0.2.5",
-    "@bem/sdk.naming": "2.0.0-6"
+    "@bem/sdk.cell": "0.0.1",
+    "@bem/sdk.naming": "0.0.1"
   },
   "devDependencies": {
-    "@bem/sdk.entity-name": "^1.1.0",
+    "@bem/sdk.entity-name": "^0.0.1",
     "chai": "^3.5.0",
     "mocha": "^2.5.3",
     "nyc": "^10.1.2"

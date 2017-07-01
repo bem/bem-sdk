@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.graph",
-  "version": "0.0.3",
+  "version": "0.0.1",
   "description": "Bem graph storage",
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",
@@ -23,9 +23,9 @@
     "lib"
   ],
   "dependencies": {
-    "@bem/sdk.cell": "0.2.0",
-    "@bem/sdk.entity-name": "1.1.0",
-    "@bem/sdk.naming": "1.0.1",
+    "@bem/sdk.cell": "0.0.1",
+    "@bem/sdk.entity-name": "0.0.1",
+    "@bem/sdk.naming": "0.0.1",
     "debug": "^2.2.0",
     "es6-error": "3.0.0",
     "hash-set": "1.0.1",

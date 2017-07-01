@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.entity-name",
-  "version": "1.5.0",
+  "version": "0.0.1",
   "description": "BEM entity name representation",
   "license": "MPL-2.0",
   "repository": "bem/bem-sdk",
@@ -36,7 +36,7 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/sdk.naming": "2.0.0-5",
+    "@bem/sdk.naming": "0.0.1",
     "depd": "1.1.0",
     "es6-error": "4.0.2"
   },

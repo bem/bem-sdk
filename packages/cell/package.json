@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.cell",
-  "version": "0.2.6",
+  "version": "0.0.1",
   "description": "Representation of identifier of a part of BEM entity.",
   "license": "MPL-2.0",
   "repository": "bem/bem-sdk",
@@ -28,7 +28,7 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/sdk.entity-name": "1.5.0",
+    "@bem/sdk.entity-name": "0.0.1",
     "depd": "1.1.0"
   },
   "devDependencies": {
