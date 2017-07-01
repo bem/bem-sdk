@@ -1,3 +1,5 @@
+'use strict';
+
 const b_ = require('@bem/entity-name').create;
 const util = require('util');
 
