@@ -1,0 +1,45 @@
+{
+  "name": "bemjson-to-decl",
+  "version": "1.0.3",
+  "description": "BEMJSON to BEMDECL helper",
+  "main": "index.js",
+  "scripts": {
+    "pretest": "npm run lint",
+    "specs": "mocha tests",
+    "cover": "nyc mocha tests",
+    "test": "npm run specs",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/bem-sdk/bemjson-to-decl.git"
+  },
+  "keywords": [
+    "BEM",
+    "bem",
+    "bemjson",
+    "deps",
+    "converter"
+  ],
+  "author": "Vladimir Grinenko",
+  "license": "MPL-2.0",
+  "bugs": {
+    "url": "https://github.com/bem-sdk/bemjson-to-decl/issues"
+  },
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "homepage": "https://github.com/bem-sdk/bemjson-to-decl",
+  "dependencies": {
+    "@bem/entity-name": "^1.5.0",
+    "bem-decl": "^0.3.0",
+    "stringify-object": "^3.2.0"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.0.0",
+    "eslint-config-pedant": "^0.8.0",
+    "mocha": "^3.2.0",
+    "nyc": "^10.1.2"
+  }
+}
