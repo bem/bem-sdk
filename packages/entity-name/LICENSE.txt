@@ -1,6 +1,6 @@
-© YANDEX LLC, 2016
+© YANDEX LLC, 2016-2017
 
-The Source Code called `bem-entity-name` available at https://github.com/bem-sdk/bem-entity-name is subject to the terms of the Mozilla Public License, v. 2.0 (hereinafter - MPL). The text of MPL is the following:
+The Source Code called `@bem/sdk.entity-name` available at https://github.com/bem/bem-sdk/tree/master/packages/entity-name is subject to the terms of the Mozilla Public License, v. 2.0 (hereinafter - MPL). The text of MPL is the following:
 
 Mozilla Public License, version 2.0
 

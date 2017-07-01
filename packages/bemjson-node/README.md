@@ -4,21 +4,9 @@ BemjsonNode
 [BEM tree](https://en.bem.info/methodology/key-concepts/#bem-tree) node representation.
 
 [![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][dependency-img]][david]
 
-[npm]:          https://www.npmjs.org/package/@bem/bemjson-node
-[npm-img]:      https://img.shields.io/npm/v/@bem/bemjson-node.svg
-
-[travis]:       https://travis-ci.org/bem-sdk/bem-bemjson-node
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-bemjson-node/master.svg
-
-[coveralls]:    https://coveralls.io/r/bem-sdk/bem-bemjson-node
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-bemjson-node/master.svg
-
-[david]:          https://david-dm.org/bem-sdk/bem-bemjson-node
-[dependency-img]: http://img.shields.io/david/bem-sdk/bem-bemjson-node.svg
+[npm]:          https://www.npmjs.org/package/@bem/sdk.bemjson-node
+[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.bemjson-node.svg
 
 Contents
 --------
@@ -32,15 +20,15 @@ Contents
 Install
 -------
 
-```
-$ npm install --save @bem/bemjson-node
+```sh
+$ npm install --save @bem/sdk.bemjson-node
 ```
 
 Usage
 -----
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const bemjsonNode = new BemjsonNode({ block: 'button', elem: 'text' });
 
@@ -75,7 +63,7 @@ Parameter  | Type     | Description
 `mix`      | `string`, `object` or `array` | An array of mixed bemjson nodes.<br><br> From passed strings and objects will be created bemjson node objects. Optional.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 // The block with modifier
 new BemjsonNode({
@@ -108,7 +96,7 @@ new BemjsonNode({
     block: 'button',
     mods: 'icon'
 });
-// ➜ AssertionError: @bem/bemjson-node: `mods` field should be a simple object or null.
+// ➜ AssertionError: @bem/sdk.bemjson-node: `mods` field should be a simple object or null.
 ```
 
 ### block
@@ -116,7 +104,7 @@ new BemjsonNode({
 The name of block to which entity in this node belongs.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 const name = new BemjsonNode({ block: 'button' });
 
 name.block; // button
@@ -129,7 +117,7 @@ The name of element to which entity in this node belongs.
 **Important:**  Contains `null` value if node is a block entity.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 const node1 = new BemjsonNode({ block: 'button' });
 const node2 = new BemjsonNode({ block: 'button', elem: 'text' });
 
@@ -144,7 +132,7 @@ The object with modifiers of this node.
 **Important:** Contains modifiers of a scope (block) node if this node IS an element.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const blockNode = new BemjsonNode({ block: 'button' });
 const modsNode = new BemjsonNode({ block: 'button', mods: { disabled: true } });
@@ -162,7 +150,7 @@ The object with modifiers of this node.
 **Important:** Contains `null` if node IS NOT an element.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const blockNode = new BemjsonNode({ block: 'button' });
 const modsNode = new BemjsonNode({ block: 'button', mods: { disabled: true } });
@@ -180,7 +168,7 @@ emodsNode.elemMods; // { disabled: true }
 Returns normalized object representing the bemjson node.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 const node = new BemjsonNode({ block: 'button', mods: { focused: true }, elem: 'text' });
 
 node.valueOf();
@@ -193,7 +181,7 @@ node.valueOf();
 Returns raw data for `JSON.stringify()` purposes.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const node = new BemjsonNode({ block: 'input', mods: { available: true } });
 
@@ -205,7 +193,7 @@ JSON.stringify(node); // {"block":"input","mods":{"available":true}}
 Returns string representing the bemjson node.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 const node = new BemjsonNode({
     block: 'button', mods: { focused: true },
     mix: { block: 'mixed', mods: { bg: 'red' } }
@@ -223,7 +211,7 @@ Parameter     | Type            | Description
 `bemjsonNode` | `*`             | The object to check.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const bemjsonNode = new BemjsonNode({ block: 'input' });
 
@@ -239,7 +227,7 @@ The `BemjsonNode` has `toJSON` method to support `JSON.stringify()` behaviour.
 Use `JSON.stringify` to serialize an instance of `BemjsonNode`.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const node = new BemjsonNode({ block: 'input', mod: 'available' });
 
@@ -249,7 +237,7 @@ JSON.stringify(node); // {"block":"input","mods":{"available":true}}
 Use `JSON.parse` to deserialize JSON string and create an instance of `BemjsonNode`.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const str = '{"block":"input","mods":{"available"::true}}';
 
@@ -264,7 +252,7 @@ In Node.js, `console.log()` calls `util.inspect()` on each argument without a fo
 `BemjsonNode` has `inspect()` method to get custom string representation of the object.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const node = new BemjsonNode({ block: 'input', mods: { available: true } });
 
@@ -276,7 +264,7 @@ console.log(node);
 You can also convert `BemjsonNode` object to `string`.
 
 ```js
-const BemjsonNode = require('@bem/bemjson-node');
+const BemjsonNode = require('@bem/sdk.bemjson-node');
 
 const node = new BemjsonNode({ block: 'input', mods: { available: true } });
 

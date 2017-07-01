@@ -2,38 +2,22 @@ bem-deps
 ========
 
 [![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Windows Status][appveyor-img]][appveyor]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][david-img]][david]
 
-[npm]:          https://www.npmjs.org/package/@bem/deps
-[npm-img]:      https://img.shields.io/npm/v/@bem/deps.svg
-
-[travis]:       https://travis-ci.org/bem-sdk/bem-deps
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-deps.svg?label=tests
-
-[appveyor]:     https://ci.appveyor.com/project/blond/bem-deps
-[appveyor-img]: http://img.shields.io/appveyor/ci/blond/bem-deps.svg?style=flat&label=windows
-
-[coveralls]:    https://coveralls.io/r/bem-sdk/bem-deps
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-deps.svg
-
-[david]:        https://david-dm.org/bem-sdk/bem-deps
-[david-img]:    http://img.shields.io/david/bem-sdk/bem-deps.svg?style=flat
+[npm]:          https://www.npmjs.org/package/@bem/sdk.deps
+[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.deps.svg
 
 Install
 -------
 
-```
-$ npm install --save-dev @bem/deps
+```sh
+$ npm install --save-dev @bem/sdk.deps
 ```
 
 Usage
 -----
 
 ```js
-var bemDeps = require('@bem/deps'),
+var bemDeps = require('@bem/sdk.deps'),
     toArray = require('stream-to-array');
 
 toArray(bemDeps.load({ levels: ['blocks'] }), function (err, relations) {
@@ -63,4 +47,4 @@ toArray(bemDeps.load({ levels: ['blocks'] }), function (err, relations) {
 License
 -------
 
-Code and documentation copyright 2015 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+Code and documentation copyright 2015-2017 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).

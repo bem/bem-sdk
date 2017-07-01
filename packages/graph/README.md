@@ -1,35 +1,23 @@
-bem-graph
-=========
+@bem/sdk.graph
+==============
 
 [![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][david-img]][david]
 
-[npm]:          https://www.npmjs.org/package/bem-graph
-[npm-img]:      https://img.shields.io/npm/v/bem-graph.svg
-
-[travis]:       https://travis-ci.org/bem-sdk/bem-graph
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-graph.svg?label=tests
-
-[coveralls]:    https://coveralls.io/r/bem-sdk/bem-graph
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-graph.svg
-
-[david]:        https://david-dm.org/bem-sdk/bem-graph
-[david-img]:    http://img.shields.io/david/bem-sdk/bem-graph.svg?style=flat
+[npm]:          https://www.npmjs.org/package/@bem/sdk.graph
+[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.graph.svg
 
 Install
 -------
 
-```
-$ npm install --save-dev bem-graph
+```sh
+$ npm install --save-dev @bem/sdk.graph
 ```
 
 Usage
 -----
 
 ```js
-const BemGraph = require('bem-graph');
+const BemGraph = require('@bem/sdk.graph');
 
 const graph = new BemGraph();
 
@@ -71,8 +59,8 @@ API
 
 BemGraph based on [BemEntityName][] objects and [bem-decl][] format.
 
-[BemEntityName]: https://github.com/bem-sdk/bem-entity-name
-[bem-decl]: https://github.com/bem-sdk/bem-decl
+[BemEntityName]: https://github.com/bem/bem-sdk/tree/master/packages/entity-name
+[bem-decl]: https://github.com/bem/bem-sdk/tree/master/packages/decl
 
 ### `BemGraph.vertex`
 

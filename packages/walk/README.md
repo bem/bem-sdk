@@ -1,27 +1,11 @@
-# bem-walk
+# walk
 
 Tool for traversing a BEM project's file system.
 
 [![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Windows Status][appveyor-img]][appveyor]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][david-img]][david]
 
-[npm]:          https://www.npmjs.org/package/@bem/walk
-[npm-img]:      https://img.shields.io/npm/v/@bem/walk.svg
-
-[travis]:       https://travis-ci.org/bem-sdk/bem-walk
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-walk.svg?label=tests
-
-[appveyor]:     https://ci.appveyor.com/project/blond/bem-walk
-[appveyor-img]: http://img.shields.io/appveyor/ci/blond/bem-walk.svg?style=flat&label=windows
-
-[coveralls]:    https://coveralls.io/r/bem-sdk/bem-walk
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-walk.svg
-
-[david]:        https://david-dm.org/bem-sdk/bem-walk
-[david-img]:    http://img.shields.io/david/bem-sdk/bem-walk.svg?style=flat
+[npm]:          https://www.npmjs.org/package/@bem/sdk.walk
+[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.walk.svg
 
 It returns the following information about found files:
 
@@ -36,7 +20,7 @@ It returns the following information about found files:
 ### 1. Install bem-walk
 
 ```
-$ npm install --save @bem/walk
+$ npm install --save @bem/sdk.walk
 ```
 
 ### 2. Enable bem-walk
@@ -44,7 +28,7 @@ $ npm install --save @bem/walk
 Create a JavaScript file with any name and add the following string:
 
 ```js
-const walk = require('@bem/walk');
+const walk = require('@bem/sdk.walk');
 ```
 
 **Note** You will use this JavaScript file for all the following steps.
@@ -85,7 +69,7 @@ More information:
 **Note** Instead of defining the project's levels manually, use the [`bem-config`]( https://en.bem.info/toolbox/sdk/bem-config/) tool.
 
 ```js
-const config = require('bem-config')();
+const config = require('@bem/sdk.config')();
 const levelMap = config.levelMapSync();
 const stream = walk(levels, levelMap);
 ```
@@ -136,8 +120,8 @@ stream.on('end', () => console.log(files));
 When all these steps have been completed, the full code of the JavaScript file should look like this:
 
 ```js
-const walk = require('@bem/walk');
-const config = require('bem-config')();
+const walk = require('@bem/sdk.walk');
+const config = require('@bem/sdk.config')();
 const levels = [
     'libs/bem-components/common.blocks',
     'common.blocks'
@@ -195,8 +179,8 @@ Typical tasks that use the resulting JavaScript objects:
 > Grouping found files by block name.
 
 ```js
-const walk = require('@bem/walk');
-const config = require('bem-config')();
+const walk = require('@bem/sdk.walk');
+const config = require('@bem/sdk.config')();
 const util = require('util');
 const levels = [
     'libs/bem-components/common.blocks',
@@ -239,8 +223,8 @@ const stream = walk(levels, {
 > Finding files for the `popup` block.
 
 ```js
-const walk = require('@bem/walk');
-const config = require('bem-config')();
+const walk = require('@bem/sdk.walk');
+const config = require('@bem/sdk.config')();
 const levels = [
     'libs/bem-components/common.blocks',
     'common.blocks'
@@ -282,8 +266,8 @@ const stream = walk(levels, {
 
 ```js
 const fs = require('fs');
-const walk = require('@bem/walk');
-const config = require('bem-config')();
+const walk = require('@bem/sdk.walk');
+const config = require('@bem/sdk.config')();
 const stringify = require('JSONStream').stringify;
 const through2 = require('through2');
 const levels = [

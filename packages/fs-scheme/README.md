@@ -1,4 +1,4 @@
-# bem-fs-scheme
+# @bem/sdk.fs-scheme
 
 [BEM file system](https://en.bem.info/method/filesystem/#principles-of-file-system-organization-for-bem-projects) [schemes](https://en.bem.info/faq/#why-create-separate-directories-and-files-for-every-block-and-technology).
 
@@ -9,8 +9,8 @@
 
 ## Usage
 ```js
-var BemCell = require('@bem/cell'),
-    BemEntityName = require('@bem/entity-name');
+var BemCell = require('@bem/sdk.cell'),
+    BemEntityName = require('@bem/sdk.entity-name');
 
 var atom = new BemCell(
     {
@@ -27,7 +27,7 @@ var options = {
     naming: 'origin'
 };
 
-var bemFs = require('bem-fs-scheme')('nested')
+var bemFs = require('@bem/sdk.fs-scheme')('nested')
 
 bemFs.path(atom, options); // b1/__e1/_m1/b1__e1_m1_v1.js
 ```
@@ -55,7 +55,7 @@ check `./lib/presets`
 License
 -------
 
-Code and documentation © 2015 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+Code and documentation © 2015-2017 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
 
 
-[@bem/naming] : https://github.com/bem-sdk/bem-naming#bemnaming-elem-mod-wordpattern-
+[@bem/naming] : https://github.com/bem/bem-sdk/tree/master/packages/naming#bemnaming-elem-mod-wordpattern-
