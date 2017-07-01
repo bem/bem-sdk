@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const BemEntityName = require('@bem/sdk.entity-name');
+const BemEntityName = require('@bem/entity-name');
 
 const naming = require('../index');
 
