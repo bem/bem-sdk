@@ -4,9 +4,9 @@ const fs = require('fs');
 const path = require('path');
 
 const each = require('async-each');
-const bemNaming = require('@bem/naming');
-const BemEntityName = require('@bem/entity-name');
-const BemCell = require('@bem/cell');
+const bemNaming = require('@bem/sdk.naming');
+const BemEntityName = require('@bem/sdk.entity-name');
+const BemCell = require('@bem/sdk.cell');
 
 const BemFile = require('../bem-file');
 
@@ -65,7 +65,7 @@ class LevelWalker {
      */
     constructor (info, add) {
         this.levelpath = info.path;
-        // Create `bem-naming` instance for specified options.
+        // Create `@bem/sdk.naming` instance for specified options.
         this.naming = bemNaming(info.naming);
 
         this.add = add;

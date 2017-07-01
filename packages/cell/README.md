@@ -2,37 +2,25 @@ BemCell
 =======
 
 [![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][dependency-img]][david]
 
-[npm]:          https://www.npmjs.org/package/@bem/cell
-[npm-img]:      https://img.shields.io/npm/v/@bem/cell.svg
-
-[travis]:       https://travis-ci.org/bem-sdk/bem-cell
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-cell.svg
-
-[coveralls]:    https://coveralls.io/r/bem-sdk/bem-cell
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-cell.svg
-
-[david]:          https://david-dm.org/bem-sdk/bem-cell
-[dependency-img]: http://img.shields.io/david/bem-sdk/bem-cell.svg
+[npm]:          https://www.npmjs.org/package/@bem/sdk.cell
+[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.cell.svg
 
 Representation of identifier of a part of [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity).
 
 Install
 -------
 
-```
-$ npm install --save @bem/cell
+```sh
+$ npm install --save @bem/sdk.cell
 ```
 
 Usage
 -----
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'button', elem: 'text', mod: { name: 'theme', val: 'simple' } }),
@@ -78,8 +66,8 @@ Parameter     | Type            | Description
 Returns the name of entity.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'button', elem: 'text' })
@@ -93,8 +81,8 @@ cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text' }
 Returns the tech of cell.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'button', elem: 'text' }),
@@ -109,8 +97,8 @@ cell.tech; // ➜ css
 Returns the layer of this cell.
 
  ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'button', elem: 'text' }),
@@ -127,8 +115,8 @@ Returns the identifier of this cell.
 **Important:** should only be used to determine uniqueness of cell.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'button', elem: 'text' }),
@@ -144,8 +132,8 @@ cell.id; // ➜ "button__text@desktop.css"
 Returns a string representing this cell.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'button', mod: 'focused' }),
     tech: 'css',
@@ -160,8 +148,8 @@ cell.toString(); // button_focused@desktop.css
 Returns an object representing this cell.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'button', mod: 'focused' }),
     tech: 'css',
@@ -186,7 +174,7 @@ Parameter | Type            | Description
 `cell`    | `BemCell`       | The cell to compare.
 
 ```js
-const BemCell = require('@bem/cell');
+const BemCell = require('@bem/sdk.cell');
 const buttonCell1 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
 const buttonCell2 = BemCell.create({ block: 'button', tech: 'css', layer: 'desktop' });
 const inputCell = BemCell.create({ block: 'input', tech: 'css', layer: 'common' });
@@ -204,8 +192,8 @@ Parameter | Type            | Description
 `cell`    | `BemCell`       | The cell to check.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'button', elem: 'text' })
@@ -241,7 +229,7 @@ Object field | Type     | Description
 `layer`      | `string` | Layer of cell.
 
 ```js
-const BemCell = require('@bem/cell');
+const BemCell = require('@bem/sdk.cell');
 
 BemCell.create({ block: 'my-button', mod: 'theme', val: 'red', tech: 'css', layer: 'common' });
 BemCell.create({ block: 'my-button', modName: 'theme', modVal: 'red', tech: 'css', layer: 'common' });
@@ -257,8 +245,8 @@ In Node.js, `console.log()` calls `util.inspect()` on each argument without a fo
 `BemCell` has `inspect()` method to get custom string representation of the object.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'input', mod: 'available' }),
@@ -273,8 +261,8 @@ console.log(cell);
 You can also convert `BemCell` object to a `string`.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'input', mod: 'available' }),
@@ -289,8 +277,8 @@ console.log(`cell: ${cell}`);
 Also `BemCell` has `toJSON` method to support `JSON.stringify()` behaviour.
 
 ```js
-const BemCell = require('@bem/cell');
-const BemEntityName = require('@bem/entity-name');
+const BemCell = require('@bem/sdk.cell');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const cell = new BemCell({
     entity: new BemEntityName({ block: 'input', mod: 'available' }),
@@ -308,7 +296,7 @@ Deprecation
 Deprecation is performed with [depd](https://github.com/dougwilson/nodejs-depd)
 To silencing deprecation warnings from being output simply use this. [Details](https://github.com/dougwilson/nodejs-depd#processenvno_deprecation)
 ```
-NO_DEPRECATION=@bem/cell node app.js
+NO_DEPRECATION=@bem/sdk.cell node app.js
 ```
 
 License

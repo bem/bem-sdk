@@ -3,8 +3,8 @@
 const test = require('ava');
 const sinon = require('sinon');
 
-const BemEntityName = require('@bem/entity-name');
-const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/sdk.entity-name');
+const BemCell = require('@bem/sdk.cell');
 
 const MixedGraph = require('../../lib/mixed-graph');
 const DirectedGraph = require('../../lib/directed-graph');

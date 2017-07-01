@@ -1,6 +1,6 @@
 {
-  "name": "bem-decl",
-  "version": "0.3.0",
+  "name": "@bem/sdk.decl",
+  "version": "0.0.1",
   "description": "Manage declaration of BEM entities",
   "keywords": [
     "bem",
@@ -13,9 +13,11 @@
   ],
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
   "license": "MPL-2.0",
-  "repository": "bem-sdk/bem-decl",
-  "homepage": "https://github.com/bem-sdk/bem-decl",
-  "bugs": "https://github.com/bem-sdk/bem-decl/issues",
+  "repository": "bem/bem-sdk",
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=tag%3Dpkg%3Adecl"
+  },
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/decl#readme",
   "engines": {
     "node": ">= 4"
   },
@@ -24,8 +26,8 @@
     "lib/**"
   ],
   "dependencies": {
-    "@bem/cell": "0.2.5",
-    "@bem/entity-name": "1.5.0",
+    "@bem/sdk.cell": "0.0.1",
+    "@bem/sdk.entity-name": "0.0.1",
     "es6-promisify": "5.0.0",
     "graceful-fs": "4.1.11",
     "json5": "0.5.1",

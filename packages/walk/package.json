@@ -1,6 +1,6 @@
 {
-  "name": "@bem/walk",
-  "version": "1.0.0-2",
+  "name": "@bem/sdk.walk",
+  "version": "0.0.1",
   "description": "Walk easily thru BEM file structure",
   "keywords": [
     "bem",
@@ -12,7 +12,7 @@
   ],
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
   "license": "MPL-2.0",
-  "repository": "bem-sdk/bem-walk",
+  "repository": "bem/bem-sdk",
   "engines": {
     "node": ">= 4.0"
   },
@@ -21,9 +21,9 @@
     "lib/**"
   ],
   "dependencies": {
-    "@bem/cell": "0.2.5",
-    "@bem/entity-name": "1.5.0",
-    "@bem/naming": "2.0.0-6",
+    "@bem/sdk.cell": "0.0.1",
+    "@bem/sdk.entity-name": "0.0.1",
+    "@bem/sdk.naming": "0.0.1",
     "async-each": "1.0.1"
   },
   "devDependencies": {

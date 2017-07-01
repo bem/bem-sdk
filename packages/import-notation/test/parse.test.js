@@ -6,7 +6,7 @@ it('should return an array', () => {
 });
 
 it('should return array of zero length if nothing matched', () => {
-    expect(p('@bem/cell')).to.have.lengthOf(0);
+    expect(p('@bem/sdk.cell')).to.have.lengthOf(0);
 });
 
 describe('block', () => {

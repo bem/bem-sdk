@@ -2,8 +2,8 @@
 
 const assert = require('assert');
 
-const BemEntityName = require('@bem/entity-name');
-const BemCell = require('@bem/cell');
+const BemEntityName = require('@bem/sdk.entity-name');
+const BemCell = require('@bem/sdk.cell');
 
 const isValidVal = v => Boolean(v || v === 0);
 

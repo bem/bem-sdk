@@ -1,6 +1,6 @@
 {
-  "name": "bem-config",
-  "version": "3.2.3",
+  "name": "@bem/sdk.config",
+  "version": "0.0.1",
   "description": "Config module for bem-tools",
   "main": "index.js",
   "scripts": {
@@ -15,10 +15,6 @@
       "test/sync.test.js"
     ]
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/bem-sdk/bem-config.git"
-  },
   "keywords": [
     "bem-tools",
     "bem",
@@ -26,10 +22,11 @@
   ],
   "author": "",
   "license": "MPL-2.0",
+  "repository": "bem/bem-sdk",
   "bugs": {
-    "url": "https://github.com/bem-sdk/bem-config/issues"
+    "url": "https://github.com/bem/bem-sdk/issues?q=tag%3Dpkg%3Aconfig"
   },
-  "homepage": "https://github.com/bem-sdk/bem-config#readme",
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/config#readme",
   "engines": {
     "node": ">=4"
   },

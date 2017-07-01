@@ -1,8 +1,8 @@
 'use strict';
 
 var expect = require('chai').expect,
-    BemCell = require('@bem/cell'),
-    BemEntityName = require('@bem/entity-name'),
+    BemCell = require('@bem/sdk.cell'),
+    BemEntityName = require('@bem/sdk.entity-name'),
     scheme = require('..');
 
 describe('default', function() {
@@ -44,7 +44,7 @@ describe('default', function() {
         it('should throw when you use not BemCell', function() {
             expect(
                 scheme('nested').path.bind(null, new BemEntityName({block: 'a'}))
-            ).to.throw(/@bem\/cell/);
+            ).to.throw(/@bem\//);
         });
 
         it('should return path for a block with modifier', function() {
@@ -241,7 +241,7 @@ describe('default', function() {
         it('should throw when you use not BemCell', function() {
             expect(
                 scheme('flat').path.bind(null, new BemEntityName({block: 'a'}))
-            ).to.throw(/@bem\/cell/);
+            ).to.throw(/@bem\//);
         });
 
         it('should return path for a block with modifier', function() {

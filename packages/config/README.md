@@ -1,11 +1,11 @@
-# bem-config
+# config
 
 ## Usage
 
 ```js
-var bemConfig = require('bem-config');
-var optionalConfig = { plugins: { create: { techs: ['styl', 'browser.js'] } } };
-var projectConfig = bemConfig(optionalConfig); // returns BemConfig instance
+const bemConfig = require('@bem/sdk.config');
+const optionalConfig = { plugins: { create: { techs: ['styl', 'browser.js'] } } };
+const projectConfig = bemConfig(optionalConfig); // returns BemConfig instance
 ```
 
 ### options
@@ -24,7 +24,7 @@ All options are optional:
 ### get
 
 ```js
-var config = require('bem-config')();
+const config = require('@bem/sdk.config')();
 config.get().then(function(conf) {
     console.log(conf); // config is a merge of CLI args + optionalConfig + all configs found by rc
 });
@@ -33,7 +33,7 @@ config.get().then(function(conf) {
 ### level
 
 ```js
-var config = require('bem-config')();
+const config = require('@bem/sdk.config')();
 config.level('path/to/level').then(function(levelConf) {
     console.log(levelConf); // merged level config
 });
@@ -42,7 +42,7 @@ config.level('path/to/level').then(function(levelConf) {
 ### library
 
 ```js
-var config = require('bem-config')();
+const config = require('@bem/sdk.config')();
 config.library('bem-components').then(function(libConf) {
     console.log(libConf); // library config
 });
@@ -51,7 +51,7 @@ config.library('bem-components').then(function(libConf) {
 ### levelMap
 
 ```js
-var config = require('bem-config')();
+const config = require('@bem/sdk.config')();
 config.levelMap().then(function(levelMap) {
     console.log(levelMap); // all levels hash with their options
 });
@@ -60,7 +60,7 @@ config.levelMap().then(function(levelMap) {
 ### module
 
 ```js
-var config = require('bem-config')();
+const config = require('@bem/sdk.config')();
 config.module('bem-tools').then(function(bemToolsConf) {
     console.log(bemToolsConf); // merged config for required module
 });
@@ -69,7 +69,7 @@ config.module('bem-tools').then(function(bemToolsConf) {
 ### configs
 
 ```js
-var config = require('bem-config')();
+const config = require('@bem/sdk.config')();
 config.configs().then(function(configs) {
     console.log(configs); // all found configs from all dirs
 });
@@ -80,48 +80,48 @@ config.configs().then(function(configs) {
 ### getSync
 
 ```js
-var config = require('bem-config')();
-var conf = config.getSync();
+const config = require('@bem/sdk.config')();
+const conf = config.getSync();
 console.log(conf); // config is a merge of CLI args + optionalConfig + all configs found by rc
 ```
 
 ### levelSync
 
 ```js
-var config = require('bem-config')();
-var levelConf = config.levelSync('path/to/level');
+const config = require('@bem/sdk.config')();
+const levelConf = config.levelSync('path/to/level');
 console.log(levelConf); // merged level config
 ```
 
 ### librarySync
 
 ```js
-var config = require('bem-config')();
-var libConf = config.librarySync('bem-components');
+const config = require('@bem/sdk.config')();
+const libConf = config.librarySync('bem-components');
 console.log(libConf); // library config
 ```
 
 ### levelMapSync
 
 ```js
-var config = require('bem-config')();
-var levelMap = config.levelMapSync();
+const config = require('@bem/sdk.config')();
+const levelMap = config.levelMapSync();
 console.log(levelMap); // all levels hash with their options
 ```
 
 ### moduleSync
 
 ```js
-var config = require('bem-config')();
-var bemToolsConf = config.moduleSync('bem-tools')
+const config = require('@bem/sdk.config')();
+const bemToolsConf = config.moduleSync('bem-tools')
 console.log(bemToolsConf); // merged config for required module
 ```
 
 ### configs
 
 ```js
-var config = require('bem-config')();
-var configs = config.configs(true);
+const config = require('@bem/sdk.config')();
+const configs = config.configs(true);
 console.log(configs); // all found configs from all dirs
 ```
 
@@ -176,8 +176,7 @@ console.log(configs); // all found configs from all dirs
 
 `levels` override common options.
 
-
 License
 -------
 
-Code and documentation © 2015 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+Code and documentation © 2015-2017 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).

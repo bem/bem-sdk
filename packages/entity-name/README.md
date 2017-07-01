@@ -4,21 +4,9 @@ BemEntityName
 [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) name representation.
 
 [![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][dependency-img]][david]
 
-[npm]:          https://www.npmjs.org/package/@bem/entity-name
-[npm-img]:      https://img.shields.io/npm/v/@bem/entity-name.svg
-
-[travis]:       https://travis-ci.org/bem-sdk/bem-entity-name
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-entity-name/master.svg
-
-[coveralls]:    https://coveralls.io/r/bem-sdk/bem-entity-name
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-entity-name/master.svg
-
-[david]:          https://david-dm.org/bem-sdk/bem-entity-name
-[dependency-img]: http://img.shields.io/david/bem-sdk/bem-entity-name.svg
+[npm]:          https://www.npmjs.org/package/@bem/sdk.entity-name
+[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.entity-name.svg
 
 Contents
 --------
@@ -34,15 +22,15 @@ Contents
 Install
 -------
 
-```
-$ npm install --save @bem/entity-name
+```sh
+$ npm install --save @bem/sdk.entity-name
 ```
 
 Usage
 -----
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const entityName = new BemEntityName({ block: 'button', elem: 'text' });
 
@@ -95,7 +83,7 @@ BEM entities can be defined with a help of JS object with the following fields:
 The modifier consists of a pair of fields `mod.name` and `mod.val`. This means that the field `mod.val` without `mod.name` has no meaning.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 // The modifier of block
 new BemEntityName({
@@ -129,7 +117,7 @@ new BemEntityName({
 The name of block to which this entity belongs.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 const name = new BemEntityName({ block: 'button' });
 
 name.block; // button
@@ -142,7 +130,7 @@ The element name of this entity.
 If entity is not element or modifier of element then returns empty string.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 const name = new BemEntityName({ block: 'button', elem: 'text' });
 
 name.elem; // text
@@ -155,7 +143,7 @@ The modifier of this entity.
 **Important:** If entity is not a modifier then returns `undefined`.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const blockName = new BemEntityName({ block: 'button' });
 const modName = new BemEntityName({ block: 'button', mod: 'disabled' });
@@ -171,7 +159,7 @@ The type for this entity.
 Possible values: `block`, `elem`, `blockMod`, `elemMod`.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const elemName = new BemEntityName({ block: 'button', elem: 'text' });
 const modName = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' });
@@ -187,7 +175,7 @@ The scope of this entity.
 **Important:** block-typed entities has no scope.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const buttonName = new BemEntityName({ block: 'button' });
 const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
@@ -204,10 +192,10 @@ The id for this entity.
 
 **Important:** should only be used to determine uniqueness of entity.
 
-If you want to get string representation in accordance with the provisions naming convention you should use [@bem/naming](https://github.com/bem-sdk/bem-naming) package.
+If you want to get string representation in accordance with the provisions naming convention you should use [@bem/naming](https://github.com/bem/bem-sdk/tree/master/packages/naming) package.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 const name = new BemEntityName({ block: 'button', mod: 'disabled' });
 
 name.id; // button_disabled
@@ -220,7 +208,7 @@ Determines whether modifier simple or not.
 **NOTE**: For entity without modifier `isSimpleMod()` returns `null`.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 const modName = new BemEntityName({ block: 'button', mod: { name: 'theme' } });
 const modVal = new BemEntityName({ block: 'button', mod: { name: 'theme', val: 'normal' } });
 const block = new BemEntityName({ block: 'button' });
@@ -239,7 +227,7 @@ Parameter    | Type            | Description
 Determines whether specified entity is the deepEqual entity.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const inputName = new BemEntityName({ block: 'input' });
 const buttonName = new BemEntityName({ block: 'button' });
@@ -257,7 +245,7 @@ Parameter    | Type            | Description
 Determines whether specified entity belongs to this.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const buttonName = new BemEntityName({ block: 'button' });
 const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
@@ -274,7 +262,7 @@ buttonTextBoldName.belongsTo(buttonName);     // false
 Returns normalized object representing the entity name.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 const name = new BemEntityName({ block: 'button', mod: 'focused' });
 
 name.valueOf();
@@ -287,7 +275,7 @@ name.valueOf();
 Returns raw data for `JSON.stringify()` purposes.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const name = new BemEntityName({ block: 'input', mod: 'available' });
 
@@ -299,10 +287,10 @@ JSON.stringify(name); // {"block":"input","mod":{"name":"available","val":true}}
 Returns string representing the entity name.
 
 **Important:** if you want to get string representation in accordance with the provisions naming convention
-you should use [@bem/naming](https://github.com/bem-sdk/bem-naming) package.
+you should use [@bem/naming](https://github.com/bem/bem-sdk/tree/master/packages/naming) package.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 const name = new BemEntityName({ block: 'button', mod: 'focused' });
 
 name.toString(); // button_focused
@@ -332,7 +320,7 @@ Object field | Type     | Description
 `modVal`     | `string`, `true` | The modifier value of entity. Used if neither `mod.val` nor `val` were not specified. Optional.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 BemEntityName.create('my-button');
 BemEntityName.create({ block: 'my-button' });
@@ -355,7 +343,7 @@ Parameter    | Type            | Description
 `entityName` | `*`             | The entity to check.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const entityName = new BemEntityName({ block: 'input' });
 
@@ -371,7 +359,7 @@ The `BemEntityName` has `toJSON` method to support `JSON.stringify()` behaviour.
 Use `JSON.stringify` to serialize an instance of `BemEntityName`.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const name = new BemEntityName({ block: 'input', mod: 'available' });
 
@@ -381,7 +369,7 @@ JSON.stringify(name); // {"block":"input","mod":{"name":"available","val":true}}
 Use `JSON.parse` to deserialize JSON string and create an instance of `BemEntityName`.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const str = '{"block":"input","mod":{"name":"available","val":true}}';
 
@@ -391,7 +379,7 @@ new BemEntityName(JSON.parse(str)); // BemEntityName({ block: 'input', mod: 'ava
 TypeScript support
 ------------------
 
-The package includes [typings](./index.d.ts) for TypeScript. You have to set up transpilation yourself. When you set `module` to `commonjs` in your `tsconfig.json` file, TypeScript will automatically find the type definitions for `@bem/entity-name`.
+The package includes [typings](./index.d.ts) for TypeScript. You have to set up transpilation yourself. When you set `module` to `commonjs` in your `tsconfig.json` file, TypeScript will automatically find the type definitions for `@bem/sdk.entity-name`.
 
 The interfaces are provided in global namespace `BEMSDK.EntityName`. It is necessary to use interfaces in JsDoc.
 
@@ -403,7 +391,7 @@ In Node.js, `console.log()` calls `util.inspect()` on each argument without a fo
 `BemEntityName` has `inspect()` method to get custom string representation of the object.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const name = new BemEntityName({ block: 'input', mod: 'available' });
 
@@ -415,7 +403,7 @@ console.log(name);
 You can also convert `BemEntityName` object to `string`.
 
 ```js
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const name = new BemEntityName({ block: 'input', mod: 'available' });
 
@@ -432,7 +420,7 @@ Deprecation is performed with [depd](https://github.com/dougwilson/nodejs-depd).
 To silencing deprecation warnings from being output use the `NO_DEPRECATION` environment variable.
 
 ```
-NO_DEPRECATION=@bem/entity-name node app.js
+NO_DEPRECATION=@bem/sdk.entity-name node app.js
 ```
 
 > More [details](https://github.com/dougwilson/nodejs-depd#processenvno_deprecation) in `depd` documentation

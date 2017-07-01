@@ -6,7 +6,7 @@ Changelog
 
 ### BEM SDK
 
-The `bem-naming` became part of the [BEM SDK](https://github.com/bem-sdk/bem-sdk). In this regard, there have been several changes for consistency with other packages of BEM SDK.
+The `bem-naming` became part of the [BEM SDK](https://github.com/bem/bem-sdk). In this regard, there have been several changes for consistency with other packages of BEM SDK.
 
 Now BEM SDK modules are used in assembly systems and `bem-tools` plugins. Therefore, the modules support `Node.js` only.
 
@@ -15,8 +15,8 @@ Now BEM SDK modules are used in assembly systems and `bem-tools` plugins. Theref
 
 If it becomes necessary to use BEM SDK in browsers or other environments we'll figure out a system solution for all modules.
 
-[#138]: https://github.com/bem-sdk/bem-naming/issues/138
-[#118]: https://github.com/bem-sdk/bem-naming/issues/118
+[#138]: https://github.com/bem/bem-sdk/issues/138
+[#118]: https://github.com/bem/bem-sdk/issues/118
 
 ### API
 
@@ -26,7 +26,7 @@ The `bem-naming` module did more than just `parse` and `stringify` BEM names.
 
 #### Removed `typeOf` method ([#98])
 
-To work with BEM entities there are packages [@bem/entity](https://github.com/bem-sdk/bem-entity) and [@bem/entity-name](https://github.com/bem-sdk/bem-entity-name).
+To work with BEM entities there is package [@bem/sdk.entity-name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name).
 
 **API v1.x.x**
 
@@ -50,13 +50,13 @@ const blockName = parseBemName('button');
 blockName.type // block
 
 // get type by entity object
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 const modName = new BemEntityName({ block: 'button', mod: 'focused' });
 
 modName.type; // blockMod
 ```
 
-[#98]: https://github.com/bem-sdk/bem-naming/issues/98
+[#98]: https://github.com/bem/bem-sdk/issues/98
 
 #### Removed `validate` method ([#147])
 
@@ -80,9 +80,9 @@ Boolean(parse('block-name')); // true
 Boolean(parse('^*^'));        // false
 ```
 
-[#147]: https://github.com/bem-sdk/bem-naming/issues/147
+[#147]: https://github.com/bem/bem-sdk/issues/147
 
-#### The `parse` method returns [BemEntityName](https://github.com/bem-sdk/bem-entity-name) object ([#126]).
+#### The `parse` method returns [BemEntityName](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) object ([#126]).
 
 It will allow to use helpers of `BemEntityName`.
 
@@ -115,10 +115,10 @@ entityName.type; // mod
 console.log(entityName); // BemEntityName { block: 'button', mod: { name: 'disabled', val: true } }
 ```
 
-[#126]: https://github.com/bem-sdk/bem-naming/issues/126
-[#95]: https://github.com/bem-sdk/bem-naming/issues/95
+[#126]: https://github.com/bem/bem-sdk/issues/126
+[#95]: https://github.com/bem/bem-sdk/issues/95
 
-#### The `stringify` method supports [BemEntityName](https://github.com/bem-sdk/bem-entity-name) instance ([#152]).
+#### The `stringify` method supports [BemEntityName](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) instance ([#152]).
 
 **Important:** in `BemEntityName` the `modName` and `modVal` fields are deprecated. Use the `mod` field instead ([#95]).
 
@@ -136,7 +136,7 @@ stringify({ block: 'button', modName: 'disabled', modVal: true });
 
 ```js
 const stringify = require('@bem/naming').stringify;
-const BemEntityName = require('@bem/entity-name');
+const BemEntityName = require('@bem/sdk.entity-name');
 
 const entityName = new BemEntityName({ block: 'button', mod: 'disabled' });
 
@@ -145,8 +145,8 @@ stringify(entityName);
 // ➜ button_disabled
 ```
 
-[#152]: https://github.com/bem-sdk/bem-naming/issues/152
-[#95]: https://github.com/bem-sdk/bem-naming/issues/95
+[#152]: https://github.com/bem/bem-sdk/issues/152
+[#95]: https://github.com/bem/bem-sdk/issues/95
 
 #### The `bem-naming` constructor signature for custom-naming was changed ([#160]).
 
@@ -213,8 +213,8 @@ const myNaming3 = bemNaming({ delims: { mod: { name: '--' } } });
 const myNaming4 = bemNaming({ delims: { mod: { name: '--', val: bemNaming.modValDelim } } });
 ```
 
-[#160]: https://github.com/bem-sdk/bem-naming/pull/160
-[#169]: https://github.com/bem-sdk/bem-naming/pull/169
+[#160]: https://github.com/bem/bem-sdk/pull/160
+[#169]: https://github.com/bem/bem-sdk/pull/169
 
 #### Delims field ([#167]).
 
@@ -240,7 +240,7 @@ bemNaming.delims.mod.name
 bemNaming.delims.mod.val
 ```
 
-[#167]: https://github.com/bem-sdk/bem-naming/pull/167
+[#167]: https://github.com/bem/bem-sdk/pull/167
 
 ### NPM
 
@@ -260,31 +260,31 @@ To install `2.x` version of the module you need to run the command:
 $ npm i @bem/naming
 ```
 
-[#158]: https://github.com/bem-sdk/bem-naming/pull/158
+[#158]: https://github.com/bem/bem-sdk/pull/158
 
 ### Presets
 
 * Added react preset (@yeti-or [#161]).
 
-[#161]: https://github.com/bem-sdk/bem-naming/pull/161
+[#161]: https://github.com/bem/bem-sdk/pull/161
 
 ### Performance
 
 * Accelerated initialization for `origin` naming (@tadatuta [#134]).
 
-[#134]: https://github.com/bem-sdk/bem-naming/pull/134
+[#134]: https://github.com/bem/bem-sdk/pull/134
 
 ### Chore
 
-* Moved the package to [bem-sdk](https://github.com/bem-sdk/bem-sdk) organization (@blond [b22dfc5]).
+* Moved the package to [bem-sdk](https://github.com/bem-sdk/tree/master/packages/sdk) organization (@blond [b22dfc5]).
 * Removed Russian docs (@blond [#142]).
 * Updated docs (@blond [#153]).
 * Run tests in `Node.js` v6 (@blond [#114]).
 
-[#114]: https://github.com/bem-sdk/bem-naming/pull/114
-[#142]: https://github.com/bem-sdk/bem-naming/pull/142
-[#153]: https://github.com/bem-sdk/bem-naming/pull/153
-[b22dfc5]: https://github.com/bem-sdk/bem-naming/commit/b22dfc570aa3c99b9d5b6b335fd8eaa62e1f35c7
+[#114]: https://github.com/bem/bem-sdk/pull/114
+[#142]: https://github.com/bem/bem-sdk/pull/142
+[#153]: https://github.com/bem/bem-sdk/pull/153
+[b22dfc5]: https://github.com/bem-sdk/tree/master/packages/naming/commit/b22dfc570aa3c99b9d5b6b335fd8eaa62e1f35c7
 
 1.0.1
 -----

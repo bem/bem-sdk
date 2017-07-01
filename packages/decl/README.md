@@ -1,20 +1,11 @@
-# bem-decl
+# decl
 
 The library contains a number of methods to work with sets of [BEM-entities](https://en.bem.info/methodology/key-concepts/#bem-entity), aka BEMDECL files.
 
 [![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][david-img]][david]
 
-[npm]:          https://www.npmjs.org/package/bem-decl
-[npm-img]:      https://img.shields.io/npm/v/bem-decl.svg
-[travis]:       https://travis-ci.org/bem-sdk/bem-decl
-[test-img]:     https://img.shields.io/travis/bem-sdk/bem-decl.svg?label=tests
-[coveralls]:    https://coveralls.io/r/bem-sdk/bem-decl
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bem-decl.svg
-[david]:        https://david-dm.org/bem-sdk/bem-decl
-[david-img]:    https://img.shields.io/david/bem-sdk/bem-decl.svg
+[npm]:          https://www.npmjs.org/package/@bem/sdk.decl
+[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.decl.svg
 
 ## Requirements
 
@@ -25,19 +16,19 @@ The library contains a number of methods to work with sets of [BEM-entities](htt
 This library is distributed on `npm`. In order to add it as a dependency, run the following command in your project directory:
 
 ```bash
-npm install --save bem-decl
+npm install --save @bem/sdk.decl
 ```
 > **Note** Node comes with npm installed so you should have a version of npm.
 
 ## Usage
 
 ```js
-const bemDecl = require('bem-decl');
+const bemDecl = require('@bem/sdk.decl');
 
 // Since we using sets stored in files we need to load them asynchronously
 async function() {
     // Await loading of file and put it to `set1` variable
-    // Note: There are few formats of declaration files but bem-decl here to read them all
+    // Note: There are few formats of declaration files but bemDecl here to read them all
     const set1 = await bemDecl.load('set1.bemdecl.js');
     // File set1.bemdecl.js:
     // → exports.blocks = [
@@ -116,7 +107,7 @@ Loads BEM-entities from a file in any format.
 
 #### Output data
 
-A promise that represents `BemCell[]`. [Read more about BemCell](https://github.com/bem-sdk/bem-cell).
+A promise that represents `BemCell[]`. [Read more about BemCell](https://github.com/bem/bem-sdk/tree/master/packages/cell).
 
 #### Example
 
@@ -352,17 +343,17 @@ bemDecl.stringify(decl, { format: 'enb', exportType: 'commonjs' });
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://github.com/bem-sdk/bem-sdk/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](https://github.com/bem/bem-sdk/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/bem-sdk/bem-decl/tags).
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/bem/bem-sdk/tree/master/packages/decl/tags).
 
 ## Authors
 
 * **Andrew Abramov** (*Initial work* — [blond](https://github.com/blond)).
 
-> See also the full list of [contributors](https://github.com/bem-sdk/bem-decl/contributors) who participated in this project.
+> See also the full list of [contributors](https://github.com/bem/bem-sdk/contributors) who participated in this project.
 
 You may also get it with `git log --pretty=format:"%an <%ae>" | sort -u`.
 

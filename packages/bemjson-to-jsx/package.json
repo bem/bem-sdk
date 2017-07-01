@@ -1,6 +1,6 @@
 {
-  "name": "bemjson-to-jsx",
-  "version": "1.5.0",
+  "name": "@bem/sdk.bemjson-to-jsx",
+  "version": "0.0.1",
   "description": "Transform BEMJSON to JSX",
   "main": "lib/index.js",
   "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
@@ -30,8 +30,8 @@
   },
   "homepage": "https://github.com/bem-sdk/bemjson-to-jsx#readme",
   "dependencies": {
-    "@bem/entity-name": "github:bem-sdk/bem-entity-name",
-    "@bem/naming": "^2.0.0-6",
+    "@bem/sdk.entity-name": "0.0.1",
+    "@bem/sdk.naming": "0.0.1",
     "camel-case": "^3.0.0",
     "pascal-case": "^2.0.1"
   }

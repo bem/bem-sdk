@@ -4,22 +4,9 @@ bem-import-notation
 Tool for working with BEM import strings.
 
 [![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][dependency-img]][david]
 
-[npm]:            https://www.npmjs.org/package/@bem/import-notation
-[npm-img]:        https://img.shields.io/npm/v/@bem/import-notation.svg
-
-[travis]:         https://travis-ci.org/bem-sdk/bem-import-notation
-[test-img]:       https://img.shields.io/travis/bem-sdk/bem-import-notation.svg?label=tests
-
-[coveralls]:      https://coveralls.io/r/bem-sdk/bem-import-notation
-[coverage-img]:   https://img.shields.io/coveralls/bem-sdk/bem-import-notation.svg
-
-[david]:          https://david-dm.org/bem-sdk/bem-import-notation
-[dependency-img]: http://img.shields.io/david/bem-sdk/bem-import-notation.svg
-
+[npm]:            https://www.npmjs.org/package/@bem/sdk.import-notation
+[npm-img]:        https://img.shields.io/npm/v/@bem/sdk.import-notation.svg
 
 Extract [BEM entities] from import strings.
 
@@ -27,7 +14,7 @@ Installation
 ------------
 
 ```sh
-npm install --save @bem/import-notation
+npm install --save @bem/sdk.import-notation
 ```
 
 Usage
@@ -97,7 +84,7 @@ The array should contains one block or one elem and optionally it's modifiers.
 Notation
 --------
 
-This section describes all possible syntax of BEM import strings. 
+This section describes all possible syntax of BEM import strings.
 Examples are provided in es6 syntax. Note that [parse](#parsestr-ctx) function only works with strings.
 
 Right now order of fields is important, check [issue](https://github.com/bem-sdk/bem-import-notation/issues/12):

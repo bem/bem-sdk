@@ -1,9 +1,13 @@
 {
-  "name": "@bem/cell",
-  "version": "0.2.6",
+  "name": "@bem/sdk.cell",
+  "version": "0.0.1",
   "description": "Representation of identifier of a part of BEM entity.",
   "license": "MPL-2.0",
-  "repository": "bem-sdk/bem-cell",
+  "repository": "bem/bem-sdk",
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=tag%3Dpkg%3Acell"
+  },
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/cell#readme",
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
   "keywords": [
     "bem",
@@ -24,7 +28,7 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/entity-name": "1.5.0",
+    "@bem/sdk.entity-name": "0.0.1",
     "depd": "1.1.0"
   },
   "devDependencies": {
