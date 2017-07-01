@@ -2,6 +2,8 @@
 node_modules
 coverage
 
+#TODO: need for actualize
+packages/bemjson-to-jsx-demo
 
 #Remove after AVA done
 packages/config/test/*.test.js

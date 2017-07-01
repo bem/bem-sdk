@@ -9,10 +9,8 @@
     "lib/"
   ],
   "scripts": {
-    "pretest": "npm run lint",
     "test": "npm run specs",
-    "specs": "nyc mocha",
-    "lint": "eslint ."
+    "specs": "nyc mocha"
   },
   "devDependencies": {
     "chai": "^3.5.0",

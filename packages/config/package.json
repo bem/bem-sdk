@@ -4,9 +4,8 @@
   "description": "Config module for bem-tools",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && npm run unit",
+    "test": "npm run unit",
     "unit": "ava",
-    "lint": "eslint . && jscs .",
     "cover": "nyc ava",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
   },

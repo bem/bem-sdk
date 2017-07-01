@@ -34,9 +34,7 @@
     "sinon": "^2.0.0"
   },
   "scripts": {
-    "pretest": "npm run lint",
     "test": "npm run cover",
-    "lint": "eslint .",
     "unit-test": "ava",
     "cover": "nyc ava",
     "coveralls": "nyc report --reporter=text-lcov | coveralls"
