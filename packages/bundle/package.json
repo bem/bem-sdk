@@ -10,7 +10,6 @@
     "lib/**"
   ],
   "scripts": {
-    "pretest": "eslint . && jscs .",
     "test": "mocha test"
   },
   "repository": {

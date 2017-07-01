@@ -4,11 +4,9 @@
   "description": "BEMJSON to BEMDECL helper",
   "main": "index.js",
   "scripts": {
-    "pretest": "npm run lint",
     "specs": "mocha tests",
     "cover": "nyc mocha tests",
-    "test": "npm run specs",
-    "lint": "eslint ."
+    "test": "npm run specs"
   },
   "repository": {
     "type": "git",

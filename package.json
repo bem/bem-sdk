@@ -19,11 +19,16 @@
   "devDependencies": {
     "eslint": "^4.1.1",
     "eslint-config-pedant": "birhoff/eslint-config-pedant#feature/support_eslint_4",
-    "lerna": "^2.0.0-rc.5"
+    "lerna": "^2.0.0-rc.5",
+    "tslint": "^5.0.0",
+    "tslint-config-typings": "^0.3.1",
+    "typescript": "^2.4.1"
   },
   "scripts": {
     "pretest": "npm run lint",
     "test": "lerna run test",
-    "lint": "eslint ."
+    "lint": "npm run lint:js && npm run lint:dts",
+    "lint:js": "eslint .",
+    "lint:dts": "tslint packages/*/types/*.d.ts"
   }
 }
