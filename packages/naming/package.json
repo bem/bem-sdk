@@ -1,5 +1,5 @@
 {
-  "name": "@bem/naming",
+  "name": "@bem/sdk.naming",
   "version": "2.0.0-6",
   "description": "Manage naming of BEM entities",
   "license": "MPL-2.0",
@@ -17,7 +17,7 @@
     "react",
     "two-dashes"
   ],
-  "repository": "bem-sdk/bem-naming",
+  "repository": "bem/bem-sdk",
   "engines": {
     "node": ">= 4.0"
   },
@@ -27,7 +27,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@bem/entity-name": "1.5.0"
+    "@bem/sdk.entity-name": "1.5.0"
   },
   "devDependencies": {
     "ava": "^0.19.0",

@@ -1,18 +1,18 @@
 {
-  "name": "bem-sdk",
+  "name": "@bem/sdk",
   "version": "0.0.1",
   "description": "BEM SDK",
   "keywords": [
     "bem",
     "sdk"
   ],
-  "repository": "bem-sdk/bem-sdk",
+  "repository": "bem/bem-sdk",
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/bem-sdk/bem-sdk/issues"
+    "url": "https://github.com/bem/bem-sdk/issues"
   },
-  "homepage": "https://github.com/bem-sdk/bem-sdk#readme",
+  "homepage": "https://github.com/bem/bem-sdk#readme",
   "engines": {
     "node": ">= 4.0"
   },

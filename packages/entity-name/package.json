@@ -1,10 +1,13 @@
 {
-  "name": "@bem/entity-name",
+  "name": "@bem/sdk.entity-name",
   "version": "1.5.0",
   "description": "BEM entity name representation",
   "license": "MPL-2.0",
-  "repository": "bem-sdk/bem-entity-name",
+  "repository": "bem/bem-sdk",
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=tag%3Dpkg%3Aentity-name"
+  },
   "keywords": [
     "bem",
     "entity",
@@ -33,7 +36,7 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/naming": "2.0.0-5",
+    "@bem/sdk.naming": "2.0.0-5",
     "depd": "1.1.0",
     "es6-error": "4.0.2"
   },

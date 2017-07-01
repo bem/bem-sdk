@@ -1,5 +1,5 @@
 {
-  "name": "@bem/import-notation",
+  "name": "@bem/sdk.import-notation",
   "version": "1.1.2",
   "description": "BEM import notation parser",
   "main": "index.js",
@@ -10,7 +10,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bem-sdk/bem-import-notation.git"
+    "url": "git+https://github.com/bem/bem-sdk.git"
   },
   "keywords": [
     "bem",
@@ -19,9 +19,9 @@
   "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/bem-sdk/bem-import-notation/issues"
+    "url": "https://github.com/bem/bem-sdk/issues?q=tag%3Dpkg%3Aimport-notation"
   },
-  "homepage": "https://github.com/bem-sdk/bem-import-notation#readme",
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/import-notation#readme",
   "devDependencies": {
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
