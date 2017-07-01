@@ -20,7 +20,6 @@
     "lerna": "^2.0.0-rc.5"
   },
   "scripts": {
-    "postinstall": "[ \"x$NO_LERNA\" = 'x1' ] && exit 0; which lerna && lerna bootstrap",
     "lint": "echo 'lint: TODO'",
     "pretest": "npm run lint",
     "test": "lerna run test"
