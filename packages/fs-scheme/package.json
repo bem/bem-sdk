@@ -4,8 +4,8 @@
   "description": "BEM file system schemes",
   "main": "index.js",
   "scripts": {
-    "test": "npm run lint && npm run unit",
-    "unit": "mocha",
+    "test": "npm run lint && npm run unit-test",
+    "unit-test": "mocha",
     "cover": "nyc mocha",
     "lint": "eslint ."
   },
