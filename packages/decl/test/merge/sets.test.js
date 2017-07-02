@@ -1,59 +1,62 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const BemCell = require('@bem/sdk.cell');
-const BemEntityName = require('@bem/sdk.entity-name');
-const createCell = (cell) => new BemCell({
-    entity: new BemEntityName(cell.entity),
-    tech: cell.tech
-});
+const createCell = BemCell.create;
 
 const merge = require('../../lib/merge');
 
-test('should support only one decl', t => {
-    const decl = [{ entity: { block: 'block' } }].map(createCell);
+describe('intersect.sets', () => {
+    it('should support only one decl', () => {
+        const decl = [{ entity: { block: 'block' } }].map(createCell);
 
-    t.deepEqual(merge(decl), decl);
-});
+        expect(merge(decl)).to.deep.equal(decl);
+    });
 
-test('should support several decls', t => {
-    const A = createCell({ entity: { block: 'A' } });
-    const B = createCell({ entity: { block: 'B' } });
-    const C = createCell({ entity: { block: 'C' } });
+    it('should support several decls', () => {
+        const A = createCell({ entity: { block: 'A' } });
+        const B = createCell({ entity: { block: 'B' } });
+        const C = createCell({ entity: { block: 'C' } });
 
-    t.deepEqual(merge([A], [B], [C]), [A, B, C]);
-});
+        expect(merge(merge([A], [B], [C]))).to.deep.equal([A, B, C]);
+    });
 
-test('should support many decls', t => {
-    const A = createCell({ entity: { block: 'A' } });
-    const B = createCell({ entity: { block: 'B' } });
-    const C = createCell({ entity: { block: 'C' } });
+    it('should support many decls', () => {
+        const A = createCell({ entity: { block: 'A' } });
+        const B = createCell({ entity: { block: 'B' } });
+        const C = createCell({ entity: { block: 'C' } });
 
-    t.deepEqual(merge([A], [B], [A, B], [B, C], [A, C]), [A, B, C]);
-});
+        expect(merge(merge([A], [B], [A, B], [B, C], [A, C]))).to.deep.equal([A, B, C]);
+    });
 
-test('should return set', t => {
-    const decl = [{ entity: { block: 'block' } }].map(createCell);
+    it('should return set', () => {
+        const decl = [{ entity: { block: 'block' } }].map(createCell);
 
-    t.deepEqual(merge(decl, decl), decl);
-});
+        expect(merge(merge(decl, decl))).to.deep.equal(decl);
+    });
 
-test('should merge set with empty set', t => {
-    const decl = [{ entity: { block: 'block' } }].map(createCell);
+    it('should merge set with empty set', () => {
+        const decl = [{ entity: { block: 'block' } }].map(createCell);
 
-    t.deepEqual(merge(decl, []), decl);
-});
+        expect(merge(merge(decl, []))).to.deep.equal(decl);
+    });
 
-test('should merge disjoint sets', t => {
-    const A = [{ entity: { block: 'A' } }].map(createCell);
-    const B = [{ entity: { block: 'B' } }].map(createCell);
+    it('should merge disjoint sets', () => {
+        const A = [{ entity: { block: 'A' } }].map(createCell);
+        const B = [{ entity: { block: 'B' } }].map(createCell);
 
-    t.deepEqual(merge(A, B), [].concat(A, B));
-});
+        expect(merge(merge(A, B))).to.deep.equal([].concat(A, B));
+    });
 
-test('should merge intersecting sets', t => {
-    const ABC = [{ entity: { block: 'A' } }, { entity: { block: 'B' } }, { entity: { block: 'C' } }].map(createCell);
-    const B = [{ entity: { block: 'B' } }].map(createCell);
+    it('should merge intersecting sets', () => {
+        const ABC = [{ entity: { block: 'A' } }, { entity: { block: 'B' } },
+            { entity: { block: 'C' } }].map(createCell);
+        const B = [{ entity: { block: 'B' } }].map(createCell);
 
-    t.deepEqual(merge(ABC, B), ABC);
+        expect(merge(merge(ABC, B))).to.deep.equal(ABC);
+    });
 });

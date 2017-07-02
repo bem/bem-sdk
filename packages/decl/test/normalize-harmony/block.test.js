@@ -1,16 +1,22 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const simplifyCell = require('../util').simplifyCell;
 
 const normalize = require('../../lib/normalize/harmony');
 
-test('should support block', t => {
-    var block = { block: 'block' };
+describe('normalize-harmony.block', () => {
+    it('should support block', () => {
+        const block = { block: 'block' };
 
-    t.deepEqual(normalize(block).map(simplifyCell), [{ entity: block, tech: null }]);
-});
+        expect(normalize(block).map(simplifyCell)).to.deep.equal([{ entity: block, tech: null }]);
+    });
 
-test('should support block as string', t => {
-    t.deepEqual(normalize(['block']).map(simplifyCell), [{ entity: { block: 'block' }, tech: null }]);
+    it('should support block as string', () => {
+        expect(normalize(['block']).map(simplifyCell)).to.deep.equal([{ entity: { block: 'block' }, tech: null }]);
+    });
 });

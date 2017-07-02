@@ -33,27 +33,13 @@
     "json5": "0.5.1",
     "node-eval": "1.1.0"
   },
-  "devDependencies": {
-    "ava": "^0.19.0",
-    "coveralls": "^2.11.9",
-    "matcha": "^0.7.0",
-    "nyc": "^10.0.0",
-    "proxyquire": "^1.7.10",
-    "sinon": "^2.1.0"
-  },
   "scripts": {
-    "test": "nyc ava",
     "bench": "matcha benchmark/*.bench.js",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
+    "specs": "mocha",
+    "cover": "nyc mocha",
+    "test": "npm run specs"
   },
-  "ava": {
-    "files": [
-      "test/*.test.js",
-      "test/**/*.test.js"
-    ],
-    "source": [
-      "lib/*.js",
-      "lib/**/*.js"
-    ]
+  "devDependencies": {
+    "matcha": "^0.7.0"
   }
 }

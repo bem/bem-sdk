@@ -19,9 +19,9 @@ const formatters = {
  * Format normalized declaration to target format
  *
  * @param  {Array|Object} decl normalized declaration
- * @param  {Object}       opts Addtional options
- * @param  {String}       opts.format format format
- * @return {Array}        Array with converted declaration
+ * @param  {Object} [opts] Additional options
+ * @param  {string} opts.format format format
+ * @return {Array} Array with converted declaration
  */
 module.exports = function (decl, opts) {
     opts || (opts = {});

@@ -1,40 +1,46 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const subtract = require('../../lib/subtract');
 
-test('should subtract block from block', t => {
-    const block = [{ block: 'block' }];
+describe('subtract.intersecting', () => {
+    it('should subtract block from block', () => {
+        const block = [{ block: 'block' }];
 
-    t.deepEqual(subtract(block, block), []);
-});
+        expect(subtract(block, block)).to.deep.equal([]);
+    });
 
-test('should subtract bool mod from bool mod', t => {
-    const mod = [{ block: 'block', modName: 'mod', modVal: true }];
+    it('should subtract bool mod from bool mod', () => {
+        const mod = [{ block: 'block', modName: 'mod', modVal: true }];
 
-    t.deepEqual(subtract(mod, mod), []);
-});
+        expect(subtract(mod, mod)).to.deep.equal([]);
+    });
 
-test('should subtract mod from mod', t => {
-    const mod = [{ block: 'block', modName: 'mod', modVal: 'val' }];
+    it('should subtract mod from mod', () => {
+        const mod = [{ block: 'block', modName: 'mod', modVal: 'val' }];
 
-    t.deepEqual(subtract(mod, mod), []);
-});
+        expect(subtract(mod, mod)).to.deep.equal([]);
+    });
 
-test('should subtract elem from elem', t => {
-    const elem = [{ block: 'block', elem: 'elem' }];
+    it('should subtract elem from elem', () => {
+        const elem = [{ block: 'block', elem: 'elem' }];
 
-    t.deepEqual(subtract(elem, elem), []);
-});
+        expect(subtract(elem, elem)).to.deep.equal([]);
+    });
 
-test('should subtract bool mod of elem from bool mod of elem', t => {
-    const mod = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: true }];
+    it('should subtract bool mod of elem from bool mod of elem', () => {
+        const mod = [{ block: 'block', elem: 'elem', modName: 'mod', modVal: true }];
 
-    t.deepEqual(subtract(mod, mod), []);
-});
+        expect(subtract(mod, mod)).to.deep.equal([]);
+    });
 
-test('should subtract elem mod from elem mod', t => {
-    const mod = [{ block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' }];
+    it('should subtract elem mod from elem mod', () => {
+        const mod = [{ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }];
 
-    t.deepEqual(subtract(mod, mod), []);
+        expect(subtract(mod, mod)).to.deep.equal([]);
+    });
 });

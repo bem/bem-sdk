@@ -1,45 +1,51 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const createCell = require('../util').createCell;
 const intersect = require('../../lib/intersect');
 
-test('should intersect block with block', t => {
-    const block = [{ entity: { block: 'block' }, tech: null }].map(createCell);
+describe('intersect.intersecting-entities', () => {
+    it('should intersect block with block', () => {
+        const block = [{ entity: { block: 'block' }, tech: null }].map(createCell);
 
-    t.deepEqual(intersect(block, block), block);
-});
+        expect(intersect(block, block)).to.deep.equal(block);
+    });
 
-test('should intersect bool mod with bool mod', t => {
-    const mod = [{ entity: { block: 'block', modName: 'mod', modVal: true }, tech: null }].map(createCell);
+    it('should intersect bool mod with bool mod', () => {
+        const mod = [{ entity: { block: 'block', modName: 'mod', modVal: true }, tech: null }].map(createCell);
 
-    t.deepEqual(intersect(mod, mod), mod);
-});
+        expect(intersect(mod, mod)).to.deep.equal(mod);
+    });
 
-test('should intersect mod with mod', t => {
-    const mod = [{ entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null }].map(createCell);
+    it('should intersect mod with mod', () => {
+        const mod = [{ entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null }].map(createCell);
 
-    t.deepEqual(intersect(mod, mod), mod);
-});
+        expect(intersect(mod, mod)).to.deep.equal(mod);
+    });
 
-test('should intersect elem with elem', t => {
-    const elem = [{ entity: { block: 'block', elem: 'elem' }, tech: null }].map(createCell);
+    it('should intersect elem with elem', () => {
+        const elem = [{ entity: { block: 'block', elem: 'elem' }, tech: null }].map(createCell);
 
-    t.deepEqual(intersect(elem, elem), elem);
-});
+        expect(intersect(elem, elem)).to.deep.equal(elem);
+    });
 
-test('should intersect bool mod of elem with bool mod of elem', t => {
-    const mod = [
-            { entity: { block: 'block', elem: 'elem' , modName: 'mod', modVal: true }, tech: null }
+    it('should intersect bool mod of elem with bool mod of elem', () => {
+        const mod = [
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
         ].map(createCell);
 
-    t.deepEqual(intersect(mod, mod), mod);
-});
+        expect(intersect(mod, mod)).to.deep.equal(mod);
+    });
 
-test('should intersect elem mod with elem mod', t => {
-    const mod = [
-            { entity: { block: 'block', elem: 'elem' , modName: 'mod', modVal: 'val' }, tech: null }
+    it('should intersect elem mod with elem mod', () => {
+        const mod = [
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
         ].map(createCell);
 
-    t.deepEqual(intersect(mod, mod), mod);
+        expect(intersect(mod, mod)).to.deep.equal(mod);
+    });
 });

@@ -1,40 +1,48 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/v2');
 
-test('should support shortcut for bool mod of elem', t => {
-    const decl = { block: 'block', elems: 'elem', mod: 'mod' };
+describe('normalize2.elems-mod', () => {
+    it('should support shortcut for bool mod of elem', () => {
+        const decl = { block: 'block', elems: 'elem', mod: 'mod' };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null }
-    ]);
-});
-test('should support bool mod of elems', t => {
-    const decl = { block: 'block', elems: 'elem', mod: 'mod', val: true };
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null }
+        ]);
+    });
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null }
-    ]);
-});
-test('should remove bool mod on elem if falsy except 0', t => {
-    const decl  = [
-        { block: 'block', elems: 'elem', mod: 'mod', val: false },
-        { block: 'block', elems: 'elem', mod: 'mod', val: undefined },
-        { block: 'block', elems: 'elem', mod: 'mod', val: null }
-    ];
+    it('should support bool mod of elems', () => {
+        const decl = { block: 'block', elems: 'elem', mod: 'mod', val: true };
 
-    const expected = [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null }
-    ];
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null }
+        ]);
+    });
 
-    decl.forEach(item => {
-        t.deepEqual(normalize(item).map(simplifyCell), expected);
+    it('should remove bool mod on elem if falsy except 0', () => {
+        const decl = [
+            { block: 'block', elems: 'elem', mod: 'mod', val: false },
+            { block: 'block', elems: 'elem', mod: 'mod', val: undefined },
+            { block: 'block', elems: 'elem', mod: 'mod', val: null }
+        ];
+
+        const expected = [
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null }
+        ];
+
+        decl.forEach(item => {
+            expect(normalize(item).map(simplifyCell)).to.deep.equal(expected);
+        });
     });
 });
