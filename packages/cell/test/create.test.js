@@ -1,71 +1,76 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
 
 const BemEntityName = require('@bem/sdk.entity-name');
 
 const BemCell = require('../index');
 
-test('should return object as is if it`s a BemCell', t => {
-    const cell = new BemCell({ entity: new BemEntityName({ block: 'b' }) });
+describe('create', () => {
+    it('should return instance as is if it`s a BemCell', () => {
+        const cell = new BemCell({ entity: new BemEntityName({ block: 'b' }) });
 
-    t.is(BemCell.create(cell), cell);
-});
-
-test('should return cell with passed entityName', t => {
-    const entity = new BemEntityName({ block: 'b' });
-
-    t.is(BemCell.create(entity).entity, entity);
-});
-
-test('should create BemCell for block from obj', t => {
-    const cell = BemCell.create({ block: 'b' });
-
-    t.pass(cell instanceof BemCell, 'Should be an instance of BemCell');
-    t.is(cell.entity.block, 'b', 'Should create entity with BemEntityName.create');
-});
-
-test('should create cell for elem from obj', t => {
-    const cell = BemCell.create({ block: 'b', elem: 'e' });
-
-    t.deepEqual(cell.entity.valueOf(), { block: 'b', elem: 'e' });
-});
-
-test('should create cell with tech', t => {
-    const cell = BemCell.create({ block: 'block', tech: 'css' });
-
-    t.is(cell.tech, 'css');
-});
-
-test('should create cell with layer', t => {
-    const cell = BemCell.create({ block: 'block', layer: 'desktop' });
-
-    t.is(cell.layer, 'desktop');
-});
-
-test('should create cell with layer', t => {
-    const cell = BemCell.create({ block: 'block', tech: 'css', layer: 'desktop' });
-
-    t.is(cell.tech, 'css');
-    t.is(cell.layer, 'desktop');
-});
-
-test('should create BemCell for block from obj', t => {
-    const cell = BemCell.create({ block: 'b', elem: 'e', mod: 'm', val: 'v', tech: 't', layer: 'l' });
-
-    t.deepEqual(cell.valueOf(), {
-        entity: { block: 'b', elem: 'e', mod: { name: 'm', val: 'v' } },
-        tech: 't',
-        layer: 'l'
+        expect(BemCell.create(cell)).to.equal(cell);
     });
-});
 
-test('should create BemCell for entity with tech and layer from obj', t => {
-    const cell = BemCell.create({ entity: { block: 'b', mod: 'm', val: 'v' }, tech: 't', layer: 'l' });
+    it('should return cell with passed entityName', () => {
+        const entity = new BemEntityName({ block: 'b' });
 
-    t.deepEqual(cell.valueOf(), {
-        entity: { block: 'b', mod: { name: 'm', val: 'v' } },
-        tech: 't',
-        layer: 'l'
+        expect(BemCell.create(entity).entity).to.equal(entity);
+    });
+
+    it('should create BemCell for block from obj', () => {
+        const cell = BemCell.create({ block: 'b' });
+
+        expect(cell).to.be.an.instanceof(BemCell, 'Should be an instance of BemCell');
+        expect(cell.entity.block).to.equal('b', 'Should create entity with BemEntityName.create');
+    });
+
+    it('should create cell for elem from obj', () => {
+        const cell = BemCell.create({ block: 'b', elem: 'e' });
+
+        expect(cell.entity.valueOf()).to.deep.equal({ block: 'b', elem: 'e' });
+    });
+
+    it('should create cell with tech', () => {
+        const cell = BemCell.create({ block: 'block', tech: 'css' });
+
+        expect(cell.tech).to.equal('css');
+    });
+
+    it('should create cell with layer', () => {
+        const cell = BemCell.create({ block: 'block', layer: 'desktop' });
+
+        expect(cell.layer).to.equal('desktop');
+    });
+
+    it('should create cell with layer', () => {
+        const cell = BemCell.create({ block: 'block', tech: 'css', layer: 'desktop' });
+
+        expect(cell.tech).to.equal('css');
+        expect(cell.layer).to.equal('desktop');
+    });
+
+    it('should create BemCell for block from obj', () => {
+        const cell = BemCell.create({ block: 'b', elem: 'e', mod: 'm', val: 'v', tech: 't', layer: 'l' });
+
+        expect(cell.valueOf()).to.deep.equal({
+            entity: { block: 'b', elem: 'e', mod: { name: 'm', val: 'v' } },
+            tech: 't',
+            layer: 'l'
+        });
+    });
+
+    it('should create BemCell for entity with tech and layer from obj', () => {
+        const cell = BemCell.create({ entity: { block: 'b', mod: 'm', val: 'v' }, tech: 't', layer: 'l' });
+
+        expect(cell.valueOf()).to.deep.equal({
+            entity: { block: 'b', mod: { name: 'm', val: 'v' } },
+            tech: 't',
+            layer: 'l'
+        });
     });
 });

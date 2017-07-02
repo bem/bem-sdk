@@ -1,38 +1,40 @@
-import test from 'ava';
+'use strict';
 
-import BemjsonNode from '../..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should throw error if not `block` field', t => {
-    t.throws(
-        () => new BemjsonNode({ elem: 'elem' }),
-        /`block` field should be a non empty string/
-    );
-});
+const expect = require('chai').expect;
 
-test('should throw error if `elem` field has non-string value', t => {
-    t.throws(
-        () => new BemjsonNode({ block: 'b', elem: {} }),
-        /`elem` field should be a non-empty string/
-    );
-});
+const BemjsonNode = require('../..');
 
-test('should throw error if `elemMods` field is empty object', t => {
-    t.throws(
-        () => new BemjsonNode({ block: 'block', elemMods: {} }),
-        /`elemMods` field should not be used without `elem` field/
-    );
-});
+describe('test errors', () => {
+    it('should throw error if not `block` field', () => {
+        expect(() => new BemjsonNode({ elem: 'elem' })).to.throw(
+            /`block` field should be a non empty string/
+        );
+    });
 
-test('should throw error if `mods` field has invalid value', t => {
-    t.throws(
-        () => new BemjsonNode({ block: 'block', mods: 'string' }),
-        /`mods` field should be a simple object or null/
-    );
-});
+    it('should throw error if `elem` field has non-string value', () => {
+        expect(() => new BemjsonNode({ block: 'b', elem: {} })).to.throw(
+            /`elem` field should be a non-empty string/
+        );
+    });
 
-test('should throw error if `elemMods` field used is empty object', t => {
-    t.throws(
-        () => new BemjsonNode({ block: 'block', elem: 'e', elemMods: 'string' }),
-        /`elemMods` field should be a simple object or null/
-    );
+    it('should throw error if `elemMods` field is empty object', () => {
+        expect(() => new BemjsonNode({ block: 'block', elemMods: {} })).to.throw(
+            /`elemMods` field should not be used without `elem` field/
+        );
+    });
+
+    it('should throw error if `mods` field has invalid value', () => {
+        expect(() => new BemjsonNode({ block: 'block', mods: 'string' })).to.throw(
+            /`mods` field should be a simple object or null/
+        );
+    });
+
+    it('should throw error if `elemMods` field used is empty object', () => {
+        expect(() => new BemjsonNode({ block: 'block', elem: 'e', elemMods: 'string' })).to.throw(
+            /`elemMods` field should be a simple object or null/
+        );
+    });
 });

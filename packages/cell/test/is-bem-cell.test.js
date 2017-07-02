@@ -1,23 +1,29 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const BemEntityName = require('@bem/sdk.entity-name');
 
 const BemCell = require('../index');
 
-test('should check valid entities', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' })
+describe('is-bem-cell', () => {
+    it('should check valid entities', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' })
+        });
+
+        expect(BemCell.isBemCell(cell)).to.equal(true);
     });
 
-    t.true(BemCell.isBemCell(cell));
-});
+    it('should not pass invalid blocks', () => {
+        expect(BemCell.isBemCell({})).to.equal(false);
+        expect(BemCell.isBemCell([])).to.equal(false);
+    });
 
-test('should not pass invalid blocks', t => {
-    t.falsy(BemCell.isBemCell({}));
-    t.falsy(BemCell.isBemCell([]));
-});
-
-test('should not pass null', t => {
-    t.falsy(BemCell.isBemCell(null));
+    it('should not pass null', () => {
+        expect(BemCell.isBemCell(null)).to.equal(false);
+    });
 });

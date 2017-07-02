@@ -429,7 +429,7 @@ class BemEntityName {
      * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemEntityName.
      */
     static isBemEntityName(entityName) {
-        return entityName && entityName.__isBemEntityName__;
+        return !!entityName && entityName.__isBemEntityName__;
     }
 }
 

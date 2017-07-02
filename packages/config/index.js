@@ -24,7 +24,8 @@ function BemConfig(options) {
 
 /**
  * Returns all found configs
- * @param {Boolean} isSync - flag to resolve configs synchronously
+ *
+ * @param {boolean} [isSync=false] - flag to resolve configs synchronously
  * @returns {Promise|Array}
  */
 BemConfig.prototype.configs = function(isSync) {

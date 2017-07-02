@@ -7,6 +7,14 @@ const deprecate = require('depd')(require('./package.json').name);
 
 const BemEntityName = require('@bem/sdk.entity-name');
 
+/**
+ * Bem mod representation
+ *
+ * @typedef {Object} BemMod - the modifier of entity.
+ * @property {string} name - the modifier name of entity.
+ * @property {string} [val] - the modifier value of entity.
+ */
+
 module.exports = class BemCell {
     /**
      * @param {Object} obj — representation of cell.
@@ -21,6 +29,8 @@ module.exports = class BemCell {
         this._entity = obj.entity;
         this._layer = obj.layer;
         this._tech = obj.tech;
+
+        this.__isBemCell__ = true;
     }
 
     /**
@@ -268,11 +278,11 @@ module.exports = class BemCell {
      * BemCell.isBemCell(cell); // true
      * BemCell.isBemCell({}); // false
      *
-     * @param {BemCell} cell - the cell to check.
+     * @param {(BemCell|*)} cell - the cell to check.
      * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemCell.
      */
     static isBemCell(cell) {
-        return cell && this.name === cell.constructor.name;
+        return !!cell && Boolean(cell.__isBemCell__);
     }
 
     /**
@@ -287,17 +297,14 @@ module.exports = class BemCell {
      * // BemCell { block: 'my-button', mod: { name: 'theme', val: 'red' }, tech: 'css' }
      *
      * @param {Object} obj — representation of cell.
-     * @param {String} obj.block — the block name of entity.
-     * @param {String} [obj.elem] — the element name of entity.
-     * @param {Object|String} [obj.mod] — the modifier of entity.
-     * @param {String} [obj.val] — The modifier value of entity. Used if `mod` is a string.
-     * @param {String} obj.mod.name — the modifier name of entity.
-     * @param {String} [obj.mod.val] — the modifier value of entity.
-     * @param {String} [obj.modName] — the modifier name of entity. Used if `mod.name` wasn't specified.
-     * @param {String} [obj.modVal] — the modifier value of entity. Used if neither `mod.val` nor `val` were not
-     *   specified.
-     * @param {String} [obj.tech] — technology of cell.
-     * @param {String} [obj.layer] — layer of cell.
+     * @param {string} obj.block — the block name of entity.
+     * @param {string} [obj.elem] — the element name of entity.
+     * @param {BemMod|string} [obj.mod] — the modifier of entity.
+     * @param {string} [obj.val] — The modifier value of entity. Used if `mod` is a string.
+     * @param {string} [obj.modName] — the modifier name of entity. Used if `mod.name` wasn't specified.
+     * @param {string} [obj.modVal] — the modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
+     * @param {string} [obj.tech] — technology of cell.
+     * @param {string} [obj.layer] — layer of cell.
      * @returns {BemCell} An object representing cell.
      */
     static create(obj) {

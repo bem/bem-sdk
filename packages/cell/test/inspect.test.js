@@ -1,30 +1,40 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const beforeEach = require('mocha').beforeEach;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
 const sinon = require('sinon');
+
 const BemEntityName = require('@bem/sdk.entity-name');
 
 const BemCell = require('../index');
 
 const EOL = require('os').EOL;
 
-test.beforeEach(t => {
-    t.context.stdoutWriteStub = sinon.stub(process.stdout, 'write');
-});
+describe('inspect', () => {
+    let stdoutWriteStub;
 
-test.afterEach(t => {
-    t.context.stdoutWriteStub.restore();
-});
-
-test('should return entity object', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' }),
-        tech: 'css'
+    beforeEach(() => {
+        stdoutWriteStub = sinon.stub(process.stdout, 'write');
     });
 
-    console.log(cell);
+    afterEach(() => {
+        stdoutWriteStub.restore();
+    });
 
-    const message = `BemCell { entity: { block: 'block' }, tech: 'css' }${EOL}`;
+    it('should return entity object', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' }),
+            tech: 'css'
+        });
 
-    t.true(t.context.stdoutWriteStub.calledWith(message));
+        console.log(cell);
+
+        const message = `BemCell { entity: { block: 'block' }, tech: 'css' }${EOL}`;
+
+        expect(stdoutWriteStub.calledWith(message)).to.equal(true);
+    });
 });
