@@ -1,8 +1,7 @@
 'use strict';
 
-const BemEntityName = require('@bem/sdk.entity-name');
 const BemCell = require('@bem/sdk.cell');
-const BemNaming = require('bem-naming');
+const BemNaming = require('@bem/sdk.naming');
 
 const BemGraph = require('./bem-graph');
 
@@ -31,7 +30,7 @@ function createVertex(entity, tech) {
         tech || (tech = p[1]);
     }
 
-    return new BemCell({ entity: new BemEntityName(entity), tech });
+    return BemCell.create({ entity, tech });
 }
 
 function findIndex(objs, obj) {

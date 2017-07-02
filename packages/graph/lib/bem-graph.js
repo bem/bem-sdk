@@ -14,27 +14,29 @@ class BemGraph {
     vertex(entity, tech) {
         const mixedGraph = this._mixedGraph;
 
-        const vertex = new BemCell({ entity: new BemEntityName(entity), tech });
+        const vertex = BemCell.create({ entity, tech });
 
         mixedGraph.addVertex(vertex);
 
         return new BemGraph.Vertex(this, vertex);
     }
     naturalDependenciesOf(entities, tech) {
-        return this.dependenciesOf(BemGraph._sortNaturally(entities), tech);
+        return this.dependenciesOf(BemGraph._sortNaturally(entities.map(BemCell.create)), tech);
     }
     dependenciesOf(entities, tech) {
         if (!Array.isArray(entities)) {
             entities = [entities];
         }
 
-        const vertices = entities.reduce((res, entity) => {
-            const entityName = new BemEntityName(entity);
+        const vertices = entities.reduce((res, entityData) => {
+            const entity = BemCell.isBemCell(entityData)
+                ? entityData.entity
+                : BemEntityName.create(entityData);
 
-            res.push(new BemCell({ entity: entityName }));
+            res.push(BemCell.create({ entity }));
 
             // Multiply techs
-            tech && res.push(new BemCell({ entity: entityName, tech }));
+            tech && res.push(BemCell.create({ entity, tech }));
 
             return res;
         }, []);
@@ -97,9 +99,9 @@ class BemGraph {
             const entity = vertex.entity;
 
             // Elem modifier should depend on elen by default
-            if (entity.elem && (entity.mod && entity.mod.name || entity.modName)) {
+            if (entity.elem && entity.mod) {
                 (entity.mod.val !== true) &&
-                    addEdgeLosely(vertex, `${entity.block}__${entity.elem}_${entity.mod.name || entity.modName}`);
+                    addEdgeLosely(vertex, `${entity.block}__${entity.elem}_${entity.mod.name}`);
 
                 addEdgeLosely(vertex, `${entity.block}__${entity.elem}`) ||
                     addEdgeLosely(vertex, entity.block);
@@ -109,9 +111,9 @@ class BemGraph {
                 addEdgeLosely(vertex, entity.block);
             }
             // Block modifier should depend on block by default
-            else if (entity.mod && entity.mod.name || entity.modName) {
+            else if (entity.mod) {
                 (entity.mod.val !== true) &&
-                    addEdgeLosely(vertex, `${entity.block}_${entity.mod.name || entity.modName}`);
+                    addEdgeLosely(vertex, `${entity.block}_${entity.mod.name}`);
 
                 addEdgeLosely(vertex, entity.block);
             }
@@ -121,21 +123,20 @@ class BemGraph {
         const order = {};
         let idx = 0;
         for (let entity of entities) {
-            entity.id || (entity.id = (new BemEntityName(entity)).id);
             order[entity.id] = idx++;
         }
 
         let k = 1;
         for (let entity of entities) {
             // Elem should depend on block by default
-            if (entity.elem && !entity.modName) {
+            if (entity.elem && !entity.mod) {
                 order[entity.block] && (order[entity.id] = order[entity.block] + 0.001*(k++));
             }
         }
 
         // Block/Elem boolean modifier should depend on elem/block by default
         for (let entity of entities) {
-            if (entity.modName && entity.modVal === true) {
+            if (entity.mod && entity.mod.val === true) {
                 let depId = `${entity.block}__${entity.elem}`;
                 order[depId] || (depId = entity.block);
                 order[depId] && (order[entity.id] = order[depId] + 0.00001*(k++));
@@ -144,10 +145,10 @@ class BemGraph {
 
         // Block/Elem key-value modifier should depend on boolean modifier, elem or block by default
         for (let entity of entities) {
-            if (entity.modName && entity.modVal !== true) {
+            if (entity.mod && entity.mod.val !== true) {
                 let depId = entity.elem
-                    ? `${entity.block}__${entity.elem}_${entity.modName}`
-                    : `${entity.block}_${entity.modName}`;
+                    ? `${entity.block}__${entity.elem}_${entity.mod.name}`
+                    : `${entity.block}_${entity.mod.name}`;
                 order[depId] || entity.elem && (depId = `${entity.block}__${entity.elem}`);
                 order[depId] || (depId = entity.block);
                 order[depId] && (order[entity.id] = order[depId] + 0.0000001*(k++));
@@ -164,7 +165,7 @@ BemGraph.Vertex = class {
         this.vertex = vertex;
     }
     linkWith(entity, tech) {
-        const dependencyVertex = new BemCell({ entity: new BemEntityName(entity), tech });
+        const dependencyVertex = BemCell.create({ entity, tech });
 
         debug('link ' + this.vertex.id + ' -> ' + dependencyVertex.id);
         this.graph._mixedGraph.addEdge(this.vertex, dependencyVertex, { ordered: false });
@@ -172,7 +173,7 @@ BemGraph.Vertex = class {
         return this;
     }
     dependsOn(entity, tech) {
-        const dependencyVertex = new BemCell({ entity: new BemEntityName(entity), tech });
+        const dependencyVertex = BemCell.create({ entity, tech });
 
         debug('link ' + this.vertex.id + ' => ' + dependencyVertex.id);
         this.graph._mixedGraph.addEdge(this.vertex, dependencyVertex, { ordered: true });

@@ -1,6 +1,6 @@
 'use strict';
 
-const BemEntityName = require('@bem/sdk.entity-name');
+const BemEntityName = require('@bem/entity-name');
 
 /**
  * Builds regex for specified naming convention.

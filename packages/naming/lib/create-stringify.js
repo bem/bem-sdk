@@ -19,11 +19,12 @@ function stringify(entity, delims) {
     }
 
     const modObj = entity.mod;
-    const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) || entity.modName;
+    const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) ||
+        !entity.__isBemEntityName__ && entity.modName;
 
     if (modName) {
         const hasModVal = modObj && modObj.hasOwnProperty('val') || entity.hasOwnProperty('modVal');
-        const modVal = modObj && modObj.val || entity.modVal;
+        const modVal = modObj && modObj.val || !entity.__isBemEntityName__ && entity.modVal;
 
         if (modVal || modVal === 0 || !hasModVal) {
             res += delims.mod.name + modName;
