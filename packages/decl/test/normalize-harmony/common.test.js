@@ -1,44 +1,52 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/harmony');
 
-test('should support undefined', t => {
-    t.deepEqual(normalize(), []);
-});
+describe('normalize-harmony', () => {
+    it('should support undefined', () => {
+        expect(normalize()).to.deep.equal([]);
+    });
 
-test('should support empty array', t => {
-    t.deepEqual(normalize([]), []);
-});
+    it('should support empty array', () => {
+        expect(normalize([])).to.deep.equal([]);
+    });
 
-test('should support empty object', t => {
-    const decl = {};
+    it('should support empty object', () => {
+        const decl = {};
 
-    t.deepEqual(normalize(decl), []);
-});
+        expect(normalize(decl)).to.deep.equal([]);
+    });
 
-test('should return set', t => {
-    const A = { block: 'A' };
+    it('should return set', () => {
+        const A = { block: 'A' };
 
-    t.deepEqual(normalize([A, A]).map(simplifyCell), [{ entity: A, tech: null }]);
-});
+        expect(normalize([A, A]).map(simplifyCell)).to.deep.equal([{ entity: A, tech: null }]);
+    });
 
-test('should save order', t => {
-    const A = { block: 'A' },
-        B = { block: 'B' };
+    it('should save order', () => {
+        const A = { block: 'A' },
+            B = { block: 'B' };
 
-    t.deepEqual(normalize([A, B, A]).map(simplifyCell), [{ entity: A, tech: null }, { entity: B, tech: null }]);
-});
+        expect(normalize([A, B, A]).map(simplifyCell)).to.deep.equal(
+            [{ entity: A, tech: null }, { entity: B, tech: null }]
+        );
+    });
 
-test('should support array', t => {
-    const decl = [
-        { block: 'A' },
-        { block: 'B' }
-    ];
+    it('should support array', () => {
+        const decl = [
+            { block: 'A' },
+            { block: 'B' }
+        ];
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'A' }, tech: null },
-        { entity: { block: 'B' }, tech: null }
-    ]);
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'A' }, tech: null },
+            { entity: { block: 'B' }, tech: null }
+        ]);
+    });
 });

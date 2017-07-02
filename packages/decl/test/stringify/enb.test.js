@@ -1,6 +1,10 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const BemCell = require('@bem/sdk.cell');
 const JSON5 = require('json5');
 
@@ -12,50 +16,44 @@ const obj = {
 };
 const cell = BemCell.create({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' });
 
-test('should throws error if no format given', t => {
-    t.throws(() => stringify(cell),
-        'You must declare target format'
-    );
-});
+describe('stringify.enb', () => {
+    it('should throws error if no format given', () => {
+        expect(() => stringify(cell)).to.throw('You must declare target format');
+    });
 
-test('should stringify enb declaration with commonJS', t => {
-    t.is(
-        stringify(cell, { format: 'enb', exportType: 'commonjs' }),
-        `module.exports = ${JSON5.stringify(obj, null, 4)};\n`
-    );
-});
+    it('should stringify enb declaration with commonJS', () => {
+        expect(
+            stringify(cell, { format: 'enb', exportType: 'commonjs' })
+        ).to.equal(`module.exports = ${JSON5.stringify(obj, null, 4)};\n`);
+    });
 
-test('should stringify enb declaration with es6', t => {
-    t.is(
-        stringify(cell, { format: 'enb', exportType: 'es6' }),
-        `export default ${JSON5.stringify(obj, null, 4)};\n`
-    );
-});
+    it('should stringify enb declaration with es6', () => {
+        expect(
+            stringify(cell, { format: 'enb', exportType: 'es6' })
+        ).to.equal(`export default ${JSON5.stringify(obj, null, 4)};\n`);
+    });
 
-test('should stringify enb declaration with es2105', t => {
-    t.is(
-        stringify(cell, { format: 'enb', exportType: 'es2015' }),
-        `export default ${JSON5.stringify(obj, null, 4)};\n`
-    );
-});
+    it('should stringify enb declaration with es2105', () => {
+        expect(
+            stringify(cell, { format: 'enb', exportType: 'es2015' })
+        ).to.equal(`export default ${JSON5.stringify(obj, null, 4)};\n`);
+    });
 
-test('should stringify enb declaration with JSON', t => {
-    t.is(
-        stringify(cell, { format: 'enb', exportType: 'json' }),
-        JSON.stringify(obj, null, 4)
-    );
-});
+    it('should stringify enb declaration with JSON', () => {
+        expect(
+            stringify(cell, { format: 'enb', exportType: 'json' })
+        ).to.equal(JSON.stringify(obj, null, 4));
+    });
 
-test('should stringify enb declaration with JSON5', t => {
-    t.is(
-        stringify(cell, { format: 'enb', exportType: 'json5' }),
-        JSON5.stringify(obj, null, 4)
-    );
-});
+    it('should stringify enb declaration with JSON5', () => {
+        expect(
+            stringify(cell, { format: 'enb', exportType: 'json5' })
+        ).to.equal(JSON5.stringify(obj, null, 4));
+    });
 
-test('should stringify enb declaration with JSON if no exportType given', t => {
-    t.is(
-        stringify(cell, { format: 'enb' }),
-        JSON.stringify(obj, null, 4)
-    );
+    it('should stringify enb declaration with JSON if no exportType given', () => {
+        expect(
+            stringify(cell, { format: 'enb' })
+        ).to.equal(JSON.stringify(obj, null, 4));
+    });
 });

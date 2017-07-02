@@ -1,6 +1,10 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const simplifyCell = require('./util').simplifyCell;
 const bemDecl = require('../lib/index');
 const decls = {
@@ -9,37 +13,39 @@ const decls = {
     normalized: { block: 'block' }
 };
 
-test('should have `normalize` method', t => {
-    t.truthy(typeof bemDecl.normalize === 'function');
-});
+describe('index', () => {
+    it('should have `normalize` method', () => {
+        expect(bemDecl.normalize).to.be.a('function');
+    });
 
-test('should support `BEMDECL 1.0` format', t => {
-    var decl = bemDecl.normalize(decls.v1, { format: 'v1' });
+    it('should support `BEMDECL 1.0` format', () => {
+        const decl = bemDecl.normalize(decls.v1, { format: 'v1' });
 
-    t.deepEqual(decl.map(simplifyCell), [{ entity: decls.normalized, tech: null }]);
-});
+        expect(decl.map(simplifyCell)).to.deep.equal([{ entity: decls.normalized, tech: null }]);
+    });
 
 // TODO: define name of format
-test('should have support `BEMDECL x.0` format', t => {
-    var decl = bemDecl.normalize(decls.v2, { v2: true });
+    it('should have support `BEMDECL x.0` format', () => {
+        const decl = bemDecl.normalize(decls.v2, { v2: true });
 
-    t.deepEqual(decl.map(simplifyCell), [{ entity: decls.normalized, tech: null }]);
-})
+        expect(decl.map(simplifyCell)).to.deep.equal([{ entity: decls.normalized, tech: null }]);
+    });
 
-test('should support `BEMDECL 2.0` format', t => {
-    var decl = bemDecl.normalize(decls.v2, { harmony: true });
+    it('should support `BEMDECL 2.0` format', () => {
+        const decl = bemDecl.normalize(decls.v2, { harmony: true });
 
-    t.deepEqual(decl.map(simplifyCell), [{ entity: decls.normalized, tech: null }]);
-});
+        expect(decl.map(simplifyCell)).to.deep.equal([{ entity: decls.normalized, tech: null }]);
+    });
 
-test('should have `merge` method', t => {
-    t.truthy(typeof bemDecl.merge === 'function');
-});
+    it('should have `merge` method', () => {
+        expect(bemDecl.merge).to.be.a('function');
+    });
 
-test('should have `subtract` method', t => {
-    t.truthy(typeof bemDecl.subtract === 'function');
-});
+    it('should have `subtract` method', () => {
+        expect(bemDecl.subtract).to.be.a('function');
+    });
 
-test('should have `parse` method', t => {
-    t.truthy(typeof bemDecl.parse === 'function');
+    it('should have `parse` method', () => {
+        expect(bemDecl.parse).to.be.a('function');
+    });
 });

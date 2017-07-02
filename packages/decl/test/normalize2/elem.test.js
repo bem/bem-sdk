@@ -1,78 +1,85 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/v2');
 
-test('should support elem', t => {
-    const decl = { block: 'block', elem: 'elem' };
+describe('normalize2.elem', () => {
+    it('should support elem', () => {
+        const decl = { block: 'block', elem: 'elem' };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: decl, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: decl, tech: null }
+        ]);
+    });
 
-test('should support elem as array', t => {
-    const decl = {
-        block: 'block',
-        elem: ['elem1', 'elem2']
-    }
+    it('should support elem as array', () => {
+        const decl = {
+            block: 'block',
+            elem: ['elem1', 'elem2']
+        };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block', elem: 'elem1' }, tech: null },
-        { entity: { block: 'block', elem: 'elem2' }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block', elem: 'elem1' }, tech: null },
+            { entity: { block: 'block', elem: 'elem2' }, tech: null }
+        ]);
+    });
 
-test('should support elem as object', t => {
-    const decl = {
-        block: 'block',
-        elem: { elem: 'elem' }
-    };
+    it('should support elem as object', () => {
+        const decl = {
+            block: 'block',
+            elem: { elem: 'elem' }
+        };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block', elem: 'elem' }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block', elem: 'elem' }, tech: null }
+        ]);
+    });
 
-test('should support elem as array of objects', t => {
-    const decl = {
-        block: 'block',
-        elem: [
-            { elem: 'elem1' },
-            { elem: 'elem2' }
-        ]
-    };
+    it('should support elem as array of objects', () => {
+        const decl = {
+            block: 'block',
+            elem: [
+                { elem: 'elem1' },
+                { elem: 'elem2' }
+            ]
+        };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block', elem: 'elem1' }, tech: null },
-        { entity: { block: 'block', elem: 'elem2' }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block', elem: 'elem1' }, tech: null },
+            { entity: { block: 'block', elem: 'elem2' }, tech: null }
+        ]);
+    });
 
-test('should support elem of elem as array', t => {
-    const decl = {
-        block: 'block',
-        elem: [
-            { elem: ['elem1', 'elem2'] }
-        ]
-    };
+    it('should support elem of elem as array', () => {
+        const decl = {
+            block: 'block',
+            elem: [
+                { elem: ['elem1', 'elem2'] }
+            ]
+        };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block', elem: 'elem1' }, tech: null },
-        { entity: { block: 'block', elem: 'elem2' }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block', elem: 'elem1' }, tech: null },
+            { entity: { block: 'block', elem: 'elem2' }, tech: null }
+        ]);
+    });
 
-test('should support elem without block but with scope', t => {
-    const decl = {
-        elem: [
-            { elem: ['elem1', 'elem2'] }
-        ]
-    };
+    it('should support elem without block but with scope', () => {
+        const decl = {
+            elem: [
+                { elem: ['elem1', 'elem2'] }
+            ]
+        };
 
-    t.deepEqual(normalize(decl, { entity: { block: 'sb' } }).map(simplifyCell), [
-        { entity: { block: 'sb', elem: 'elem1' }, tech: null },
-        { entity: { block: 'sb', elem: 'elem2' }, tech: null }
-    ]);
+        expect(normalize(decl, { entity: { block: 'sb' } }).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'sb', elem: 'elem1' }, tech: null },
+            { entity: { block: 'sb', elem: 'elem2' }, tech: null }
+        ]);
+    });
+
 });

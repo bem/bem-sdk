@@ -1,16 +1,23 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const parse = require('../..').parse;
 
-test('should throw if undefined', t => {
-    t.throws(() => parse(), /Bemdecl must be String or Object/);
-});
+describe('parse.common', () => {
+    it('should throw if undefined', () => {
+        expect(() => parse()).to.throw(/Bemdecl must be String or Object/);
+    });
 
-test('should throw if unsupported', t => {
-    t.throws(() => parse('({ format: \'unknown\', components: [] })'), /Unknown BEMDECL format/);
-});
+    it('should throw if unsupported', () => {
+        expect(() => parse('({ format: \'unknown\', components: [] })')).to.throw(/Unknown BEMDECL format/);
+    });
 
-test('should throw if unsupported in object', t => {
-    t.throws(() => parse({ format: 'unknown', components: [] }), /Unknown BEMDECL format/);
+    it('should throw if unsupported in object', () => {
+        expect(() => parse({ format: 'unknown', components: [] })).to.throw(/Unknown BEMDECL format/);
+    });
+
 });

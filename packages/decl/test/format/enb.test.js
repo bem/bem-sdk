@@ -1,35 +1,36 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
 
 const format = require('../../lib/format');
 
-test('should throw exception if no format given', t => {
-    t.throws(() => format({ entity: { block: 'block' }, tech: null }), 'You must declare target format');
-});
+describe('format.enb', () => {
+    it('should throw exception if no format given', () => {
+        expect(() => format({ entity: { block: 'block' }, tech: null })).to.throw('You must declare target format');
+    });
 
-test('should format to enb format', t => {
-    t.deepEqual(format({ entity: { block: 'block' }, tech: null }, { format: 'enb' }), [{ block: 'block' }]);
-});
+    it('should format to enb format', () => {
+        expect(format({ entity: { block: 'block' }, tech: null }, { format: 'enb' })).to.deep.equal(
+            [{ block: 'block' }]
+        );
+    });
 
-test('should coformatnvert with elem', t => {
-    t.deepEqual(
-        format([
+    it('should format with elem', () => {
+        expect(format([
             { entity: { block: 'block' }, tech: null },
             { entity: { block: 'block', elem: 'elem' }, tech: null }
-        ], { format: 'enb' }),
-        [
+        ], { format: 'enb' })).to.deep.equal([
             { block: 'block' },
             { block: 'block', elem: 'elem' }
-        ]
-    );
-});
+        ]);
+    });
 
-test('should format with mod', t => {
-    t.deepEqual(
-        format([
+    it('should format with mod', () => {
+        expect(format([
             { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null }
-        ], { format: 'enb' }),
-        [{ block: 'block', mod: 'mod', val: 'val' }]
-    )
+        ], { format: 'enb' })).to.deep.equal([{ block: 'block', mod: 'mod', val: 'val' }]);
+    });
 });

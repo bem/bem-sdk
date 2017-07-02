@@ -1,50 +1,59 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const beforeEach = require('mocha').beforeEach;
+
+const expect = require('chai').expect;
+
 const sinon = require('sinon');
 const proxyquire = require('proxyquire');
 
-test.beforeEach(t => {
-    const stringifyStub = sinon.stub();
+describe('save', () => {
+    let context;
 
-    t.context = {
-        stringifyStub: stringifyStub,
-        save: proxyquire('../lib/save', {
-            './stringify': stringifyStub,
-            fs: { writeFile: sinon.stub() }
-        })
-    }
-});
+    beforeEach(() => {
+        const stringifyStub = sinon.stub();
 
-test('method save should be returns Promise', t => {
-    const promise = t.context.save();
+        context = {
+            stringifyStub: stringifyStub,
+            save: proxyquire('../lib/save', {
+                './stringify': stringifyStub,
+                fs: { writeFile: sinon.stub() }
+            })
+        };
+    });
 
-    t.true(promise instanceof Promise, 'not a Promise');
-});
+    it('method save should be returns Promise', () => {
+        const promise = context.save();
 
-test('method save should be save file in cjs by default', t => {
-    const save = t.context.save;
-    const stringifyStub = t.context.stringifyStub;
+        expect(promise).to.be.instanceOf(Promise, 'not a Promise');
+    });
 
-    save('decl-test.js');
+    it('method save should be save file in cjs by default', () => {
+        const save = context.save;
+        const stringifyStub = context.stringifyStub;
 
-    t.true(stringifyStub.calledWith(undefined, { format: 'v2', exportType: 'cjs' }));
-});
+        save('decl-test.js');
 
-test('method save should be save file in custom format', t => {
-    const save = t.context.save;
-    const stringifyStub = t.context.stringifyStub;
+        expect(stringifyStub.calledWith(undefined, { format: 'v2', exportType: 'cjs' })).to.equal(true);
+    });
 
-    save('decl-test.js', null, { format: 'v5' });
+    it('method save should be save file in custom format', () => {
+        const save = context.save;
+        const stringifyStub = context.stringifyStub;
 
-    t.true(stringifyStub.calledWith(null, { format: 'v5', exportType: 'cjs' }));
-});
+        save('decl-test.js', null, { format: 'v5' });
 
-test('method save should be save file in custom type', t => {
-    const save = t.context.save;
-    const stringifyStub = t.context.stringifyStub;
+        expect(stringifyStub.calledWith(null, { format: 'v5', exportType: 'cjs' })).to.equal(true);
+    });
 
-    save('decl-test.js', null, { exportType: 'txt' });
+    it('method save should be save file in custom type', () => {
+        const save = context.save;
+        const stringifyStub = context.stringifyStub;
 
-    t.true(stringifyStub.calledWith(null, { format: 'v2', exportType: 'txt' }));
+        save('decl-test.js', null, { exportType: 'txt' });
+
+        expect(stringifyStub.calledWith(null, { format: 'v2', exportType: 'txt' })).to.equal(true);
+    });
 });

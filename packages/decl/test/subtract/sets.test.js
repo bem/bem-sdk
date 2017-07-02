@@ -1,46 +1,50 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const BemCell = require('@bem/sdk.cell');
-const BemEntityName = require('@bem/sdk.entity-name');
-const createCell = (cell) => new BemCell({
-    entity: new BemEntityName(cell.entity),
-    tech: cell.tech
-});
+const createCell = BemCell.create;
 
 const subtract = require('../../lib/subtract');
 
-test('should subtract set from empty set', t => {
-    const A = [{ entity: { block: 'A' } }].map(createCell);
+describe('subtract.sets', () => {
+    it('should subtract set from empty set', () => {
+        const A = [{ entity: { block: 'A' } }].map(createCell);
 
-    t.deepEqual(subtract([], A), []);
-});
+        expect(subtract([], A)).to.deep.equal([]);
+    });
 
-test('should subtract empty set from set', t => {
-    const A = [{ entity: { block: 'A' } }].map(createCell);
+    it('should subtract empty set from set', () => {
+        const A = [{ entity: { block: 'A' } }].map(createCell);
 
-    t.deepEqual(subtract(A, []), A);
-});
+        expect(subtract(A, [])).to.deep.equal(A);
+    });
 
-test('should support disjoint sets', t => {
-    const A = [{ entity: { block: 'A' } }].map(createCell);
-    const B = [{ entity: { block: 'B' } }].map(createCell);
+    it('should support disjoint sets', () => {
+        const A = [{ entity: { block: 'A' } }].map(createCell);
+        const B = [{ entity: { block: 'B' } }].map(createCell);
 
-    t.deepEqual(subtract(A, B), A);
-});
+        expect(subtract(A, B)).to.deep.equal(A);
+    });
 
-test('should support intersecting sets', t => {
-    const ABC = [{ entity: { block: 'A' } }, { entity: { block: 'B' } }, { entity: { block: 'C' } }].map(createCell);
-    const B   = [{ entity: { block: 'B' } }].map(createCell);
-    const AC  = [{ entity: { block: 'A' } }, { entity: { block: 'C' } }].map(createCell);
+    it('should support intersecting sets', () => {
+        const ABC = [{ entity: { block: 'A' } }, { entity: { block: 'B' } },
+            { entity: { block: 'C' } }].map(createCell);
+        const B = [{ entity: { block: 'B' } }].map(createCell);
+        const AC = [{ entity: { block: 'A' } }, { entity: { block: 'C' } }].map(createCell);
 
-    t.deepEqual(subtract(ABC, B).map(c => c.id), AC.map(c => c.id));
-});
+        expect(subtract(ABC, B).map(c => c.id)).to.deep.equal(AC.map(c => c.id));
+    });
 
-test('should support several decls', t => {
-    const A = createCell({ entity: { block: 'A' } });
-    const B = createCell({ entity: { block: 'B' } });
-    const C = createCell({ entity: { block: 'C' } });
+    it('should support several decls', () => {
+        const A = createCell({ entity: { block: 'A' } });
+        const B = createCell({ entity: { block: 'B' } });
+        const C = createCell({ entity: { block: 'C' } });
 
-    t.deepEqual(subtract([A, B, C], [B], [C]), [A]);
+        expect(subtract([A,B,C], [B], [C])).to.deep.equal([A]);
+    });
+
 });

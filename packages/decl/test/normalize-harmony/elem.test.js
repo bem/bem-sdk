@@ -1,88 +1,94 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const simplifyCell = require('../util').simplifyCell;
 const normalize = require('../../lib/normalize/harmony');
 
-test('should support elem', t => {
-    const decl = { block: 'block', elem: 'elem' };
+describe('normalize-harmony.elem', () => {
+    it('should support elem', () => {
+        const decl = { block: 'block', elem: 'elem' };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null }
+        ]);
+    });
 
-test('should support shortcut for bool mod of elem', t => {
-    const decl = { block: 'block', elem: 'elem', modName: 'mod' };
+    it('should support shortcut for bool mod of elem', () => {
+        const decl = { block: 'block', elem: 'elem', modName: 'mod' };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
+        ]);
+    });
 
-test('should support bool mod of elem', t => {
-    const decl = { block: 'block', elem: 'elem', modName: 'mod', modVal: true };
+    it('should support bool mod of elem', () => {
+        const decl = { block: 'block', elem: 'elem', modName: 'mod', modVal: true };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
+        ]);
+    });
 
-test('should support elem mod', t => {
-    const decl = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' };
+    it('should support elem mod', () => {
+        const decl = { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
+        ]);
+    });
 
-test('should support elem mods as object', t => {
-    const decl = {
-        block: 'block',
-        elem: 'elem',
-        mods: { mod: 'val' }
-    };
+    it('should support elem mods as object', () => {
+        const decl = {
+            block: 'block',
+            elem: 'elem',
+            mods: { mod: 'val' }
+        };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
+        ]);
+    });
 
-test('should support bool mods of elem as array', t => {
-    const decl = {
-        block: 'block',
-        elem: 'elem',
-        mods: ['mod-1', 'mod-2']
-    };
+    it('should support bool mods of elem as array', () => {
+        const decl = {
+            block: 'block',
+            elem: 'elem',
+            mods: ['mod-1', 'mod-2']
+        };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod-1', modVal: true }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod-2', modVal: true }, tech: null }
-    ]);
-});
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod-1', modVal: true }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod-2', modVal: true }, tech: null }
+        ]);
+    });
 
-test('should support mod values of elem as array', t => {
-    const decl = {
-        block: 'block',
-        elem: 'elem',
-        mods: { mod: ['val-1', 'val-2'] }
-    };
+    it('should support mod values of elem as array', () => {
+        const decl = {
+            block: 'block',
+            elem: 'elem',
+            mods: { mod: ['val-1', 'val-2'] }
+        };
 
-    t.deepEqual(normalize(decl).map(simplifyCell), [
-        { entity: { block: 'block' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-1' }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-2' }, tech: null }
-    ]);
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-1' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val-2' }, tech: null }
+        ]);
+    });
 });

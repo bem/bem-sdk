@@ -1,12 +1,8 @@
 'use strict';
 
 const BemCell = require('@bem/sdk.cell');
-const BemEntityName = require('@bem/sdk.entity-name');
 
-exports.createCell = (cell) => new BemCell({
-    entity: new BemEntityName(cell.entity),
-    tech: cell.tech
-});
+exports.createCell = BemCell.create;
 
 exports.simplifyCell = function (cell) {
     const entity = { block: cell.entity.block };

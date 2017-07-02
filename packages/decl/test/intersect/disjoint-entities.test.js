@@ -1,26 +1,31 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const createCell = require('../util').createCell;
 
 const intersect = require('../../lib/intersect');
 
-test('should not intersect other entities from block', t => {
-    const decl1 = [{ entity: { block: 'block' }, tech: null }].map(createCell);
-    const decl2 = [
-        { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
-        { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null },
-        { entity: { block: 'block', elem: 'elem' }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null },
-        { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
-    ].map(createCell);
+describe('intersect.disjoint-entities', () => {
+    it('should not intersect other entities from block', () => {
+        const decl1 = [{ entity: { block: 'block' }, tech: null }].map(createCell);
+        const decl2 = [
+            { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
+            { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
+        ].map(createCell);
 
-    t.deepEqual(intersect(decl1, decl2), []);
-});
+        expect(intersect(decl1, decl2)).to.deep.equal([]);
+    });
 
-test('should not intersect other entities from bool mod', t => {
-    const decl1 = [{ entity: { block: 'block', modName: 'mod', modVal: true }, tech: null }].map(createCell);
-    const decl2 = [
+    it('should not intersect other entities from bool mod', () => {
+        const decl1 = [{ entity: { block: 'block', modName: 'mod', modVal: true }, tech: null }].map(createCell);
+        const decl2 = [
             { entity: { block: 'block' }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null },
             { entity: { block: 'block', elem: 'elem' }, tech: null },
@@ -28,12 +33,12 @@ test('should not intersect other entities from bool mod', t => {
             { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
         ].map(createCell);
 
-    t.deepEqual(intersect(decl1, decl2), []);
-});
+        expect(intersect(decl1, decl2)).to.deep.equal([]);
+    });
 
-test('should not intersect other entities from mod', t => {
-    const decl1 = [{ entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null }].map(createCell);
-    const decl2 = [
+    it('should not intersect other entities from mod', () => {
+        const decl1 = [{ entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null }].map(createCell);
+        const decl2 = [
             { entity: { block: 'block' }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
             { entity: { block: 'block', elem: 'elem' }, tech: null },
@@ -41,27 +46,27 @@ test('should not intersect other entities from mod', t => {
             { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
         ].map(createCell);
 
-    t.deepEqual(intersect(decl1, decl2), []);
-});
+        expect(intersect(decl1, decl2)).to.deep.equal([]);
+    });
 
-test('should not intersect other entities from elem', t => {
-    const decl1 = [{ entity: { block: 'block', elem: 'elem' }, tech: null }].map(createCell);
-    const decl2 = [
+    it('should not intersect other entities from elem', () => {
+        const decl1 = [{ entity: { block: 'block', elem: 'elem' }, tech: null }].map(createCell);
+        const decl2 = [
             { entity: { block: 'block' }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null },
             { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null },
-            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
         ].map(createCell);
 
-    t.deepEqual(intersect(decl1, decl2), []);
-});
+        expect(intersect(decl1, decl2)).to.deep.equal([]);
+    });
 
-test('should not intersect other entities from bool mod of elem', t => {
-    const decl1 = [
-            { entity: { block: 'block', elem: 'elem',  modName: 'mod', modVal: true }, tech: null }
+    it('should not intersect other entities from bool mod of elem', () => {
+        const decl1 = [
+            { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
         ].map(createCell);
-    const decl2 = [
+        const decl2 = [
             { entity: { block: 'block' }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null },
@@ -69,14 +74,14 @@ test('should not intersect other entities from bool mod of elem', t => {
             { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
         ].map(createCell);
 
-    t.deepEqual(intersect(decl1, decl2), []);
-});
+        expect(intersect(decl1, decl2)).to.deep.equal([]);
+    });
 
-test('should not intersect other entities from mod of elem', t => {
-    const decl1 = [
+    it('should not intersect other entities from mod of elem', () => {
+        const decl1 = [
             { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' }, tech: null }
         ].map(createCell);
-    const decl2 = [
+        const decl2 = [
             { entity: { block: 'block' }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null },
@@ -84,5 +89,6 @@ test('should not intersect other entities from mod of elem', t => {
             { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
         ].map(createCell);
 
-    t.deepEqual(intersect(decl1, decl2), []);
+        expect(intersect(decl1, decl2)).to.deep.equal([]);
+    });
 });
