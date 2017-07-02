@@ -44,7 +44,7 @@ module.exports = {
         var entity = cell.entity;
         var modName = Object(entity.mod).name;
 
-        cell.layer && (layer = cell.layer);
+        cell.layer && (layer = cell.layer + '.blocks');
 
         var elemDelim = opts.elemDirDelim;
         var modDelim = opts.modDirDelim;

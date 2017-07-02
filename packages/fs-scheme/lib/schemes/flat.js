@@ -36,7 +36,7 @@ module.exports = {
         var tech = cell.tech;
         var entity = cell.entity;
 
-        cell.layer && (layer = cell.layer);
+        cell.layer && (layer = cell.layer + '.blocks');
 
         return path.join(layer,
             b_.stringify(entity) + (tech ? '.' + tech : ''));
