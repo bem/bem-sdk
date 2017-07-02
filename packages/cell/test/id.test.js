@@ -1,56 +1,62 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const BemEntityName = require('@bem/sdk.entity-name');
 
 const BemCell = require('../index');
 
-test('should provide `id` field', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' }),
-        layer: 'desktop',
-        tech: 'css'
+describe('id', () => {
+    it('should provide `id` field', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' }),
+            layer: 'desktop',
+            tech: 'css'
+        });
+
+        expect(cell.id).to.equal('block@desktop.css');
     });
 
-    t.is(cell.id, 'block@desktop.css');
-});
+    it('should provide `id` field for cell with entity `field` only', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' })
+        });
 
-test('should provide `id` field for cell with entity `field` only', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' })
+        expect(cell.id).to.equal('block');
     });
 
-    t.is(cell.id, 'block');
-});
+    it('should provide `id` field for cell with `tech` field', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' }),
+            tech: 'css'
+        });
 
-test('should provide `id` field for cell with `tech` field', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' }),
-        tech: 'css'
+        expect(cell.id).to.equal('block.css');
     });
 
-    t.is(cell.id, 'block.css');
-});
+    it('should provide `id` field for cell with `layer` field', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' }),
+            layer: 'desktop'
+        });
 
-test('should provide `id` field for cell with `layer` field', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' }),
-        layer: 'desktop',
+        expect(cell.id).to.equal('block@desktop');
     });
 
-    t.is(cell.id, 'block@desktop');
-});
+    it('should cache `id` field', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' }),
+            layer: 'desktop',
+            tech: 'css'
+        });
+        const id = cell.id;
 
-test('should cache `id` field', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' }),
-        layer: 'desktop',
-        tech: 'css'
+        cell._tech = 'js';
+        cell._layer = 'common';
+
+        expect(cell.id).to.equal(id);
     });
-    const id = cell.id;
-
-    cell._tech = 'js';
-    cell._layer = 'common';
-
-    t.is(cell.id, id);
 });

@@ -10,7 +10,9 @@
     "lib/**"
   ],
   "scripts": {
-    "test": "mocha test"
+    "specs": "mocha",
+    "cover": "nyc mocha",
+    "test": "npm run specs"
   },
   "repository": "bem/bem-sdk",
   "bugs": {
@@ -22,10 +24,6 @@
   ],
   "author": "Anton Krichevskii <mrskadi0@gmail.com> (github.com/skad0)",
   "license": "MPL-2.0",
-  "devDependencies": {
-    "chai": "^3.5.0",
-    "mocha": "^2.5.3"
-  },
   "dependencies": {
     "bemjson-to-decl": "1.0.1"
   }

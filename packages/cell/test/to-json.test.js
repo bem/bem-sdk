@@ -1,15 +1,21 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const BemEntityName = require('@bem/sdk.entity-name');
 
 const BemCell = require('../index');
 
-test('should return stringified cell', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'button' }),
-        tech: 'olala'
-    });
+describe('to-json', () => {
+    it('should return stringified cell', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'button' }),
+            tech: 'olala'
+        });
 
-    t.is(JSON.stringify([cell]), '[{"entity":{"block":"button"},"tech":"olala"}]');
+        expect(JSON.stringify([cell])).to.equal('[{"entity":{"block":"button"},"tech":"olala"}]');
+    });
 });

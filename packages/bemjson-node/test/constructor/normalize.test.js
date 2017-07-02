@@ -1,37 +1,45 @@
-import test from 'ava';
+'use strict';
 
-import BemjsonNode from '../..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should normalize mods field', t => {
-    const node = new BemjsonNode({ block: 'block' });
+const expect = require('chai').expect;
 
-    t.is(typeof node.mods, 'object');
-});
+const BemjsonNode = require('../..');
 
-test('should normalize elemMods field', t => {
-    const node = new BemjsonNode({ block: 'block', elem: 'q' });
+describe('normalize', () => {
 
-    t.is(typeof node.elemMods, 'object');
-});
+    it('should normalize mods field', () => {
+        const node = new BemjsonNode({ block: 'block' });
 
-test('should normalize mix field into the array', t => {
-    const mixedNode = new BemjsonNode({ block: 'mixed' });
-    const node = new BemjsonNode({ block: 'block', mix: mixedNode });
+        expect(node.mods).to.be.an('object');
+    });
 
-    t.true(Array.isArray(node.mix));
-    t.is(node.mix[0], mixedNode);
-});
+    it('should normalize elemMods field', () => {
+        const node = new BemjsonNode({ block: 'block', elem: 'q' });
 
-test('should normalize string value in the mix field', t => {
-    const node = new BemjsonNode({ block: 'block', mix: 'mixed' });
+        expect(node.elemMods).to.be.an('object');
+    });
 
-    t.true(BemjsonNode.isBemjsonNode(node.mix[0]));
-    t.is(node.mix[0].block, 'mixed');
-});
+    it('should normalize mix field into the array', () => {
+        const mixedNode = new BemjsonNode({ block: 'mixed' });
+        const node = new BemjsonNode({ block: 'block', mix: mixedNode });
 
-test('should normalize object value in the mix field', t => {
-    const node = new BemjsonNode({ block: 'b1', mix: {block: 'b1', elem: 'e1'} });
+        expect(node.mix).to.be.an('array');
+        expect(node.mix[0]).to.equal(mixedNode);
+    });
 
-    t.true(BemjsonNode.isBemjsonNode(node.mix[0]));
-    t.is(node.mix[0].elem, 'e1');
+    it('should normalize string value in the mix field', () => {
+        const node = new BemjsonNode({ block: 'block', mix: 'mixed' });
+
+        expect(BemjsonNode.isBemjsonNode(node.mix[0])).to.equal(true);
+        expect(node.mix[0].block).to.equal('mixed');
+    });
+
+    it('should normalize object value in the mix field', () => {
+        const node = new BemjsonNode({ block: 'b1', mix: { block: 'b1', elem: 'e1' } });
+
+        expect(BemjsonNode.isBemjsonNode(node.mix[0])).to.equal(true);
+        expect(node.mix[0].elem).to.equal('e1');
+    });
 });

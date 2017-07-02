@@ -17,18 +17,25 @@
     "node": ">= 4.0"
   },
   "devDependencies": {
+    "@types/chai": "^4.0.1",
+    "chai": "^4.0.2",
     "eslint": "^4.1.1",
     "eslint-config-pedant": "^0.10.0",
     "lerna": "^2.0.0-rc.5",
+    "mocha": "^3.4.2",
+    "nyc": "^11.0.3",
+    "sinon": "^2.3.6",
     "tslint": "^5.0.0",
     "tslint-config-typings": "^0.3.1",
     "typescript": "^2.4.1"
   },
   "scripts": {
-    "pretest": "npm run lint",
-    "test": "lerna run test",
     "lint": "npm run lint:js && npm run lint:dts",
     "lint:js": "eslint .",
-    "lint:dts": "tslint packages/*/types/*.d.ts"
+    "lint:dts": "tslint packages/*/types/*.d.ts",
+    "pretest": "npm run lint",
+    "test": "lerna run test",
+    "test:specs": "mocha tests",
+    "test:cover": "nyc mocha tests"
   }
 }

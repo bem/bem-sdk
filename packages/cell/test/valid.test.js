@@ -1,31 +1,37 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const BemEntityName = require('@bem/sdk.entity-name');
 
 const BemCell = require('../index');
 
-test('should throw error if not provide arguments', t => {
-    t.throws(
-        () => new BemCell(),
-        'Required `entity` field'
-    );
-});
+describe('valid', () => {
+    it('should throw error if not provide arguments', () => {
+        expect(() => new BemCell()).to.throw(
+            'Required `entity` field'
+        );
+    });
 
-test('should throw error if entity is undefined', t => {
-    t.throws(
-        () => new BemCell({}),
-        'Required `entity` field'
-    );
-});
+    it('should throw error if entity is undefined', () => {
+        expect(() => new BemCell({})).to.throw(
+            'Required `entity` field'
+        );
+    });
 
-test('should throw error for if entity is undefined', t => {
-    t.throws(
-        () => new BemCell({ entity: { block: 'block' } }),
-        'The `entity` field should be an instance of BemEntityName'
-    );
-});
+    it('should throw error for if entity is undefined', () => {
+        expect(() => new BemCell({ entity: { block: 'block' } })).to.throw(
+            'The `entity` field should be an instance of BemEntityName'
+        );
+    });
 
-test('should throw error for if entity is undefined', t => {
-    t.notThrows(() => new BemCell({ entity: new BemEntityName({ block: 'block' }) }));
+    it('should throw error for if entity is undefined', () => {
+        expect(
+            () => new BemCell({ entity: new BemEntityName({ block: 'block' }) })
+        ).to.not.throw();
+    });
+
 });

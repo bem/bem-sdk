@@ -1,32 +1,38 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const BemEntityName = require('@bem/sdk.entity-name');
 
 const BemCell = require('../index');
 
-test('should provide `entity` field', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' })
+describe('fields', () => {
+    it('should provide `entity` field', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' })
+        });
+
+        expect(cell.entity.valueOf()).to.deep.equal({ block: 'block' });
     });
 
-    t.deepEqual(cell.entity.valueOf(), { block: 'block' });
-});
+    it('should provide `tech` field', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' }),
+            tech: 'css'
+        });
 
-test('should provide `tech` field', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' }),
-        tech: 'css'
+        expect(cell.tech).to.equal('css');
     });
 
-    t.is(cell.tech, 'css');
-});
+    it('should provide `layer` field', () => {
+        const cell = new BemCell({
+            entity: new BemEntityName({ block: 'block' }),
+            layer: 'desktop'
+        });
 
-test('should provide `layer` field', t => {
-    const cell = new BemCell({
-        entity: new BemEntityName({ block: 'block' }),
-        layer: 'desktop'
+        expect(cell.layer).to.equal('desktop');
     });
-
-    t.is(cell.layer, 'desktop');
 });

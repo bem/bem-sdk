@@ -1,38 +1,46 @@
-import test from 'ava';
+'use strict';
 
-import BemjsonNode from '../..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should create block', t => {
-    const obj = { block: 'block', mods: {} };
-    const bemjsonNode = new BemjsonNode(obj);
+const expect = require('chai').expect;
 
-    t.deepEqual(bemjsonNode.valueOf(), obj);
-});
+const BemjsonNode = require('../..');
 
-test('should create modifier of block', t => {
-    const obj = { block: 'block', mods: { mod: 'val' } };
-    const bemjsonNode = new BemjsonNode(obj);
+describe('constructor tests', () => {
 
-    t.deepEqual(bemjsonNode.valueOf(), obj);
-});
+    it('should create block', () => {
+        const obj = { block: 'block', mods: {} };
+        const bemjsonNode = new BemjsonNode(obj);
 
-test('should create element', t => {
-    const obj = { block: 'block', mods: {}, elem: 'elem', elemMods: {} };
-    const bemjsonNode = new BemjsonNode(obj);
+        expect(bemjsonNode.valueOf()).to.deep.equal(obj);
+    });
 
-    t.deepEqual(bemjsonNode.valueOf(), obj);
-});
+    it('should create modifier of block', () => {
+        const obj = { block: 'block', mods: { mod: 'val' } };
+        const bemjsonNode = new BemjsonNode(obj);
 
-test('should create modifier of element', t => {
-    const obj = { block: 'block', mods: {}, elem: 'elem', elemMods: { mod: 'val' } };
-    const bemjsonNode = new BemjsonNode(obj);
+        expect(bemjsonNode.valueOf()).to.deep.equal(obj);
+    });
 
-    t.deepEqual(bemjsonNode.valueOf(), obj);
-});
+    it('should create element', () => {
+        const obj = { block: 'block', mods: {}, elem: 'elem', elemMods: {} };
+        const bemjsonNode = new BemjsonNode(obj);
 
-test('should create mixes', t => {
-    const obj = { block: 'block', mods: {}, mix: [ { block: 'mixed', mods: {} } ] };
-    const bemjsonNode = new BemjsonNode(obj);
+        expect(bemjsonNode.valueOf()).to.deep.equal(obj);
+    });
 
-    t.deepEqual(bemjsonNode.valueOf(), obj);
+    it('should create modifier of element', () => {
+        const obj = { block: 'block', mods: {}, elem: 'elem', elemMods: { mod: 'val' } };
+        const bemjsonNode = new BemjsonNode(obj);
+
+        expect(bemjsonNode.valueOf()).to.deep.equal(obj);
+    });
+
+    it('should create mixes', () => {
+        const obj = { block: 'block', mods: {}, mix: [{ block: 'mixed', mods: {} }] };
+        const bemjsonNode = new BemjsonNode(obj);
+
+        expect(bemjsonNode.valueOf()).to.deep.equal(obj);
+    });
 });

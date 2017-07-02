@@ -4,16 +4,9 @@
   "description": "Config module for bem-tools",
   "main": "index.js",
   "scripts": {
-    "test": "npm run unit",
-    "unit": "ava",
-    "cover": "nyc ava",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
-  },
-  "ava": {
-    "files": [
-      "test/async.test.js",
-      "test/sync.test.js"
-    ]
+    "specs": "mocha",
+    "cover": "nyc mocha",
+    "test": "npm run specs"
   },
   "keywords": [
     "bem-tools",
@@ -39,10 +32,9 @@
     "pinkie-promise": "^2.0.1"
   },
   "devDependencies": {
-    "ava": "^0.18.2",
-    "coveralls": "^2.11.9",
+    "@types/chai-as-promised": "0.0.31",
+    "chai-as-promised": "^7.0.0",
     "mock-fs": "^4.2.0",
-    "nyc": "^10.1.2",
     "proxyquire": "^1.7.10"
   }
 }
