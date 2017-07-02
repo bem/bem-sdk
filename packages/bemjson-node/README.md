@@ -5,8 +5,8 @@ BemjsonNode
 
 [![NPM Status][npm-img]][npm]
 
-[npm]:          https://www.npmjs.org/package/@bem/sdk.bemjson-node
-[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.bemjson-node.svg
+[npm]:      https://www.npmjs.org/package/@bem/sdk.bemjson-node
+[npm-img]:  https://img.shields.io/npm/v/@bem/sdk.bemjson-node.svg
 
 Contents
 --------

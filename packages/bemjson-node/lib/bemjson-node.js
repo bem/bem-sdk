@@ -9,15 +9,15 @@ class BemjsonNode {
      */
     constructor(obj) {
         assert(obj.block && typeof obj.block === 'string',
-            '@bem/bemjson-node: `block` field should be a non empty string');
+            '@bem/sdk.bemjson-node: `block` field should be a non empty string');
         assert(!obj.elem || obj.elem && typeof obj.elem === 'string',
-            '@bem/bemjson-node: `elem` field should be a non-empty string.');
+            '@bem/sdk.bemjson-node: `elem` field should be a non-empty string.');
         assert(!obj.elemMods || obj.elem && obj.elemMods,
-            '@bem/bemjson-node: `elemMods` field should not be used without `elem` field.');
+            '@bem/sdk.bemjson-node: `elemMods` field should not be used without `elem` field.');
         assert(!obj.mods || typeof obj.mods === 'object',
-            '@bem/bemjson-node: `mods` field should be a simple object or null.');
+            '@bem/sdk.bemjson-node: `mods` field should be a simple object or null.');
         assert(!obj.elemMods || typeof obj.elemMods === 'object',
-            '@bem/bemjson-node: `elemMods` field should be a simple object or null.');
+            '@bem/sdk.bemjson-node: `elemMods` field should be a simple object or null.');
 
         const data = this.data_ = {
             block: obj.block,
@@ -48,7 +48,7 @@ class BemjsonNode {
      * Returns the block name of bemjson node.
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      * const node = new BemjsonNode({ block: 'button' });
      *
      * node.block; // button
@@ -63,7 +63,7 @@ class BemjsonNode {
      * If node's entity is not an element then returns null.
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      * const node = new BemjsonNode({ block: 'button', elem: 'text' });
      *
      * node.elem; // text
@@ -76,7 +76,7 @@ class BemjsonNode {
      * Returns modifiers of block entity of bemjson node (or of a scope).
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      * const node = new BemjsonNode({ block: 'button', mods: { m: 'v' }, elem: 'text' });
      *
      * node.mods; // { m: 'v' }
@@ -89,7 +89,7 @@ class BemjsonNode {
      * Returns modifiers of element entity of bemjson node or null if there is no element.
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      * const node = new BemjsonNode({ block: 'button', elem: 'e', elemMods: { m: 'v' } });
      *
      * node.elemMods; // { m: 'v' }
@@ -114,7 +114,7 @@ class BemjsonNode {
      * This method will be called to get custom string representation of the object.
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      * const node = new BemjsonNode({ block: 'button', mix: { block: x } });
      *
      * node.valueOf();
@@ -144,7 +144,7 @@ class BemjsonNode {
      * Returns raw data for `JSON.stringify()` purposes.
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      *
      * const node = new BemjsonNode({ block: 'input', mods: { available: true } });
      *
@@ -163,7 +163,7 @@ class BemjsonNode {
      * you should use `@bem/naming` package.
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      * const node = new BemjsonNode({ block: 'button', mod: 'focused' });
      *
      * node.toString(); // button_focused
@@ -190,7 +190,7 @@ class BemjsonNode {
      * This method will be called to get custom string representation of the object.
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      * const node = new BemjsonNode({ block: 'button' });
      *
      * console.log(name); // BemjsonNode { block: 'button' }
@@ -211,7 +211,7 @@ class BemjsonNode {
      * Determines whether specified argument is instance of BemjsonNode.
      *
      * @example
-     * const BemjsonNode = require('@bem/bemjson-node');
+     * const BemjsonNode = require('@bem/sdk.bemjson-node');
      *
      * const bemjsonNode = new BemjsonNode({ block: 'input' });
      *
@@ -229,6 +229,6 @@ class BemjsonNode {
 module.exports = BemjsonNode;
 
 // TypeScript imports the `default` property for
-// an ES2015 default import (`import BemjsonNode from '@bem/bemjson-node'`)
+// an ES2015 default import (`import BemjsonNode from '@bem/sdk.bemjson-node'`)
 // See: https://github.com/Microsoft/TypeScript/issues/2242#issuecomment-83694181
 module.exports.default = BemjsonNode;
