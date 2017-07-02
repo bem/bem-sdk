@@ -32,7 +32,7 @@
     "bem-walk": "1.0.0-1",
     "debug": "^2.2.0",
     "mz": "^2.4.0",
-    "node-eval": "^1.0.3"
+    "node-eval": "1.1.0"
   },
   "devDependencies": {
     "ava": "^0.15.0",
