@@ -16,6 +16,6 @@ install:
   - ./node_modules/.bin/lerna bootstrap -- --force
 
 test_script:
-  - ./node_modules/.bin/lerna run unit-test --scope="@bem/{deps,fs-scheme,walk}"
+  - ./node_modules/.bin/lerna run unit-test --scope="@bem/sdk.{deps,fs-scheme,walk}"
 
 build: off
