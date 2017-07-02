@@ -18,7 +18,7 @@
   },
   "devDependencies": {
     "eslint": "^4.1.1",
-    "eslint-config-pedant": "birhoff/eslint-config-pedant#feature/support_eslint_4",
+    "eslint-config-pedant": "^0.10.0",
     "lerna": "^2.0.0-rc.5",
     "tslint": "^5.0.0",
     "tslint-config-typings": "^0.3.1",
