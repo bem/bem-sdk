@@ -105,7 +105,7 @@ module.exports = class BemCell {
      */
     get modName() {
         deprecate('modName: just for compatibility and can be dropped in future. Instead use \'mod.name\'');
-        return this._entity.modName;
+        return this._entity.mod && this._entity.mod.name;
     }
 
     /**
@@ -116,7 +116,7 @@ module.exports = class BemCell {
      */
     get modVal() {
         deprecate('modVal: just for compatibility and can be dropped in future. Instead use \'mod.val\'');
-        return this._entity.modVal;
+        return this._entity.mod && this._entity.mod.val;
     }
 
     /**
