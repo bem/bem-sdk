@@ -48,6 +48,14 @@ config.library('bem-components').then(function(libConf) {
 });
 ```
 
+### levels
+```js
+const config = require('@bem/sdk.config')();
+config.levels('desktop').then(function(desktopSet) {
+    console.log(desktopSet); // an array of levels configs for desktop set
+});
+```
+
 ### levelMap
 
 ```js
@@ -101,6 +109,13 @@ const libConf = config.librarySync('bem-components');
 console.log(libConf); // library config
 ```
 
+### levels
+```js
+const config = require('@bem/sdk.config')();
+const desktopSet = config.levels('desktop');
+console.log(desktopSet); // an array of levels configs for desktop set
+```
+
 ### levelMapSync
 
 ```js
@@ -143,7 +158,13 @@ console.log(configs); // all found configs from all dirs
         }
     },
     "sets": {
-        "setName": ["level1", "level2"]
+        // Will use `touch-phone` set from bem-components and few local levels
+        "touch-phone": "@bem-components/touch-phone common touch touch-phone",
+        "touch-pad": "@bem-components common deskpad touch touch-pad",
+        // Will use `desktop` set from `bem-components`, and also few local levels
+        "desktop": "@bem-components common deskpad desktop",
+        // Will use mix of levels from `desktop` and `touch-pad` level sets from `core`, `bem-components` and locals
+        "deskpad": "desktop@core touch-pad@core desktop@bem-components touch-pad@bem-components desktop@ touch-pad@"
     },
     "modules": {
         "bem-tools": {

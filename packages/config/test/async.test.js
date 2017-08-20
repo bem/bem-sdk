@@ -161,11 +161,6 @@ describe('async', () => {
 
         const bemConfig = config([{
             levels,
-            libs: {
-                'lib1': {
-                    levels
-                }
-            },
             __source: mockDir
         }]);
 
@@ -260,23 +255,22 @@ describe('async', () => {
     it('should return empty map on levelMap if no levels found', () => {
         const bemConfig = config();
 
-        return expect(bemConfig().levelMap()).to.eventually.deep.equal(
-            {}
-        );
+        return expect(bemConfig().levelMap()).to.eventually.deep.equal({});
     });
 
     it('should return levels map', () => {
+        const pathToLib1 = path.resolve(__dirname, 'mocks', 'node_modules', 'lib1');
         const bemConfig = config([{
             levels: [
                 { path: 'l1', some: 'conf1' }
             ],
             libs: {
                 lib1: {
-                    levels: [
-                        { path: 'l1', some: 'conf1' }
-                    ]
+                    path: pathToLib1,
+                    somethingElse: 'lib1 additional data in conf1'
                 }
-            }
+            },
+            __source: path.join(process.cwd(), path.basename(__filename))
         }]);
 
         const expected = {};
@@ -288,36 +282,45 @@ describe('async', () => {
         );
     });
 
-// library()
-    it('should return undefined if no libs in config', () => {
-        const bemConfig = config();
-
-        return expect(bemConfig().library('lib1')).to.eventually.deep.equal(
-            undefined
-        );
-    });
-
-    it('should return undefined if no library found', () => {
+    // library()
+    it('should throw if lib format is incorrect', () => {
         const bemConfig = config([{
             libs: {
-                'lib1': {
+                lib1: ''
+            }
+        }]);
+
+        return bemConfig().library('lib1').catch(err => expect(err).to.equal('Invalid `libs` format'));
+    });
+
+    it('should throw if lib was not found', () => {
+        const bemConfig = config();
+
+        return bemConfig().library('lib1').catch(err => expect(err.includes('Library lib1 was not found at')).to.equal(true));
+    });
+
+    it('should throw if lib was not found', () => {
+        const bemConfig = config([{
+            libs: {
+                lib1: {
                     conf: 'of lib1',
                     path: 'libs/lib1'
                 }
             }
         }]);
 
-        return expect(bemConfig().library('lib2')).to.eventually.deep.equal(
-            undefined
-        );
+        return Promise.all([
+            bemConfig().library('lib1').catch(err => expect(err.includes('Library lib1 was not found at')).to.equal(true)),
+            bemConfig().library('lib2').catch(err => expect(err.includes('Library lib2 was not found at')).to.equal(true))
+        ]);
     });
 
     it('should return library config', () => {
         const conf = [{
             libs: {
-                'lib1': {
+                lib1: {
                     conf: 'of lib1',
-                    path: 'libs/lib1'
+                    path: path.resolve(__dirname, 'mocks', 'node_modules', 'lib1')
                 }
             }
         }];
@@ -440,5 +443,51 @@ describe('async', () => {
         return expect(actual).to.eventually.deep.equal(
             expected
         );
+    });
+
+    // levels
+    it('should return levels set', () => {
+        const bemConfig = config([{
+            levels: [
+                { layer: 'common', data: '1' },
+                { layer: 'desktop', data: '2' },
+                { layer: 'touch', path: 'custom-path', data: '3' },
+                { layer: 'touch-phone', data: '4' },
+                { layer: 'touch-pad', data: '5' }
+            ],
+            sets: {
+                desktop: 'common desktop',
+                'touch-phone': 'common desktop@ touch touch-phone',
+                'touch-pad': 'common touch touch-pad'
+            },
+            __source: path.join(process.cwd(), path.basename(__filename))
+        }]);
+
+        const expected = [
+            {
+                data: '1',
+                layer: 'common',
+                path: path.resolve('common.blocks')
+            },
+            {
+                data: '2',
+                layer: 'desktop',
+                path: path.resolve('desktop.blocks')
+            },
+            {
+                data: '3',
+                layer: 'touch',
+                path: path.resolve('custom-path')
+            },
+            {
+                data: '4',
+                layer: 'touch-phone',
+                path: path.resolve('touch-phone.blocks')
+            }
+        ];
+
+        const actual = bemConfig().levels('touch-phone');
+
+        return expect(actual).to.eventually.deep.equal(expected);
     });
 });

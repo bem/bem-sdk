@@ -44,7 +44,7 @@ describe('sync', () => {
         expect(bemConfig().configs(true)).to.deep.equal([{ test: 1 }, { test: 2 }]);
     });
 
-// root()
+    // root()
     it('should return project root', () => {
         const bemConfig = config([
             { test: 1, __source: 'some/path' },
@@ -65,7 +65,7 @@ describe('sync', () => {
         expect(bemConfig().rootSync()).to.deep.equal(path.dirname(__filename));
     });
 
-// get()
+    // get()
     it('should return merged config', () => {
         const bemConfig = config([
             { test: 1 },
@@ -76,7 +76,7 @@ describe('sync', () => {
         expect(bemConfig().getSync()).to.deep.equal({ test: 2, other: 'field' });
     });
 
-// level()
+    // level()
     it('should return undefined if no levels in config', () => {
         const bemConfig = config();
 
@@ -227,31 +227,26 @@ describe('sync', () => {
 
         const actual = bemConfig().levelMapSync();
 
-        // because of mocked rc, all instances of bemConfig has always the same data
         expect(actual).to.deep.equal(expected);
     });
 
-    // Skipped because of mocked rc
-    // `levelMapSync` creates new instance of bemConfig,
-    // but all instances always returns the same data because of mock.
-    it.skip('should return levels map for project and included libs', () => {
+    it('should return levels map for project and included libs', () => {
+        const pathToLib1 = path.resolve(__dirname, 'mocks', 'node_modules', 'lib1');
         const bemConfig = config([{
             levels: [
                 { path: 'l1', some: 'conf1' }
             ],
             libs: {
-                'lib1': {
-                    levels: [
-                        { path: 'l1', some2: 'conf1' }
-                    ]
+                lib1: {
+                    path: pathToLib1,
+                    some: 'conf1'
                 }
             },
             __source: path.join(process.cwd(), path.basename(__filename))
         }]);
 
         const expected = {};
-        expected[path.resolve('l1')] = { some: 'conf1' };
-        expected[path.resolve('lib1/l1')] = { some: 'conf1' };
+        expected[path.resolve('l1')] = { path: path.resolve(path.resolve('l1')), some: 'conf1' };
 
         const actual = bemConfig().levelMapSync();
 
@@ -265,11 +260,6 @@ describe('sync', () => {
         const levels = [{path: levelPath, some: 'conf1'}];
         const bemConfig = config([{
             levels,
-            libs: {
-                'lib1': {
-                    levels
-                }
-            },
             __source: mockDir
         }]);
 
@@ -282,32 +272,43 @@ describe('sync', () => {
         expect(actual).to.deep.equal(expected);
     });
 
-// library()
-    it('should return undefined if no libs in config', () => {
-        const bemConfig = config();
-
-        expect(bemConfig().librarySync('lib1')).to.equal(undefined);
-    });
-
-    it('should return undefined if no library found', () => {
+    // library()
+    it('should throw if lib format is incorrect', () => {
         const bemConfig = config([{
             libs: {
-                'lib1': {
+                lib1: ''
+            }
+        }]);
+
+        expect(() => bemConfig().librarySync('lib1')).to.throw(/Invalid `libs` format/);
+    });
+
+    it('should throw if lib was not found', () => {
+        const bemConfig = config();
+
+        expect(() => bemConfig().librarySync('lib1')).to.throw(/Library lib1 was not found at /);
+    });
+
+    it('should throw if lib was not found', () => {
+        const bemConfig = config([{
+            libs: {
+                lib1: {
                     conf: 'of lib1',
                     path: 'libs/lib1'
                 }
             }
         }]);
 
-        expect(bemConfig().librarySync('lib2')).to.equal(undefined);
+        expect(() => bemConfig().librarySync('lib1')).to.throw(/Library lib1 was not found at /);
+        expect(() => bemConfig().librarySync('lib2')).to.throw(/Library lib2 was not found at /);
     });
 
     it('should return library config', () => {
         const conf = [{
             libs: {
-                'lib1': {
+                lib1: {
                     conf: 'of lib1',
-                    path: 'libs/lib1'
+                    path: path.resolve(__dirname, 'mocks', 'node_modules', 'lib1')
                 }
             }
         }];
@@ -320,7 +321,7 @@ describe('sync', () => {
         expect(libConf).to.deep.equal(conf[0]);
     });
 
-// module()
+    // module()
     it('should return undefined if no modules in config', () => {
         const bemConfig = config();
 
@@ -418,6 +419,52 @@ describe('sync', () => {
             extended: 'yo',
             argv: true
         };
+
+        expect(actual).to.deep.equal(expected);
+    });
+
+    // levels
+    it('should return levels set', () => {
+        const bemConfig = config([{
+            levels: [
+                { layer: 'common', data: '1' },
+                { layer: 'desktop', data: '2' },
+                { layer: 'touch', path: 'custom-path', data: '3' },
+                { layer: 'touch-phone', data: '4' },
+                { layer: 'touch-pad', data: '5' }
+            ],
+            sets: {
+                desktop: 'common desktop',
+                'touch-phone': 'common desktop@ touch touch-phone',
+                'touch-pad': 'common touch touch-pad'
+            },
+            __source: path.join(process.cwd(), path.basename(__filename))
+        }]);
+
+        const expected = [
+            {
+                data: '1',
+                layer: 'common',
+                path: path.resolve('common.blocks')
+            },
+            {
+                data: '2',
+                layer: 'desktop',
+                path: path.resolve('desktop.blocks')
+            },
+            {
+                data: '3',
+                layer: 'touch',
+                path: path.resolve('custom-path')
+            },
+            {
+                data: '4',
+                layer: 'touch-phone',
+                path: path.resolve('touch-phone.blocks')
+            }
+        ];
+
+        const actual = bemConfig().levelsSync('touch-phone');
 
         expect(actual).to.deep.equal(expected);
     });

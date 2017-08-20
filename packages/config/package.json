@@ -28,7 +28,10 @@
     "glob": "^7.0.5",
     "is-glob": "^3.1.0",
     "lodash.clonedeep": "^4.5.0",
+    "lodash.flatten": "^4.4.0",
+    "lodash.isequal": "^4.5.0",
     "lodash.mergewith": "^4.6.0",
+    "lodash.uniqwith": "^4.5.0",
     "pinkie-promise": "^2.0.1"
   },
   "devDependencies": {
