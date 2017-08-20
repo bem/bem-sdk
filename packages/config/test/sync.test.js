@@ -55,6 +55,16 @@ describe('sync', () => {
         expect(bemConfig().rootSync()).to.deep.equal(path.dirname(__filename));
     });
 
+    it('should respect proper project root', () => {
+        const bemConfig = config([
+            { test: 1, root: true, __source: 'some/path' },
+            { test: 2, root: true, __source: __filename },
+            { other: 'field', __source: 'some/other/path' }
+        ]);
+
+        expect(bemConfig().rootSync()).to.deep.equal(path.dirname(__filename));
+    });
+
 // get()
     it('should return merged config', () => {
         const bemConfig = config([

@@ -268,7 +268,7 @@ BemConfig.prototype.moduleSync = function(moduleName) {
 };
 
 function getConfigsRootDir(configs) {
-    var rootCfg = configs.find(function(cfg) { return cfg.root && cfg.__source; });
+    var rootCfg = [].concat(configs).reverse().find(function(cfg) { return cfg.root && cfg.__source; });
     if (rootCfg) { return path.dirname(rootCfg.__source); }
 }
 
