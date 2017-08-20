@@ -1,9 +1,13 @@
 'use strict';
 
-var path = require('path'),
+var fs = require('fs'),
+    assert = require('assert'),
+    path = require('path'),
     rc = require('betterc'),
     Promise = require('pinkie-promise'),
-    merge = require('./lib/merge');
+    flatten = require('lodash.flatten'),
+    merge = require('./lib/merge'),
+    resolveSets = require('./lib/resolve-sets');
 
 /**
  * Constructor
@@ -48,7 +52,7 @@ BemConfig.prototype.configs = function(isSync) {
 
     if (isSync) {
 
-        var configs = this._configs || (this._configs = rc.sync(rcOpts));
+        var configs = extendConfigsPathByLayer(this._configs || (this._configs = rc.sync(rcOpts)));
 
         this._root = getConfigsRootDir(configs);
 
@@ -62,7 +66,7 @@ BemConfig.prototype.configs = function(isSync) {
     var _this = this;
 
     return (this._configs ? Promise.resolve(this._configs) : rc(rcOpts)).then(function(cfgs) {
-        _this._configs || (_this._configs = cfgs);
+        extendConfigsPathByLayer(_this._configs || (_this._configs = cfgs));
 
         _this._root = getConfigsRootDir(cfgs);
 
@@ -129,17 +133,28 @@ BemConfig.prototype.level = function(pathToLevel) {
  * @returns {Promise}
  */
 BemConfig.prototype.library = function(libName) {
-    return this.get().then(function(config) {
-        var libs = config.libs;
+    return this.get()
+        .then(function(config) {
+            var libs = config.libs,
+                lib = libs && libs[libName];
 
-        if (!libs) { return; }
+            if (lib !== undefined && typeof lib !== 'object') {
+                return Promise.reject('Invalid `libs` format');
+            }
 
-        var lib = libs[libName];
+            var cwd = lib && lib.path || path.resolve('node_modules', libName);
 
-        if (!lib) { return; }
+            return new Promise(function(resolve, reject) {
+                fs.exists(cwd, function(doesExist) {
+                    if (!doesExist) {
+                        return reject('Library ' + libName + ' was not found at ' + cwd);
+                    }
 
-        return new BemConfig({ projectRoot: lib.path });
-    });
+                    resolve(cwd);
+                })
+            });
+        })
+        .then(cwd => new BemConfig({ cwd }));
 };
 
 /**
@@ -167,6 +182,45 @@ BemConfig.prototype.levelMap = function() {
                 return res;
             }, {});
         });
+    });
+};
+
+BemConfig.prototype.levels = function(setName) {
+    var _this = this;
+
+    return this.get().then(function(config) {
+        var levels = config.levels || [],
+            sets = config.sets || {};
+
+        if (!sets[setName]) { return []; }
+
+        var resolvedSets = resolveSets(sets),
+            set = resolvedSets[setName];
+
+        if (!set || !set.length) { return []; }
+
+        // TODO: uniq
+        return Promise.all(set.map(chunk => {
+            if (chunk.library) {
+                return _this.library(chunk.library).then(libConfig => {
+                    assert(libConfig, 'Library `' + chunk.library + '` was not found');
+
+                    return libConfig.levels(chunk.set || setName);
+                });
+            }
+
+            if (chunk.set) {
+                return _this.levels(chunk.set);
+            }
+
+            var level = levels.find(lvl => {
+                return lvl.layer === chunk.layer;
+            }) || {};
+
+            var levelPath = level.path || (level.layer + '.blocks'); // ← TODO: Use @bem/sdk.file.naming
+
+            return _this.levelMap().then(levelsMap => levelsMap[levelPath]);
+        })).then(flatten);
     });
 };
 
@@ -225,15 +279,16 @@ BemConfig.prototype.levelSync = function(pathToLevel) {
  */
 BemConfig.prototype.librarySync = function(libName) {
     var config = this.getSync(),
-        libs = config.libs;
+        libs = config.libs,
+        lib = libs && libs[libName];
 
-    if (!libs) { return; }
+    assert(lib === undefined || typeof lib === 'object', 'Invalid `libs` format');
 
-    var lib = libs[libName];
+    var cwd = lib && lib.path || path.resolve('node_modules', libName);
 
-    if (!lib) { return; }
+    assert(fs.existsSync(cwd), 'Library ' + libName + ' was not found at ' + cwd);
 
-    return new BemConfig({ projectRoot: lib.path });
+    return new BemConfig({ cwd });
 };
 
 /**
@@ -257,6 +312,44 @@ BemConfig.prototype.levelMapSync = function() {
         acc[level.path] = level;
         return acc;
     }, {});
+};
+
+BemConfig.prototype.levelsSync = function(setName) {
+    var _this = this,
+        config = this.getSync(),
+        levels = config.levels || [],
+        levelsMap = this.levelMapSync(),
+        sets = config.sets || {};
+
+    if (!sets[setName]) { return []; }
+
+    var resolvedSets = resolveSets(sets),
+        set = resolvedSets[setName];
+
+    // TODO: uniq
+    return set.reduce((acc, chunk) => {
+        if (chunk.library) {
+            var libConfig = _this.librarySync(chunk.library);
+
+            assert(libConfig, 'Library `' + chunk.library + '` was not found');
+
+            return acc.concat(libConfig.levelsSync(chunk.set));
+        }
+
+        if (chunk.set) {
+            return acc.concat(_this.levelsSync(chunk.set));
+        }
+
+        var level = levels.find(lvl => {
+            return lvl.layer === chunk.layer;
+        }) || {};
+
+        var levelPath = level.path || (level.layer + '.blocks'); // TODO: Use `@bem/sdk.file.naming`
+
+        acc.push(levelsMap[levelPath]);
+
+        return acc;
+    }, []);
 };
 
 /**
@@ -306,6 +399,22 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
     delete levelOpts.root;
 
     return Object.keys(levelOpts).length ? levelOpts : undefined;
+}
+
+/**
+ * Modifies passed configs set — adds path property if empty
+ *
+ * @param {Array<{layer: String, path: ?String}>} configs
+ * @returns {Array<{layer: String, path: String}>}
+ */
+function extendConfigsPathByLayer(configs) {
+    configs.forEach(config => {
+        config.levels && config.levels.forEach(level => {
+            level.path || (level.path = level.layer + '.blocks');
+        });
+    });
+
+    return configs;
 }
 
 module.exports = function(opts) {
