@@ -83,11 +83,9 @@ describe('async', () => {
 
     it('should return undefined if no level found', () => {
         const bemConfig = config([{
-            levels: {
-                l1: {
-                    some: 'conf'
-                }
-            }
+            levels: [
+                { path: 'l1', some: 'conf' }
+            ]
         }]);
 
         return expect(bemConfig().level('l2')).to.eventually.equal(
@@ -97,11 +95,9 @@ describe('async', () => {
 
     it('should return level if no __source provided', () => {
         const bemConfig = config([{
-            levels: {
-                'path/to/level': {
-                    test: 1
-                }
-            },
+            levels: [
+                { path: 'path/to/level', test: 1 }
+            ],
             something: 'else'
         }]);
 
@@ -112,11 +108,9 @@ describe('async', () => {
 
     it('should return level with __source', () => {
         const bemConfig = config([{
-            levels: {
-                'path/to/level': {
-                    test: 1
-                }
-            },
+            levels: [
+                { path: 'path/to/level', test: 1 }
+            ],
             something: 'else',
             __source: path.join(process.cwd(), path.basename(__filename))
         }]);
@@ -128,11 +122,9 @@ describe('async', () => {
 
     it('should resolve wildcard levels', () => {
         const bemConfig = config([{
-            levels: {
-                'l*': {
-                    test: 1
-                }
-            },
+            levels: [
+                { path: 'l*', test: 1 }
+            ],
             something: 'else'
         }]);
 
@@ -149,11 +141,11 @@ describe('async', () => {
 
     it('should resolve wildcard levels with absolute path', () => {
         const conf = {
-            levels: {},
+            levels: [],
             something: 'else'
         };
 
-        conf.levels[path.join(__dirname, 'mocks', 'l*')] = { test: 1 };
+        conf.levels = [{ path: path.join(__dirname, 'mocks', 'l*'), test: 1 }];
 
         const bemConfig = config([conf]);
 
@@ -165,9 +157,7 @@ describe('async', () => {
     it('should return globbed levels map', () => {
         const mockDir = path.resolve(__dirname, 'mocks');
         const levelPath = path.join(mockDir, 'l*');
-        const levels = {};
-
-        levels[levelPath] = { some: 'conf1' };
+        const levels = [{path: levelPath, some: 'conf1'}];
 
         const bemConfig = config([{
             levels,
@@ -180,8 +170,8 @@ describe('async', () => {
         }]);
 
         const expected = {};
-        expected[path.join(mockDir, 'level1')] = { some: 'conf1' };
-        expected[path.join(mockDir, 'level2')] = { some: 'conf1' };
+        expected[path.join(mockDir, 'level1')] = { path: path.join(mockDir, 'level1'), some: 'conf1' };
+        expected[path.join(mockDir, 'level2')] = { path: path.join(mockDir, 'level2'), some: 'conf1' };
 
         return expect(bemConfig().levelMap()).to.eventually.deep.equal(
             expected
@@ -190,11 +180,9 @@ describe('async', () => {
 
     it('should respect absolute path for level', () => {
         const bemConfig = config([{
-            levels: {
-                '/path/to/level': {
-                    test: 1
-                }
-            },
+            levels: [
+                { path: '/path/to/level', test: 1 }
+            ],
             something: 'else'
         }]);
 
@@ -205,11 +193,9 @@ describe('async', () => {
 
     it('should respect "." path', () => {
         const bemConfig = config([{
-            levels: {
-                '.': {
-                    test: 1
-                }
-            },
+            levels: [
+               { path:  '.', test: 1 }
+            ],
             something: 'else'
         }]);
 
@@ -220,18 +206,14 @@ describe('async', () => {
 
     it('should return extended level config merged from different configs', () => {
         const bemConfig = config([{
-            levels: {
-                level1: {
-                    'l1o1': 'l1v1'
-                }
-            },
+            levels: [
+                { path: 'level1', l1o1: 'l1v1' }
+            ],
             common: 'value'
         }, {
-            levels: {
-                level1: {
-                    'l1o2': 'l1v2'
-                }
-            }
+            levels: [
+                { path: 'level1', l1o2: 'l1v2' }
+            ]
         }]);
 
         const expected = {
@@ -246,41 +228,33 @@ describe('async', () => {
     });
 
     it('should not extend with configs higher then root', () => {
-        const bemConfig = config([{
-            levels: {
-                level1: {
-                    l1o1: 'should not be used',
-                    l1o2: 'should not be used either'
-                }
-            }
-        }, {
-            levels: {
-                level1: {
-                    something: 'from root level',
-                    l1o1: 'should be overwritten'
-                }
+        const bemConfig = config([
+            {
+                levels: [
+                    { path: 'level1', l1o1: 'should not be used', l1o2: 'should not be used either' }
+                ]
             },
-            root: true
-        }, {
-            levels: {
-                level1: {
-                    l1o1: 'should win'
-                }
+            {
+                root: true,
+                levels: [
+                    { path: 'level1', something: 'from root level', l1o1: 'should be overwritten' }
+                ]
+            },
+            {
+                levels: [
+                    { path: 'level1', l1o1: 'should win' }
+                ]
             }
-        }]);
+        ]);
 
         return expect(bemConfig().level('level1')).to.eventually.deep.equal(
             { something: 'from root level', l1o1: 'should win' }
         );
     });
 
-    it.skip('should use last occurrence of array option', () => {
+    it('should use last occurrence of array option');
 
-    });
-
-    it.skip('should respect extend for options', () => {
-
-    });
+    it('should respect extend for options');
 
     // levelMap()
     it('should return empty map on levelMap if no levels found', () => {
@@ -293,24 +267,20 @@ describe('async', () => {
 
     it('should return levels map', () => {
         const bemConfig = config([{
-            levels: {
-                l1: {
-                    some: 'conf1'
-                }
-            },
+            levels: [
+                { path: 'l1', some: 'conf1' }
+            ],
             libs: {
                 lib1: {
-                    levels: {
-                        l1: {
-                            some: 'conf1'
-                        }
-                    }
+                    levels: [
+                        { path: 'l1', some: 'conf1' }
+                    ]
                 }
             }
         }]);
 
         const expected = {};
-        expected[path.resolve('l1')] = { some: 'conf1' };
+        expected[path.resolve('l1')] = { path: path.resolve('l1'), some: 'conf1' };
 
         // because of mocked rc, all instances of bemConfig has always the same data
         return expect(bemConfig().levelMap()).to.eventually.deep.equal(
@@ -439,17 +409,16 @@ describe('async', () => {
         const pathToConfig = path.resolve(__dirname, 'mocks', 'argv-conf.json');
         const actual = notStubbedBemConfig({
             defaults: {
-                levels: {
-                    'path/to/level': {
-                        test1: 1,
-                        same: 'initial'
-                    }
-                },
+                levels: [
+                    { path: 'path/to/level', test1: 1, same: 'initial' }
+                ],
                 common: 'initial',
                 original: 'blah'
             },
             extendBy: {
-                levels: { 'path/to/level': { test2: 2, same: 'new' } },
+                levels: [
+                    { path: 'path/to/level', test2: 2, same: 'new' }
+                ],
                 common: 'overriden',
                 extended: 'yo'
             },

@@ -131,12 +131,12 @@ console.log(configs); // all found configs from all dirs
 ```js
 {
     "root": true,
-    "levels": {
-        "path/to/level": {
-            "scheme": "nested",
-            "default": true
+    "levels": [
+        {
+            "path": "path/to/level",
+            "scheme": "nested"
         }
-    },
+    ],
     "libs": {
         "libName": {
             "path": "path/to/lib"
@@ -159,11 +159,13 @@ console.log(configs); // all found configs from all dirs
                     "techsTemplates": {
                         "js": "js-ymodules"
                     },
-                    "levels": {
-                        "path/to/level": {
-                            "techs": ["bemhtml.js", "trololo.olo"]
+                    "levels": [
+                        {
+                            "path": "path/to/level",
+                            "techs": ["bemhtml.js", "trololo.olo"],
+                            "default": true
                         }
-                    }
+                    ]
                 }
             }
         },

@@ -150,7 +150,7 @@ BemConfig.prototype.levelMap = function() {
     var _this = this;
 
     return this.get().then(function(config) {
-        var projectLevels = config.levels,
+        var projectLevels = config.levels || [],
             libNames = config.libs ? Object.keys(config.libs) : [];
 
         return Promise.all(libNames.map(function(libName) {
@@ -160,9 +160,12 @@ BemConfig.prototype.levelMap = function() {
                 });
             });
         })).then(function(libLevels) {
-            var allLevels = libLevels.concat(projectLevels);
+            var allLevels = [].concat.apply([], libLevels).concat(projectLevels);
 
-            return allLevels.reduce(merge, {});
+            return allLevels.reduce((res, lvl) => {
+                res[lvl.path] = merge(res[lvl.path] || {}, lvl);
+                return res;
+            }, {});
         });
     });
 };
@@ -239,20 +242,20 @@ BemConfig.prototype.librarySync = function(libName) {
  */
 BemConfig.prototype.levelMapSync = function() {
     var config = this.getSync(),
-        projectLevels = config.levels,
+        projectLevels = config.levels || [],
         libNames = config.libs ? Object.keys(config.libs) : [];
 
-    var libLevels = libNames.map(function(libName) {
+    var libLevels = [].concat.apply([], libNames.map(function(libName) {
         var bemLibConf = this.librarySync(libName),
             libConfig = bemLibConf.getSync();
 
         return libConfig.levels;
-    }, this);
+    }, this));
 
-    var allLevels = libLevels.concat(projectLevels);
-
+    var allLevels = [].concat(libLevels, projectLevels); // hm.
     return allLevels.reduce(function(acc, level) {
-        return merge(acc, level);
+        acc[level.path] = level;
+        return acc;
     }, {});
 };
 
@@ -279,15 +282,17 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
 
     for (var i = allConfigs.length - 1; i >= 0; i--) {
         var conf = allConfigs[i],
-            levels = conf.levels || {};
+            levels = conf.levels || [];
 
         commonOpts = merge({}, conf, commonOpts);
 
-        for (var level in levels) {
-            if (level !== absLevelPath) { continue; }
+        for (var j = 0; j < levels.length; j++) {
+            var level = levels[j];
+
+            if (level === undefined || level.path !== absLevelPath) { continue; }
 
             // works like deep extend but overrides arrays
-            levelOpts = merge({}, levels[level], levelOpts);
+            levelOpts = merge({}, level, levelOpts);
         }
 
         if (conf.root) { break; }
@@ -296,6 +301,7 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
     levelOpts = merge(commonOpts, levelOpts);
 
     delete levelOpts.__source;
+    delete levelOpts.path;
     delete levelOpts.levels;
     delete levelOpts.root;
 
