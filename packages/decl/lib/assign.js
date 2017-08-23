@@ -2,15 +2,9 @@
 
 const assert = require('assert');
 
-const BemEntityName = require('@bem/sdk.entity-name');
 const BemCell = require('@bem/sdk.cell');
 
 const isValidVal = v => Boolean(v || v === 0);
-
-const cellify = data => {
-    data.entity = new BemEntityName(data.entity);
-    return new BemCell(data);
-};
 
 /**
  * Fills entity fields with the scope ones.
@@ -35,12 +29,12 @@ module.exports = function (file, scope) {
     const fKeysLength = Object.keys(file).length;
     if (fKeysLength === 0 || fKeysLength === 1 && file.tech) {
         result.entity = sEntity;
-        return cellify(result);
+        return BemCell.create(result);
     }
 
     if (fEntity.block) {
-        Object.assign(result.entity, fEntity);
-        return cellify(result);
+        Object.assign(result.entity, fEntity.valueOf());
+        return BemCell.create(result);
     }
 
     result.entity.block = fEntity.block || sEntity.block;
@@ -48,7 +42,7 @@ module.exports = function (file, scope) {
     if (fEntity.elem) {
         result.entity.elem = fEntity.elem;
         if (!fEntity.modName) {
-            return cellify(result);
+            return BemCell.create(result);
         }
     } else if (sEntity.elem && ((fEntity.modName || fEntity.modVal) || fEntity.block == null)) {
         result.entity.elem = sEntity.elem;
@@ -62,5 +56,5 @@ module.exports = function (file, scope) {
         result.entity.modVal = isValidVal(fEntity.modVal) ? fEntity.modVal : sEntity.modVal;
     }
 
-    return cellify(result);
+    return BemCell.create(result);
 };

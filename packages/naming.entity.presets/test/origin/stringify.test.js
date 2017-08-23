@@ -1,22 +1,22 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../index')('react');
+const naming = require('@bem/sdk.naming.entity')('origin');
 const stringify = naming.stringify;
 
 test('should stringify block', t => {
-    const str = stringify({ block: 'Block' });
+    const str = stringify({ block: 'block' });
 
-    t.is(str, 'Block');
+    t.is(str, 'block');
 });
 
 test('should stringify modifier of block', t => {
     const str = stringify({
-        block: 'Block',
+        block: 'block',
         mod: { name: 'mod', val: 'val' }
     });
 
-    t.is(str, 'Block_mod_val');
+    t.is(str, 'block_mod_val');
 });
 
 test('should stringify simple modifier of block', t => {
@@ -48,11 +48,11 @@ test('should stringify block if modifier value is `undefined`', t => {
 
 test('should stringify element', t => {
     const str = stringify({
-        block: 'Block',
-        elem: 'Elem'
+        block: 'block',
+        elem: 'elem'
     });
 
-    t.is(str, 'Block-Elem');
+    t.is(str, 'block__elem');
 });
 
 test('should stringify modifier of element', t => {
@@ -62,7 +62,7 @@ test('should stringify modifier of element', t => {
         mod: { name: 'mod', val: 'val' }
     });
 
-    t.is(str, 'block-elem_mod_val');
+    t.is(str, 'block__elem_mod_val');
 });
 
 test('should stringify simple modifier of element', t => {
@@ -72,7 +72,7 @@ test('should stringify simple modifier of element', t => {
         mod: 'mod'
     });
 
-    t.is(str, 'block-elem_mod');
+    t.is(str, 'block__elem_mod');
 });
 
 test('should stringify boolean modifier of element', t => {
@@ -82,7 +82,7 @@ test('should stringify boolean modifier of element', t => {
         mod: { name: 'mod', val: true }
     });
 
-    t.is(str, 'block-elem_mod');
+    t.is(str, 'block__elem_mod');
 });
 
 test('should stringify element if modifier value is `undefined`', t => {
@@ -92,5 +92,5 @@ test('should stringify element if modifier value is `undefined`', t => {
         mod: { name: 'mod', val: undefined }
     });
 
-    t.is(str, 'block-elem');
+    t.is(str, 'block__elem');
 });

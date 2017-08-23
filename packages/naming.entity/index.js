@@ -19,9 +19,9 @@
   *                                                                         element and modifier's names.
   */
 
-const createStringify = require('./create-stringify');
-const createParse = require('./create-parse');
-const presets = require('./presets');
+const createStringify = require('@bem/sdk.naming.entity.stringify');
+const createParse = require('@bem/sdk.naming.entity.parse');
+const presets = require('@bem/sdk.naming.entity.presets');
 
 /**
  * It is necessary not to create new instances for the same custom naming.
@@ -102,4 +102,4 @@ function init(options) {
     };
 }
 
-module.exports = createNaming;
+module.exports = Object.assign(createNaming, createNaming());

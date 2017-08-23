@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../index')('two-dashes');
+const naming = require('@bem/sdk.naming.entity')('two-dashes');
 const parse = naming.parse;
 
 test('should not parse not valid string', t => {

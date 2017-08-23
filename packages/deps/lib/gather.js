@@ -1,6 +1,6 @@
 'use strict';
 
-const walk = require('bem-walk');
+const walk = require('@bem/sdk.walk');
 const fs = require('fs');
 
 /**

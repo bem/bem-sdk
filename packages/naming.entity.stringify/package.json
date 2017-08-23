@@ -1,0 +1,30 @@
+{
+  "name": "@bem/sdk.naming.entity.stringify",
+  "version": "0.0.1",
+  "description": "Stringifier for BEM entities",
+  "license": "MPL-2.0",
+  "author": "Andrew Abramov <mail@blond.im>",
+  "keywords": [
+    "bem",
+    "naming",
+    "entity",
+    "name",
+    "representation",
+    "stringify"
+  ],
+  "repository": "bem/bem-sdk",
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "main": "index.js",
+  "files": [
+    "lib/**",
+    "index.js"
+  ],
+  "devDependencies": {
+    "@bem/sdk.naming.entity.presets": "*"
+  },
+  "scripts": {
+    "bench": "matcha benchmark/*.js"
+  }
+}

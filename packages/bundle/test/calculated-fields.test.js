@@ -2,7 +2,7 @@
 
 const assert = require('chai').assert;
 const BemBundle = require('..');
-const bemjsonToDecl = require('bemjson-to-decl');
+const bemjsonToDecl = require('@bem/sdk.bemjson-to-decl');
 
 describe('bemjson given:', function () {
     it('should generate bemdecl by given bemjson', function () {

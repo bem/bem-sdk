@@ -2,7 +2,8 @@
 
 const util = require('util');
 
-const stringifyEntity = require('@bem/sdk.naming').stringify;
+const originNaming = require('@bem/sdk.naming.entity.presets/origin');
+const stringifyEntity = require('@bem/sdk.naming.entity.stringify')(originNaming);
 
 const deprecate = require('./deprecate');
 const EntityTypeError = require('./entity-type-error');
@@ -50,9 +51,10 @@ class BemEntityName {
         const hasModVal = modObj && modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
 
         if (modName) {
+            const normalizeValue = v => v === 0 ? '0' : v;
             data.mod = {
                 name: modName,
-                val: hasModVal ? modObj && modObj.val || obj.modVal : true
+                val: hasModVal ? modObj && normalizeValue(modObj.val) || normalizeValue(obj.modVal) : true
             };
         } else if (modObj || hasModVal) {
             throw new EntityTypeError(obj, 'the field `mod.name` is undefined');
@@ -403,11 +405,12 @@ class BemEntityName {
             const isString = typeof mod === 'string';
             const modName = (isString ? mod : mod && mod.name) || obj.modName;
             const modObj = !isString && mod || obj;
-            const hasModVal = modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
 
             data.mod = {
                 name: modName,
-                val: hasModVal ? modObj.val || obj.modVal : true
+                val: modObj.val || modObj.val === 0 ? modObj.val :
+                    obj.modVal || obj.modVal === 0 ? obj.modVal :
+                    true
             };
         }
 

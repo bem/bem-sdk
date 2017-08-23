@@ -1,7 +1,7 @@
 'use strict';
 
 const BemCell = require('@bem/sdk.cell');
-const BemNaming = require('@bem/sdk.naming');
+const BemNaming = require('@bem/sdk.naming.entity');
 
 const BemGraph = require('./bem-graph');
 

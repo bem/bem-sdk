@@ -1,6 +1,6 @@
 'use strict';
 
-var bn = require('@bem/sdk.naming');
+var bn = require('@bem/sdk.naming.entity');
 var BemEntity = require('@bem/sdk.entity-name');
 var pascalCase = require('pascal-case');
 

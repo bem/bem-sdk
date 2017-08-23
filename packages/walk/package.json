@@ -23,7 +23,7 @@
   "dependencies": {
     "@bem/sdk.cell": "0.0.1",
     "@bem/sdk.entity-name": "0.0.1",
-    "@bem/sdk.naming": "0.0.1",
+    "@bem/sdk.naming.entity": "0.0.1",
     "async-each": "1.0.1"
   },
   "devDependencies": {

@@ -36,7 +36,8 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/sdk.naming": "0.0.1",
+    "@bem/sdk.naming.entity.stringify": "*",
+    "@bem/sdk.naming.entity.presets": "*",
     "depd": "1.1.0",
     "es6-error": "4.0.2"
   },

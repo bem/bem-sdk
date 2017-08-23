@@ -1,7 +1,7 @@
 'use strict';
 
 const test = require('ava');
-const naming = require('../../../index')('two-dashes');
+const naming = require('@bem/sdk.naming.entity')('two-dashes');
 const stringify = naming.stringify;
 
 test('should stringify block', t => {
