@@ -1,6 +1,6 @@
 'use strict';
 
-const b_ = require('@bem/entity-name').create;
+const b_ = require('@bem/sdk.entity-name').create;
 const util = require('util');
 
 module.exports = function bemeql(chai) {

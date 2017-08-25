@@ -1,0 +1,30 @@
+{
+  "name": "@bem/sdk.naming.entity.parse",
+  "version": "0.0.1",
+  "description": "Parses slugs of BEM entities",
+  "license": "MPL-2.0",
+  "author": "Andrew Abramov <mail@blond.im>",
+  "keywords": [
+    "bem",
+    "naming",
+    "entity",
+    "name",
+    "representation",
+    "parse"
+  ],
+  "repository": "bem/bem-sdk",
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "main": "index.js",
+  "files": [
+    "lib/**",
+    "index.js"
+  ],
+  "dependencies": {
+    "@bem/sdk.entity-name": "*"
+  },
+  "scripts": {
+    "bench": "matcha benchmark/*.js"
+  }
+}

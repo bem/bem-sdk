@@ -169,7 +169,7 @@ describe('assign', () => {
         expect(simplifyCell(assign(
             { entity: { modVal: 0 } },
             { entity: { block: 'sb', modName: 'sm' } }))).to.deep.equal(
-            { entity: { block: 'sb', modName: 'sm', modVal: 0 }, tech: null });
+            { entity: { block: 'sb', modName: 'sm', modVal: '0' }, tech: null });
     });
 
     it('should use block for nothing', () => {

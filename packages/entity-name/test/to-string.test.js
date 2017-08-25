@@ -4,9 +4,7 @@ import proxyquire from 'proxyquire';
 
 const spy = sinon.spy();
 const BemEntityName = proxyquire('../lib/entity-name', {
-    '@bem/sdk.naming': {
-        stringify: spy
-    }
+    '@bem/sdk.naming.entity.stringify': () => spy
 });
 
 test('should use `naming.stringify()` for block', t => {

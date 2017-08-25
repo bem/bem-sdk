@@ -3,7 +3,7 @@
 const assert = require('assert');
 const path = require('path');
 
-const bemjsonToDecl = require('bemjson-to-decl');
+const bemjsonToDecl = require('@bem/sdk.bemjson-to-decl');
 
 module.exports = class BemBundle {
     /**

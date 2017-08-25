@@ -24,7 +24,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/fs-scheme#readme",
   "dependencies": {
     "@bem/sdk.cell": "0.0.1",
-    "@bem/sdk.naming": "0.0.1"
+    "@bem/sdk.naming.entity": "0.0.1"
   },
   "devDependencies": {
     "@bem/sdk.entity-name": "^0.0.1",

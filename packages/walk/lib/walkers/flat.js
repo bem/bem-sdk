@@ -3,7 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 
-const bemNaming = require('@bem/sdk.naming');
+const bemNaming = require('@bem/sdk.naming.entity');
 const BemCell = require('@bem/sdk.cell');
 
 const BemFile = require('../bem-file');

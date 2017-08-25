@@ -4,7 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const each = require('async-each');
-const bemNaming = require('@bem/sdk.naming');
+const bemNaming = require('@bem/sdk.naming.entity');
 const BemEntityName = require('@bem/sdk.entity-name');
 const BemCell = require('@bem/sdk.cell');
 

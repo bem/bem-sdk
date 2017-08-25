@@ -1,8 +1,8 @@
 'use strict';
 
 const stringifyObj = require('stringify-object');
-const normalize = require('bem-decl').normalize;
-const BemEntity = require('@bem/entity-name');
+const normalize = require('@bem/sdk.decl').normalize;
+const BemEntity = require('@bem/sdk.entity-name');
 
 function getEntities(bemjson, ctx) {
     const visited = {};

@@ -1,13 +1,9 @@
 'use strict';
 
-const path = require('path');
-
 const test = require('ava');
 const mock = require('mock-fs');
 
 const gather = require('..').gather;
-
-const sep = s => s.split('/').join(path.sep);
 
 test.afterEach(() => {
     mock.restore();
@@ -36,16 +32,11 @@ test('should gather from one level given', t => {
         levels: ['common.blocks']
     };
 
-    return gather(config).then(data =>
-        t.deepEqual(data, [
-            {
-                entity: { block: 'button' },
-                tech: 'deps.js',
-                path: sep('common.blocks/button/button.deps.js'),
-                level: 'common.blocks'
-            }
+    return gather(config).then(data => {
+        t.deepEqual(data.map(f => f.cell.id), [
+            'button@common.blocks.deps.js'
         ])
-    );
+    });
 });
 
 test('should gather entities', t => {
@@ -60,25 +51,10 @@ test('should gather entities', t => {
     };
 
     return gather(config).then(data =>
-        t.deepEqual(data, [
-            {
-                entity: { block: 'button' },
-                tech: 'deps.js',
-                path: sep('common.blocks/button/button.deps.js'),
-                level: 'common.blocks'
-            },
-            {
-                entity: { block: 'input' },
-                tech: 'deps.js',
-                path: sep('common.blocks/input/input.deps.js'),
-                level: 'common.blocks'
-            },
-            {
-                entity: { block: 'header' },
-                tech: 'deps.js',
-                path: sep('desktop.blocks/header/header.deps.js'),
-                level: 'desktop.blocks'
-            }
+        t.deepEqual(data.map(f => f.cell.id), [
+            'button@common.blocks.deps.js',
+            'input@common.blocks.deps.js',
+            'header@desktop.blocks.deps.js'
         ])
     );
 });

@@ -28,7 +28,7 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/sdk.entity-name": "0.0.1",
+    "@bem/sdk.entity-name": "*",
     "depd": "1.1.0"
   },
   "scripts": {

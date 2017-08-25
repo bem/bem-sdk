@@ -1,6 +1,6 @@
 'use strict';
 
-const BemGraph = require('bem-graph').BemGraph;
+const BemGraph = require('@bem/sdk.graph').BemGraph;
 
 /**
  * A BEM-entity with or without a tech

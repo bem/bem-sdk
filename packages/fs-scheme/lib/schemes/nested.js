@@ -3,7 +3,7 @@
 var path = require('path');
 var assert = require('assert');
 var BemCell = require('@bem/sdk.cell');
-var bemNaming = require('@bem/sdk.naming');
+var bemNaming = require('@bem/sdk.naming.entity');
 
 var presets = require('../presets');
 

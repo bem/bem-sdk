@@ -1,6 +1,6 @@
 'use strict';
 
-const debug = require('debug')('bem-graph');
+const debug = require('debug')('@bem/sdk.graph');
 const BemCell = require('@bem/sdk.cell');
 const BemEntityName = require('@bem/sdk.entity-name');
 

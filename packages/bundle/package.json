@@ -25,6 +25,6 @@
   "author": "Anton Krichevskii <mrskadi0@gmail.com> (github.com/skad0)",
   "license": "MPL-2.0",
   "dependencies": {
-    "bemjson-to-decl": "1.0.1"
+    "@bem/sdk.bemjson-to-decl": "*"
   }
 }
