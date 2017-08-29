@@ -1,7 +1,7 @@
 'use strict';
 
 const BemCell = require('@bem/sdk.cell');
-const BemNaming = require('@bem/sdk.naming.entity');
+const bemNaming = require('@bem/sdk.naming.entity');
 
 const BemGraph = require('./bem-graph');
 
@@ -26,7 +26,7 @@ function createVertex(entity, tech) {
     if (typeof entity === 'string') {
         const p = entity.split('.');
 
-        entity = BemNaming.parse(p[0]);
+        entity = bemNaming.parse(p[0]);
         tech || (tech = p[1]);
     }
 
