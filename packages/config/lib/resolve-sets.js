@@ -21,18 +21,18 @@ function resolveSet(setData, setName, sets) {
     }
 
     return setData.split(' ').reduce((setDataAcc, layerStr) => {
-        let layerName, libName;
-
         if (!layerStr.includes('@')) {
             setDataAcc.push({ layer: layerStr });
             return setDataAcc;
         }
 
-        [layerName, libName] = layerStr.split('@');
+        const layerArr = layerStr.split('@');
+        let layerName = layerArr[0];
+        let libName = layerArr[1];
 
         if (!layerName) {
-            let layerNameArr;
-            [libName, ...layerNameArr] = libName.split('/');
+            const layerNameArr = libName.split('/');
+            libName = layerNameArr.shift();
 
             const level = {
                 library: libName
