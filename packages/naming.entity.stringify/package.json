@@ -22,7 +22,7 @@
     "index.js"
   ],
   "devDependencies": {
-    "@bem/sdk.naming.entity.presets": "*"
+    "@bem/sdk.naming.presets": "*"
   },
   "scripts": {
     "bench": "matcha benchmark/*.js"

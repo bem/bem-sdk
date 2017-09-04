@@ -1,40 +1,42 @@
-# @bem/sdk.fs-scheme
+# @bem/sdk.naming.cell.stringify
 
 [BEM file system](https://en.bem.info/method/filesystem/#principles-of-file-system-organization-for-bem-projects) [schemes](https://en.bem.info/faq/#why-create-separate-directories-and-files-for-every-block-and-technology).
 
-## Supported schemes
+## Supported presets
 
-* [nested](https://en.bem.info/methodology/filestructure/#nested)
-* [flat](https://en.bem.info/methodology/filestructure/#flat)
+### Naming conventions
+
+[BEM naming convention](https://en.bem.info/methodology/naming-convention/).
+
+* `origin` — `.btn__text_fly`, `btn/__text/_fly/btn__text_fly_away.css`
+* `two-dashes` — `.btn__text--fly_away`, `btn/__text/--fly/btn__text--fly_away.css`
+* `react` — `.Btn-Text_fly_away`, `Btn/Text/_fly/Btn-Text_fly_away.css`
+
+### Schemes
+
+* [`nested`](https://en.bem.info/methodology/filestructure/#nested)
+* [`flat`](https://en.bem.info/methodology/filestructure/#flat)
 
 ## Usage
+
 ```js
-var BemCell = require('@bem/sdk.cell'),
-    BemEntityName = require('@bem/sdk.entity-name');
+const BemCell = require('@bem/sdk.cell');
 
-var atom = new BemCell(
-    {
-        entity: new BemEntityName({
-            block: 'b1',
-            elem: 'e1',
-            mod: {name: 'm1', val: 'v1'}
-        }),
-        tech: 'js'
-    }
-);
+const cell = BemCell.create({
+    block: 'b1',
+    elem: 'e1',
+    mod: {name: 'm1', val: 'v1'},
+    tech: 'js'
+});
 
-var options = {
-    naming: 'origin'
-};
+const stringify = require('@bem/sdk.naming.cell.stringify')('origin')
 
-var bemFs = require('@bem/sdk.fs-scheme')('nested')
-
-bemFs.path(atom, options); // b1/__e1/_m1/b1__e1_m1_v1.js
+stringify(cell); // b1/__e1/_m1/b1__e1_m1_v1.js
 ```
 
 ### Options
 
-`elemDirDelim` and `modDirDelim` has meaning only for `nested` scheme.
+`dirNaming` has meaning only for `nested` scheme.
 
 Parameter                    | Type                | Description                                                         | Default
 -----------------------------|---------------------|---------------------------------------------------------------------|--------------------------

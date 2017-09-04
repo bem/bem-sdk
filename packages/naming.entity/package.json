@@ -30,7 +30,7 @@
     "@bem/sdk.entity-name": "*",
     "@bem/sdk.naming.entity.parse": "*",
     "@bem/sdk.naming.entity.stringify": "*",
-    "@bem/sdk.naming.entity.presets": "*"
+    "@bem/sdk.naming.presets": "*"
   },
   "scripts": {
     "test": "npm run cover",
