@@ -17,7 +17,7 @@ test('should not include entity if no entity from decl depends on it', macro, {
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }));
 
-        expect(decl).not.to.contain({ entity: { block: 'B' } });
+        expect(decl).not.to.deep.contain({ entity: { block: 'B' } });
     }
 });
 
@@ -35,7 +35,7 @@ test('should not include entity if no entity from decl depends on it and this en
         test: (t, graph) => {
             const decl = Array.from(graph.dependenciesOf({ block: 'A' }));
 
-            expect(decl).not.to.contain({ entity: { block: 'B' } });
+            expect(decl).not.to.deep.contain({ entity: { block: 'B' } });
         }
 });
 
@@ -52,6 +52,6 @@ test('should not include dependency if no entity from decl\'s dependencies depen
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }));
 
-        expect(decl).not.to.contain({ entity: { block: 'D' } });
+        expect(decl).not.to.deep.contain({ entity: { block: 'D' } });
     }
 });

@@ -23,7 +23,7 @@ test('should resolve transitive dependency', macro, {
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }));
 
-        expect(decl).to.contain({ entity: { block: 'C' } });
+        expect(decl).to.deep.contain({ entity: { block: 'C' } });
     }
 });
 
@@ -45,7 +45,7 @@ test('should resolve transitive entity depending on multiple dependencies', macr
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }));
 
-        expect(decl).to.contain({ entity: { block: 'C' } })
-            .and.to.contain({ entity: { block: 'D' } });
+        expect(decl).to.deep.contain({ entity: { block: 'C' } })
+            .and.to.deep.contain({ entity: { block: 'D' } });
     }
 });

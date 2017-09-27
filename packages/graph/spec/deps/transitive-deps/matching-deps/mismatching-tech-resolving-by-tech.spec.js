@@ -25,7 +25,7 @@ test('should not resolve transitive dependency', macro, {
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
 
-        expect(decl).to.not.contain({ entity: { block: 'C' }, tech: 'js' });
+        expect(decl).to.not.deep.contain({ entity: { block: 'C' }, tech: 'js' });
     }
 });
 
@@ -47,8 +47,8 @@ test('should not resolve transitive entity depending on multiple dependencies', 
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
 
-        expect(decl).to.not.contain({ entity: { block: 'C' }, tech: 'js' })
-            .and.to.not.contain({ entity: { block: 'D' }, tech: 'js' });
+        expect(decl).to.not.deep.contain({ entity: { block: 'C' }, tech: 'js' })
+            .and.to.not.deep.contain({ entity: { block: 'D' }, tech: 'js' });
     }
 });
 
@@ -70,7 +70,7 @@ test('should resolve transitive depending by multiple techs on another entity', 
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
 
-        expect(decl).to.contain({ entity: { block: 'C' }, tech: 'js' });
+        expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'js' });
     }
 });
 
@@ -100,7 +100,7 @@ test('should resolve multiple tech dependencies depending on another tech differ
         const firstIndex = findIndex(decl, { entity: { block: 'D' }, tech: 'js' });
         const lastIndex = findLastIndex(decl, { entity: { block: 'D' }, tech: 'js' });
 
-        expect(decl).to.contain({ entity: { block: 'D' }, tech: 'js' });
+        expect(decl).to.deep.contain({ entity: { block: 'D' }, tech: 'js' });
         expect(firstIndex).to.be.equal(lastIndex);
     }
 });

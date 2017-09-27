@@ -35,11 +35,8 @@
     "node-eval": "1.1.0"
   },
   "devDependencies": {
-    "ava": "^0.15.0",
-    "chai": "^3.5.0",
+    "ava": "^0.19.0",
     "coveralls": "^2.11.9",
-    "mock-fs": "^4.3.0",
-    "nyc": "^6.4.4",
     "stream-to-array": "^2.3.0",
     "through2": "^2.0.1"
   },
@@ -52,6 +49,7 @@
     "files": [
       "test/**/*.test.js"
     ],
+    "failWithoutAssertions": false,
     "source": [
       "lib/**/*.js"
     ],

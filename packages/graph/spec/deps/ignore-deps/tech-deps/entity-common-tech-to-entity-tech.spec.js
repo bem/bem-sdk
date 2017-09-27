@@ -20,7 +20,7 @@ test('should not include entity if no entity from decl depends on it and this en
         test: (t, graph) => {
             const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
 
-            expect(decl).not.to.contain({ entity: { block: 'B' }, tech: 'css' });
+            expect(decl).not.to.deep.contain({ entity: { block: 'B' }, tech: 'css' });
         }
 });
 
@@ -37,6 +37,6 @@ test('should not include dependency if no entity from decl\'s dependencies depen
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
 
-        expect(decl).not.to.contain({ entity: { block: 'D' }, tech: 'css' });
+        expect(decl).not.to.deep.contain({ entity: { block: 'D' }, tech: 'css' });
     }
 });

@@ -21,7 +21,7 @@ test('should resolve entity depending on another entity', macro, {
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf([{ block: 'A' }], 'css'));
 
-        expect(decl).to.contain({ entity: { block: 'B' }, tech: 'css' });
+        expect(decl).to.deep.contain({ entity: { block: 'B' }, tech: 'css' });
     }
 });
 
@@ -39,8 +39,8 @@ test('should resolve entity depending on multiple entities', macro, {
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf([{ block: 'A' }], 'css'));
 
-        expect(decl).to.contain({ entity: { block: 'B' }, tech: 'css' })
-            .and.to.contain({ entity: { block: 'C' }, tech: 'css' });
+        expect(decl).to.deep.contain({ entity: { block: 'B' }, tech: 'css' })
+            .and.to.deep.contain({ entity: { block: 'C' }, tech: 'css' });
     }
 });
 
@@ -64,7 +64,7 @@ test('should include entity to result once if multiple entities depend on this e
         const firstIndex = findIndex(decl, { entity: { block: 'C' }, tech: 'css' });
         const lastIndex = findLastIndex(decl, { entity: { block: 'C' }, tech: 'css' });
 
-        expect(decl).to.contain({ entity: { block: 'C' }, tech: 'css' });
+        expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'css' });
 
         expect(firstIndex).to.be.equal(lastIndex);
     }

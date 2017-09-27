@@ -15,7 +15,7 @@ test('should ignore unordered tech dependency on entity', () => {
 
     const decl = Array.from(graph.dependenciesOf({ block: 'A' }));
 
-    expect(decl).to.not.contain({ entity: { block: 'B' } });
+    expect(decl).to.not.deep.contain({ entity: { block: 'B' } });
 });
 
 test('should ignore unordered tech dependency on same tech', () => {
@@ -26,7 +26,7 @@ test('should ignore unordered tech dependency on same tech', () => {
 
     const decl = Array.from(graph.dependenciesOf({ block: 'A' }));
 
-    expect(decl).to.not.contain({ entity: { block: 'B' } });
+    expect(decl).to.not.deep.contain({ entity: { block: 'B' } });
 });
 
 test('should ignore unordered tech dependency on another tech', () => {
@@ -37,7 +37,7 @@ test('should ignore unordered tech dependency on another tech', () => {
 
     const decl = Array.from(graph.dependenciesOf({ block: 'A' }));
 
-    expect(decl).to.not.contain({ entity: { block: 'A' }, tech: 'js' });
+    expect(decl).to.not.deep.contain({ entity: { block: 'A' }, tech: 'js' });
 });
 
 test('should ignore tech deps when resolving common deps in same way for ordered and unordered deps', () => {

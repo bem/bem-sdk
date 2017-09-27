@@ -15,7 +15,7 @@ test('should ignore entity dependency on mismatched tech', () => {
 
     const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'js'));
 
-    expect(decl).to.not.contain({ entity: { block: 'B' }, tech: 'js' });
+    expect(decl).to.not.deep.contain({ entity: { block: 'B' }, tech: 'js' });
 });
 
 test('should ignore unordered tech dependency on other and mismatched tech', () => {
@@ -26,7 +26,7 @@ test('should ignore unordered tech dependency on other and mismatched tech', () 
 
     const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'js'));
 
-    expect(decl).to.not.contain({ entity: { block: 'B' }, tech: 'js' });
+    expect(decl).to.not.deep.contain({ entity: { block: 'B' }, tech: 'js' });
 });
 
 test('should ignore tech dependency on same and mismatched tech', () => {
