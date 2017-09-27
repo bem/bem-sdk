@@ -2,7 +2,7 @@
 
 const util = require('util');
 
-const originNaming = require('@bem/sdk.naming.entity.presets/origin');
+const originNaming = require('@bem/sdk.naming.presets/origin');
 const stringifyEntity = require('@bem/sdk.naming.entity.stringify')(originNaming);
 
 const deprecate = require('./deprecate');

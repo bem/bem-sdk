@@ -1,0 +1,35 @@
+{
+  "name": "@bem/sdk.naming.presets",
+  "version": "0.0.1",
+  "description": "Presets for naming",
+  "license": "MPL-2.0",
+  "author": "Alexej Yaroshevich <zxqfox@gmail.com> (http://github.com/zxqfox)",
+  "keywords": [
+    "bem",
+    "naming",
+    "entity",
+    "cell",
+    "name",
+    "conventions",
+    "origin",
+    "react",
+    "two-dashes"
+  ],
+  "repository": "bem/bem-sdk",
+  "devDependencies": {
+    "@bem/sdk.cell": "*",
+    "@bem/sdk.entity-name": "*",
+    "@bem/sdk.naming.entity": "*",
+    "@bem/sdk.naming.cell.stringify": "*"
+  },
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "main": "index.js",
+  "files": [
+    "*.js"
+  ],
+  "scripts": {
+    "test": "nyc mocha"
+  }
+}

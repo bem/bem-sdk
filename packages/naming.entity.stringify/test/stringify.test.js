@@ -3,8 +3,8 @@
 const test = require('ava');
 const BemEntityName = require('@bem/entity-name');
 
-const originNaming = require('@bem/sdk.naming.entity.presets/origin');
-const stringify = require('../index')(originNaming);
+const originNaming = require('@bem/sdk.naming.presets/origin');
+const stringify = require('..')(originNaming);
 
 test('should not stringify not valid notation', t => {
     const str = stringify({});

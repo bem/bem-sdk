@@ -21,7 +21,7 @@
 
 const createStringify = require('@bem/sdk.naming.entity.stringify');
 const createParse = require('@bem/sdk.naming.entity.parse');
-const presets = require('@bem/sdk.naming.entity.presets');
+const presets = require('@bem/sdk.naming.presets');
 
 /**
  * It is necessary not to create new instances for the same custom naming.

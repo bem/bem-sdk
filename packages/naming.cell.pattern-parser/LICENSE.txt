@@ -1,6 +1,6 @@
-© YANDEX LLC, 2015-2017
+© YANDEX LLC, 2017
 
-The Source Code called `@bem/sdk.fs-scheme` available at https://github.com/bem/bem-sdk/tree/master/packages/fs-scheme is subject to the terms of the Mozilla Public License, v. 2.0 (hereinafter - MPL). The text of MPL is the following:
+The Source Code called `@bem/sdk.walk` available at https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.pattern-parser is subject to the terms of the Mozilla Public License, v. 2.0 (hereinafter - MPL). The text of MPL is the following:
 
 Mozilla Public License, version 2.0
 
