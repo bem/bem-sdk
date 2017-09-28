@@ -1,5 +1,4 @@
-BemCell
-=======
+# BemCell
 
 [![NPM Status][npm-img]][npm]
 

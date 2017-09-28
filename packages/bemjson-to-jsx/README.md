@@ -1,5 +1,4 @@
-bemjson-to-jsx
-==============
+# bemjson-to-jsx
 
 Transforms BEMJSON objects to JSX markup.
 

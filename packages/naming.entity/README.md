@@ -1,5 +1,4 @@
-naming
-======
+# naming.entity
 
 Tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representations: allows you to parse [string representation](#string-representation) and stringify [object representation](#object-representation).
 
@@ -7,21 +6,21 @@ Supports various [naming conventions](#naming-conventions): [origin](#origin-nam
 
 [![NPM Status][npm-img]][npm]
 
-[npm]:            https://www.npmjs.org/package/@bem/sdk.naming
-[npm-img]:        https://img.shields.io/npm/v/@bem/sdk.naming.svg
+[npm]:            https://www.npmjs.org/package/@bem/sdk.naming.entity
+[npm-img]:        https://img.shields.io/npm/v/@bem/sdk.naming.entity.svg
 
 Install
 -------
 
 ```sh
-$ npm install --save @bem/sdk.naming
+$ npm install --save @bem/sdk.naming.entity
 ```
 
 Usage
 -----
 
 ```js
-const bemNaming = require('@bem/sdk.naming');
+const bemNaming = require('@bem/sdk.naming.entity');
 
 bemNaming.parse('button__text'); // BemEntityName { block: 'button', elem: 'text' }
 bemNaming.stringify({ block: 'button', mod: 'checked' }); // String 'button_checked'
@@ -139,7 +138,7 @@ According to this convention elements are delimited with two underscores (`__`),
 Example:
 
 ```js
-const originNaming = require('@bem/sdk.naming')('origin');
+const originNaming = require('@bem/sdk.naming.entity')('origin');
 
 originNaming.parse('block__elem');    // BemEntityName { block: 'block', elem: 'elem' }
 originNaming.parse('block_mod_val');  // BemEntityName { block: 'block',
@@ -163,7 +162,7 @@ According to this convention elements are delimited with two underscores (`__`),
 Example:
 
 ```js
-const twoDashesNaming = require('@bem/sdk.naming')('two-dashes');
+const twoDashesNaming = require('@bem/sdk.naming.entity')('two-dashes');
 
 twoDashesNaming.parse('block__elem');    // { block: 'block', elem: 'elem' }
 twoDashesNaming.parse('block--mod_val'); // { block: 'block',
@@ -187,7 +186,7 @@ According to this convention elements are delimited with one hyphen (`-`), modif
 Example:
 
 ```js
-const reactNaming = require('@bem/sdk.naming')('react');
+const reactNaming = require('@bem/sdk.naming.entity')('react');
 
 reactNaming.parse('Block-Elem');    // BemEntityName { block: 'Block', elem: 'Elem' }
 reactNaming.parse('Block_Mod_Val'); // BemEntityName { block: 'Block',
@@ -209,7 +208,7 @@ To create an instance where you can manage your own naming convention use the [b
 Example:
 
 ```js
-const createBemNaming = require('@bem/sdk.naming');
+const createBemNaming = require('@bem/sdk.naming.entity');
 
 const myNaming = createBemNaming({
     delims: {
@@ -265,7 +264,7 @@ Parses the string into an instance of `BemEntityName`.
 Example:
 
 ```js
-const bemNaming = require('@bem/sdk.naming');
+const bemNaming = require('@bem/sdk.naming.entity');
 
 bemNaming.parse('block__elem_mod_val');
 
@@ -287,7 +286,7 @@ Forms a string from the instance of `BemEntityName`.
 Example:
 
 ```js
-const bemNaming = require('@bem/sdk.naming');
+const bemNaming = require('@bem/sdk.naming.entity');
 const BemEntityName = require('@bem/sdk.entity-name');
 
 bemNaming.stringify(new BemEntityName({

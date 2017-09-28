@@ -1,5 +1,4 @@
-BemjsonNode
-===========
+# BemjsonNode
 
 [BEM tree](https://en.bem.info/methodology/key-concepts/#bem-tree) node representation.
 

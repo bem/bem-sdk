@@ -1,6 +1,12 @@
-# @bem/sdk.naming.cell.pattern-parser
+# naming.cell.pattern-parser
 
 Thing to parse template-strings-like patterns.
+
+## Install
+
+```sh
+npm i @bem/sdk.naming.cell.pattern-parser
+```
 
 ## Usage
 
