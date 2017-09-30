@@ -2,6 +2,9 @@
   "name": "@bem/sdk.naming.entity.parse",
   "version": "0.0.1",
   "description": "Parses slugs of BEM entities",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",
   "keywords": [

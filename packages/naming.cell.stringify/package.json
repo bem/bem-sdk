@@ -2,6 +2,9 @@
   "name": "@bem/sdk.naming.cell.stringify",
   "version": "0.0.1",
   "description": "BemCell stringifier (aka @bem/fs-scheme/path)",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MPL-2.0",
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
   "keywords": [

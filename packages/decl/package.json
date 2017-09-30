@@ -2,6 +2,9 @@
   "name": "@bem/sdk.decl",
   "version": "0.0.1",
   "description": "Manage declaration of BEM entities",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "bem",
     "declaration",

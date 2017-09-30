@@ -2,6 +2,9 @@
   "name": "@bem/sdk.deps",
   "version": "0.0.1",
   "description": "Manage BEM dependencies",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",
   "keywords": [

@@ -2,6 +2,9 @@
   "name": "@bem/sdk.entity-name",
   "version": "0.0.1",
   "description": "BEM entity name representation",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MPL-2.0",
   "repository": "bem/bem-sdk",
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",

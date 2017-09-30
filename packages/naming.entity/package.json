@@ -2,6 +2,9 @@
   "name": "@bem/sdk.naming.entity",
   "version": "0.0.1",
   "description": "Manage naming of BEM entities",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",
   "keywords": [

@@ -2,6 +2,9 @@
   "name": "@bem/sdk.walk",
   "version": "0.0.1",
   "description": "Walk easily thru BEM file structure",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "bem",
     "walk",

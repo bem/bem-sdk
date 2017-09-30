@@ -2,6 +2,9 @@
   "name": "@bem/sdk.bemjson-to-jsx",
   "version": "0.0.1",
   "description": "Transform BEMJSON to JSX",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
   "license": "MPL-2.0",
