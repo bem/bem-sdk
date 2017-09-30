@@ -1,40 +1,45 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const naming = require('../index');
 
-test('should throw error if specified preset is unknow', t => {
-    t.throws(
-        function () {
-            return naming('my-preset');
-        },
-        'The `my-preset` naming is unknown.'
-    );
-});
+describe('options.test.js', () => {
+    it('should throw error if specified preset is unknow', () => {
+        expect(
+            function () {
+                return naming('my-preset');
+            }
+        ).to.throw('The `my-preset` naming is unknown.');
+    });
 
-test('should provide elem option', t => {
-    const myNaming = naming({ delims: { elem: '==' } });
+    it('should provide elem option', () => {
+        const myNaming = naming({ delims: { elem: '==' } });
 
-    t.is(myNaming.delims.elem, '==');
-});
+        expect(myNaming.delims.elem).to.equal('==');
+    });
 
-test('should support mod option as string', t => {
-    const myNaming = naming({ delims: { mod: '--' } });
+    it('should support mod option as string', () => {
+        const myNaming = naming({ delims: { mod: '--' } });
 
-    t.is(myNaming.delims.mod.name, '--');
-    t.is(myNaming.delims.mod.val, '--');
-});
+        expect(myNaming.delims.mod.name).to.equal('--');
+        expect(myNaming.delims.mod.val).to.equal('--');
+    });
 
-test('should support mod option as object', t => {
-    const myNaming = naming({ delims: { mod: { name: '--', val: '_' } } });
+    it('should support mod option as object', () => {
+        const myNaming = naming({ delims: { mod: { name: '--', val: '_' } } });
 
-    t.is(myNaming.delims.mod.name, '--');
-    t.is(myNaming.delims.mod.val, '_');
-});
+        expect(myNaming.delims.mod.name).to.equal('--');
+        expect(myNaming.delims.mod.val).to.equal('_');
+    });
 
-test('should use default value if mod.val is not specified', t => {
-    const myNaming = naming({ delims: { mod: { name: '--' } } });
+    it('should use default value if mod.val is not specified', () => {
+        const myNaming = naming({ delims: { mod: { name: '--' } } });
 
-    t.is(myNaming.delims.mod.name, '--');
-    t.is(myNaming.delims.mod.val, naming.delims.mod.val);
+        expect(myNaming.delims.mod.name).to.equal('--');
+        expect(myNaming.delims.mod.val).to.equal(naming.delims.mod.val);
+    });
 });

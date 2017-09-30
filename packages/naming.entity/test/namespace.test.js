@@ -1,27 +1,33 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const bemNaming = require('../index');
 
-test('should be a namespace', t => {
-    const entities = ['block__elem'].map(bemNaming.parse);
-    const entity = entities[0];
+describe('namespace.test.js', () => {
+    it('should be a namespace', () => {
+        const entities = ['block__elem'].map(bemNaming.parse);
+        const entity = entities[0];
 
-    t.deepEqual(entity.valueOf(), { block: 'block', elem: 'elem' });
-});
+        expect(entity.valueOf()).to.deep.equal({ block: 'block', elem: 'elem' });
+    });
 
-test('should be a original namespace', t => {
-    const myNaming = bemNaming();
-    const entities = ['block__elem'].map(myNaming.parse);
-    const entity = entities[0];
+    it('should be a original namespace', () => {
+        const myNaming = bemNaming();
+        const entities = ['block__elem'].map(myNaming.parse);
+        const entity = entities[0];
 
-    t.deepEqual(entity.valueOf(), { block: 'block', elem: 'elem' });
-});
+        expect(entity.valueOf()).to.deep.equal({ block: 'block', elem: 'elem' });
+    });
 
-test('should be a custom namespace', t => {
-    const myNaming = bemNaming({ delims: { elem: '==' } });
-    const entities = ['block==elem'].map(myNaming.parse);
-    const entity = entities[0];
+    it('should be a custom namespace', () => {
+        const myNaming = bemNaming({ delims: { elem: '==' } });
+        const entities = ['block==elem'].map(myNaming.parse);
+        const entity = entities[0];
 
-    t.deepEqual(entity.valueOf(), { block: 'block', elem: 'elem' });
+        expect(entity.valueOf()).to.deep.equal({ block: 'block', elem: 'elem' });
+    });
 });
