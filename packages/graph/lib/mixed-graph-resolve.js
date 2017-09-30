@@ -1,7 +1,6 @@
 'use strict';
 
-const hoi = require('ho-iter');
-const series = hoi.series;
+const series = require('ho-iter').series;
 
 const VertexSet = require('./vertex-set');
 const CircularDependencyError = require('./circular-dependency-error');

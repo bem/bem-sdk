@@ -21,7 +21,7 @@ test('should resolve entity depending on another entity', macro, {
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf([{ block: 'A' }], 'css'));
 
-        expect(decl).to.contain({ entity: { block: 'B' }, tech: 'js' });
+        expect(decl).to.deep.contain({ entity: { block: 'B' }, tech: 'js' });
     }
 });
 
@@ -39,8 +39,8 @@ test('should resolve tech depending on multiple techs', macro, {
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf([{ block: 'A' }], 'css'));
 
-        expect(decl).to.contain({ entity: { block: 'B' }, tech: 'bemhtml' })
-            .and.to.contain({ entity: { block: 'B' }, tech: 'js' });
+        expect(decl).to.deep.contain({ entity: { block: 'B' }, tech: 'bemhtml' })
+            .and.to.deep.contain({ entity: { block: 'B' }, tech: 'js' });
     }
 });
 
@@ -62,7 +62,7 @@ test('should resolve tech dependency depending on tech different with resolving 
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf([{ block: 'A' }], 'css'));
 
-        expect(decl).to.contain({ entity: { block: 'C' }, tech: 'js' });
+        expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'js' });
     }
 });
 
@@ -84,8 +84,8 @@ test('should resolve tech dependency depending on tech different from resolving 
     test: (t, graph) => {
         const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
 
-        expect(decl).to.contain({ entity: { block: 'C' }, tech: 'bemhtml' })
-            .to.contain({ entity: { block: 'D' }, tech: 'js' });
+        expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'bemhtml' })
+            .to.deep.contain({ entity: { block: 'D' }, tech: 'js' });
     }
 });
 
