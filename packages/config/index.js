@@ -5,6 +5,7 @@ var fs = require('fs'),
     path = require('path'),
     rc = require('betterc'),
     flatten = require('lodash.flatten'),
+    naming = require('@bem/sdk.naming.cell.stringify'),
     merge = require('./lib/merge'),
     resolveSets = require('./lib/resolve-sets');
 
@@ -177,7 +178,7 @@ BemConfig.prototype.levelMap = function() {
             var allLevels = [].concat.apply([], libLevels).concat(projectLevels);
 
             return allLevels.reduce((res, lvl) => {
-                res[lvl.path] = merge(res[lvl.path] || {}, lvl);
+                res[getLevelPath(lvl)] = merge(res[getLevelPath(lvl)] || {}, lvl);
                 return res;
             }, {});
         });
@@ -216,9 +217,7 @@ BemConfig.prototype.levels = function(setName) {
                 return lvl.layer === setDescription.layer;
             }) || {};
 
-            var levelPath = level.path || level.layer + '.blocks';
-
-            return _this.levelMap().then(levelsMap => levelsMap[levelPath]);
+            return _this.levelMap().then(levelsMap => levelsMap[getLevelPath(level)]);
         })).then(flatten);
     });
 };
@@ -308,7 +307,7 @@ BemConfig.prototype.levelMapSync = function() {
 
     var allLevels = [].concat(libLevels, projectLevels); // hm.
     return allLevels.reduce(function(acc, level) {
-        acc[level.path] = level;
+        acc[getLevelPath(level)] = level;
         return acc;
     }, {});
 };
@@ -343,9 +342,7 @@ BemConfig.prototype.levelsSync = function(setName) {
             return lvl.layer === setDescription.layer;
         }) || {};
 
-        var levelPath = level.path || level.layer + '.blocks';
-
-        acc.push(levelsMap[levelPath]);
+        acc.push(levelsMap[getLevelPath(level)]);
 
         return acc;
     }, []);
@@ -368,6 +365,9 @@ function getConfigsRootDir(configs) {
 }
 
 function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
+    // FIXME: fallback, should be toggled
+    pathToLevel = getLevelPath(pathToLevel);
+
     var absLevelPath = path.resolve(root || options.cwd, pathToLevel),
         levelOpts = {},
         commonOpts = {};
@@ -401,6 +401,8 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
 }
 
 function extendConfigsPathByLayer(configs) {
+    console.warn('ALERT! extendConfigsPathByLayer is deprecated');
+
     configs.forEach(config => {
         config.levels && config.levels.forEach(level => {
             level.path || (level.path = level.layer + '.blocks');
@@ -420,6 +422,35 @@ function _levelAsObjectFallback(configs) {
 
         return config;
     });
+}
+
+// levelPathData
+// levelPathData.layer
+// levelPathData.path
+function getLevelPath(levelPathData) {
+    if (typeof levelPathData === 'string') { return levelPathData; }
+
+    return [
+        levelPathData.path ? levelPathData.path : '',
+        levelPathData.layer ? levelPathData.layer + '.blocks' : ''
+    ].filter(Boolean).join('/');
+
+    // TODO:
+    // return bemFile(scheme).stringify(levelPathData.layer, levelPathData.path);
+}
+
+function parseLevelPath(levelPath) {
+    if (typeof levelPath !== 'string') { return levelPath; }
+
+    // {layer.blocks}
+    // block-{layer}
+    // blocks + oldSchoolScheme = 'common'
+    return {
+        // TODO:
+        // bemFile(scheme).parse(levelPath),
+        layer: path.basename(levelPath).replace('.blocks', '').replace('blocks-', ''),
+        path: path.dirname(levelPath)
+    };
 }
 
 module.exports = function(opts) {
