@@ -24,9 +24,9 @@
     "lib"
   ],
   "dependencies": {
-    "@bem/sdk.cell": "0.0.1",
-    "@bem/sdk.entity-name": "0.0.1",
-    "@bem/sdk.naming.entity": "0.0.1",
+    "@bem/sdk.cell": "*",
+    "@bem/sdk.entity-name": "*",
+    "@bem/sdk.naming.entity": "*",
     "async-each": "1.0.1"
   },
   "devDependencies": {

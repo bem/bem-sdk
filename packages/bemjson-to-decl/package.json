@@ -28,8 +28,8 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/sdk.entity-name": "0.0.1",
-    "@bem/sdk.decl": "0.0.1",
+    "@bem/sdk.entity-name": "*",
+    "@bem/sdk.decl": "*",
     "stringify-object": "^3.2.0"
   }
 }
