@@ -2,6 +2,9 @@
   "name": "@bem/sdk.bundle",
   "version": "0.0.1",
   "description": "bem-bundle",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "engines": {
     "node": ">= 4"

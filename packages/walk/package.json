@@ -2,6 +2,9 @@
   "name": "@bem/sdk.walk",
   "version": "0.0.1",
   "description": "Walk easily thru BEM file structure",
+  "publishConfig": {
+    "access": "public"
+  },
   "keywords": [
     "bem",
     "walk",
@@ -18,12 +21,12 @@
   },
   "main": "lib/index.js",
   "files": [
-    "lib/**"
+    "lib"
   ],
   "dependencies": {
-    "@bem/sdk.cell": "0.0.1",
-    "@bem/sdk.entity-name": "0.0.1",
-    "@bem/sdk.naming.entity": "0.0.1",
+    "@bem/sdk.cell": "*",
+    "@bem/sdk.entity-name": "*",
+    "@bem/sdk.naming.entity": "*",
     "async-each": "1.0.1"
   },
   "devDependencies": {

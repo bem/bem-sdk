@@ -2,6 +2,9 @@
   "name": "@bem/sdk.naming.presets",
   "version": "0.0.1",
   "description": "Presets for naming",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MPL-2.0",
   "author": "Alexej Yaroshevich <zxqfox@gmail.com> (http://github.com/zxqfox)",
   "keywords": [

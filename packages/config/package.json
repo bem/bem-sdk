@@ -2,6 +2,9 @@
   "name": "@bem/sdk.config",
   "version": "0.0.1",
   "description": "Config module for bem-tools",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "index.js",
   "scripts": {
     "specs": "mocha",

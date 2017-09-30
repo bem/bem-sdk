@@ -2,6 +2,9 @@
   "name": "@bem/sdk.naming.cell.pattern-parser",
   "version": "0.0.1",
   "description": "Pattern parser",
+  "publishConfig": {
+    "access": "public"
+  },
   "license": "MPL-2.0",
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
   "keywords": [

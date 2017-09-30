@@ -2,6 +2,9 @@
   "name": "@bem/sdk.bemjson-to-decl",
   "version": "0.0.1",
   "description": "BEMJSON to BEMDECL helper",
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "index.js",
   "scripts": {
     "specs": "mocha",
@@ -25,8 +28,8 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/sdk.entity-name": "0.0.1",
-    "@bem/sdk.decl": "0.0.1",
+    "@bem/sdk.entity-name": "*",
+    "@bem/sdk.decl": "*",
     "stringify-object": "^3.2.0"
   }
 }
