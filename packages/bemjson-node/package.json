@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.bemjson-node",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "BEM tree node representation",
   "publishConfig": {
     "access": "public"

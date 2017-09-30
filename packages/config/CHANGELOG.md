@@ -9,17 +9,4 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* renames inside the code ([913b259](https://github.com/bem/bem-sdk/commit/913b259))
-
-
-
-
-Changelog
-=========
-
-0.1.0
------
-
-* Initial implementation ([#1]).
-
-[#1]: https://github.com/bem-sdk/bem-entity-name/issue/1
+* **config:** levels now should be arrays ([ef142d8](https://github.com/bem/bem-sdk/commit/ef142d8))
