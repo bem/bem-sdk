@@ -52,7 +52,7 @@ BemConfig.prototype.configs = function(isSync) {
 
     if (isSync) {
 
-        var configs = extendConfigsPathByLayer(this._configs || (this._configs = rc.sync(rcOpts)));
+        var configs = extendConfigsPathByLayer(_levelAsObjectFallback(this._configs || (this._configs = rc.sync(rcOpts))));
 
         this._root = getConfigsRootDir(configs);
 
@@ -66,7 +66,7 @@ BemConfig.prototype.configs = function(isSync) {
     var _this = this;
 
     return (this._configs ? Promise.resolve(this._configs) : rc(rcOpts)).then(function(cfgs) {
-        extendConfigsPathByLayer(_this._configs || (_this._configs = cfgs));
+        extendConfigsPathByLayer(_levelAsObjectFallback(_this._configs || (_this._configs = cfgs)));
 
         _this._root = getConfigsRootDir(cfgs);
 
@@ -409,6 +409,18 @@ function extendConfigsPathByLayer(configs) {
     });
 
     return configs;
+}
+
+function _levelAsObjectFallback(configs) {
+    return configs.map(config => {
+        if (config.levels && !Array.isArray(config.levels)) {
+            config.levels = Object.keys(config.levels).map(levelPath =>
+                Object.assign(config.levels[levelPath], { path: levelPath })
+            );
+        }
+
+        return config;
+    });
 }
 
 module.exports = function(opts) {

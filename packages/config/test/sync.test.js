@@ -153,6 +153,33 @@ describe('sync', () => {
         );
     });
 
+    it('should support legacy format for levels', () => {
+        const bemConfig = config([{
+            levels: {
+                level1: {
+                    l1o1: 'l1v1'
+                }
+            },
+            common: 'value'
+        }, {
+            levels: {
+                level1: {
+                    l1o2: 'l1v2'
+                }
+            }
+        }]);
+
+        const expected = {
+            l1o1: 'l1v1',
+            l1o2: 'l1v2',
+            common: 'value'
+        };
+
+        expect(bemConfig().levelSync('level1')).to.deep.equal(
+            expected
+        );
+    });
+
     it('should override arrays in merged levels from different configs', () => {
         const bemConfig = config([{
             levels: [
