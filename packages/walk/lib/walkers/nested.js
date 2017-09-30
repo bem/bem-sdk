@@ -5,10 +5,7 @@ const path = require('path');
 
 const each = require('async-each');
 const bemNaming = require('@bem/sdk.naming.entity');
-const BemEntityName = require('@bem/sdk.entity-name');
-const BemCell = require('@bem/sdk.cell');
-
-const BemFile = require('../bem-file');
+const BemFile = require('@bem/sdk.file');
 
 /**
  * Calls specified callback for each file or directory in specified directory.
@@ -102,14 +99,15 @@ class LevelWalker {
 
             if (tech) {
                 if (blockname === stem) {
-                    this.add(new BemFile(
-                        new BemCell({
-                            entity: new BemEntityName({ block: blockname }),
+                    this.add(new BemFile({
+                        cell: {
+                            block: blockname,
                             tech: tech,
-                            layer: this.levelpath
-                        }),
-                        filename
-                    ));
+                            layer: this.levelpath // ?
+                        },
+                        level: this.levelpath,
+                        path: filename
+                    }));
                 }
 
                 return cb();
@@ -144,14 +142,15 @@ class LevelWalker {
             // Find file with same modifier name.
             if (tech && entity && scope.block === entity.block
                 && scope.mod.name === (entity.mod && entity.mod.name)) {
-                this.add(new BemFile(
-                    new BemCell({
+                this.add(new BemFile({
+                    cell: {
                         entity: entity,
                         tech: tech,
-                        layer: this.levelpath
-                    }),
-                    item.path
-                ));
+                        layer: null
+                    },
+                    level: this.levelpath,
+                    path: this.levelpath
+                }));
             }
 
             cb();
@@ -175,14 +174,15 @@ class LevelWalker {
                 if (this.naming.stringify(scope) === stem) {
                     const entity = this.naming.parse(stem);
 
-                    this.add(new BemFile(
-                        new BemCell({
+                    this.add(new BemFile({
+                        cell: {
                             entity: entity,
                             tech: tech,
-                            layer: this.levelpath
-                        }),
-                        item.path
-                    ));
+                            layer: null
+                        },
+                        level: this.levelpath,
+                        path: item.path
+                    }));
                 }
 
                 return cb();
@@ -216,14 +216,15 @@ class LevelWalker {
                 && scope.elem === entity.elem
                 && scope.mod.name === (entity.mod && entity.mod.name)
             ) {
-                this.add(new BemFile(
-                    new BemCell({
+                this.add(new BemFile({
+                    cell: {
                         entity: entity,
                         tech: tech,
-                        layer: this.levelpath
-                    }),
-                    item.path
-                ));
+                        layer: null
+                    },
+                    level: this.levelpath,
+                    path: item.path
+                }));
             }
 
             cb();
