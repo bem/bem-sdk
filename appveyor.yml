@@ -7,6 +7,7 @@ branches:
 environment:
   matrix:
     - nodejs_version: "6"
+    - nodejs_version: "8"
 
 install:
   - ps: Install-Product node $env:nodejs_version
@@ -16,6 +17,6 @@ install:
   - ./node_modules/.bin/lerna bootstrap -- --force
 
 test_script:
-  - ./node_modules/.bin/lerna run unit-test --scope="@bem/sdk.{deps,fs-scheme,walk}"
+  - ./node_modules/.bin/lerna run test
 
 build: off
