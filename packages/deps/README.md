@@ -1,5 +1,4 @@
-deps
-====
+# deps
 
 [![NPM Status][npm-img]][npm]
 

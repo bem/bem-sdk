@@ -1,4 +1,4 @@
-# @bem/sdk.naming.cell.stringify
+# naming.cell.stringify
 
 [BEM file system](https://en.bem.info/method/filesystem/#principles-of-file-system-organization-for-bem-projects) [schemes](https://en.bem.info/faq/#why-create-separate-directories-and-files-for-every-block-and-technology).
 

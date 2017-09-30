@@ -1,5 +1,4 @@
-@bem/sdk.graph
-==============
+# graph
 
 [![NPM Status][npm-img]][npm]
 

@@ -1,5 +1,4 @@
-bem-import-notation
-===================
+# import-notation
 
 Tool for working with BEM import strings.
 
@@ -21,7 +20,7 @@ Usage
 -----
 
 ```js
-import {parse} from '@bem/import-notation';
+import {parse} from '@bem/sdk.import-notation';
 
 parse('b:button e:text'); // → [ { block : 'button', elem : 'text' } ]
 
@@ -87,7 +86,7 @@ Notation
 This section describes all possible syntax of BEM import strings.
 Examples are provided in es6 syntax. Note that [parse](#parsestr-ctx) function only works with strings.
 
-Right now order of fields is important, check [issue](https://github.com/bem-sdk/bem-import-notation/issues/12):
+Right now order of fields is important, check [issue](https://github.com/bem-sdk-archive/bem-import-notation/issues/12):
 
 1. `b:`
 1. `e:`
