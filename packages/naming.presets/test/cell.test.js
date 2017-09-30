@@ -15,7 +15,7 @@ const createPreset = (name, fsConv, conv) => {
     return res;
 };
 
-const n = require('path').normalize;
+const n = v => v;
 
 describe('default', () => {
     const originFlat = createStringify(createPreset('origin', { scheme: 'flat' }));

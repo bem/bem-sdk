@@ -28,6 +28,7 @@
     "@bem/sdk.entity-name": "^0.1.0"
   },
   "scripts": {
-    "bench": "matcha benchmark/*.js"
+    "bench": "matcha benchmark/*.js",
+    "test": "exit 0"
   }
 }
