@@ -4,7 +4,6 @@ var fs = require('fs'),
     assert = require('assert'),
     path = require('path'),
     rc = require('betterc'),
-    Promise = require('pinkie-promise'),
     flatten = require('lodash.flatten'),
     merge = require('./lib/merge'),
     resolveSets = require('./lib/resolve-sets');
