@@ -14,7 +14,11 @@ const walk = require('../../../lib/index');
 
 describe('schemes/flat/levels', () => {
     afterEach('restore fs', () => {
-        mockFs.restore();
+        try {
+            mockFs.restore();
+        } catch (e) {
+            // ...
+        }
     });
 
     it('should support level name with extension', () => {

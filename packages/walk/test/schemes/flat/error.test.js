@@ -8,8 +8,8 @@ const path = require('path');
 
 const walk = require('../../../lib/index');
 
-describe('schemes/flat/error', done => {
-    it('should throw error if level is not found', () => {
+describe('schemes/flat/error', () => {
+    it('should throw error if level is not found', done => {
         const levelpath = path.resolve('./not-existing-level');
         const options = {
             defaults: { scheme: 'flat' }
