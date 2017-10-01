@@ -11,6 +11,8 @@ function formatv1(decl) {
 
     const prev = {};
     return decl.reduce((res, cell) => {
+        if (!cell) { return res; }
+
         const entity = cell.entity;
 
         const pg = prev.group;
