@@ -1,6 +1,11 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
+
 const mockFs = require('mock-fs');
 const toArray = require('stream-to-array');
 
@@ -12,226 +17,228 @@ const options = {
     }
 };
 
-test.afterEach('restore fs', () => {
-    mockFs.restore();
-});
-
-test('should end if levels are not specified', t => {
-    mockFs({});
-
-    return toArray(walk([], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore empty level', t => {
-    mockFs({
-        blocks: {}
+describe('schemes/nested/ignore', () => {
+    afterEach('restore fs', () => {
+        mockFs.restore();
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
+    it('should end if levels are not specified', () => {
+        mockFs({});
 
-test('should ignore files without extension', t => {
-    mockFs({
-        blocks: {
-            block: {
-                block: ''
+        return toArray(walk([], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
+
+    it('should ignore empty level', () => {
+        mockFs({
+            blocks: {}
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
+
+    it('should ignore files without extension', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    block: ''
+                }
             }
-        }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore files with no BEM basename in block dir', t => {
-    mockFs({
-        blocks: {
-            block: {
-                '^_^.tech': ''
-            }
-        }
-    });
-
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore files with no BEM basename in mod dir', t => {
-    mockFs({
-        blocks: {
-            block: {
-                _mod: {
+    it('should ignore files with no BEM basename in block dir', () => {
+        mockFs({
+            blocks: {
+                block: {
                     '^_^.tech': ''
                 }
             }
-        }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore files with no BEM basename in elem dir', t => {
-    mockFs({
-        blocks: {
-            block: {
-                __elem: {
-                    '^_^.tech': ''
-                }
-            }
-        }
-    });
-
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore files with no BEM basename in elem mod dir', t => {
-    mockFs({
-        blocks: {
-            block: {
-                __elem: {
+    it('should ignore files with no BEM basename in mod dir', () => {
+        mockFs({
+            blocks: {
+                block: {
                     _mod: {
                         '^_^.tech': ''
                     }
                 }
             }
-        }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore dirs with no BEM basename in block dir', t => {
-    mockFs({
-        blocks: {
-            block: {
-                '^_^': {}
+    it('should ignore files with no BEM basename in elem dir', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    __elem: {
+                        '^_^.tech': ''
+                    }
+                }
             }
-        }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
+    it('should ignore files with no BEM basename in elem mod dir', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    __elem: {
+                        _mod: {
+                            '^_^.tech': ''
+                        }
+                    }
+                }
+            }
+        });
 
-test('should ignore dirs with no BEM basename in mod dir', t => {
-    mockFs({
-        blocks: {
-            block: {
-                _mod: {
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
+
+    it('should ignore dirs with no BEM basename in block dir', () => {
+        mockFs({
+            blocks: {
+                block: {
                     '^_^': {}
                 }
             }
-        }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore dirs with no BEM basename in elem dir', t => {
-    mockFs({
-        blocks: {
-            block: {
-                __elem: {
-                    '^_^': {}
-                }
-            }
-        }
-    });
-
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore dirs with no BEM basename in elem mod dir', t => {
-    mockFs({
-        blocks: {
-            block: {
-                __elem: {
+    it('should ignore dirs with no BEM basename in mod dir', () => {
+        mockFs({
+            blocks: {
+                block: {
                     _mod: {
                         '^_^': {}
                     }
                 }
             }
-        }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore file in root of level', t => {
-    mockFs({
-        blocks: {
-            'block.tech': ''
-        }
-    });
-
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore block if filename not match with dirname', t => {
-    mockFs({
-        blocks: {
-            block: {
-                'other-block.tech': ''
-            }
-        }
-    });
-
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore block mod if filename not match with dirname', t => {
-    mockFs({
-        blocks: {
-            block: {
-                _mod: {
-                    'block_other-mod.tech': ''
-                }
-            }
-        }
-    });
-
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore elem if filename not match with dirname', t => {
-    mockFs({
-        blocks: {
-            block: {
-                __elem: {
-                    'block__other-elem.tech': ''
-                }
-            }
-        }
-    });
-
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
-});
-
-test('should ignore elem mod if filename not match with dirname', t => {
-    mockFs({
-        blocks: {
-            block: {
-                __elem: {
-                    _mod: {
-                        'block__elem_other-mod.tech': ''
+    it('should ignore dirs with no BEM basename in elem dir', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    __elem: {
+                        '^_^': {}
                     }
                 }
             }
-        }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => t.deepEqual(files, []));
+    it('should ignore dirs with no BEM basename in elem mod dir', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    __elem: {
+                        _mod: {
+                            '^_^': {}
+                        }
+                    }
+                }
+            }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
+
+    it('should ignore file in root of level', () => {
+        mockFs({
+            blocks: {
+                'block.tech': ''
+            }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
+
+    it('should ignore block if filename not match with dirname', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    'other-block.tech': ''
+                }
+            }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
+
+    it('should ignore block mod if filename not match with dirname', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    _mod: {
+                        'block_other-mod.tech': ''
+                    }
+                }
+            }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
+
+    it('should ignore elem if filename not match with dirname', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    __elem: {
+                        'block__other-elem.tech': ''
+                    }
+                }
+            }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
+
+    it('should ignore elem mod if filename not match with dirname', () => {
+        mockFs({
+            blocks: {
+                block: {
+                    __elem: {
+                        _mod: {
+                            'block__elem_other-mod.tech': ''
+                        }
+                    }
+                }
+            }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => expect(files).to.deep.equal([]));
+    });
 });

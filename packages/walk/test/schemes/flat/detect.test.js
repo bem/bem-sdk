@@ -1,6 +1,11 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
+
 const mockFs = require('mock-fs');
 const toArray = require('stream-to-array');
 
@@ -12,110 +17,112 @@ const options = {
     }
 };
 
-test.afterEach('restore fs', () => {
-    mockFs.restore();
-});
-
-test('should detect block', t => {
-    mockFs({
-        blocks: {
-            'block.tech': ''
-        }
+describe('schemes/flat/detect', () => {
+    afterEach('restore fs', () => {
+        mockFs.restore();
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            const entities = files.map(file => file.cell.entity.valueOf());
-
-            t.deepEqual(entities, [{ block: 'block' }]);
+    it('should detect block', () => {
+        mockFs({
+            blocks: {
+                'block.tech': ''
+            }
         });
-});
 
-test('should detect bool mod of block', t => {
-    mockFs({
-        blocks: {
-            'block_mod.tech': ''
-        }
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                const entities = files.map(file => file.cell.entity.valueOf());
+
+                expect(entities).to.deep.equal([{ block: 'block' }]);
+            });
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            const entities = files.map(file => file.cell.entity.valueOf());
-
-            t.deepEqual(entities, [{
-                block: 'block',
-                mod: { name: 'mod', val: true }
-            }]);
+    it('should detect bool mod of block', () => {
+        mockFs({
+            blocks: {
+                'block_mod.tech': ''
+            }
         });
-});
 
-test('should detect key-val mod of block', t => {
-    mockFs({
-        blocks: {
-            'block_mod_val.tech': ''
-        }
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                const entities = files.map(file => file.cell.entity.valueOf());
+
+                expect(entities).to.deep.equal([{
+                    block: 'block',
+                    mod: { name: 'mod', val: true }
+                }]);
+            });
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            const entities = files.map(file => file.cell.entity.valueOf());
-
-            t.deepEqual(entities, [{
-                block: 'block',
-                mod: { name: 'mod', val: 'val' }
-            }]);
+    it('should detect key-val mod of block', () => {
+        mockFs({
+            blocks: {
+                'block_mod_val.tech': ''
+            }
         });
-});
 
-test('should detect elem', t => {
-    mockFs({
-        blocks: {
-            'block__elem.tech': ''
-        }
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                const entities = files.map(file => file.cell.entity.valueOf());
+
+                expect(entities).to.deep.equal([{
+                    block: 'block',
+                    mod: { name: 'mod', val: 'val' }
+                }]);
+            });
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            const entities = files.map(file => file.cell.entity.valueOf());
-
-            t.deepEqual(entities, [{ block: 'block', elem: 'elem' }]);
+    it('should detect elem', () => {
+        mockFs({
+            blocks: {
+                'block__elem.tech': ''
+            }
         });
-});
 
-test('should detect bool mod of elem', t => {
-    mockFs({
-        blocks: {
-            'block__elem_mod.tech': ''
-        }
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                const entities = files.map(file => file.cell.entity.valueOf());
+
+                expect(entities).to.deep.equal([{ block: 'block', elem: 'elem' }]);
+            });
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            const entities = files.map(file => file.cell.entity.valueOf());
-
-            t.deepEqual(entities, [{
-                block: 'block',
-                elem: 'elem',
-                mod: { name: 'mod', val: true }
-            }]);
+    it('should detect bool mod of elem', () => {
+        mockFs({
+            blocks: {
+                'block__elem_mod.tech': ''
+            }
         });
-});
 
-test('should detect key-val mod of elem', t => {
-    mockFs({
-        blocks: {
-            'block__elem_mod_val.tech': ''
-        }
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                const entities = files.map(file => file.cell.entity.valueOf());
+
+                expect(entities).to.deep.equal([{
+                    block: 'block',
+                    elem: 'elem',
+                    mod: { name: 'mod', val: true }
+                }]);
+            });
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            const entities = files.map(file => file.cell.entity.valueOf());
-
-            t.deepEqual(entities, [{
-                block: 'block',
-                elem: 'elem',
-                mod: { name: 'mod', val: 'val' }
-            }]);
+    it('should detect key-val mod of elem', () => {
+        mockFs({
+            blocks: {
+                'block__elem_mod_val.tech': ''
+            }
         });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                const entities = files.map(file => file.cell.entity.valueOf());
+
+                expect(entities).to.deep.equal([{
+                    block: 'block',
+                    elem: 'elem',
+                    mod: { name: 'mod', val: 'val' }
+                }]);
+            });
+    });
 });

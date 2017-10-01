@@ -1,5 +1,10 @@
 'use strict';
 
+/**
+ * Bem file
+ *
+ * @type {module.BemFile}
+ */
 module.exports = class BemFile {
     constructor(cell, path) {
         this.cell = cell;
