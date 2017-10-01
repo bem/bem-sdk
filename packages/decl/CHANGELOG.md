@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.1"></a>
+## [0.2.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.2.0...@bem/sdk.decl@0.2.1) (2017-10-01)
+
+
+### Bug Fixes
+
+* **decl:** enb should stringifying to deps (not decl) field ([3ec3ae3](https://github.com/bem/bem-sdk/commit/3ec3ae3))
+* **decl:** no more true as separate value ([2c378f9](https://github.com/bem/bem-sdk/commit/2c378f9))
+
+
+
+
 <a name="0.2.0"></a>
 # 0.2.0 (2017-10-01)
 
