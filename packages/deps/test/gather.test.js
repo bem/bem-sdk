@@ -1,60 +1,67 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
+
 const mock = require('mock-fs');
 
 const gather = require('..').gather;
 
-test.afterEach(() => {
-    mock.restore();
-});
-
-test('should gather nothing when no blocks given', t => {
-    mock({
-        'common.blocks/': {}
+describe('gather', () => {
+    afterEach(() => {
+        mock.restore();
     });
 
-    const config = {
-        levels: ['common.blocks']
-    };
+    it('should gather nothing when no blocks given', () => {
+        mock({
+            'common.blocks/': {}
+        });
 
-    return gather(config).then(data =>
-        t.deepEqual(data, [])
-    );
-});
+        const config = {
+            levels: ['common.blocks']
+        };
 
-test('should gather from one level given', t => {
-    mock({
-        'common.blocks/button/button.deps.js': ''
+        return gather(config).then(data =>
+            expect(data).to.deep.equal([])
+        );
     });
 
-    const config = {
-        levels: ['common.blocks']
-    };
+    it('should gather from one level given', () => {
+        mock({
+            'common.blocks/button/button.deps.js': ''
+        });
 
-    return gather(config).then(data => {
-        t.deepEqual(data.map(f => f.cell.id), [
-            'button@common.blocks.deps.js'
-        ])
-    });
-});
+        const config = {
+            levels: ['common.blocks']
+        };
 
-test('should gather entities', t => {
-    mock({
-        'common.blocks/button/button.deps.js': '',
-        'common.blocks/input/input.deps.js': '',
-        'desktop.blocks/header/header.deps.js': ''
+        return gather(config).then(data => {
+            expect(data.map(f => f.cell.id)).to.deep.equal([
+                'button@common.blocks.deps.js'
+            ]);
+        });
     });
 
-    const config = {
-        levels: ['common.blocks', 'desktop.blocks']
-    };
+    it('should gather entities', () => {
+        mock({
+            'common.blocks/button/button.deps.js': '',
+            'common.blocks/input/input.deps.js': '',
+            'desktop.blocks/header/header.deps.js': ''
+        });
 
-    return gather(config).then(data =>
-        t.deepEqual(data.map(f => f.cell.id), [
-            'button@common.blocks.deps.js',
-            'input@common.blocks.deps.js',
-            'header@desktop.blocks.deps.js'
-        ])
-    );
+        const config = {
+            levels: ['common.blocks', 'desktop.blocks']
+        };
+
+        return gather(config).then(data =>
+            expect(data.map(f => f.cell.id)).to.deep.equal([
+                'button@common.blocks.deps.js',
+                'input@common.blocks.deps.js',
+                'header@desktop.blocks.deps.js'
+            ])
+        );
+    });
 });

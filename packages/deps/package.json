@@ -33,34 +33,17 @@
     "@bem/sdk.entity-name": "^0.1.0",
     "@bem/sdk.graph": "^0.1.0",
     "@bem/sdk.walk": "^0.1.0",
-    "debug": "^2.2.0",
-    "mz": "^2.4.0",
+    "debug": "2.2.0",
+    "mz": "2.4.0",
     "node-eval": "1.1.0"
   },
   "devDependencies": {
-    "ava": "^0.19.0",
-    "coveralls": "^2.11.9",
     "stream-to-array": "^2.3.0",
     "through2": "^2.0.1"
   },
   "scripts": {
-    "test": "nyc ava",
-    "unit-test": "ava",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
-  },
-  "ava": {
-    "files": [
-      "test/**/*.test.js"
-    ],
-    "failWithoutAssertions": false,
-    "source": [
-      "lib/**/*.js"
-    ],
-    "concurrency": 25
-  },
-  "nyc": {
-    "exclude": [
-      "**/*.spec.js"
-    ]
+    "specs": "mocha",
+    "cover": "nyc mocha",
+    "test": "npm run specs"
   }
 }
