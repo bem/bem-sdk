@@ -247,9 +247,7 @@ describe('sync', () => {
     it('should return empty map on levelMap if no levels found', () => {
         const bemConfig = config();
 
-        expect(bemConfig().levelMapSync()).to.deep.equal(
-            {}
-        );
+        expect(bemConfig().levelMapSync()).to.deep.equal([]);
     });
 
     it('should return levels map for project without libs', () => {
@@ -260,9 +258,9 @@ describe('sync', () => {
             __source: path.join(process.cwd(), path.basename(__filename))
         }]);
 
-        const expected = {
-            l1: { path: 'l1', some: 'conf1' }
-        };
+        const expected = [
+            { path: 'l1', some: 'conf1' }
+        ];
 
         const actual = bemConfig().levelMapSync();
 
@@ -284,9 +282,10 @@ describe('sync', () => {
             __source: path.join(process.cwd(), path.basename(__filename))
         }]);
 
-        const expected = {
-            l1: { path: 'l1', some: 'conf1' }
-        };
+        const expected = [
+            { path: 'l1', some: 'conf1' },
+            { path: 'l1', some: 'conf1' }
+        ];
 
         const actual = bemConfig().levelMapSync();
 
@@ -469,7 +468,52 @@ describe('sync', () => {
     });
 
     // levels
-    it.only('should return all levels', () => {
+    it('should return all levels', () => {
+        const bemConfig = config([{
+            levels: [
+                { layer: 'common', data: '1' },
+                { layer: 'desktop', data: '2' },
+                {
+                    layer: 'touch',
+                    path: 'custom-path',
+                    data: '3'
+                },
+                { layer: 'touch-phone', data: '4' },
+                { layer: 'touch-pad', data: '5' }
+            ],
+            __source: path.join(process.cwd(), path.basename(__filename))
+        }]);
+
+        const expected = [
+            {
+                data: '1',
+                layer: 'common',
+            },
+            {
+                data: '2',
+                layer: 'desktop',
+            },
+            {
+                data: '3',
+                layer: 'touch',
+                path: 'custom-path'
+            },
+            {
+                data: '4',
+                layer: 'touch-phone',
+            },
+            {
+                data: '5',
+                layer: 'touch-pad'
+            }
+        ];
+
+        const actual = bemConfig().levelsSync();
+
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('should return levels set', () => {
         const bemConfig = config([{
             levels: [
                 { layer: 'common', data: '1' },
@@ -505,55 +549,6 @@ describe('sync', () => {
                 data: '3',
                 layer: 'touch',
                 path: 'custom-path'
-            },
-            {
-                data: '4',
-                layer: 'touch-phone',
-                // path: path.resolve('touch-phone.blocks')
-            }
-        ];
-
-        const actual = bemConfig().levelsSync('touch-phone');
-
-        expect(actual).to.deep.equal(expected);
-    });
-
-    it('should return levels set', () => {
-        const bemConfig = config([{
-            levels: [
-                { layer: 'common', data: '1' },
-                { layer: 'desktop', data: '2' },
-                {
-                    layer: 'touch',
-                    // path: 'custom-path',
-                    data: '3'
-                },
-                { layer: 'touch-phone', data: '4' },
-                { layer: 'touch-pad', data: '5' }
-            ],
-            sets: {
-                desktop: 'common desktop',
-                'touch-phone': 'common desktop@ touch touch-phone',
-                'touch-pad': 'common touch touch-pad'
-            },
-            __source: path.join(process.cwd(), path.basename(__filename))
-        }]);
-
-        const expected = [
-            {
-                data: '1',
-                layer: 'common',
-                // path: path.resolve('common.blocks')
-            },
-            {
-                data: '2',
-                layer: 'desktop',
-                // path: path.resolve('desktop.blocks')
-            },
-            {
-                data: '3',
-                layer: 'touch',
-                // path: path.resolve('custom-path')
             },
             {
                 data: '4',

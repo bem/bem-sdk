@@ -300,11 +300,7 @@ BemConfig.prototype.levelMapSync = function() {
         return libConfig.levels;
     }, this));
 
-    var allLevels = [].concat(libLevels, projectLevels); // hm.
-    return allLevels.reduce(function(acc, level) {
-        acc[getLevelPath(level)] = level;
-        return acc;
-    }, {});
+    return libLevels.concat(projectLevels);
 };
 
 BemConfig.prototype.levelsSync = function(setName) {
@@ -314,7 +310,7 @@ BemConfig.prototype.levelsSync = function(setName) {
         levelsMap = this.levelMapSync(),
         sets = config.sets || {};
 
-    if (!sets[setName]) { return []; }
+    if (!sets[setName]) { return this.levelMapSync(); }
 
     var resolvedSets = resolveSets(sets),
         set = resolvedSets[setName];
@@ -337,7 +333,9 @@ BemConfig.prototype.levelsSync = function(setName) {
             return lvl.layer === setDescription.layer;
         }) || {};
 
-        acc.push(levelsMap[getLevelPath(level)]);
+        var neededLevelConf = levelsMap.find(l => l.layer === level.layer && l.path === level.path);
+
+        neededLevelConf && acc.push(neededLevelConf);
 
         return acc;
     }, []);
