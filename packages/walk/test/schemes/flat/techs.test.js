@@ -1,6 +1,11 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
+
 const mockFs = require('mock-fs');
 const toArray = require('stream-to-array');
 
@@ -12,37 +17,39 @@ const options = {
     }
 };
 
-test.afterEach('restore fs', () => {
-    mockFs.restore();
-});
-
-test('should detect each techs of the same entity', t => {
-    mockFs({
-        blocks: {
-            'block.tech-1': '',
-            'block.tech-2': ''
-        }
+describe('schemes/flat/techs', () => {
+    afterEach('restore fs', () => {
+        mockFs.restore();
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            const techs = files.map(file => file.cell.tech);
-
-            t.deepEqual(techs, ['tech-1', 'tech-2']);
+    it('should detect each techs of the same entity', () => {
+        mockFs({
+            blocks: {
+                'block.tech-1': '',
+                'block.tech-2': ''
+            }
         });
-});
 
-test('should support complex tech', t => {
-    mockFs({
-        blocks: {
-            'block.tech-1.tech-2': ''
-        }
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                const techs = files.map(file => file.cell.tech);
+
+                expect(techs).to.deep.equal(['tech-1', 'tech-2']);
+            });
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            const techs = files.map(file => file.cell.tech);
-
-            t.deepEqual(techs, ['tech-1.tech-2']);
+    it('should support complex tech', () => {
+        mockFs({
+            blocks: {
+                'block.tech-1.tech-2': ''
+            }
         });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                const techs = files.map(file => file.cell.tech);
+
+                expect(techs).to.deep.equal(['tech-1.tech-2']);
+            });
+    });
 });

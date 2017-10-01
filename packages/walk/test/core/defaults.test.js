@@ -1,73 +1,83 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const beforeEach = require('mocha').beforeEach;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
+
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 const mockFs = require('mock-fs');
 
 const walkers = require('../../lib/walkers');
 
-test.beforeEach(t => {
-    const flatStub = sinon.stub(walkers, 'flat').callsArg(2);
-    const nestedStub = sinon.stub(walkers, 'nested').callsArg(2);
+describe('core/defaults', () => {
+    const context = {};
 
-    const walk = proxyquire('../../lib/index', {
-        './walkers': {
-            'flat': flatStub,
-            'nested': nestedStub
-        }
+    beforeEach(() => {
+        const flatStub = sinon.stub(walkers, 'flat').callsArg(2);
+        const nestedStub = sinon.stub(walkers, 'nested').callsArg(2);
+
+        const walk = proxyquire('../../lib/index', {
+            './walkers': {
+                'flat': flatStub,
+                'nested': nestedStub
+            }
+        });
+
+        context.walk = walk;
+        context.flatStub = flatStub;
+        context.nestedStub = nestedStub;
     });
 
-    t.context.walk = walk;
-    t.context.flatStub = flatStub;
-    t.context.nestedStub = nestedStub;
-});
+    afterEach(() => {
+        mockFs.restore();
 
-test.afterEach(t => {
-    mockFs.restore();
-
-    t.context.flatStub.restore();
-    t.context.nestedStub.restore();
-});
-
-test.cb('should run nested walker by default', t => {
-    mockFs({
-        blocks: {}
+        context.flatStub.restore();
+        context.nestedStub.restore();
     });
 
-    t.context.walk(['blocks'])
-        .resume()
-        .on('end', () => {
-            t.true(t.context.nestedStub.calledOnce);
-            t.end();
-        })
-        .on('error', err => t.end(err));
-});
+    it('should run nested walker by default', done => {
+        mockFs({
+            blocks: {}
+        });
 
-test.cb('should run walker for default scheme', t => {
-    mockFs({
-        blocks: {}
+        context.walk(['blocks'])
+            .resume()
+            .on('end', () => {
+                expect(context.nestedStub.calledOnce).to.be.true;
+                done();
+            })
+            .on('error', err => done(err));
     });
 
-    t.context.walk(['blocks'], { defaults: { scheme: 'flat' } })
-        .resume()
-        .on('end', () => {
-            t.true(t.context.flatStub.calledOnce);
-            t.end();
-        })
-        .on('error', err => t.end(err));
-});
+    it('should run walker for default scheme', done => {
+        mockFs({
+            blocks: {}
+        });
 
-test.cb('should run walker with default naming', t => {
-    mockFs({
-        blocks: {}
+        context.walk(['blocks'], { defaults: { scheme: 'flat' } })
+            .resume()
+            .on('end', () => {
+                expect(context.flatStub.calledOnce).to.be.true;
+                done();
+            })
+            .on('error', err => done(err));
     });
 
-    t.context.walk(['blocks'], { defaults: { naming: 'two-dashes' } })
-        .resume()
-        .on('end', () => {
-            t.true(t.context.nestedStub.calledWith(sinon.match({ naming: 'two-dashes' })));
-            t.end();
-        })
-        .on('error', err => t.end(err));
+    it('should run walker with default naming', done => {
+        mockFs({
+            blocks: {}
+        });
+
+        context.walk(['blocks'], { defaults: { naming: 'two-dashes' } })
+            .resume()
+            .on('end', () => {
+                expect(context.nestedStub.calledWith(sinon.match({ naming: 'two-dashes' }))).to.be.true;
+                done();
+            })
+            .on('error', err => done(err));
+    });
 });

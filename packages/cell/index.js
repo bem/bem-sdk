@@ -15,6 +15,11 @@ const BemEntityName = require('@bem/sdk.entity-name');
  * @property {string} [val] - the modifier value of entity.
  */
 
+/**
+ * Bem cell
+ *
+ * @type {module.BemCell}
+ */
 module.exports = class BemCell {
     /**
      * @param {Object} obj — representation of cell.

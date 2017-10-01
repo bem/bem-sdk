@@ -31,24 +31,15 @@
     "async-each": "1.0.1"
   },
   "devDependencies": {
-    "ava": "^0.19.0",
     "benchmark": "^2.1.0",
-    "coveralls": "^2.11.9",
     "promise-map-series": "^0.2.2",
     "stream-to-array": "^2.3.0"
   },
   "scripts": {
-    "test": "nyc ava",
-    "unit-test": "ava",
     "bench": "npm run bench-deps && node ./bench/run.js",
     "bench-deps": "cd bench && npm i && cd fixtures && bower i",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
-  },
-  "ava": {
-    "serial": true,
-    "verbose": true,
-    "files": [
-      "test/**/*.test.js"
-    ]
+    "specs": "mocha",
+    "cover": "nyc mocha",
+    "test": "npm run specs"
   }
 }

@@ -1,113 +1,123 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const beforeEach = require('mocha').beforeEach;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
+
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
 const mockFs = require('mock-fs');
 
 const walkers = require('../../lib/walkers');
 
-test.beforeEach(t => {
-    const flatStub = sinon.stub(walkers, 'flat').callsArg(2);
-    const nestedStub = sinon.stub(walkers, 'nested').callsArg(2);
+describe('core/walkers', () => {
+    const context = {};
 
-    const walk = proxyquire('../../lib/index', {
-        './walkers': {
-            'flat': flatStub,
-            'nested': nestedStub
-        }
-    });
+    beforeEach(() => {
+        const flatStub = sinon.stub(walkers, 'flat').callsArg(2);
+        const nestedStub = sinon.stub(walkers, 'nested').callsArg(2);
 
-    t.context.walk = walk;
-    t.context.flatStub = flatStub;
-    t.context.nestedStub = nestedStub;
-});
-
-test.afterEach(t => {
-    mockFs.restore();
-
-    t.context.flatStub.restore();
-    t.context.nestedStub.restore();
-});
-
-test.cb('should run walker for level', t => {
-    mockFs({
-        blocks: {}
-    });
-
-    const options = {
-        levels: {
-            blocks: { scheme: 'flat' }
-        }
-    };
-
-    t.context.walk(['blocks'], options)
-        .resume()
-        .on('end', () => {
-            t.true(t.context.flatStub.calledOnce);
-            t.end();
+        const walk = proxyquire('../../lib/index', {
+            './walkers': {
+                'flat': flatStub,
+                'nested': nestedStub
+            }
         });
-});
 
-test.cb('should run walker with naming for level', t => {
-    mockFs({
-        blocks: {}
+        context.walk = walk;
+        context.flatStub = flatStub;
+        context.nestedStub = nestedStub;
     });
 
-    const options = {
-        levels: {
-            blocks: { naming: 'two-dashes' }
-        }
-    };
+    afterEach(() => {
+        mockFs.restore();
 
-    t.context.walk(['blocks'], options)
-        .resume()
-        .on('end', () => {
-            t.true(t.context.nestedStub.calledWith(sinon.match({ naming: 'two-dashes' })));
-            t.end();
-        });
-});
-
-test.cb('should run different walkers for different levels', t => {
-    mockFs({
-        'flat.blocks': {},
-        'nested.blocks': {}
+        context.flatStub.restore();
+        context.nestedStub.restore();
     });
 
-    const options = {
-        levels: {
-            'flat.blocks': { scheme: 'flat' },
-            'nested.blocks': { scheme: 'nested' }
-        }
-    };
-
-    t.context.walk(['flat.blocks', 'nested.blocks'], options)
-        .resume()
-        .on('end', () => {
-            t.true(t.context.flatStub.calledWith(sinon.match({ path: 'flat.blocks' })));
-            t.true(t.context.nestedStub.calledWith(sinon.match({ path: 'nested.blocks' })));
-            t.end();
+    it('should run walker for level', done => {
+        mockFs({
+            blocks: {}
         });
-});
 
-test.cb('should run walkers with different namings for different levels', t => {
-    mockFs({
-        'origin.blocks': {},
-        'two-dashes.blocks': {}
+        const options = {
+            levels: {
+                blocks: { scheme: 'flat' }
+            }
+        };
+
+        context.walk(['blocks'], options)
+            .resume()
+            .on('end', () => {
+                expect(context.flatStub.calledOnce).to.be.true;
+                done();
+            });
     });
 
-    const options = {
-        levels: {
-            'origin.blocks': { naming: 'origin' },
-            'two-dashes.blocks': { naming: 'two-dashes' }
-        }
-    };
-
-    t.context.walk(['origin.blocks', 'two-dashes.blocks'], options)
-        .resume()
-        .on('end', () => {
-            t.true(t.context.nestedStub.calledWith({ path: 'origin.blocks', naming: 'origin' }));
-            t.true(t.context.nestedStub.calledWith({ path: 'two-dashes.blocks', naming: 'two-dashes' }));
-            t.end();
+    it('should run walker with naming for level', done => {
+        mockFs({
+            blocks: {}
         });
+
+        const options = {
+            levels: {
+                blocks: { naming: 'two-dashes' }
+            }
+        };
+
+        context.walk(['blocks'], options)
+            .resume()
+            .on('end', () => {
+                expect(context.nestedStub.calledWith(sinon.match({ naming: 'two-dashes' }))).to.be.true;
+                done();
+            });
+    });
+
+    it('should run different walkers for different levels', done => {
+        mockFs({
+            'flat.blocks': {},
+            'nested.blocks': {}
+        });
+
+        const options = {
+            levels: {
+                'flat.blocks': { scheme: 'flat' },
+                'nested.blocks': { scheme: 'nested' }
+            }
+        };
+
+        context.walk(['flat.blocks', 'nested.blocks'], options)
+            .resume()
+            .on('end', () => {
+                expect(context.flatStub.calledWith(sinon.match({ path: 'flat.blocks' }))).to.be.true;
+                expect(context.nestedStub.calledWith(sinon.match({ path: 'nested.blocks' }))).to.be.true;
+                done();
+            });
+    });
+
+    it('should run walkers with different namings for different levels', done => {
+        mockFs({
+            'origin.blocks': {},
+            'two-dashes.blocks': {}
+        });
+
+        const options = {
+            levels: {
+                'origin.blocks': { naming: 'origin' },
+                'two-dashes.blocks': { naming: 'two-dashes' }
+            }
+        };
+
+        context.walk(['origin.blocks', 'two-dashes.blocks'], options)
+            .resume()
+            .on('end', () => {
+                expect(context.nestedStub.calledWith({ path: 'origin.blocks', naming: 'origin' })).to.be.true;
+                expect(context.nestedStub.calledWith({ path: 'two-dashes.blocks', naming: 'two-dashes' })).to.be.true;
+                done();
+            });
+    });
 });

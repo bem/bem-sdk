@@ -1,6 +1,11 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
+
 const mockFs = require('mock-fs');
 const toArray = require('stream-to-array');
 
@@ -12,52 +17,54 @@ const options = {
     }
 };
 
-test.afterEach('restore fs', () => {
-    mockFs.restore();
-});
-
-test('should end if levels are not specified', t => {
-    mockFs({});
-
-    return toArray(walk([], options))
-        .then(files => {
-            t.deepEqual(files, []);
-        });
-});
-
-test('should ignore empty level', t => {
-    mockFs({
-        blocks: {}
+describe('schemes/flat/ignore', () => {
+    afterEach('restore fs', () => {
+        mockFs.restore();
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            t.deepEqual(files, []);
-        });
-});
+    it('should end if levels are not specified', () => {
+        mockFs({});
 
-test('should ignore files without extension', t => {
-    mockFs({
-        blocks: {
-            block: ''
-        }
+        return toArray(walk([], options))
+            .then(files => {
+                expect(files).to.deep.equal([]);
+            });
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            t.deepEqual(files, []);
+    it('should ignore empty level', () => {
+        mockFs({
+            blocks: {}
         });
-});
 
-test('should ignore files with no BEM basename', t => {
-    mockFs({
-        blocks: {
-            '^_^.ext': ''
-        }
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                expect(files).to.deep.equal([]);
+            });
     });
 
-    return toArray(walk(['blocks'], options))
-        .then(files => {
-            t.deepEqual(files, []);
+    it('should ignore files without extension', () => {
+        mockFs({
+            blocks: {
+                block: ''
+            }
         });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                expect(files).to.deep.equal([]);
+            });
+    });
+
+    it('should ignore files with no BEM basename', () => {
+        mockFs({
+            blocks: {
+                '^_^.ext': ''
+            }
+        });
+
+        return toArray(walk(['blocks'], options))
+            .then(files => {
+                expect(files).to.deep.equal([]);
+            });
+    });
 });
