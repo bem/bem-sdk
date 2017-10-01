@@ -1,0 +1,40 @@
+{
+  "name": "@bem/sdk.file",
+  "version": "0.1.0",
+  "description": "Representation of identifier of a part of BEM entity.",
+  "publishConfig": {
+    "access": "public"
+  },
+  "license": "MPL-2.0",
+  "repository": "bem/bem-sdk",
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=tag%3Dpkg%3Afile"
+  },
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/file#readme",
+  "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
+  "keywords": [
+    "bem",
+    "entity",
+    "tech",
+    "cell",
+    "level",
+    "file",
+    "id"
+  ],
+  "main": "file.js",
+  "files": [
+    "file.js"
+  ],
+  "engines": {
+    "node": ">= 4.0"
+  },
+  "dependencies": {
+    "@bem/sdk.cell": "*",
+    "depd": "1.1.0"
+  },
+  "scripts": {
+    "specs": "mocha",
+    "cover": "nyc mocha",
+    "test": "npm run specs"
+  }
+}

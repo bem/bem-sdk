@@ -4,9 +4,7 @@ const fs = require('fs');
 const path = require('path');
 
 const bemNaming = require('@bem/sdk.naming.entity');
-const BemCell = require('@bem/sdk.cell');
-
-const BemFile = require('../bem-file');
+const BemFile = require('@bem/sdk.file');
 
 /**
  * Plugin to scan flat levels.
@@ -34,15 +32,15 @@ module.exports = (info, add, callback) => {
             if (dotIndex > 0) {
                 const entity = parseEntityName(basename.substring(0, dotIndex));
 
-                if (entity) {
-                    const cell = new BemCell({
+                entity && add(new BemFile({
+                    cell: {
                         entity: entity,
                         tech: basename.substring(dotIndex + 1),
                         layer: levelpath
-                    });
-
-                    add(new BemFile(cell, path.join(levelpath, basename)));
-                }
+                    },
+                    level: levelpath,
+                    path: path.join(levelpath, basename)
+                }));
             }
         });
 

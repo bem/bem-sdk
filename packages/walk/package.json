@@ -24,6 +24,7 @@
     "lib"
   ],
   "dependencies": {
+    "@bem/sdk.file": "*",
     "@bem/sdk.cell": "^0.1.0",
     "@bem/sdk.entity-name": "^0.1.0",
     "@bem/sdk.naming.entity": "^0.1.0",
