@@ -38,8 +38,8 @@ describe('format.v1', () => {
         const output = [{
             name: 'block1',
             mods: [
-                { name: 'mod1', vals: ['val1'] },
-                { name: 'mod2', vals: ['val2'] }
+                { name: 'mod1', vals: [{ name: 'val1' }] },
+                { name: 'mod2', vals: [{ name: 'val2' }] }
             ]
         }];
 
@@ -54,7 +54,7 @@ describe('format.v1', () => {
         ]);
         const output = [{
             name: 'block1',
-            mods: [{ name: 'mod1', vals: [true, 'val1'] }]
+            mods: [{ name: 'mod1', vals: [{ name: true }, { name: 'val1' }] }]
         }];
 
         expect(format(input, { format: 'v1' })).to.deep.equal(output);
@@ -70,7 +70,7 @@ describe('format.v1', () => {
             name: 'block1',
             elems: [{
                 name: 'elem1',
-                mods: [{ name: 'mod1', vals: ['val1'] }, { name: 'mod2', vals: ['val2'] }]
+                mods: [{ name: 'mod1', vals: [{ name: 'val1' }] }, { name: 'mod2', vals: [{ name: 'val2' }] }]
             }]
         }];
 
@@ -87,7 +87,7 @@ describe('format.v1', () => {
             name: 'block1',
             elems: [{
                 name: 'elem1',
-                mods: [{ name: 'mod1', vals: ['val1', 'val2'] }]
+                mods: [{ name: 'mod1', vals: [{ name: 'val1' }, { name: 'val2' }] }]
             }]
         }];
 
@@ -100,7 +100,7 @@ describe('format.v1', () => {
             name: 'block1',
             mods: [{
                 name: 'mod1',
-                vals: ['val1']
+                vals: [{ name: 'val1' }]
             }]
         }];
 
@@ -146,10 +146,10 @@ describe('format.v1', () => {
                 name: 'elem',
                 mods: [{
                     name: 'mod1',
-                    vals: ['val1']
+                    vals: [{ name: 'val1' }]
                 }, {
                     name: 'mod2',
-                    vals: ['val1']
+                    vals: [{ name: 'val1' }]
                 }]
             }]
         }];
@@ -168,13 +168,13 @@ describe('format.v1', () => {
                 name: 'elem1',
                 mods: [{
                     name: 'mod1',
-                    vals: ['val1']
+                    vals: [{ name: 'val1' }]
                 }]
             }, {
                 name: 'elem2',
                 mods: [{
                     name: 'mod1',
-                    vals: ['val1']
+                    vals: [{ name: 'val1' }]
                 }]
             }]
         }];
@@ -200,7 +200,7 @@ describe('format.v1', () => {
                     name: 'elem1',
                     mods: [{
                         name: 'mod1',
-                        vals: ['val1']
+                        vals: [{ name: 'val1' }]
                     }]
                 }]
             }
@@ -229,7 +229,7 @@ describe('format.v1', () => {
                     name: 'elem1',
                     mods: [{
                         name: 'mod1',
-                        vals: ['val1']
+                        vals: [{ name: 'val1' }]
                     }]
                 }]
             },
@@ -237,11 +237,49 @@ describe('format.v1', () => {
                 name: 'block2',
                 mods: [{
                     name: 'mod2',
-                    vals: ['val2']
+                    vals: [{ name: 'val2' }]
                 }],
                 elems: [{ name: 'elem2' }]
             }
         ];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
+
+    it('should return correct set of elems and mods (beware redundand dependency). issue 227', () => {
+        const input = cellify([
+            { block: 'b1', elem: 'e1' },
+            { block: 'b1', elem: 'e1', mod: 'm1', val: 'm1-val' }
+        ]);
+        const output = [{
+            name: 'b1',
+            elems: [{
+                name: 'e1',
+                mods: [{
+                    name: 'm1',
+                    vals: [{ name: 'm1-val' }]
+                }]
+            }]
+        }];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
+
+    it('should return correct set of elems and mods (beware missed order). issue 227', () => {
+        const input = cellify([
+            { block: 'b1', elem: 'e1', mod: 'm1', val: 'm1-val' },
+            { block: 'b1', elem: 'e1' }
+        ]);
+        const output = [{
+            name: 'b1',
+            elems: [{
+                name: 'e1',
+                mods: [{
+                    name: 'm1',
+                    vals: [{ name: 'm1-val' }]
+                }]
+            }]
+        }];
 
         expect(format(input, { format: 'v1' })).to.deep.equal(output);
     });
