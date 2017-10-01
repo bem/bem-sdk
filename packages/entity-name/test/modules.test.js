@@ -1,7 +1,14 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '../index';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should export to default', t => {
-    t.is(BemEntityName, BemEntityName.default);
+const expect = require('chai').expect;
+
+const BemEntityName = require('..');
+
+describe('modules', () => {
+    it('should export to default', () => {
+        expect(BemEntityName).to.equal(BemEntityName.default);
+    });
 });

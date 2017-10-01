@@ -1,88 +1,95 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should return object as is if it`s a BemEntityName', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+const expect = require('chai').expect;
 
-    t.is(BemEntityName.create(entityName), entityName);
-});
+const BemEntityName = require('..');
 
-test('should create block from object', t => {
-    const entityName = BemEntityName.create({ block: 'block' });
+describe('create', () => {
+    it('should return object as is if it`s a BemEntityName', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-    t.pass(entityName instanceof BemEntityName, 'Should be an instance of BemEntityName');
-    t.deepEqual(entityName.valueOf(), { block: 'block' }, 'Should contain a name for same entity');
-});
+        expect(BemEntityName.create(entityName)).to.equal(entityName);
+    });
 
-test('should create block by a string', t => {
-    const entityName = BemEntityName.create('block');
+    it('should create block from object', () => {
+        const entityName = BemEntityName.create({ block: 'block' });
 
-    t.deepEqual(entityName.valueOf(), { block: 'block' });
-});
+        expect(entityName instanceof BemEntityName, 'Should be an instance of BemEntityName').to.be.true;
+        expect(entityName.valueOf(), 'Should contain a name for same entity').to.deep.equal({ block: 'block' });
+    });
 
-test('should create element from object', t => {
-    const entityName = BemEntityName.create({ block: 'block', elem: 'elem' });
+    it('should create block by a string', () => {
+        const entityName = BemEntityName.create('block');
 
-    t.deepEqual(entityName.valueOf(), { block: 'block', elem: 'elem' });
-});
+        expect(entityName.valueOf()).to.deep.equal({ block: 'block' });
+    });
 
-test('should create simple modifier of block from object', t => {
-    const entityName = BemEntityName.create({ block: 'block', mod: 'mod' });
+    it('should create element from object', () => {
+        const entityName = BemEntityName.create({ block: 'block', elem: 'elem' });
 
-    t.deepEqual(entityName.valueOf(), { block: 'block', mod: { name: 'mod', val: true } });
-});
+        expect(entityName.valueOf()).to.deep.equal({ block: 'block', elem: 'elem' });
+    });
 
-test('should create modifier of block from object', t => {
-    const entityName = BemEntityName.create({ block: 'block', mod: 'mod', val: 'val' });
+    it('should create simple modifier of block from object', () => {
+        const entityName = BemEntityName.create({ block: 'block', mod: 'mod' });
 
-    t.deepEqual(entityName.valueOf(), { block: 'block', mod: { name: 'mod', val: 'val' } });
-});
+        expect(entityName.valueOf()).to.deep.equal({ block: 'block', mod: { name: 'mod', val: true } });
+    });
 
-test('should normalize boolean modifier', t => {
-    const entityName = BemEntityName.create({ block: 'block', mod: { name: 'mod' } });
+    it('should create modifier of block from object', () => {
+        const entityName = BemEntityName.create({ block: 'block', mod: 'mod', val: 'val' });
 
-    t.true(entityName.mod.val);
-});
+        expect(entityName.valueOf()).to.deep.equal({ block: 'block', mod: { name: 'mod', val: 'val' } });
+    });
 
-test('should save normalized boolean modifier', t => {
-    const entityName = BemEntityName.create({ block: 'block', mod: { name: 'mod' } });
+    it('should normalize boolean modifier', () => {
+        const entityName = BemEntityName.create({ block: 'block', mod: { name: 'mod' } });
 
-    t.true(entityName.mod.val);
-});
+        expect(entityName.mod.val).to.be.true;
+    });
 
-test('should support `modName` and `modVal` fields', t => {
-    const entityName = BemEntityName.create({ block: 'block', modName: 'mod', modVal: 'val' });
+    it('should save normalized boolean modifier', () => {
+        const entityName = BemEntityName.create({ block: 'block', mod: { name: 'mod' } });
 
-    t.deepEqual(entityName.mod, { name: 'mod', val: 'val' });
-});
+        expect(entityName.mod.val).to.be.true;
+    });
 
-test('should support `modName` field only', t => {
-    const entityName = BemEntityName.create({ block: 'block', modName: 'mod' });
+    it('should support `modName` and `modVal` fields', () => {
+        const entityName = BemEntityName.create({ block: 'block', modName: 'mod', modVal: 'val' });
 
-    t.deepEqual(entityName.mod, { name: 'mod', val: true });
-});
+        expect(entityName.mod).to.deep.equal({ name: 'mod', val: 'val' });
+    });
 
-test('should use `mod.name` field instead of `modName`', t => {
-    const entityName = BemEntityName.create({ block: 'block', mod: { name: 'mod1' }, modName: 'mod2' });
+    it('should support `modName` field only', () => {
+        const entityName = BemEntityName.create({ block: 'block', modName: 'mod' });
 
-    t.is(entityName.mod.name, 'mod1');
-});
+        expect(entityName.mod).to.deep.equal({ name: 'mod', val: true });
+    });
 
-test('should use `mod.val` field instead of `modVal`', t => {
-    const entityName = BemEntityName.create({ block: 'block', mod: { name: 'm', val: 'v1' }, modVal: 'v2' });
+    it('should use `mod.name` field instead of `modName`', () => {
+        const entityName = BemEntityName.create({ block: 'block', mod: { name: 'mod1' }, modName: 'mod2' });
 
-    t.is(entityName.mod.val, 'v1');
-});
+        expect(entityName.mod.name).to.be.equal('mod1');
+    });
 
-test('should use `mod.name` and `mod.val` instead of `val`', t => {
-    const entityName = BemEntityName.create({ block: 'block', mod: { name: 'm', val: 'v1' }, val: 'v3'});
+    it('should use `mod.val` field instead of `modVal`', () => {
+        const entityName = BemEntityName.create({ block: 'block', mod: { name: 'm', val: 'v1' }, modVal: 'v2' });
 
-    t.is(entityName.mod.val, 'v1');
-});
+        expect(entityName.mod.val).to.be.equal('v1');
+    });
 
-test('should use `mod.name` and `mod.val` instead of `modVal` and `val`', t => {
-    const entityName = BemEntityName.create({ block: 'block', mod: { name: 'm', val: 'v1' }, modVal: 'v2', val: 'v3'});
+    it('should use `mod.name` and `mod.val` instead of `val`', () => {
+        const entityName = BemEntityName.create({ block: 'block', mod: { name: 'm', val: 'v1' }, val: 'v3'});
 
-    t.is(entityName.mod.val, 'v1');
+        expect(entityName.mod.val).to.be.equal('v1');
+    });
+
+    it('should use `mod.name` and `mod.val` instead of `modVal` and `val`', () => {
+        const entityName = BemEntityName.create({ block: 'block', mod: { name: 'm', val: 'v1' }, modVal: 'v2', val: 'v3'});
+
+        expect(entityName.mod.val).to.be.equal('v1');
+    });
 });

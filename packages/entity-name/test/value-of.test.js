@@ -1,9 +1,16 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should return normalized object', t => {
-    const entity = new BemEntityName({ block: 'block', mod: 'mod' });
+const expect = require('chai').expect;
 
-    t.deepEqual(entity.valueOf(), { block: 'block', mod: { name: 'mod', val: true } });
+const BemEntityName = require('..');
+
+describe('value-of.test.js', () => {
+    it('should return normalized object', () => {
+        const entity = new BemEntityName({ block: 'block', mod: 'mod' });
+
+        expect(entity.valueOf()).to.deep.equal({ block: 'block', mod: { name: 'mod', val: true } });
+    });
 });

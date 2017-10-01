@@ -1,57 +1,64 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should provide `block` field', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+const expect = require('chai').expect;
 
-    t.is(entityName.block, 'block');
-});
+const BemEntityName = require('..');
 
-test('should provide `elem` field', t => {
-    const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
+describe('bem-fields', () => {
+    it('should provide `block` field', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-    t.is(entityName.elem, 'elem');
-});
+        expect(entityName.block).to.equal('block');
+    });
 
-test('should provide `mod` field', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+    it('should provide `elem` field', () => {
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
 
-    t.deepEqual(entityName.mod, { name: 'mod', val: 'val' });
-});
+        expect(entityName.elem).to.equal('elem');
+    });
 
-test('should provide `modName` field', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+    it('should provide `mod` field', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    t.is(entityName.modName, 'mod');
-});
+        expect(entityName.mod).to.deep.equal({ name: 'mod', val: 'val' });
+    });
 
-test('should provide `modVal` field', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+    it('should provide `modName` field', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    t.is(entityName.modVal, 'val');
-});
+        expect(entityName.modName).to.equal('mod');
+    });
 
-test('should return `undefined` if entity is not element', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+    it('should provide `modVal` field', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    t.is(entityName.elem, undefined);
-});
+        expect(entityName.modVal).to.equal('val');
+    });
 
-test('should return `undefined` if entity is not modifier', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+    it('should return `undefined` if entity is not element', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-    t.deepEqual(entityName.mod, undefined);
-});
+        expect(entityName.elem).to.equal(undefined);
+    });
 
-test('should return `undefined` in `modName` property if entity is not modifier', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+    it('should return `undefined` if entity is not modifier', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-    t.is(entityName.modName, undefined);
-});
+        expect(entityName.mod).to.equal(undefined);
+    });
 
-test('should return `undefined` in `modVal` property if entity is not modifier', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+    it('should return `undefined` in `modName` property if entity is not modifier', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-    t.is(entityName.modVal, undefined);
+        expect(entityName.mod).to.equal(undefined);
+    });
+
+    it('should return `undefined` in `modVal` property if entity is not modifier', () => {
+        const entityName = new BemEntityName({ block: 'block' });
+
+        expect(entityName.mod).to.equal(undefined);
+    });
 });

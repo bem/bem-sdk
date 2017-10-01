@@ -1,27 +1,34 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should be true for simple modifiers', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: 'mod' });
+const expect = require('chai').expect;
 
-    t.true(entityName.isSimpleMod());
-});
+const BemEntityName = require('..');
 
-test('should be false for complex modifiers', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+describe('is-simple-mod', () => {
+    it('should be true for simple modifiers', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: 'mod' });
 
-    t.false(entityName.isSimpleMod());
-});
+        expect(entityName.isSimpleMod()).to.be.true;
+    });
 
-test('should be null for block', t => {
-    const entityName = BemEntityName.create({ block: 'button2' });
+    it('should be false for complex modifiers', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    t.is(entityName.isSimpleMod(), null);
-});
+        expect(entityName.isSimpleMod()).to.be.false;
+    });
 
-test('should be null for element', t => {
-    const entityName = BemEntityName.create({ block: 'button2', elem: 'text' });
+    it('should be null for block', () => {
+        const entityName = BemEntityName.create({ block: 'button2' });
 
-    t.is(entityName.isSimpleMod(), null);
+        expect(entityName.isSimpleMod()).to.equal(null);
+    });
+
+    it('should be null for element', () => {
+        const entityName = BemEntityName.create({ block: 'button2', elem: 'text' });
+
+        expect(entityName.isSimpleMod()).to.equal(null);
+    });
 });

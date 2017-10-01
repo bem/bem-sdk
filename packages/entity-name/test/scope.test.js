@@ -1,50 +1,57 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should return scope of block', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+const expect = require('chai').expect;
 
-    t.is(entityName.scope, null);
-});
+const BemEntityName = require('..');
 
-test('should return scope of block modifier', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: 'mod' });
+describe('scope', () => {
+    it('should return scope of block', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-    t.deepEqual(entityName.scope.valueOf(), { block: 'block' });
-});
+        expect(entityName.scope).to.equal(null);
+    });
 
-test('should return same scope for simple and complex mod', t => {
-    const simpleModName = new BemEntityName({ block: 'block', mod: 'mod' });
-    const complexModName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+    it('should return scope of block modifier', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: 'mod' });
 
-    t.deepEqual(simpleModName.scope, complexModName.scope);
-});
+        expect(entityName.scope.valueOf()).to.deep.equal({ block: 'block' });
+    });
 
-test('should return scope of element', t => {
-    const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
+    it('should return same scope for simple and complex mod', () => {
+        const simpleModName = new BemEntityName({ block: 'block', mod: 'mod' });
+        const complexModName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    t.deepEqual(entityName.scope.valueOf(), { block: 'block' });
-});
+        expect(simpleModName.scope).to.deep.equal(complexModName.scope);
+    });
 
-test('should return scope of element modifier', t => {
-    const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
+    it('should return scope of element', () => {
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
 
-    t.deepEqual(entityName.scope.valueOf(), { block: 'block', elem: 'elem' });
-});
+        expect(entityName.scope.valueOf()).to.deep.equal({ block: 'block' });
+    });
 
-test('should cache scope value', t => {
-    const entity = new BemEntityName({ block: 'block', elem: 'elem' });
+    it('should return scope of element modifier', () => {
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
 
-    entity.scope; // eslint-disable-line no-unused-expressions
+        expect(entityName.scope.valueOf()).to.deep.equal({ block: 'block', elem: 'elem' });
+    });
 
-    t.deepEqual(entity._scope.valueOf(), { block: 'block' });
-});
+    it('should cache scope value', () => {
+        const entity = new BemEntityName({ block: 'block', elem: 'elem' });
 
-test('should get scope from cache', t => {
-    const entity = new BemEntityName({ block: 'block', elem: 'elem' });
+        entity.scope; // eslint-disable-line no-unused-expressions
 
-    entity._scope = 'fake';
+        expect(entity._scope.valueOf()).to.deep.equal({ block: 'block' });
+    });
 
-    t.is(entity.scope, 'fake');
+    it('should get scope from cache', () => {
+        const entity = new BemEntityName({ block: 'block', elem: 'elem' });
+
+        entity._scope = 'fake';
+
+        expect(entity.scope).to.equal('fake');
+    });
 });

@@ -1,123 +1,130 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should not detect belonging between block and itself', t => {
-    const blockName = new BemEntityName({ block: 'block' });
+const expect = require('chai').expect;
 
-    t.false(blockName.belongsTo(blockName));
-});
+const BemEntityName = require('..');
 
-test('should not detect belonging between elem and itself', t => {
-    const elemName = new BemEntityName({ block: 'block', elem: 'elem' });
+describe('belongs-to', () => {
+    it('should not detect belonging between block and itself', () => {
+        const blockName = new BemEntityName({ block: 'block' });
 
-    t.false(elemName.belongsTo(elemName));
-});
+        expect(blockName.belongsTo(blockName)).to.be.false;
+    });
 
-test('should not detect belonging between block mod and itself', t => {
-    const modName = new BemEntityName({ block: 'block', mod: 'mod' });
+    it('should not detect belonging between elem and itself', () => {
+        const elemName = new BemEntityName({ block: 'block', elem: 'elem' });
 
-    t.false(modName.belongsTo(modName));
-});
+        expect(elemName.belongsTo(elemName)).to.be.false;
+    });
 
-test('should not detect belonging between elem mod and itself', t => {
-    const modName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
+    it('should not detect belonging between block mod and itself', () => {
+        const modName = new BemEntityName({ block: 'block', mod: 'mod' });
 
-    t.false(modName.belongsTo(modName));
-});
+        expect(modName.belongsTo(modName)).to.be.false;
+    });
 
-test('should resolve belonging between block and its elem', t => {
-    const blockName = new BemEntityName({ block: 'block' });
-    const elemName = new BemEntityName({ block: 'block', elem: 'elem' });
+    it('should not detect belonging between elem mod and itself', () => {
+        const modName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
 
-    t.true(elemName.belongsTo(blockName));
-    t.false(blockName.belongsTo(elemName));
-});
+        expect(modName.belongsTo(modName)).to.be.false;
+    });
 
-test('should not detect belonging between two block', t => {
-    const name1 = new BemEntityName({ block: 'block1' });
-    const name2 = new BemEntityName({ block: 'block2' });
+    it('should resolve belonging between block and its elem', () => {
+        const blockName = new BemEntityName({ block: 'block' });
+        const elemName = new BemEntityName({ block: 'block', elem: 'elem' });
 
-    t.false(name1.belongsTo(name2));
-    t.false(name2.belongsTo(name1));
-});
+        expect(elemName.belongsTo(blockName)).to.be.true;
+        expect(blockName.belongsTo(elemName)).to.be.false;
+    });
 
-test('should not detect belonging between two mods of block', t => {
-    const modName1 = new BemEntityName({ block: 'block', mod: 'mod1' });
-    const modName2 = new BemEntityName({ block: 'block', mod: 'mod2' });
+    it('should not detect belonging between two block', () => {
+        const name1 = new BemEntityName({ block: 'block1' });
+        const name2 = new BemEntityName({ block: 'block2' });
 
-    t.false(modName1.belongsTo(modName2));
-    t.false(modName2.belongsTo(modName1));
-});
+        expect(name1.belongsTo(name2)).to.be.false;
+        expect(name2.belongsTo(name1)).to.be.false;
+    });
 
-test('should not detect belonging between two elems of block', t => {
-    const elemName1 = new BemEntityName({ block: 'block', elem: 'elem1' });
-    const elemName2 = new BemEntityName({ block: 'block', elem: 'elem2' });
+    it('should not detect belonging between two mods of block', () => {
+        const modName1 = new BemEntityName({ block: 'block', mod: 'mod1' });
+        const modName2 = new BemEntityName({ block: 'block', mod: 'mod2' });
 
-    t.false(elemName1.belongsTo(elemName2));
-    t.false(elemName2.belongsTo(elemName1));
-});
+        expect(modName1.belongsTo(modName2)).to.be.false;
+        expect(modName2.belongsTo(modName1)).to.be.false;
+    });
 
-test('should resolve belonging between block and its mod', t => {
-    const blockName = new BemEntityName({ block: 'block' });
-    const modName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key' } });
+    it('should not detect belonging between two elems of block', () => {
+        const elemName1 = new BemEntityName({ block: 'block', elem: 'elem1' });
+        const elemName2 = new BemEntityName({ block: 'block', elem: 'elem2' });
 
-    t.true(modName.belongsTo(blockName));
-    t.false(blockName.belongsTo(modName));
-});
+        expect(elemName1.belongsTo(elemName2)).to.be.false;
+        expect(elemName2.belongsTo(elemName1)).to.be.false;
+    });
 
-test('should resolve belonging between elem and its mod', t => {
-    const elemName = new BemEntityName({ block: 'block', elem: 'elem' });
-    const modName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key' } });
+    it('should resolve belonging between block and its mod', () => {
+        const blockName = new BemEntityName({ block: 'block' });
+        const modName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key' } });
 
-    t.true(modName.belongsTo(elemName));
-    t.false(elemName.belongsTo(modName));
-});
+        expect(modName.belongsTo(blockName)).to.be.true;
+        expect(blockName.belongsTo(modName)).to.be.false;
+    });
 
-test('should not detect belonging between block and its elem mod', t => {
-    const blockName = new BemEntityName({ block: 'block' });
-    const elemModName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key' } });
+    it('should resolve belonging between elem and its mod', () => {
+        const elemName = new BemEntityName({ block: 'block', elem: 'elem' });
+        const modName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key' } });
 
-    t.false(elemModName.belongsTo(blockName));
-    t.false(blockName.belongsTo(elemModName));
-});
+        expect(modName.belongsTo(elemName)).to.be.true;
+        expect(elemName.belongsTo(modName)).to.be.false;
+    });
 
-test('should not detect belonging between block mod and its elem with the same mod', t => {
-    const blockModName = new BemEntityName({ block: 'block', mod: 'mod' });
-    const elemModName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
+    it('should not detect belonging between block and its elem mod', () => {
+        const blockName = new BemEntityName({ block: 'block' });
+        const elemModName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key' } });
 
-    t.false(elemModName.belongsTo(blockModName));
-    t.false(blockModName.belongsTo(elemModName));
-});
+        expect(elemModName.belongsTo(blockName)).to.be.false;
+        expect(blockName.belongsTo(elemModName)).to.be.false;
+    });
 
-test('should not detect belonging between boolean and key-value mod of block', t => {
-    const boolModName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: true } });
-    const modName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key' } });
+    it('should not detect belonging between block mod and its elem with the same mod', () => {
+        const blockModName = new BemEntityName({ block: 'block', mod: 'mod' });
+        const elemModName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
 
-    t.false(modName.belongsTo(boolModName));
-    t.false(boolModName.belongsTo(modName));
-});
+        expect(elemModName.belongsTo(blockModName)).to.be.false;
+        expect(blockModName.belongsTo(elemModName)).to.be.false;
+    });
 
-test('should not detect belonging between boolean and key-value mod of element', t => {
-    const boolModName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: true } });
-    const modName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key' } });
+    it('should not detect belonging between boolean and key-value mod of block', () => {
+        const boolModName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: true } });
+        const modName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key' } });
 
-    t.false(modName.belongsTo(boolModName));
-    t.false(boolModName.belongsTo(modName));
-});
+        expect(modName.belongsTo(boolModName)).to.be.false;
+        expect(boolModName.belongsTo(modName)).to.be.false;
+    });
 
-test('should not detect belonging between key-value mods of block', t => {
-    const modName1 = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key1' } });
-    const modName2 = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key2' } });
+    it('should not detect belonging between boolean and key-value mod of element', () => {
+        const boolModName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: true } });
+        const modName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key' } });
 
-    t.false(modName1.belongsTo(modName2));
-    t.false(modName2.belongsTo(modName1));
-});
+        expect(modName.belongsTo(boolModName)).to.be.false;
+        expect(boolModName.belongsTo(modName)).to.be.false;
+    });
 
-test('should not detect belonging between key-value mods of elem', t => {
-    const modName1 = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key1' } });
-    const modName2 = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key2' } });
+    it('should not detect belonging between key-value mods of block', () => {
+        const modName1 = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key1' } });
+        const modName2 = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key2' } });
 
-    t.false(modName1.belongsTo(modName2));
-    t.false(modName2.belongsTo(modName1));
+        expect(modName1.belongsTo(modName2)).to.be.false;
+        expect(modName2.belongsTo(modName1)).to.be.false;
+    });
+
+    it('should not detect belonging between key-value mods of elem', () => {
+        const modName1 = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key1' } });
+        const modName2 = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key2' } });
+
+        expect(modName1.belongsTo(modName2)).to.be.false;
+        expect(modName2.belongsTo(modName1)).to.be.false;
+    });
 });

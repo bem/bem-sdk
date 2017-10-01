@@ -1,17 +1,24 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should detect equal block', t => {
-    const entityName1 = new BemEntityName({ block: 'block' });
-    const entityName2 = new BemEntityName({ block: 'block' });
+const expect = require('chai').expect;
 
-    t.true(entityName1.isEqual(entityName2));
-});
+const BemEntityName = require('..');
 
-test('should not detect another block', t => {
-    const entityName1 = new BemEntityName({ block: 'block1' });
-    const entityName2 = new BemEntityName({ block: 'block2' });
+describe('is-equal', () => {
+    it('should detect equal block', () => {
+        const entityName1 = new BemEntityName({ block: 'block' });
+        const entityName2 = new BemEntityName({ block: 'block' });
 
-    t.false(entityName1.isEqual(entityName2));
+        expect(entityName1.isEqual(entityName2)).to.be.true;
+    });
+
+    it('should not detect another block', () => {
+        const entityName1 = new BemEntityName({ block: 'block1' });
+        const entityName2 = new BemEntityName({ block: 'block2' });
+
+        expect(entityName1.isEqual(entityName2)).to.be.false;
+    });
 });
