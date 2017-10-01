@@ -1,40 +1,48 @@
-import test from 'ava';
-import sinon from 'sinon';
-import proxyquire from 'proxyquire';
+'use strict';
+
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const proxyquire = require('proxyquire');
 
 const spy = sinon.spy();
 const BemEntityName = proxyquire('../lib/entity-name', {
     '@bem/sdk.naming.entity.stringify': () => spy
 });
 
-test('should use `naming.stringify()` for block', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+describe('to-string', () => {
+    it('should use `naming.stringify()` for block', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-    entityName.toString();
+        entityName.toString();
 
-    t.true(spy.calledWith({ block: 'block' }));
-});
+        expect(spy.calledWith({ block: 'block' })).to.be.true;
+    });
 
-test('should use `naming.stringify()` for elem', t => {
-    const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
+    it('should use `naming.stringify()` for elem', () => {
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
 
-    entityName.toString();
+        entityName.toString();
 
-    t.true(spy.calledWith({ block: 'block', elem: 'elem' }));
-});
+        expect(spy.calledWith({ block: 'block', elem: 'elem' })).to.be.true;
+    });
 
-test('should use `naming.stringify()` for block modifier', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+    it('should use `naming.stringify()` for block modifier', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
 
-    entityName.toString();
+        entityName.toString();
 
-    t.true(spy.calledWith({ block: 'block', mod: { name: 'mod', val: 'val' } }));
-});
+        expect(spy.calledWith({ block: 'block', mod: { name: 'mod', val: 'val' } })).to.be.true;
+    });
 
-test('should use naming.stringify() for element modifier', t => {
-    const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } });
+    it('should use naming.stringify() for element modifier', () => {
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } });
 
-    entityName.toString();
+        entityName.toString();
 
-    t.true(spy.calledWith({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } }));
+        expect(spy.calledWith({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } })).to.be.true;
+    });
+
 });

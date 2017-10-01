@@ -1,34 +1,41 @@
-import test from 'ava';
-import sinon from 'sinon';
-import proxyquire from 'proxyquire';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should build equal id for equal blocks', t => {
-    const entityName1 = new BemEntityName({ block: 'block' });
-    const entityName2 = new BemEntityName({ block: 'block' });
+const expect = require('chai').expect;
+const sinon = require('sinon');
+const proxyquire = require('proxyquire');
 
-    t.is(entityName1.id, entityName2.id);
-});
+const BemEntityName = require('..');
 
-test('should build not equal id for not equal blocks', t => {
-    const entityName1 = new BemEntityName({ block: 'block1' });
-    const entityName2 = new BemEntityName({ block: 'block2' });
+describe('id', () => {
+    it('should build equal id for equal blocks', () => {
+        const entityName1 = new BemEntityName({ block: 'block' });
+        const entityName2 = new BemEntityName({ block: 'block' });
 
-    t.not(entityName1.id, entityName2.id);
-});
-
-test('should cache id value', t => {
-    const stub = sinon.stub().returns('id');
-    const StubBemEntityName = proxyquire('../lib/entity-name', {
-        '@bem/sdk.naming.entity.stringify': () => stub
+        expect(entityName1.id).is.equal(entityName2.id);
     });
 
-    const entityName = new StubBemEntityName({ block: 'block' });
+    it('should build not equal id for not equal blocks', () => {
+        const entityName1 = new BemEntityName({ block: 'block1' });
+        const entityName2 = new BemEntityName({ block: 'block2' });
 
-    /*eslint no-unused-expressions: "off"*/
-    entityName.id;
-    entityName.id;
+        expect(entityName1.id).is.not.equal(entityName2.id);
+    });
 
-    t.is(stub.callCount, 1);
+    it('should cache id value', () => {
+        const stub = sinon.stub().returns('id');
+        const StubBemEntityName = proxyquire('../lib/entity-name', {
+            '@bem/sdk.naming.entity.stringify': () => stub
+        });
+
+        const entityName = new StubBemEntityName({ block: 'block' });
+
+        /*eslint no-unused-expressions: "off"*/
+        entityName.id;
+        entityName.id;
+
+        expect(stub.callCount).to.equal(1);
+    });
 });

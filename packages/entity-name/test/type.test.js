@@ -1,43 +1,51 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should determine block', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+const expect = require('chai').expect;
 
-    t.is(entityName.type, 'block');
-});
+const BemEntityName = require('..');
 
-test('should determine modifier of block', t => {
-    const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod' } });
+describe('type', () => {
+    it('should determine block', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-    t.is(entityName.type, 'blockMod');
-});
+        expect(entityName.type).to.equal('block');
+    });
 
-test('should determine elem', t => {
-    const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
+    it('should determine modifier of block', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod' } });
 
-    t.is(entityName.type, 'elem');
-});
+        expect(entityName.type).to.equal('blockMod');
+    });
 
-test('should determine modifier of element', t => {
-    const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod' } });
+    it('should determine elem', () => {
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
 
-    t.is(entityName.type, 'elemMod');
-});
+        expect(entityName.type).to.equal('elem');
+    });
 
-test('should cache type value', t => {
-    const entity = new BemEntityName({ block: 'block' });
+    it('should determine modifier of element', () => {
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod' } });
 
-    entity.type; // eslint-disable-line no-unused-expressions
+        expect(entityName.type).to.equal('elemMod');
+    });
 
-    t.is(entity._type, 'block');
-});
+    it('should cache type value', () => {
+        const entity = new BemEntityName({ block: 'block' });
 
-test('should get type from cache', t => {
-    const entity = new BemEntityName({ block: 'block' });
+        entity.type; // eslint-disable-line no-unused-expressions
 
-    entity._type = 'fake';
+        expect(entity._type).to.equal('block');
+    });
 
-    t.is(entity.type, 'fake');
+    it('should get type from cache', () => {
+        const entity = new BemEntityName({ block: 'block' });
+
+        entity._type = 'fake';
+
+        expect(entity.type).to.equal('fake');
+    });
+
 });

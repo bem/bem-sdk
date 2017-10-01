@@ -1,58 +1,64 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '../../lib/entity-name';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should normalize simple modifier', t => {
-    const entity = new BemEntityName({ block: 'block', mod: 'mod' });
+const expect = require('chai').expect;
 
-    t.true(entity.mod.val);
-});
+const BemEntityName = require('../..');
 
-test('should normalize boolean modifier', t => {
-    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod' } });
+describe('constructor/normalize.test.js', () => {    it('should normalize simple modifier', () => {
+        const entity = new BemEntityName({ block: 'block', mod: 'mod' });
 
-    t.true(entity.mod.val);
-});
+        expect(entity.mod.val).to.be.true;
+    });
 
-test('should save normalized boolean modifier', t => {
-    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: true } });
+    it('should normalize boolean modifier', () => {
+        const entity = new BemEntityName({ block: 'block', mod: { name: 'mod' } });
 
-    t.true(entity.mod.val);
-});
+        expect(entity.mod.val).to.be.true;
+    });
 
-test('should support `modName` and `modVal` fields', t => {
-    const entity = new BemEntityName({ block: 'block', modName: 'mod', modVal: 'val' });
+    it('should save normalized boolean modifier', () => {
+        const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: true } });
 
-    t.deepEqual(entity.mod, { name: 'mod', val: 'val' });
-});
+        expect(entity.mod.val).to.be.true;
+    });
 
-test('should support `modName` field only', t => {
-    const entity = new BemEntityName({ block: 'block', modName: 'mod' });
+    it('should support `modName` and `modVal` fields', () => {
+        const entity = new BemEntityName({ block: 'block', modName: 'mod', modVal: 'val' });
 
-    t.deepEqual(entity.mod, { name: 'mod', val: true });
-});
+        expect(entity.mod).to.deep.equal({ name: 'mod', val: 'val' });
+    });
 
-test('should use `mod.name` field instead of `modName`', t => {
-    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod1' }, modName: 'mod2' });
+    it('should support `modName` field only', () => {
+        const entity = new BemEntityName({ block: 'block', modName: 'mod' });
 
-    t.is(entity.mod.name, 'mod1');
-});
+        expect(entity.mod).to.deep.equal({ name: 'mod', val: true });
+    });
 
-test('should use `mod.val` field instead of `modVal`', t => {
-    const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val1' }, modVal: 'val2' });
+    it('should use `mod.name` field instead of `modName`', () => {
+        const entity = new BemEntityName({ block: 'block', mod: { name: 'mod1' }, modName: 'mod2' });
 
-    t.is(entity.mod.val, 'val1');
-});
+        expect(entity.mod.name).to.equal('mod1');
+    });
 
-test('should return the same instance for same class', t => {
-    const entity = new BemEntityName({ block: 'block', mod: 'mod' });
-    const entity2 = new BemEntityName(entity);
+    it('should use `mod.val` field instead of `modVal`', () => {
+        const entity = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val1' }, modVal: 'val2' });
 
-    t.is(entity, entity2);
-});
+        expect(entity.mod.val).to.equal('val1');
+    });
 
-test('should not use modName field for BemEntityName instances of another versions', t => {
-    const entity = new BemEntityName({ block: 'block', modName: 'mod', __isBemEntityName__: true });
+    it('should return the same instance for same class', () => {
+        const entity = new BemEntityName({ block: 'block', mod: 'mod' });
+        const entity2 = new BemEntityName(entity);
 
-    t.is(entity.mod, undefined);
+        expect(entity).to.equal(entity2);
+    });
+
+    it('should not use modName field for BemEntityName instances of another versions', () => {
+        const entity = new BemEntityName({ block: 'block', modName: 'mod', __isBemEntityName__: true });
+
+        expect(entity.mod).to.equal(undefined);
+    });
 });

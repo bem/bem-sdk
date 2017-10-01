@@ -1,15 +1,22 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should create stringified object', t => {
-    const entityName = new BemEntityName({ block: 'button' });
+const expect = require('chai').expect;
 
-    t.is(JSON.stringify([entityName]), '[{"block":"button"}]');
-});
+const BemEntityName = require('..');
 
-test('should return normalized object', t => {
-    const entityName = new BemEntityName({ block: 'button' });
+describe('to-json', () => {
+    it('should create stringified object', () => {
+        const entityName = new BemEntityName({ block: 'button' });
 
-    t.deepEqual(entityName.toJSON(), entityName.valueOf());
+        expect(JSON.stringify([entityName])).to.equal('[{"block":"button"}]');
+    });
+
+    it('should return normalized object', () => {
+        const entityName = new BemEntityName({ block: 'button' });
+
+        expect(entityName.toJSON()).to.deep.equal(entityName.valueOf());
+    });
 });

@@ -1,31 +1,38 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '../../lib/entity-name';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should create block', t => {
-    const obj = { block: 'block' };
-    const entityName = new BemEntityName(obj);
+const expect = require('chai').expect;
 
-    t.deepEqual((entityName).valueOf(), obj);
-});
+const BemEntityName = require('../..');
 
-test('should create modifier of block', t => {
-    const obj = { block: 'block', mod: { name: 'mod', val: 'val' } };
-    const entityName = new BemEntityName(obj);
+describe('constructor/constructor', () => {
+    it('should create block', () => {
+        const obj = { block: 'block' };
+        const entityName = new BemEntityName(obj);
 
-    t.deepEqual((entityName).valueOf(), obj);
-});
+        expect((entityName).valueOf()).to.deep.equal(obj);
+    });
 
-test('should create element', t => {
-    const obj = { block: 'block', elem: 'elem' };
-    const entityName = new BemEntityName(obj);
+    it('should create modifier of block', () => {
+        const obj = { block: 'block', mod: { name: 'mod', val: 'val' } };
+        const entityName = new BemEntityName(obj);
 
-    t.deepEqual((entityName).valueOf(), obj);
-});
+        expect((entityName).valueOf()).to.deep.equal(obj);
+    });
 
-test('should create modifier of element', t => {
-    const obj = { block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } };
-    const entityName = new BemEntityName(obj);
+    it('should create element', () => {
+        const obj = { block: 'block', elem: 'elem' };
+        const entityName = new BemEntityName(obj);
 
-    t.deepEqual((entityName).valueOf(), obj);
+        expect((entityName).valueOf()).to.deep.equal(obj);
+    });
+
+    it('should create modifier of element', () => {
+        const obj = { block: 'block', elem: 'elem', mod: { name: 'mod', val: 'val' } };
+        const entityName = new BemEntityName(obj);
+
+        expect((entityName).valueOf()).to.deep.equal(obj);
+    });
 });

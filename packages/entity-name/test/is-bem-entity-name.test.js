@@ -1,25 +1,32 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '..';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should check valid entities', t => {
-    const entityName = new BemEntityName({ block: 'block' });
+const expect = require('chai').expect;
 
-    t.true(BemEntityName.isBemEntityName(entityName));
-});
+const BemEntityName = require('..');
 
-test('should not pass entity representation object', t => {
-    t.falsy(BemEntityName.isBemEntityName({ block: 'block' }));
-});
+describe('is-bem-entity-name', () => {
+    it('should check valid entities', () => {
+        const entityName = new BemEntityName({ block: 'block' });
 
-test('should not pass invalid entity', t => {
-    t.falsy(BemEntityName.isBemEntityName(new Array()));
-});
+        expect(BemEntityName.isBemEntityName(entityName)).to.be.true;
+    });
 
-test('should not pass null', t => {
-    t.falsy(BemEntityName.isBemEntityName(null));
-});
+    it('should not pass entity representation object', () => {
+        expect(BemEntityName.isBemEntityName({ block: 'block' })).to.be.false;
+    });
 
-test('should not pass undefined', t => {
-    t.falsy(BemEntityName.isBemEntityName(null));
+    it('should not pass invalid entity', () => {
+        expect(BemEntityName.isBemEntityName([])).to.be.false;
+    });
+
+    it('should not pass null', () => {
+        expect(BemEntityName.isBemEntityName(null)).to.be.false;
+    });
+
+    it('should not pass undefined', () => {
+        expect(BemEntityName.isBemEntityName(null)).to.be.false;
+    });
 });

@@ -1,24 +1,28 @@
-import test from 'ava';
+'use strict';
 
-import BemEntityName from '../../lib/entity-name';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-test('should throw error if not `block` field', t => {
-    t.throws(
-        () => new BemEntityName({ elem: 'elem' }),
-        "the object `{ elem: 'elem' }` is not valid BEM entity, the field `block` is undefined"
-    );
-});
+const expect = require('chai').expect;
 
-test('should throw error if `mod` field is empty object', t => {
-    t.throws(
-        () => new BemEntityName({ block: 'block', mod: {} }),
-        "the object `{ block: 'block', mod: {} }` is not valid BEM entity, the field `mod.name` is undefined"
-    );
-});
+const BemEntityName = require('../..');
 
-test('should throw error if `mod.name` field is undefined', t => {
-    t.throws(
-        () => new BemEntityName({ block: 'block', mod: { val: 'val' } }),
-        "the object `{ block: 'block', mod: { val: 'val' } }` is not valid BEM entity, the field `mod.name` is undefined"
-    );
+describe('constructor/errors', () => {
+    it('should throw error if not `block` field', () => {
+        expect(() => new BemEntityName({ elem: 'elem' })).to.throw(
+            'the object `{ elem: \'elem\' }` is not valid BEM entity, the field `block` is undefined'
+        );
+    });
+
+    it('should throw error if `mod` field is empty object', () => {
+        expect(() => new BemEntityName({ block: 'block', mod: {} })).to.throw(
+            'the object `{ block: \'block\', mod: {} }` is not valid BEM entity, the field `mod.name` is undefined'
+        );
+    });
+
+    it('should throw error if `mod.name` field is undefined', () => {
+        expect(() => new BemEntityName({ block: 'block', mod: { val: 'val' } })).to.throw(
+            'the object `{ block: \'block\', mod: { val: \'val\' } }` is not valid BEM entity, the field `mod.name` is undefined'
+        );
+    });
 });

@@ -1,12 +1,19 @@
-import {inspect} from 'util'
+'use strict';
 
-import test from 'ava';
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-import BemEntityName from '..';
+const expect = require('chai').expect;
 
-test('should return entity object', t => {
-    const obj = { block: 'block' };
-    const entityName = new BemEntityName(obj);
+const inspect = require('util').inspect;
 
-    t.is(inspect(entityName), `BemEntityName { block: 'block' }`);
+const BemEntityName = require('..');
+
+describe('inspect.test.js', () => {
+    it('should return entity object', () => {
+        const obj = { block: 'block' };
+        const entityName = new BemEntityName(obj);
+
+        expect(inspect(entityName)).to.equal(`BemEntityName { block: 'block' }`);
+    });
 });
