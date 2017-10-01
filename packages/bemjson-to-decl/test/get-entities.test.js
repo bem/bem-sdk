@@ -13,6 +13,7 @@ it('should return an array', () => {
 it('should return array of zero length if bemjson is empty', () => {
     expect(parse({})).to.have.lengthOf(0);
     expect(parse([])).to.have.lengthOf(0);
+    expect(parse([null])).to.have.lengthOf(0);
 });
 
 describe('block', () => {
