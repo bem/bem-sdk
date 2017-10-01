@@ -12,7 +12,7 @@ const stringify = require('../../lib/stringify');
 
 const obj = {
     format: 'enb',
-    decl: [{ block: 'block', elem: 'elem', mod: 'mod', val: 'val' }]
+    deps: [{ block: 'block', elem: 'elem', mod: 'mod', val: 'val' }]
 };
 const cell = BemCell.create({ block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' });
 
