@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.entity.stringify",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Stringifier for BEM entities",
   "publishConfig": {
     "access": "public"
@@ -25,7 +25,7 @@
     "index.js"
   ],
   "devDependencies": {
-    "@bem/sdk.naming.presets": "^0.0.2"
+    "@bem/sdk.naming.presets": "^0.0.3"
   },
   "scripts": {
     "bench": "matcha benchmark/*.js"

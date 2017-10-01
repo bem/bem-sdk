@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.walk",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Walk easily thru BEM file structure",
   "publishConfig": {
     "access": "public"
@@ -24,10 +24,10 @@
     "lib"
   ],
   "dependencies": {
-    "@bem/sdk.file": "*",
-    "@bem/sdk.cell": "^0.1.0",
-    "@bem/sdk.entity-name": "^0.1.0",
-    "@bem/sdk.naming.entity": "^0.1.0",
+    "@bem/sdk.cell": "^0.2.0",
+    "@bem/sdk.entity-name": "^0.2.0",
+    "@bem/sdk.file": "^0.2.0",
+    "@bem/sdk.naming.entity": "^0.2.0",
     "async-each": "1.0.1"
   },
   "devDependencies": {

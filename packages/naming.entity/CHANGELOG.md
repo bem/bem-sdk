@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+      <a name="0.2.0"></a>
+# 0.2.0 (2017-10-01)
+
+
+### Features
+
+* split bem-naming to naming.entity.* packages ([0bf481d](https://github.com/bem/bem-sdk/commit/0bf481d))
+
+
+
+
       <a name="0.1.0"></a>
 # 0.1.0 (2017-09-30)
 
@@ -14,7 +25,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-      Changelog
+    Changelog
 =========
 
 2.0.0
@@ -174,14 +185,14 @@ stringify(entityName);
 const bemNaming = require('bem-naming');
 
 const myNaming = bemNaming({
-  elem: '-',
-  mod: { name: '--', val: '_' }
-  wordPattern: '[a-zA-Z0-9]+'
+elem: '-',
+mod: { name: '--', val: '_' }
+wordPattern: '[a-zA-Z0-9]+'
 });
 
 myNaming.parse('block--mod_val'); // { block: 'block'
-                                //   modName: 'mod',
-                                //   modVal: 'val' }
+                              //   modName: 'mod',
+                              //   modVal: 'val' }
 ```
 
 **API v2.x.x**
@@ -190,16 +201,16 @@ myNaming.parse('block--mod_val'); // { block: 'block'
 const bemNaming = require('@bem/naming');
 
 const myNaming = bemNaming({
-  delims: {
-      elem: '-',
-      mod: { name: '--', val: '_' }
-  },
-  wordPattern: '[a-zA-Z0-9]+'
+delims: {
+    elem: '-',
+    mod: { name: '--', val: '_' }
+},
+wordPattern: '[a-zA-Z0-9]+'
 });
 
 myNaming.parse('block--mod_val'); // BemEntityName
-                                // { block: 'block',
-                                //   mod: { name: 'mod', val: 'val' } }
+                              // { block: 'block',
+                              //   mod: { name: 'mod', val: 'val' } }
 ```
 
 **Important:** now if the delimiter of modifier value is not specified it doesn't inherit from delimiter of modifier name and falls back to default `bemNaming.modValDelim` ([#169]).
@@ -342,13 +353,13 @@ Before one could only specify a string to separate name of a modifier from name 
 
 ```js
 var myNaming = bemNaming({
-  mod: '--'
+mod: '--'
 });
 
 var obj = {
-  block: 'block',
-  modName: 'mod',
-  modVal: 'val'
+block: 'block',
+modName: 'mod',
+modVal: 'val'
 };
 
 myNaming.stringify(obj); // 'block--mod--val'
@@ -358,13 +369,13 @@ myNaming.stringify(obj); // 'block--mod--val'
 
 ```js
 var myNaming = bemNaming({
-  mod: { name: '--', val: '_' }
+mod: { name: '--', val: '_' }
 });
 
 var obj = {
-  block: 'block',
-  modName: 'mod',
-  modVal: 'val'
+block: 'block',
+modName: 'mod',
+modVal: 'val'
 };
 
 myNaming.stringify(obj); // 'block--mod_val'
@@ -400,7 +411,7 @@ var bemNaming = require('bem-naming');
 var myNaming = bemNaming({ mod: '--' });
 
 ['block__elem', 'block--mod'].map(myNaming.parse); // The `parse` function requires context of `myNaming` object.
-                                                   // To correct work Usage of bind (myNaming.parse.bind(myNaming)) // was necessary.
+                                                 // To correct work Usage of bind (myNaming.parse.bind(myNaming)) // was necessary.
 ```
 
 - `this` was used instead of global object. ([#86]).
@@ -433,7 +444,7 @@ It will be easier to check for an empty string than use `try..catch`.
 
 ```js
 try {
-    var str = bemNaming.stringify({ elem: 'elem' });
+  var str = bemNaming.stringify({ elem: 'elem' });
 } catch(e) { /* ... */ }
 ```
 
@@ -443,7 +454,7 @@ try {
 var str = bemNaming.stringify({ elem: 'elem' });
 
 if (str) {
-    /* ... */
+  /* ... */
 }
 ```
 
