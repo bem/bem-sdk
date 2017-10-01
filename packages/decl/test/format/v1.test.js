@@ -283,4 +283,11 @@ describe('format.v1', () => {
 
         expect(format(input, { format: 'v1' })).to.deep.equal(output);
     });
+
+    it('should not throw on errored data. issue 230', () => {
+        const input = [null];
+        const output = [];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
 });

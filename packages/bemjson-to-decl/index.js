@@ -23,7 +23,7 @@ function getEntities(bemjson, ctx) {
             return deps;
         }
 
-        if (typeof bemjson_ !== 'object') {
+        if (!bemjson_ || typeof bemjson_ !== 'object') {
             return;
         }
 
