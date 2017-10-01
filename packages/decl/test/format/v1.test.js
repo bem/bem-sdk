@@ -49,12 +49,12 @@ describe('format.v1', () => {
     it('must group vals of mods block', () => {
         const input = cellify([
             { block: 'block1' },
-            { block: 'block1', modName: 'mod1', modVal: true },
+            { block: 'block1', modName: 'mod1', modVal: 'val0' },
             { block: 'block1', modName: 'mod1', modVal: 'val1' }
         ]);
         const output = [{
             name: 'block1',
-            mods: [{ name: 'mod1', vals: [{ name: true }, { name: 'val1' }] }]
+            mods: [{ name: 'mod1', vals: [{ name: 'val0' }, { name: 'val1' }] }]
         }];
 
         expect(format(input, { format: 'v1' })).to.deep.equal(output);
@@ -287,6 +287,68 @@ describe('format.v1', () => {
     it('should not throw on errored data. issue 230', () => {
         const input = [null];
         const output = [];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
+
+    it('should not add separate true mod value', () => {
+        const input = cellify([
+            { block: 'b1', mod: 'm1', val: true },
+            { block: 'b1', mod: 'm1', val: 'v1' }
+        ]);
+        const output = [{
+            name: 'b1',
+            mods: [{
+                name: 'm1',
+                vals: [{ name: 'v1' }]
+            }]
+        }];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
+
+    it('should not add mod values if val is true', () => {
+        const input = cellify([
+            { block: 'b1', mod: 'm1', val: true }
+        ]);
+        const output = [{
+            name: 'b1',
+            mods: [{
+                name: 'm1',
+                vals: []
+            }]
+        }];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
+
+    it('should not skip value 0', () => {
+        const input = cellify([
+            { block: 'b1', mod: 'm1', val: 0 }
+        ]);
+        const output = [{
+            name: 'b1',
+            mods: [{
+                name: 'm1',
+                vals: [{ name: '0' }]
+            }]
+        }];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
+
+    it('should not add mod value true if there are other values', () => {
+        const input = cellify([
+            { block: 'b1', mod: 'm1', val: true },
+            { block: 'b1', mod: 'm1', val: 'not-true' }
+        ]);
+        const output = [{
+            name: 'b1',
+            mods: [{
+                name: 'm1',
+                vals: [{ name: 'not-true' }]
+            }]
+        }];
 
         expect(format(input, { format: 'v1' })).to.deep.equal(output);
     });

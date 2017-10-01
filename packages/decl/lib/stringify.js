@@ -13,7 +13,7 @@ const DEFAULTS = { exportType: 'json', space: 4 };
 // which called from parse method.
 const fieldByFormat = {
     v1: 'blocks',
-    enb: 'decl',
+    enb: 'deps',
     v2: 'deps'
 };
 
