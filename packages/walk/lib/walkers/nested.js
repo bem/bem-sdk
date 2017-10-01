@@ -103,7 +103,7 @@ class LevelWalker {
                         cell: {
                             block: blockname,
                             tech: tech,
-                            layer: this.levelpath // ?
+                            layer: null
                         },
                         level: this.levelpath,
                         path: filename
@@ -149,7 +149,7 @@ class LevelWalker {
                         layer: null
                     },
                     level: this.levelpath,
-                    path: this.levelpath
+                    path: item.path
                 }));
             }
 

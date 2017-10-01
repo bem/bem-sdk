@@ -37,12 +37,12 @@ test('should support several schemes', t => {
             const file2 = files[1];
 
             t.deepEqual(file1.cell.entity.valueOf(), { block: 'block' });
-            t.is(file1.cell.layer, 'flat.blocks');
+            t.is(file1.level, 'flat.blocks');
             t.is(file1.cell.tech, 'tech');
             t.is(file1.path, path.join('flat.blocks', 'block.tech'));
 
             t.deepEqual(file2.cell.entity.valueOf(), { block: 'block' });
-            t.is(file2.cell.layer, 'nested.blocks');
+            t.is(file2.level, 'nested.blocks');
             t.is(file2.cell.tech, 'tech');
             t.is(file2.path, path.join('nested.blocks', 'block', 'block.tech'));
         });

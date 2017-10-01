@@ -36,7 +36,7 @@ module.exports = (info, add, callback) => {
                     cell: {
                         entity: entity,
                         tech: basename.substring(dotIndex + 1),
-                        layer: levelpath
+                        layer: null
                     },
                     level: levelpath,
                     path: path.join(levelpath, basename)
