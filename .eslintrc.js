@@ -18,14 +18,15 @@ module.exports = {
             env: { mocha: true },
             globals: { 'utils': true },
             rules: {
-                'no-unused-expressions': 'no'
+                'no-unused-expressions': 0
             }
         },
         {
             files: ['*.spec.js'],
             globals: { 'lib': true, 'utils': true },
             rules: {
-                'no-unexpected-multiline': 'no'
+                'no-unexpected-multiline': 'no',
+                'no-unused-expressions': 0
             }
         },
         {

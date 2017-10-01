@@ -1,59 +1,64 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const BemGraph = lib.BemGraph;
-const findIndex = utils.findIndex;
+const expect = require('chai').expect;
 
-test('should prioritise ordered dependency over decl recommended ordering', t => {
-    const graph = new BemGraph();
+const BemGraph = require('../../lib').BemGraph;
+const findIndex = require('../../lib/test-utils').findIndex;
 
-    graph
-        .vertex({ block: 'A' })
-        .dependsOn({ block: 'B' });
+describe('ordering-priority/ordered-vs-unordered', () => {
+    it('should prioritise ordered dependency over decl recommended ordering', () => {
+        const graph = new BemGraph();
 
-    const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
-    const indexA = findIndex(decl, { entity: { block: 'A' } });
-    const indexB = findIndex(decl, { entity: { block: 'B' } });
+        graph
+            .vertex({ block: 'A' })
+            .dependsOn({ block: 'B' });
 
-    t.true(indexB < indexA);
-});
+        const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
+        const indexA = findIndex(decl, { entity: { block: 'A' } });
+        const indexB = findIndex(decl, { entity: { block: 'B' } });
 
-test('should prioritise ordered dependency over deps recommended ordering', t => {
-    const graph = new BemGraph();
+        expect(indexB < indexA).to.be.true;
+    });
 
-    graph
-        .vertex({ block: 'A' })
-        .linkWith({ block: 'B' })
-        .dependsOn({ block: 'C' });
+    it('should prioritise ordered dependency over deps recommended ordering', () => {
+        const graph = new BemGraph();
 
-    const decl = graph.dependenciesOf({ block: 'A' });
-    const indexB = findIndex(decl, { entity: { block: 'B' } });
-    const indexC = findIndex(decl, { entity: { block: 'C' } });
+        graph
+            .vertex({ block: 'A' })
+            .linkWith({ block: 'B' })
+            .dependsOn({ block: 'C' });
 
-    t.true(indexC < indexB);
-});
+        const decl = graph.dependenciesOf({ block: 'A' });
+        const indexB = findIndex(decl, { entity: { block: 'B' } });
+        const indexC = findIndex(decl, { entity: { block: 'C' } });
 
-// TODO: NADO STREMITSYA CHTOBY DECLARATSIA BYLA POVYSHE
-test.failing('should resolve ordered dependencies independently of unordered dependency of declaration entity', t => {
-    const graph = new BemGraph();
+        expect(indexC < indexB).to.be.true;
+    });
 
-    graph
-        .vertex({ block: 'A' })
-        .linkWith({ block: 'B' })
-        .linkWith({ block: 'C' });
+    // TODO: NADO STREMITSYA CHTOBY DECLARATSIA BYLA POVYSHE
+    it.skip('should resolve ordered dependencies independently of unordered dependency of declaration entity', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'C' })
-        .dependsOn({ block: 'D' });
+        graph
+            .vertex({ block: 'A' })
+            .linkWith({ block: 'B' })
+            .linkWith({ block: 'C' });
 
-    const decl = graph.dependenciesOf({ block: 'A' });
+        graph
+            .vertex({ block: 'C' })
+            .dependsOn({ block: 'D' });
 
-    t.deepEqual(decl, [
-        { entity: { block: 'A' } },
-        { entity: { block: 'B' } },
+        const decl = graph.dependenciesOf({ block: 'A' });
 
-        { entity: { block: 'D' } },
-        { entity: { block: 'C' } }
-    ]);
+        expect(decl).to.deep.equal([
+            { entity: { block: 'A' } },
+            { entity: { block: 'B' } },
+
+            { entity: { block: 'D' } },
+            { entity: { block: 'C' } }
+        ]);
+    });
 });

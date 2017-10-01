@@ -1,23 +1,29 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const BemGraph = lib.BemGraph;
+const expect = require('chai').expect;
 
-test('should not throw error if detected ordered loop broken in the middle by unordered dependency', t => {
-    const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'A' })
-        .dependsOn({ block: 'B' });
+const BemGraph = require('../../lib').BemGraph;
 
-    graph
-        .vertex({ block: 'B' })
-        .linkWith({ block: 'C' });
+describe('loops/broken-loops', () => {
+    it('should not throw error if detected ordered loop broken in the middle by unordered dependency', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'C' })
-        .dependsOn({ block: 'A' });
+        graph
+            .vertex({ block: 'A' })
+            .dependsOn({ block: 'B' });
 
-    t.notThrows(() => graph.dependenciesOf({ block: 'A' }));
+        graph
+            .vertex({ block: 'B' })
+            .linkWith({ block: 'C' });
+
+        graph
+            .vertex({ block: 'C' })
+            .dependsOn({ block: 'A' });
+
+        expect(() => graph.dependenciesOf({ block: 'A' })).to.not.throw();
+    });
 });

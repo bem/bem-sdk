@@ -2,6 +2,11 @@
 
 const VertexSet = require('./vertex-set');
 
+/**
+ * Направленый граф
+ *
+ * @type {module.DirectedGraph}
+ */
 module.exports = class DirectedGraph {
     constructor() {
         this._vertices = new VertexSet();

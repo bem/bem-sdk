@@ -1,108 +1,113 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const BemGraph = lib.BemGraph;
+const expect = require('chai').expect;
 
-test('should throw error if detected ordered loop between same techs', t => {
-    const graph = new BemGraph();
+const BemGraph = require('../../lib').BemGraph;
 
-    graph
-        .vertex({ block: 'A' }, 'css')
-        .dependsOn({ block: 'B' }, 'css');
+describe('loops/tech-loops', () => {
+    it('should throw error if detected ordered loop between same techs', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' }, 'css')
-        .dependsOn({ block: 'A' }, 'css');
+        graph
+            .vertex({ block: 'A' }, 'css')
+            .dependsOn({ block: 'B' }, 'css');
 
-    t.plan(1);
+        graph
+            .vertex({ block: 'B' }, 'css')
+            .dependsOn({ block: 'A' }, 'css');
 
-    try {
-        graph.dependenciesOf({ block: 'A' }, 'css');
-    } catch (error) {
-        t.deepEqual(error.loop, [
-            { entity: { block: 'A' } },
-            { entity: { block: 'B' }, tech: 'css' },
-            { entity: { block: 'A' }, tech: 'css' },
-            { entity: { block: 'B' }, tech: 'css' }
-        ]);
-    }
-});
+        expect(() => graph.dependenciesOf({ block: 'A' }, 'css')).to.throw();
 
-test('should not throw error if detected loop between different techs', t => {
-    const graph = new BemGraph();
+        try {
+            graph.dependenciesOf({ block: 'A' }, 'css');
+        } catch (error) {
+            expect(error.loop).to.deep.equal([
+                { entity: { block: 'A' } },
+                { entity: { block: 'B' }, tech: 'css' },
+                { entity: { block: 'A' }, tech: 'css' },
+                { entity: { block: 'B' }, tech: 'css' }
+            ]);
+        }
+    });
 
-    graph
-        .vertex({ block: 'A' }, 'js')
-        .dependsOn({ block: 'B' }, 'bemhtml');
+    it('should not throw error if detected loop between different techs', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' }, 'js')
-        .dependsOn({ block: 'A' }, 'bemhtml');
+        graph
+            .vertex({ block: 'A' }, 'js')
+            .dependsOn({ block: 'B' }, 'bemhtml');
 
-    t.notThrows(() => graph.dependenciesOf({ block: 'A' }, 'js'));
-});
+        graph
+            .vertex({ block: 'B' }, 'js')
+            .dependsOn({ block: 'A' }, 'bemhtml');
 
-test('should throw error if detected loop between common and specific techs', t => {
-    const graph = new BemGraph();
+        expect(() => graph.dependenciesOf({ block: 'A' }, 'js')).to.not.throw();
+    });
 
-    graph
-        .vertex({ block: 'A' })
-        .dependsOn({ block: 'B' });
+    it('should throw error if detected loop between common and specific techs', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' })
-        .dependsOn({ block: 'A' }, 'css');
+        graph
+            .vertex({ block: 'A' })
+            .dependsOn({ block: 'B' });
 
-    t.plan(1);
+        graph
+            .vertex({ block: 'B' })
+            .dependsOn({ block: 'A' }, 'css');
 
-    try {
-        graph.dependenciesOf({ block: 'A' });
-    } catch (error) {
-        t.deepEqual(error.loop, [
-            { entity: { block: 'A' } },
-            { entity: { block: 'B' } },
-            { entity: { block: 'A' }, tech: 'css' },
-            { entity: { block: 'B' } }
-        ]);
-    }
-});
+        expect(() => graph.dependenciesOf({ block: 'A' }));
 
-test('should throw error if detected loop between common and other techs', t => {
-    const graph = new BemGraph();
+        try {
+            graph.dependenciesOf({ block: 'A' });
+        } catch (error) {
+            expect(error.loop).to.deep.equal([
+                { entity: { block: 'A' } },
+                { entity: { block: 'B' } },
+                { entity: { block: 'A' }, tech: 'css' },
+                { entity: { block: 'B' } }
+            ]);
+        }
+    });
 
-    graph
-        .vertex({ block: 'A' })
-        .dependsOn({ block: 'B' });
+    it('should throw error if detected loop between common and other techs', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' })
-        .dependsOn({ block: 'A' }, 'css');
+        graph
+            .vertex({ block: 'A' })
+            .dependsOn({ block: 'B' });
 
-    t.plan(1);
+        graph
+            .vertex({ block: 'B' })
+            .dependsOn({ block: 'A' }, 'css');
 
-    try {
-        graph.dependenciesOf({ block: 'A' }, 'css');
-    } catch (error) {
-        t.deepEqual(error.loop, [
-            { entity: { block: 'A' } },
-            { entity: { block: 'B' } },
-            { entity: { block: 'A' }, tech: 'css' },
-            { entity: { block: 'B' } }
-        ]);
-    }
-});
+        expect(() => graph.dependenciesOf({ block: 'A' }, 'css'));
 
-test('should not throw error if detected loop on itself with other tech', t => {
-    const graph = new BemGraph();
+        try {
+            graph.dependenciesOf({ block: 'A' }, 'css');
+        } catch (error) {
+            expect(error.loop).to.deep.equal([
+                { entity: { block: 'A' } },
+                { entity: { block: 'B' } },
+                { entity: { block: 'A' }, tech: 'css' },
+                { entity: { block: 'B' } }
+            ]);
+        }
+    });
 
-    graph
-        .vertex({ block: 'A' }, 'css')
-        .dependsOn({ block: 'A' }, 'js');
+    it('should not throw error if detected loop on itself with other tech', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'A' })
-        .linkWith({ block: 'A' }, 'css');
+        graph
+            .vertex({ block: 'A' }, 'css')
+            .dependsOn({ block: 'A' }, 'js');
 
-    t.notThrows(() => graph.dependenciesOf({ block: 'A' }, 'css'));
+        graph
+            .vertex({ block: 'A' })
+            .linkWith({ block: 'A' }, 'css');
+
+        expect(() => graph.dependenciesOf({ block: 'A' }, 'css')).to.not.throw();
+    });
 });

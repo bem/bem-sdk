@@ -1,57 +1,64 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const BemGraph = lib.BemGraph;
+const expect = require('chai').expect;
 
-test('should not throw error if detected unordered direct loop', t => {
-    const graph = new BemGraph();
+const BemGraph = require('../../lib').BemGraph;
 
-    graph
-        .vertex({ block: 'A' })
-        .linkWith({ block: 'B' });
+describe('loops/direct-loops', () => {
+    it('should not throw error if detected unordered direct loop', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' })
-        .linkWith({ block: 'A' });
+        graph
+            .vertex({ block: 'A' })
+            .linkWith({ block: 'B' });
 
-    t.notThrows(() => graph.dependenciesOf({ block: 'A' }));
-});
+        graph
+            .vertex({ block: 'B' })
+            .linkWith({ block: 'A' });
 
-test('should not throw error if detected unordered direct loop with ordered part', t => {
-    const graph = new BemGraph();
+        expect(() => graph.dependenciesOf({ block: 'A' })).to.not.throw();
+    });
 
-    graph
-        .vertex({ block: 'A' })
-        .linkWith({ block: 'B' });
+    it('should not throw error if detected unordered direct loop with ordered part', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' })
-        .dependsOn({ block: 'A' });
+        graph
+            .vertex({ block: 'A' })
+            .linkWith({ block: 'B' });
 
-    t.notThrows(() => graph.dependenciesOf({ block: 'A' }));
-});
+        graph
+            .vertex({ block: 'B' })
+            .dependsOn({ block: 'A' });
 
-test('should throw error if detected ordered direct loop', t => {
-    const graph = new BemGraph();
+        expect(() => graph.dependenciesOf({ block: 'A' })).to.not.throw();
+    });
 
-    graph
-        .vertex({ block: 'A' })
-        .dependsOn({ block: 'B' });
+    it('should throw error if detected ordered direct loop', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' })
-        .dependsOn({ block: 'A' });
+        graph
+            .vertex({ block: 'A' })
+            .dependsOn({ block: 'B' });
 
-    t.plan(1);
+        graph
+            .vertex({ block: 'B' })
+            .dependsOn({ block: 'A' });
 
-    try {
-        graph.dependenciesOf({ block: 'A' });
-    } catch (error) {
-        t.deepEqual(error.loop, [
-            { entity: { block: 'A' } },
-            { entity: { block: 'B' } },
-            { entity: { block: 'A' } }
-        ]);
-    }
+        const exceptionRun = () => graph.dependenciesOf({ block: 'A' });
+
+        expect(exceptionRun).to.throw();
+
+        try {
+            graph.dependenciesOf({ block: 'A' });
+        } catch (error) {
+            expect(error.loop).to.deep.equal([
+                { entity: { block: 'A' } },
+                { entity: { block: 'B' } },
+                { entity: { block: 'A' } }
+            ]);
+        }
+    });
 });

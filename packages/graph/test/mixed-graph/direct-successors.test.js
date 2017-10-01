@@ -1,102 +1,108 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 
 const MixedGraph = require('../../lib/mixed-graph');
 
-const createVertex = utils.createVertex;
+const createVertex = require('../../lib/test-utils').createVertex;
 
-test('should return empty set if no successors', t => {
-    const graph = new MixedGraph();
-    const vertex = createVertex({ block: 'button' });
+describe('mixed-graph/direct-successors', () => {
+    it('should return empty set if no successors', () => {
+        const graph = new MixedGraph();
+        const vertex = createVertex({ block: 'button' });
 
-    const successors = graph.directSuccessors(vertex);
+        const successors = graph.directSuccessors(vertex);
 
-    t.deepEqual(Array.from(successors), []);
-});
+        expect(Array.from(successors)).to.deep.equal([]);
+    });
 
-test('should return successors for unordered graph', t => {
-    const graph = new MixedGraph();
-    const vertex1 = createVertex({ block: 'button' });
-    const vertex2 = createVertex({ block: 'control' });
+    it('should return successors for unordered graph', () => {
+        const graph = new MixedGraph();
+        const vertex1 = createVertex({ block: 'button' });
+        const vertex2 = createVertex({ block: 'control' });
 
-    graph.addEdge(vertex1, vertex2);
+        graph.addEdge(vertex1, vertex2);
 
-    const successors = graph.directSuccessors(vertex1);
+        const successors = graph.directSuccessors(vertex1);
 
-    t.deepEqual(Array.from(successors), [vertex2]);
-});
+        expect(Array.from(successors)).to.deep.equal([vertex2]);
+    });
 
-test('should return successors for ordered graph', t => {
-    const graph = new MixedGraph();
-    const vertex1 = createVertex({ block: 'button' });
-    const vertex2 = createVertex({ block: 'control' });
+    it('should return successors for ordered graph', () => {
+        const graph = new MixedGraph();
+        const vertex1 = createVertex({ block: 'button' });
+        const vertex2 = createVertex({ block: 'control' });
 
-    graph.addEdge(vertex1, vertex2, { ordered: true });
+        graph.addEdge(vertex1, vertex2, { ordered: true });
 
-    const successors = graph.directSuccessors(vertex1, { ordered: true });
+        const successors = graph.directSuccessors(vertex1, { ordered: true });
 
-    t.deepEqual(Array.from(successors), [vertex2]);
-});
+        expect(Array.from(successors)).to.deep.equal([vertex2]);
+    });
 
-test('should return successors for mixed one-level graph', t => {
-    const graph = new MixedGraph();
-    const vertex1 = createVertex({ block: 'button' });
-    const vertex2 = createVertex({ block: 'control' });
-    const vertex3 = createVertex({ block: 'icon' });
+    it('should return successors for mixed one-level graph', () => {
+        const graph = new MixedGraph();
+        const vertex1 = createVertex({ block: 'button' });
+        const vertex2 = createVertex({ block: 'control' });
+        const vertex3 = createVertex({ block: 'icon' });
 
-    graph.addEdge(vertex1, vertex2);
-    graph.addEdge(vertex1, vertex3, { ordered: true });
+        graph.addEdge(vertex1, vertex2);
+        graph.addEdge(vertex1, vertex3, { ordered: true });
 
-    const successors = graph.directSuccessors(vertex1);
+        const successors = graph.directSuccessors(vertex1);
 
-    t.deepEqual(Array.from(successors), [vertex2]);
+        expect(Array.from(successors)).to.deep.equal([vertex2]);
 
-    const successors2 = graph.directSuccessors(vertex1, { ordered: true });
+        const successors2 = graph.directSuccessors(vertex1, { ordered: true });
 
-    t.deepEqual(Array.from(successors2), [vertex3]);
-});
+        expect(Array.from(successors2)).to.deep.equal([vertex3]);
+    });
 
-test('should return successors for mixed one-level graph (ordered first)', t => {
-    const graph = new MixedGraph();
-    const vertex1 = createVertex({ block: 'button' });
-    const vertex2 = createVertex({ block: 'control' });
-    const vertex3 = createVertex({ block: 'icon' });
+    it('should return successors for mixed one-level graph (ordered first)', () => {
+        const graph = new MixedGraph();
+        const vertex1 = createVertex({ block: 'button' });
+        const vertex2 = createVertex({ block: 'control' });
+        const vertex3 = createVertex({ block: 'icon' });
 
-    graph.addEdge(vertex1, vertex2, { ordered: true });
-    graph.addEdge(vertex1, vertex3);
+        graph.addEdge(vertex1, vertex2, { ordered: true });
+        graph.addEdge(vertex1, vertex3);
 
-    const successors = graph.directSuccessors(vertex1);
+        const successors = graph.directSuccessors(vertex1);
 
-    t.deepEqual(Array.from(successors), [vertex3]);
+        expect(Array.from(successors)).to.deep.equal([vertex3]);
 
-    const successors2 = graph.directSuccessors(vertex1, { ordered: true });
+        const successors2 = graph.directSuccessors(vertex1, { ordered: true });
 
-    t.deepEqual(Array.from(successors2), [vertex2]);
-});
+        expect(Array.from(successors2)).to.deep.equal([vertex2]);
+    });
 
-test('should return successors with tech', t => {
-    const graph = new MixedGraph();
-    const vertex1 = createVertex({ block: 'attach' });
-    const vertex2 = createVertex({ block: 'button' });
-    const vertex3 = createVertex({ block: 'button' }, 'css');
+    it('should return successors with tech', () => {
+        const graph = new MixedGraph();
+        const vertex1 = createVertex({ block: 'attach' });
+        const vertex2 = createVertex({ block: 'button' });
+        const vertex3 = createVertex({ block: 'button' }, 'css');
 
-    graph.addEdge(vertex1, vertex2);
-    graph.addEdge(vertex1, vertex3);
+        graph.addEdge(vertex1, vertex2);
+        graph.addEdge(vertex1, vertex3);
 
-    const successors = graph.directSuccessors(vertex1);
+        const successors = graph.directSuccessors(vertex1);
 
-    t.deepEqual(Array.from(successors), [vertex2, vertex3]);
-});
+        expect(Array.from(successors)).to.deep.equal([vertex2, vertex3]);
+    });
 
-test('should return successors for mixed one-level  graph (ordered first)', t => {
-    const graph = new MixedGraph();
-    const vertex1 = createVertex({ block: 'attach' }, 'css');
-    const vertex2 = createVertex({ block: 'button' });
+    it('should return successors for mixed one-level  graph (ordered first)', () => {
+        const graph = new MixedGraph();
+        const vertex1 = createVertex({ block: 'attach' }, 'css');
+        const vertex2 = createVertex({ block: 'button' });
 
-    graph.addEdge(vertex1, vertex2);
+        graph.addEdge(vertex1, vertex2);
 
-    const successors = graph.directSuccessors(vertex1, { tech: 'css' });
+        const successors = graph.directSuccessors(vertex1, { tech: 'css' });
 
-    t.deepEqual(Array.from(successors), [vertex2]);
+        expect(Array.from(successors)).to.deep.equal([vertex2]);
+    });
 });

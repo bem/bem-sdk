@@ -1,67 +1,72 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const findIndex = utils.findIndex;
+const expect = require('chai').expect;
 
-test('should not find non existing block', t => {
-    const decl = [{ entity: { block: 'block' } }];
+const findIndex = require('../../lib/test-utils').findIndex;
 
-    t.is(findIndex(decl, { entity: { block: 'other-block' } }), -1);
-});
+describe('utils/find-index', () => {
+    it('should not find non existing block', () => {
+        const decl = [{ entity: { block: 'block' } }];
 
-test('should not find non bem block', t => {
-    t.is(findIndex(['string'], 'string'), -1);
-});
+        expect(findIndex(decl, { entity: { block: 'other-block' } })).to.equal(-1);
+    });
 
-test('should find block', t => {
-    const entity = { entity: { block: 'block' } };
-    const decl = [entity];
+    it('should not find non bem block', () => {
+        expect(findIndex(['string'], 'string')).to.equal(-1);
+    });
 
-    t.is(findIndex(decl, entity), 0);
-});
+    it('should find block', () => {
+        const entity = { entity: { block: 'block' } };
+        const decl = [entity];
 
-test('should find modifier of block', t => {
-    const entity = { entity:{ block: 'block', modName: 'mod', modVal: 'val' } };
-    const decl = [entity];
+        expect(findIndex(decl, entity)).to.equal(0);
+    });
 
-    t.is(findIndex(decl, entity), 0);
-});
+    it('should find modifier of block', () => {
+        const entity = { entity: { block: 'block', modName: 'mod', modVal: 'val' } };
+        const decl = [entity];
 
-test('should find element', t => {
-    const entity = { entity: { block: 'block', elem: 'elem' } };
-    const decl = [entity];
+        expect(findIndex(decl, entity)).to.equal(0);
+    });
 
-    t.is(findIndex(decl, entity), 0);
-});
+    it('should find element', () => {
+        const entity = { entity: { block: 'block', elem: 'elem' } };
+        const decl = [entity];
 
-test('should find modifier of element', t => {
-    const entity = { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' } };
-    const decl = [entity];
+        expect(findIndex(decl, entity)).to.equal(0);
+    });
 
-    t.is(findIndex(decl, entity), 0);
-});
+    it('should find modifier of element', () => {
+        const entity = { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' } };
+        const decl = [entity];
 
-test('should find equal entity', t => {
-    const decl = [
-        { entity: { block: 'other-block' } },
-        { entity: { block: 'block' } },
-        { entity: { block: 'other-block' } }
-    ];
+        expect(findIndex(decl, entity)).to.equal(0);
+    });
 
-    t.is(findIndex(decl, { entity: { block: 'block' } }), 1);
-});
+    it('should find equal entity', () => {
+        const decl = [
+            { entity: { block: 'other-block' } },
+            { entity: { block: 'block' } },
+            { entity: { block: 'other-block' } }
+        ];
 
-test('should find equal entity by other object', t => {
-    t.is(findIndex([{ entity: { block: 'block' } }], { entity: { block: 'block' } }), 0);
-});
+        expect(findIndex(decl, { entity: { block: 'block' } })).to.equal(1);
+    });
 
-test('should find first equal entity', t => {
-    const decl = [
-        { entity: { block: 'block' } },
-        { entity: { block: 'other-block' } },
-        { entity: { block: 'block' } }
-    ];
+    it('should find equal entity by other object', () => {
+        expect(findIndex([{ entity: { block: 'block' } }], { entity: { block: 'block' } })).to.equal(0);
+    });
 
-    t.is(findIndex(decl, { entity: { block: 'block' } }), 0);
+    it('should find first equal entity', () => {
+        const decl = [
+            { entity: { block: 'block' } },
+            { entity: { block: 'other-block' } },
+            { entity: { block: 'block' } }
+        ];
+
+        expect(findIndex(decl, { entity: { block: 'block' } })).to.equal(0);
+    });
 });

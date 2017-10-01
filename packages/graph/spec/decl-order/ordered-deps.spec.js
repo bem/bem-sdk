@@ -1,40 +1,46 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const BemGraph = lib.BemGraph;
-const findIndex = utils.findIndex;
+const expect = require('chai').expect;
 
-test('should place ordered entity from decl before several entities depending on it', t => {
-    const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'A' })
-        .dependsOn({ block: 'C' });
+const BemGraph = require('../../lib').BemGraph;
+const findIndex = require('../../lib/test-utils').findIndex;
 
-    graph
-        .vertex({ block: 'B' })
-        .dependsOn({ block: 'C' });
+describe('decl-order/ordered-deps', () => {
+    it('should place ordered entity from decl before several entities depending on it', () => {
+        const graph = new BemGraph();
 
-    const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
+        graph
+            .vertex({ block: 'A' })
+            .dependsOn({ block: 'C' });
 
-    const indexA = findIndex(decl, { entity: { block: 'A' } });
-    const indexB = findIndex(decl, { entity: { block: 'B' } });
+        graph
+            .vertex({ block: 'B' })
+            .dependsOn({ block: 'C' });
 
-    t.true(indexA < indexB);
-});
+        const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
 
-test('should keep decl ordering for entities unaffected by ordering', t => {
-    const graph = new BemGraph();
+        const indexA = findIndex(decl, { entity: { block: 'A' } });
+        const indexB = findIndex(decl, { entity: { block: 'B' } });
 
-    graph
-        .vertex({ block: 'B' })
-        .dependsOn({ block: 'A' });
+        expect(indexA < indexB).to.be.true;
+    });
 
-    const decl = graph.dependenciesOf([{ block: 'B' }, { block: 'C' }]);
+    it('should keep decl ordering for entities unaffected by ordering', () => {
+        const graph = new BemGraph();
 
-    const indexB = findIndex(decl, { entity: { block: 'B' } });
-    const indexC = findIndex(decl, { entity: { block: 'C' } });
+        graph
+            .vertex({ block: 'B' })
+            .dependsOn({ block: 'A' });
 
-    t.true(indexB < indexC);
+        const decl = graph.dependenciesOf([{ block: 'B' }, { block: 'C' }]);
+
+        const indexB = findIndex(decl, { entity: { block: 'B' } });
+        const indexC = findIndex(decl, { entity: { block: 'C' } });
+
+        expect(indexB < indexC).to.be.true;
+    });
 });
