@@ -73,54 +73,106 @@ describe('async', () => {
     });
 
     // level()
+    // it('should return undefined if no levels in config', () => {
+    //     const bemConfig = config();
+
+    //     return expect(bemConfig().level('l1')).to.eventually.equal(
+    //         undefined
+    //     );
+    // });
+
     it('should return undefined if no levels in config', () => {
         const bemConfig = config();
 
-        return expect(bemConfig().level('l1')).to.eventually.equal(
+        return expect(bemConfig().level({ layer: 'common' })).to.eventually.equal(
             undefined
         );
     });
+
+    // it('should return undefined if no level found', () => {
+    //     const bemConfig = config([{
+    //         levels: [
+    //             { path: 'l1', some: 'conf' }
+    //         ]
+    //     }]);
+
+    //     return expect(bemConfig().level('l2')).to.eventually.equal(
+    //         undefined
+    //     );
+    // });
 
     it('should return undefined if no level found', () => {
         const bemConfig = config([{
             levels: [
-                { path: 'l1', some: 'conf' }
+                { layer: 'desktop', some: 'conf' }
             ]
         }]);
 
-        return expect(bemConfig().level('l2')).to.eventually.equal(
+        return expect(bemConfig().level({ layer: 'common' })).to.eventually.equal(
             undefined
         );
     });
 
+    // it('should return level if no __source provided', () => {
+    //     const bemConfig = config([{
+    //         levels: [
+    //             { path: 'path/to/level', test: 1 }
+    //         ],
+    //         something: 'else'
+    //     }]);
+
+    //     return expect(bemConfig().level('path/to/level')).to.eventually.deep.equal(
+    //         { test: 1, something: 'else' }
+    //     );
+    // });
+
     it('should return level if no __source provided', () => {
         const bemConfig = config([{
             levels: [
-                { path: 'path/to/level', test: 1 }
+                { layer: 'common', test: 1 }
             ],
             something: 'else'
         }]);
 
-        return expect(bemConfig().level('path/to/level')).to.eventually.deep.equal(
-            { test: 1, something: 'else' }
-        );
+        return expect(bemConfig().level({ layer: 'common' })).to.eventually.deep.equal({
+            layer: 'common',
+            test: 1,
+            something: 'else'
+        });
     });
+
+    // it('should return level with __source', () => {
+    //     const bemConfig = config([{
+    //         levels: [
+    //             { path: 'path/to/level', test: 1 }
+    //         ],
+    //         something: 'else',
+    //         __source: path.join(process.cwd(), path.basename(__filename))
+    //     }]);
+
+    //     return expect(bemConfig().level('path/to/level')).to.eventually.deep.equal(
+    //         { test: 1, something: 'else' }
+    //     );
+    // });
 
     it('should return level with __source', () => {
         const bemConfig = config([{
             levels: [
-                { path: 'path/to/level', test: 1 }
+                { layer: 'common', test: 1 }
             ],
             something: 'else',
             __source: path.join(process.cwd(), path.basename(__filename))
         }]);
 
-        return expect(bemConfig().level('path/to/level')).to.eventually.deep.equal(
-            { test: 1, something: 'else' }
-        );
+        return expect(bemConfig().level({ layer: 'common' })).to.eventually.deep.equal({
+            layer: 'common',
+            test: 1,
+            something: 'else'
+        });
     });
 
-    it('should resolve wildcard levels', () => {
+    // FIXME: удалить поддержку глобов из реализации
+    it.skip('should resolve wildcard levels', () => {
         const bemConfig = config([{
             levels: [
                 { path: 'l*', test: 1 }
@@ -139,7 +191,8 @@ describe('async', () => {
         ]);
     });
 
-    it('should resolve wildcard levels with absolute path', () => {
+    // FIXME: удалить поддержку глобов из реализации
+    it.skip('should resolve wildcard levels with absolute path', () => {
         const conf = {
             levels: [],
             something: 'else'
@@ -154,7 +207,8 @@ describe('async', () => {
         );
     });
 
-    it('should return globbed levels map', () => {
+    // FIXME: удалить поддержку глобов из реализации
+    it.skip('should return globbed levels map', () => {
         const mockDir = path.resolve(__dirname, 'mocks');
         const levelPath = path.join(mockDir, 'l*');
         const levels = [{path: levelPath, some: 'conf1'}];
@@ -173,7 +227,8 @@ describe('async', () => {
         );
     });
 
-    it('should respect absolute path for level', () => {
+    // FIXME: удалить
+    it.skip('should respect absolute path for level', () => {
         const bemConfig = config([{
             levels: [
                 { path: '/path/to/level', test: 1 }
@@ -186,7 +241,8 @@ describe('async', () => {
         );
     });
 
-    it('should respect "." path', () => {
+    // FIXME: удалить
+    it.skip('should respect "." path', () => {
         const bemConfig = config([{
             levels: [
                { path:  '.', test: 1 }
@@ -199,79 +255,161 @@ describe('async', () => {
         );
     });
 
+    // it('should return extended level config merged from different configs', () => {
+    //     const bemConfig = config([{
+    //         levels: [
+    //             { path: 'level1', l1o1: 'l1v1' }
+    //         ],
+    //         common: 'value'
+    //     }, {
+    //         levels: [
+    //             { path: 'level1', l1o2: 'l1v2' }
+    //         ]
+    //     }]);
+
+    //     const expected = {
+    //         l1o1: 'l1v1',
+    //         l1o2: 'l1v2',
+    //         common: 'value'
+    //     };
+
+    //     return expect(bemConfig().level('level1')).to.eventually.deep.equal(
+    //         expected
+    //     );
+    // });
+
     it('should return extended level config merged from different configs', () => {
         const bemConfig = config([{
             levels: [
-                { path: 'level1', l1o1: 'l1v1' }
+                { layer: 'common', l1o1: 'l1v1' }
             ],
             common: 'value'
         }, {
             levels: [
-                { path: 'level1', l1o2: 'l1v2' }
+                { layer: 'common', l1o2: 'l1v2' }
             ]
         }]);
 
         const expected = {
+            layer: 'common',
             l1o1: 'l1v1',
             l1o2: 'l1v2',
             common: 'value'
         };
 
-        return expect(bemConfig().level('level1')).to.eventually.deep.equal(
+        return expect(bemConfig().level({ layer: 'common' })).to.eventually.deep.equal(
             expected
         );
     });
 
+    // it('should support legacy format for levels', () => {
+    //     const bemConfig = config([{
+    //         levels: {
+    //             level1: {
+    //                 layer: 'common',
+    //                 l1o1: 'l1v1/abc/def'
+    //             }
+    //         },
+    //         common: 'value'
+    //     }, {
+    //         levels: {
+    //             level1: {
+    //                 l1o2: 'l1v2'
+    //             }
+    //         }
+    //     }]);
+
+    //     const expected = {
+    //         layer: 'common',
+    //         l1o1: 'l1v1/abc/def',
+    //         l1o2: 'l1v2',
+    //         common: 'value'
+    //     };
+
+    //     return expect(bemConfig().level('level1')).to.eventually.deep.equal(
+    //         expected
+    //     );
+    // });
+
     it('should support legacy format for levels', () => {
         const bemConfig = config([{
             levels: {
-                level1: {
-                    l1o1: 'l1v1'
+                'common.blocks': {
+                    l1o1: 'l1v1/abc/def'
                 }
             },
             common: 'value'
         }, {
             levels: {
-                level1: {
+                'common.blocks': {
                     l1o2: 'l1v2'
                 }
             }
         }]);
 
         const expected = {
-            l1o1: 'l1v1',
+            layer: 'common',
+            l1o1: 'l1v1/abc/def',
             l1o2: 'l1v2',
-            common: 'value'
+            common: 'value',
+            scheme: 'oldschool'
         };
 
-        return expect(bemConfig().level('level1')).to.eventually.deep.equal(
+        return expect(bemConfig().level({ layer: 'common' })).to.eventually.deep.equal(
             expected
         );
     });
+
+    // it('should not extend with configs higher then root', () => {
+    //     const bemConfig = config([
+    //         {
+    //             levels: [
+    //                 { path: 'level1', l1o1: 'should not be used', l1o2: 'should not be used either' }
+    //             ]
+    //         },
+    //         {
+    //             root: true,
+    //             levels: [
+    //                 { path: 'level1', something: 'from root level', l1o1: 'should be overwritten' }
+    //             ]
+    //         },
+    //         {
+    //             levels: [
+    //                 { path: 'level1', l1o1: 'should win' }
+    //             ]
+    //         }
+    //     ]);
+
+    //     return expect(bemConfig().level('level1')).to.eventually.deep.equal(
+    //         { something: 'from root level', l1o1: 'should win' }
+    //     );
+    // });
 
     it('should not extend with configs higher then root', () => {
         const bemConfig = config([
             {
                 levels: [
-                    { path: 'level1', l1o1: 'should not be used', l1o2: 'should not be used either' }
+                    { layer: 'common', l1o1: 'should not be used', l1o2: 'should not be used either' }
                 ]
             },
             {
                 root: true,
                 levels: [
-                    { path: 'level1', something: 'from root level', l1o1: 'should be overwritten' }
+                    { layer: 'common', something: 'from root level', l1o1: 'should be overwritten' }
                 ]
             },
             {
                 levels: [
-                    { path: 'level1', l1o1: 'should win' }
+                    { layer: 'common', l1o1: 'should win' }
                 ]
             }
         ]);
 
-        return expect(bemConfig().level('level1')).to.eventually.deep.equal(
-            { something: 'from root level', l1o1: 'should win' }
-        );
+        return expect(bemConfig().level({ layer: 'common' })).to.eventually.deep.equal({
+            layer: 'common',
+            something: 'from root level',
+            l1o1: 'should win',
+        });
     });
 
     it('should use last occurrence of array option');
@@ -285,11 +423,35 @@ describe('async', () => {
         return expect(bemConfig().levelMap()).to.eventually.deep.equal({});
     });
 
+    // it('should return levels map', () => {
+    //     const pathToLib1 = path.resolve(__dirname, 'mocks', 'node_modules', 'lib1');
+    //     const bemConfig = config([{
+    //         levels: [
+    //             { path: 'l1', some: 'conf1' }
+    //         ],
+    //         libs: {
+    //             lib1: {
+    //                 path: pathToLib1,
+    //                 somethingElse: 'lib1 additional data in conf1'
+    //             }
+    //         },
+    //         __source: path.join(process.cwd(), path.basename(__filename))
+    //     }]);
+
+    //     const expected = {};
+    //     expected[path.resolve('l1')] = { path: path.resolve('l1'), some: 'conf1' };
+
+    //     // because of mocked rc, all instances of bemConfig has always the same data
+    //     return expect(bemConfig().levelMap()).to.eventually.deep.equal(
+    //         expected
+    //     );
+    // });
+
     it('should return levels map', () => {
         const pathToLib1 = path.resolve(__dirname, 'mocks', 'node_modules', 'lib1');
         const bemConfig = config([{
             levels: [
-                { path: 'l1', some: 'conf1' }
+                { layer: 'common', some: 'conf1' }
             ],
             libs: {
                 lib1: {
@@ -301,7 +463,7 @@ describe('async', () => {
         }]);
 
         const expected = {};
-        expected[path.resolve('l1')] = { path: path.resolve('l1'), some: 'conf1' };
+        expected['common.blocks'] = { layer: 'common', some: 'conf1' };
 
         // because of mocked rc, all instances of bemConfig has always the same data
         return expect(bemConfig().levelMap()).to.eventually.deep.equal(
@@ -458,6 +620,45 @@ describe('async', () => {
         }).level('path/to/level');
 
         const expected = {
+            layer: 'common',
+            test1: 1,
+            test2: 2,
+            same: 'new',
+            common: 'overriden',
+            original: 'blah',
+            extended: 'yo',
+            argv: true
+        };
+
+        return expect(actual).to.eventually.deep.equal(
+            expected
+        );
+    });
+
+    it('should respect extendedBy from rc options', () => {
+        const pathToConfig = path.resolve(__dirname, 'mocks', 'argv-conf.json');
+        const actual = notStubbedBemConfig({
+            defaults: {
+                levels: [
+                    { layer: 'common', test1: 1, same: 'initial' }
+                ],
+                common: 'initial',
+                original: 'blah'
+            },
+            extendBy: {
+                levels: [
+                    { layer: 'common', test2: 2, same: 'new' }
+                ],
+                common: 'overriden',
+                extended: 'yo'
+            },
+            pathToConfig: pathToConfig,
+            fsRoot: process.cwd(),
+            fsHome: process.cwd()
+        }).level({ layer: 'common' });
+
+        const expected = {
+            layer: 'common',
             test1: 1,
             test2: 2,
             same: 'new',
@@ -478,7 +679,11 @@ describe('async', () => {
             levels: [
                 { layer: 'common', data: '1' },
                 { layer: 'desktop', data: '2' },
-                { layer: 'touch', path: 'custom-path', data: '3' },
+                {
+                    layer: 'touch',
+                    // path: 'custom-path',
+                    data: '3'
+                },
                 { layer: 'touch-phone', data: '4' },
                 { layer: 'touch-pad', data: '5' }
             ],
@@ -494,22 +699,22 @@ describe('async', () => {
             {
                 data: '1',
                 layer: 'common',
-                path: path.resolve('common.blocks')
+                // path: path.resolve('common.blocks')
             },
             {
                 data: '2',
                 layer: 'desktop',
-                path: path.resolve('desktop.blocks')
+                // path: path.resolve('desktop.blocks')
             },
             {
                 data: '3',
                 layer: 'touch',
-                path: path.resolve('custom-path')
+                // path: path.resolve('custom-path')
             },
             {
                 data: '4',
                 layer: 'touch-phone',
-                path: path.resolve('touch-phone.blocks')
+                // path: path.resolve('touch-phone.blocks')
             }
         ];
 

@@ -35,6 +35,7 @@ function BemConfig(options) {
 BemConfig.prototype.configs = function(isSync) {
     var options = this._options,
         cwd = options.cwd,
+        plugins = options.plugins || [],
         rcOpts = {
             defaults: options.defaults && JSON.parse(JSON.stringify(options.defaults)),
             cwd: cwd,
@@ -48,11 +49,8 @@ BemConfig.prototype.configs = function(isSync) {
         rcOpts.argv = { config: options.pathToConfig };
     }
 
-    var plugins = [require('./plugins/resolve-level')].concat(options.plugins || []);
-
     if (isSync) {
-
-        var configs = extendConfigsPathByLayer(_levelAsObjectFallback(this._configs || (this._configs = rc.sync(rcOpts))));
+        var configs = _levelAsObjectFallback(this._configs || (this._configs = rc.sync(rcOpts)));
 
         this._root = getConfigsRootDir(configs);
 
@@ -66,7 +64,7 @@ BemConfig.prototype.configs = function(isSync) {
     var _this = this;
 
     return (this._configs ? Promise.resolve(this._configs) : rc(rcOpts)).then(function(cfgs) {
-        extendConfigsPathByLayer(_levelAsObjectFallback(_this._configs || (_this._configs = cfgs)));
+        _levelAsObjectFallback(_this._configs || (_this._configs = cfgs));
 
         _this._root = getConfigsRootDir(cfgs);
 
@@ -111,20 +109,20 @@ BemConfig.prototype.get = function() {
 
 /**
  * Resolves config for given level
- * @param {String} pathToLevel - level path
+ * @param {Object|String} levelPathData - uniq level id or path to level
+ * @param {String} levelPathData.layer - level layer
+ * @param {String} levelPathData.path - level path
  * @returns {Promise}
  */
-BemConfig.prototype.level = function(pathToLevel) {
+BemConfig.prototype.level = function(levelPathData) {
     var _this = this;
 
-    return this.configs()
-        .then(function(configs) {
-            return getLevelByConfigs(
-                pathToLevel,
-                _this._options,
-                configs,
-                _this._root);
-        });
+    return this.configs().then(function(configs) {
+        return getLevelByConfigs(
+            levelPathData,
+            _this._options,
+            configs);
+    });
 };
 
 /**
@@ -188,7 +186,7 @@ BemConfig.prototype.levelMap = function() {
 BemConfig.prototype.levels = function(setName) {
     var _this = this;
 
-    return this.get().then(function(config) {
+    return this.get().then(config => {
         var levels = config.levels || [],
             sets = config.sets || {};
 
@@ -213,9 +211,7 @@ BemConfig.prototype.levels = function(setName) {
                 return _this.levels(setDescription.set);
             }
 
-            var level = levels.find(lvl => {
-                return lvl.layer === setDescription.layer;
-            }) || {};
+            var level = levels.find(lvl => lvl.layer === setDescription.layer) || {};
 
             return _this.levelMap().then(levelsMap => levelsMap[getLevelPath(level)]);
         })).then(flatten);
@@ -266,8 +262,7 @@ BemConfig.prototype.levelSync = function(pathToLevel) {
     return getLevelByConfigs(
         pathToLevel,
         this._options,
-        this.configs(true),
-        this._root);
+        this.configs(true));
 };
 
 /**
@@ -364,12 +359,10 @@ function getConfigsRootDir(configs) {
     if (rootCfg) { return path.dirname(rootCfg.__source); }
 }
 
-function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
-    // FIXME: fallback, should be toggled
-    pathToLevel = getLevelPath(pathToLevel);
+function getLevelByConfigs(levelPathData, options, allConfigs) {
+    levelPathData = parseLevelPath(levelPathData);
 
-    var absLevelPath = path.resolve(root || options.cwd, pathToLevel),
-        levelOpts = {},
+    var levelOpts = {},
         commonOpts = {};
 
     for (var i = allConfigs.length - 1; i >= 0; i--) {
@@ -381,7 +374,16 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
         for (var j = 0; j < levels.length; j++) {
             var level = levels[j];
 
-            if (level === undefined || level.path !== absLevelPath) { continue; }
+            // TODO: fixme
+            if (!level.layer && levelPathData.scheme !== 'oldschool') {
+                level.layer = 'common';
+            }
+
+            if (
+                level === undefined ||
+                level.layer !== levelPathData.layer ||
+                level.path !== levelPathData.path
+            ) { continue; }
 
             // works like deep extend but overrides arrays
             levelOpts = merge({}, level, levelOpts);
@@ -400,24 +402,12 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
     return Object.keys(levelOpts).length ? levelOpts : undefined;
 }
 
-function extendConfigsPathByLayer(configs) {
-    console.warn('ALERT! extendConfigsPathByLayer is deprecated');
-
-    configs.forEach(config => {
-        config.levels && config.levels.forEach(level => {
-            level.path || (level.path = level.layer + '.blocks');
-        });
-    });
-
-    return configs;
-}
-
 function _levelAsObjectFallback(configs) {
     return configs.map(config => {
         if (config.levels && !Array.isArray(config.levels)) {
-            config.levels = Object.keys(config.levels).map(levelPath =>
-                Object.assign(config.levels[levelPath], { path: levelPath })
-            );
+            config.levels = Object.keys(config.levels).map(levelPathData => {
+                return Object.assign(config.levels[levelPathData], parseLevelPath(levelPathData));
+            });
         }
 
         return config;
@@ -445,12 +435,27 @@ function parseLevelPath(levelPath) {
     // {layer.blocks}
     // block-{layer}
     // blocks + oldSchoolScheme = 'common'
-    return {
-        // TODO:
-        // bemFile(scheme).parse(levelPath),
-        layer: path.basename(levelPath).replace('.blocks', '').replace('blocks-', ''),
-        path: path.dirname(levelPath)
-    };
+
+    // TODO:
+    // bemFile(scheme).parse(levelPath),
+
+    var basename = path.basename(levelPath),
+        isOldSchool = basename.includes('blocks'),
+        layer = isOldSchool ?
+            path.basename(levelPath).replace('.blocks', '').replace('blocks-', '') :
+            'common',
+        res = { layer },
+        dirname = isOldSchool ? path.dirname(levelPath) : levelPath;
+
+    if (dirname !== '.') {
+        res.path = dirname;
+    }
+
+    if (isOldSchool) {
+        res.scheme = 'oldschool';
+    }
+
+    return res;
 }
 
 module.exports = function(opts) {

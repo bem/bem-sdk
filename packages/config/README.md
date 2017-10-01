@@ -34,7 +34,11 @@ config.get().then(function(conf) {
 
 ```js
 const config = require('@bem/sdk.config')();
-config.level('path/to/level').then(function(levelConf) {
+config.level({ layer: 'common' }).then(function(levelConf) {
+    console.log(levelConf); // merged level config
+});
+
+config.level({ layer: 'common', path: 'node_modules/bem-core' }).then(function(levelConf) {
     console.log(levelConf); // merged level config
 });
 ```
@@ -51,17 +55,13 @@ config.library('bem-components').then(function(libConf) {
 ### levels
 ```js
 const config = require('@bem/sdk.config')();
+
+config.levels().then(allLevels) {
+    console.log(allLevels); // an array of all levels from both project and library
+}
+
 config.levels('desktop').then(function(desktopSet) {
     console.log(desktopSet); // an array of levels configs for desktop set
-});
-```
-
-### levelMap
-
-```js
-const config = require('@bem/sdk.config')();
-config.levelMap().then(function(levelMap) {
-    console.log(levelMap); // all levels hash with their options
 });
 ```
 
@@ -97,8 +97,10 @@ console.log(conf); // config is a merge of CLI args + optionalConfig + all confi
 
 ```js
 const config = require('@bem/sdk.config')();
-const levelConf = config.levelSync('path/to/level');
+const levelConf = config.levelSync({ layer: 'common' });
 console.log(levelConf); // merged level config
+
+const otherLevelConf = config.levelSync({ layer: 'common', path: 'node_modules/bem-core' });
 ```
 
 ### librarySync
@@ -109,19 +111,15 @@ const libConf = config.librarySync('bem-components');
 console.log(libConf); // library config
 ```
 
-### levels
+### levelsSync
 ```js
 const config = require('@bem/sdk.config')();
+
+const allLevels = config.levels();
+console.log(allLevels); // an array of all levels from both project and library
+
 const desktopSet = config.levels('desktop');
 console.log(desktopSet); // an array of levels configs for desktop set
-```
-
-### levelMapSync
-
-```js
-const config = require('@bem/sdk.config')();
-const levelMap = config.levelMapSync();
-console.log(levelMap); // all levels hash with their options
 ```
 
 ### moduleSync
