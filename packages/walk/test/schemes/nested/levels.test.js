@@ -32,7 +32,7 @@ test('should support level name with extension', t => {
             const file = files[0];
 
             t.deepEqual(file.cell.entity.valueOf(), { block: 'block' });
-            t.is(file.cell.layer, 'name.blocks');
+            t.is(file.level, 'name.blocks');
             t.is(file.cell.tech, 'tech');
             t.is(file.path, path.join('name.blocks', 'block', 'block.tech'));
         });
@@ -65,12 +65,12 @@ test('should support few levels', t => {
             const file2 = files[1];
 
             t.deepEqual(file1.cell.entity.valueOf(), { block: 'block-1' });
-            t.is(file1.cell.layer, 'level-1');
+            t.is(file1.level, 'level-1');
             t.is(file1.cell.tech, 'tech');
             t.is(file1.path, path.join('level-1', 'block-1', 'block-1.tech'));
 
             t.deepEqual(file2.cell.entity.valueOf(), { block: 'block-2' });
-            t.is(file2.cell.layer, 'level-2');
+            t.is(file2.level, 'level-2');
             t.is(file2.cell.tech, 'tech');
             t.is(file2.path, path.join('level-2', 'block-2', 'block-2.tech'));
         });
@@ -103,12 +103,12 @@ test('should detect entity with the same name on every level', t => {
             const file2 = files[1];
 
             t.deepEqual(file1.cell.entity.valueOf(), { block: 'block' });
-            t.is(file1.cell.layer, 'level-1');
+            t.is(file1.level, 'level-1');
             t.is(file1.cell.tech, 'tech');
             t.is(file1.path, path.join('level-1', 'block', 'block.tech'));
 
             t.deepEqual(file2.cell.entity.valueOf(), { block: 'block' });
-            t.is(file2.cell.layer, 'level-2');
+            t.is(file2.level, 'level-2');
             t.is(file2.cell.tech, 'tech');
             t.is(file2.path, path.join('level-2', 'block', 'block.tech'));
         });
