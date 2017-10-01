@@ -321,4 +321,35 @@ describe('format.v1', () => {
 
         expect(format(input, { format: 'v1' })).to.deep.equal(output);
     });
+
+    it('should not skip value 0', () => {
+        const input = cellify([
+            { block: 'b1', mod: 'm1', val: 0 }
+        ]);
+        const output = [{
+            name: 'b1',
+            mods: [{
+                name: 'm1',
+                vals: [{ name: '0' }]
+            }]
+        }];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
+
+    it('should not add mod value true if there are other values', () => {
+        const input = cellify([
+            { block: 'b1', mod: 'm1', val: true },
+            { block: 'b1', mod: 'm1', val: 'not-true' }
+        ]);
+        const output = [{
+            name: 'b1',
+            mods: [{
+                name: 'm1',
+                vals: [{ name: 'not-true' }]
+            }]
+        }];
+
+        expect(format(input, { format: 'v1' })).to.deep.equal(output);
+    });
 });
