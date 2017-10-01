@@ -1,6 +1,12 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+const beforeEach = require('mocha').beforeEach;
+const afterEach = require('mocha').afterEach;
+
+const expect = require('chai').expect;
+
 const sinon = require('sinon');
 
 const BemEntityName = require('@bem/sdk.entity-name');
@@ -12,77 +18,81 @@ const DirectedGraph = require('../../lib/directed-graph');
 const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'button' }), tech: 'css' });
 const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'control' }), tech: 'css' });
 
-test.beforeEach(t => {
-    const mixedGraph = new MixedGraph();
-    const getSubgraphStub = sinon.stub(mixedGraph, '_getSubgraph');
-    const addVertexSpy = sinon.spy(mixedGraph, 'addVertex');
+describe('mixed-graph/add-edge', () => {
 
-    t.context.mixedGraph = mixedGraph;
-    t.context.getSubgraphStub = getSubgraphStub;
-    t.context.addVertexSpy = addVertexSpy;
-});
+    let context = {};
 
-test.afterEach(t => {
-    t.context.getSubgraphStub.restore();
-});
+    beforeEach(() => {
+        const mixedGraph = new MixedGraph();
+        const getSubgraphStub = sinon.stub(mixedGraph, '_getSubgraph');
+        const addVertexSpy = sinon.spy(mixedGraph, 'addVertex');
 
-test('should be chainable', t => {
-    const graph = t.context.mixedGraph;
+        context.mixedGraph = mixedGraph;
+        context.getSubgraphStub = getSubgraphStub;
+        context.addVertexSpy = addVertexSpy;
+    });
 
-    t.is(graph.addEdge(vertex1, vertex2), graph);
-});
+    afterEach(() => {
+        context.getSubgraphStub.restore();
+    });
 
-test('should add vertices', t => {
-    t.context.mixedGraph.addEdge(vertex1, vertex2);
+    it('should be chainable', () => {
+        const graph = context.mixedGraph;
 
-    t.true(t.context.addVertexSpy.calledWith(vertex1));
-    t.true(t.context.addVertexSpy.calledWith(vertex2));
-});
+        expect(graph.addEdge(vertex1, vertex2)).to.equal(graph);    });
 
-test('should add edge to subgraph', t => {
-    const directedGraph = new DirectedGraph();
-    const addEdgeSpy = sinon.spy(directedGraph, 'addEdge');
+    it('should add vertices', () => {
+        context.mixedGraph.addEdge(vertex1, vertex2);
 
-    t.context.getSubgraphStub.returns(directedGraph);
+        expect(context.addVertexSpy.calledWith(vertex1)).to.be.true;
+        expect(context.addVertexSpy.calledWith(vertex2)).to.be.true;
+    });
 
-    t.context.mixedGraph.addEdge(vertex1, vertex2);
+    it('should add edge to subgraph', () => {
+        const directedGraph = new DirectedGraph();
+        const addEdgeSpy = sinon.spy(directedGraph, 'addEdge');
 
-    t.true(addEdgeSpy.calledWith(vertex1, vertex2));
-});
+        context.getSubgraphStub.returns(directedGraph);
 
-test('should add subgraph to unordered map', t => {
-    t.context.getSubgraphStub.returns(undefined);
+        context.mixedGraph.addEdge(vertex1, vertex2);
 
-    const mixedGraph = t.context.mixedGraph;
+        expect(addEdgeSpy.calledWith(vertex1, vertex2)).to.be.true;
+    });
 
-    mixedGraph.addEdge(vertex1, vertex2, { ordered: false });
+    it('should add subgraph to unordered map', () => {
+        context.getSubgraphStub.returns(undefined);
 
-    const subgraph = mixedGraph._unorderedGraphMap.get('css');
+        const mixedGraph = context.mixedGraph;
 
-    t.true(subgraph instanceof DirectedGraph);
-});
+        mixedGraph.addEdge(vertex1, vertex2, { ordered: false });
 
-test('should add subgraph to ordered map', t => {
-    t.context.getSubgraphStub.returns(undefined);
+        const subgraph = mixedGraph._unorderedGraphMap.get('css');
 
-    const mixedGraph = t.context.mixedGraph;
+        expect(subgraph instanceof DirectedGraph).to.be.true;
+    });
 
-    mixedGraph.addEdge(vertex1, vertex2, { ordered: true });
+    it('should add subgraph to ordered map', () => {
+        context.getSubgraphStub.returns(undefined);
 
-    const subgraph = mixedGraph._orderedGraphMap.get('css');
+        const mixedGraph = context.mixedGraph;
 
-    t.true(subgraph instanceof DirectedGraph);
-});
+        mixedGraph.addEdge(vertex1, vertex2, { ordered: true });
 
-test('should add edge to created subgraph', t => {
-    t.context.getSubgraphStub.returns(undefined);
+        const subgraph = mixedGraph._orderedGraphMap.get('css');
 
-    const mixedGraph = t.context.mixedGraph;
+        expect(subgraph instanceof DirectedGraph).to.be.true;
+    });
 
-    mixedGraph.addEdge(vertex1, vertex2, { ordered: false, tech: 'css' });
+    it('should add edge to created subgraph', () => {
+        context.getSubgraphStub.returns(undefined);
 
-    const subgraph = mixedGraph._unorderedGraphMap.get('css');
+        const mixedGraph = context.mixedGraph;
 
-    t.true(subgraph.hasVertex(vertex1));
-    t.true(subgraph.hasVertex(vertex2));
+        mixedGraph.addEdge(vertex1, vertex2, { ordered: false, tech: 'css' });
+
+        const subgraph = mixedGraph._unorderedGraphMap.get('css');
+
+        expect(subgraph.hasVertex(vertex1)).to.be.true;
+        expect(subgraph.hasVertex(vertex2)).to.be.true;
+    });
 });

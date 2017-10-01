@@ -180,6 +180,11 @@ BemGraph.Vertex = class {
 
         return this;
     }
-}
+};
 
+/**
+ * BemGraph
+ *
+ * @type {BemGraph}
+ */
 module.exports = BemGraph;

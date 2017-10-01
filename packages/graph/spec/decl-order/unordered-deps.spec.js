@@ -1,45 +1,51 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
 
 
-const BemGraph = lib.BemGraph;
-const findIndex = utils.findIndex;
 
-test('should keep the ordering described in decl', t => {
-    const graph = new BemGraph();
+const BemGraph = require('../../lib').BemGraph;
+const findIndex = require('../../lib/test-utils').findIndex;
 
-    const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
-    const indexA = findIndex(decl, { entity: { block: 'A' } });
-    const indexB = findIndex(decl, { entity: { block: 'B' } });
+describe('decl-order/unordered-deps', () => {
+    it('should keep the ordering described in decl', () => {
+        const graph = new BemGraph();
 
-    t.true(indexA < indexB);
-});
+        const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
+        const indexA = findIndex(decl, { entity: { block: 'A' } });
+        const indexB = findIndex(decl, { entity: { block: 'B' } });
 
-test('should place entities described in decl before their dependencies', t => {
-    const graph = new BemGraph();
+        expect(indexA < indexB).to.be.true;
+    });
 
-    graph
-        .vertex({ block: 'A' })
-        .linkWith({ block: 'B' });
+    it('should place entities described in decl before their dependencies', () => {
+        const graph = new BemGraph();
 
-    const decl = graph.dependenciesOf({ block: 'A' });
-    const indexA = findIndex(decl, { entity: { block: 'A' } });
-    const indexB = findIndex(decl, { entity: { block: 'B' } });
+        graph
+            .vertex({ block: 'A' })
+            .linkWith({ block: 'B' });
 
-    t.true(indexA < indexB);
-});
+        const decl = graph.dependenciesOf({ block: 'A' });
+        const indexA = findIndex(decl, { entity: { block: 'A' } });
+        const indexB = findIndex(decl, { entity: { block: 'B' } });
 
-test('should not change decl order because of deps order', t => {
-    const graph = new BemGraph();
+        expect(indexA < indexB).to.be.true;
+    });
 
-    graph
-        .vertex({ block: 'B' })
-        .linkWith({ block: 'C' });
+    it('should not change decl order because of deps order', () => {
+        const graph = new BemGraph();
 
-    const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
-    const indexA = findIndex(decl, { entity: { block: 'A' } });
-    const indexB = findIndex(decl, { entity: { block: 'B' } });
+        graph
+            .vertex({ block: 'B' })
+            .linkWith({ block: 'C' });
 
-    t.true(indexA < indexB);
+        const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
+        const indexA = findIndex(decl, { entity: { block: 'A' } });
+        const indexB = findIndex(decl, { entity: { block: 'B' } });
+
+        expect(indexA < indexB).to.be.true;
+    });
 });

@@ -35,29 +35,7 @@
     "ho-iter": "0.3.0",
     "lodash": "4.12.0"
   },
-  "devDependencies": {
-    "ava": "^0.19.0",
-    "coveralls": "^2.11.9"
-  },
   "scripts": {
-    "test": "nyc ava",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls"
-  },
-  "ava": {
-    "require": "./test/.ava.js",
-    "failWithoutAssertions": false,
-    "files": [
-      "spec/**/*.spec.js",
-      "test/**/*.test.js"
-    ],
-    "source": [
-      "lib/**/*.js"
-    ],
-    "concurrency": 25
-  },
-  "nyc": {
-    "exclude": [
-      "**/*.spec.js"
-    ]
+    "test": "mocha test/**/*.test.js spec/**/*.spec.js"
   }
 }

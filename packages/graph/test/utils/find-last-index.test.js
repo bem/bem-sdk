@@ -1,67 +1,72 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const findLastIndex = utils.findLastIndex;
+const expect = require('chai').expect;
 
-test('should not find non existing block', t => {
-    var decl = [{ entity: { block: 'block' } }];
+const findLastIndex = require('../../lib/test-utils').findLastIndex;
 
-    t.is(findLastIndex(decl, { entity: { block: 'other-block' } }), -1);
-});
+describe('utils/find-last-index', () => {
+    it('should not find non existing block', () => {
+        var decl = [{ entity: { block: 'block' } }];
 
-test('should not find non bem block', t => {
-    t.is(findLastIndex(['string'], 'string'), -1);
-});
+        expect(findLastIndex(decl, { entity: { block: 'other-block' } })).to.equal(-1);
+    });
 
-test('should find block', t => {
-    var entity = { entity: { block: 'block' } },
-        decl = [entity];
+    it('should not find non bem block', () => {
+        expect(findLastIndex(['string'], 'string')).to.equal(-1);
+    });
 
-    t.is(findLastIndex(decl, entity), 0);
-});
+    it('should find block', () => {
+        var entity = { entity: { block: 'block' } },
+            decl = [entity];
 
-test('should find modifier of block', t => {
-    var entity = { entity: { block: 'block', modName: 'mod', modVal: 'val' } },
-        decl = [entity];
+        expect(findLastIndex(decl, entity)).to.equal(0);
+    });
 
-    t.is(findLastIndex(decl, entity), 0);
-});
+    it('should find modifier of block', () => {
+        var entity = { entity: { block: 'block', modName: 'mod', modVal: 'val' } },
+            decl = [entity];
 
-test('should find element', t => {
-    var entity = { entity: { block: 'block', elem: 'elem' } },
-        decl = [entity];
+        expect(findLastIndex(decl, entity)).to.equal(0);
+    });
 
-    t.is(findLastIndex(decl, entity), 0);
-});
+    it('should find element', () => {
+        var entity = { entity: { block: 'block', elem: 'elem' } },
+            decl = [entity];
 
-test('should find modifier of element', t => {
-    var entity = { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' } },
-        decl = [entity];
+        expect(findLastIndex(decl, entity)).to.equal(0);
+    });
 
-    t.is(findLastIndex(decl, entity), 0);
-});
+    it('should find modifier of element', () => {
+        var entity = { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' } },
+            decl = [entity];
 
-test('should find equal entity', t => {
-    var decl = [
-        { entity: { block: 'other-block' } },
-        { entity: { block: 'block' } },
-        { entity: { block: 'other-block' } }
-    ];
+        expect(findLastIndex(decl, entity)).to.equal(0);
+    });
 
-    t.is(findLastIndex(decl, { entity: { block: 'block' } }), 1);
-});
+    it('should find equal entity', () => {
+        var decl = [
+            { entity: { block: 'other-block' } },
+            { entity: { block: 'block' } },
+            { entity: { block: 'other-block' } }
+        ];
 
-test('should find equal block by other object', t => {
-    t.is(findLastIndex([{ entity: { block: 'block' } }], { entity: { block: 'block' } }), 0);
-});
+        expect(findLastIndex(decl, { entity: { block: 'block' } })).to.equal(1);
+    });
 
-test('should find last equal entity', t => {
-    var decl = [
-        { entity: { block: 'block' } },
-        { entity: { block: 'other-block' } },
-        { entity: { block: 'block' } }
-    ];
+    it('should find equal block by other object', () => {
+        expect(findLastIndex([{ entity: { block: 'block' } }], { entity: { block: 'block' } })).to.equal(0);
+    });
 
-    t.is(findLastIndex(decl, { entity: { block: 'block' } }), 2);
+    it('should find last equal entity', () => {
+        var decl = [
+            { entity: { block: 'block' } },
+            { entity: { block: 'other-block' } },
+            { entity: { block: 'block' } }
+        ];
+
+        expect(findLastIndex(decl, { entity: { block: 'block' } })).to.equal(2);
+    });
 });

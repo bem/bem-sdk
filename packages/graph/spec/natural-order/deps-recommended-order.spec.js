@@ -1,196 +1,201 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const BemGraph = lib.BemGraph;
-const findIndex = utils.findIndex;
+const expect = require('chai').expect;
 
-test('should place block before its element', t => {
-    const graph = new BemGraph();
+const BemGraph = require('../../lib').BemGraph;
+const findIndex = require('../../lib/test-utils').findIndex;
 
-    const decl = [
-        { block: 'A', elem: 'e' },
-        { block: 'A' }
-    ];
-    decl.forEach(e => graph.vertex(e));
+describe('natural-order/deps-recommended-order', () => {
+    it('should place block before its element', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', elem: 'e' },
+            { block: 'A' }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
-    const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e' } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexBlock < indexElem);
-});
+        const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
+        const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e' } });
 
-test('should place block before its boolean modifier', t => {
-    const graph = new BemGraph();
+        expect(indexBlock < indexElem).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', modName: 'm', modVal: true },
-        { block: 'A' }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place block before its boolean modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', modName: 'm', modVal: true },
+            { block: 'A' }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
-    const indexModifier = findIndex(resolved, { entity: { block: 'A', modName: 'm' } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexBlock < indexModifier);
-});
+        const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
+        const indexModifier = findIndex(resolved, { entity: { block: 'A', modName: 'm' } });
 
-test('should place block before its key-value modifier', t => {
-    const graph = new BemGraph();
+        expect(indexBlock < indexModifier).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', modName: 'm', modVal: 'any' },
-        { block: 'A' }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place block before its key-value modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', modName: 'm', modVal: 'any' },
+            { block: 'A' }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
-    const indexModifier = findIndex(resolved, { entity: { block: 'A', modName: 'm', modVal: 'any' } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexBlock < indexModifier);
-});
+        const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
+        const indexModifier = findIndex(resolved, { entity: { block: 'A', modName: 'm', modVal: 'any' } });
 
-test('should place block before its element with boolean modifier', t => {
-    const graph = new BemGraph();
+        expect(indexBlock < indexModifier).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: true },
-        { block: 'A' }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place block before its element with boolean modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', elem: 'e', modName: 'm', modVal: true },
+            { block: 'A' }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
-    const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: true } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexBlock < indexElem);
-});
+        const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
+        const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: true } });
 
-test('should place block before its element with key-value modifier', t => {
-    const graph = new BemGraph();
+        expect(indexBlock < indexElem).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
-        { block: 'A' }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place block before its element with key-value modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
+            { block: 'A' }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
-    const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: 'any' } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexBlock < indexElem);
-});
+        const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
+        const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: 'any' } });
 
-test('should place block before its boolean modifier', t => {
-    const graph = new BemGraph();
+        expect(indexBlock < indexElem).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', modName: 'm', modVal: true },
-        { block: 'A' }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place block before its boolean modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', modName: 'm', modVal: true },
+            { block: 'A' }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
-    const indexBoolean = findIndex(resolved, { entity: { block: 'A', modName: 'm', modVal: true } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexBlock < indexBoolean);
-});
+        const indexBlock = findIndex(resolved, { entity: { block: 'A' } });
+        const indexBoolean = findIndex(resolved, { entity: { block: 'A', modName: 'm', modVal: true } });
 
-test('should place block\'s boolean modifier before block key-value modifier', t => {
-    const graph = new BemGraph();
+        expect(indexBlock < indexBoolean).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', modName: 'm', modVal: 'any' },
-        { block: 'A', modName: 'm', modVal: true }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place block\'s boolean modifier before block key-value modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', modName: 'm', modVal: 'any' },
+            { block: 'A', modName: 'm', modVal: true }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexBoolean = findIndex(resolved, { entity: { block: 'A', modName: 'n', modVal: true } });
-    const indexKeyValue = findIndex(resolved, { entity: { block: 'A', modName: 'm', modVal: 'any' } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexBoolean < indexKeyValue);
-});
+        const indexBoolean = findIndex(resolved, { entity: { block: 'A', modName: 'n', modVal: true } });
+        const indexKeyValue = findIndex(resolved, { entity: { block: 'A', modName: 'm', modVal: 'any' } });
 
-test('should place elem before its boolean modifier', t => {
-    const graph = new BemGraph();
+        expect(indexBoolean < indexKeyValue).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: true },
-        { block: 'A', elem: 'e' }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place elem before its boolean modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', elem: 'e', modName: 'm', modVal: true },
+            { block: 'A', elem: 'e' }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e' } });
-    const indexModifier = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: true } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexElem < indexModifier);
-});
+        const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e' } });
+        const indexModifier = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: true } });
 
-test('should place elem before its key-value modifier', t => {
-    const graph = new BemGraph();
+        expect(indexElem < indexModifier).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
-        { block: 'A', elem: 'e' }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place elem before its key-value modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
+            { block: 'A', elem: 'e' }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e' } });
-    const indexModifier = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: 'any' } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexElem < indexModifier);
-});
+        const indexElem = findIndex(resolved, { entity: { block: 'A', elem: 'e' } });
+        const indexModifier = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: 'any' } });
 
-test('should place elem\'s boolean modifier before elem key-value modifier', t => {
-    const graph = new BemGraph();
+        expect(indexElem < indexModifier).to.be.true;
+    });
 
-    const decl = [
-        { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
-        { block: 'A', elem: 'e', modName: 'm', modVal: true }
-    ];
-    decl.forEach(e => graph.vertex(e));
+    it('should place elem\'s boolean modifier before elem key-value modifier', () => {
+        const graph = new BemGraph();
 
-    graph.naturalize();
+        const decl = [
+            { block: 'A', elem: 'e', modName: 'm', modVal: 'any' },
+            { block: 'A', elem: 'e', modName: 'm', modVal: true }
+        ];
+        decl.forEach(e => graph.vertex(e));
 
-    const resolved = Array.from(graph.dependenciesOf(decl));
+        graph.naturalize();
 
-    const indexBoolean = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: true } });
-    const indexKeyValue = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: 'any' } });
+        const resolved = Array.from(graph.dependenciesOf(decl));
 
-    t.true(indexBoolean < indexKeyValue);
+        const indexBoolean = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: true } });
+        const indexKeyValue = findIndex(resolved, { entity: { block: 'A', elem: 'e', modName: 'm', modVal: 'any' } });
+
+        expect(indexBoolean < indexKeyValue).to.be.true;
+    });
 });

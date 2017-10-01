@@ -1,29 +1,35 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 
 const BemEntityName = require('@bem/sdk.entity-name');
 const BemCell = require('@bem/sdk.cell');
 
 const VertexSet = require('../lib/vertex-set');
 
-test('should add different vertices', t => {
-    const set = new VertexSet();
-    const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'input' }) });
-    const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
+describe('vertex-set.test.js', () => {
+    it('should add different vertices', () => {
+        const set = new VertexSet();
+        const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'input' }) });
+        const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 
-    set.add(vertex1).add(vertex2);
+        set.add(vertex1).add(vertex2);
 
-    t.is(set.size, 2);
-});
+        expect(set.size).to.equal(2);
+    });
 
-test('should not add equal vertex', t => {
-    const set = new VertexSet();
-    const entity = new BemEntityName({ block: 'input' });
-    const vertex1 = new BemCell({ entity });
-    const vertex2 = new BemCell({ entity });
+    it('should not add equal vertex', () => {
+        const set = new VertexSet();
+        const entity = new BemEntityName({ block: 'input' });
+        const vertex1 = new BemCell({ entity });
+        const vertex2 = new BemCell({ entity });
 
-    set.add(vertex1).add(vertex2);
+        set.add(vertex1).add(vertex2);
 
-    t.is(set.size, 1);
+        expect(set.size).to.equal(1);
+    });
 });

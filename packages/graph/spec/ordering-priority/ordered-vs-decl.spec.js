@@ -1,48 +1,53 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
 
-const BemGraph = lib.BemGraph;
+const expect = require('chai').expect;
 
-test('should resolve ordered dependencies independently for each declaration entity', t => {
-    const graph = new BemGraph();
+const BemGraph = require('../../lib').BemGraph;
 
-    graph
-        .vertex({ block: 'A' })
-        .dependsOn({ block: 'C' });
+describe('ordering-priority/ordered-vs-decl', () => {
+    it('should resolve ordered dependencies independently for each declaration entity', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' })
-        .dependsOn({ block: 'D' });
+        graph
+            .vertex({ block: 'A' })
+            .dependsOn({ block: 'C' });
 
-    const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' } ]);
+        graph
+            .vertex({ block: 'B' })
+            .dependsOn({ block: 'D' });
 
-    t.deepEqual(decl, [
-        { entity: { block: 'C' } },
-        { entity: { block: 'A' } },
+        const decl = graph.dependenciesOf([{ block: 'A' }, { block: 'B' }]);
 
-        { entity: { block: 'D' } },
-        { entity: { block: 'B' } }
-    ]);
-});
+        expect(decl).to.deep.equal([
+            { entity: { block: 'C' } },
+            { entity: { block: 'A' } },
 
-test('should resolve ordered dependencies independently of declaration entity', t => {
-    const graph = new BemGraph();
+            { entity: { block: 'D' } },
+            { entity: { block: 'B' } }
+        ]);
+    });
 
-    graph
-        .vertex({ block: 'A' })
-        .linkWith({ block: 'B' });
+    it('should resolve ordered dependencies independently of declaration entity', () => {
+        const graph = new BemGraph();
 
-    graph
-        .vertex({ block: 'B' })
-        .dependsOn({ block: 'C' });
+        graph
+            .vertex({ block: 'A' })
+            .linkWith({ block: 'B' });
 
-    const decl = graph.dependenciesOf({ block: 'A' });
+        graph
+            .vertex({ block: 'B' })
+            .dependsOn({ block: 'C' });
 
-    t.deepEqual(decl, [
-        { entity: { block: 'A' } },
+        const decl = graph.dependenciesOf({ block: 'A' });
 
-        { entity: { block: 'C' } },
-        { entity: { block: 'B' } }
-    ]);
+        expect(decl).to.deep.equal([
+            { entity: { block: 'A' } },
+
+            { entity: { block: 'C' } },
+            { entity: { block: 'B' } }
+        ]);
+    });
 });

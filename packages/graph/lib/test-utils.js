@@ -5,21 +5,21 @@ const bemNaming = require('@bem/sdk.naming.entity');
 
 const BemGraph = require('./bem-graph');
 
-function depsMacro(t, obj) {
+function depsMacro(obj) {
     const graphFunction = obj.graph;
 
     if (obj.graph.length === 0) {
         const graph = graphFunction();
 
-        obj.test(t, graph);
+        obj.test(graph);
         return;
     }
 
     const unorderedGraph = graphFunction('linkWith');
     const orderedGraph = graphFunction('dependsOn');
 
-    obj.test(t, unorderedGraph);
-    obj.test(t, orderedGraph);
+    obj.test(unorderedGraph);
+    obj.test(orderedGraph);
 }
 
 function createVertex(entity, tech) {
@@ -95,6 +95,9 @@ function createGraph(str) {
     return graph;
 }
 
+/**
+ * Utilities for tests
+ */
 module.exports = {
     findIndex,
     findLastIndex,

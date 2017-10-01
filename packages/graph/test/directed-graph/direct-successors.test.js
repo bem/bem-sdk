@@ -1,29 +1,35 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 
 const BemEntityName = require('@bem/sdk.entity-name');
 const BemCell = require('@bem/sdk.cell');
 
 const DirectedGraph = require('../../lib/directed-graph');
 
-test('should return successors', t => {
-    const graph = new DirectedGraph();
-    const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
-    const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'control' }) });
+describe('directed-graph/direct-successors', () => {
+    it('should return successors', () => {
+        const graph = new DirectedGraph();
+        const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
+        const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'control' }) });
 
-    graph.addEdge(vertex1, vertex2);
+        graph.addEdge(vertex1, vertex2);
 
-    const successors = graph.directSuccessors(vertex1);
+        const successors = graph.directSuccessors(vertex1);
 
-    t.deepEqual(Array.from(successors), [vertex2]);
-});
+        expect(Array.from(successors)).to.deep.equal([vertex2]);
+    });
 
-test('should return empty set if no successors', t => {
-    const graph = new DirectedGraph();
-    const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
+    it('should return empty set if no successors', () => {
+        const graph = new DirectedGraph();
+        const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 
-    const successors = graph.directSuccessors(vertex);
+        const successors = graph.directSuccessors(vertex);
 
-    t.deepEqual(Array.from(successors), []);
+        expect(Array.from(successors)).to.deep.equal([]);
+    });
 });

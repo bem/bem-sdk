@@ -1,6 +1,10 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 
 const BemEntityName = require('@bem/sdk.entity-name');
 const BemCell = require('@bem/sdk.cell');
@@ -9,27 +13,27 @@ const DirectedGraph = require('../../lib/directed-graph');
 
 const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 
-test('should be chainable', t => {
-    const graph = new DirectedGraph();
+describe('directed-graph/add-vertex', () => {
+    it('should be chainable', () => {
+        const graph = new DirectedGraph();
 
-    t.is(graph.addVertex(vertex), graph);
-});
+        expect(graph.addVertex(vertex)).to.equal(graph);    });
 
-test('should add vertex', t => {
-    const graph = new DirectedGraph();
+    it('should add vertex', () => {
+        const graph = new DirectedGraph();
 
-    graph.addVertex(vertex);
+        graph.addVertex(vertex);
 
-    t.truthy(graph.hasVertex(vertex));
-});
+        expect(graph.hasVertex(vertex)).to.be.ok;
+    });
 
-test('should add the same vertex only one', t => {
-    const graph = new DirectedGraph();
+    it('should add the same vertex only one', () => {
+        const graph = new DirectedGraph();
 
-    graph.addVertex(vertex);
-    graph.addVertex(vertex);
+        graph.addVertex(vertex);
+        graph.addVertex(vertex);
 
-    const vertices = Array.from(graph.vertices());
+        const vertices = Array.from(graph.vertices());
 
-    t.is(vertices.length, 1);
+        expect(vertices.length).to.equal(1);    });
 });

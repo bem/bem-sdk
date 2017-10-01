@@ -1,6 +1,10 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 
 const BemEntityName = require('@bem/sdk.entity-name');
 const BemCell = require('@bem/sdk.cell');
@@ -10,52 +14,53 @@ const DirectedGraph = require('../../lib/directed-graph');
 const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'control' }) });
 
-test('should be chainable', t => {
-    const graph = new DirectedGraph();
+describe('directed-graph/add-edge', () => {
+    it('should be chainable', () => {
+        const graph = new DirectedGraph();
 
-    t.is(graph.addEdge(vertex1, vertex2), graph);
-});
+        expect(graph.addEdge(vertex1, vertex2)).to.equal(graph);    });
 
-test('should add edge', t => {
-    const graph = new DirectedGraph();
+    it('should add edge', () => {
+        const graph = new DirectedGraph();
 
-    t.falsy(graph.hasEdge(vertex1, vertex2));
+        expect(graph.hasEdge(vertex1, vertex2)).to.be.not.ok;
 
-    graph.addEdge(vertex1, vertex2);
+        graph.addEdge(vertex1, vertex2);
 
-    t.truthy(graph.hasEdge(vertex1, vertex2));
-});
+        expect(graph.hasEdge(vertex1, vertex2)).to.be.ok;
+    });
 
-test('should add edge to itself', t => {
-    const graph = new DirectedGraph();
-    const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
+    it('should add edge to itself', () => {
+        const graph = new DirectedGraph();
+        const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 
-    t.falsy(graph.hasEdge(vertex, vertex));
+        expect(graph.hasEdge(vertex, vertex)).to.be.not.ok;
 
-    graph.addEdge(vertex, vertex);
+        graph.addEdge(vertex, vertex);
 
-    t.truthy(graph.hasEdge(vertex, vertex));
-});
+        expect(graph.hasEdge(vertex, vertex)).to.be.ok;
+    });
 
-test('should add loop', t => {
-    const graph = new DirectedGraph();
+    it('should add loop', () => {
+        const graph = new DirectedGraph();
 
-    t.falsy(graph.hasEdge(vertex1, vertex2));
-    t.falsy(graph.hasEdge(vertex2, vertex1));
+        expect(graph.hasEdge(vertex1, vertex2)).to.be.not.ok;
+        expect(graph.hasEdge(vertex2, vertex1)).to.be.not.ok;
 
-    graph.addEdge(vertex1, vertex2);
-    graph.addEdge(vertex2, vertex1);
+        graph.addEdge(vertex1, vertex2);
+        graph.addEdge(vertex2, vertex1);
 
-    t.truthy(graph.hasEdge(vertex1, vertex2));
-    t.truthy(graph.hasEdge(vertex2, vertex1));
-});
+        expect(graph.hasEdge(vertex1, vertex2)).to.be.ok;
+        expect(graph.hasEdge(vertex2, vertex1)).to.be.ok;
+    });
 
-test('should add vertices', t => {
-    const graph = new DirectedGraph();
+    it('should add vertices', () => {
+        const graph = new DirectedGraph();
 
-    t.falsy(graph.hasEdge(vertex1, vertex2));
+        expect(graph.hasEdge(vertex1, vertex2)).to.be.not.ok;
 
-    graph.addEdge(vertex1, vertex2);
+        graph.addEdge(vertex1, vertex2);
 
-    t.truthy(graph.hasEdge(vertex1, vertex2));
+        expect(graph.hasEdge(vertex1, vertex2)).to.be.ok;
+    });
 });

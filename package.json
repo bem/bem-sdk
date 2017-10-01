@@ -41,5 +41,10 @@
     "test": "lerna run test",
     "test:specs": "mocha tests",
     "test:cover": "nyc mocha tests"
+  },
+  "nyc": {
+    "exclude": [
+      "**/*.spec.js"
+    ]
   }
 }
