@@ -1,34 +1,40 @@
 'use strict';
 
-const test = require('ava');
+const describe = require('mocha').describe;
+const it = require('mocha').it;
+
+const expect = require('chai').expect;
+
 const naming = require('../index');
 
-test('should have elem delim field', t => {
-    t.truthy(naming.delims.elem);
-});
+describe('fields.test.js', () => {
+    it('should have elem delim field', () => {
+        expect(naming.delims.elem).to.be.ok;
+    });
 
-test('should have mod name delim field', t => {
-    t.truthy(naming.delims.mod.name);
-});
+    it('should have mod name delim field', () => {
+        expect(naming.delims.mod.name).to.be.ok;
+    });
 
-test('should have mod val delim field', t => {
-    t.truthy(naming.delims.mod.val);
-});
+    it('should have mod val delim field', () => {
+        expect(naming.delims.mod.val).to.be.ok;
+    });
 
-test('should create namespace with elemDelim field', t => {
-    const myNaming = naming();
+    it('should create namespace with elemDelim field', () => {
+        const myNaming = naming();
 
-    t.truthy(myNaming.delims.elem);
-});
+        expect(myNaming.delims.elem).to.be.ok;
+    });
 
-test('should create namespace with mod name delim field', t => {
-    const myNaming = naming();
+    it('should create namespace with mod name delim field', () => {
+        const myNaming = naming();
 
-    t.truthy(myNaming.delims.mod.name);
-});
+        expect(myNaming.delims.mod.name).to.be.ok;
+    });
 
-test('should create namespace with mod val delim field', t => {
-    const myNaming = naming();
+    it('should create namespace with mod val delim field', () => {
+        const myNaming = naming();
 
-    t.truthy(myNaming.delims.mod.val);
+        expect(myNaming.delims.mod.val).to.be.ok;
+    });
 });

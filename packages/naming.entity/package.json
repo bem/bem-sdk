@@ -36,10 +36,8 @@
     "@bem/sdk.naming.presets": "^0.0.3"
   },
   "scripts": {
-    "test": "npm run cover",
-    "unit-test": "ava",
-    "cover": "nyc ava",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
-    "bench": "matcha benchmark/*.js"
+    "specs": "mocha",
+    "cover": "nyc mocha",
+    "test": "npm run specs"
   }
 }
