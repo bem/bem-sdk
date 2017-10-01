@@ -57,7 +57,7 @@ function appendMod (item, mod) {
     if (!mod) { return; }
 
     let modItem = item.mods.find(m => m.name === mod.name);
-    modItem || item.mods.push(modItem = { name: mod.name });
+    modItem || item.mods.push(modItem = { name: mod.name, vals: [] });
 
-    (modItem.vals || (modItem.vals = [])).push({ name: mod.val });
+    (mod.val && (mod.val !== true) || mod.val === 0) && modItem.vals.push({ name: mod.val });
 }
