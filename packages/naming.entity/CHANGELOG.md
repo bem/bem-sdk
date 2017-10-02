@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+      <a name="0.2.1"></a>
+## [0.2.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity@0.2.0...@bem/sdk.naming.entity@0.2.1) (2017-10-02)
+
+
+
+
+**Note:** Version bump only for package @bem/sdk.naming.entity
+
       <a name="0.2.0"></a>
 # 0.2.0 (2017-10-01)
 
@@ -14,7 +22,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-      <a name="0.1.0"></a>
+    <a name="0.1.0"></a>
 # 0.1.0 (2017-09-30)
 
 
@@ -25,7 +33,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-    Changelog
+  Changelog
 =========
 
 2.0.0
@@ -191,8 +199,8 @@ wordPattern: '[a-zA-Z0-9]+'
 });
 
 myNaming.parse('block--mod_val'); // { block: 'block'
-                              //   modName: 'mod',
-                              //   modVal: 'val' }
+                            //   modName: 'mod',
+                            //   modVal: 'val' }
 ```
 
 **API v2.x.x**
@@ -202,15 +210,15 @@ const bemNaming = require('@bem/naming');
 
 const myNaming = bemNaming({
 delims: {
-    elem: '-',
-    mod: { name: '--', val: '_' }
+  elem: '-',
+  mod: { name: '--', val: '_' }
 },
 wordPattern: '[a-zA-Z0-9]+'
 });
 
 myNaming.parse('block--mod_val'); // BemEntityName
-                              // { block: 'block',
-                              //   mod: { name: 'mod', val: 'val' } }
+                            // { block: 'block',
+                            //   mod: { name: 'mod', val: 'val' } }
 ```
 
 **Important:** now if the delimiter of modifier value is not specified it doesn't inherit from delimiter of modifier name and falls back to default `bemNaming.modValDelim` ([#169]).
@@ -411,7 +419,7 @@ var bemNaming = require('bem-naming');
 var myNaming = bemNaming({ mod: '--' });
 
 ['block__elem', 'block--mod'].map(myNaming.parse); // The `parse` function requires context of `myNaming` object.
-                                                 // To correct work Usage of bind (myNaming.parse.bind(myNaming)) // was necessary.
+                                               // To correct work Usage of bind (myNaming.parse.bind(myNaming)) // was necessary.
 ```
 
 - `this` was used instead of global object. ([#86]).
@@ -444,7 +452,7 @@ It will be easier to check for an empty string than use `try..catch`.
 
 ```js
 try {
-  var str = bemNaming.stringify({ elem: 'elem' });
+var str = bemNaming.stringify({ elem: 'elem' });
 } catch(e) { /* ... */ }
 ```
 
@@ -454,7 +462,7 @@ try {
 var str = bemNaming.stringify({ elem: 'elem' });
 
 if (str) {
-  /* ... */
+/* ... */
 }
 ```
 

@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.bemjson-to-decl",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "BEMJSON to BEMDECL helper",
   "publishConfig": {
     "access": "public"
@@ -28,8 +28,8 @@
     "node": ">= 4.0"
   },
   "dependencies": {
-    "@bem/sdk.decl": "^0.2.0",
-    "@bem/sdk.entity-name": "^0.2.0",
+    "@bem/sdk.decl": "^0.2.2",
+    "@bem/sdk.entity-name": "^0.2.1",
     "stringify-object": "^3.2.0"
   }
 }

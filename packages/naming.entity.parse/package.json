@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.entity.parse",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Parses slugs of BEM entities",
   "publishConfig": {
     "access": "public"
@@ -25,7 +25,7 @@
     "index.js"
   ],
   "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.0"
+    "@bem/sdk.entity-name": "^0.2.1"
   },
   "scripts": {
     "bench": "matcha benchmark/*.js",
