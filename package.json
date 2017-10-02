@@ -38,12 +38,13 @@
     "lint:js": "eslint .",
     "lint:dts": "tslint packages/*/types/*.d.ts",
     "pretest": "npm run lint",
-    "test": "lerna run test",
+    "test": "nyc mocha packages/*/{test,spec}/{**/,}*.{test,spec}.js",
     "test:specs": "mocha tests",
     "test:cover": "nyc mocha tests"
   },
   "nyc": {
     "exclude": [
+      "**/*.test.js",
       "**/*.spec.js"
     ]
   }

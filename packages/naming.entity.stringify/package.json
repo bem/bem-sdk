@@ -25,6 +25,7 @@
     "index.js"
   ],
   "devDependencies": {
+    "@bem/sdk.entity-name": "^0.2.0",
     "@bem/sdk.naming.presets": "^0.0.3"
   },
   "scripts": {
