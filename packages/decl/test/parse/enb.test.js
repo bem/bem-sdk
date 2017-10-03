@@ -14,7 +14,7 @@ describe('parse.enb', () => {
         expect(parse('({ deps: [] })')).to.deep.equal([]);
     });
 
-    it('should parse blocks property with single entity', () => {
+    it('should parse deps property with single entity', () => {
         expect(
             parse('({ format: \'enb\', deps: [{ block: \'doesnt-matter\', elems: [\'elem\'] }] })').map(simplifyCell)
         ).to.deep.equal([
@@ -23,15 +23,23 @@ describe('parse.enb', () => {
         ]);
     });
 
-    it('should parse empty legacy blocks property of object', () => {
+    it('should parse empty legacy deps property of object', () => {
         expect(parse({ format: 'enb', deps: [] })).to.deep.equal([]);
     });
 
-    it('should parse blocks property with single entity of object', () => {
+    it('should parse deps property with single entity of object', () => {
         expect(
             parse({ format: 'enb', deps: [{ block: 'doesnt-matter', elems: ['elem'] }] }).map(simplifyCell)
         ).to.deep.equal([
             { entity: { block: 'doesnt-matter' }, tech: null },
+            { entity: { block: 'doesnt-matter', elem: 'elem' }, tech: null }
+        ]);
+    });
+
+    it('should parse deps property with single entity of object with single elem correctly', () => {
+        expect(
+            parse({ format: 'enb', deps: [{ block: 'doesnt-matter', elem: 'elem' }] }).map(simplifyCell)
+        ).to.deep.equal([
             { entity: { block: 'doesnt-matter', elem: 'elem' }, tech: null }
         ]);
     });
