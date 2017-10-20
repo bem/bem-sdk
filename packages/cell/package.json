@@ -8,7 +8,7 @@
   "license": "MPL-2.0",
   "repository": "bem/bem-sdk",
   "bugs": {
-    "url": "https://github.com/bem/bem-sdk/issues?q=tag%3Dpkg%3Acell"
+    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Acell"
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/cell#readme",
   "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",

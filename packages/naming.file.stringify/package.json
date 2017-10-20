@@ -13,6 +13,10 @@
     "file",
     "stringify"
   ],
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Anaming.file.stringify"
+  },
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.file.stringify#readme",
   "repository": "bem/bem-sdk",
   "engines": {
     "node": ">= 4.0"
