@@ -13,6 +13,10 @@
     "cell",
     "stringify"
   ],
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Anaming.cell.stringify"
+  },
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.stringify#readme",
   "repository": "bem/bem-sdk",
   "engines": {
     "node": ">= 4.0"

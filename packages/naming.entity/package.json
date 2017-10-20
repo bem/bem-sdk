@@ -20,6 +20,10 @@
     "react",
     "two-dashes"
   ],
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Anaming.entity"
+  },
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.entity#readme",
   "repository": "bem/bem-sdk",
   "engines": {
     "node": ">= 4.0"
