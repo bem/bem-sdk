@@ -53,7 +53,7 @@ describe('naming.entity.stringify', () => {
         expect(stringify(obj)).to.eql('block');
     });
 
-    it('should support modifier with false val instance of BemEntityName', () => {
+    it('should support modifier with empty string val instance of BemEntityName', () => {
         const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: ''} });
         const obj = { block: 'block', mod: { name: 'mod', val: ''} };
 
