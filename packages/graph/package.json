@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.graph",
-  "version": "0.2.1",
+  "version": "0.2.2",
   "description": "Bem graph storage",
   "publishConfig": {
     "access": "public"
@@ -27,9 +27,9 @@
     "lib"
   ],
   "dependencies": {
-    "@bem/sdk.cell": "^0.2.1",
-    "@bem/sdk.entity-name": "^0.2.1",
-    "@bem/sdk.naming.entity": "^0.2.1",
+    "@bem/sdk.cell": "^0.2.2",
+    "@bem/sdk.entity-name": "^0.2.2",
+    "@bem/sdk.naming.entity": "^0.2.2",
     "debug": "2.2.0",
     "es6-error": "4.0.2",
     "hash-set": "1.0.1",

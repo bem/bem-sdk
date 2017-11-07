@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.cell.stringify",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "BemCell stringifier (aka @bem/fs-scheme/path)",
   "publishConfig": {
     "access": "public"
@@ -26,11 +26,11 @@
     "cell-stringify.js"
   ],
   "dependencies": {
-    "@bem/sdk.naming.cell.pattern-parser": "^0.0.3"
+    "@bem/sdk.naming.cell.pattern-parser": "^0.0.4"
   },
   "devDependencies": {
-    "@bem/sdk.cell": "^0.2.1",
-    "@bem/sdk.naming.entity": "^0.2.1"
+    "@bem/sdk.cell": "^0.2.2",
+    "@bem/sdk.naming.entity": "^0.2.2"
   },
   "scripts": {
     "test": "nyc mocha"
