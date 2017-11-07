@@ -11,23 +11,34 @@ module.exports = function(config, configs, options, cb) {
         source = config.__source,
         res = cloneDeep(config),
         levels = res.levels || [],
-        levelsIndex = {};
+        levelsIndex = {},
+        cyclesToResolve = levels.length;
 
-    if (!levels.length) { return cb ? cb(res) : res; }
+    if (!cyclesToResolve) { return cb ? cb(res) : res; }
+
+    var pathsToRemove = [];
 
     levels.forEach(function(level, i) {
+        cyclesToResolve--;
         levelsIndex[level.path] = i;
 
         if (!isGlob(level.path)) {
-            onLevel(level.path, true);
-            cb && cb(res);
+            onLevel(level.path);
+            path.isAbsolute(level.path) || pathsToRemove.push(level.path);
+
+            if (!cyclesToResolve && cb) {
+                removeRelPaths();
+                cb(res);
+            }
+
             return;
         }
 
         if (!cb) { // sync
             var globbedLevels = glob.sync(level.path, { cwd: cwd });
             globbedLevels.forEach(function(levelPath, idx) {
-                onLevel(levelPath, level.path, globbedLevels.length - 1 === idx);
+                onLevel(levelPath, level.path);
+                globbedLevels.length - 1 === idx && pathsToRemove.push(level.path);
             });
 
             return;
@@ -37,20 +48,24 @@ module.exports = function(config, configs, options, cb) {
         glob(level.path, { cwd: cwd }, function(err, asyncGlobbedLevels) {
             // TODO: if (err) { throw err; }
             asyncGlobbedLevels.forEach(function(levelPath, idx) {
-                onLevel(levelPath, level.path, asyncGlobbedLevels.length - 1 === idx);
+                onLevel(levelPath, level.path);
+                asyncGlobbedLevels.length - 1 === idx && pathsToRemove.push(level.path);
             });
 
-            cb(res);
+            if (!cyclesToResolve) {
+                removeRelPaths();
+
+                cb(res);
+            }
         });
     });
 
+    cb || removeRelPaths();
+
     return res;
 
-    function onLevel(levelPath, globLevelPath, needRemoveKey) {
-        if (arguments.length === 2) {
-            needRemoveKey = globLevelPath;
-            globLevelPath = levelPath;
-        }
+    function onLevel(levelPath, globLevelPath) {
+        globLevelPath || (globLevelPath = levelPath);
 
         var resolvedLevel = path.resolve(source ? path.dirname(source) : cwd, levelPath);
 
@@ -62,8 +77,12 @@ module.exports = function(config, configs, options, cb) {
 
         merge(levels[levelsIndex[resolvedLevel]],
             Object.assign({}, levels[levelsIndex[globLevelPath]], { path: undefined }));
+    }
 
-        needRemoveKey && (levelsIndex[globLevelPath] = void levels.splice(levelsIndex[globLevelPath], 1));
-
+    function removeRelPaths() {
+        pathsToRemove.forEach((pathToRemove, shiftIdx) => {
+            levels.splice(levelsIndex[pathToRemove] - shiftIdx, 1);
+            levelsIndex[pathToRemove] = undefined;
+        });
     }
 };
