@@ -1,7 +1,5 @@
 'use strict';
 
-const assert = require('assert');
-
 /**
  * Forms a string according to object representation of BEM entity.
  *
@@ -46,8 +44,8 @@ function stringify(entity, delims) {
  * @param {BemNamingEntityConvention} convention - options for naming convention.
  * @returns {Function}
  */
-module.exports = (convention) => {
-    assert(convention.delims && convention.delims.elem && convention.delims.mod,
+module.exports = convention => {
+    console.assert(convention.delims && convention.delims.elem && convention.delims.mod,
         '@bem/sdk.naming.entity.stringify: convention should be an instance of BemNamingEntityConvention');
     return (entity) => stringify(entity, convention.delims);
 };
