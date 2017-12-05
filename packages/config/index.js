@@ -51,8 +51,7 @@ BemConfig.prototype.configs = function(isSync) {
     var plugins = [require('./plugins/resolve-level')].concat(options.plugins || []);
 
     if (isSync) {
-
-        var configs = extendConfigsPathByLayer(this._configs || (this._configs = rc.sync(rcOpts)));
+        var configs = doSomeMagicProcedure(this._configs || (this._configs = rc.sync(rcOpts)));
 
         this._root = getConfigsRootDir(configs);
 
@@ -63,10 +62,11 @@ BemConfig.prototype.configs = function(isSync) {
         }, configs);
     }
 
-    var _this = this;
+    var _this = this,
+        _thisConfigs = this._configs || rc(rcOpts).then(function(cfgs) { _this._configs = cfgs; return cfgs; });
 
-    return (this._configs ? Promise.resolve(this._configs) : rc(rcOpts)).then(function(cfgs) {
-        extendConfigsPathByLayer(_this._configs || (_this._configs = cfgs));
+    return Promise.resolve(_thisConfigs).then(function(cfgs) {
+        doSomeMagicProcedure(cfgs);
 
         _this._root = getConfigsRootDir(cfgs);
 
@@ -407,11 +407,19 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
  * @param {Array<{layer: String, path: ?String}>} configs
  * @returns {Array<{layer: String, path: String}>}
  */
-function extendConfigsPathByLayer(configs) {
+function doSomeMagicProcedure(configs) {
+    let levels;
+
     configs.forEach(config => {
-        config.levels && config.levels.forEach(level => {
-            level.path || (level.path = level.layer + '.blocks');
-        });
+        levels = config.levels;
+
+        if (!levels) { return; }
+
+        if (!Array.isArray(levels)) {
+            config.levels = Object.keys(levels).map(levelPath => Object.assign({ path: levelPath }, levels[levelPath]));
+        } else {
+            levels.forEach(level => level.path || (level.path = level.layer + '.blocks'));
+        }
     });
 
     return configs;
