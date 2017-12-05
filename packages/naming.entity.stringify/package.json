@@ -33,6 +33,7 @@
     "@bem/sdk.naming.presets": "^0.0.5"
   },
   "scripts": {
+    "test": "nyc mocha",
     "bench": "matcha benchmark/*.js"
   }
 }

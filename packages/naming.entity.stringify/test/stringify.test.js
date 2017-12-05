@@ -14,30 +14,66 @@ describe('naming.entity.stringify', () => {
     });
 
     it('should support block instance of BemEntityName', () => {
+        const entityName = new BemEntityName({ block: 'block' });
         const obj = { block: 'block' };
-        const entityName = new BemEntityName(obj);
 
-        expect(stringify(obj)).to.eql(stringify(entityName));
+        expect(stringify(entityName)).to.eql('block');
+        expect(stringify(obj)).to.eql('block');
     });
 
     it('should support modifier instance of BemEntityName', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: 'mod' });
         const obj = { block: 'block', mod: 'mod' };
-        const entityName = new BemEntityName(obj);
 
-        expect(stringify(obj)).to.eql(stringify(entityName));
+        expect(stringify(entityName)).to.eql('block_mod');
+        expect(stringify(obj)).to.eql('block_mod');
+    });
+
+    it('should support modifier with name instance of BemEntityName', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod' } });
+        const obj = { block: 'block', mod: { name: 'mod' } };
+
+        expect(stringify(entityName)).to.eql('block_mod');
+        expect(stringify(obj)).to.eql('block_mod');
+    });
+
+    it('should support modifier with val instance of BemEntityName', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'val' } });
+        const obj = { block: 'block', mod: { name: 'mod', val: 'val' } };
+
+        expect(stringify(entityName)).to.eql('block_mod_val');
+        expect(stringify(obj)).to.eql('block_mod_val');
+    });
+
+    it('should support modifier with false val instance of BemEntityName', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: false } });
+        const obj = { block: 'block', mod: { name: 'mod', val: false } };
+
+        expect(stringify(entityName)).to.eql('block');
+        expect(stringify(obj)).to.eql('block');
+    });
+
+    it('should support modifier with false val instance of BemEntityName', () => {
+        const entityName = new BemEntityName({ block: 'block', mod: { name: 'mod', val: ''} });
+        const obj = { block: 'block', mod: { name: 'mod', val: ''} };
+
+        expect(stringify(entityName)).to.eql('block');
+        expect(stringify(obj)).to.eql('block');
     });
 
     it('should support element instance of BemEntityName', () => {
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem' });
         const obj = { block: 'block', elem: 'elem' };
-        const entityName = new BemEntityName(obj);
 
-        expect(stringify(obj)).to.eql(stringify(entityName));
+        expect(stringify(entityName)).to.eql('block__elem');
+        expect(stringify(obj)).to.eql('block__elem');
     });
 
     it('should support element modifier instance of BemEntityName', () => {
-        const obj = { block: 'block', mod: 'mod' };
-        const entityName = new BemEntityName(obj);
+        const entityName = new BemEntityName({ block: 'block', elem: 'elem', mod: 'mod' });
+        const obj = { block: 'block', elem: 'elem', mod: 'mod' };
 
-        expect(stringify(obj)).to.eql(stringify(entityName));
+        expect(stringify(entityName)).to.eql('block__elem_mod');
+        expect(stringify(obj)).to.eql('block__elem_mod');
     });
 });
