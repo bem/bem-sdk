@@ -52,10 +52,11 @@ class BemEntityName {
 
         if (modName) {
             const normalizeValue = v => v === 0 ? '0' : v;
-            data.mod = {
+            const val = hasModVal ? modObj && normalizeValue(modObj.val) || normalizeValue(obj.modVal) : true;
+            val && (data.mod = {
                 name: modName,
-                val: hasModVal ? modObj && normalizeValue(modObj.val) || normalizeValue(obj.modVal) : true
-            };
+                val
+            });
         } else if (modObj || hasModVal) {
             throw new EntityTypeError(obj, 'the field `mod.name` is undefined');
         }

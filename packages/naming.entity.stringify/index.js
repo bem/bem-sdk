@@ -4,7 +4,7 @@
  * Forms a string according to object representation of BEM entity.
  *
  * @param {Object|BemEntityName} entity - object representation of BEM entity.
- * @param {BemNamingDelims} delims - separates entity names from each other.
+ * @param {BemNamingConventionDelims} delims - separates entity names from each other.
  * @returns {String}
  */
 function stringify(entity, delims) {
@@ -12,36 +12,33 @@ function stringify(entity, delims) {
         return '';
     }
 
-    let res = entity.block;
+    const res = [entity.block];
 
-    if (entity.elem) {
-        res += delims.elem + entity.elem;
+    if (entity.elem !== undefined) {
+        res.push(delims.elem, entity.elem);
     }
 
-    const modObj = entity.mod;
-    const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) ||
-        !entity.__isBemEntityName__ && entity.modName;
+    const mod = entity.mod;
+    if (mod !== undefined) {
+        const val = mod.val;
+        if (typeof mod === 'string') {
+            res.push(delims.mod.name, mod);
+        } else if (val || !('val' in mod)) {
+            res.push(delims.mod.name, mod.name);
 
-    if (modName) {
-        const hasModVal = modObj && modObj.hasOwnProperty('val') || entity.hasOwnProperty('modVal');
-        const modVal = modObj && modObj.val || !entity.__isBemEntityName__ && entity.modVal;
-
-        if (modVal || modVal === 0 || !hasModVal) {
-            res += delims.mod.name + modName;
-        }
-
-        if (modVal && modVal !== true) {
-            res += delims.mod.val + modVal;
+            if (val && val !== true) {
+                res.push(delims.mod.val, val);
+            }
         }
     }
 
-    return res;
+    return res.join('');
 }
 
 /**
  * Creates `stringify` function for specified naming convention.
  *
- * @param {BemNamingEntityConvention} convention - options for naming convention.
+ * @param {BemNamingConvention} convention - options for naming convention.
  * @returns {Function}
  */
 module.exports = convention => {
