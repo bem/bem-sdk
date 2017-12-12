@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.3"></a>
+## [0.2.3](https://github.com/bem/bem-sdk/compare/@bem/sdk.entity-name@0.2.2...@bem/sdk.entity-name@0.2.3) (2017-12-12)
+
+
+### Bug Fixes
+
+* **entity-name:** dont add mod if value is falsy ([62b3453](https://github.com/bem/bem-sdk/commit/62b3453))
+
+
+
+
 <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/bem/bem-sdk/compare/@bem/sdk.entity-name@0.2.0...@bem/sdk.entity-name@0.2.2) (2017-11-07)
 

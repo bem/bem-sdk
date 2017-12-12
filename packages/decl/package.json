@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.decl",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "Manage declaration of BEM entities",
   "publishConfig": {
     "access": "public"
@@ -29,8 +29,8 @@
     "lib/**"
   ],
   "dependencies": {
-    "@bem/sdk.cell": "^0.2.2",
-    "@bem/sdk.entity-name": "^0.2.2",
+    "@bem/sdk.cell": "^0.2.3",
+    "@bem/sdk.entity-name": "^0.2.3",
     "es6-promisify": "5.0.0",
     "graceful-fs": "4.1.11",
     "json5": "0.5.1",
