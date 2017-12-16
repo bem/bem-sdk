@@ -27,7 +27,8 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/bemjson-to-jsx#readme",
   "dependencies": {
     "@bem/sdk.entity-name": "^0.2.3",
-    "@bem/sdk.naming.entity": "^0.2.3",
+    "@bem/sdk.naming.entity.stringify": "*",
+    "@bem/sdk.naming.presets": "*",
     "camel-case": "^3.0.0",
     "pascal-case": "^2.0.1"
   }

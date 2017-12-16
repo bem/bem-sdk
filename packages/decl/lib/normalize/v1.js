@@ -31,7 +31,7 @@ module.exports = function (decl) {
         add({ block: block });
 
         if (mods) {
-            normalizeMods(block, mods);
+            normalizeMods(block, null, mods);
         }
 
         if (elems) {
@@ -50,12 +50,6 @@ module.exports = function (decl) {
     }
 
     function normalizeMods(block, elem, mods) {
-        const isElem = arguments.length === 3;
-
-        if (!isElem) {
-            mods = elem;
-        }
-
         for (let i = 0; i < mods.length; ++i) {
             const mod = mods[i];
             const vals = mod.vals;
@@ -65,13 +59,9 @@ module.exports = function (decl) {
             let j = 0;
 
             do {
-                resItem = {
-                    block: block,
-                    modName: mod.name,
-                    modVal: hasVals ? vals[j].name : true
-                };
-
-                isElem && (resItem.elem = elem);
+                resItem = { block: block };
+                elem && (resItem.elem = elem);
+                resItem.mod = { name: mod.name, val: hasVals ? vals[j].name : true };
 
                 add(resItem);
                 ++j;

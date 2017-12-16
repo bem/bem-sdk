@@ -2,6 +2,8 @@
 
 const describe = require('mocha').describe;
 const it = require('mocha').it;
+const beforeEach = require('mocha').beforeEach;
+const afterEach = require('mocha').afterEach;
 
 const expect = require('chai').expect;
 
@@ -12,7 +14,17 @@ const BemCell = require('../index');
 const cell = new BemCell({ entity: new BemEntityName({ block: 'b', elem: 'e', mod: { name: 'm', val: 'v' } }) });
 const modLessCell = new BemCell({ entity: new BemEntityName({ block: 'b' }) });
 
+const noop = () => {};
+
 describe('legacy', () => {
+    beforeEach(() => {
+        process.on('deprecation', noop);
+    });
+
+    afterEach(() => {
+        process.removeListener('deprecation', noop);
+    });
+
     it('should return block field from entity', () => {
         expect(cell.block).to.equal(cell.entity.block);
     });

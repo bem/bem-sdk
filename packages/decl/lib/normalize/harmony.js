@@ -100,17 +100,11 @@ module.exports = function (decl) {
         }
 
         if (!entity.elem && mods) {
-            normalizeMods(block, mods);
+            normalizeMods(block, null, mods);
         }
     }
 
     function normalizeMods(block, elem, mods) {
-        const isElem = arguments.length === 3;
-
-        if (!isElem) {
-            mods = elem;
-        }
-
         const modNames = Object.keys(mods);
 
         for (var i = 0; i < modNames.length; ++i) {
@@ -122,13 +116,9 @@ module.exports = function (decl) {
             }
 
             for (let j = 0; j < modVals.length; ++j) {
-                const resItem = {
-                    block: block,
-                    modName: modName, modVal: modVals[j]
-                };
-
-                isElem && (resItem.elem = elem);
-
+                const resItem = { block: block };
+                elem && (resItem.elem = elem);
+                resItem.mod = { name: modName, val: modVals[j] };
                 add(resItem);
             }
         }

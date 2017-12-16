@@ -30,7 +30,7 @@ describe('format.enb', () => {
 
     it('should format with mod', () => {
         expect(format([
-            { entity: { block: 'block', modName: 'mod', modVal: 'val' }, tech: null }
+            { entity: { block: 'block', mod: { name: 'mod', val: 'val' } }, tech: null }
         ], { format: 'enb' })).to.deep.equal([{ block: 'block', mod: 'mod', val: 'val' }]);
     });
 });

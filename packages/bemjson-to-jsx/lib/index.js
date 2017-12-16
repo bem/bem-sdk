@@ -1,6 +1,7 @@
 'use strict';
 
-var bemNaming = require('@bem/sdk.naming.entity');
+var createStringify = require('@bem/sdk.naming.entity.stringify');
+var createNamingPreset = require('@bem/sdk.naming.presets/create');
 var BemEntity = require('@bem/sdk.entity-name');
 var pascalCase = require('pascal-case');
 
@@ -50,7 +51,7 @@ JSXNode.prototype.toString = function() {
 function Transformer(options) {
     this.plugins = [];
     this.use(plugins.defaultPlugins.map(plugin => plugin()));
-    this.bemNaming = bemNaming(options.naming || 'react');
+    this.bemNaming = createStringify(createNamingPreset(options.naming || 'react'));
 }
 
 Transformer.prototype.process = function(bemjson) {
@@ -77,7 +78,7 @@ Transformer.prototype.process = function(bemjson) {
             jsx.tag = json.tag;
         } else if (json.block || json.elem) {
             jsx.bemEntity = new BemEntity({ block: _blockName, elem: json.elem });
-            jsx.tag = this.bemNaming.stringify(jsx.bemEntity);
+            jsx.tag = this.bemNaming(jsx.bemEntity);
         }
 
         return jsx;

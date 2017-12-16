@@ -4,8 +4,10 @@ const fs = require('fs');
 const path = require('path');
 
 const each = require('async-each');
-const bemNaming = require('@bem/sdk.naming.entity');
 const BemFile = require('@bem/sdk.file');
+const createPreset = require('@bem/sdk.naming.presets/create');
+const createParse = require('@bem/sdk.naming.entity.parse');
+const createStringify = require('@bem/sdk.naming.entity.stringify');
 
 /**
  * Calls specified callback for each file or directory in specified directory.
@@ -62,8 +64,13 @@ class LevelWalker {
      */
     constructor (info, add) {
         this.levelpath = info.path;
+
+        const preset = createPreset(info.naming);
         // Create `@bem/sdk.naming` instance for specified options.
-        this.naming = bemNaming(info.naming);
+        this.naming = {
+            parse: createParse(preset),
+            stringify: createStringify(preset)
+        };
 
         this.add = add;
     }

@@ -210,7 +210,7 @@ describe('default', () => {
             )).eql(n('common.blocks/a__e1.js'));
         });
 
-        it('should return path for modName elem', () => {
+        it('should return path for mod.name elem', () => {
             expect(originFlat(
                 BemCell.create({
                     block: 'a',
