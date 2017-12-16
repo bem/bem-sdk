@@ -6,8 +6,18 @@ const it = require('mocha').it;
 const expect = require('chai').expect;
 
 const BemEntityName = require('../..');
+const noop = () => {};
 
-describe('constructor/normalize.test.js', () => {    it('should normalize simple modifier', () => {
+describe('constructor/normalize.test.js', () => {
+    beforeEach(() => {
+        process.on('deprecation', noop);
+    });
+
+    afterEach(() => {
+        process.removeListener('deprecation', noop);
+    });
+
+    it('should normalize simple modifier', () => {
         const entity = new BemEntityName({ block: 'block', mod: 'mod' });
 
         expect(entity.mod.val).to.be.true;
