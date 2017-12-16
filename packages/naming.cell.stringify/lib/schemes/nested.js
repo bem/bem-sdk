@@ -42,7 +42,6 @@ module.exports = {
         var layer = '';
         var tech = cell.tech;
         var entity = cell.entity;
-        var modName = Object(entity.mod).name;
 
         cell.layer && (layer = cell.layer + '.blocks');
 
@@ -51,7 +50,7 @@ module.exports = {
 
         var folder = path.join(layer, entity.block,
                 entity.elem ? (elemDelim + entity.elem) : '',
-                modName ? (modDelim + modName) : '');
+                entity.mod ? (modDelim + entity.mod.name) : '');
 
         return path.join(folder,
             b_.stringify(entity) + (tech ? '.' + tech : ''));

@@ -31,7 +31,9 @@
     "@bem/sdk.cell": "^0.2.3",
     "@bem/sdk.entity-name": "^0.2.3",
     "@bem/sdk.file": "^0.2.3",
-    "@bem/sdk.naming.entity": "^0.2.3",
+    "@bem/sdk.naming.entity.stringify": "*",
+    "@bem/sdk.naming.entity.parse": "*",
+    "@bem/sdk.naming.presets": "*",
     "async-each": "1.0.1"
   },
   "devDependencies": {

@@ -3,7 +3,8 @@
 const fs = require('fs');
 const path = require('path');
 
-const bemNaming = require('@bem/sdk.naming.entity');
+const namingEntityParse = require('@bem/sdk.naming.entity.parse');
+const createNamingPreset = require('@bem/sdk.naming.presets/create');
 const BemFile = require('@bem/sdk.file');
 
 /**
@@ -17,8 +18,8 @@ const BemFile = require('@bem/sdk.file');
  */
 module.exports = (info, add, callback) => {
     const levelpath = info.path;
-    // Create `@bem/sdk.naming` instance for specified options.
-    const parseEntityName = bemNaming(info.naming).parse;
+    // Create `@bem/sdk.naming.preset` instance for specified options.
+    const parseEntityName = namingEntityParse(createNamingPreset(info.naming));
 
     fs.readdir(levelpath, (err, files) => {
         if (err) {
