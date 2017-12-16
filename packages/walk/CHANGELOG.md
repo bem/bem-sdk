@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.4"></a>
+## [0.2.4](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.2.3...@bem/sdk.walk@0.2.4) (2017-12-16)
+
+
+### Bug Fixes
+
+* **walk:** resolve cycle dependency ([9e8d925](https://github.com/bem/bem-sdk/commit/9e8d925))
+
+
+
+
 <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.2.2...@bem/sdk.walk@0.2.3) (2017-12-12)
 

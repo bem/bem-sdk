@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.presets",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Presets for naming",
   "publishConfig": {
     "access": "public"
@@ -24,10 +24,10 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#readme",
   "repository": "bem/bem-sdk",
   "devDependencies": {
-    "@bem/sdk.cell": "^0.2.3",
-    "@bem/sdk.entity-name": "^0.2.3",
-    "@bem/sdk.naming.cell.stringify": "^0.0.6",
-    "@bem/sdk.naming.entity": "^0.2.3"
+    "@bem/sdk.cell": "^0.2.4",
+    "@bem/sdk.entity-name": "^0.2.4",
+    "@bem/sdk.naming.cell.stringify": "^0.0.7",
+    "@bem/sdk.naming.entity": "^0.2.4"
   },
   "engines": {
     "node": ">= 4.0"

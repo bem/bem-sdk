@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.7"></a>
+## [0.0.7](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.cell.stringify@0.0.6...@bem/sdk.naming.cell.stringify@0.0.7) (2017-12-16)
+
+
+### Bug Fixes
+
+* **walk:** resolve cycle dependency ([9e8d925](https://github.com/bem/bem-sdk/commit/9e8d925))
+
+
+
+
 <a name="0.0.6"></a>
 ## [0.0.6](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.cell.stringify@0.0.5...@bem/sdk.naming.cell.stringify@0.0.6) (2017-12-12)
 

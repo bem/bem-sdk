@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.bundle",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "description": "bem-bundle",
   "publishConfig": {
     "access": "public"
@@ -28,6 +28,6 @@
   "author": "Anton Krichevskii <mrskadi0@gmail.com> (github.com/skad0)",
   "license": "MPL-2.0",
   "dependencies": {
-    "@bem/sdk.bemjson-to-decl": "^0.2.3"
+    "@bem/sdk.bemjson-to-decl": "^0.2.4"
   }
 }

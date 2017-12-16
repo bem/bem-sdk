@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+      <a name="0.2.4"></a>
+## [0.2.4](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity@0.2.3...@bem/sdk.naming.entity@0.2.4) (2017-12-16)
+
+
+### Bug Fixes
+
+* **walk:** resolve cycle dependency ([9e8d925](https://github.com/bem/bem-sdk/commit/9e8d925))
+
+
+
+
       <a name="0.2.3"></a>
 ## [0.2.3](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity@0.2.2...@bem/sdk.naming.entity@0.2.3) (2017-12-12)
 
@@ -11,7 +22,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @bem/sdk.naming.entity
 
-      <a name="0.2.2"></a>
+    <a name="0.2.2"></a>
 ## [0.2.2](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity@0.2.0...@bem/sdk.naming.entity@0.2.2) (2017-11-07)
 
 
@@ -19,7 +30,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @bem/sdk.naming.entity
 
-    <a name="0.2.1"></a>
+  <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity@0.2.0...@bem/sdk.naming.entity@0.2.1) (2017-10-02)
 
 
@@ -27,7 +38,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 **Note:** Version bump only for package @bem/sdk.naming.entity
 
-  <a name="0.2.0"></a>
+<a name="0.2.0"></a>
 # 0.2.0 (2017-10-01)
 
 
@@ -215,8 +226,8 @@ wordPattern: '[a-zA-Z0-9]+'
 });
 
 myNaming.parse('block--mod_val'); // { block: 'block'
-                        //   modName: 'mod',
-                        //   modVal: 'val' }
+                      //   modName: 'mod',
+                      //   modVal: 'val' }
 ```
 
 **API v2.x.x**
@@ -233,8 +244,8 @@ wordPattern: '[a-zA-Z0-9]+'
 });
 
 myNaming.parse('block--mod_val'); // BemEntityName
-                        // { block: 'block',
-                        //   mod: { name: 'mod', val: 'val' } }
+                      // { block: 'block',
+                      //   mod: { name: 'mod', val: 'val' } }
 ```
 
 **Important:** now if the delimiter of modifier value is not specified it doesn't inherit from delimiter of modifier name and falls back to default `bemNaming.modValDelim` ([#169]).
@@ -435,7 +446,7 @@ var bemNaming = require('bem-naming');
 var myNaming = bemNaming({ mod: '--' });
 
 ['block__elem', 'block--mod'].map(myNaming.parse); // The `parse` function requires context of `myNaming` object.
-                                           // To correct work Usage of bind (myNaming.parse.bind(myNaming)) // was necessary.
+                                         // To correct work Usage of bind (myNaming.parse.bind(myNaming)) // was necessary.
 ```
 
 - `this` was used instead of global object. ([#86]).
