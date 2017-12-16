@@ -5,5 +5,7 @@
   ],
   "hoist": true,
   "independent": true,
-  "version": "independent"
+  "version": "independent",
+  "npmClient": "npm",
+  "npmClientArgs": ["--no-package-lock"]
 }
