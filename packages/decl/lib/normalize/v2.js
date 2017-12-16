@@ -126,13 +126,12 @@ module.exports = function (decl, scope) {
             const item = {};
             item.block = block;
             elem && (item.elem = elem);
-            item.modName = null;
-            item.modVal = val;
 
             if (typeof val !== 'boolean') {
-                add(Object.assign({}, item, { modVal: true }), tech);
+                add(Object.assign({ mod: { val: true } }, item), tech);
             }
 
+            item.mod = {name: null, val: val};
             add(item, tech);
         }
     }
@@ -183,12 +182,12 @@ module.exports = function (decl, scope) {
         }
 
         if (Array.isArray(entity.mods)) {
-            entity.mods.forEach(modName => {
-                mods[modName] = true;
+            entity.mods.forEach(name => {
+                mods[name] = true;
             });
         } else {
-            for (let modName in entity.mods) {
-                mods[modName] = entity.mods[modName];
+            for (let name in entity.mods) {
+                mods[name] = entity.mods[name];
             }
         }
 
@@ -208,24 +207,24 @@ module.exports = function (decl, scope) {
         const mods = entity.mods;
         const tech = entity.tech;
 
-        for (let modName of Object.keys(mods)) {
-            let modVals = mods[modName];
+        for (let mName of Object.keys(mods)) {
+            let mVals = mods[mName];
 
-            if (!Array.isArray(modVals)) {
-                modVals = [modVals];
+            if (!Array.isArray(mVals)) {
+                mVals = [mVals];
             }
 
-            for (let modVal of modVals) {
+            for (let mVal of mVals) {
                 const item = {};
 
                 item.block = block;
                 elem && (item.elem = elem);
-                item.modName = modName;
-                item.modVal = modVal;
 
-                if (typeof modVal !== 'boolean') {
-                    add(Object.assign({}, item, { modVal: true }), tech);
+                if (typeof mVal !== 'boolean') {
+                    add(Object.assign({ mod: { name: mName, val: true } }, item), tech);
                 }
+
+                item.mod = { name: mName, val: mVal };
 
                 add(item, tech);
             }

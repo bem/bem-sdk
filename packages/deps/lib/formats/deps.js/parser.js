@@ -23,7 +23,7 @@ module.exports = function parse(depsData) {
 
         data.forEach(dep => {
             const subscope = decl.assign({
-                entity: { block: dep.block, elem: dep.elem, modName: dep.mod, modVal: dep.val },
+                entity: { block: dep.block, elem: dep.elem, mod: dep.mod && { name: dep.mod, val: dep.val } },
                 tech: dep.tech
             }, scope);
             const subscopeKey = subscope.id;
