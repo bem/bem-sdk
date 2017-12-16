@@ -21,8 +21,12 @@ module.exports = function (decl, scope) {
         if (typeof entity === 'string') {
             block = entity;
         } else {
-            if (Object.keys(entity).length === 0) {
-                add({ block: null });
+            tech = entity.tech || null;
+
+            const keys = Object.keys(entity).filter(key => key !== 'tech');
+
+            if (keys.length === 0) {
+                add({ block: null }, tech);
                 continue;
             }
             block = entity.block || null;
@@ -31,7 +35,6 @@ module.exports = function (decl, scope) {
             mod = getMod(entity) || null;
             val = entity.val;
             mods = getMods(entity);
-            tech = entity.tech || null;
         }
 
         // we should return block always if elems or mods given
