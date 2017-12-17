@@ -4,7 +4,7 @@ const normalizer = {
     v1: require('./formats/v1/normalize'),
     v2: require('./formats/v2/normalize'),
     harmony: require('./formats/harmony/normalize'),
-    enb: require('./formats/v2/normalize')
+    enb: require('./formats/enb/normalize')
 };
 
 module.exports = (decl, opts) => {
