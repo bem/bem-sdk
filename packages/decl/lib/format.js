@@ -2,18 +2,7 @@
 
 const assert = require('assert');
 
-const isNotSupported = () => {
-    throw new Error(
-        'This format isn\'t supported yet, file an issue: https://github.com/bem/bem-sdk/issues/new?labels=pkg:decl'
-    );
-};
-
-const formatters = {
-    enb: require('./formats/enb/format'),
-    v2: isNotSupported,
-    v1: require('./formats/v1/format'),
-    harmony: isNotSupported
-};
+const formats = require('./formats');
 
 /**
  * Format normalized declaration to target format
@@ -26,13 +15,15 @@ const formatters = {
 module.exports = function (decl, opts) {
     opts || (opts = {});
 
-    const format = opts.format;
+    const formatName = opts.format;
 
-    assert(format, 'You must declare target format');
+    assert(formatName, 'You must declare target format');
 
-    if (!formatters[format]) {
+    const format = formats[formatName];
+
+    if (!format) {
         throw new Error('Unknown format');
     }
 
-    return formatters[format](decl);
+    return format.format(decl);
 };
