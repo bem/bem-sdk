@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.1"></a>
+## [0.3.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.3.0...@bem/sdk.decl@0.3.1) (2017-12-17)
+
+
+### Bug Fixes
+
+* **decl:** parse simple mod ([cd1f6ee](https://github.com/bem/bem-sdk/commit/cd1f6ee))
+
+
+
+
 <a name="0.3.0"></a>
 # [0.3.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.2.5...@bem/sdk.decl@0.3.0) (2017-12-17)
 
