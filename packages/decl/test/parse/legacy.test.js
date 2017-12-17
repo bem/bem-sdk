@@ -6,7 +6,7 @@ const it = require('mocha').it;
 const expect = require('chai').expect;
 
 const simplifyCell = require('../util').simplifyCell;
-const parse = require('../..').parse;
+const parse = require('../../lib/parse');
 
 describe('parse.legacy', () => {
     it('should parse empty legacy blocks property', () => {

@@ -4,6 +4,7 @@ const assert = require('assert');
 
 const nodeEval = require('node-eval');
 
+const formats = require('./formats');
 const detect = require('./detect');
 
 /**
@@ -15,31 +16,13 @@ const detect = require('./detect');
 module.exports = function parse(bemdecl) {
     assert(typeof bemdecl === 'object' || typeof bemdecl === 'string', 'Bemdecl must be String or Object');
 
-    const normalize = require('.').normalize;
+    const data = (typeof bemdecl === 'string') ? nodeEval(bemdecl) : bemdecl;
+    const formatName = data.format || detect(data);
+    const format = formats[formatName];
 
-    const declaration = (typeof bemdecl === 'string') ? nodeEval(bemdecl) : bemdecl;
-    const hasOwn = Object.prototype.hasOwnProperty.bind(Object(declaration));
-    const format = declaration.format || detect(declaration);
-
-    let decl;
-
-    switch (format) {
-        case 'v1':
-            assert(hasOwn('blocks'), 'Invalid declaration format');
-            decl = declaration.blocks;
-            break;
-        case 'v2':
-        case 'enb':
-            assert(hasOwn('decl') || hasOwn('deps'), 'Invalid format of declaration.');
-            decl = declaration.decl || declaration.deps;
-            break;
-        case 'harmony':
-            assert(hasOwn('decl'), 'Invalid format of declaration.');
-            decl = declaration.decl;
-            break;
-        default:
-            throw new Error('Unknown BEMDECL format.');
+    if (!format) {
+        throw new Error('Unknown BEMDECL format.');
     }
 
-    return normalize(decl, { format: format });
+    return format.parse(data);
 };
