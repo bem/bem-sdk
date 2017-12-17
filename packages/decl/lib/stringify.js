@@ -13,7 +13,7 @@ const DEFAULTS = { exportType: 'json', space: 4 };
 // which called from parse method.
 const fieldByFormat = {
     v1: 'blocks',
-    enb: 'deps',
+    enb: '',
     v2: 'deps'
 };
 
@@ -46,10 +46,14 @@ module.exports = function (decl, opts) {
     Array.isArray(decl) || (decl = [decl]);
 
     const formatedDecl = format(decl, { format: options.format });
-    const stringifiedObj = {
-        format: options.format,
-        [fieldByFormat[options.format]]: formatedDecl
-    };
+    const field = fieldByFormat[options.format];
+    let stringifiedObj = { format: options.format };
+
+    if (field) {
+        stringifiedObj[field] = formatedDecl;
+    } else {
+        stringifiedObj = formatedDecl;
+    }
 
     return generators[options.exportType](stringifiedObj, options.space);
 };

@@ -1,15 +1,15 @@
 'use strict';
 
 /**
- * Format normalized declaration to enb format
+ * Format normalized declaration to enb format.
  *
- * @param {Array<BemCell>|BemCell} decl - Source declaration
+ * @param {BemCell[]} cells - Source declaration
  * @returns {Array<{block: string, elem: ?string, mod: ?{name: string, val: (string|true)}, tech: ?string}>}
  */
-module.exports = function (decl) {
-    Array.isArray(decl) || (decl = [decl]);
+module.exports = function (cells) {
+    Array.isArray(cells) || (cells = [cells]);
 
-    return decl.map(cell => {
+    const decl = cells.map(cell => {
         const entity = cell.entity;
         const tmp = { block: entity.block };
         entity.elem && (tmp.elem = entity.elem);
@@ -23,4 +23,9 @@ module.exports = function (decl) {
 
         return tmp;
     });
+
+    return {
+        format: 'enb',
+        deps: decl
+    };
 };
