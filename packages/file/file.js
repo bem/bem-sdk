@@ -6,6 +6,12 @@ const util = require('util');
 const BemCell = require('@bem/sdk.cell');
 
 class BemFile {
+    /**
+     * @param {Object} opts — representation of file.
+     * @param {BemCell} opts.cell — representation of entity name.
+     * @param {String} [opts.path] - path to file.
+     * @param {String} [opts.level] - base level path.
+     */
     constructor(opts) {
         assert(typeof opts === 'object' && opts.cell, '@bem/sdk.file: requires cell param');
 
