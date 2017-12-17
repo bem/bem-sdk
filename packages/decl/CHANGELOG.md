@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.2.5...@bem/sdk.decl@0.3.0) (2017-12-17)
+
+
+### Bug Fixes
+
+* **decl:** enb format should return warp obj ([ee65d5b](https://github.com/bem/bem-sdk/commit/ee65d5b))
+
+
+### Features
+
+* **decl:** parse enb format ([74af434](https://github.com/bem/bem-sdk/commit/74af434))
+
+
+
+
 <a name="0.2.5"></a>
 ## [0.2.5](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.2.4...@bem/sdk.decl@0.2.5) (2017-12-16)
 

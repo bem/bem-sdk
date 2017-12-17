@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.file@0.2.4...@bem/sdk.file@0.3.0) (2017-12-17)
+
+
+### Features
+
+* **file:** create method ([5b02965](https://github.com/bem/bem-sdk/commit/5b02965))
+
+
+
+
 <a name="0.2.4"></a>
 ## [0.2.4](https://github.com/bem/bem-sdk/compare/@bem/sdk.file@0.2.3...@bem/sdk.file@0.2.4) (2017-12-16)
 

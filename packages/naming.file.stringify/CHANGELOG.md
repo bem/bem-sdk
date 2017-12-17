@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.5"></a>
+## [0.1.5](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.file.stringify@0.1.4...@bem/sdk.naming.file.stringify@0.1.5) (2017-12-17)
+
+
+
+
+**Note:** Version bump only for package @bem/sdk.naming.file.stringify
+
 <a name="0.1.4"></a>
 ## [0.1.4](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.file.stringify@0.1.3...@bem/sdk.naming.file.stringify@0.1.4) (2017-12-16)
 
