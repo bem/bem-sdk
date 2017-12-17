@@ -16,7 +16,8 @@ module.exports = function (items) {
         item.elem && (entityObj.elem = item.elem);
 
         if (item.mod) {
-            entityObj.mod = { name: item.mod, val: item.val };
+            entityObj.mod = { name: item.mod }
+            item.val && (entityObj.mod.val = item.val);
         }
 
         return new BemCell({

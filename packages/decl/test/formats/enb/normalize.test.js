@@ -34,6 +34,12 @@ describe('decl.formats.enb.normalize', () => {
     });
 
     it('should normalize simple mod', () => {
+        const cells = normalize([{ block: 'block', mod: 'mod' }]);
+
+        assert.deepEqual(cells, cellify({ block: 'block', mod: 'mod' }));
+    });
+
+    it('should normalize boolean mod', () => {
         const cells = normalize([{ block: 'block', mod: 'mod', val: true }]);
 
         assert.deepEqual(cells, cellify({ block: 'block', mod: 'mod' }));
