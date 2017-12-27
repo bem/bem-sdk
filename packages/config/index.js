@@ -7,7 +7,9 @@ var fs = require('fs'),
     Promise = require('pinkie-promise'),
     flatten = require('lodash.flatten'),
     merge = require('./lib/merge'),
-    resolveSets = require('./lib/resolve-sets');
+    resolveSets = require('./lib/resolve-sets'),
+
+    basePlugins = [require('./plugins/resolve-level')];
 
 /**
  * Constructor
@@ -48,7 +50,7 @@ BemConfig.prototype.configs = function(isSync) {
         rcOpts.argv = { config: options.pathToConfig };
     }
 
-    var plugins = [require('./plugins/resolve-level')].concat(options.plugins || []);
+    var plugins = [].concat(basePlugins, options.plugins || []);
 
     if (isSync) {
         var configs = doSomeMagicProcedure(this._configs || (this._configs = rc.sync(rcOpts)));
