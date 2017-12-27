@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.5...@bem/sdk.config@0.0.6) (2017-12-27)
+
+
+### Bug Fixes
+
+* **config:** no need to dynamically load plugins ([9eb8df2](https://github.com/bem/bem-sdk/commit/9eb8df2))
+
+
+
+
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.4...@bem/sdk.config@0.0.5) (2017-12-12)
 
