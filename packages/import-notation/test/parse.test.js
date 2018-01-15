@@ -38,6 +38,15 @@ describe('block', () => {
         ]);
     });
 
+    it('should not duplicate modifier entity for several separated values', () => {
+        expect(p('b:popup m:theme=normal m:theme=action')).to.eql([
+            { block : 'popup' },
+            { block : 'popup', mod : { name : 'theme' } },
+            { block : 'popup', mod : { name : 'theme', val : 'normal' } },
+            { block : 'popup', mod : { name : 'theme', val : 'action' } }
+        ]);
+    });
+
     it('should extract block with several modifiers', () => {
         expect(p('b:popup m:theme m:autoclosable')).to.eql([
             { block : 'popup' },

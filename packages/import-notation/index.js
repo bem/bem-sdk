@@ -1,3 +1,23 @@
+const hashSet = require('hash-set');
+
+const tmpl = {
+    b : b => `b:${b}`,
+    e : e => e ? ` e:${e}` : '',
+    m : m => Object.keys(m).map(name => `${tmpl.mn(name)}${tmpl.mv(m[name])}`).join(''),
+    mn : m => ` m:${m}`,
+    mv : v => v.length ? `=${v.join('|')}` : '',
+    t : t => t ? ` t:${t}` : ''
+};
+
+const btmpl = Object.assign({}, tmpl, {
+    m : m => m ? `${tmpl.mn(m['name'])}${tmpl.mv([m['val']])}` : ''
+});
+
+const BemCellSet = hashSet(cell =>
+    ['block', 'elem', 'mod', 'tech']
+        .map(k => btmpl[k[0]](cell[k]))
+        .join('')
+);
 
 /**
  * Parse import statement and extract bem entities
@@ -20,19 +40,19 @@ function parse(importString, ctx) {
     const main = {};
     ctx || (ctx = {});
 
-    return importString.split(' ').reduce((acc, importToken) => {
+    return Array.from(importString.split(' ').reduce((acc, importToken) => {
         const split = importToken.split(':'),
             type = split[0],
             tail = split[1];
 
         if(type === 'b') {
             main.block = tail;
-            acc.push(main);
+            acc.add(main);
         } else if(type === 'e') {
             main.elem = tail;
             if(!main.block && ctx.elem !== tail) {
                 main.block = ctx.block;
-                acc.push(main);
+                acc.add(main);
             }
         } else if(type === 'm' || type === 't') {
             if(!main.block) {
@@ -45,28 +65,19 @@ function parse(importString, ctx) {
                     modName = splitMod[0],
                     modVals = splitMod[1];
 
-                acc.push(Object.assign({}, main, { mod : { name : modName } }));
+                acc.add(Object.assign({}, main, { mod : { name : modName } }));
 
                 modVals && modVals.split('|').forEach(modVal => {
-                    acc.push(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
+                    acc.add(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
                 });
             } else {
-                acc.length || acc.push(main);
+                acc.size || acc.add(main);
                 acc.forEach(e => (e.tech = tail));
             }
         }
         return acc;
-    }, []);
+    }, new BemCellSet()));
 }
-
-const tmpl = {
-    b : b => `b:${b}`,
-    e : e => e ? ` e:${e}` : '',
-    m : m => Object.keys(m).map(name => `${tmpl.mn(name)}${tmpl.mv(m[name])}`).join(''),
-    mn : m => ` m:${m}`,
-    mv : v => v.length ? `=${v.join('|')}` : '',
-    t : t => t ? ` t:${t}` : ''
-};
 
 /**
  * Create import string notation of passed bem-cells.
