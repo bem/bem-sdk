@@ -1,6 +1,6 @@
-© YANDEX LLC, 2014-present
+© YANDEX LLC, 2017-present
 
-The Source Code called `@bem/sdk.bemjson-to-jsx` available at https://github.com/bem/bem-sdk/tree/master/packages/bemjson-to-jsx is subject to the terms of the Mozilla Public License, v. 2.0 (hereinafter - MPL). The text of MPL is the following:
+The Source Code called `@bem/sdk.naming.entity.stringify` available at https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify is subject to the terms of the Mozilla Public License, v. 2.0 (hereinafter - MPL). The text of MPL is the following:
 
 Mozilla Public License, version 2.0
 

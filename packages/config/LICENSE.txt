@@ -1,4 +1,4 @@
-© YANDEX LLC, 2015-2017
+© YANDEX LLC, 2015-present
 
 The Source Code called `@bem/sdk.config` available at https://github.com/bem/bem-sdk/tree/master/packages/config is subject to the terms of the Mozilla Public License, v. 2.0 (hereinafter - MPL). The text of MPL is the following:
 
