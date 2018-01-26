@@ -60,7 +60,7 @@ The table shows the possible values that can be set for each of the schemes.
 | Key | Scheme | Default value | Possible values |
 |----|------|-----|----------|
 | `naming` | File naming.|`origin`| `origin`, `two-dashes`|
-| `scheme` | File system.|`nested`|`nested`, `flat`|
+| `scheme` | File system.|`nested`|`nested`, `nested-lite`, `flat`|
 
 More information:
 * [ @bem/naming]( https://en.bem.info/toolbox/sdk/bem-naming/)
