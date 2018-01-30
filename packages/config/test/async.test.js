@@ -290,13 +290,13 @@ describe('async', () => {
             }
         }]);
 
-        return bemConfig().library('lib1').catch(err => expect(err).to.equal('Invalid `libs` format'));
+        return bemConfig().library('lib1').catch(err => expect(err).to.match(/Invalid `libs` format/));
     });
 
     it('should throw if lib was not found', () => {
         const bemConfig = config();
 
-        return bemConfig().library('lib1').catch(err => expect(err.includes('Library lib1 was not found at')).to.equal(true));
+        return bemConfig().library('lib1').catch(err => expect(err).to.match(/Library lib1 was not found at /));
     });
 
     it('should throw if lib was not found', () => {
@@ -310,8 +310,8 @@ describe('async', () => {
         }]);
 
         return Promise.all([
-            bemConfig().library('lib1').catch(err => expect(err.includes('Library lib1 was not found at')).to.equal(true)),
-            bemConfig().library('lib2').catch(err => expect(err.includes('Library lib2 was not found at')).to.equal(true))
+            bemConfig().library('lib1').catch(err => expect(err).to.match(/Library lib1 was not found at/)),
+            bemConfig().library('lib2').catch(err => expect(err).to.match(/Library lib2 was not found at/))
         ]);
     });
 
