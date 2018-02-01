@@ -1,7 +1,7 @@
 # @bem/sdk
 
 <div align="center">
-    <img width="300" height="300" src="https://bem.github.io/bem-sdk/logo.svg" alt="logo" />
+    <img width="300" height="300" src="https://rawgithub.com/bem/bem-sdk/master/logo.svg" alt="logo" />
 </div>
 
 Модули для работы по [БЭМ][]-методологии:
