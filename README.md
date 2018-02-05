@@ -4,14 +4,14 @@
     <img width="300" height="300" src="https://rawgithub.com/bem/bem-sdk/master/logo.svg" alt="logo" />
 </div>
 
-Usefull modules to work with [BEM][] methodology:
+Usefull modules to work with [BEM][] methodology.
 
-general:
+## General
 
 * [@bem/sdk.walk](https://github.com/bem/bem-sdk/tree/master/packages/walk) — traversing a BEM project's file system
 * [@bem/sdk.config](https://github.com/bem/bem-sdk/tree/master/packages/config) — keeping all configuration of BEM project in one place
 
-naming:
+## Naming
 
 * [@bem/sdk.naming.entity](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity) — the old well-known `bem-naming` package. Contains of `parse` and `stringify` methods (DEPREACTED, use separated packages instead)
 * [@bem/sdk.naming.entity.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify) — stringifier for [entity][] representation
@@ -19,23 +19,23 @@ naming:
 * [@bem/sdk.naming.cell.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.stringify) — stringifier path to [entity][] inside a BEM project's file system
 * [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) — well-known presets for `naming.*` packages
 
-declarations:
+## Declarations
 
 * [@bem/sdk.decl](https://github.com/bem/bem-sdk/tree/master/packages/decl) — working with sets of [entity][], intersecting, merging, substracting...
 * [@bem/sdk.bemjson-to-decl](https://github.com/bem/bem-sdk/tree/master/packages/bemjson-to-decl) – extracting declarations from [bemjson][]
 * [@bem/sdk.bemjson-to-jsx](https://github.com/bem/bem-sdk/tree/master/packages/bemjson-to-jsx) – transforming [bemjson] to [JSX][] markup
 * [@bem/sdk.import-notation](https://github.com/bem/bem-sdk/tree/master/packages/import-notation) — extracting declarations from es6-import/require strings
 
-dependencies:
+## Dependencies
 
 * [@bem/sdk.graph](https://github.com/bem/bem-sdk/tree/master/packages/graph) — working with graph of dependencies
 * [@bem/sdk.deps](https://github.com/bem/bem-sdk/tree/master/packages/deps) — high-level tool for managing bem-deps
 
-containers:
+## Containers
 
 * [@bem/sdk.entity-name](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity) — [entity][] name representation
 * [@bem/sdk.cell](https://github.com/bem/bem-sdk/tree/master/packages/cell) — partial [entity][] with tech and layer
-* [@bem/sdk.file](https://github.com/bem/bem-sdk/tree/master/packages/file) — partial [cell][] with path and level
+* [@bem/sdk.file](https://github.com/bem/bem-sdk/tree/master/packages/file) — partial cell with path and level
 * [@bem/sdk.bundle](https://github.com/bem/bem-sdk/tree/master/packages/bundle) — representation of bem-bundle
 
 [BEM]: https://en.bem.info
