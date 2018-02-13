@@ -2,6 +2,48 @@
 
 ## Usage
 
+### `.bemrc` fields
+
+Field   | Type    | Purpose
+---     | ---     | ---
+root    | `Boolean` | Used to determine the root directory from the current one
+naming  | `string`, `Object` | Name of existing in [`naming.preset`](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) preset or custom definition
+levels  | `Array<LevelConf>` | List of known levels in the right order<br> (usually local) with their configurations
+sets    | `Object<string, SetConf>` | Named sets of layers to use in projects
+libs    | `Object<string, LibraryConf>` | Dependency libraries to use in sets
+plugins | `Object<string, PluginConf>` | Various configurations for plugins,<br>can be reached via [`.module`](#module) method
+
+#### `LevelConf`
+
+Describes level with sources.
+In classic version it represents a directory for a single layer — e.g. `bem-components/common.blocks/` for `common` or `bem-components/desktop.blocks/` for `desktop`.
+In modern version represents a set of layers relative to library path (`.bemrc` location)
+and depends on naming preset — e.g. `common` and `desktop` for just `bem-components/` (library) path and [`origin`](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/origin.js) preset.
+
+- `layer` - name of level‘s layer to use in sets
+- `naming` - naming preset for this level
+- `path` - optional. required for legacy way, unwanted for the modern one
+- the rest fields will have passed to level config
+
+#### `SetConf`
+
+`string|Array<string|{library: string, set?: string}>`
+
+One of:
+- single string with all used layers; e.g. `'bem-core@ common deskpad desktop'`
+- list of layers and/or libraries and library sets; e.g. `[{library: 'bem-core'}, 'common', 'deskpad', 'desktop']`
+
+#### `LibraryConf`
+
+- `path` - to library which should better contain their own `.bemrc` file with their own sets
+- the rest fields will have passed to library config and extend `.bemrc` config found at `${path}/.bemrc`
+
+#### `PluginConf`
+
+- all the fields will have passed directly to plugins
+
+## API
+
 ```js
 const bemConfig = require('@bem/sdk.config');
 const optionalConfig = { plugins: { create: { techs: ['styl', 'browser.js'] } } };
