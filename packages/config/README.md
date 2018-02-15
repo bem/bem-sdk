@@ -6,24 +6,50 @@
 
 Field   | Type    | Purpose
 ---     | ---     | ---
-root    | `Boolean` | Used to determine the root directory from the current one
-naming  | `string`, `Object` | Name of existing in [`naming.preset`](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) preset or custom definition
+root    | `Boolean` | Used to determine the root directory. Configs in parent dirs won't be gathered
+naming  | `string`, `Object` | Name of one of [naming presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) or custom naming definition
 levels  | `Array<LevelConf>` | List of known levels in the right order<br> (usually local) with their configurations
-sets    | `Object<string, SetConf>` | Named sets of layers to use in projects
+sets    | `Object<string, SetConf>` | Named sets of layers to build
 libs    | `Object<string, LibraryConf>` | Dependency libraries to use in sets
 plugins | `Object<string, PluginConf>` | Various configurations for plugins,<br>can be reached via [`.module`](#module) method
 
+#### `root`
+
+For the following file structure
+```
+/
+    projects/
+        prj1/
+            .bemrc
+        .bemrc
+    .bemrc
+```
+and `/projects/prj1/` as current working directory `root` option set to `true` in `/projects/prj1/.bemrc` will prevent `bem-config` to collect data from `/projects/.bemrc` and `/.bemrc`.
+
 #### `LevelConf`
 
-Describes level with sources.
-In classic version it represents a directory for a single layer — e.g. `bem-components/common.blocks/` for `common` or `bem-components/desktop.blocks/` for `desktop`.
-In modern version represents a set of layers relative to library path (`.bemrc` location)
-and depends on naming preset — e.g. `common` and `desktop` for just `bem-components/` (library) path and [`origin`](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/origin.js) preset.
+Describes [redefinition level](https://en.bem.info/methodology/key-concepts/#redefinition-level) with sources — a set of layers relative to library path (`.bemrc` location)
+and depends on naming preset. E.g. `common` and `desktop` for `bem-components/` (library) path and [`origin`](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/origin.js) preset.
 
-- `layer` - name of level‘s layer to use in sets
+Usualy it represents a directory for a single layer — e.g. `bem-components/common.blocks/` for `common` or `bem-components/desktop.blocks/` for `desktop`.
+
+- `layer` - name of level‘s layer to use in `sets` option
 - `naming` - naming preset for this level
-- `path` - optional. required for legacy way, unwanted for the modern one
-- the rest fields will have passed to level config
+- `path` - optional, deprecated. Required for legacy way, unwanted for the modern one
+- the rest fields will be passed to level config (if required by some custom consumer)
+
+##### Example
+```js
+{
+    "levels": [
+        {
+            "layer": "common",
+            "naming": "origin",
+            "scheme": "nested"
+        }
+    ]
+}
+```
 
 #### `SetConf`
 
@@ -35,12 +61,12 @@ One of:
 
 #### `LibraryConf`
 
-- `path` - to library which should better contain their own `.bemrc` file with their own sets
-- the rest fields will have passed to library config and extend `.bemrc` config found at `${path}/.bemrc`
+- `path` - path (repeating is okey) to library. Library should contain its own .bemrc file. If omitted path is evaluated to node_modules/${libraryName}
+- the rest fields will be passed to library config and extend `.bemrc` config found at `${path}/.bemrc`
 
 #### `PluginConf`
 
-- all the fields will have passed directly to plugins
+- all the fields will be passed directly to plugins
 
 ## API
 
