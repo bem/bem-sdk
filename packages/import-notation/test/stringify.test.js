@@ -66,6 +66,23 @@ describe('block', () => {
             { block : 'popup', mod : { name : 'autoclosable', val : 'yes' } }
         ])).to.equal('b:popup m:theme=normal|action m:autoclosable=yes');
     });
+
+    it('should not duplicate entities', () => {
+        expect(s([
+            { block : 'popup' },
+            { block : 'popup' },
+            { block : 'popup', mod : { name : 'theme' } },
+            { block : 'popup', mod : { name : 'theme' } },
+            { block : 'popup', mod : { name : 'theme', val : 'normal' } },
+            { block : 'popup', mod : { name : 'theme', val : 'normal' } },
+            { block : 'popup', mod : { name : 'theme', val : 'action' } },
+            { block : 'popup', mod : { name : 'theme', val : 'action' } },
+            { block : 'popup', mod : { name : 'autoclosable' } },
+            { block : 'popup', mod : { name : 'autoclosable' } },
+            { block : 'popup', mod : { name : 'autoclosable', val : 'yes' } },
+            { block : 'popup', mod : { name : 'autoclosable', val : 'yes' } }
+        ])).to.equal('b:popup m:theme=normal|action m:autoclosable=yes');
+    });
 });
 
 describe('elem', () => {
@@ -112,6 +129,23 @@ describe('elem', () => {
             { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'normal' } },
             { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'action' } },
             { block : 'popup', elem : 'tail', mod : { name : 'autoclosable' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'autoclosable', val : 'yes' } }
+        ])).to.equal('b:popup e:tail m:theme=normal|action m:autoclosable=yes');
+    });
+
+    it('should not duplicate elem entities', () => {
+        expect(s([
+            { block : 'popup', elem : 'tail' },
+            { block : 'popup', elem : 'tail' },
+            { block : 'popup', elem : 'tail', mod : { name : 'theme' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'theme' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'normal' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'normal' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'action' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'action' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'autoclosable' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'autoclosable' } },
+            { block : 'popup', elem : 'tail', mod : { name : 'autoclosable', val : 'yes' } },
             { block : 'popup', elem : 'tail', mod : { name : 'autoclosable', val : 'yes' } }
         ])).to.equal('b:popup e:tail m:theme=normal|action m:autoclosable=yes');
     });
