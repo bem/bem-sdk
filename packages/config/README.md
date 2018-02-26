@@ -149,7 +149,8 @@ console.log(configs); // all found configs from all dirs
     "levels": [
         {
             "path": "path/to/level",
-            "scheme": "nested"
+            "scheme": "nested",
+            "naming": "react"
         }
     ],
     "libs": {
