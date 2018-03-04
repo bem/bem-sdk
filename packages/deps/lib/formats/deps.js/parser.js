@@ -4,8 +4,36 @@ const debug = require('debug')('@bem/sdk.deps');
 const decl = require('@bem/sdk.decl');
 
 /**
- * @param {Array<{entity: BemEntityName, scope: {entity, tech: String}, data: *}>} depsData - List of deps
- * @returns {Array<*>}
+ * @typedef {Object} DepsData
+ * @property {BemCell} [scope] - Scope cell object
+ * @property {BemEntityName} [entity] - Entity to use if no scope passed
+ * @property {Array<DepsChunk>} data - Deps data
+ */
+
+/**
+ * @typedef {(string|Object)} DepsChunk
+ * @property {string} [block]
+ * @property {(DepsChunk|Array<DepsChunk>)} [elem]
+ * @property {string} [mod]
+ * @property {string} [val]
+ * @property {string} [tech]
+ * @property {(DepsChunk|Array<DepsChunk>)} [elems]
+ * @property {Object} [mods]
+ * @property {(DepsChunk|Array<DepsChunk>)} [mustDeps]
+ * @property {(DepsChunk|Array<DepsChunk>)} [shouldDeps]
+ */
+
+/**
+ * @typedef {Object} DepsLink
+ * @property {BemCell} vertex
+ * @property {BemCell} dependOn
+ * @property {boolean} [ordered] - `mustDeps` if set to true
+ * @property {string} [path] - path to deps.js file if exists
+ */
+
+/**
+ * @param {(Array<DepsData>|DepsData)} depsData - List of deps
+ * @returns {Array<DepsLink>}
  */
 module.exports = function parse(depsData) {
     const mustDeps = [];
@@ -13,7 +41,7 @@ module.exports = function parse(depsData) {
     const mustDepsIndex = {};
     const shouldDepsIndex = {};
 
-    depsData.forEach(record => {
+    [].concat(depsData).forEach(record => {
         const scope = record.scope || { entity: record.entity };
 
         if (!record.data) {
