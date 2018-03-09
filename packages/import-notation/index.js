@@ -1,23 +1,7 @@
 const hashSet = require('hash-set');
+const helpers = require('./lib/helpers');
 
-const tmpl = {
-    b : b => `b:${b}`,
-    e : e => e ? ` e:${e}` : '',
-    m : m => Object.keys(m).map(name => `${tmpl.mn(name)}${tmpl.mv(m[name])}`).join(''),
-    mn : m => ` m:${m}`,
-    mv : v => v.length ? `=${v.join('|')}` : '',
-    t : t => t ? ` t:${t}` : ''
-};
-
-const btmpl = Object.assign({}, tmpl, {
-    m : m => m ? `${tmpl.mn(m['name'])}${tmpl.mv([m['val']])}` : ''
-});
-
-const BemCellSet = hashSet(cell =>
-    ['block', 'elem', 'mod', 'tech']
-        .map(k => btmpl[k[0]](cell[k]))
-        .join('')
-);
+const BemCellSet = hashSet(helpers.stringifyCell);
 
 /**
  * Parse import statement and extract bem entities
@@ -93,17 +77,17 @@ function parse(importString, ctx) {
  */
 function stringify(cells) {
     const merged = [].concat(cells).reduce((acc, cell) => {
-        cell.block && (acc.b = cell.block);
-        cell.elem && (acc.e = cell.elem);
-        cell.mod && (acc.m[cell.mod.name] || (acc.m[cell.mod.name] = []))
+        cell.block && (acc.block = cell.block);
+        cell.elem && (acc.elem = cell.elem);
+        cell.mod && (acc.mod[cell.mod.name] || (acc.mod[cell.mod.name] = []))
             && cell.mod.val && typeof cell.mod.val !== 'boolean'
-            && !~acc.m[cell.mod.name].indexOf(cell.mod.val)
-            && acc.m[cell.mod.name].push(cell.mod.val);
-        cell.tech && (acc.t = cell.tech);
+            && !~acc.mod[cell.mod.name].indexOf(cell.mod.val)
+            && acc.mod[cell.mod.name].push(cell.mod.val);
+        cell.tech && (acc.tech = cell.tech);
         return acc;
-    }, { m : {} });
+    }, { mod : {} });
 
-    return ['b', 'e', 'm', 't'].map(k => tmpl[k](merged[k])).join('');
+    return helpers.stringifyMergedCells(merged);
 }
 
 module.exports = {
