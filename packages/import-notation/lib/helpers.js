@@ -1,4 +1,39 @@
 /**
+ * Helpers to test import-notation first part
+ */
+const tests = {
+    /**
+     * Returns true if notation starts with block-part
+     *
+     * Example:
+     * ```js
+     * b('b:button e:icon') // true
+     * b('e:icon') // false
+     * ```
+     *
+     * @param {String} n - notation
+     *
+     * @returns {Boolean}
+     */
+    b : n => /^b:/.test(n),
+
+    /**
+     * Returns true if notation starts with element-part
+     *
+     * Example:
+     * ```js
+     * b('b:button e:icon') // false
+     * b('e:icon') // true
+     * ```
+     *
+     * @param {String} n - notation
+     *
+     * @returns {Boolean}
+     */
+    e : n => /^e:/.test(n)
+};
+
+/**
  * @type {ImportNotationTemplates}
  */
 const templates = {
@@ -118,7 +153,24 @@ const cellTemplates = Object.assign({}, templates, {
  */
 const stringifyBuilder = ts => x => ['block', 'elem', 'mod', 'tech'].map(k => ts[k[0]](x[k])).join('');
 
+/**
+ * Returns import-notation expanded by context entity
+ *
+ * @param {String} n - notation
+ * @param {BemEntity} ctx - context entity
+ *
+ * @returns {String}
+ */
+const expand = (n, ctx) => {
+    if(tests.b(n)) {
+        return n;
+    }
+
+    return templates.b(ctx.block) + (tests.e(n) ? '' : templates.e(ctx.elem)) + ' ' + n;
+};
+
 module.exports = {
+    expand,
     stringifyMergedCells : stringifyBuilder(templates),
     stringifyCell : stringifyBuilder(cellTemplates)
 };

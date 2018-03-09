@@ -21,43 +21,43 @@ const BemCellSet = hashSet(helpers.stringifyCell);
  * @returns {BemCell[]}
  */
 function parse(importString, ctx) {
-    const main = {};
-    ctx || (ctx = {});
+    const cell = {};
+
+    ctx && (importString = helpers.expand(importString, ctx));
 
     return Array.from(importString.split(' ').reduce((acc, importToken) => {
         const split = importToken.split(':'),
             type = split[0],
             tail = split[1];
 
-        if(type === 'b') {
-            main.block = tail;
-            acc.add(main);
-        } else if(type === 'e') {
-            main.elem = tail;
-            if(!main.block && ctx.elem !== tail) {
-                main.block = ctx.block;
-                acc.add(main);
-            }
-        } else if(type === 'm' || type === 't') {
-            if(!main.block) {
-                main.block = ctx.block;
-                main.elem || ctx.elem && (main.elem = ctx.elem);
-            }
+        switch(type) {
+        case 'b':
+            cell.block = tail;
+            acc.add(cell);
+            break;
 
-            if(type === 'm') {
-                const splitMod = tail.split('='),
-                    modName = splitMod[0],
-                    modVals = splitMod[1];
+        case 'e':
+            cell.elem = tail;
+            break;
 
-                acc.add(Object.assign({}, main, { mod : { name : modName } }));
+        case 'm': {
+            const splitMod = tail.split('='),
+                modName = splitMod[0],
+                modVals = splitMod[1];
 
-                modVals && modVals.split('|').forEach(modVal => {
-                    acc.add(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
-                });
-            } else {
-                acc.size || acc.add(main);
-                acc.forEach(e => (e.tech = tail));
-            }
+            acc.add(Object.assign({}, cell, { mod : { name : modName } }));
+
+            modVals && modVals.split('|').forEach(modVal => {
+                acc.add(Object.assign({}, cell, { mod : { name : modName, val : modVal } }));
+            });
+            break;
+        }
+
+        case 't':
+            acc.forEach(e => {
+                e.tech = tail;
+            });
+            break;
         }
         return acc;
     }, new BemCellSet()));
