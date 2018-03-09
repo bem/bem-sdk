@@ -92,5 +92,6 @@ function stringify(cells) {
 
 module.exports = {
     parse,
-    stringify
+    stringify,
+    expand : helpers.expand
 };
