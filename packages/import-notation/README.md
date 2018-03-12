@@ -63,13 +63,10 @@ Context allows to extract portion of entities.
 ```js
 var enties = parse('m:theme=normal', { block: 'button' });
 
-// → [ { block: 'button', mod: { name: 'theme' } },
+// → [ { block: 'button' },
+//     { block: 'button', mod: { name: 'theme' } },
 //     { block: 'button', mod: { name: 'theme', val: 'normal' } } ]
 ```
-
-Note that, using context exludes `{ block: 'button'}` from result.
-
-So `parse('m:theme=normal', { block: 'button' })` is not same as `parse('b:button m:theme=normal')`
 
 ### stringify
 

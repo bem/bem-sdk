@@ -58,6 +58,7 @@ function parse(importString, ctx) {
             if(!main.block) {
                 main.block = ctx.block;
                 main.elem || ctx.elem && (main.elem = ctx.elem);
+                acc.add(main);
             }
 
             if(type === 'm') {
