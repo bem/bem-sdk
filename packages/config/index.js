@@ -156,7 +156,7 @@ BemConfig.prototype.library = function(libName) {
                 })
             });
         })
-        .then(cwd => new BemConfig({ cwd }));
+        .then(cwd => new BemConfig({ cwd: path.resolve(cwd) }));
 };
 
 /**
@@ -177,7 +177,7 @@ BemConfig.prototype.levelMap = function() {
                 });
             });
         })).then(function(libLevels) {
-            var allLevels = [].concat.apply([], libLevels).concat(projectLevels);
+            var allLevels = [].concat.apply([], libLevels.filter(Boolean)).concat(projectLevels);
 
             return allLevels.reduce((res, lvl) => {
                 res[lvl.path] = merge(res[lvl.path] || {}, lvl);
@@ -222,7 +222,7 @@ BemConfig.prototype.levels = function(setName) {
             var levelPath = level.path || (level.layer + '.blocks'); // ← TODO: Use @bem/sdk.file.naming
 
             return _this.levelMap().then(levelsMap => levelsMap[levelPath]);
-        })).then(flatten);
+        })).then(setLevels => setLevels.filter(Boolean)).then(flatten);
     });
 };
 
@@ -290,7 +290,7 @@ BemConfig.prototype.librarySync = function(libName) {
 
     assert(fs.existsSync(cwd), 'Library ' + libName + ' was not found at ' + cwd);
 
-    return new BemConfig({ cwd });
+    return new BemConfig({ cwd: path.resolve(cwd) });
 };
 
 /**
@@ -307,7 +307,7 @@ BemConfig.prototype.levelMapSync = function() {
             libConfig = bemLibConf.getSync();
 
         return libConfig.levels;
-    }, this));
+    }, this)).filter(Boolean);
 
     var allLevels = [].concat(libLevels, projectLevels); // hm.
     return allLevels.reduce(function(acc, level) {
@@ -348,7 +348,7 @@ BemConfig.prototype.levelsSync = function(setName) {
 
         var levelPath = level.path || (level.layer + '.blocks'); // TODO: Use `@bem/sdk.file.naming`
 
-        acc.push(levelsMap[levelPath]);
+        levelsMap[levelPath] && acc.push(levelsMap[levelPath]);
 
         return acc;
     }, []);
