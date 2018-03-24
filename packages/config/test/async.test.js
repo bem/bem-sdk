@@ -490,4 +490,37 @@ describe('async', () => {
 
         return expect(actual).to.eventually.deep.equal(expected);
     });
+
+    it('should return levels set with custom paths', () => {
+        const bemConfig = config([{
+            levels: [
+                { layer: 'common', path: 'node_modules/lib/common.blocks' },
+                { layer: 'common', path: 'common.blocks' },
+                { layer: 'desktop', path: 'desktop.blocks' }
+            ],
+            sets: {
+                desktop: 'common desktop'
+            },
+            __source: path.join(process.cwd(), path.basename(__filename))
+        }]);
+
+        const expected = [
+            {
+                layer: 'common',
+                path: path.resolve('node_modules/lib/common.blocks')
+            },
+            {
+                layer: 'common',
+                path: path.resolve('common.blocks')
+            },
+            {
+                layer: 'desktop',
+                path: path.resolve('desktop.blocks')
+            }
+        ];
+
+        const actual = bemConfig().levels('desktop');
+
+        return expect(actual).to.eventually.deep.equal(expected);
+    });
 });

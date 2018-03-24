@@ -201,28 +201,32 @@ BemConfig.prototype.levels = function(setName) {
 
         if (!set || !set.length) { return []; }
 
-        // TODO: uniq
-        return Promise.all(set.map(chunk => {
-            if (chunk.library) {
-                return _this.library(chunk.library).then(libConfig => {
-                    assert(libConfig, 'Library `' + chunk.library + '` was not found');
+        return _this.levelMap().then(levelsMap => {
+            // TODO: uniq
+            return Promise.all(set.map(chunk => {
+                if (chunk.library) {
+                    return _this.library(chunk.library).then(libConfig => {
+                        assert(libConfig, 'Library `' + chunk.library + '` was not found');
 
-                    return libConfig.levels(chunk.set || setName);
-                });
-            }
+                        return libConfig.levels(chunk.set || setName);
+                    });
+                }
 
-            if (chunk.set) {
-                return _this.levels(chunk.set);
-            }
+                if (chunk.set) {
+                    return _this.levels(chunk.set);
+                }
 
-            var level = levels.find(lvl => {
-                return lvl.layer === chunk.layer;
-            }) || {};
+                return levels.reduce((acc, lvl) => {
+                    if (lvl.layer !== chunk.layer) { return acc; }
 
-            var levelPath = level.path || (level.layer + '.blocks'); // ← TODO: Use @bem/sdk.file.naming
+                    var levelPath = lvl.path || (lvl.layer + '.blocks'); // TODO: Use `@bem/sdk.file.naming`
 
-            return _this.levelMap().then(levelsMap => levelsMap[levelPath]);
-        })).then(setLevels => setLevels.filter(Boolean)).then(flatten);
+                    levelsMap[levelPath] && acc.push(levelsMap[levelPath]);
+
+                    return acc;
+                }, []);
+            }));
+        }).then(flatten);
     });
 };
 
@@ -342,13 +346,13 @@ BemConfig.prototype.levelsSync = function(setName) {
             return acc.concat(_this.levelsSync(chunk.set));
         }
 
-        var level = levels.find(lvl => {
-            return lvl.layer === chunk.layer;
-        }) || {};
+        levels.forEach(lvl => {
+            if (lvl.layer !== chunk.layer) { return; }
 
-        var levelPath = level.path || (level.layer + '.blocks'); // TODO: Use `@bem/sdk.file.naming`
+            var levelPath = lvl.path || (lvl.layer + '.blocks'); // TODO: Use `@bem/sdk.file.naming`
 
-        levelsMap[levelPath] && acc.push(levelsMap[levelPath]);
+            levelsMap[levelPath] && acc.push(levelsMap[levelPath]);
+        });
 
         return acc;
     }, []);
