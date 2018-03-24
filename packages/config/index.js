@@ -208,7 +208,14 @@ BemConfig.prototype.levels = function(setName) {
                     return _this.library(chunk.library).then(libConfig => {
                         assert(libConfig, 'Library `' + chunk.library + '` was not found');
 
-                        return libConfig.levels(chunk.set || setName);
+                        return libConfig.get().then(libConfigData => {
+                            if (config.__source === libConfigData.__source) {
+                                console.log('WARN: no config was found in `' + chunk.library + '` library');
+                                return [];
+                            }
+
+                            return libConfig.levels(chunk.set || setName);
+                        });
                     });
                 }
 
@@ -338,6 +345,11 @@ BemConfig.prototype.levelsSync = function(setName) {
             var libConfig = _this.librarySync(chunk.library);
 
             assert(libConfig, 'Library `' + chunk.library + '` was not found');
+
+            if (config.__source === libConfig.getSync().__source) {
+                console.log('WARN: no config was found in `' + chunk.library + '` library');
+                return [];
+            }
 
             return acc.concat(libConfig.levelsSync(chunk.set));
         }
