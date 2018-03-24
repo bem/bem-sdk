@@ -230,6 +230,46 @@ describe('sync', () => {
         expect(actual).to.deep.equal(expected);
     });
 
+    it('should return proper levels map for layer without path and custom cwd', () => {
+        const bemConfig = config([{
+            levels: [
+                { layer: 'common', some: 'conf1' }
+            ],
+            __source: path.join(process.cwd(), path.basename(__filename))
+        }]);
+
+        const expected = {};
+        expected[path.resolve('src', 'common.blocks')] = {
+            path: path.resolve('src', 'common.blocks'),
+            some: 'conf1',
+            layer: 'common'
+        };
+
+        const actual = bemConfig({ cwd: path.resolve('src') }).levelMapSync();
+
+        expect(actual).to.deep.equal(expected);
+    });
+
+    it('should return proper levels map for layer without path and custom cwd', () => {
+        const bemConfig = config([{
+            levels: [
+                { layer: 'common', some: 'conf1' }
+            ],
+            __source: path.join(process.cwd(), path.basename(__filename))
+        }]);
+
+        const expected = {};
+        expected[path.resolve('..', 'common.blocks')] = {
+            path: path.resolve('..', 'common.blocks'),
+            some: 'conf1',
+            layer: 'common'
+        };
+
+        const actual = bemConfig({ cwd: path.resolve('..') }).levelMapSync();
+
+        expect(actual).to.deep.equal(expected);
+    });
+
     it('should return levels map for project and included libs', () => {
         const pathToLib1 = path.resolve(__dirname, 'mocks', 'node_modules', 'lib1');
         const bemConfig = config([{
