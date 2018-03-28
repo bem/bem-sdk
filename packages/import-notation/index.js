@@ -1,23 +1,7 @@
 const hashSet = require('hash-set');
+const helpers = require('./lib/helpers');
 
-const tmpl = {
-    b : b => `b:${b}`,
-    e : e => e ? ` e:${e}` : '',
-    m : m => Object.keys(m).map(name => `${tmpl.mn(name)}${tmpl.mv(m[name])}`).join(''),
-    mn : m => ` m:${m}`,
-    mv : v => v.length ? `=${v.join('|')}` : '',
-    t : t => t ? ` t:${t}` : ''
-};
-
-const btmpl = Object.assign({}, tmpl, {
-    m : m => m ? `${tmpl.mn(m['name'])}${tmpl.mv([m['val']])}` : ''
-});
-
-const BemCellSet = hashSet(cell =>
-    ['block', 'elem', 'mod', 'tech']
-        .map(k => btmpl[k[0]](cell[k]))
-        .join('')
-);
+const BemCellSet = hashSet(helpers.stringifyCell);
 
 /**
  * Parse import statement and extract bem entities
@@ -37,43 +21,43 @@ const BemCellSet = hashSet(cell =>
  * @returns {BemCell[]}
  */
 function parse(importString, ctx) {
-    const main = {};
-    ctx || (ctx = {});
+    const cell = {};
+
+    ctx && (importString = helpers.expand(importString, ctx));
 
     return Array.from(importString.split(' ').reduce((acc, importToken) => {
         const split = importToken.split(':'),
             type = split[0],
             tail = split[1];
 
-        if(type === 'b') {
-            main.block = tail;
-            acc.add(main);
-        } else if(type === 'e') {
-            main.elem = tail;
-            if(!main.block && ctx.elem !== tail) {
-                main.block = ctx.block;
-                acc.add(main);
-            }
-        } else if(type === 'm' || type === 't') {
-            if(!main.block) {
-                main.block = ctx.block;
-                main.elem || ctx.elem && (main.elem = ctx.elem);
-            }
+        switch(type) {
+        case 'b':
+            cell.block = tail;
+            acc.add(cell);
+            break;
 
-            if(type === 'm') {
-                const splitMod = tail.split('='),
-                    modName = splitMod[0],
-                    modVals = splitMod[1];
+        case 'e':
+            cell.elem = tail;
+            break;
 
-                acc.add(Object.assign({}, main, { mod : { name : modName } }));
+        case 'm': {
+            const splitMod = tail.split('='),
+                modName = splitMod[0],
+                modVals = splitMod[1];
 
-                modVals && modVals.split('|').forEach(modVal => {
-                    acc.add(Object.assign({}, main, { mod : { name : modName, val : modVal } }));
-                });
-            } else {
-                acc.size || acc.add(main);
-                acc.forEach(e => (e.tech = tail));
-            }
+            acc.add(Object.assign({}, cell, { mod : { name : modName } }));
+
+            modVals && modVals.split('|').forEach(modVal => {
+                acc.add(Object.assign({}, cell, { mod : { name : modName, val : modVal } }));
+            });
+            break;
+        }
+
+        case 't':
+            acc.forEach(e => {
+                e.tech = tail;
+            });
+            break;
         }
         return acc;
     }, new BemCellSet()));
@@ -93,20 +77,21 @@ function parse(importString, ctx) {
  */
 function stringify(cells) {
     const merged = [].concat(cells).reduce((acc, cell) => {
-        cell.block && (acc.b = cell.block);
-        cell.elem && (acc.e = cell.elem);
-        cell.mod && (acc.m[cell.mod.name] || (acc.m[cell.mod.name] = []))
+        cell.block && (acc.block = cell.block);
+        cell.elem && (acc.elem = cell.elem);
+        cell.mod && (acc.mod[cell.mod.name] || (acc.mod[cell.mod.name] = []))
             && cell.mod.val && typeof cell.mod.val !== 'boolean'
-            && !~acc.m[cell.mod.name].indexOf(cell.mod.val)
-            && acc.m[cell.mod.name].push(cell.mod.val);
-        cell.tech && (acc.t = cell.tech);
+            && !~acc.mod[cell.mod.name].indexOf(cell.mod.val)
+            && acc.mod[cell.mod.name].push(cell.mod.val);
+        cell.tech && (acc.tech = cell.tech);
         return acc;
-    }, { m : {} });
+    }, { mod : {} });
 
-    return ['b', 'e', 'm', 't'].map(k => tmpl[k](merged[k])).join('');
+    return helpers.stringifyMergedCells(merged);
 }
 
 module.exports = {
     parse,
-    stringify
+    stringify,
+    expand : helpers.expand
 };

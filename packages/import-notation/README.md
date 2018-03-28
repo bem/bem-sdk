@@ -38,13 +38,14 @@ API
 
 * [parse](#parsestr-ctx)
 * [stringify](#stringify)
+* [expand](#parsestr-ctx)
 
 ### parse(str, ctx)
 
 Parameter | Type     | Description
 ----------|----------|--------------------------------------------------------
 `str`     | `string` | BEM import notation check [notation section](#notation)
-`ctx`     | `object` | BEM entity name representation.
+`[ctx]`   | `object` | BEM entity name representation
 
 Parses the string into BEM entities.
 
@@ -58,18 +59,15 @@ entity.elem // → 'text'
 
 #### ctx
 
-Context allows to extract portion of entities.
+Context allows to use short form of notation.
 
 ```js
 var enties = parse('m:theme=normal', { block: 'button' });
 
-// → [ { block: 'button', mod: { name: 'theme' } },
+// → [ { block: 'button' },
+//     { block: 'button', mod: { name: 'theme' } },
 //     { block: 'button', mod: { name: 'theme', val: 'normal' } } ]
 ```
-
-Note that, using context exludes `{ block: 'button'}` from result.
-
-So `parse('m:theme=normal', { block: 'button' })` is not same as `parse('b:button m:theme=normal')`
 
 ### stringify
 
@@ -79,6 +77,23 @@ Parameter | Type     | Description
 
 Forms a string from [BEM entities]. Be aware to merge only one type of entities.
 The array should contains one block or one elem and optionally it's modifiers.
+
+### expand(str, ctx)
+
+Parameter | Type     | Description
+----------|----------|--------------------------------------------------------
+`str`     | `string` | BEM import notation check [notation section](#notation)
+`ctx`     | `object` | BEM entity name representation
+
+Expand notation string to full form by context BEM entity.
+
+Example:
+
+```js
+var notation = parse('e:text', { block: 'button' });
+
+// → 'b:button e:text'
+```
 
 Notation
 --------
