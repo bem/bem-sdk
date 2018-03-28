@@ -36,15 +36,15 @@ parse('b:button m:theme=normal|action');
 API
 ---
 
-* [parse](#parsestr-ctx)
+* [parse](#parsestr-scope)
 * [stringify](#stringify)
 
-### parse(str, ctx)
+### parse(str, [scope])
 
 Parameter | Type     | Description
 ----------|----------|--------------------------------------------------------
 `str`     | `string` | BEM import notation check [notation section](#notation)
-`ctx`     | `object` | BEM entity name representation.
+[`scope`] | `object` | BEM entity name representation.
 
 Parses the string into BEM entities.
 
@@ -56,7 +56,7 @@ entity.block // → 'button'
 entity.elem // → 'text'
 ```
 
-#### ctx
+#### scope
 
 Context allows to extract portion of entities.
 
@@ -81,7 +81,7 @@ Notation
 --------
 
 This section describes all possible syntax of BEM import strings.
-Examples are provided in es6 syntax. Note that [parse](#parsestr-ctx) function only works with strings.
+Examples are provided in es6 syntax. Note that [parse](#parsestr-scope) function only works with strings.
 
 Right now order of fields is important, check [issue](https://github.com/bem-sdk-archive/bem-import-notation/issues/12):
 

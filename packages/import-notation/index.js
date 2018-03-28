@@ -31,14 +31,14 @@ const BemCellSet = hashSet(cell =>
  *
  * @public
  * @param {String} importString - string Literal from import statement
- * @param {BemEntity} [ctx] - entity to restore `block` part
+ * @param {BemEntity} [scope] - entity to restore `block`/`elem` base name
  *                             it's needed for short syntax: `import 'e:elemOfThisBlock'`
  *                                                           `import 'm:modOfThisBlock`
  * @returns {BemCell[]}
  */
-function parse(importString, ctx) {
+function parse(importString, scope) {
     const main = {};
-    ctx || (ctx = {});
+    scope || (scope = {});
 
     return Array.from(importString.split(' ').reduce((acc, importToken) => {
         const split = importToken.split(':'),
@@ -50,14 +50,14 @@ function parse(importString, ctx) {
             acc.add(main);
         } else if(type === 'e') {
             main.elem = tail;
-            if(!main.block && ctx.elem !== tail) {
-                main.block = ctx.block;
+            if(!main.block && scope.elem !== tail) {
+                main.block = scope.block;
                 acc.add(main);
             }
         } else if(type === 'm' || type === 't') {
             if(!main.block) {
-                main.block = ctx.block;
-                main.elem || ctx.elem && (main.elem = ctx.elem);
+                main.block = scope.block;
+                main.elem || scope.elem && (main.elem = scope.elem);
                 acc.add(main);
             }
 
