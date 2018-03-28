@@ -70,12 +70,14 @@ describe('block', () => {
         describe('context is block', () => {
             it('should extract blockMod', () => {
                 expect(p('m:autoclosable', { block : 'popup' })).to.eql([
+                    { block : 'popup' },
                     { block : 'popup', mod : { name : 'autoclosable' } }
                 ]);
             });
 
             it('should extract block with modifier', () => {
                 expect(p('m:autoclosable=yes', { block : 'popup' })).to.eql([
+                    { block : 'popup' },
                     { block : 'popup', mod : { name : 'autoclosable' } },
                     { block : 'popup', mod : { name : 'autoclosable', val : 'yes' } }
                 ]);
@@ -83,6 +85,7 @@ describe('block', () => {
 
             it('should extract blockMod with several values', () => {
                 expect(p('m:theme=normal|action', { block : 'popup' })).to.eql([
+                    { block : 'popup' },
                     { block : 'popup', mod : { name : 'theme' } },
                     { block : 'popup', mod : { name : 'theme', val : 'normal' } },
                     { block : 'popup', mod : { name : 'theme', val : 'action' } }
@@ -91,6 +94,7 @@ describe('block', () => {
 
             it('should extract blockMod with several modifiers', () => {
                 expect(p('m:theme m:autoclosable', { block : 'popup' })).to.eql([
+                    { block : 'popup' },
                     { block : 'popup', mod : { name : 'theme' } },
                     { block : 'popup', mod : { name : 'autoclosable' } }
                 ]);
@@ -98,6 +102,7 @@ describe('block', () => {
 
             it('should extract blockMods with several modifiers and several values', () => {
                 expect(p('m:theme=normal|action m:autoclosable=yes', { block : 'popup' })).to.eql([
+                    { block : 'popup' },
                     { block : 'popup', mod : { name : 'theme' } },
                     { block : 'popup', mod : { name : 'theme', val : 'normal' } },
                     { block : 'popup', mod : { name : 'theme', val : 'action' } },
@@ -323,12 +328,14 @@ describe('elem', () => {
             describe('context is elem', () => {
                 it('should extract elem with simple modifier', () => {
                     expect(p('m:pseudo', { block : 'button2', elem : 'text' })).to.eql([
+                        { block : 'button2', elem : 'text' },
                         { block : 'button2', elem : 'text', mod : { name : 'pseudo' } }
                     ]);
                 });
 
                 it('should extract elem with modifier', () => {
                     expect(p('m:pseudo=yes', { block : 'button2', elem : 'text' })).to.eql([
+                        { block : 'button2', elem : 'text' },
                         { block : 'button2', elem : 'text', mod : { name : 'pseudo' } },
                         { block : 'button2', elem : 'text', mod : { name : 'pseudo', val : 'yes' } }
                     ]);
@@ -336,6 +343,7 @@ describe('elem', () => {
 
                 it('should extract elem with modifier and several values', () => {
                     expect(p('m:theme=normal|action', { block : 'button2', elem : 'text' })).to.eql([
+                        { block : 'button2', elem : 'text' },
                         { block : 'button2', elem : 'text', mod : { name : 'theme' } },
                         { block : 'button2', elem : 'text', mod : { name : 'theme', val : 'normal' } },
                         { block : 'button2', elem : 'text', mod : { name : 'theme', val : 'action' } }
@@ -344,6 +352,7 @@ describe('elem', () => {
 
                 it('should extract elem with several modifiers', () => {
                     expect(p('m:theme m:autoclosable', { block : 'popup', elem : 'tail' })).to.eql([
+                        { block : 'popup', elem : 'tail' },
                         { block : 'popup', elem : 'tail', mod : { name : 'theme' } },
                         { block : 'popup', elem : 'tail', mod : { name : 'autoclosable' } }
                     ]);
@@ -353,6 +362,7 @@ describe('elem', () => {
                     expect(
                         p('m:theme=normal|action m:autoclosable=yes', { block : 'popup', elem : 'tail' })
                     ).to.eql([
+                        { block : 'popup', elem : 'tail' },
                         { block : 'popup', elem : 'tail', mod : { name : 'theme' } },
                         { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'normal' } },
                         { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'action' } },
@@ -418,12 +428,14 @@ describe('elem', () => {
             describe('context is current elem', () => {
                 it('should extract elem with simple modifier', () => {
                     expect(p('e:text m:pseudo', { block : 'button2', elem : 'text' })).to.eql([
+                        { block : 'button2', elem : 'text' },
                         { block : 'button2', elem : 'text', mod : { name : 'pseudo' } }
                     ]);
                 });
 
                 it('should extract elem with modifier', () => {
                     expect(p('e:text m:pseudo=yes', { block : 'button2', elem : 'text' })).to.eql([
+                        { block : 'button2', elem : 'text' },
                         { block : 'button2', elem : 'text', mod : { name : 'pseudo' } },
                         { block : 'button2', elem : 'text', mod : { name : 'pseudo', val : 'yes' } }
                     ]);
@@ -431,6 +443,7 @@ describe('elem', () => {
 
                 it('should extract elem with modifier and several values', () => {
                     expect(p('e:text m:theme=normal|action', { block : 'button2', elem : 'text' })).to.eql([
+                        { block : 'button2', elem : 'text' },
                         { block : 'button2', elem : 'text', mod : { name : 'theme' } },
                         { block : 'button2', elem : 'text', mod : { name : 'theme', val : 'normal' } },
                         { block : 'button2', elem : 'text', mod : { name : 'theme', val : 'action' } }
@@ -439,6 +452,7 @@ describe('elem', () => {
 
                 it('should extract elem with several modifiers', () => {
                     expect(p('e:tail m:theme m:autoclosable', { block : 'popup', elem : 'tail' })).to.eql([
+                        { block : 'popup', elem : 'tail' },
                         { block : 'popup', elem : 'tail', mod : { name : 'theme' } },
                         { block : 'popup', elem : 'tail', mod : { name : 'autoclosable' } }
                     ]);
@@ -448,6 +462,7 @@ describe('elem', () => {
                     expect(
                         p('e:tail m:theme=normal|action m:autoclosable=yes', { block : 'popup', elem : 'tail' })
                     ).to.eql([
+                        { block : 'popup', elem : 'tail' },
                         { block : 'popup', elem : 'tail', mod : { name : 'theme' } },
                         { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'normal' } },
                         { block : 'popup', elem : 'tail', mod : { name : 'theme', val : 'action' } },
