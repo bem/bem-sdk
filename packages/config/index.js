@@ -53,7 +53,7 @@ BemConfig.prototype.configs = function(isSync) {
     var plugins = [].concat(basePlugins, options.plugins || []);
 
     if (isSync) {
-        var configs = doSomeMagicProcedure(this._configs || (this._configs = rc.sync(rcOpts)));
+        var configs = doSomeMagicProcedure(this._configs || (this._configs = rc.sync(rcOpts)), cwd);
 
         this._root = getConfigsRootDir(configs);
 
@@ -68,7 +68,7 @@ BemConfig.prototype.configs = function(isSync) {
         _thisConfigs = this._configs || rc(rcOpts).then(function(cfgs) { _this._configs = cfgs; return cfgs; });
 
     return Promise.resolve(_thisConfigs).then(function(cfgs) {
-        doSomeMagicProcedure(cfgs);
+        doSomeMagicProcedure(cfgs, cwd);
 
         _this._root = getConfigsRootDir(cfgs);
 
@@ -423,9 +423,10 @@ function getLevelByConfigs(pathToLevel, options, allConfigs, root) {
  * Modifies passed configs set — adds path property if empty
  *
  * @param {Array<{layer: String, path: ?String}>} configs
+ * @param {String} cwd
  * @returns {Array<{layer: String, path: String}>}
  */
-function doSomeMagicProcedure(configs) {
+function doSomeMagicProcedure(configs, cwd) {
     let levels;
 
     configs.forEach(config => {
@@ -436,7 +437,14 @@ function doSomeMagicProcedure(configs) {
         if (!Array.isArray(levels)) {
             config.levels = Object.keys(levels).map(levelPath => Object.assign({ path: levelPath }, levels[levelPath]));
         } else {
-            levels.forEach(level => level.path || (level.path = level.layer + '.blocks'));
+
+            var levelPrefix = '';
+            if (config.__source && path.dirname(config.__source) !== cwd) {
+                levelPrefix = path.relative(path.dirname(config.__source), cwd);
+            }
+
+            // FIXME: use `@bem/sdk.file.naming`
+            levels.forEach(level => level.path || (level.path = path.join(levelPrefix, level.layer + '.blocks')));
         }
     });
 
