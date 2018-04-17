@@ -1,3 +1,3 @@
-import BemEntityName from './types/entity-name.d';
+import BemEntityName = require('./types/entity-name');
 
 export = BemEntityName;
