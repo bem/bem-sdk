@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.entity.stringify",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Stringifier for BEM entities",
   "publishConfig": {
     "access": "public"
@@ -29,8 +29,8 @@
     "index.js"
   ],
   "devDependencies": {
-    "@bem/sdk.entity-name": "^0.2.4",
-    "@bem/sdk.naming.presets": "^0.0.7"
+    "@bem/sdk.entity-name": "^0.2.5",
+    "@bem/sdk.naming.presets": "^0.0.8"
   },
   "scripts": {
     "test": "nyc mocha",

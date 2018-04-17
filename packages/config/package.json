@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.config",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "Config module for bem-tools",
   "publishConfig": {
     "access": "public"
