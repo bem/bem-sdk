@@ -33,7 +33,7 @@
 
 ## Контейнеры
 
-* [@bem/sdk.entity-name](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity) — представление [БЭМ-сущности](entity)
+* [@bem/sdk.entity-name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) — представление [БЭМ-сущности](entity)
 * [@bem/sdk.cell](https://github.com/bem/bem-sdk/tree/master/packages/cell) — [БЭМ-сущность](entity) с технологией и слоем
 * [@bem/sdk.bundle](https://github.com/bem/bem-sdk/tree/master/packages/bundle) — представление БЭМ-бандла
 
