@@ -1,6 +1,6 @@
 'use strict';
 
-const presets = require('.');
+var presets = require('.');
 
 module.exports = init;
 
@@ -16,7 +16,7 @@ function init(options) {
     }
 
     if (typeof options === 'string') {
-        const preset = presets[options];
+        var preset = presets[options];
 
         if (!preset) {
             throw new Error('The `' + options + '` naming is unknown.');
@@ -25,11 +25,11 @@ function init(options) {
         return preset;
     }
 
-    const defaults = presets.origin;
-    const defaultDelims = defaults.delims;
-    const defaultModDelims = defaultDelims.mod;
-    const optionsDelims = options.delims || {};
-    const mod = optionsDelims.mod || defaultDelims.mod;
+    var defaults = presets.origin;
+    var defaultDelims = defaults.delims;
+    var defaultModDelims = defaultDelims.mod;
+    var optionsDelims = options.delims || {};
+    var mod = optionsDelims.mod || defaultDelims.mod;
 
     return {
         delims: {

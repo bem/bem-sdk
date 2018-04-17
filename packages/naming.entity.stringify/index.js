@@ -12,15 +12,15 @@ function stringify(entity, delims) {
         return '';
     }
 
-    const res = [entity.block];
+    var res = [entity.block];
 
     if (entity.elem !== undefined) {
         res.push(delims.elem, entity.elem);
     }
 
-    const mod = entity.mod;
+    var mod = entity.mod;
     if (mod !== undefined) {
-        const val = mod.val;
+        var val = mod.val;
         if (typeof mod === 'string') {
             res.push(delims.mod.name, mod);
         } else if (val || !('val' in mod)) {
@@ -41,8 +41,10 @@ function stringify(entity, delims) {
  * @param {BemNamingConvention} convention - options for naming convention.
  * @returns {Function}
  */
-module.exports = convention => {
+module.exports = function (convention) {
     console.assert(convention.delims && convention.delims.elem && convention.delims.mod,
         '@bem/sdk.naming.entity.stringify: convention should be an instance of BemNamingEntityConvention');
-    return (entity) => stringify(entity, convention.delims);
+    return function (entity) {
+        return stringify(entity, convention.delims);
+    };
 };
