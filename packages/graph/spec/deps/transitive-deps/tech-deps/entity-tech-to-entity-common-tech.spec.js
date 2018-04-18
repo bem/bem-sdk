@@ -50,9 +50,44 @@ describe('deps/transitive-deps/tech-deps/entity-tech-to-entity-common-tech', () 
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
+                const decl2 = Array.from(graph.dependenciesOf({ block: 'A', tech: 'css' }));
 
                 expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'css' })
                     .and.to.deep.contain({ entity: { block: 'D' }, tech: 'css' });
+
+                expect(decl2).to.deep.contain({ entity: { block: 'C' }, tech: 'css' })
+                    .and.to.deep.contain({ entity: { block: 'D' }, tech: 'css' });
+            }
+        });
+    });
+
+    it('should resolve few different techs with multiple transitive cell dependencies', () => {
+        macro({
+            graph: (linkMethod) => {
+                const graph = new BemGraph();
+
+                graph
+                    .vertex({ block: 'A' }, 't1')
+                    [linkMethod]({ block: 'D' }, 'r1');
+
+                graph
+                    .vertex({ block: 'B' }, 't2')
+                    [linkMethod]({ block: 'C' }, 't3');
+
+                graph
+                    .vertex({ block: 'C' }, 't3')
+                    [linkMethod]({ block: 'D' }, 'r2');
+
+                return graph;
+            },
+            test: (graph) => {
+                const decl = Array.from(graph.dependenciesOf([
+                    { block: 'A', tech: 't1' },
+                    { block: 'B', tech: 't2' }
+                ], 'wtf'));
+
+                expect(decl).to.deep.contain({ entity: { block: 'D' }, tech: 'r1' })
+                    .and.to.deep.contain({ entity: { block: 'D' }, tech: 'r2' });
             }
         });
     });

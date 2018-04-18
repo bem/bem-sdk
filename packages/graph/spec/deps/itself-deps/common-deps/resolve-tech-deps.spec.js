@@ -22,8 +22,10 @@ describe('deps/itself-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
+                const decl2 = Array.from(graph.dependenciesOf({ block: 'A', tech: 'css' }));
 
-                expect(decl).to.be.eql([{ entity: { block: 'A' }, tech: 'css' }]);
+                expect(decl).to.be.eql([{ entity: { block: 'A' }, tech: 'css' }], 'default tech');
+                expect(decl2).to.be.eql([{ entity: { block: 'A' }, tech: 'css' }], 'cell-like object');
             }
         });
     });
