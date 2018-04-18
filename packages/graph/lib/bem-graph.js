@@ -2,7 +2,6 @@
 
 const debug = require('debug')('@bem/sdk.graph');
 const BemCell = require('@bem/sdk.cell');
-const BemEntityName = require('@bem/sdk.entity-name');
 
 const MixedGraph = require('./mixed-graph');
 const resolve = require('./mixed-graph-resolve');
@@ -23,20 +22,22 @@ class BemGraph {
     naturalDependenciesOf(entities, tech) {
         return this.dependenciesOf(BemGraph._sortNaturally(entities.map(BemCell.create)), tech);
     }
-    dependenciesOf(entities, tech) {
-        if (!Array.isArray(entities)) {
-            entities = [entities];
+    dependenciesOf(cells, tech) {
+        if (!Array.isArray(cells)) {
+            cells = [cells];
         }
 
-        const vertices = entities.reduce((res, entityData) => {
-            const entity = BemCell.isBemCell(entityData)
-                ? entityData.entity
-                : BemEntityName.create(entityData);
+        const vertices = cells.reduce((res, cellData) => {
+            if (!cellData) {
+                return res;
+            }
 
-            res.push(BemCell.create({ entity }));
+            const cell = BemCell.create(cellData);
+
+            res.push(cell);
 
             // Multiply techs
-            tech && res.push(BemCell.create({ entity, tech }));
+            tech && !cell.tech && res.push(BemCell.create({ entity: cell.entity, tech }));
 
             return res;
         }, []);
@@ -88,7 +89,7 @@ class BemGraph {
                     return false;
                 }
 
-                mixedGraph.addEdge(vertex, dependant, {ordered: true});
+                mixedGraph.addEdge(vertex, dependant, { ordered: true });
                 return true;
             }
 
