@@ -67,7 +67,8 @@ describe('loops/tech-loops', () => {
                 { entity: { block: 'A' } },
                 { entity: { block: 'B' } },
                 { entity: { block: 'A' }, tech: 'css' },
-                { entity: { block: 'B' } }
+                { entity: { block: 'B' }, tech: 'css' },
+                { entity: { block: 'A' }, tech: 'css' }
             ]);
         }
     });
@@ -90,9 +91,9 @@ describe('loops/tech-loops', () => {
         } catch (error) {
             expect(error.loop).to.deep.equal([
                 { entity: { block: 'A' } },
-                { entity: { block: 'B' } },
+                { entity: { block: 'B' }, tech: 'css' },
                 { entity: { block: 'A' }, tech: 'css' },
-                { entity: { block: 'B' } }
+                { entity: { block: 'B' }, tech: 'css' }
             ]);
         }
     });
