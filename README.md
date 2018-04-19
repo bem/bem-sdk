@@ -33,7 +33,7 @@ Usefull modules to work with [BEM][] methodology.
 
 ## Containers
 
-* [@bem/sdk.entity-name](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity) — [entity][] name representation
+* [@bem/sdk.entity-name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) — [entity][] name representation
 * [@bem/sdk.cell](https://github.com/bem/bem-sdk/tree/master/packages/cell) — partial [entity][] with tech and layer
 * [@bem/sdk.file](https://github.com/bem/bem-sdk/tree/master/packages/file) — partial cell with path and level
 * [@bem/sdk.bundle](https://github.com/bem/bem-sdk/tree/master/packages/bundle) — representation of bem-bundle
