@@ -5,7 +5,7 @@ const BemEntityName = require('@bem/sdk.entity-name');
 /**
  * Builds regex for specified naming convention.
  *
- * @param {BemNamingDelims} delims — separates entity names from each other.
+ * @param {INamingConventionDelims} delims — separates entity names from each other.
  * @param {String} wordPattern — defines which symbols can be used for block, element and modifier's names.
  * @returns {RegExp}
  */
@@ -46,7 +46,7 @@ function parse(str, regex) {
 /**
  * Creates `parse` function for specified naming convention.
  *
- * @param {BemNamingConvention} convention - options for naming convention.
+ * @param {INamingConvention} convention - options for naming convention.
  * @returns {Function}
  */
 module.exports = (convention) => {
