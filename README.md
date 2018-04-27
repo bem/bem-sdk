@@ -14,10 +14,10 @@ Usefull modules to work with [BEM][] methodology.
 ## Naming
 
 * [@bem/sdk.naming.entity](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity) — the old well-known `bem-naming` package. Contains of `parse` and `stringify` methods (DEPREACTED, use separated packages instead)
-* [@bem/sdk.naming.entity.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify) — stringifier for [entity][] representation
-* [@bem/sdk.naming.entity.parse](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse) — parser for [entity][] representation
+<!-- * [@bem/sdk.naming.entity.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify) — stringifier for [entity][] representation -->
+<!-- * [@bem/sdk.naming.entity.parse](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse) — parser for [entity][] representation -->
 * [@bem/sdk.naming.cell.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.stringify) — stringifier path to [entity][] inside a BEM project's file system
-* [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) — well-known presets for `naming.*` packages
+<!-- * [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) — well-known presets for `naming.*` packages -->
 
 ## Declarations
 
