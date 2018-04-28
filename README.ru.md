@@ -14,10 +14,10 @@
 ## Именование
 
 * [@bem/sdk.naming.entity](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity) — старый добрый знаменитый пакет `bem-naming`. Содержит методы `parse` и `stringify` (DEPREACTED, используйте отдельные пакеты)
-* [@bem/sdk.naming.entity.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify) — преобразовать к строке представление [БЭМ-сущности](entity)
-* [@bem/sdk.naming.entity.parse](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse) — разобрать из строки представление [БЭМ-сущности](entity)
+<!-- * [@bem/sdk.naming.entity.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify) — преобразовать к строке представление [БЭМ-сущности](entity) -->
+<!-- * [@bem/sdk.naming.entity.parse](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse) — разобрать из строки представление [БЭМ-сущности](entity) -->
 * [@bem/sdk.naming.cell.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.stringify) — преобразователь к строке пути до [БЭМ-сущности](entity) в учетом схемы уровня
-* [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) — набор широко известных настроек для `naming.*` пакетов
+<!-- * [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) — набор широко известных настроек для `naming.*` пакетов -->
 
 ## Декларации
 
