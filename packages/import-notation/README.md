@@ -38,13 +38,29 @@ API
 
 * [parse](#parsestr-scope)
 * [stringify](#stringify)
+* [fillup](#fillupstr-scope)
+
+### fillup(str, scope)
+
+Parameter | Type     | Description
+----------|----------|--------------------------------------------------------
+`str`     | `string` | BEM import notation check [notation section](#notation)
+`scope`   | `object` | BEM entity name representation
+
+Fills up given import-notation by context entity to its full form.
+
+Example:
+
+```js
+fillup('e:text', { block: 'button' }) // → 'b:button e:text'
+```
 
 ### parse(str, [scope])
 
 Parameter | Type     | Description
 ----------|----------|--------------------------------------------------------
 `str`     | `string` | BEM import notation check [notation section](#notation)
-[`scope`] | `object` | BEM entity name representation.
+[`scope`] | `object` | BEM entity name representation
 
 Parses the string into BEM entities.
 

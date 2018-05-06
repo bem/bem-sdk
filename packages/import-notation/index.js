@@ -91,5 +91,6 @@ function stringify(cells) {
 
 module.exports = {
     parse,
-    stringify
+    stringify,
+    fillup : helpers.fillup
 };
