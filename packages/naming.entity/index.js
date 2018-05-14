@@ -3,7 +3,7 @@
 /**
  * Delims of bem entity, elem and/or mod.
  *
- * @typedef {Object} BemNamingDelims
+ * @typedef {Object} INamingConventionDelims
  * @param {String} [elem='__'] — separates element's name from block.
  * @param {String|Object} [mod='_'] — separates modifiers from blocks and elements.
  * @param {String} [mod.name='_'] — separates name of modifier from blocks and elements.
@@ -13,8 +13,8 @@
  /**
   * BEM naming convention options.
   *
-  * @typedef {Object} BemNamingConvention
-  * @param {BemNamingDelims} delims — separates entity names from each other.
+  * @typedef {Object} INamingConvention
+  * @param {INamingConventionDelims} delims — separates entity names from each other.
   * @param {String|Object} [wordPattern='[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*'] — defines which symbols can be used for block,
   *                                                                         element and modifier's names.
   */
@@ -33,7 +33,7 @@ const cache = {};
  * Creates namespace with methods which allows getting information about BEM entity using string as well
  * as forming string representation based on naming object.
  *
- * @param {BemNamingConvention} [options] - options for naming convention.
+ * @param {INamingConvention} [options] - options for naming convention.
  * @return {Object}
  */
 function createNaming(options) {

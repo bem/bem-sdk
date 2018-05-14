@@ -8,7 +8,7 @@ module.exports = init;
  * Returns delims and wordPattern.
  *
  * @param {Object} options - user options
- * @returns {BemNamingDelims}
+ * @returns {INamingConventionDelims}
  */
 function init(options) {
     if (!options) {

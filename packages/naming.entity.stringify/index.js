@@ -4,7 +4,7 @@
  * Forms a string according to object representation of BEM entity.
  *
  * @param {Object|BemEntityName} entity - object representation of BEM entity.
- * @param {BemNamingConventionDelims} delims - separates entity names from each other.
+ * @param {INamingConventionDelims} delims - separates entity names from each other.
  * @returns {String}
  */
 function stringify(entity, delims) {
@@ -38,7 +38,7 @@ function stringify(entity, delims) {
 /**
  * Creates `stringify` function for specified naming convention.
  *
- * @param {BemNamingConvention} convention - options for naming convention.
+ * @param {INamingConvention} convention - options for naming convention.
  * @returns {Function}
  */
 module.exports = function (convention) {

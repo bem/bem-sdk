@@ -7,7 +7,7 @@ const createCellStringify = require('@bem/sdk.naming.cell.stringify');
 /**
  * Stringifier generator
  *
- * @param {BemNamingConvention} conv - naming, path and scheme
+ * @param {INamingConvention} conv - naming, path and scheme
  * @returns {function(BemCell): string} converts cell to file path
  */
 module.exports = (conv) => {

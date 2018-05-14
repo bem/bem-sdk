@@ -33,8 +33,10 @@
     "node": ">= 4.0"
   },
   "main": "index.js",
+  "typings": "index.d.ts",
   "files": [
-    "*.js"
+    "*.js",
+    "index.d.ts"
   ],
   "scripts": {
     "test": "nyc mocha"
