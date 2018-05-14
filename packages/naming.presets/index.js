@@ -1,7 +1,5 @@
 'use strict';
 
-module.exports = {
-    origin: require('./origin'),
-    react: require('./react'),
-    'two-dashes': require('./two-dashes')
-};
+module.exports.origin = require('./origin');
+module.exports.react = require('./react');
+module.exports['two-dashes'] = require('./two-dashes');
