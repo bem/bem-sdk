@@ -26,7 +26,8 @@
   "main": "index.js",
   "files": [
     "lib/**",
-    "index.js"
+    "index.js",
+    "index.d.ts"
   ],
   "devDependencies": {
     "@bem/sdk.entity-name": "^0.2.6",
@@ -35,5 +36,6 @@
   "scripts": {
     "test": "nyc mocha",
     "bench": "matcha benchmark/*.js"
-  }
+  },
+  "typings": "index.d.ts"
 }
