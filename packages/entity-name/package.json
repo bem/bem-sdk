@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.entity-name",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "BEM entity name representation",
   "publishConfig": {
     "access": "public"
