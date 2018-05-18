@@ -66,11 +66,11 @@ declare module '@bem/sdk.entity-name' {
         /**
          * Strict object to represent entity name.
          */
-        export interface IRepresentation extends AbstractRepresentation {
+        export interface IRepresentation extends IAbstractRepresentation {
             /**
              * The modifier of entity.
              */
-            mod?: Modifier;
+            mod?: IModifier;
         }
 
         /**
