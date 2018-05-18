@@ -28,7 +28,7 @@
     "index.js"
   ],
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=8.11.0"
   },
   "dependencies": {
     "@bem/sdk.entity-name": "^0.2.6",

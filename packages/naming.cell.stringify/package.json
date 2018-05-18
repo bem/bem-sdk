@@ -19,7 +19,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.stringify#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=8.11.0"
   },
   "main": "cell-stringify.js",
   "files": [

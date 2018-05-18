@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/deps#readme",
   "engines": {
-    "node": ">= 4.6.2"
+    "node": ">=8.11.0"
   },
   "main": "lib/index.js",
   "files": [

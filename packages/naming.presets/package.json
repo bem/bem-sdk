@@ -30,7 +30,7 @@
     "@bem/sdk.naming.entity": "^0.2.6"
   },
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=8.11.0"
   },
   "main": "index.js",
   "files": [

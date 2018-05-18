@@ -37,7 +37,7 @@
     "index.d.ts"
   ],
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=8.11.0"
   },
   "dependencies": {
     "@bem/sdk.naming.entity.stringify": "^1.0.3",
