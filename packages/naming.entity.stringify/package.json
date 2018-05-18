@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.entity.stringify",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Stringifier for BEM entities",
   "publishConfig": {
     "access": "public"
