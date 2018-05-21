@@ -41,10 +41,13 @@ function stringify(entity, delims) {
  * @param {INamingConvention} convention - options for naming convention.
  * @returns {Function}
  */
-module.exports = function (convention) {
+function stringifyWrapper(convention) {
     console.assert(convention.delims && convention.delims.elem && convention.delims.mod,
         '@bem/sdk.naming.entity.stringify: convention should be an instance of BemNamingEntityConvention');
     return function (entity) {
         return stringify(entity, convention.delims);
     };
-};
+}
+
+module.exports = stringifyWrapper;
+module.exports.stringifyWrapper = stringifyWrapper;

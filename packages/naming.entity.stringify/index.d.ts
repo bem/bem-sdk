@@ -3,5 +3,5 @@ declare module '@bem/sdk.naming.entity.stringify' {
     import { EntityName } from '@bem/sdk.entity-name';
 
     export type Stringify = (entity: EntityName.IOptions) => string;
-    export default function stringifyWrapper(convention: INamingConvention): Stringify;
+    export function stringifyWrapper(convention: INamingConvention): Stringify;
 }
