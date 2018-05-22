@@ -14,7 +14,7 @@
   },
   "homepage": "https://github.com/bem/bem-sdk#readme",
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=8.11.0"
   },
   "devDependencies": {
     "@types/chai": "^4.0.1",

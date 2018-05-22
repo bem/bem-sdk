@@ -21,7 +21,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/walk#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 4.0"
+    "node": ">=8.11.0"
   },
   "main": "lib/index.js",
   "files": [
