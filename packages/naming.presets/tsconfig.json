@@ -1,0 +1,8 @@
+{
+  "extends": "../../tsconfig.shared",
+  "compilerOptions": {
+    "rootDir": "src",
+    "declaration": true,
+    "declarationDir": "typings"
+  }
+}
