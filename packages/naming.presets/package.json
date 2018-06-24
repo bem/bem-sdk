@@ -32,13 +32,18 @@
   "engines": {
     "node": ">= 8.0"
   },
-  "main": "index.js",
-  "typings": "index.d.ts",
+  "main": "lib/index.js",
+  "module": "es/index.js",
+  "typings": "typings/index.d.ts",
   "files": [
     "*.js",
     "index.d.ts"
   ],
   "scripts": {
-    "test": "nyc mocha"
+    "build:cjs": "tsc --module commonjs --outDir lib",
+    "build:es": "tsc --module es2015 --outDir es",
+    "build": "npm run clean && npm run build:cjs && npm run build:es",
+    "clean": "rm -rf lib es typings",
+    "test": "nyc mocha -r ts-node/register"
   }
 }
