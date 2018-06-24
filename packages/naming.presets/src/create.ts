@@ -1,8 +1,9 @@
-'use strict';
+import * as __presets__ from './';
+import { Presets } from './types';
 
-var presets = require('.');
-
-var DEFAULT_PRESET = 'origin';
+const DEFAULT_PRESET = 'origin';
+// Use alias because namespace not has index signature
+const presets: Presets = __presets__;
 
 module.exports = init;
 
@@ -13,13 +14,13 @@ module.exports = init;
  * @param {Object} [userDefaults] - defaults
  * @returns {INamingConventionDelims}
  */
-function init(options, userDefaults) {
+function init(options: any, userDefaults: any) {
     if (!options) {
         return presets[DEFAULT_PRESET];
     }
 
     if (typeof options === 'string') {
-        var preset = presets[options];
+        const preset = presets[options];
 
         if (!preset) {
             throw new Error('The `' + options + '` naming is unknown.');
@@ -28,7 +29,7 @@ function init(options, userDefaults) {
         return preset;
     }
 
-    var defaultPreset = options.preset || DEFAULT_PRESET;
+    const defaultPreset = options.preset || DEFAULT_PRESET;
 
     // TODO: Warn about incorrect preset
     if (typeof userDefaults === 'string') {
@@ -37,11 +38,11 @@ function init(options, userDefaults) {
         userDefaults = {};
     }
 
-    var defaults = presets[defaultPreset];
-    var defaultDelims = userDefaults.delims || defaults.delims;
-    var defaultModDelims = userDefaults.mod || defaultDelims.mod;
-    var optionsDelims = options.delims || {};
-    var mod = optionsDelims.mod || defaultModDelims;
+    const defaults = presets[defaultPreset];
+    const defaultDelims = userDefaults.delims || defaults.delims;
+    const defaultModDelims = userDefaults.mod || defaultDelims.mod;
+    const optionsDelims = options.delims || {};
+    const mod = optionsDelims.mod || defaultModDelims;
 
     const res = {
         delims: {
@@ -53,7 +54,7 @@ function init(options, userDefaults) {
                     val: mod.val || defaultModDelims.val
                 }
         },
-        fs: Object.assign({}, defaults.fs, userDefaults.fs, options.fs),
+        fs: { ...defaults.fs, ...userDefaults.fs, ...options.fs },
         wordPattern: options.wordPattern || userDefaults.wordPattern || defaults.wordPattern
     };
 

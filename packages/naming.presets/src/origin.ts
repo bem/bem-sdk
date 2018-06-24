@@ -1,6 +1,6 @@
-'use strict';
+import { INamingConvention } from './types';
 
-module.exports = {
+export const origin: INamingConvention = {
     delims: {
         elem: '__',
         mod: { name: '_', val: '_' }
