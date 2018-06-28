@@ -1,6 +1,7 @@
 'use strict';
 
 var presets = require('.');
+var defaults = presets.origin;
 
 module.exports = init;
 
@@ -25,7 +26,6 @@ function init(options) {
         return preset;
     }
 
-    var defaults = presets.origin;
     var defaultDelims = defaults.delims;
     var defaultModDelims = defaultDelims.mod;
     var optionsDelims = options.delims || {};
@@ -40,6 +40,10 @@ function init(options) {
                     name: mod.name || defaultModDelims.name,
                     val: mod.val || defaultModDelims.val
                 }
+        },
+        fs: {
+            ...defaults.fs,
+            ...options.fs
         },
         wordPattern: options.wordPattern || defaults.wordPattern
     };
