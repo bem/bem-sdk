@@ -1,14 +1,16 @@
 'use strict';
 
+const origin = require('./origin');
+
 module.exports = {
+    ...origin,
     delims: {
-        elem: '-',
-        mod: { name: '_', val: '_' }
+        ...origin.delims,
+        elem: '-'
     },
     fs: {
-        delims: { elem: '' },
-        pattern: '${layer?${layer}.}blocks/${entity}.${tech}',
-        scheme: 'nested'
+        ...origin.fs,
+        delims: { elem: '' }
     },
     wordPattern: '[a-zA-Z0-9]+'
 };

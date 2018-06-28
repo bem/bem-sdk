@@ -4,8 +4,8 @@ const origin = require('./origin');
 
 module.exports = {
     ...origin,
-    delims: {
-        elem: '__',
-        mod: { name: '--', val: '_' }
+    fs: {
+        ...origin.fs,
+        pattern: '${entity}.${tech}',
     }
 };
