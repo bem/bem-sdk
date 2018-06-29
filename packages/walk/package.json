@@ -31,10 +31,12 @@
     "@bem/sdk.cell": "^0.2.6",
     "@bem/sdk.entity-name": "^0.2.6",
     "@bem/sdk.file": "^0.3.2",
+    "@bem/sdk.naming.cell.match": "*",
     "@bem/sdk.naming.entity.parse": "^0.2.6",
     "@bem/sdk.naming.entity.stringify": "^1.0.3",
-    "@bem/sdk.naming.presets": "^0.0.9",
-    "async-each": "1.0.1"
+    "@bem/sdk.naming.presets": "^0.0.10",
+    "async-each": "1.0.1",
+    "depd": "1.1.0"
   },
   "devDependencies": {
     "benchmark": "^2.1.0",

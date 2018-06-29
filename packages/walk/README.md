@@ -15,15 +15,15 @@ It returns the following information about found files:
 
 ## Quick start
 
-**Note** To use `bem-walk`, you must install Node.js 4.0+.
+**Note** To use `@bem/sdk.walk`, you must install Node.js 4.0+.
 
-### 1. Install bem-walk
+### 1. Install package
 
 ```
 $ npm install --save @bem/sdk.walk
 ```
 
-### 2. Enable bem-walk
+### 2. Import default module
 
 Create a JavaScript file with any name and add the following string:
 
@@ -59,19 +59,19 @@ The table shows the possible values that can be set for each of the schemes.
 
 | Key | Scheme | Default value | Possible values |
 |----|------|-----|----------|
-| `naming` | File naming.|`origin`| `origin`, `two-dashes`|
-| `scheme` | File system.|`nested`|`nested`, `flat`|
+| `naming` | File naming | `origin` | `origin`, `two-dashes` |
+| `scheme` | File system | `nested` | `nested`, `flat` |
 
 More information:
-* [ @bem/naming]( https://en.bem.info/toolbox/sdk/bem-naming/)
-* [ bem-fs-scheme]( https://en.bem.info/toolbox/sdk/bem-fs-scheme/)
+* [`naming.presets`]( https://en.bem.info/toolbox/sdk/bem-naming-presets/)
+* [`naming.cell.match`]( https://en.bem.info/toolbox/sdk/bem-naming-cell-match/)
 
-**Note** Instead of defining the project's levels manually, use the [`bem-config`]( https://en.bem.info/toolbox/sdk/bem-config/) tool.
+**Note** Instead of defining the project's levels manually, use the [`config`]( https://en.bem.info/toolbox/sdk/bem-config/) module.
 
 ```js
 const config = require('@bem/sdk.config')();
 const levelMap = config.levelMapSync();
-const stream = walk(levels, levelMap);
+const stream = walk(levels, { levels: levelMap });
 ```
 
 ### 4. Define the paths to traverse
@@ -100,9 +100,9 @@ Path options:
 
 ### 5. Get information about found files
 
-Pass the walk() method the `levels` and `config` objects.
+Pass the `walk()` method the `levels` and `config` objects.
 
-Streaming is used for getting data about found files. When a portion of data is received, the `data` event is generated and [information about the found file](#output-data) is added to the `files` array. If an error occurs, `bem-walk` stops processing the request and returns a response containing the error ID and description. The `end` event occurs when all the data has been received from the stream.
+Streaming is used for getting data about found files. When a portion of data is received, the `data` event is generated and [information about the found file](#output-data) is added to the `files` array. If an error occurs, `walk` stops processing the request and returns a response containing the error ID and description. The `end` event occurs when all the data has been received from the stream.
 
 ```js
 const files = [];
@@ -136,7 +136,7 @@ const stream = walk(levels, {
     .on('end', () => console.log(files));
 ```
 
-**Note** This sample uses the `bem-config` package.
+**Note** This sample uses the `bem/sdk.config` package.
 
 ## API
 
@@ -165,7 +165,7 @@ Readable stream (`stream.Readable`) that has the following events:
 |----------|-----|
 |'data'|Returns a JavaScript object with information about a found file. <br><br>The example below shows a JSON interface with elements that are in the response for the `walk` method. Objects and keys have sample values.<br><br> **Example** <br><br><code>{</code><br><code>  "cell": {</code><br><code>    "entity": { "block": "page" },</code><br><code>    "layer": "libs/bem-core/desktop.blocks",</code><br><code>    "tech": "bemhtml"</code><br><code>  },</code><br><code>  "path": "libs/bem-core/desktop.blocks/page/page.bemhtml.js"</code><br><code>}</code><br><br>`cell` — BEM cell instance.<br>`entity` — BEM entity name instance.<br>`layer` — Directory path.<br>`tech` — Implementation technology.<br>`path` — Relative path to the file.|
 | 'error' | Generated if an error occurred while traversing the levels. Returns an object with the error description.|
-| 'end' | Generated when `bem-walk` finishes traversing the levels defined in the `levels` object. |
+| 'end' | Generated when `walk` finishes traversing the levels defined in the `levels` object. |
 
 ## Usage examples
 

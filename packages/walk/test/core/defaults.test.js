@@ -19,17 +19,20 @@ describe('core/defaults', () => {
     beforeEach(() => {
         const flatStub = sinon.stub(walkers, 'flat').callsArg(2);
         const nestedStub = sinon.stub(walkers, 'nested').callsArg(2);
+        const sdkStub = sinon.stub(walkers, 'sdk').callsArg(2);
 
-        const walk = proxyquire('../../lib/index', {
+        const walk = proxyquire('../..', {
             './walkers': {
                 'flat': flatStub,
-                'nested': nestedStub
+                'nested': nestedStub,
+                'sdk': sdkStub,
             }
         });
 
         context.walk = walk;
         context.flatStub = flatStub;
         context.nestedStub = nestedStub;
+        context.sdkStub = sdkStub;
     });
 
     afterEach(() => {
@@ -37,6 +40,7 @@ describe('core/defaults', () => {
 
         context.flatStub.restore();
         context.nestedStub.restore();
+        context.sdkStub.restore();
     });
 
     it('should run nested walker by default', done => {
@@ -47,7 +51,7 @@ describe('core/defaults', () => {
         context.walk(['blocks'])
             .resume()
             .on('end', () => {
-                expect(context.nestedStub.calledOnce).to.be.true;
+                expect(context.sdkStub.calledOnce).to.be.true;
                 done();
             })
             .on('error', err => done(err));
@@ -75,7 +79,7 @@ describe('core/defaults', () => {
         context.walk(['blocks'], { defaults: { naming: 'two-dashes' } })
             .resume()
             .on('end', () => {
-                expect(context.nestedStub.calledWith(sinon.match({ naming: 'two-dashes' }))).to.be.true;
+                expect(context.sdkStub.calledWith(sinon.match({ naming: { delims: { mod: { name: '--' } } } }))).to.be.true;
                 done();
             })
             .on('error', err => done(err));

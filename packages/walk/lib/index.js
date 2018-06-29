@@ -1,8 +1,10 @@
 'use strict';
 
-const Readable = require('stream').Readable;
+const { Readable } = require('stream');
 const each = require('async-each');
+const deprecate = require('depd')('@bem/sdk.walk');
 
+const namingCreate = require('@bem/sdk.naming.presets/create');
 const walkers = require('./walkers');
 
 /**
@@ -24,21 +26,41 @@ module.exports = (levels, options) => {
     options || (options = {});
 
     const defaults = options.defaults || {};
-    const levelConfigs = options.levels || {};
-    const defaultNaming = defaults.naming;
-    const defaultWalker = (typeof defaults.scheme === 'string' ? walkers[defaults.scheme] : defaults.scheme)
-        || walkers.nested;
 
-    const output = new Readable({ objectMode: true, read: () => {} });
+    // Turn warning about old using old walkers in the next major
+    defaults.scheme && deprecate('Please stop using old API');
+
+    const levelConfigs = options.levels || {};
+    const defaultNaming = defaults.naming || {};
+    const defaultScheme = defaultNaming.scheme || defaults.scheme;
+    const defaultWalker = (typeof defaultScheme === 'string' ? walkers[defaultScheme] : defaultScheme) || walkers.sdk;
+
+    const output = new Readable({ objectMode: true, read() {} });
     const add = (obj) => output.push(obj);
 
     const scan = (level, callback) => {
-        const config = levelConfigs[level];
-        const scheme = config && config.scheme;
-        const naming = config && config.naming || defaultNaming;
-        const walk = typeof scheme === 'string' ? walkers[scheme] : (scheme || defaultWalker);
+        const config = levelConfigs[level] || {};
+        const isLegacyScheme = 'scheme' in config;
+        const userNaming = typeof config.naming === 'object'
+            ? config.naming
+            : {preset: config.naming || (isLegacyScheme ? 'legacy' : 'origin')};
 
-        walk({ path: level, naming: naming }, add, callback);
+        // Fallback for slowpokes
+        if (config.scheme) {
+            userNaming.fs || (userNaming.fs = {});
+            userNaming.fs.scheme = config.scheme;
+        }
+
+        const naming = namingCreate(userNaming, defaultNaming);
+
+        const scheme = config && config.scheme || naming.fs && naming.fs.scheme;
+
+        // TODO: Drop or doc custom function scheme support (?)
+        const walker = (config.legacyWalker || isLegacyScheme)
+            ? (typeof scheme === 'string' ? walkers[scheme] : (scheme || defaultWalker))
+            : defaultWalker;
+
+        walker({ path: level, naming: naming /* extend with defauls */ }, add, callback);
     };
 
     each(levels, scan, err => {
