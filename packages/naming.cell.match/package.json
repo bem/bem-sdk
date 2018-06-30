@@ -13,7 +13,7 @@
   ],
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 4.0"
+    "node": ">= 8.0"
   },
   "main": "cell-match.js",
   "files": [

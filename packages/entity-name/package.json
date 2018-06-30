@@ -36,7 +36,7 @@
     "index.d.ts"
   ],
   "engines": {
-    "node": ">= 4.0"
+    "node": ">= 8.0"
   },
   "dependencies": {
     "@bem/sdk.naming.entity.stringify": "^1.0.3",
@@ -45,7 +45,7 @@
     "es6-error": "4.0.2"
   },
   "devDependencies": {
-    "@types/node": "^4.2.5"
+    "@types/node": "^8.0"
   },
   "scripts": {
     "specs": "mocha",

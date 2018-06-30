@@ -20,7 +20,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.pattern-parser#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 4.0"
+    "node": ">= 8.0"
   },
   "main": "pattern-parser.js",
   "files": [
