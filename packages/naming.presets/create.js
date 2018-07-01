@@ -8,9 +8,10 @@ module.exports = init;
  * Returns delims and wordPattern.
  *
  * @param {Object} options - user options
+ * @param {Object} [userDefaults] - defaults
  * @returns {INamingConventionDelims}
  */
-function init(options) {
+function init(options, userDefaults) {
     if (!options) {
         return presets.origin;
     }
@@ -25,15 +26,24 @@ function init(options) {
         return preset;
     }
 
-    var defaults = presets.origin;
-    var defaultDelims = defaults.delims;
-    var defaultModDelims = defaultDelims.mod;
-    var optionsDelims = options.delims || {};
-    var mod = optionsDelims.mod || defaultDelims.mod;
+    var defaultPreset = options.preset || 'origin';
 
-    return {
+    // TODO: Warn about incorrect preset
+    if (typeof userDefaults === 'string') {
+        userDefaults = presets[userDefaults] || presets.origin;
+    } else if (!userDefaults) {
+        userDefaults = {};
+    }
+
+    var defaults = presets[defaultPreset];
+    var defaultDelims = userDefaults.delims || defaults.delims;
+    var defaultModDelims = userDefaults.mod || defaultDelims.mod;
+    var optionsDelims = options.delims || {};
+    var mod = optionsDelims.mod || defaultModDelims;
+
+    const res = {
         delims: {
-            elem: optionsDelims.elem || defaultDelims.elem,
+            elem: optionsDelims.elem || userDefaults.elim || defaultDelims.elem,
             mod: typeof mod === 'string'
                 ? { name: mod, val: mod }
                 : {
@@ -41,6 +51,13 @@ function init(options) {
                     val: mod.val || defaultModDelims.val
                 }
         },
-        wordPattern: options.wordPattern || defaults.wordPattern
+        fs: {
+            ...defaults.fs,
+            ...userDefaults.fs,
+            ...options.fs
+        },
+        wordPattern: options.wordPattern || userDefaults.wordPattern || defaults.wordPattern
     };
+
+    return res;
 }

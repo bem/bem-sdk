@@ -287,7 +287,8 @@ module.exports = class BemCell {
      * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemCell.
      */
     static isBemCell(cell) {
-        return !!cell && Boolean(cell.__isBemCell__);
+        const C = cell && cell.constructor;
+        return C === this || Boolean(C && cell.__isBemCell__ && C !== Object);
     }
 
     /**

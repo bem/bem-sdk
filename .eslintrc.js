@@ -3,11 +3,14 @@
 module.exports = {
     root: true,
     parserOptions: {
-        ecmaVersion: 6
+        ecmaVersion: 7,
+        "ecmaFeatures": {
+            "experimentalObjectRestSpread": true,
+        },
     },
     env: {
         node: true,
-        es6: true
+        es6: true,
     },
     // plugins: ['node', 'promise', 'unicorn'],
     extends: 'pedant',

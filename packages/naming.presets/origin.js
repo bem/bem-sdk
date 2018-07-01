@@ -7,7 +7,7 @@ module.exports = {
     },
     fs: {
         // delims: { elem: '__', mod: '_' }, // redundand because of defaults
-        pattern: '${layer}.blocks/${entity}.${tech}',
+        pattern: '${layer?${layer}.}blocks/${entity}.${tech}',
         scheme: 'nested'
     },
     wordPattern: '[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*'

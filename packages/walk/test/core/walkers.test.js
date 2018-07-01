@@ -19,6 +19,7 @@ describe('core/walkers', () => {
     beforeEach(() => {
         const flatStub = sinon.stub(walkers, 'flat').callsArg(2);
         const nestedStub = sinon.stub(walkers, 'nested').callsArg(2);
+        const sdkStub = sinon.stub(walkers, 'sdk').callsArg(2);
 
         const walk = proxyquire('../../lib/index', {
             './walkers': {
@@ -30,6 +31,7 @@ describe('core/walkers', () => {
         context.walk = walk;
         context.flatStub = flatStub;
         context.nestedStub = nestedStub;
+        context.sdkStub = sdkStub;
     });
 
     afterEach(() => {
@@ -37,6 +39,7 @@ describe('core/walkers', () => {
 
         context.flatStub.restore();
         context.nestedStub.restore();
+        context.sdkStub.restore();
     });
 
     it('should run walker for level', done => {
@@ -72,7 +75,7 @@ describe('core/walkers', () => {
         context.walk(['blocks'], options)
             .resume()
             .on('end', () => {
-                expect(context.nestedStub.calledWith(sinon.match({ naming: 'two-dashes' }))).to.be.true;
+                expect(context.sdkStub.calledWith(sinon.match({ naming: { delims: { mod: { name: '--' } } } }))).to.be.true;
                 done();
             });
     });
@@ -107,16 +110,16 @@ describe('core/walkers', () => {
 
         const options = {
             levels: {
-                'origin.blocks': { naming: 'origin' },
-                'two-dashes.blocks': { naming: 'two-dashes' }
+                'origin.blocks': { scheme: 'nested', naming: 'origin' },
+                'two-dashes.blocks': { scheme: 'nested', naming: 'two-dashes' }
             }
         };
 
         context.walk(['origin.blocks', 'two-dashes.blocks'], options)
             .resume()
             .on('end', () => {
-                expect(context.nestedStub.calledWith({ path: 'origin.blocks', naming: 'origin' })).to.be.true;
-                expect(context.nestedStub.calledWith({ path: 'two-dashes.blocks', naming: 'two-dashes' })).to.be.true;
+                expect(context.nestedStub.calledWith(sinon.match({ path: 'origin.blocks', naming: { delims: { mod: { name: '_' } } } }))).to.be.true;
+                expect(context.nestedStub.calledWith(sinon.match({ path: 'two-dashes.blocks', naming: { delims: { mod: { name: '--' } } } }))).to.be.true;
                 done();
             });
     });

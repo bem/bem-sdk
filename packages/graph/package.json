@@ -20,7 +20,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/graph#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 4"
+    "node": ">= 8.0"
   },
   "main": "lib/index.js",
   "files": [

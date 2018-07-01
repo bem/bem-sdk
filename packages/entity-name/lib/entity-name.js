@@ -433,7 +433,8 @@ class BemEntityName {
      * @returns {boolean} A Boolean indicating whether or not specified entity is instance of BemEntityName.
      */
     static isBemEntityName(entityName) {
-        return Boolean(entityName && entityName.__isBemEntityName__);
+        const C = entityName && entityName.constructor;
+        return C === this || Boolean(C && entityName.__isBemEntityName__ && C !== Object);
     }
 }
 
