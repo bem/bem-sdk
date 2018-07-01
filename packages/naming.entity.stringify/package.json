@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.entity.stringify",
-  "version": "1.0.6",
+  "version": "1.1.0",
   "description": "Stringifier for BEM entities",
   "publishConfig": {
     "access": "public"
@@ -30,7 +30,7 @@
     "index.d.ts"
   ],
   "devDependencies": {
-    "@bem/sdk.entity-name": "^0.2.6",
+    "@bem/sdk.entity-name": "^0.2.9",
     "@bem/sdk.naming.presets": "^0.0.9"
   },
   "scripts": {

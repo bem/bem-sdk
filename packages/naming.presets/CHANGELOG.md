@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.1.0"></a>
+# [0.1.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.presets@0.0.9...@bem/sdk.naming.presets@0.1.0) (2018-07-01)
+
+
+### Features
+
+* **naming.presets:** create now respects fs field in convention ([6eeadc3](https://github.com/bem/bem-sdk/commit/6eeadc3))
+* **naming.presets:** legacy preset, 'blocks' dir, user defaults ([09a232a](https://github.com/bem/bem-sdk/commit/09a232a))
+
+
+
+
 <a name="0.0.9"></a>
 ## [0.0.9](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.presets@0.0.8...@bem/sdk.naming.presets@0.0.9) (2018-04-17)
 

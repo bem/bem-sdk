@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.0.6"></a>
+## [0.0.6](https://github.com/bem/bem-sdk/compare/@bem/sdk.bemjson-node@0.0.5...@bem/sdk.bemjson-node@0.0.6) (2018-07-01)
+
+
+
+
+**Note:** Version bump only for package @bem/sdk.bemjson-node
+
 <a name="0.0.5"></a>
 ## [0.0.5](https://github.com/bem/bem-sdk/compare/@bem/sdk.bemjson-node@0.0.4...@bem/sdk.bemjson-node@0.0.5) (2018-04-17)
 

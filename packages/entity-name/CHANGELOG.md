@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.9"></a>
+## [0.2.9](https://github.com/bem/bem-sdk/compare/@bem/sdk.entity-name@0.2.6...@bem/sdk.entity-name@0.2.9) (2018-07-01)
+
+
+### Bug Fixes
+
+* **entity-name:** fix typo in typings ([37ca24c](https://github.com/bem/bem-sdk/commit/37ca24c))
+* **entity-name:** rely on constructor in isBemEntityName ([74224de](https://github.com/bem/bem-sdk/commit/74224de))
+
+
+
+
 <a name="0.2.6"></a>
 ## [0.2.6](https://github.com/bem/bem-sdk/compare/@bem/sdk.entity-name@0.2.5...@bem/sdk.entity-name@0.2.6) (2018-04-17)
 

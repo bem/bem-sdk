@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.cell.match",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "description": "BemCell parser",
   "license": "MPL-2.0",
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
@@ -20,12 +20,12 @@
     "cell-match.js"
   ],
   "dependencies": {
-    "@bem/sdk.cell": "*",
-    "@bem/sdk.naming.cell.pattern-parser": "*",
-    "@bem/sdk.naming.entity.parse": "*"
+    "@bem/sdk.cell": "^0.2.7",
+    "@bem/sdk.naming.cell.pattern-parser": "^0.0.6",
+    "@bem/sdk.naming.entity.parse": "^0.2.7"
   },
   "devDependencies": {
-    "@bem/sdk.naming.presets": "*"
+    "@bem/sdk.naming.presets": "^0.1.0"
   },
   "scripts": {
     "test": "nyc mocha *.test.js"

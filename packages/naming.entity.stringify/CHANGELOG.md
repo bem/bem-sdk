@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity.stringify@1.0.3...@bem/sdk.naming.entity.stringify@1.1.0) (2018-07-01)
+
+
+### Features
+
+* **naming.entity.stringify:** add stringifyWrapper export ([ad3b0f9](https://github.com/bem/bem-sdk/commit/ad3b0f9))
+
+
+
+
 <a name="1.0.3"></a>
 ## [1.0.3](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity.stringify@1.0.2...@bem/sdk.naming.entity.stringify@1.0.3) (2018-04-17)
 

@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.2.7...@bem/sdk.walk@0.3.0) (2018-07-01)
+
+
+### Features
+
+* **walk:** sdk cell match and presets support ([187647d](https://github.com/bem/bem-sdk/commit/187647d))
+
+
+
+
 <a name="0.2.7"></a>
 ## [0.2.7](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.2.6...@bem/sdk.walk@0.2.7) (2018-04-17)
 

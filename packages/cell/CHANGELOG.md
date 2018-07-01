@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.7"></a>
+## [0.2.7](https://github.com/bem/bem-sdk/compare/@bem/sdk.cell@0.2.6...@bem/sdk.cell@0.2.7) (2018-07-01)
+
+
+### Bug Fixes
+
+* **cell:** rely on constructor in isBemCell ([9553feb](https://github.com/bem/bem-sdk/commit/9553feb))
+
+
+
+
 <a name="0.2.6"></a>
 ## [0.2.6](https://github.com/bem/bem-sdk/compare/@bem/sdk.cell@0.2.5...@bem/sdk.cell@0.2.6) (2018-04-17)
 

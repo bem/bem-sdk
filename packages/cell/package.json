@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.cell",
-  "version": "0.2.6",
+  "version": "0.2.7",
   "description": "Representation of identifier of a part of BEM entity.",
   "publishConfig": {
     "access": "public"
@@ -31,7 +31,7 @@
     "node": ">= 8.0"
   },
   "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.6",
+    "@bem/sdk.entity-name": "^0.2.9",
     "depd": "1.1.0"
   },
   "scripts": {

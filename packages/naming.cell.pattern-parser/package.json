@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.cell.pattern-parser",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Pattern parser",
   "publishConfig": {
     "access": "public"
