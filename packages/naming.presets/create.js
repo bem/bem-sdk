@@ -2,6 +2,8 @@
 
 var presets = require('.');
 
+var DEFAULT_PRESET = 'origin';
+
 module.exports = init;
 
 /**
@@ -13,7 +15,7 @@ module.exports = init;
  */
 function init(options, userDefaults) {
     if (!options) {
-        return presets.origin;
+        return presets[DEFAULT_PRESET];
     }
 
     if (typeof options === 'string') {
@@ -26,11 +28,11 @@ function init(options, userDefaults) {
         return preset;
     }
 
-    var defaultPreset = options.preset || 'origin';
+    var defaultPreset = options.preset || DEFAULT_PRESET;
 
     // TODO: Warn about incorrect preset
     if (typeof userDefaults === 'string') {
-        userDefaults = presets[userDefaults] || presets.origin;
+        userDefaults = presets[userDefaults] || presets[DEFAULT_PRESET];
     } else if (!userDefaults) {
         userDefaults = {};
     }
