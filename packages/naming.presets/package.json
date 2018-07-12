@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.presets",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Presets for naming",
   "publishConfig": {
     "access": "public"
@@ -26,8 +26,8 @@
   "devDependencies": {
     "@bem/sdk.cell": "^0.2.7",
     "@bem/sdk.entity-name": "^0.2.9",
-    "@bem/sdk.naming.cell.stringify": "^0.0.10",
-    "@bem/sdk.naming.entity": "^0.2.8"
+    "@bem/sdk.naming.cell.stringify": "^0.0.11",
+    "@bem/sdk.naming.entity": "^0.2.9"
   },
   "engines": {
     "node": ">= 8.0"

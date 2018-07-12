@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.0"></a>
+# [0.2.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.presets@0.1.0...@bem/sdk.naming.presets@0.2.0) (2018-07-12)
+
+
+### Features
+
+* **presets:** legacy now known about dogs and aliased to default ([7da72fe](https://github.com/bem/bem-sdk/commit/7da72fe))
+* **presets:** react uses doggy pattern by default, origin-react uses layer.blocks ([9a4e8b6](https://github.com/bem/bem-sdk/commit/9a4e8b6))
+
+
+
+
 <a name="0.1.0"></a>
 # [0.1.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.presets@0.0.9...@bem/sdk.naming.presets@0.1.0) (2018-07-01)
 
