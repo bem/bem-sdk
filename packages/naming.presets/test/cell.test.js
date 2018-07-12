@@ -171,9 +171,10 @@ describe('default', () => {
                         block: 'a',
                         elem: 'e1',
                         mod: {name: 'mn', val: 'mv'},
+                        layer: 'ios',
                         tech: 'js'
                     })
-                )).eql(n('common.blocks/a/e1/_mn/a-e1_mn_mv.js'), 'react');
+                )).eql(n('a/e1/_mn/a-e1_mn_mv@ios.js'), 'react');
             });
         });
     });
@@ -295,9 +296,10 @@ describe('default', () => {
                         block: 'a',
                         elem: 'e1',
                         mod: {name: 'mn', val: 'mv'},
+                        layer: 'ios',
                         tech: 'js'
                     })
-                )).eql(n('common.blocks/a-e1_mn_mv.js'), 'react');
+                )).eql(n('a-e1_mn_mv@ios.js'), 'react');
             });
         });
     });

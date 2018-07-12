@@ -1,16 +1,11 @@
 'use strict';
 
-const origin = require('./origin');
+const base = require('./origin-react');
 
 module.exports = {
-    ...origin,
-    delims: {
-        ...origin.delims,
-        elem: '-'
-    },
+    ...base,
     fs: {
-        ...origin.fs,
-        delims: { elem: '' }
-    },
-    wordPattern: '[a-zA-Z0-9]+'
+        ...base.fs,
+        pattern: '${entity}${layer?@${layer}}.${tech}'
+    }
 };
