@@ -6,6 +6,6 @@ module.exports = {
     ...origin,
     fs: {
         ...origin.fs,
-        pattern: '${entity}.${tech}',
+        pattern: '${entity}${layer?@${layer}}.${tech}',
     }
 };
