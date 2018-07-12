@@ -22,7 +22,7 @@ const SCHEMES = {
     ],
     nested: ({ wp, delims: { elem, mod } }) => [
         // Opener generator
-        `(?:(${wp}(?:|/${elem}${wp})?(?:|/${mod}${wp})?)(?:/(${ALPHANUM_RE})`,
+        `(?:(${wp}(?:/${elem}${wp})?(?:/${mod}${wp})?)(?:/(${ALPHANUM_RE})`,
         // Closer generator
         ')?)?',
         // Validator
@@ -141,7 +141,14 @@ module.exports = (conv = {}) => {
         '@bem/sdk.naming.cell.match: fs.pattern field required in convention');
 
     const layer = conv.fs.defaultLayer || 'common';
-    const parse = buildPathParseMethod(conv);
+    let parse = buildPathParseMethod(conv);
+
+    // Special crunch for nested scheme and empty elem
+    if (conv.fs.delims && conv.fs.delims.elem === '') {
+        const parse1 = parse;
+        const parse2 = buildPathParseMethod({ ...conv, fs: { ...conv.fs, delims: { ...conv.fs.delims, elem: '💩' } } });
+        parse = (relPath) => parse1(relPath) || parse2(relPath);
+    }
 
     return (relPath) => {
         const parsed = parse(relPath);

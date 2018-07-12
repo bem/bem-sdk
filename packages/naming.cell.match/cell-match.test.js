@@ -3,7 +3,7 @@
 const safeEval = require('node-eval');
 
 const BemCell = require('@bem/sdk.cell');
-const { legacy, origin } = require('@bem/sdk.naming.presets');
+const { legacy, origin, react } = require('@bem/sdk.naming.presets');
 const createMatch = require('.');
 
 const flatLegacyMatch = createMatch(Object.assign({}, legacy, { fs: Object.assign({}, legacy.fs, { scheme: 'flat' }) }));
@@ -11,6 +11,10 @@ const flatOriginMatch = createMatch(Object.assign({}, origin, { fs: Object.assig
 const mixedOriginMatch = createMatch(Object.assign({}, origin, { fs: Object.assign({}, origin.fs, { scheme: 'mixed' }) }));
 const originMatch = createMatch(origin);
 const mixedModernMatch = createMatch(Object.assign({}, origin, { fs: Object.assign({}, origin.fs, { scheme: 'mixed',
+    pattern: '${entity}${layer?@${layer}}.${tech}' }) }));
+const nestedModernMatch = createMatch(Object.assign({}, origin, { fs: Object.assign({}, origin.fs, { scheme: 'nested',
+    pattern: '${entity}${layer?@${layer}}.${tech}' }) }));
+const nestedModernEmptyElemMatch = createMatch(Object.assign({}, react, { fs: Object.assign({}, react.fs, { scheme: 'nested',
     pattern: '${entity}${layer?@${layer}}.${tech}' }) }));
 
 const { expect } = require('chai');
@@ -138,6 +142,29 @@ describe('naming.cell.match', () => {
             parse typical block path       → blocks/blocks.css      → { cell: { layer: 'common', block: 'blocks', tech: 'css' } }
             parse typical block in layer   → blocks/blocks@ios.css  → { cell: { layer: 'ios', block: 'blocks', tech: 'css' } }
             parse typical mod path         → button/button_mod.css  → { cell: { layer: 'common', block: 'button', mod: 'mod', tech: 'css' } }
+        `],
+
+        'nested / modern': [nestedModernMatch, rawses`
+            reject invalid block           → .blocks                → { cell: null, isMatch: false }
+            reject typical path for layer  → common.blocks          → { cell: null, isMatch: false }
+            reject nested block path       → blocks/button          → { cell: null, isMatch: false }
+            reject invalid block           → button/button          → { cell: null, isMatch: false }
+            match partial block path       → blocks                 → { cell: null, isMatch: true }
+            match partial mod path: _btn   → btn/_btn               → { cell: null, isMatch: true }
+            parse typical block path       → blocks/blocks.css      → { cell: { layer: 'common', block: 'blocks', tech: 'css' } }
+            parse typical block in layer   → blocks/blocks@ios.css  → { cell: { layer: 'ios', block: 'blocks', tech: 'css' } }
+            parse typical mod path         → button/_mod/button_mod.css  → { cell: { layer: 'common', block: 'button', mod: 'mod', tech: 'css' } }
+        `],
+
+        'nested / modern + react': [nestedModernEmptyElemMatch, rawses`
+            reject invalid block           → .blocks                → { cell: null, isMatch: false }
+            reject typical path for layer  → common.blocks          → { cell: null, isMatch: false }
+            match partial block path       → bb                     → { cell: null, isMatch: true }
+            match partial mod path: _mm    → bb/_mm                 → { cell: null, isMatch: true }
+            parse typical block path       → bb/bb.css              → { cell: { layer: 'common', block: 'bb', tech: 'css' } }
+            parse typical elem path        → bb/ee/bb-ee.css        → { cell: { layer: 'common', block: 'bb', elem: 'ee', tech: 'css' } }
+            parse typical block in layer   → bb/bb@ios.css          → { cell: { layer: 'ios', block: 'bb', tech: 'css' } }
+            parse typical mod path         → bb/_mod/bb_mod.css     → { cell: { layer: 'common', block: 'bb', mod: 'mod', tech: 'css' } }
         `]
     })) {
         describe(dTitle, () => {
