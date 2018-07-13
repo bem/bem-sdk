@@ -42,8 +42,9 @@ function stringify(entity, delims) {
  * @returns {Function}
  */
 function stringifyWrapper(convention) {
-    console.assert(convention.delims && convention.delims.elem && convention.delims.mod,
-        '@bem/sdk.naming.entity.stringify: convention should be an instance of BemNamingEntityConvention');
+    // TODO: https://github.com/bem/bem-sdk/issues/326
+    // console.assert(convention.delims && convention.delims.elem && convention.delims.mod,
+    //     '@bem/sdk.naming.entity.stringify: convention should be an instance of BemNamingEntityConvention');
     return function (entity) {
         return stringify(entity, convention.delims);
     };
