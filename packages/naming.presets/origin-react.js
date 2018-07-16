@@ -2,15 +2,12 @@
 
 const origin = require('./origin');
 
-module.exports = {
-    ...origin,
-    delims: {
-        ...origin.delims,
+module.exports = Object.assign({}, origin, {
+    delims: Object.assign({}, origin.delims, {
         elem: '-'
-    },
-    fs: {
-        ...origin.fs,
+    }),
+    fs: Object.assign({}, origin.fs, {
         delims: { elem: '' }
-    },
+    }),
     wordPattern: '[a-zA-Z0-9]+'
-};
+});

@@ -53,11 +53,7 @@ function init(options, userDefaults) {
                     val: mod.val || defaultModDelims.val
                 }
         },
-        fs: {
-            ...defaults.fs,
-            ...userDefaults.fs,
-            ...options.fs
-        },
+        fs: Object.assign({}, defaults.fs, userDefaults.fs, options.fs),
         wordPattern: options.wordPattern || userDefaults.wordPattern || defaults.wordPattern
     };
 

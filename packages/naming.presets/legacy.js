@@ -2,10 +2,8 @@
 
 const origin = require('./origin');
 
-module.exports = {
-    ...origin,
-    fs: {
-        ...origin.fs,
+module.exports = Object.assign({}, origin, {
+    fs: Object.assign({}, origin.fs, {
         pattern: '${entity}${layer?@${layer}}.${tech}',
-    }
-};
+    })
+});
