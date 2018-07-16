@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.11"></a>
+## [0.2.11](https://github.com/bem/bem-sdk/compare/@bem/sdk.deps@0.2.10...@bem/sdk.deps@0.2.11) (2018-07-16)
+
+
+
+
+**Note:** Version bump only for package @bem/sdk.deps
+
 <a name="0.2.10"></a>
 ## [0.2.10](https://github.com/bem/bem-sdk/compare/@bem/sdk.deps@0.2.9...@bem/sdk.deps@0.2.10) (2018-07-12)
 

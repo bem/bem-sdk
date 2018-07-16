@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.file.stringify",
-  "version": "0.1.9",
+  "version": "0.1.10",
   "description": "BemFile stringifier (aka @bem/fs-scheme/path)",
   "publishConfig": {
     "access": "public"
@@ -22,10 +22,10 @@
     "node": ">= 8.0"
   },
   "dependencies": {
-    "@bem/sdk.naming.cell.stringify": "^0.0.11"
+    "@bem/sdk.naming.cell.stringify": "^0.0.12"
   },
   "devDependencies": {
-    "@bem/sdk.file": "^0.3.3"
+    "@bem/sdk.file": "^0.3.4"
   },
   "main": "file-stringify.js",
   "files": [

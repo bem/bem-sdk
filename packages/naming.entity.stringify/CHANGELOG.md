@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity.stringify@1.1.0...@bem/sdk.naming.entity.stringify@1.1.1) (2018-07-16)
+
+
+### Bug Fixes
+
+* **naming.entity.stringify:** remove assert ([ab1854c](https://github.com/bem/bem-sdk/commit/ab1854c))
+
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity.stringify@1.0.3...@bem/sdk.naming.entity.stringify@1.1.0) (2018-07-01)
 

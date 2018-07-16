@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.entity-name",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "BEM entity name representation",
   "publishConfig": {
     "access": "public"
@@ -39,7 +39,7 @@
     "node": ">= 8.0"
   },
   "dependencies": {
-    "@bem/sdk.naming.entity.stringify": "^1.1.0",
+    "@bem/sdk.naming.entity.stringify": "^1.1.1",
     "@bem/sdk.naming.presets": "^0.0.9",
     "depd": "1.1.0",
     "es6-error": "4.0.2"

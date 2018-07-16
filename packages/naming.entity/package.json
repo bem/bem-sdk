@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.entity",
-  "version": "0.2.9",
+  "version": "0.2.10",
   "description": "Manage naming of BEM entities",
   "publishConfig": {
     "access": "public"
@@ -34,10 +34,10 @@
     "index.js"
   ],
   "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.9",
-    "@bem/sdk.naming.entity.parse": "^0.2.7",
-    "@bem/sdk.naming.entity.stringify": "^1.1.0",
-    "@bem/sdk.naming.presets": "^0.2.0"
+    "@bem/sdk.entity-name": "^0.2.10",
+    "@bem/sdk.naming.entity.parse": "^0.2.8",
+    "@bem/sdk.naming.entity.stringify": "^1.1.1",
+    "@bem/sdk.naming.presets": "^0.2.1"
   },
   "scripts": {
     "specs": "mocha",

@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.bemjson-to-jsx",
-  "version": "0.2.7",
+  "version": "0.2.8",
   "description": "Transform BEMJSON to JSX",
   "publishConfig": {
     "access": "public"
@@ -26,8 +26,8 @@
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/bemjson-to-jsx#readme",
   "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.9",
-    "@bem/sdk.naming.entity.stringify": "^1.1.0",
+    "@bem/sdk.entity-name": "^0.2.10",
+    "@bem/sdk.naming.entity.stringify": "^1.1.1",
     "@bem/sdk.naming.presets": "^0.0.9",
     "camel-case": "^3.0.0",
     "pascal-case": "^2.0.1"
