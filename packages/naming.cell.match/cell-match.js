@@ -20,6 +20,20 @@ const SCHEMES = {
         ')?)?',
         (entity, { dir }) => (entity.block === dir)
     ],
+    flex: ({ wp, delims: { elem, mod } }) => [
+        // Opener generator
+        `(${wp}(?:/${elem}${wp})?(?:/${mod}${wp})?)(?:/(${ALPHANUM_RE})`,
+        // Closer generator
+        ')?',
+        // Validator
+        (entity, { dir }) => {
+            const parts = dir.split('/');
+            let i = 1;
+            return entity.block === parts[0] &&
+                (!entity.elem || (parts[i++] === elem + entity.elem)) &&
+                (!entity.mod || (parts[i++] == mod + entity.mod.name));
+        }
+    ],
     nested: ({ wp, delims: { elem, mod } }) => [
         // Opener generator
         `(?:(${wp}(?:/${elem}${wp})?(?:/${mod}${wp})?)(?:/(${ALPHANUM_RE})`,
