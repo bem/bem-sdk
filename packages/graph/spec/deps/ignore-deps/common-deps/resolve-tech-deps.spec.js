@@ -20,8 +20,10 @@ describe('deps/ignore-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
+                const decl2 = Array.from(graph.dependenciesOf({ block: 'A', tech: 'css' }));
 
-                expect(decl).to.not.deep.contain({ entity: { block: 'B' }, tech: 'css' });
+                expect(decl).to.not.deep.contain({ entity: { block: 'B' }, tech: 'css' }, 'deafult tech');
+                expect(decl2).to.not.deep.contain({ entity: { block: 'B' }, tech: 'css' }, 'cell-like object');
             }
         });
     });
@@ -38,8 +40,10 @@ describe('deps/ignore-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
+                const decl2 = Array.from(graph.dependenciesOf({ block: 'A', tech: 'css' }));
 
-                expect(decl).to.not.deep.contain({ entity: { block: 'B' }, tech: 'css' });
+                expect(decl).to.not.deep.contain({ entity: { block: 'B' }, tech: 'css' }, 'default tech');
+                expect(decl2).to.not.deep.contain({ entity: { block: 'B' }, tech: 'css' }, 'cell-like object');
             }
         });
     });
@@ -57,8 +61,10 @@ describe('deps/ignore-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
+                const decl2 = Array.from(graph.dependenciesOf({ block: 'A', tech: 'css' }));
 
-                expect(decl).to.not.deep.contain({ entity: { block: 'D' }, tech: 'css' });
+                expect(decl).to.not.deep.contain({ entity: { block: 'D' }, tech: 'css' }, 'default tech');
+                expect(decl2).to.not.deep.contain({ entity: { block: 'D' }, tech: 'css' }, 'cell-like object');
             }
         });
     });

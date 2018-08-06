@@ -2,6 +2,7 @@
 
 const series = require('ho-iter').series;
 
+const BemCell = require('@bem/sdk.cell')
 const VertexSet = require('./vertex-set');
 const CircularDependencyError = require('./circular-dependency-error');
 
@@ -81,9 +82,13 @@ function resolve(mixedGraph, startVertices, tech) {
         topo.lookupCreate(fromVertex.id);
 
         // ... for each node m with an edge from n to m do
-        const orderedDirectSuccessors = mixedGraph.directSuccessors(fromVertex, { ordered: true, tech });
+        const orderedDirectSuccessors = mixedGraph.directSuccessors(fromVertex, { ordered: true, tech: fromVertex.tech || tech });
 
         for (let successor of orderedDirectSuccessors) {
+            if (!successor.tech && (tech || fromVertex.tech)) {
+                successor = new BemCell({ entity: successor.entity, tech: tech || fromVertex.tech });
+            }
+
             // TODO: Try to filter loops earlier
             if (successor.id === fromVertex.id) {
                 continue;
@@ -115,9 +120,13 @@ function resolve(mixedGraph, startVertices, tech) {
             ? unorderedSuccessors.add(fromVertex)
             : orderedSuccessors.unshift(fromVertex);
 
-        const unorderedDirectSuccessors = mixedGraph.directSuccessors(fromVertex, { ordered: false, tech });
+        const unorderedDirectSuccessors = mixedGraph.directSuccessors(fromVertex, { ordered: false, tech: fromVertex.tech || tech });
 
         for (let successor of unorderedDirectSuccessors) {
+            if (!successor.tech && (tech || fromVertex.tech)) {
+                successor = new BemCell({ entity: successor.entity, tech: tech || fromVertex.tech });
+            }
+
             // TODO: Try to filter loops earlier
             if (successor.id === fromVertex.id ||
                 _orderedVisits[successor.id] ||

@@ -24,8 +24,10 @@ describe('deps/direct-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf([{ block: 'A' }], 'css'));
+                const decl2 = Array.from(graph.dependenciesOf([{ block: 'A', tech: 'css' }]));
 
-                expect(decl).to.deep.contain({ entity: { block: 'B' }, tech: 'css' });
+                expect(decl).to.deep.contain({ entity: { block: 'B' }, tech: 'css' }, 'default tech');
+                expect(decl2).to.deep.contain({ entity: { block: 'B' }, tech: 'css' }, 'cell-like object');
             }
         });
     });
@@ -44,9 +46,13 @@ describe('deps/direct-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf([{ block: 'A' }], 'css'));
+                const decl2 = Array.from(graph.dependenciesOf([{ block: 'A', tech: 'css' }]));
 
-                expect(decl).to.deep.contain({ entity: { block: 'B' }, tech: 'css' })
-                    .and.to.deep.contain({ entity: { block: 'C' }, tech: 'css' });
+                expect(decl).to.deep.contain({ entity: { block: 'B' }, tech: 'css' }, 'default tech')
+                    .and.to.deep.contain({ entity: { block: 'C' }, tech: 'css' }, 'default tech');
+
+                expect(decl2).to.deep.contain({ entity: { block: 'B' }, tech: 'css' }, 'cell-like object')
+                    .and.to.deep.contain({ entity: { block: 'C' }, tech: 'css' }, 'cell-like object');
             }
         });
     });
@@ -68,13 +74,19 @@ describe('deps/direct-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf([{ block: 'A' }, { block: 'B' }], 'css'));
+                const decl2 = Array.from(graph.dependenciesOf([{ block: 'A', tech: 'css' }, { block: 'B', tech: 'css' }]));
 
                 const firstIndex = findIndex(decl, { entity: { block: 'C' }, tech: 'css' });
                 const lastIndex = findLastIndex(decl, { entity: { block: 'C' }, tech: 'css' });
 
+                const firstIndex2 = findIndex(decl2, { entity: { block: 'C' }, tech: 'css' });
+                const lastIndex2 = findLastIndex(decl2, { entity: { block: 'C' }, tech: 'css' });
+
                 expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'css' });
+                expect(decl2).to.deep.contain({ entity: { block: 'C' }, tech: 'css' });
 
                 expect(firstIndex).to.be.equal(lastIndex);
+                expect(firstIndex2).to.be.equal(lastIndex2);
             }
         });
     });

@@ -26,8 +26,10 @@ describe('deps/transitive-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
+                const decl2 = Array.from(graph.dependenciesOf({ block: 'A', tech: 'css' }));
 
-                expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'css' });
+                expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'css' }, 'default tech');
+                expect(decl2).to.deep.contain({ entity: { block: 'C' }, tech: 'css' }, 'cell-like object');
             }
         });
     });
@@ -50,9 +52,13 @@ describe('deps/transitive-deps/common-deps/resolve-tech-deps', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
+                const decl2 = Array.from(graph.dependenciesOf({ block: 'A', tech: 'css' }));
 
-                expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'css' })
-                    .and.to.deep.contain({ entity: { block: 'D' }, tech: 'css' });
+                expect(decl).to.deep.contain({ entity: { block: 'C' }, tech: 'css' }, 'default tech')
+                    .and.to.deep.contain({ entity: { block: 'D' }, tech: 'css' }, 'default tech');
+
+                expect(decl2).to.deep.contain({ entity: { block: 'C' }, tech: 'css' }, 'cell-like object')
+                    .and.to.deep.contain({ entity: { block: 'D' }, tech: 'css' }, 'cell-like object');
             }
         });
     });

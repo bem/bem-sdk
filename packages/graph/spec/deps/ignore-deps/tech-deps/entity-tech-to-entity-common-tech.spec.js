@@ -42,8 +42,37 @@ describe('deps/ignore-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
             },
             test: (graph) => {
                 const decl = Array.from(graph.dependenciesOf({ block: 'A' }, 'css'));
+                const decl2 = Array.from(graph.dependenciesOf({ block: 'A', tech: 'css' }));
 
                 expect(decl).to.not.deep.contain({ entity: { block: 'D' }, tech: 'css' });
+                expect(decl2).to.not.deep.contain({ entity: { block: 'D' }, tech: 'css' });
+            }
+        });
+    });
+
+    it('should not include dependency if no cell from decl\'s dependencies depends on it', () => {
+        macro({
+            graph: (linkMethod) => {
+                const graph = new BemGraph();
+
+                graph
+                    .vertex({ block: 'A' }, 't1')
+                    [linkMethod]({ block: 'D' }, 'r1'); // eslint-disable-line no-unexpected-multiline
+
+                graph
+                    .vertex({ block: 'B' }, 't2')
+                    [linkMethod]({ block: 'D' }, 'r2'); // eslint-disable-line no-unexpected-multiline
+
+                return graph;
+            },
+            test: (graph) => {
+                const decl = Array.from(graph.dependenciesOf([
+                    { block: 'A', tech: 't2' },
+                    { block: 'B', tech: 't1' }
+                ], 'wtf'));
+
+                expect(decl).to.not.deep.contain({ entity: { block: 'D' }, tech: 'r1' })
+                    .and.to.not.deep.contain({ entity: { block: 'D' }, tech: 'r2' });
             }
         });
     });
