@@ -16,7 +16,8 @@ module.exports = function (cells) {
 
         if (entity.mod) {
             tmp.mod = entity.mod.name;
-            tmp.val = entity.mod.val;
+
+            entity.mod.val !== true && (tmp.val = entity.mod.val);
         }
 
         cell.tech && (tmp.tech = cell.tech);

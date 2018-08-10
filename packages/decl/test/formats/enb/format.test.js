@@ -46,14 +46,22 @@ describe('decl.formats.enb.format', () => {
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', mod: 'mod', val: true }] });
+        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', mod: 'mod' }] });
     });
 
     it('should format elem mod', () => {
+        const cells = cellify({ block: 'block', elem: 'elem', mod: 'mod', val: 'val' });
+
+        const formatted = format(cells);
+
+        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', elem: 'elem', mod: 'mod', val: 'val' }] });
+    });
+
+    it('should format elem simple mod', () => {
         const cells = cellify({ block: 'block', elem: 'elem', mod: 'mod' });
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', elem: 'elem', mod: 'mod', val: true }] });
+        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', elem: 'elem', mod: 'mod' }] });
     });
 });
