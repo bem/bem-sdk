@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.0"></a>
+# [0.3.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.graph@0.2.9...@bem/sdk.graph@0.3.0) (2018-08-12)
+
+
+### Features
+
+* **graph:** support cells ([8ecac38](https://github.com/bem/bem-sdk/commit/8ecac38))
+
+
+
+
 <a name="0.2.9"></a>
 ## [0.2.9](https://github.com/bem/bem-sdk/compare/@bem/sdk.graph@0.2.8...@bem/sdk.graph@0.2.9) (2018-07-16)
 
