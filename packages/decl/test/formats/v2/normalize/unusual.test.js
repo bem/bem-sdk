@@ -56,7 +56,6 @@ describe('normalize2.unusual', () => {
 
         expect(normalize(decl).map(simplifyCell)).to.deep.equal([
             { entity: { block: 'block' }, tech: null },
-            { entity: { block: 'block', elem: 'elem1' }, tech: null },
             { entity: { block: 'block', elem: 'elem1', modName: 'mod1', modVal: true }, tech: null },
             { entity: { block: 'block', elem: 'elem1', modName: 'mod1', modVal: 'v1' }, tech: null },
             { entity: { block: 'block', elem: 'elem1', modName: 'mod2', modVal: true }, tech: null },
