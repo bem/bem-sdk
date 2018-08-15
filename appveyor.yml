@@ -14,7 +14,7 @@ install:
   - node --version
   - npm --version
   - npm install lerna
-  - ./node_modules/.bin/lerna bootstrap -- --force
+  - ./node_modules/.bin/lerna bootstrap --no-ci -- --force
 
 test_script:
   - ./node_modules/.bin/lerna run test
