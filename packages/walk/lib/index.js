@@ -118,3 +118,18 @@ function realpathOrError(path) {
         return e;
     }
 }
+
+/**
+ * Inline version of stream to array
+ *
+ * @returns {Promise<BemFile[]>}
+ */
+module.exports.asArray = function(...args) {
+    return new Promise((resolve, reject) => {
+        const files = [];
+        module.exports(...args)
+            .on('data', file => files.push(file))
+            .on('error', reject)
+            .on('end', () => resolve(files));
+    });
+};
