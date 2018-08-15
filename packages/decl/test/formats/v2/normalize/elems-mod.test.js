@@ -13,7 +13,6 @@ describe('normalize2.elems-mod', () => {
         const decl = { block: 'block', elems: 'elem', mod: 'mod' };
 
         expect(normalize(decl).map(simplifyCell)).to.deep.equal([
-            { entity: { block: 'block' }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
             { entity: { block: 'block', elem: 'elem' }, tech: null }
         ]);
@@ -23,7 +22,6 @@ describe('normalize2.elems-mod', () => {
         const decl = { block: 'block', elems: 'elem', mod: 'mod', val: true };
 
         expect(normalize(decl).map(simplifyCell)).to.deep.equal([
-            { entity: { block: 'block' }, tech: null },
             { entity: { block: 'block', modName: 'mod', modVal: true }, tech: null },
             { entity: { block: 'block', elem: 'elem' }, tech: null }
         ]);

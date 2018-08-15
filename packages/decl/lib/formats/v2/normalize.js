@@ -37,9 +37,9 @@ module.exports = function (decl, scope) {
             mods = getMods(entity);
         }
 
-        // we should return block always if elems or mods given
-        if (elems || !isNotActual(mods) && isNotActual(elem)) {
-            add({ block: block }, tech);
+        // we should return scope always if elems or mods given
+        if (!block && (elems || !isNotActual(mods) && isNotActual(elem))) {
+            add({}, tech);
         }
 
         if (block) {
@@ -58,11 +58,14 @@ module.exports = function (decl, scope) {
             }
             for (let elItem of elem) {
                 if (typeof elItem === 'string') {
-                    add({ block: block, elem: elItem }, tech);
+                    if (isNotActual(mod)) {
+                        add({ block: block, elem: elItem }, tech);
+                    }
 
                     if (!isNotActual(mod)) {
                         processMods({ block, elem: elItem, mods: mod, tech });
                     }
+
                     if (!isNotActual(mods)) {
                         processMods({ block, elem: elItem, mods, tech });
                     }
@@ -71,7 +74,9 @@ module.exports = function (decl, scope) {
                     const modsExists = !isNotActual(elItem.mods);
 
                     for (let elemName of elemNames) {
-                        add({ block: block, elem: elemName }, tech);
+                        if (isNotActual(mod)) {
+                            add({ block: block, elem: elemName }, tech);
+                        }
 
                         if (!isNotActual(mod)) {
                             processMods({ block, elem: elemName, mods: mod, tech });

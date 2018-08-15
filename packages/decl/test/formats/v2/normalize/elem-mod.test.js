@@ -13,7 +13,6 @@ describe('normalize2.elem-mod', () => {
         const decl = { block: 'block', elem: 'elem', mod: 'mod' };
 
         expect(normalize(decl).map(simplifyCell)).to.deep.equal([
-            { entity: { block: 'block', elem: 'elem' }, tech: null },
             { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
         ]);
     });
@@ -22,7 +21,6 @@ describe('normalize2.elem-mod', () => {
         const decl = { block: 'block', elem: 'elem', mod: 'mod', val: true };
 
         expect(normalize(decl).map(simplifyCell)).to.deep.equal([
-            { entity: { block: 'block', elem: 'elem' }, tech: null },
             { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: true }, tech: null }
         ]);
     });
@@ -36,10 +34,8 @@ describe('normalize2.elem-mod', () => {
         };
 
         expect(normalize(decl).map(simplifyCell)).to.deep.equal([
-            { entity: { block: 'block', elem: 'elem1' }, tech: null },
             { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: null },
             { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: 'v1' }, tech: null },
-            { entity: { block: 'block', elem: 'elem2' }, tech: null },
             { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: true }, tech: null },
             { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: 'v1' }, tech: null }
         ]);
@@ -56,10 +52,8 @@ describe('normalize2.elem-mod', () => {
         };
 
         expect(normalize(decl).map(simplifyCell)).to.deep.equal([
-            { entity: { block: 'block', elem: 'elem1' }, tech: null },
             { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: true }, tech: null },
             { entity: { block: 'block', elem: 'elem1', modName: 'm1', modVal: 'v1' }, tech: null },
-            { entity: { block: 'block', elem: 'elem2' }, tech: null },
             { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: true }, tech: null },
             { entity: { block: 'block', elem: 'elem2', modName: 'm1', modVal: 'v1' }, tech: null }
         ]);
