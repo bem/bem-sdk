@@ -37,9 +37,9 @@ module.exports = function (decl, scope) {
             mods = getMods(entity);
         }
 
-        // we should return block always if elems or mods given
-        if (elems || !isNotActual(mods) && isNotActual(elem)) {
-            add({ block: block }, tech);
+        // we should return scope always if elems or mods given
+        if (!block && (elems || !isNotActual(mods) && isNotActual(elem))) {
+            add({}, tech);
         }
 
         if (block) {
