@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.6"></a>
+## [0.3.6](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.3.5...@bem/sdk.decl@0.3.6) (2018-08-12)
+
+
+### Bug Fixes
+
+* change enb-format for block_mod ([69254bc](https://github.com/bem/bem-sdk/commit/69254bc))
+
+
+
+
 <a name="0.3.5"></a>
 ## [0.3.5](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.3.4...@bem/sdk.decl@0.3.5) (2018-07-16)
 
