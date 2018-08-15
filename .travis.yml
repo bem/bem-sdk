@@ -14,7 +14,7 @@ matrix:
 
 install:
   - npm i -g lerna
-  - lerna bootstrap
+  - lerna bootstrap --no-ci
 
 after_success:
   - if [ "x$COVERALLS" = "x1" ]; then
