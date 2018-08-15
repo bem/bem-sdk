@@ -1,5 +1,6 @@
 'use strict';
 
+const fs = require('fs');
 const { Readable } = require('stream');
 const each = require('async-each');
 const deprecate = require('depd')('@bem/sdk.walk');
@@ -23,6 +24,12 @@ const walkers = require('./walkers');
  * @returns {module:stream.Readable} stream with info about found files and directories.
  */
 module.exports = (levels, options) => {
+    const output = new Readable({ objectMode: true, read() {} });
+    if (!levels || !levels.length) {
+        process.nextTick(() => output.push(null));
+        return output;
+    }
+
     options || (options = {});
 
     const defaults = options.defaults || {};
@@ -30,12 +37,44 @@ module.exports = (levels, options) => {
     // Turn warning about old using old walkers in the next major
     defaults.scheme && deprecate('Please stop using old API');
 
-    const levelConfigs = options.levels || {};
+    const levelConfigs = Object.entries(options.levels || {})
+        .reduce((res, [level, config]) => {
+            const realLevel = realpathOrError(level);
+            if (typeof realLevel !== 'string') {
+                console.error(`walk: Can't find '${level}' on the FS, need manual fix`);
+                throw realLevel;
+            }
+
+            res[level] = res[realLevel] = config;
+            config.paths_ = new Set([level, realLevel]);
+
+            return res;
+        }, {});
+
+    // Check levels, and fillup configs
+    for (const level of levels) {
+        if (levelConfigs[level]) {
+            continue;
+        }
+
+        const realLevel = realpathOrError(level);
+        if (typeof realLevel !== 'string') {
+            process.nextTick(() => output.emit('error', realLevel));
+            return output;
+        }
+
+        if (!levelConfigs[realLevel]) {
+            levelConfigs[realLevel] = {paths_: new Set([level, realLevel])};
+        } else {
+            levelConfigs[realLevel].paths_.add(level);
+        }
+        levelConfigs[level] = levelConfigs[realLevel];
+    }
+
     const defaultNaming = defaults.naming || {};
     const defaultScheme = defaultNaming.scheme || defaults.scheme;
     const defaultWalker = (typeof defaultScheme === 'string' ? walkers[defaultScheme] : defaultScheme) || walkers.sdk;
 
-    const output = new Readable({ objectMode: true, read() {} });
     const add = (obj) => output.push(obj);
 
     const scan = (level, callback) => {
@@ -71,3 +110,11 @@ module.exports = (levels, options) => {
 
     return output;
 };
+
+function realpathOrError(path) {
+    try {
+        return fs.realpathSync(path);
+    } catch (e) {
+        return e;
+    }
+}
