@@ -18,8 +18,8 @@ describe('schemes/flat/error', () => {
         walk([levelpath], options)
             .resume()
             .on('error', err => {
-                expect(err.code).to.equal('ENOENT');
-                expect(err.path).to.equal(levelpath);
+                expect(err.code).to.equal('ENOENT', 'err code is wrong');
+                expect(err.path).to.equal(levelpath, 'level path is wrong');
                 done();
             });
     });
