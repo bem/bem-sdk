@@ -3,10 +3,7 @@
 module.exports = {
     root: true,
     parserOptions: {
-        ecmaVersion: 7,
-        "ecmaFeatures": {
-            "experimentalObjectRestSpread": true,
-        },
+        ecmaVersion: 9
     },
     env: {
         node: true,
