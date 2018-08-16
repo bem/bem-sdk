@@ -7,7 +7,7 @@ const BemEntityName = require('@bem/sdk.entity-name');
 
 const createStringify = require('@bem/sdk.naming.cell.stringify');
 
-const presets = require('..');
+const presets = require('../lib');
 
 const createPreset = (name, fsConv, conv) => {
     const res = Object.assign({}, presets[name], conv);
@@ -22,8 +22,8 @@ describe('default', () => {
     const originNested = createStringify(presets.origin);
     const reactFlat = createStringify(createPreset('react', { scheme: 'flat' }));
     const reactNested = createStringify(presets.react);
-    const twoFlat = createStringify(createPreset('two-dashes', { scheme: 'flat' }));
-    const twoNested = createStringify(presets['two-dashes']);
+    const twoFlat = createStringify(createPreset('twoDashes', { scheme: 'flat' }));
+    const twoNested = createStringify(presets['twoDashes']);
 
     it('should return path + tech', () => {
         expect(originNested(
