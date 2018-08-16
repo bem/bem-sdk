@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.4.0"></a>
+# [0.4.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.3.2...@bem/sdk.walk@0.4.0) (2018-08-16)
+
+
+### Bug Fixes
+
+* **walk:** use realpath on passed paths, early fail on empties and enoent ([d43c70e](https://github.com/bem/bem-sdk/commit/d43c70e))
+
+
+### Features
+
+* **walk:** asArray method ([9a8911a](https://github.com/bem/bem-sdk/commit/9a8911a))
+
+
+
+
 <a name="0.3.2"></a>
 ## [0.3.2](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.3.1...@bem/sdk.walk@0.3.2) (2018-07-16)
 

@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.3.7"></a>
+## [0.3.7](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.3.6...@bem/sdk.decl@0.3.7) (2018-08-16)
+
+
+### Bug Fixes
+
+* **decl:** remove unnecessary block in normalize v2 ([5d80292](https://github.com/bem/bem-sdk/commit/5d80292))
+* **decl:** remove unnecessary elem in normalize v2 ([ef72dcd](https://github.com/bem/bem-sdk/commit/ef72dcd))
+
+
+
+
 <a name="0.3.6"></a>
 ## [0.3.6](https://github.com/bem/bem-sdk/compare/@bem/sdk.decl@0.3.5...@bem/sdk.decl@0.3.6) (2018-08-12)
 

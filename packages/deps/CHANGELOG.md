@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.2.13"></a>
+## [0.2.13](https://github.com/bem/bem-sdk/compare/@bem/sdk.deps@0.2.12...@bem/sdk.deps@0.2.13) (2018-08-16)
+
+
+### Bug Fixes
+
+* **deps:** allow to pass object into format parser ([e650603](https://github.com/bem/bem-sdk/commit/e650603))
+
+
+
+
 <a name="0.2.12"></a>
 ## [0.2.12](https://github.com/bem/bem-sdk/compare/@bem/sdk.deps@0.2.11...@bem/sdk.deps@0.2.12) (2018-08-12)
 
