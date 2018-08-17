@@ -28,18 +28,19 @@
     "nyc": "^11.0.3",
     "proxyquire": "^1.8.0",
     "sinon": "^2.3.6",
+    "ts-node": "^7.0.1",
     "tslint": "^5.0.0",
     "tslint-config-typings": "^0.3.1",
-    "typescript": "^2.4.1"
+    "typescript": "^3.0.1"
   },
   "scripts": {
     "lint": "npm run lint:js && npm run lint:dts",
     "lint:js": "eslint .",
     "lint:dts": "tslint packages/*/types/*.d.ts",
     "pretest": "npm run lint",
-    "test": "nyc mocha 'packages/*/{test,spec}/**/*.{test,spec}.js'",
-    "test:specs": "mocha tests",
-    "test:cover": "nyc mocha tests"
+    "test": "nyc mocha -r ts-node/register 'packages/*/{test,spec}/**/*.{test,spec}.js'",
+    "test:specs": "mocha -r ts-node/register tests",
+    "test:cover": "nyc mocha -r ts-node/register tests"
   },
   "nyc": {
     "exclude": [

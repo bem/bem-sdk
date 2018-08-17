@@ -18,8 +18,8 @@
     "node",
     "tree"
   ],
-  "main": "index.js",
-  "typings": "index.d.ts",
+  "main": "bemjson-node",
+  "typings": "bemjson-node.d.ts",
   "files": [
     "lib/**",
     "types/**",
@@ -35,7 +35,8 @@
   "scripts": {
     "test": "npm run specs",
     "specs": "mocha",
-    "cover": "nyc mocha"
+    "cover": "nyc mocha",
+    "build": "tsc -p ../../tsconfig.json"
   },
   "greenkeeper": {
     "ignore": [
