@@ -1,3 +1,6 @@
 {
-  "extends": "tslint-config-typings"
+  "extends": "tslint-config-typings",
+  "rules": {
+    "interface-name": [true, "always-prefix"]
+  }
 }

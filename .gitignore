@@ -4,3 +4,9 @@ coverage
 node_modules
 npm-debug.log
 lerna-debug.log
+
+# Build
+
+es
+lib
+typings

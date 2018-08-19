@@ -7,3 +7,8 @@ packages/bemjson-to-jsx-demo
 
 #Remove after AVA done
 packages/config/test/*.test.js
+
+# Build
+
+es
+lib
