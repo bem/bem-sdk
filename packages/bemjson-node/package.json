@@ -18,7 +18,7 @@
     "node",
     "tree"
   ],
-  "main": "bemjson-node",
+  "main": "bemjson-node.js",
   "typings": "bemjson-node.d.ts",
   "files": [
     "lib/**",
@@ -28,6 +28,10 @@
   ],
   "engines": {
     "node": ">= 8.0"
+  },
+  "dependencies": {
+    "@bem/sdk.naming.presets": "*",
+    "@bem/sdk.naming.entity.stringify": "*"
   },
   "devDependencies": {
     "@types/node": "^8.0"
