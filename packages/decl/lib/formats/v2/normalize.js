@@ -115,12 +115,13 @@ module.exports = function (decl, scope) {
                     add({ block: block, elem: elItem }, tech);
                 } else {
                     const elemNames = Array.isArray(elItem.elem) ? elItem.elem : [elItem.elem];
-                    const modsExists = !isNotActual(elItem.mods);
+                    const elemMods = getMods(elItem);
+                    const hasMods = !isNotActual(elemMods);
 
                     for (let elemName of elemNames) {
                         add({ block: block, elem: elemName }, tech);
-                        if (modsExists) {
-                            processMods({ block, elem: elemName, mods: elItem.mods, tech });
+                        if (hasMods) {
+                            processMods({ block, elem: elemName, mods: elemMods, tech });
                         }
                     }
                 }
