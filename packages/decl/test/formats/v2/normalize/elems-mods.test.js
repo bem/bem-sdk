@@ -93,4 +93,21 @@ describe('normalize2.elems-mods', () => {
             { entity: { block: 'sb', elem: 'close' }, tech: null }
         ]);
     });
+
+    it('should support elem of elem with array mods', () => {
+        const decl = {
+            block: 'block',
+            elems: {
+                elem: 'elem',
+                mods: ['m1', 'm2']
+            }
+        };
+
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'm1', modVal: true }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'm2', modVal: true }, tech: null }
+        ]);
+    });
 });
