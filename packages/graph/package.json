@@ -30,11 +30,11 @@
     "@bem/sdk.cell": "^0.2.8",
     "@bem/sdk.entity-name": "^0.2.10",
     "@bem/sdk.naming.entity": "^0.2.10",
-    "debug": "2.2.0",
+    "debug": "2.6.9",
     "es6-error": "4.0.2",
     "hash-set": "1.0.1",
     "ho-iter": "0.3.0",
-    "lodash": "4.12.0"
+    "lodash": "4.17.10"
   },
   "scripts": {
     "test": "mocha test/**/*.test.js spec/**/*.spec.js"
