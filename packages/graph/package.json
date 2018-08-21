@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.graph",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Bem graph storage",
   "publishConfig": {
     "access": "public"

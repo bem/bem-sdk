@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="0.5.0"></a>
+# [0.5.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.4.0...@bem/sdk.walk@0.5.0) (2018-08-21)
+
+
+### Features
+
+* **walk:** asArray method ([24625c8](https://github.com/bem/bem-sdk/commit/24625c8))
+
+
+
+
 <a name="0.4.0"></a>
 # [0.4.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.3.2...@bem/sdk.walk@0.4.0) (2018-08-16)
 
