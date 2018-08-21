@@ -60,4 +60,26 @@ describe('normalize2.unusual', () => {
             { entity: { block: 'block', elem: 'elem2' }, tech: null }
         ]);
     });
+
+    it('should support elems elem mod/val', () => {
+        const decl = {
+            block: 'block',
+            elems: {
+                elem: 'elem',
+                mod: 'mod1',
+                val: 'v1',
+                mods: {
+                    mod2: 'v2'
+                }
+            }
+        };
+
+        expect(normalize(decl).map(simplifyCell)).to.deep.equal([
+            { entity: { block: 'block' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod1', modVal: true }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod1', modVal: 'v1' }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod2', modVal: true }, tech: null },
+            { entity: { block: 'block', elem: 'elem', modName: 'mod2', modVal: 'v2' }, tech: null }
+        ]);
+    });
 });

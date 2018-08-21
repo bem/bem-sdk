@@ -32,7 +32,7 @@ module.exports = function (decl, scope) {
             block = entity.block || null;
             elem = entity.elem || null;
             elems = entity.elems;
-            mod = getMod(entity) || null;
+            mod = getMod(entity);
             val = entity.val;
             mods = getMods(entity);
         }
@@ -115,14 +115,17 @@ module.exports = function (decl, scope) {
                     add({ block: block, elem: elItem }, tech);
                 } else {
                     const elemNames = Array.isArray(elItem.elem) ? elItem.elem : [elItem.elem];
+                    const elemMod = getMod(elItem);
                     const elemMods = getMods(elItem);
+                    const hasMod = !isNotActual(elemMod);
                     const hasMods = !isNotActual(elemMods);
 
                     for (let elemName of elemNames) {
-                        add({ block: block, elem: elemName }, tech);
-                        if (hasMods) {
-                            processMods({ block, elem: elemName, mods: elemMods, tech });
-                        }
+                        hasMod ?
+                            processMods({ block, elem: elemName, mods: elemMod, tech }) :
+                            add({ block: block, elem: elemName }, tech);
+
+                        hasMods && processMods({ block, elem: elemName, mods: elemMods, tech });
                     }
                 }
             }
