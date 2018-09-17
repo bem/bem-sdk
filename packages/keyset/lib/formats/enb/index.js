@@ -6,10 +6,6 @@ const parseXML = require('./parseXML');
 
 const Key = {
     paramsReg: () => /<i18n:param>(\w+)<\/i18n:param>/g,
-    pluralReg: () => /<i18n:dynamic .*key="plural.*">/g,
-    isPlural: function(name, value) {
-        return this.pluralReg().test(value);
-    },
     getParams: function (name, value) {
         const r = this.paramsReg();
         const params = [];
@@ -68,19 +64,6 @@ const Key = {
         }
 
         return normalize(arr);
-    },
-    getType: function(name, value) {
-        if (this.isPlural(name, value)) {
-            return 'plural';
-        } else if (typeof value === 'string') {
-            if (this.paramsReg().test(value)) {
-                return 'paramed';
-            } else {
-                return 'simple';
-            }
-        } else {
-            return 'broken';
-        }
     }
 }
 
@@ -103,7 +86,7 @@ const LangKeys = {
     },
 
     parse: str => {
-        let data = null; 
+        let data = null;
         let errMsg = '';
         try {
             data = nEval(str);

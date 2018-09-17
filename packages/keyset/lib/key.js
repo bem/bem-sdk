@@ -28,48 +28,9 @@ class Key {
     toJSON() {
         return this.valueOf();
     }
-
-
-    // static async createKeys(rawKeys, syntax) {
-    //     const errors = [];
-    //     const keys = new Set();
-    //     if (syntax === AVAILABLE_SYNTAXES.SERP) {
-    //         for (let [name, value] of Object.entries(rawKeys)) {
-    //             let keyValue = '';
-    //             let keyName = name;
-    //             let key = null;
-
-    //             if (!value.includes('<i18n:')) {
-    //                 try {
-    //                     keyValue = await transform(value);
-    //                 } catch (err) {
-    //                     errors.push(err);
-    //                     continue;
-    //                 }
-
-    //                 // TODO refactor
-    //                 // TODO: extract params
-    //                 if (typeof keyValue === 'string') {
-    //                     key = new ParamedKey(keyName, keyValue);
-    //                 } else if (typeof keyValue === 'object') {
-    //                     key = new PluralKey(keyName, keyValue);
-    //                 } else {
-    //                     key = new Key(keyName, keyValue);
-    //                 }
-    //             } else {
-    //                 key = new Key(keyName, keyValue);
-    //             }
-
-    //             if (key) {
-    //                 keys.add(key);
-    //             }
-    //         }
-    //     }
-
-    //     return [keys, errors];
-    // }
 }
 
+// TODO: maybe we don't need to keep params in our structure ?
 class ParamedKey extends Key {
     constructor(name, value, params=[]) {
         super(name, value);

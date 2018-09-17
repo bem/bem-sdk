@@ -33,7 +33,7 @@ const LangKeys = {
     parse: async str => {
         const strToParse = str.replace('export const ', 'module.exports.')
 
-        let data = null; 
+        let data = null;
         try {
             data = nEval(strToParse);
         } catch(err) {}
@@ -59,6 +59,31 @@ const LangKeys = {
 
 const Key = {
     paramsReg: () => /{(\w+)}/g,
+    parse: function(name, value) {
+        const vals = [];
+        let params = [];
+        if (typeof value === 'object') {
+            vals.push(
+                Object.keys(value).reduce((acc, form) => {
+                    const params = this.getParams(value[form]);
+                    acc[form] = {
+                        name,
+                        value: value[form],
+                        params: params.length >= 1 ? params: null
+                    };
+                    return acc;
+                }, {})
+            );
+        } else {
+            vals.push(value);
+            params = params.concat(this.getParams(value));
+        }
+        return {
+            name,
+            value: vals.length === 1 ? vals[0] : vals.join(' '),
+            params: params.length >= 1 ? params: null
+        };
+    },
     getParams: function (name) {
         const r = this.paramsReg();
         const params = [];
@@ -69,19 +94,6 @@ const Key = {
         }
 
         return params;
-    },
-    getType: function(name, value) {
-        if (typeof value === 'object') {
-            return 'plural';
-        } else if (typeof value === 'string') {
-            if (this.paramsReg().test(name)) {
-                return 'paramed';
-            } else {
-                return 'simple';
-            }
-        } else {
-            return 'broken';
-        }
     }
 }
 

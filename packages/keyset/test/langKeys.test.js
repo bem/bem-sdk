@@ -136,7 +136,7 @@ describe('LangKeys', () => {
             const str = stripIndent(`
                 export const ru = {
                     'Time difference': 'Разница "во" времени',
-                    '{count} houг': {
+                    '{count} hour': {
                         'one': '{count} час',
                         'some': '{count} часа',
                         'many': '{count} часов',
@@ -152,11 +152,21 @@ describe('LangKeys', () => {
             `);
 
             const langKeys = await LangKeys.parse(str, 'taburet');
+            const { keys } = langKeys;
 
-            expect(langKeys.stringify('taburet')).to.eql(str);
+            expect(keys[1]).to.be.instanceof(PluralKey);
+            expect(keys[2]).to.be.instanceof(PluralKey);
+
+            const pKey = keys[1];
+
+            expect(pKey.name).to.eql('{count} hour');
+            expect(pKey.value.none).to.be.instanceof(Key);
+            expect(pKey.value.many).to.be.instanceof(ParamedKey);
+            expect(pKey.value.one.name).to.be.eql(pKey.name);
+            expect(pKey.value.some.value).to.be.eql('{count} часа');
         });
     });
-    
+
     describe('enb:parse', () => {
         it('should parse simple keys', async () => {
             const str = stripIndent(`
@@ -335,22 +345,151 @@ describe('LangKeys', () => {
         });
     });
 
-    xdescribe('e2e', () => {
-        it('should taburet p -> s -> p', () => {
+    describe('e2e', () => {
+        it('should taburet p -> s -> p', async () => {
+            const str = stripIndent(`
+                export const ru = {
+                    'Time difference': 'Разница "во" времени',
+                    'Time in {city}': 'Точное время {city}',
+                    '{count} hour': {
+                        'one': '{count} час',
+                        'some': '{count} часа',
+                        'many': '{count} часов',
+                        'none': 'нет часов',
+                    },
+                    '{count} minute': {
+                        'one': '{count} минута',
+                        'some': '{count} минуты',
+                        'many': '{count} минут',
+                        'none': 'нет минут',
+                    },
+                };
+            `);
+
+            const langKeys = await LangKeys.parse(str, 'taburet');
+            expect(langKeys.stringify('taburet')).to.be.eql(str);
         });
 
-        it('should taburet s -> p -> s', () => {
+        it('should taburet s -> p -> s', async () => {
+            const langKeys = new LangKeys('ru', [
+                new Key('Time difference', 'Разница "во" времени'),
+                new ParamedKey('Time in {city}', 'Точное время {city}', ['city']),
+                new PluralKey('{count} hour', {
+                    'one': new ParamedKey('{count} hour', '{count} час', ['count']),
+                    'some': new ParamedKey('{count} hour', '{count} часа', ['count']),
+                    'many': new ParamedKey('{count} hour', '{count} часов', ['count']),
+                    'none': new Key('{count} hour', 'нет часов')
+                }),
+                new PluralKey('{count} minute', {
+                    one: new ParamedKey('{count} minute', '{count} минута', ['count']),
+                    some: new ParamedKey('{count} minute', '{count} минуты', ['count']),
+                    many: new ParamedKey('{count} minute', '{count} минут', ['count']),
+                    none: new Key('{count} minute', 'нет минут')
+                })
+            ]);
+
+            const str = LangKeys.stringify(langKeys, 'taburet');
+            const pLangKeys = await LangKeys.parse(str, 'taburet');
+
+            expect(pLangKeys.lang).to.be.eql(langKeys.lang);
+            expect(pLangKeys.keys).to.be.eql(langKeys.keys);
+            expect(pLangKeys.stringify('taburet')).to.be.eql(str);
         });
 
-        it('should enb p -> s -> p', () => {
+        it('should enb p -> s -> p', async () => {
+            const str = stripIndent(`
+                module.exports = {
+                    "Time": {
+                        "Time difference": "Разница \\"во\\" времени",
+                        "Time in {city}": "Точное время <i18n:param>city</i18n:param>",
+                        "{count} hour": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>count</i18n:param> час</i18n:one><i18n:some><i18n:param>count</i18n:param> часа</i18n:some><i18n:many><i18n:param>count</i18n:param> часов</i18n:many><i18n:none>нет часов</i18n:none></i18n:dynamic>",
+                        "{count} minute": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>count</i18n:param> минута</i18n:one><i18n:some><i18n:param>count</i18n:param> минуты</i18n:some><i18n:many><i18n:param>count</i18n:param> минут</i18n:many><i18n:none>нет минут</i18n:none></i18n:dynamic>"
+                    }
+                };
+            `);
+
+            const langKeys = await LangKeys.parse(str, 'enb');
+            expect(langKeys.stringify('enb')).to.be.eql(str);
         });
 
-        it('should enb s -> p -> s', () => {
+        it('should enb s -> p -> s', async () => {
+            const langKeys = new LangKeys('ru', [
+                new Key('Time difference', 'Разница "во" времени'),
+                new ParamedKey('Time in {city}', 'Точное время {city}', ['city']),
+                new PluralKey('{count} hour', {
+                    'one': new ParamedKey('{count} hour', '{count} час', ['count']),
+                    'some': new ParamedKey('{count} hour', '{count} часа', ['count']),
+                    'many': new ParamedKey('{count} hour', '{count} часов', ['count']),
+                    'none': new Key('{count} hour', 'нет часов')
+                }),
+                new PluralKey('{count} minute', {
+                    one: new ParamedKey('{count} minute', '{count} минута', ['count']),
+                    some: new ParamedKey('{count} minute', '{count} минуты', ['count']),
+                    many: new ParamedKey('{count} minute', '{count} минут', ['count']),
+                    none: new Key('{count} minute', 'нет минут')
+                })
+            ], 'Time');
+
+            const str = LangKeys.stringify(langKeys, 'enb');
+            const pLangKeys = await LangKeys.parse(str, 'enb');
+
+            // enb has no clue about lang on this level
+            // expect(pLangKeys.lang).to.be.eql(langKeys.lang);
+            expect(pLangKeys.keysetName).to.be.eql(langKeys.keysetName);
+            expect(pLangKeys.keys).to.be.eql(langKeys.keys);
+            expect(pLangKeys.stringify('enb')).to.be.eql(str);
         });
 
-        it('should taburet:p -> enb:s', () => {
+        it('should taburet:p -> enb:s', async () => {
+            const str = stripIndent(`
+                export const ru = {
+                    'Time difference': 'Разница "во" времени',
+                    'Time in {city}': 'Точное время {city}',
+                    '{count} hour': {
+                        'one': '{count} час',
+                        'some': '{count} часа',
+                        'many': '{count} часов',
+                        'none': 'нет часов',
+                    },
+                    '{count} minute': {
+                        'one': '{count} минута',
+                        'some': '{count} минуты',
+                        'many': '{count} минут',
+                        'none': 'нет минут',
+                    },
+                };
+            `);
+
+            const langKeys = await LangKeys.parse(str, 'taburet');
+            const enbStr = langKeys.stringify('enb')
+            const pLangKeys = await LangKeys.parse(enbStr, 'enb');
+
+            pLangKeys.lang = 'ru';
+
+            expect(pLangKeys.keys).to.be.eql(langKeys.keys);
+            expect(pLangKeys.stringify('taburet')).to.be.eql(str);
         });
-        it('should enb:p -> taburet:s', () => {
+
+        it('should enb:p -> taburet:s', async () => {
+            const str = stripIndent(`
+                module.exports = {
+                    "Time": {
+                        "Time difference": "Разница \\"во\\" времени",
+                        "Time in {city}": "Точное время <i18n:param>city</i18n:param>",
+                        "{count} hour": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>count</i18n:param> час</i18n:one><i18n:some><i18n:param>count</i18n:param> часа</i18n:some><i18n:many><i18n:param>count</i18n:param> часов</i18n:many><i18n:none>нет часов</i18n:none></i18n:dynamic>",
+                        "{count} minute": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>count</i18n:param> минута</i18n:one><i18n:some><i18n:param>count</i18n:param> минуты</i18n:some><i18n:many><i18n:param>count</i18n:param> минут</i18n:many><i18n:none>нет минут</i18n:none></i18n:dynamic>"
+                    }
+                };
+            `);
+
+            const langKeys = await LangKeys.parse(str, 'enb');
+            const taburetStr = langKeys.stringify('taburet')
+            const pLangKeys = await LangKeys.parse(taburetStr, 'taburet');
+
+            pLangKeys.keysetName = 'Time';
+
+            expect(pLangKeys.keys).to.be.eql(langKeys.keys);
+            expect(pLangKeys.stringify('enb')).to.be.eql(str);
         });
     });
 });
