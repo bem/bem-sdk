@@ -1,4 +1,4 @@
-const { stripIndent } = require('common-tags');
+const { stripIndent, oneLineTrim } = require('common-tags');
 const expect = require('chai').expect;
 
 const { Key, ParamedKey, PluralKey, LangKeys } = require('..');
@@ -228,29 +228,32 @@ describe('LangKeys', () => {
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница \\"во\\" времени",
-                        "minute": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural\\">" +
-                                    "<i18n:count><i18n:param>count</i18n:param></i18n:count>" +
-                                    "<i18n:one>minute</i18n:one>" +
-                                    "<i18n:some>minutes</i18n:some>" +
-                                    "<i18n:many>minutes</i18n:many>" +
-                                    "<i18n:none>minutes</i18n:none>" +
-                                "</i18n:dynamic>",
-                         "{title}&nbsp;— {count} ответ":
-                           "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">" +
-                             "<i18n:count><i18n:param>count</i18n:param></i18n:count>" +
-                             "<i18n:one>" +
-                                "<i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответ" +
-                             "</i18n:one>" +
-                             "<i18n:some>" +
-                                "<i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответа" +
-                             "</i18n:some>" +
-                             "<i18n:many>" +
-                                "<i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответов" +
-                             "</i18n:many>" +
-                             "<i18n:none>" +
-                                "<i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответов" +
-                             "</i18n:none>" +
-                           "</i18n:dynamic>"
+                        "minute": ${oneLineTrim(`"
+                            <i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">
+                                <i18n:count><i18n:param>count</i18n:param></i18n:count>
+                                <i18n:one>minute</i18n:one>
+                                <i18n:some>minutes</i18n:some>
+                                <i18n:many>minutes</i18n:many>
+                                <i18n:none>minutes</i18n:none>
+                            </i18n:dynamic>
+                        "`)},
+                        "{title}&nbsp;— {count} ответ": ${oneLineTrim(`"
+                            <i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">
+                                <i18n:count><i18n:param>count</i18n:param></i18n:count>
+                                <i18n:one>
+                                    <i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответ
+                                </i18n:one>
+                                <i18n:some>
+                                    <i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответа
+                                </i18n:some>
+                                <i18n:many>
+                                    <i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответов
+                                </i18n:many>
+                                <i18n:none>
+                                    <i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответов
+                                </i18n:none>
+                            </i18n:dynamic>
+                        "`)}
                     }
                 };
             `);
@@ -337,8 +340,32 @@ describe('LangKeys', () => {
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница \\"во\\" времени",
-                        "minute": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one>minute</i18n:one><i18n:some>minutes</i18n:some><i18n:many>minutes</i18n:many><i18n:none>minutes</i18n:none></i18n:dynamic>",
-                        "{title}&nbsp;— {count} ответ": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответ</i18n:one><i18n:some><i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответа</i18n:some><i18n:many><i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответов</i18n:many><i18n:none><i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответов</i18n:none></i18n:dynamic>"
+                        "minute": ${oneLineTrim(`"
+                            <i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">
+                                <i18n:count><i18n:param>count</i18n:param></i18n:count>
+                                <i18n:one>minute</i18n:one>
+                                <i18n:some>minutes</i18n:some>
+                                <i18n:many>minutes</i18n:many>
+                                <i18n:none>minutes</i18n:none>
+                            </i18n:dynamic>
+                        "`)},
+                        "{title}&nbsp;— {count} ответ": ${oneLineTrim(`"
+                            <i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">
+                                <i18n:count><i18n:param>count</i18n:param></i18n:count>
+                                <i18n:one>
+                                    <i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответ
+                                </i18n:one>
+                                <i18n:some>
+                                    <i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответа
+                                </i18n:some>
+                                <i18n:many>
+                                    <i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответов
+                                </i18n:many>
+                                <i18n:none>
+                                    <i18n:param>title</i18n:param>&nbsp;— <i18n:param>count</i18n:param> ответов
+                                </i18n:none>
+                            </i18n:dynamic>
+                        "`)}
                     }
                 };
             `));
@@ -402,8 +429,40 @@ describe('LangKeys', () => {
                     "Time": {
                         "Time difference": "Разница \\"во\\" времени",
                         "Time in {city}": "Точное время <i18n:param>city</i18n:param>",
-                        "{count} hour": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>count</i18n:param> час</i18n:one><i18n:some><i18n:param>count</i18n:param> часа</i18n:some><i18n:many><i18n:param>count</i18n:param> часов</i18n:many><i18n:none>нет часов</i18n:none></i18n:dynamic>",
-                        "{count} minute": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>count</i18n:param> минута</i18n:one><i18n:some><i18n:param>count</i18n:param> минуты</i18n:some><i18n:many><i18n:param>count</i18n:param> минут</i18n:many><i18n:none>нет минут</i18n:none></i18n:dynamic>"
+                        "{count} hour": ${oneLineTrim(`"
+                            <i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">
+                                <i18n:count><i18n:param>count</i18n:param></i18n:count>
+                                <i18n:one>
+                                    <i18n:param>count</i18n:param> час
+                                </i18n:one>
+                                <i18n:some>
+                                    <i18n:param>count</i18n:param> часа
+                                </i18n:some>
+                                <i18n:many>
+                                    <i18n:param>count</i18n:param> часов
+                                </i18n:many>
+                                <i18n:none>
+                                    нет часов
+                                </i18n:none>
+                            </i18n:dynamic>
+                        "`)},
+                        "{count} minute": ${oneLineTrim(`"
+                            <i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">
+                                <i18n:count><i18n:param>count</i18n:param></i18n:count>
+                                <i18n:one>
+                                    <i18n:param>count</i18n:param> минута
+                                </i18n:one>
+                                <i18n:some>
+                                    <i18n:param>count</i18n:param> минуты
+                                </i18n:some>
+                                <i18n:many>
+                                    <i18n:param>count</i18n:param> минут
+                                </i18n:many>
+                                <i18n:none>
+                                    нет минут
+                                </i18n:none>
+                            </i18n:dynamic>
+                        "`)}
                     }
                 };
             `);
@@ -476,8 +535,40 @@ describe('LangKeys', () => {
                     "Time": {
                         "Time difference": "Разница \\"во\\" времени",
                         "Time in {city}": "Точное время <i18n:param>city</i18n:param>",
-                        "{count} hour": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>count</i18n:param> час</i18n:one><i18n:some><i18n:param>count</i18n:param> часа</i18n:some><i18n:many><i18n:param>count</i18n:param> часов</i18n:many><i18n:none>нет часов</i18n:none></i18n:dynamic>",
-                        "{count} minute": "<i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\"><i18n:count><i18n:param>count</i18n:param></i18n:count><i18n:one><i18n:param>count</i18n:param> минута</i18n:one><i18n:some><i18n:param>count</i18n:param> минуты</i18n:some><i18n:many><i18n:param>count</i18n:param> минут</i18n:many><i18n:none>нет минут</i18n:none></i18n:dynamic>"
+                        "{count} hour": ${oneLineTrim(`"
+                            <i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">
+                                <i18n:count><i18n:param>count</i18n:param></i18n:count>
+                                <i18n:one>
+                                    <i18n:param>count</i18n:param> час
+                                </i18n:one>
+                                <i18n:some>
+                                    <i18n:param>count</i18n:param> часа
+                                </i18n:some>
+                                <i18n:many>
+                                    <i18n:param>count</i18n:param> часов
+                                </i18n:many>
+                                <i18n:none>
+                                    нет часов
+                                </i18n:none>
+                            </i18n:dynamic>
+                        "`)},
+                        "{count} minute": ${oneLineTrim(`"
+                            <i18n:dynamic project=\\"tanker\\" keyset=\\"dynamic\\" key=\\"plural_adv\\">
+                                <i18n:count><i18n:param>count</i18n:param></i18n:count>
+                                <i18n:one>
+                                    <i18n:param>count</i18n:param> минута
+                                </i18n:one>
+                                <i18n:some>
+                                    <i18n:param>count</i18n:param> минуты
+                                </i18n:some>
+                                <i18n:many>
+                                    <i18n:param>count</i18n:param> минут
+                                </i18n:many>
+                                <i18n:none>
+                                    нет минут
+                                </i18n:none>
+                            </i18n:dynamic>
+                        "`)}
                     }
                 };
             `);
