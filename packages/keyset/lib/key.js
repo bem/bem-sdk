@@ -1,7 +1,7 @@
+'use strict';
+
 const assert = require('assert');
 const util = require('util');
-
-const formats = require('./formats');
 
 class Key {
     constructor(name, value) {
@@ -31,6 +31,7 @@ class Key {
 }
 
 // TODO: maybe we don't need to keep params in our structure ?
+// https://github.com/bem/bem-sdk/issues/348
 class ParamedKey extends Key {
     constructor(name, value, params=[]) {
         super(name, value);

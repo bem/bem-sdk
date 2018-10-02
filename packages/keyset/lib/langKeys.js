@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('assert');
 
 const formats = require('./formats');
@@ -41,11 +43,11 @@ class LangKeys {
             const { name: n, value: val, params } = await keyFormat.parse(name, value);
             if (typeof val === 'object') {
                 const plural = Object.keys(val).reduce((acc, form) => {
-                    const { name: n, value: v, params } = val[form];
-                    if (params) {
-                        acc[form] = new ParamedKey(n, v, params);
+                    const { name: _n, value: v, params: _params } = val[form];
+                    if (_params) {
+                        acc[form] = new ParamedKey(_n, v, _params);
                     } else {
-                        acc[form] = new Key(n, v);
+                        acc[form] = new Key(_n, v);
                     }
                     return acc;
                 }, {});

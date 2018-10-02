@@ -1,3 +1,5 @@
+'use strict';
+
 const fs = require('fs');
 
 const { stripIndent } = require('common-tags');

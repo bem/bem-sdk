@@ -1,3 +1,5 @@
+'use strict';
+
 const assert = require('assert');
 
 const nEval = require('node-eval');
@@ -37,15 +39,15 @@ const Key = {
         }
         return key.value;
     },
-    parse: async function(name, value, type) {
-        const arr = await parseXML(value);
+    parse: async function parse(name, value) {
+        const _arr = await parseXML(value);
 
         const normalize = arr => {
             const { vals, params } = arr.reduce((acc, a) => {
                 if (typeof a[0] === 'object') {
-                    const plural = Object.keys(a[0]).reduce((acc, form) => {
-                        acc[form] = normalize(a[0][form]);
-                        return acc;
+                    const plural = Object.keys(a[0]).reduce((_acc, form) => {
+                        _acc[form] = normalize(a[0][form]);
+                        return _acc;
                     }, {});
 
                     acc.vals.push(plural);
@@ -63,7 +65,7 @@ const Key = {
             };
         }
 
-        return normalize(arr);
+        return normalize(_arr);
     }
 }
 

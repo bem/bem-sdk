@@ -1,3 +1,5 @@
+'use strict';
+
 const xamel = require('xamel');
 
 module.exports = async function transform(str) {
@@ -13,9 +15,9 @@ module.exports = async function transform(str) {
                 rej(err);
             }
 
-            const transformed = await processNodes(xml, true);
+            const _transformed = await processNodes(xml, true);
 
-            res(transformed);
+            res(_transformed);
         })
     );
 
@@ -23,7 +25,7 @@ module.exports = async function transform(str) {
 }
 
 
-async function processNodes(nodes, checkUnknown) {
+async function processNodes(nodes) {
     return await new Promise(async (res, rej) => {
         const unknown = [];
 
@@ -68,13 +70,6 @@ async function processNodes(nodes, checkUnknown) {
         }
 
         return res(transformed);
-
-        // if (transformed.length > 1) {
-        //     res(transformed.join(' '));
-        // } else {
-        //     res(transformed[0]);
-        // }
-
     });
 }
 

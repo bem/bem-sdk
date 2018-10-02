@@ -1,3 +1,5 @@
+'use strict';
+
 const taburet = require('./taburet');
 const enb = require('./enb');
 

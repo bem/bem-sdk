@@ -1,3 +1,5 @@
+'use strict';
+
 const { stripIndent, oneLineTrim } = require('common-tags');
 const expect = require('chai').expect;
 

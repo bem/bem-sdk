@@ -1,10 +1,11 @@
+'use strict';
+
 const assert = require('assert');
 
 const nEval = require('node-eval');
 
 const LangKeys = {
     stringify: langKeys => {
-        let lastKey = langKeys.keys[langKeys.keys.length - 1];
         const keys = langKeys.keys.reduce((acc, key) => {
             acc[key.name] = key.value;
             return acc;
@@ -36,7 +37,9 @@ const LangKeys = {
         let data = null;
         try {
             data = nEval(strToParse);
-        } catch(err) {}
+        } catch(err) {
+            console.log(err);
+        }
 
         assert(data, 'Format is not taburet or broken\n' + str + '\n');
 
@@ -65,11 +68,11 @@ const Key = {
         if (typeof value === 'object') {
             vals.push(
                 Object.keys(value).reduce((acc, form) => {
-                    const params = this.getParams(value[form]);
+                    const _params = this.getParams(value[form]);
                     acc[form] = {
                         name,
                         value: value[form],
-                        params: params.length >= 1 ? params: null
+                        params: _params.length >= 1 ? _params: null
                     };
                     return acc;
                 }, {})

@@ -1,6 +1,8 @@
+'use strict';
+
 const fs = require('fs');
 const { promisify } = require('util');
-const { resolve, dirname, basename, extname, parse, join } = require('path');
+const { resolve, parse, join } = require('path');
 
 const formats = require('./formats');
 const { LangKeys } = require('./langKeys');
@@ -100,7 +102,7 @@ class Keyset {
     }
 
     addKeysForLang(lang, keys) {
-        if (!keys instanceof LangKeys) {
+        if (!(keys instanceof LangKeys)) {
             throw new Error(`keys should be instance of LangKeys`);
         }
 
@@ -178,7 +180,7 @@ class Keyset {
         try {
             files = await readdir(resolve(this.path));
         } catch(err) {
-            throw new Error(`${dirPath} is not directory`);
+            throw new Error(`${this.path} is not directory`);
         }
 
         for (let file of files) {
