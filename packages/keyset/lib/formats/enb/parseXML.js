@@ -6,16 +6,18 @@ module.exports = async function transform(str) {
         return [[str]];
     }
 
-     const transformed = await new Promise((res, rej) => xamel.parse(str, { strict: false }, async function(err, xml) {
-        if (err) {
-            console.log('Error while transform XML we didn\'t expect this shit');
-            rej(err);
-        }
+     const transformed = await new Promise((res, rej) =>
+         xamel.parse(str, { strict: false, trim: false }, async function(err, xml) {
+            if (err) {
+                console.log('Error while transform XML we didn\'t expect this shit');
+                rej(err);
+            }
 
-        const transformed = await processNodes(xml, true);
+            const transformed = await processNodes(xml, true);
 
-        res(transformed);
-    }));
+            res(transformed);
+        })
+    );
 
     return transformed;
 }
@@ -52,7 +54,7 @@ async function processNodes(nodes, checkUnknown) {
                 return Promise.resolve(acc);
             }
 
-            if (DEBUG) {
+            if (process.env.DEBUG) {
                 console.log('need transform:');
                 console.log(node);
                 unknown.push(node);

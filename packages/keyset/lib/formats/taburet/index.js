@@ -25,7 +25,7 @@ const LangKeys = {
             .replace(/,,/g, ',')
             .replace(/}\n/g, '},\n')
 
-        const str = `export const ${langKeys.lang} = ${keysStr};`;
+        const str = `export const ${langKeys.lang} = ${keysStr};\n`;
 
         return str;
     },

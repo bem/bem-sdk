@@ -58,7 +58,7 @@ const Key = {
 
             return {
                 name,
-                value: vals.length === 1 ? vals[0] : vals.join(' '),
+                value: vals.length === 1 ? vals[0] : vals.join(''),
                 params: params.length >= 1 ? params: null
             };
         }
@@ -80,7 +80,7 @@ const LangKeys = {
 
         const keysStr = JSON.stringify(obj, null, 4);
 
-        const str = `module.exports = ${keysStr};`;
+        const str = `module.exports = ${keysStr};\n`;
 
         return str;
     },

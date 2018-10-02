@@ -8,6 +8,7 @@ const { LangKeys } = require('./langKeys');
 const readdir = promisify(fs.readdir);
 const readFile = promisify(fs.readFile);
 const mkdir = promisify(fs.mkdir);
+const unlink = promisify(fs.unlink);
 const writeFile = promisify(fs.writeFile);
 
 class Keyset {
@@ -67,6 +68,11 @@ class Keyset {
             throw new Error(`format ${format} is not valid, choose one of [${Object.keys(Keyset.availableFormats)}]`);
         }
         this._formatName = format;
+        if (format === 'enb') {
+            this.langsKeysExt = '.js';
+        } else if (format === 'taburet') {
+            this.langsKeysExt = '.ts';
+        }
     }
 
     get format() {
@@ -122,7 +128,13 @@ class Keyset {
         try {
             await mkdir(this.path);
         } catch(err) {
-            if (err.code !== 'EEXIST') {
+            if (err.code === 'EEXIST') {
+                const files = await readdir(resolve(this.path));
+                for (let file of files) {
+                    const filePath = resolve(this.path, file);
+                    await unlink(filePath);
+                }
+            } else {
                 throw err;
             }
         }

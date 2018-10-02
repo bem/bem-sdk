@@ -20,7 +20,7 @@ describe('LangKeys', () => {
                 export const ru = {
                     'Time difference': 'Разница во времени',
                 };
-            `));
+            `) + '\n');
         });
 
         it('should stringify zero keys', () => {
@@ -28,7 +28,7 @@ describe('LangKeys', () => {
 
             expect(langKeys.stringify('taburet')).to.eql(stripIndent(`
                 export const ru = {};
-            `));
+            `) + '\n');
         });
 
         it('should stringify paramed keys', () => {
@@ -42,7 +42,7 @@ describe('LangKeys', () => {
                     'Time difference': 'Разница во времени',
                     'Time in {city}': 'Точное время {city}',
                 };
-            `));
+            `) + '\n');
         });
 
         it('should stringify plural keys', () => {
@@ -78,7 +78,7 @@ describe('LangKeys', () => {
                         'none': 'нет минут',
                     },
                 };
-            `));
+            `) + '\n');
         });
     });
 
@@ -205,7 +205,7 @@ describe('LangKeys', () => {
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница во времени",
-                        "Time in {city} {a}": "Точное время <i18n:param>city</i18n:param> <i18n:param>a</i18n:param>"
+                        "Time in {city} {a}%": "Точное время <i18n:param>city</i18n:param> <i18n:param>a</i18n:param>%"
                     }
                 };
             `);
@@ -218,8 +218,8 @@ describe('LangKeys', () => {
 
             const paramedKey = langKeys.keys[1];
 
-            expect(paramedKey.name).to.eql('Time in {city} {a}');
-            expect(paramedKey.value).to.eql('Точное время {city} {a}');
+            expect(paramedKey.name).to.eql('Time in {city} {a}%');
+            expect(paramedKey.value).to.eql('Точное время {city} {a}%');
             expect(paramedKey.params).to.eql(['city', 'a']);
         });
 
@@ -255,7 +255,7 @@ describe('LangKeys', () => {
                             </i18n:dynamic>
                         "`)}
                     }
-                };
+                };\n
             `);
 
             const langKeys = await LangKeys.parse(str, 'enb');
@@ -277,7 +277,7 @@ describe('LangKeys', () => {
             expect(ppKey.name).to.eql('{title}&nbsp;— {count} ответ');
             expect(ppKey.value.none).to.be.instanceof(ParamedKey);
             expect(ppKey.value.one.name).to.be.eql(ppKey.name);
-            expect(ppKey.value.some.value).to.be.eql('{title} &nbsp;— {count} ответа');
+            expect(ppKey.value.some.value).to.be.eql('{title}&nbsp;— {count} ответа');
         });
     });
 
@@ -292,7 +292,7 @@ describe('LangKeys', () => {
                         "Time difference": "Разница во времени"
                     }
                 };
-            `));
+            `) + '\n');
         });
 
         it('should stringify zero keys', () => {
@@ -302,7 +302,7 @@ describe('LangKeys', () => {
                 module.exports = {
                     "adapter-time": {}
                 };
-            `));
+            `) + '\n');
         });
 
         it('should stringify paramed keys', () => {
@@ -317,7 +317,7 @@ describe('LangKeys', () => {
                         "Time in {city} {a}": "Точное время <i18n:param>city</i18n:param> <i18n:param>a</i18n:param>"
                     }
                 };
-            `));
+            `) + '\n');
         });
 
         it('should stringify plural keys', () => {
@@ -368,7 +368,7 @@ describe('LangKeys', () => {
                         "`)}
                     }
                 };
-            `));
+            `) + '\n');
         });
     });
 
@@ -391,7 +391,7 @@ describe('LangKeys', () => {
                         'none': 'нет минут',
                     },
                 };
-            `);
+            `) + '\n';
 
             const langKeys = await LangKeys.parse(str, 'taburet');
             expect(langKeys.stringify('taburet')).to.be.eql(str);
@@ -465,7 +465,7 @@ describe('LangKeys', () => {
                         "`)}
                     }
                 };
-            `);
+            `) + '\n';
 
             const langKeys = await LangKeys.parse(str, 'enb');
             expect(langKeys.stringify('enb')).to.be.eql(str);
@@ -517,7 +517,7 @@ describe('LangKeys', () => {
                         'none': 'нет минут',
                     },
                 };
-            `);
+            `) + '\n';
 
             const langKeys = await LangKeys.parse(str, 'taburet');
             const enbStr = langKeys.stringify('enb')
@@ -571,7 +571,7 @@ describe('LangKeys', () => {
                         "`)}
                     }
                 };
-            `);
+            `) + '\n';
 
             const langKeys = await LangKeys.parse(str, 'enb');
             const taburetStr = langKeys.stringify('taburet')
