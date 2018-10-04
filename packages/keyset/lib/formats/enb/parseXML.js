@@ -11,7 +11,7 @@ module.exports = async function transform(str) {
      const transformed = await new Promise((res, rej) =>
          xamel.parse(str, { strict: false, trim: false }, async function(err, xml) {
             if (err) {
-                console.log('Error while transform XML we didn\'t expect this shit');
+                console.log('Error while transform XML');
                 rej(err);
             }
 
@@ -83,7 +83,7 @@ async function transformPlural({ children = [] }) {
                 try {
                     pluralObj[type] = await processNodes(node.children);
                 } catch(err) {
-                    console.log("WTF!!");
+                    console.log('Failed to process nodes');
                     console.log(err);
                 }
             }

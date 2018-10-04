@@ -17,11 +17,7 @@ class Keyset {
     constructor(name, path, format) {
         this.name = name;
 
-        // if (langKeys) {
-        //     this._langKeys = langKeys;
-        // } else {
-            this._landKeys = new Map();
-        // }
+        this._landKeys = new Map();
 
         this.path = path;
         this.format = format || 'taburet';

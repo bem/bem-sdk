@@ -19,7 +19,7 @@ describe('Keyset', () => {
         beforeEach(() => {
             mock({
                 'src/features/Time/Time.i18n': {
-                    'ru.js': stripIndent(`
+                    'ru.js': stripIndent`
                         export const ru = {
                             'Time difference': 'Разница "во" времени',
                             '{count} minute': {
@@ -29,8 +29,8 @@ describe('Keyset', () => {
                                 'none': 'нет минут',
                             },
                         };
-                    `),
-                    'en.js': stripIndent(`
+                    `,
+                    'en.js': stripIndent`
                         export const en = {
                             'Time difference': 'Time difference',
                             '{count} minute': {
@@ -40,7 +40,7 @@ describe('Keyset', () => {
                                 'none': 'none',
                             },
                         };
-                    `)
+                    `
                 }
             });
         });
@@ -144,10 +144,10 @@ describe('Keyset', () => {
             await keyset.save();
 
             const reExport = fs.readFileSync('src/features/Time/Time.i18n/index.ts', 'utf-8');
-            expect(reExport).to.be.eql(stripIndent(`
+            expect(reExport).to.be.eql(stripIndent`
                 export * from './ru';
                 export * from './en';
-            `) + '\n');
+            ` + '\n');
         });
     });
 });

@@ -18,19 +18,19 @@ describe('LangKeys', () => {
             const key = new Key('Time difference', 'Разница во времени');
             const langKeys = new LangKeys('ru', [key]);
 
-            expect(langKeys.stringify('taburet')).to.eql(stripIndent(`
+            expect(langKeys.stringify('taburet')).to.eql(stripIndent`
                 export const ru = {
                     'Time difference': 'Разница во времени',
                 };
-            `) + '\n');
+            ` + '\n');
         });
 
         it('should stringify zero keys', () => {
             const langKeys = new LangKeys('ru');
 
-            expect(langKeys.stringify('taburet')).to.eql(stripIndent(`
+            expect(langKeys.stringify('taburet')).to.eql(stripIndent`
                 export const ru = {};
-            `) + '\n');
+            ` + '\n');
         });
 
         it('should stringify paramed keys', () => {
@@ -39,12 +39,12 @@ describe('LangKeys', () => {
                 new ParamedKey('Time in {city}', 'Точное время {city}') 
             ]);
 
-            expect(langKeys.stringify('taburet')).to.eql(stripIndent(`
+            expect(langKeys.stringify('taburet')).to.eql(stripIndent`
                 export const ru = {
                     'Time difference': 'Разница во времени',
                     'Time in {city}': 'Точное время {city}',
                 };
-            `) + '\n');
+            ` + '\n');
         });
 
         it('should stringify plural keys', () => {
@@ -64,7 +64,7 @@ describe('LangKeys', () => {
                 })
             ]);
 
-            expect(langKeys.stringify('taburet')).to.eql(stripIndent(`
+            expect(langKeys.stringify('taburet')).to.eql(stripIndent`
                 export const ru = {
                     'Time difference': 'Разница "во" времени',
                     '{count} houг': {
@@ -80,17 +80,17 @@ describe('LangKeys', () => {
                         'none': 'нет минут',
                     },
                 };
-            `) + '\n');
+            ` + '\n');
         });
     });
 
     describe('taburet:parse', () => {
         it('should parse simple keys', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 export const ru = {
                     'Time difference': 'Разница во времени',
                 };
-            `);
+            `;
 
             const langKeys = await LangKeys.parse(str, 'taburet')
 
@@ -104,9 +104,9 @@ describe('LangKeys', () => {
         });
 
         it('should parse zero keys', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 export const ru = {};
-            `);
+            `;
 
             const langKeys = await LangKeys.parse(str, 'taburet');
             expect(langKeys.lang).to.eql('ru');
@@ -114,12 +114,12 @@ describe('LangKeys', () => {
         });
 
         it('should parse paramed keys', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 export const ru = {
                     'Time difference': 'Разница во времени',
                     'Time in {city}': 'Точное время {city}',
                 };
-            `);
+            `;
 
             const langKeys = await LangKeys.parse(str, 'taburet');
             const key = langKeys.keys[0];
@@ -135,7 +135,7 @@ describe('LangKeys', () => {
         });
 
         it('should parse plural keys', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 export const ru = {
                     'Time difference': 'Разница "во" времени',
                     '{count} hour': {
@@ -151,7 +151,7 @@ describe('LangKeys', () => {
                         'none': 'нет минут',
                     },
                 };
-            `);
+            `;
 
             const langKeys = await LangKeys.parse(str, 'taburet');
             const { keys } = langKeys;
@@ -171,13 +171,13 @@ describe('LangKeys', () => {
 
     describe('enb:parse', () => {
         it('should parse simple keys', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница во времени"
                     }
                 };
-            `);
+            `;
 
             const langKeys = await LangKeys.parse(str, 'enb')
 
@@ -192,25 +192,25 @@ describe('LangKeys', () => {
         });
 
         it('should parse zero keys', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 module.exports = {
                     "adapter-time": {}
                 };
-            `);
+            `;
 
             const langKeys = await LangKeys.parse(str, 'enb');
             expect(langKeys.keys.length).to.eql(0, 'no keys');
         });
 
         it('should parse paramed keys', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница во времени",
                         "Time in {city} {a}%": "Точное время <i18n:param>city</i18n:param> <i18n:param>a</i18n:param>%"
                     }
                 };
-            `);
+            `;
 
             const langKeys = await LangKeys.parse(str, 'enb');
             const key = langKeys.keys[0];
@@ -226,7 +226,7 @@ describe('LangKeys', () => {
         });
 
         it('should parse plural keys', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница \\"во\\" времени",
@@ -258,7 +258,7 @@ describe('LangKeys', () => {
                         "`)}
                     }
                 };\n
-            `);
+            `;
 
             const langKeys = await LangKeys.parse(str, 'enb');
 
@@ -288,23 +288,23 @@ describe('LangKeys', () => {
             const key = new Key('Time difference', 'Разница во времени');
             const langKeys = new LangKeys('ru', [key], 'adapter-time');
 
-            expect(langKeys.stringify('enb')).to.eql(stripIndent(`
+            expect(langKeys.stringify('enb')).to.eql(stripIndent`
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница во времени"
                     }
                 };
-            `) + '\n');
+            ` + '\n');
         });
 
         it('should stringify zero keys', () => {
             const langKeys = new LangKeys('ru', [], 'adapter-time');
 
-            expect(langKeys.stringify('enb')).to.eql(stripIndent(`
+            expect(langKeys.stringify('enb')).to.eql(stripIndent`
                 module.exports = {
                     "adapter-time": {}
                 };
-            `) + '\n');
+            ` + '\n');
         });
 
         it('should stringify paramed keys', () => {
@@ -312,14 +312,14 @@ describe('LangKeys', () => {
             const paramedKey = new ParamedKey('Time in {city} {a}', 'Точное время {city} {a}', ['city', 'a']);
             const langKeys = new LangKeys('ru', [key, paramedKey], 'adapter-time');
 
-            expect(langKeys.stringify('enb')).to.eql(stripIndent(`
+            expect(langKeys.stringify('enb')).to.eql(stripIndent`
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница во времени",
                         "Time in {city} {a}": "Точное время <i18n:param>city</i18n:param> <i18n:param>a</i18n:param>"
                     }
                 };
-            `) + '\n');
+            ` + '\n');
         });
 
         it('should stringify plural keys', () => {
@@ -338,7 +338,7 @@ describe('LangKeys', () => {
             });
             const langKeys = new LangKeys('ru', [key, pKey, ppKey], 'adapter-time');
 
-            expect(langKeys.stringify('enb')).to.eql(stripIndent(`
+            expect(langKeys.stringify('enb')).to.eql(stripIndent`
                 module.exports = {
                     "adapter-time": {
                         "Time difference": "Разница \\"во\\" времени",
@@ -370,13 +370,13 @@ describe('LangKeys', () => {
                         "`)}
                     }
                 };
-            `) + '\n');
+            ` + '\n');
         });
     });
 
     describe('e2e', () => {
         it('should taburet p -> s -> p', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 export const ru = {
                     'Time difference': 'Разница "во" времени',
                     'Time in {city}': 'Точное время {city}',
@@ -393,7 +393,7 @@ describe('LangKeys', () => {
                         'none': 'нет минут',
                     },
                 };
-            `) + '\n';
+            ` + '\n';
 
             const langKeys = await LangKeys.parse(str, 'taburet');
             expect(langKeys.stringify('taburet')).to.be.eql(str);
@@ -426,7 +426,7 @@ describe('LangKeys', () => {
         });
 
         it('should enb p -> s -> p', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 module.exports = {
                     "Time": {
                         "Time difference": "Разница \\"во\\" времени",
@@ -467,7 +467,7 @@ describe('LangKeys', () => {
                         "`)}
                     }
                 };
-            `) + '\n';
+            ` + '\n';
 
             const langKeys = await LangKeys.parse(str, 'enb');
             expect(langKeys.stringify('enb')).to.be.eql(str);
@@ -502,7 +502,7 @@ describe('LangKeys', () => {
         });
 
         it('should taburet:p -> enb:s', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 export const ru = {
                     'Time difference': 'Разница "во" времени',
                     'Time in {city}': 'Точное время {city}',
@@ -519,7 +519,7 @@ describe('LangKeys', () => {
                         'none': 'нет минут',
                     },
                 };
-            `) + '\n';
+            ` + '\n';
 
             const langKeys = await LangKeys.parse(str, 'taburet');
             const enbStr = langKeys.stringify('enb')
@@ -532,7 +532,7 @@ describe('LangKeys', () => {
         });
 
         it('should enb:p -> taburet:s', async () => {
-            const str = stripIndent(`
+            const str = stripIndent`
                 module.exports = {
                     "Time": {
                         "Time difference": "Разница \\"во\\" времени",
@@ -573,7 +573,7 @@ describe('LangKeys', () => {
                         "`)}
                     }
                 };
-            `) + '\n';
+            ` + '\n';
 
             const langKeys = await LangKeys.parse(str, 'enb');
             const taburetStr = langKeys.stringify('taburet')
