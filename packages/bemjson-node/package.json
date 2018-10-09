@@ -18,8 +18,8 @@
     "node",
     "tree"
   ],
-  "main": "index.js",
-  "typings": "index.d.ts",
+  "main": "bemjson-node.js",
+  "typings": "bemjson-node.d.ts",
   "files": [
     "lib/**",
     "types/**",
@@ -29,13 +29,18 @@
   "engines": {
     "node": ">= 8.0"
   },
+  "dependencies": {
+    "@bem/sdk.naming.presets": "*",
+    "@bem/sdk.naming.entity.stringify": "*"
+  },
   "devDependencies": {
     "@types/node": "^8.0"
   },
   "scripts": {
     "test": "npm run specs",
     "specs": "mocha",
-    "cover": "nyc mocha"
+    "cover": "nyc mocha",
+    "build": "tsc -p ../../tsconfig.json"
   },
   "greenkeeper": {
     "ignore": [
