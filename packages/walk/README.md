@@ -9,56 +9,56 @@ Tool for traversing a [BEM](https://en.bem.info) project's file system.
 
 * [Introduction](#introduction)
 * [Try walk](#try-walk)
-* [Quick Start](#quick-start)
+* [Quick start](#quick-start)
 * [API reference](#api-reference)
 * [Parameter tuning](#parameter-tuning)
 * [Usage examples](#usage-examples)
 
 ## Introduction
 
-Walk traverses project's file system and returns the following information about found files:
+Walk traverses the project's file system and returns the following information about found files:
 
 * The type of BEM entity: [block](https://en.bem.info/methodology/key-concepts/#block), [element](https://en.bem.info/methodology/key-concepts/#element) or [modifier]( https://en.bem.info/methodology/key-concepts/#modifier).
 * The [implementation technology]( https://en.bem.info/methodology/key-concepts/#implementation-technology): JS, CSS, etc.
 * The location in the [file system](https://en.bem.info/methodology/filestructure/).
 
-> **Note.** If you don't have any BEM project to try `@bem/sdk.walk` package, the quickest way to create it is to utilize the [bem-express](https://github.com/bem/bem-express).
+> **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.walk` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
 ## Try walk
 
-Example is available in the [RunKit editor](https://runkit.com/zxqfox/5b47d9f7399d64001271c5f4).
+An example is available in the [RunKit editor](https://runkit.com/zxqfox/5b47d9f7399d64001271c5f4).
 
-## Quick Start
+## Quick start
 
 > **Attention.** To use `@bem/sdk.walk`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
-To run `@bem/sdk.walk` package:
+To run the `@bem/sdk.walk` package:
 
-1. [Install walk](#bemsdkwalk-package-installation)
-2. [Include package](#bemsdkwalk-package-including)
-3. [Define the file system levels](#file-system-levels-definition)
-4. [Define the paths to traverse](#paths-to-traverse-definition)
-5. [Get information about found files](#get-information-about-found-files)
+1. [Install walk](#bemsdkwalk-package-installation).
+2. [Include the package](#bemsdkwalk-package-including).
+3. [Define the file system levels](#file-system-levels-definition).
+4. [Define the paths to traverse](#paths-to-traverse-definition).
+5. [Get information about found files](#get-information-about-found-files).
 
-### `@bem/sdk.walk` package installation
+### Installing the `@bem/sdk.walk` package
 
-Use the following command to install `@bem/sdk.walk` package:
+To install the `@bem/sdk.walk` package, run the following command:
 
 ```
 $ npm install --save @bem/sdk.walk
 ```
 
-### `@bem/sdk.walk` package including
+### Including the `@bem/sdk.walk` package
 
-Create a JavaScript file with any name. For example, consider a file named **app.js**, and paste the following string:
+Create a JavaScript file with any name (for example, **app.js**) and insert the following:
 
 ```js
 const walk = require('@bem/sdk.walk');
 ```
 
-> **Note.** Use **app.js** file for all the following steps.
+> **Note.** Use the same file for all of the following steps.
 
-### File system levels definition
+### Defining file system levels
 
 Define the project's [file system levels](https://en.bem.info/methodology/redefinition-levels/) in the `config` object.
 
@@ -66,16 +66,16 @@ Define the project's [file system levels](https://en.bem.info/methodology/redefi
 
 ```js
 const config = {
-    // project levels
+    // Project levels.
     levels: {
         'level1': {
-            // file naming scheme
+            // File naming scheme.
             naming: {
                 preset: 'value'
             }
         },
         'level2': {
-            // file naming scheme
+            // File naming scheme.
             naming: {
                 preset: 'value'
             }
@@ -85,21 +85,21 @@ const config = {
 };
 ```
 
-Specify either the [file naming scheme](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity) for each redefinition level. This lets you get information about BEM entities using their names or using the names of files and directories.
+Specify the [file naming scheme](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity) for each redefinition level. This lets you get information about BEM entities using their names or using the names of files and directories.
 
-The table shows the possible values that can be set for file naming scheme.
+The table shows acceptable values that can be set for the file naming scheme.
 
 | Key | Supported values |
 |-----|------------------|
 | `naming` | `legacy`, `origin`, `two-dashes`, `react`, `origin-react` |
 
-> **Note.** For more information about file naming preset, see [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets)
+> **Note.** For more information about the file naming preset, see [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets)
 
 **app.js file:**
 
 ```js
 const walk = require('@bem/sdk.walk');
-// Config object with sample value
+// Config object with sample value.
 const config = {
     levels: {
         'common.blocks': {
@@ -111,11 +111,11 @@ const config = {
 };
 ```
 
-### Paths to traverse definition
+### Defining paths to traverse
 
 Specify the paths to walk in the `levels` object.
 
-> **Note.** You can use relative or absolute path.
+> **Note.** You can use relative or absolute paths.
 
 **Example:**
 
@@ -129,7 +129,7 @@ const levels = [
 
 ```js
 const walk = require('@bem/sdk.walk');
-// Config object with sample value
+// Config object with sample value.
 const config = {
     levels: {
         'common.blocks': {
@@ -139,13 +139,13 @@ const config = {
         }
     }
 };
-// Levels object with sample value
+// Levels object with sample value.
 const levels = [
     'common.blocks'
 ];
 ```
 
-### Get information about found files
+### Getting information about found files
 
 Pass the `levels` and `config` objects to the [walk()](#walk-1) method.
 
@@ -153,7 +153,7 @@ Pass the `levels` and `config` objects to the [walk()](#walk-1) method.
 
 ```js
 const walk = require('@bem/sdk.walk');
-// Config object with sample value
+// Config object with sample value.
 const config = {
     levels: {
         'common.blocks': {
@@ -163,7 +163,7 @@ const config = {
         }
     }
 };
-// Levels object with sample value
+// Levels object with sample value.
 const levels = [
     'common.blocks'
 ];
@@ -172,9 +172,9 @@ const levels = [
 })();
 ```
 
-Function `walk.asArray()` is used for getting data about found files. When a portion of data is received, the `data` event is generated and [information about the found file](#output-data) is added to the `files` array. If an error occurs, `walk` stops processing the request and returns a response containing the error ID and description. The `end` event occurs when all the data has been received from the stream.
+The `walk.asArray()` function is used for getting data about found files. When a portion of data is received, the `data` event is generated and [information about the found file](#output-data) is added to the `files` array. If an error occurs, `walk` stops processing the request and returns a response containing the error ID and description. The `end` event occurs when all the data has been received from the stream.
 
-After that, run your web server using `node app.js` comand, and you will see a result look like this:
+After that, run your web server using the `node app.js` comand, and you will see a result that looks like this:
 
 ```js
 [
@@ -206,7 +206,7 @@ After that, run your web server using `node app.js` comand, and you will see a r
 
 ```js
 /**
-* Traverse a BEM project's file system
+* Traverse a BEM project's file system.
 *
 * @param {string[]} levels — paths to traverse
 * @param {object} config — project's file system levels
@@ -227,7 +227,7 @@ Traverses the directories described in the `levels` parameter and returns `strea
 
 #### Output data
 
-Readable stream (`stream.Readable`) that has the following events:
+A readable stream (`stream.Readable`) that has the following events:
 
 | Event | Description |
 |-------|-------------|
@@ -241,18 +241,18 @@ Walk provides a flexible interface for parameter tuning and can be configured to
 
 This section contains some tips on the possible parameter settings.
 
-* [Сonfig object definition extension](#config-object-definition-extension)
-* [Сonfig object auto definition](#config-object-auto-definition)
+* [Extending config object definitions](#extending-config-object-definitions)
+* [Automatically defining config objects](#automatically-defining-config-objects)
 
-### Config object definition extension
+### Extending config object definitions
 
-Sometimes when you project's [file naming scheme](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) doesn't match default file system type, you can define it manually.
+If your project's [file naming scheme](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) doesn't match the default file system type, you can define it manually.
 
 **Example:**
 
 ```js
 /**
-* Project's file naming scheme `legacy`, by default, matches project's file system type `nested`
+* The project's file naming scheme is `legacy`, which matches the `nested` file system type by default.
 * Step 1: https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/legacy.js
 * Step 2: https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/origin.js
 */
@@ -261,7 +261,7 @@ const config = {
         'common.blocks': {
             naming: {
                 preset: 'legacy',
-                // Project's file system type manually definition
+                // Manually defining the project's file system type.
                 fs: {
                     scheme: 'mixed'
                 }
@@ -273,7 +273,7 @@ const config = {
 
 > **Note.** For more information about file systems, see [@bem/sdk.naming.cell.match](https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.match)
 
-Sometimes when you want to define default layer, you can use `defaultLayer` field.
+In order to define the default layer, you can use the `defaultLayer` field.
 
 **Example:**
 
@@ -292,11 +292,11 @@ const config = {
 };
 ```
 
-### Config object auto definition
+### Automatically defining config objects
 
-Instead of defining the project's levels manually, use the [@bem/sdk.config](https://github.com/bem/bem-sdk/tree/master/packages/config) package.
+Instead of defining the project's levels manually, you can use the [@bem/sdk.config](https://github.com/bem/bem-sdk/tree/master/packages/config) package.
 
-Use the `levelMapSync()` method which return the project's file system levels.
+Use the `levelMapSync()` method which returns the project's file system levels.
 
 **Example:**
 
