@@ -1,0 +1,225 @@
+# parse
+
+Parser for a [BEM entity](https://bem.info/methodology/key-concepts/#bem-entity) string representation.
+
+[![NPM Status][npm-img]][npm]
+
+[npm]:          https://www.npmjs.org/package/@bem/sdk.naming.entity.parse
+[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.naming.entity.parse.svg
+
+* [Introduction](#introduction)
+* [Try parse](#try-parse)
+* [Quickstart](#quickstart)
+* [API reference](#api-reference)
+* [Parameter tuning](#parameter-tuning)
+    * [Using Two Dashes style](#using-two-dashes-style)
+    * [Using React style](#using-react-style)
+    * [Using custom naming convention](#using-custom-naming-convention)
+* [Usage examples](#usage-examples)
+    * [Parsing filenames](#parsing-filenames)
+
+## Introduction
+
+Tool parses a [BEM entity](https://bem.info/methodology/key-concepts/#bem-entity) string representation and creates an object representation from it.
+
+You can choose [naming convention](https://bem.info/methodology/naming-convention/) used to create a `parse()` function.
+
+> **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.entity.parse` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
+
+## Try parse
+
+An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-naming-entity-parse-works).
+
+## Quickstart
+
+> **Attention.** To use `@bem/sdk.naming.entity.parse`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
+
+To run the `@bem/sdk.naming.entity.parse` package:
+
+1. [Installing required packages](#installing-required-packages).
+1. [Creating a parse() function](#creating-a-parse-function).
+1. [Parsing a string](#parsing-a-string).
+
+### Installing required packages
+
+Install the following packages:
+
+* [@bem/sdk.naming.entity.parse](https://www.npmjs.org/package/@bem/sdk.naming.entity.parse) that contains `parse()` function;
+* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
+
+To install the packages, run the following command:
+
+```
+$ npm install --save @bem/sdk.naming.entity.parse @bem/sdk.naming.presets
+```
+
+### Creating a parse() function
+
+Create a JavaScript file with any name (for example, **app.js**) and do the following:
+
+1. Choose [naming convention](https://bem.info/methodology/naming-convention/) and import preset with this convention, for example, origin naming convention.
+
+    Examples with other naming conventions see in the [Parameter tuning](#parameter-tuning) section.
+1. Import `@bem/sdk.naming.entity.parse` package and create `parse()` function using imported preset:
+
+```js
+const originNaming = require('@bem/sdk.naming.presets/origin');
+const parse = require('@bem/sdk.naming.entity.parse')(originNaming);
+```
+
+### Parsing a string
+
+Parse a string representation of a BEM entity:
+
+```js
+parse('button__run');
+```
+
+This function will return the BemEnityName object with block name `button` and element name `run`.
+
+**Examples**: ([RunKit live example](https://runkit.com/migs911/parse-a-string-using-origin-naming-convention))
+
+```js
+const originNaming = require('@bem/sdk.naming.presets/origin');
+const parse = require('@bem/sdk.naming.entity.parse')(originNaming);
+
+// Parse a block name.
+parse('my-block');
+
+// Parse an element name.
+parse('my-block__my-element');
+
+// Parse a block modifier name.
+parse('my-block_my-modifier');
+
+// Parse a block modifier name with a value.
+parse('my-block_my-modifier_some-value');
+
+// Parse an element modifier name.
+parse('my-block__my-element_my-modifier');
+
+// Parse an element modifier name with a value.
+parse('my-block__my-element_my-modifier_some-value');
+```
+
+## API reference
+
+### parse()
+
+```js
+/**
+ * @typedef BemEntityName
+ * @property {string} block — block name.
+ * @property {string} [elem] — element name.
+ * @property {Object} [mod] — modifier name or object with name and value.
+ * @property {string} mod.name — modifier name.
+ * @property {string} [mod.val=true] — modifier value.
+ */
+
+/**
+ * Parses string into object representation.
+ *
+ * @param {string} str - string representation of BEM entity.
+ * @returns {(BemEntityName|undefined)}
+ */
+parse(str);
+```
+
+## Parameter tuning
+
+### Using Two Dashes style
+
+Parse a string using [Two Dashes style](https://bem.info/methodology/naming-convention/#two-dashes-style) naming convention.
+
+**Example:** ([RunKit live example](https://runkit.com/migs911/parse-a-string-using-two-dashes-style))
+
+```js
+const twoDashesNaming = require('@bem/sdk.naming.presets/two-dashes');
+const parse = require('@bem/sdk.naming.entity.parse')(twoDashesNaming);
+
+// Parse a block name.
+parse('my-block');
+
+// Parse an element name.
+parse('my-block__my-element');
+
+// Parse a block modifier name.
+parse('my-block--my-modifier');
+
+// Parse a block modifier name with a value.
+parse('my-block--my-modifier_some-value');
+
+// Parse an element modifier name.
+parse('my-block__my-element--my-modifier');
+
+// Parse an element modifier name with a value.
+parse('my-block__my-element--my-modifier_some-value');
+```
+
+### Using React style
+
+Parse a string using [React style](https://bem.info/methodology/naming-convention/#react-style) naming convention.
+
+For creating a parse function there is no difference between `react` and `origin-react` presets, you can use any of them.
+
+**Example:** ([RunKit live example](https://runkit.com/migs911/parse-a-string-using-react-style))
+
+```js
+const reactNaming = require('@bem/sdk.naming.presets/react');
+const parse = require('@bem/sdk.naming.entity.parse')(reactNaming);
+
+// Parse a block name.
+parse('myBlock');
+
+// Parse an element name.
+parse('myBlock-myElement');
+
+// Parse a block modifier name.
+parse('myBlock_myModifier');
+
+// Parse a block modifier name with a value.
+parse('myBlock_myModifier_value');
+
+// Parse an element modifier name.
+parse('myBlock-myElement_myModifier');
+
+// Parse an element modifier name with a value.
+parse('myBlock-myElement_myModifier_value');
+```
+
+### Using custom naming convention
+
+Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the following fields:
+
+* `delims` — delimiters, used to separate names in naming convention.
+* `wordPattern` — a regular expression, that will be used to match an entity name.
+
+Use this object to make your `parse()` function.
+
+**Example:** ([RunKit live example](https://runkit.com/migs911/parse-usage-examples-custom-naming-convention))
+
+```js
+const convention = {
+    wordPattern: '\\w+?',
+    delims: {
+        elem: '_EL-',
+        mod: {
+            name: '_MOD-',
+            val: '-'
+    }}};
+const parse = require('@bem/sdk.naming.entity.parse')(convention);
+
+// Parse an element modifier name.
+console.log(parse('button_EL-run_MOD-activated'));
+// => BemEntityName { block: 'button',
+//      elem: 'run',
+//      mod: { name: 'activated', val: true } }
+```
+
+## Usage examples
+
+### Parsing filenames
+
+If you have file `input_type_search.css`, you can parse filename and get BemEntityName object, that represents this file. You can parse all files in your project this way.
+
+`parse()` function using in the walk package to parse filenames in the BEM project. You can find more examples in the walkers' code for following [file structure organizations](https://bem.info/methodology/filestructure): [Flat](https://github.com/bem/bem-sdk/blob/master/packages/walk/lib/walkers/flat.js) and [Nested](https://github.com/bem/bem-sdk/blob/master/packages/walk/lib/walkers/nested.js).
