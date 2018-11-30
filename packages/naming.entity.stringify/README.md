@@ -8,16 +8,14 @@ Stringifier for a [BEM entity](https://bem.info/methodology/key-concepts/#bem-en
 [npm-img]:      https://img.shields.io/npm/v/@bem/sdk.naming.entity.stringify.svg
 
 * [Introduction](#introduction)
-* [Try parse](#try-parse)
-* [Quickstart](#quickstart)
+* [Try stringify](#try-stringify)
+* [Quick start](#quick-start)
 * [API reference](#api-reference)
 * [Parameter tuning](#parameter-tuning)
-    * [Stringify BemEntityName object](#stringify-bementityname-object)
-    * [Using custom naming convention](#using-custom-naming-convention)
 
 ## Introduction
 
-Stringify returns the string with the name of specified entity representation. This name can be used in a class attributes.
+Stringify returns the string with the name of specified BEM entity representation. This name can be used in a class attributes.
 
 You can choose [naming convention](https://en.bem.info/methodology/naming-convention/) used to create a `stingify()` function.
 
@@ -27,15 +25,15 @@ You can choose [naming convention](https://en.bem.info/methodology/naming-conven
 
 An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-naming-entity-stringify-works).
 
-## Quickstart
+## Quick start
 
 > **Attention.** To use `@bem/sdk.naming.entity.stringify`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
 To run the `@bem/sdk.naming.entity.stringify` package:
 
-1. [Installing required packages](#install-packages).
-3. [Creating a stingify() function](#creating-a-stringify-function).
-4. [Making a string from BEM entity](#stringify-bem-entity).
+1. [Install required packages](#installing-required-packages).
+3. [Create a stringify() function](#creating-a-stringify-function).
+4. [Make a string from BEM entity](#creating-a-string-from-a-bem-entity-name).
 
 ### Installing required packages
 
@@ -50,7 +48,7 @@ To install the packages, run the following command:
 $ npm install --save @bem/sdk.naming.entity.stringify @bem/sdk.naming.presets
 ```
 
-### Creating a stingify() function
+### Creating a `stringify()` function
 
 Create a JavaScript file with any name (for example, **app.js**) and do the following:
 
@@ -67,37 +65,42 @@ const stringify = require('@bem/sdk.naming.entity.stringify')(originNaming);
 Stringify an object representation of BEM entity:
 
 ```js
-stringify({ block: 'button', mod: 'checked' });
+stringify({ block: 'my-block', mod: 'my-modifier' });
 ```
 
-This function will return the string `button_checked`.
+This function will return the string `my-block_my-modifier`.
 
-**Examples**: ([RunKit live example](https://runkit.com/migs911/stringify-quickst-using-origin-naming-convention))
+**Example**:
 
 ```js
 const originNaming = require('@bem/sdk.naming.presets/origin');
 const stringify = require('@bem/sdk.naming.entity.stringify')(originNaming);
 
-console.log(stringify({ block: 'button', mod: 'checked' }));
-// => button_checked
+console.log(stringify({ block: 'my-block', mod: 'my-modifier' }));
+// => my-block_my-modifier
 
-// You can define the modifier as an object.
-console.log(stringify({ block: 'button', mod: { name: 'checked'}}));
-// => button_checked
+console.log(stringify({ block: 'my-block', mod: { name: 'my-modifier'}}));
+// => my-block_my-modifier
 
-console.log(stringify({ block: 'button', elem: 'run' }));
-// => button__run
+console.log(stringify({ block: 'my-block',
+                        mod: { name: 'my-modifier', val: 'some-value'}}));
+// => my-block__my-modifier_some-value
 
-console.log(stringify({ block: 'button',
-                        elem: 'run',
-                        mod: 'activated'}));
-// => button__run_activated
+console.log(stringify({ block: 'my-block', elem: 'my-element' }));
+// => my-block__my-element
 
-console.log(stringify({ block: 'button',
-                        elem: 'run',
-                        mod: { name: 'color', val: 'red'}}));
-// => button__run_color_red
+console.log(stringify({ block: 'my-block',
+                        elem: 'my-element',
+                        mod: 'my-modifier'}));
+// => my-block__my-element_my-modifier
+
+console.log(stringify({ block: 'my-block',
+                        elem: 'my-element',
+                        mod: { name: 'my-modifier', val: 'some-value'}}));
+// => my-block__my-element_my-modifier_some-value
 ```
+
+[RunKit live example](https://runkit.com/migs911/stringify-using-origin-convention).
 
 ## API reference
 
@@ -124,31 +127,13 @@ stringify(entity);
 
 ## Parameter tuning
 
-### Stringify BemEntityName object
-
-You can stringify any object that has required elements, for example [BemEntityName](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) object:
-
-**Example:** ([RunKit live example](https://runkit.com/migs911/usage-examples-stringify-bementityname-object))
-
-```js
-const originNaming = require('@bem/sdk.naming.presets/origin');
-const stringify = require('@bem/sdk.naming.entity.stringify')(originNaming);
-const BemEntityName = require('@bem/sdk.entity-name');
-
-const entity = new BemEntityName({ block: 'button', mod: 'checked' });
-
-console.log(stringify(entity));
-// => button_checked
-```
-
-
 ### Using custom naming convention
 
 Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the `delims` field — delimiters, used to separate names in naming convention.
 
 Use this object to make your `stingify()` function.
 
-**Example:** ([RunKit live example](https://runkit.com/migs911/stringify-usage-examples-custom-naming-convention))
+**Example:**
 
 ```js
 const convention = {
@@ -160,9 +145,10 @@ const convention = {
     }}};
 const stringify = require('@bem/sdk.naming.entity.stringify')(convention);
 
-console.log(stringify({ block: 'button',
-                        elem: 'run',
-                        mod: 'activated'}));
+console.log(stringify({ block: 'myBlock',
+                        elem: 'myElement',
+                        mod: 'myModifier'}));
+// => myBlock_EL-myElement_MOD-myModifier
 ```
 
-This code will print `button_EL-run_MOD-activated` to console.
+[RunKit live example](https://runkit.com/migs911/stringify-usage-examples-custom-naming-convention).

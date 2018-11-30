@@ -8,8 +8,8 @@ Parser for a [BEM entity](https://bem.info/methodology/key-concepts/#bem-entity)
 [npm-img]:      https://img.shields.io/npm/v/@bem/sdk.naming.entity.parse.svg
 
 * [Introduction](#introduction)
-* [Try parse](#try-parse)
-* [Quickstart](#quickstart)
+* [Try stringify](#try-stringify)
+* [Quick start](#quick-start)
 * [API reference](#api-reference)
 * [Parameter tuning](#parameter-tuning)
     * [Using Two Dashes style](#using-two-dashes-style)
@@ -30,15 +30,15 @@ You can choose [naming convention](https://bem.info/methodology/naming-conventio
 
 An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-naming-entity-parse-works).
 
-## Quickstart
+## Quick start
 
 > **Attention.** To use `@bem/sdk.naming.entity.parse`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
 To run the `@bem/sdk.naming.entity.parse` package:
 
-1. [Installing required packages](#installing-required-packages).
-1. [Creating a parse() function](#creating-a-parse-function).
-1. [Parsing a string](#parsing-a-string).
+1. [Install required packages](#installing-required-packages).
+1. [Create a parse() function](#creating-a-parse-function).
+1. [Parse a string](#parsing-a-string).
 
 ### Installing required packages
 
@@ -53,7 +53,7 @@ To install the packages, run the following command:
 $ npm install --save @bem/sdk.naming.entity.parse @bem/sdk.naming.presets
 ```
 
-### Creating a parse() function
+### Creating a `parse()` function
 
 Create a JavaScript file with any name (for example, **app.js**) and do the following:
 
@@ -77,7 +77,7 @@ parse('button__run');
 
 This function will return the BemEnityName object with block name `button` and element name `run`.
 
-**Examples**: ([RunKit live example](https://runkit.com/migs911/parse-a-string-using-origin-naming-convention))
+**Example**:
 
 ```js
 const originNaming = require('@bem/sdk.naming.presets/origin');
@@ -101,6 +101,8 @@ parse('my-block__my-element_my-modifier');
 // Parse an element modifier name with a value.
 parse('my-block__my-element_my-modifier_some-value');
 ```
+
+[RunKit live example](https://runkit.com/migs911/parse-a-string-using-origin-naming-convention)
 
 ## API reference
 
@@ -131,7 +133,7 @@ parse(str);
 
 Parse a string using [Two Dashes style](https://bem.info/methodology/naming-convention/#two-dashes-style) naming convention.
 
-**Example:** ([RunKit live example](https://runkit.com/migs911/parse-a-string-using-two-dashes-style))
+**Example:**
 
 ```js
 const twoDashesNaming = require('@bem/sdk.naming.presets/two-dashes');
@@ -156,13 +158,15 @@ parse('my-block__my-element--my-modifier');
 parse('my-block__my-element--my-modifier_some-value');
 ```
 
+[RunKit live example](https://runkit.com/migs911/parse-a-string-using-two-dashes-style)
+
 ### Using React style
 
 Parse a string using [React style](https://bem.info/methodology/naming-convention/#react-style) naming convention.
 
 For creating a parse function there is no difference between `react` and `origin-react` presets, you can use any of them.
 
-**Example:** ([RunKit live example](https://runkit.com/migs911/parse-a-string-using-react-style))
+**Example:**
 
 ```js
 const reactNaming = require('@bem/sdk.naming.presets/react');
@@ -187,6 +191,8 @@ parse('myBlock-myElement_myModifier');
 parse('myBlock-myElement_myModifier_value');
 ```
 
+[RunKit live example](https://runkit.com/migs911/parse-a-string-using-react-style)
+
 ### Using custom naming convention
 
 Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the following fields:
@@ -196,7 +202,7 @@ Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packag
 
 Use this object to make your `parse()` function.
 
-**Example:** ([RunKit live example](https://runkit.com/migs911/parse-usage-examples-custom-naming-convention))
+**Example:**
 
 ```js
 const convention = {
@@ -210,11 +216,16 @@ const convention = {
 const parse = require('@bem/sdk.naming.entity.parse')(convention);
 
 // Parse an element modifier name.
-console.log(parse('button_EL-run_MOD-activated'));
-// => BemEntityName { block: 'button',
-//      elem: 'run',
-//      mod: { name: 'activated', val: true } }
+console.log(parse('myBlock_EL-myElement_MOD-myModifier'));
+/**
+ * => BemEntityName {
+ * block: 'myBlock',
+ * elem: 'myElement',
+ * mod: { name: 'myModifier', val: true } }
+ */
 ```
+
+[RunKit live example](https://runkit.com/migs911/parse-usage-examples-custom-naming-convention)
 
 ## Usage examples
 
