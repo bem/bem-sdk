@@ -8,21 +8,21 @@ Parser for a [BEM entity](https://bem.info/methodology/key-concepts/#bem-entity)
 [npm-img]:      https://img.shields.io/npm/v/@bem/sdk.naming.entity.parse.svg
 
 * [Introduction](#introduction)
-* [Try stringify](#try-stringify)
+* [Try parse](#try-parse)
 * [Quick start](#quick-start)
 * [API reference](#api-reference)
 * [Parameter tuning](#parameter-tuning)
     * [Using Two Dashes style](#using-two-dashes-style)
     * [Using React style](#using-react-style)
-    * [Using custom naming convention](#using-custom-naming-convention)
+    * [Using a custom naming convention](#using-a-custom-naming-convention)
 * [Usage examples](#usage-examples)
     * [Parsing filenames](#parsing-filenames)
 
 ## Introduction
 
-Tool parses a [BEM entity](https://bem.info/methodology/key-concepts/#bem-entity) string representation and creates an object representation from it.
+The tool parses a [BEM entity](https://bem.info/methodology/key-concepts/#bem-entity) string representation and creates an object representation from it.
 
-You can choose [naming convention](https://bem.info/methodology/naming-convention/) used to create a `parse()` function.
+You can choose which [naming convention](https://bem.info/methodology/naming-convention/) to use for creating a `parse()` function.
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.entity.parse` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
@@ -44,7 +44,7 @@ To run the `@bem/sdk.naming.entity.parse` package:
 
 Install the following packages:
 
-* [@bem/sdk.naming.entity.parse](https://www.npmjs.org/package/@bem/sdk.naming.entity.parse) that contains `parse()` function;
+* [@bem/sdk.naming.entity.parse](https://www.npmjs.org/package/@bem/sdk.naming.entity.parse) that contains the `parse()` function.
 * [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
 
 To install the packages, run the following command:
@@ -57,10 +57,10 @@ $ npm install --save @bem/sdk.naming.entity.parse @bem/sdk.naming.presets
 
 Create a JavaScript file with any name (for example, **app.js**) and do the following:
 
-1. Choose [naming convention](https://bem.info/methodology/naming-convention/) and import preset with this convention, for example, origin naming convention.
+1. Choose the [naming convention](https://bem.info/methodology/naming-convention/) and import the preset with this convention (for example, origin naming convention).
 
-    Examples with other naming conventions see in the [Parameter tuning](#parameter-tuning) section.
-1. Import `@bem/sdk.naming.entity.parse` package and create `parse()` function using imported preset:
+    For examples with other naming conventions, see the [Parameter tuning](#parameter-tuning) section.
+1. Import the `@bem/sdk.naming.entity.parse` package and create the `parse()` function using the imported preset:
 
 ```js
 const originNaming = require('@bem/sdk.naming.presets/origin');
@@ -75,7 +75,7 @@ Parse a string representation of a BEM entity:
 parse('button__run');
 ```
 
-This function will return the BemEnityName object with block name `button` and element name `run`.
+This function will return the BemEnityName object with the block name `button` and the element name `run`.
 
 **Example**:
 
@@ -131,7 +131,7 @@ parse(str);
 
 ### Using Two Dashes style
 
-Parse a string using [Two Dashes style](https://bem.info/methodology/naming-convention/#two-dashes-style) naming convention.
+Parse a string using the [Two Dashes style](https://bem.info/methodology/naming-convention/#two-dashes-style) naming convention.
 
 **Example:**
 
@@ -162,9 +162,9 @@ parse('my-block__my-element--my-modifier_some-value');
 
 ### Using React style
 
-Parse a string using [React style](https://bem.info/methodology/naming-convention/#react-style) naming convention.
+Parse a string using the [React style](https://bem.info/methodology/naming-convention/#react-style) naming convention.
 
-For creating a parse function there is no difference between `react` and `origin-react` presets, you can use any of them.
+For creating a parse function there is no difference between the `react` and `origin-react` presets. You can use either of them.
 
 **Example:**
 
@@ -193,12 +193,12 @@ parse('myBlock-myElement_myModifier_value');
 
 [RunKit live example](https://runkit.com/migs911/parse-a-string-using-react-style)
 
-### Using custom naming convention
+### Using a custom naming convention
 
 Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the following fields:
 
-* `delims` — delimiters, used to separate names in naming convention.
-* `wordPattern` — a regular expression, that will be used to match an entity name.
+* `delims` — the delimiters that are used to separate names in the naming convention.
+* `wordPattern` — a regular expression that will be used to match an entity name.
 
 Use this object to make your `parse()` function.
 
@@ -231,6 +231,6 @@ console.log(parse('myBlock_EL-myElement_MOD-myModifier'));
 
 ### Parsing filenames
 
-If you have file `input_type_search.css`, you can parse filename and get BemEntityName object, that represents this file. You can parse all files in your project this way.
+If you have the `input_type_search.css` file, you can parse the filename and get the BemEntityName object that represents this file. You can parse all files in your project this way.
 
-`parse()` function using in the walk package to parse filenames in the BEM project. You can find more examples in the walkers' code for following [file structure organizations](https://bem.info/methodology/filestructure): [Flat](https://github.com/bem/bem-sdk/blob/master/packages/walk/lib/walkers/flat.js) and [Nested](https://github.com/bem/bem-sdk/blob/master/packages/walk/lib/walkers/nested.js).
+The `parse()` function uses in the walk package to parse filenames in the BEM project. You can find more examples in the walkers' code for following the [file structure organization](https://bem.info/methodology/filestructure): [Flat](https://github.com/bem/bem-sdk/blob/master/packages/walk/lib/walkers/flat.js) and [Nested](https://github.com/bem/bem-sdk/blob/master/packages/walk/lib/walkers/nested.js).
