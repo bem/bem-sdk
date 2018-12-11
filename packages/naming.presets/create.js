@@ -6,7 +6,7 @@ var DEFAULT_PRESET = 'origin';
 
 module.exports = init;
 
- /**
+/**
  * Returns an object with `delims`, `fs` and `wordPattern` properties
  * that describes the naming convention.
  *
