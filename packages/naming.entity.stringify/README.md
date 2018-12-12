@@ -17,7 +17,7 @@ Stringifier for a [BEM entity](https://bem.info/methodology/key-concepts/#bem-en
 
 Stringify returns the string with the name of specified BEM entity representation. This name can be used in a class attributes.
 
-You can choose [naming convention](https://en.bem.info/methodology/naming-convention/) used to create a `stingify()` function.
+You can choose which [naming convention](https://en.bem.info/methodology/naming-convention/) to used for creating a `stingify()` function.
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.entity.stringify` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
@@ -39,7 +39,7 @@ To run the `@bem/sdk.naming.entity.stringify` package:
 
 Install the following packages:
 
-* [@bem/sdk.naming.entity.stringify](https://www.npmjs.org/package/@bem/sdk.naming.entity.stringify) that contains `stingify()` function;
+* [@bem/sdk.naming.entity.stringify](https://www.npmjs.org/package/@bem/sdk.naming.entity.stringify) that contains the `stingify()` function.
 * [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
 
 To install the packages, run the following command:
@@ -52,8 +52,8 @@ $ npm install --save @bem/sdk.naming.entity.stringify @bem/sdk.naming.presets
 
 Create a JavaScript file with any name (for example, **app.js**) and do the following:
 
-1. Choose [naming convention](https://bem.info/methodology/naming-convention/) and import preset with this convention, for example, origin naming convention.
-1. Import `@bem/sdk.naming.entity.stringify` package and create `string()` function using imported preset:
+1. Choose the [naming convention](https://bem.info/methodology/naming-convention/) and import the preset with this convention (for example, origin naming convention).
+1. Import the `@bem/sdk.naming.entity.stringify` package and create the `string()` function using the imported preset:
 
 ```js
 const originNaming = require('@bem/sdk.naming.presets/origin');
@@ -127,9 +127,9 @@ stringify(entity);
 
 ## Parameter tuning
 
-### Using custom naming convention
+### Using a custom naming convention
 
-Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the `delims` field — delimiters, used to separate names in naming convention.
+Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the `delims` field — the delimiters that are used to separate names in the naming convention.
 
 Use this object to make your `stingify()` function.
 
