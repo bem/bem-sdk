@@ -42,7 +42,7 @@ To run the `@bem/sdk.naming.cell.stringify` package:
 
 Install the following packages:
 
-* [@bem/sdk.naming.cell.stringify](https://www.npmjs.org/package/@bem/sdk.naming.entity.stringify) that makes the `stingify()` function.
+* [@bem/sdk.naming.cell.stringify](https://www.npmjs.org/package/@bem/sdk.naming.cell.stringify) that makes the `stingify()` function.
 * [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
 * [@bem/sdk.cell](https://www.npmjs.com/package/@bem/sdk.cell) that allows you create a BEM cell objects to stringify.
 
@@ -57,12 +57,12 @@ $ npm install --save @bem/sdk.naming.cell.stringify @bem/sdk.naming.presets @bem
 Create a JavaScript file with any name (for example, **app.js**) and do the following:
 
 1. Choose the [naming convention](https://bem.info/methodology/naming-convention/) and import the preset with this convention (for example, origin naming convention).
-    Full list of supported presets see (TODO:)
-1. Import the `@bem/sdk.naming.entity.stringify` package and create the `stringify()` function using the imported preset:
+    See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/migelle-naming-presets-doc/packages/naming.presets#naming-conventions).
+1. Import the `@bem/sdk.naming.cell.stringify` package and create the `stringify()` function using the imported preset:
 
 ```js
 const originNaming = require('@bem/sdk.naming.presets/origin');
-const stringify = require('@bem/sdk.naming.entity.stringify')(originNaming);
+const stringify = require('@bem/sdk.naming.cell.stringify')(originNaming);
 ```
 
 ### Creating a BEM cell object
