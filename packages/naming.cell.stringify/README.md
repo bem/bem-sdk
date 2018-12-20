@@ -1,4 +1,4 @@
-# stringify
+# naming.cell.stringify
 
 Stringifier for a BEM cell object.
 
@@ -17,7 +17,7 @@ Stringifier for a BEM cell object.
 
 Stringify returns the file path for a specified BEM cell object.
 
-You can choose a preset with [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stingify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/migelle-naming-presets-doc/packages/naming.presets#naming-conventions).
+You can choose a preset with [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stingify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
 
 All provided presets uses the [`nested`](https://en.bem.info/methodology/filestructure/#nested) file structure scheme. To use the [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme that is better for small projects, see [Using a custom naming convention](#using-a-custom-naming-convention) section.
 
@@ -57,7 +57,7 @@ $ npm install --save @bem/sdk.naming.cell.stringify @bem/sdk.naming.presets @bem
 Create a JavaScript file with any name (for example, **app.js**) and do the following:
 
 1. Choose the [naming convention](https://bem.info/methodology/naming-convention/) and import the preset with this convention (for example, origin naming convention).
-    See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/migelle-naming-presets-doc/packages/naming.presets#naming-conventions).
+    See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
 1. Import the `@bem/sdk.naming.cell.stringify` package and create the `stringify()` function using the imported preset:
 
 ```js
@@ -67,11 +67,13 @@ const stringify = require('@bem/sdk.naming.cell.stringify')(originNaming);
 
 ### Creating a BEM cell object
 
-Create a BEM cell object to stringify.
+Create a BEM cell object to stringify. You can use the [create()](https://github.com/bem/bem-sdk/tree/master/packages/cell#createobject) function from the `@bem/sdk.cell` package.
 
 ```js
 const BemCell = require('@bem/sdk.cell');
-const blockModifier = BemCell.create({block: 'my-block', mod: 'my-modifier', tech: 'css' });
+
+var myBemCell;
+myBemCell = BemCell.create({block: 'my-block', tech: 'css' });
 ```
 
 ### Getting a file path
@@ -79,12 +81,12 @@ const blockModifier = BemCell.create({block: 'my-block', mod: 'my-modifier', tec
 Stringify the created BEM cell object:
 
 ```js
-stringify(blockModifier);
+stringify(myBemCell);
 ```
 
-This function will return the string with file path `common.blocks/my-block/_my-modifier/my-block_my-modifier.css`.
+This function will return the string with file path `common.blocks/my-block/my-block.css`.
 
-**Example**:
+**Example:**
 
 ```js
 const originNaming = require('@bem/sdk.naming.presets/origin');
@@ -93,8 +95,7 @@ const stringify = require('@bem/sdk.naming.cell.stringify')(originNaming);
 const BemCell = require('@bem/sdk.cell');
 
 var myBemCell;
-myBemCell = BemCell.create({block: 'my-block',
-                            tech: 'css' });
+myBemCell = BemCell.create({block: 'my-block', tech: 'css' });
 console.log(stringify(myBemCell));
 // => common.blocks/my-block/my-block.css
 
@@ -144,11 +145,10 @@ console.log(stringify(myBemCell));
 
 ```js
 /**
- * @typedef BemCell
- * @param {Object} obj — representation of cell.
- * @param {BemEntityName} obj.entity — representation of entity name.
- * @param {string} obj.tech - tech of cell.
- * @param {string} [obj.layer] - layer of cell.
+ * @typedef BemCell — representation of cell.
+ * @property {BemEntityName} entity — representation of entity name.
+ * @property {string} tech - tech of cell.
+ * @property {string} [obj.layer] - layer of cell.
  */
 
 /**
