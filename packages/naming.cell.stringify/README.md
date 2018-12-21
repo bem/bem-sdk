@@ -33,10 +33,10 @@ An example is available in the [RunKit editor](https://runkit.com/migs911/how-be
 
 To run the `@bem/sdk.naming.cell.stringify` package:
 
-1. [Install required packages](#installing-required-packages)
-2. [Create a `stringify()` function](#creating-a-stringify-function)
-3. [Create a BEM cell object](#creating-a-bem-cell-object)
-4. [Getting a file path](#getting-a-file-path)
+1. [Install required packages](#installing-required-packages).
+2. [Create a `stringify()` function](#creating-a-stringify-function).
+3. [Create a BEM cell object](#creating-a-bem-cell-object).
+4. [Get a file path](#getting-a-file-path).
 
 ### Installing required packages
 
@@ -166,7 +166,7 @@ stringify(cell);
 
 To create a preset with a custom naming convention use the `create()` function from the `@bem/sdk.naming.presets` package.
 
-For example create a preset that uses [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme to describe a file structure organization.
+For example create a preset that uses [flat](https://en.bem.info/methodology/filestructure/#flat) scheme to describe a file structure organization.
 
 Use the created preset to make your `stingify()` function.
 
