@@ -38,9 +38,9 @@ An example is available in the [RunKit editor](https://runkit.com/migs911/how-be
 
 To run the `@bem/sdk.naming.entity` package:
 
-* [Install `naming.entity`](#installing-bemsdknamingentity-package)
-* [Create a `naming.entity` instance](#creating-a-namingentity-instance)
-* [Use the created instance](#using-the-crated-instance)
+* [Install `naming.entity`](#installing-bemsdknamingentity-package).
+* [Create a `naming.entity` instance](#creating-a-namingentity-instance).
+* [Use the created instance](#using-the-created-instance).
 
 ### Installing `@bem/sdk.naming.entity` package
 
@@ -229,7 +229,7 @@ This object contains the delimiters that have been used for creating the [parse(
 
 * [Using a specified naming convention](#using-a-specified-naming-convention)
 * [Using a custom naming convention](#using-a-custom-naming-convention)
-* [Use another preset as default](#use-another-preset-as-default)
+* [Using another preset as default](#using-another-preset-as-default)
 
 ### Using a specified naming convention
 
@@ -253,10 +253,12 @@ const myEntity = {
 // Create the new instance from the `two-dashes` preset.
 const twoDashes = createBemNaming('two-dashes');
 twoDashes.stringify(myEntity);
+// => my-block__my-element--my-modifier_some-value
 
 // Create an instance from the `react` preset.
 const react = createBemNaming('react');
 react.stringify(myEntity);
+// => my-block-my-element_my-modifier_some-value
 ```
 
 [RunKit live example](https://runkit.com/migs911/naming-entity-using-the-specified-naming-convention).
@@ -301,7 +303,7 @@ myNaming.stringify(myEntity);
 
 [RunKit live example](https://runkit.com/migs911/naming-entity-using-a-custom-naming-convention).
 
-### Use another preset as default
+### Using another preset as default
 
 The default preset is `origin`, but you can set another preset as default in the `options.preset` parameter.
 
@@ -345,9 +347,13 @@ myNaming.stringify(myEntity);
 
 ## Usage examples
 
-### Convert a string to another naming convention
+### Convert a string to the Two Dashes style
 
-In this example we will convert the string from the origin naming convention to the two-dashes naming convention.
+In this example we will convert the string from the [origin](https://en.bem.info/methodology/naming-convention/#naming-rules) naming convention to the [Two Dashes](https://en.bem.info/methodology/naming-convention/#two-dashes-style).
+
+Origin: `my-block__my-element_my-modifier_some-value`
+
+Two Dashes: `my-block__my-element--my-modifier_some-value`
 
 **Example:**
 
