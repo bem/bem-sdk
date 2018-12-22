@@ -75,7 +75,7 @@ Parse a string representation of a BEM entity:
 parse('button__run');
 ```
 
-This function will return the BemEnityName object with the block name `button` and the element name `run`.
+This function will return the [BemEnityName](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) object with the block name `button` and the element name `run`.
 
 **Example**:
 
@@ -100,6 +100,15 @@ parse('my-block__my-element_my-modifier');
 
 // Parse an element modifier name with a value.
 parse('my-block__my-element_my-modifier_some-value');
+```
+
+Also you can normalize a returned [BemEnityName](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) object with the [valueOf()](https://github.com/bem/bem-sdk/tree/master/packages/entity-name#valueof) function:
+
+```js
+parse('my-block__my-element_my-modifier_some-value').valueOf();
+// => Object { block: "my-block",
+//             elem: "my-element",
+//             mod: Object {name: "my-modifier", val: "some-value"}}
 ```
 
 [RunKit live example](https://runkit.com/migs911/parse-a-string-using-origin-naming-convention)
@@ -231,6 +240,6 @@ console.log(parse('myBlock_EL-myElement_MOD-myModifier'));
 
 ### Parsing filenames
 
-If you have the `input_type_search.css` file, you can parse the filename and get the BemEntityName object that represents this file. You can parse all files in your project this way.
+If you have the `input_type_search.css` file, you can parse the filename and get the [BemEnityName](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) object that represents this file. You can parse all files in your project this way.
 
 The `parse()` function uses in the walk package to parse filenames in the BEM project. You can find more examples in the walkers' code for following the [file structure organization](https://bem.info/methodology/filestructure): [Flat](https://github.com/bem/bem-sdk/blob/master/packages/walk/lib/walkers/flat.js) and [Nested](https://github.com/bem/bem-sdk/blob/master/packages/walk/lib/walkers/nested.js).
