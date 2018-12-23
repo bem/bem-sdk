@@ -86,7 +86,6 @@ This code will return the string `my-block_my-modifier`.
 * [bemNaming()](#bemnaming)
 * [parse()](#parse)
 * [stringify()](#stringify)
-* [delims](#delims)
 
 ### bemNaming()
 
@@ -210,20 +209,6 @@ console.log(bemNaming.stringify(bemEntityName));
 ```
 
 For more information about the `stringify()` function, see the `@bem/sdk.naming.stringify` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify).
-
-### delims
-
-This object contains the delimiters that have been used for creating the [parse()](#parse) and [stringify()](#stringify) functions.
-
-```js
-/**
- * @typedef INamingConventionDelims
- * @property {string} elem — separates an element name from block name.
- * @property {string|Object} mod — separates a modifier name and the value of a modifier.
- * @property {string} mod.name — separates a modifier name from a block or an element.
- * @property {string|boolean} mod.val — separates the value of a modifier from the modifier name.
- */
-```
 
 ## Parameters tuning
 
