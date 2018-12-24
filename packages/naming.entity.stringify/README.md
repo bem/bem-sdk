@@ -53,7 +53,7 @@ $ npm install --save @bem/sdk.naming.entity.stringify @bem/sdk.naming.presets
 Create a JavaScript file with any name (for example, **app.js**) and do the following:
 
 1. Choose the [naming convention](https://bem.info/methodology/naming-convention/) and import the preset with this convention (for example, origin naming convention).
-1. Import the `@bem/sdk.naming.entity.stringify` package and create the `string()` function using the imported preset:
+1. Import the `@bem/sdk.naming.entity.stringify` package and create the `stringify()` function using the imported preset:
 
 ```js
 const originNaming = require('@bem/sdk.naming.presets/origin');
