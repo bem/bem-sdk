@@ -1,334 +1,362 @@
 # naming.entity
 
-Tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representations: allows you to parse [string representation](#string-representation) and stringify [object representation](#object-representation).
+The tool for working with [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representations:
 
-Supports various [naming conventions](#naming-conventions): [origin](#origin-naming-convention), [two-dashes](#harry-roberts-naming-convention), [react]((#react-naming-convention)) and allows to create your convention.
+* parse a [string representation](#string-representation);
+* stringify an [object representation](#object-representation).
 
 [![NPM Status][npm-img]][npm]
 
 [npm]:            https://www.npmjs.org/package/@bem/sdk.naming.entity
 [npm-img]:        https://img.shields.io/npm/v/@bem/sdk.naming.entity.svg
 
-Install
--------
+* [Introduction](#introduction)
+* [Try naming.entity](#try-namingentity)
+* [Quick start](#quick-start)
+* [API Reference](#api-reference)
+* [Parameters tuning](#parameters-tuning)
+* [Usage examples](#usage-examples)
 
-```sh
+## Introduction
+
+This package combines the capabilities of the packages:
+* [@bem/sdk.naming.parse](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse) — to create a [parse()](#parse) function.
+* [@bem/sdk.naming.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify) — to create a [stringify()](#stringify) function.
+* [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) — to select a [naming convention](https://bem.info/methodology/naming-convention/) for these functions.
+
+    Various naming conventions are supported such as [origin](https://en.bem.info/methodology/naming-convention/#naming-rules), [two-dashes](https://en.bem.info/methodology/naming-convention/#two-dashes-style) or [react](https://en.bem.info/methodology/naming-convention/#react-style). See the full list of supported presets in the package [documentation](https://github.com/bem/bem-sdk/tree/migelle-naming-presets-doc/packages/naming.presets#naming-conventions).
+
+    Also you can [create](#using-a-custom-naming-convention) a custom naming convention and use it for creating the `parse()` and `stringify()` functions.
+
+## Try naming.entity
+
+An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-naming-entity-works).
+
+## Quick start
+
+> **Attention.** To use `@bem/sdk.naming.entity`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
+
+To run the `@bem/sdk.naming.entity` package:
+
+* [Install `naming.entity`](#installing-bemsdknamingentity-package).
+* [Create a `naming.entity` instance](#creating-a-namingentity-instance).
+* [Use the created instance](#using-the-created-instance).
+
+### Installing `@bem/sdk.naming.entity` package
+
+To install the `@bem/sdk.naming.entity` package, run the following command:
+
+```
 $ npm install --save @bem/sdk.naming.entity
 ```
 
-Usage
------
+### Creating a `naming.entity` instance
+
+To create a `naming.entity` instance insert the following into your code:
 
 ```js
 const bemNaming = require('@bem/sdk.naming.entity');
-
-bemNaming.parse('button__text'); // BemEntityName { block: 'button', elem: 'text' }
-bemNaming.stringify({ block: 'button', mod: 'checked' }); // String 'button_checked'
 ```
 
-Table of Contents
------------------
+By default the created instance is based on the `origin` preset, that represents the default naming convention for BEM entities. To use another preset, see the [Using the specified naming convention](#using-the-specified-naming-convention) section.
 
-* [BEM Entity representation](#bem-entity-representation)
-  * [Object representation](#object-representation)
-  * [String representation](#string-representation)
-* [Common misconceptions](#common-misconceptions)
-* [Naming conventions](#naming-conventions)
-  * [Origin naming convention](#origin-naming-convention)
-  * [Harry Roberts' naming convention](#harry-roberts-naming-convention)
-  * [React naming convention](#react-naming-convention)
-  * [Custom naming convention](#custom-naming-convention)
-* [API](#api)
-  * [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
-  * [parse(str)](#parsestr)
-  * [stringify(entityName)](#stringifyentityname)
-  * [delims](#delims)
+### Using the created instance
 
-BEM Entity representation
--------------------------
+Now you can use the created instance to parse and stringify a BEM entity name representations.
 
-With [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity) representation you can define block, element, block modifier and element modifier.
-
-The representation can include name of block, name of element, name of modifier and value of modifier.
-
-BEM entity can be represented using `Object` or `String`.
-
-### Object representation
-
-The [BemEntityName](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) class describes the representation of a BEM entity name.
-
-### String representation
-
-To define BEM entities, we often use a special string format that allows us to define exactly which entity is represented.
-
-According to the original BEM naming convention, it looks like this:
+#### Parse a string representation
 
 ```js
-'block[_block-mod-name[_block-mod-val]][__elem-name[_elem-mod-name[_elem-mod-val]]]'
+bemNaming.parse('my-block__my-element');
 ```
 
-*(Parameters within square brackets are optional)*
+This code will return the BemEnityName object with block name `my-block` and element name `my-element`.
 
-#### Delimiters
-
-The names are separated from each other by means of special delimiters.
-
-The original naming uses the following delimiters:
-
-* `__` — to separate an element from a block
-* `_` — to separate a modifier name from a block or element and to separate a modifier value from a modifier name
-
-#### Examples
-
-| BEM Entity Type  | String Representation                      |
-|------------------|--------------------------------------------|
-| Block            | `block-name`                               |
-| Block modifier   | `block-scope_mod-name_mod-val`             |
-| Element          | `block-scope__elem-name`                   |
-| Element modifier | `block-scope__elem-scope_mod-name_mod-val` |
-
-The simple modifier doesn't have value. Therefore, in the string representation the value should be omitted.
-
-| BEM Entity Type  | String Representation              |
-|------------------|------------------------------------|
-| Block modifier   | `block-scope_mod-name`             |
-| Element modifier | `block-scope__elem-scope_mod-name` |
-
-Common misconceptions
----------------------
-
-The BEM methodology uses a flat structure inside blocks. This means that a BEM entity can't be represented as an element of another element, and the following string representation will be invalid:
+#### Stringify an object representation
 
 ```js
-'block__some-elem__sub-elem'
+bemNaming.stringify({ block: 'my-block', mod: 'my-modifier' });
 ```
 
-For more information, see the [FAQ](https://en.bem.info/methodology/faq/):
+This code will return the string `my-block_my-modifier`.
 
-> [Why doesn't BEM recommend using elements within elements (block__elem1__elem2)?](https://en.bem.info/methodology/faq/#why-does-bem-not-recommend-using-elements-within-elements-block__elem1__elem2)
 
-Also, a BEM entity can't be a block modifier and an element modifier simultaneously, so the following string representation will be invalid:
+## API Reference
+
+* [bemNaming()](#bemnaming)
+* [parse()](#parse)
+* [stringify()](#stringify)
+
+### bemNaming()
+
+This function creates a `naming.entity` instance with the [parse()](#parse) and [stringify()](#stringify) functions.
 
 ```js
-'block_block-mod-name_block-mod-val__elem-name_elem-mod-name_elem-mod-val'
+/**
+ * @typedef INamingConventionDelims
+ * @property {string} elem — separates an element name from block.
+ * @property {string|Object} mod — separates a modifier name and the value of a modifier.
+ * @property {string} mod.name — separates a modifier name from a block or an element.
+ * @property {string|boolean} mod.val — separates the value of a modifier from the modifier name.
+ */
+
+/**
+ * Returns created  with the specified naming convention.
+ *
+ * @param {(Object|string)} [options] — user options or the name of preset to return.
+ *                                      If not specified, default preset will be returned.
+ * @param {string} [options.preset] — preset name that should be used as default preset.
+ * @param {Object} [options.delims] — strings to separate names of bem entities.
+ *                                    This object has the same structure with `INamingConventionDelims`,
+ *                                    but all properties inside are optional.
+ * @param {Object} [options.fs] — user options to separate names of files with bem entities.
+ * @param {Object} [options.fs.delims] — strings to separate names of files in a BEM project.
+ *                                       This object has the same structure with `INamingConventionDelims`,
+ *                                       but all properties inside are optional.
+ * @param {string} [options.fs.pattern] — pattern that describes the file structure of a BEM project.s
+ * @param {string} [options.fs.scheme] — schema name that describes the file structure of one BEM entity.
+ * @param {string} [options.wordPattern] — a regular expression that will be used to match an entity name.
+ * @returns {INamingConvention} — an object with `delims`, `fs` and `wordPattern` properties
+ *                                that describes the naming convention.
+ */
+create(options);
 ```
 
-Naming conventions
-------------------
-
-The main idea of the naming convention is to make names of [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) as informative and clear as possible.
-
-> Read more in the section [naming convention](https://en.bem.info/methodology/naming-convention/) of the [BEM methodology](https://en.bem.info/methodology/).
-
-The BEM methodology provides an idea for creating naming rules and implements that idea in its canonical naming convention: [origin naming convention](#origin-naming-convention).
-
-However, a number of alternative schemes based on the BEM principles also exist in the world of web development:
-
-* [Harry Roberts' naming convention](#harry-roberts-naming-convention)
-* [React naming convention](#react-naming-convention)
-
-In addition, you can invent your naming convention. How to do this, see the [Custom naming convention](#custom-naming-convention) section.
-
-### Origin naming convention
-
-According to this convention elements are delimited with two underscores (`__`), modifiers and values of modifiers are delimited by one underscore (`_`).
-
-> Read more in the section [naming convention](https://en.bem.info/methodology/naming-convention/) of the [BEM methodology](https://en.bem.info/methodology/).
-
-Example:
+**Examples:**
 
 ```js
-const originNaming = require('@bem/sdk.naming.entity')('origin');
-
-originNaming.parse('block__elem');    // BemEntityName { block: 'block', elem: 'elem' }
-originNaming.parse('block_mod_val');  // BemEntityName { block: 'block',
-                                      //                 mod: { name: 'mod', val: 'val' } }
-
-originNaming.stringify({
-    block: 'block',
-    elem: 'elem',
-    mod: 'mod'
-});
-
-// ➜ block__elem_mod
-```
-
-### Harry Roberts' naming convention
-
-According to this convention elements are delimited with two underscores (`__`), modifiers are delimited by two hyphens (`--`), and values of modifiers are delimited by one underscore (`_`).
-
-> Read more in the [Guidelines](http://cssguidelin.es/#bem-like-naming).
-
-Example:
-
-```js
-const twoDashesNaming = require('@bem/sdk.naming.entity')('two-dashes');
-
-twoDashesNaming.parse('block__elem');    // { block: 'block', elem: 'elem' }
-twoDashesNaming.parse('block--mod_val'); // { block: 'block',
-                                         //   mod: { name: 'mod', val: 'val' } }
-
-twoDashesNaming.stringify({
-    block: 'block',
-    elem: 'elem',
-    mod: 'mod'
-});
-
-// ➜ block__elem--mod
-```
-
-### React naming convention
-
-According to this convention elements are delimited with one hyphen (`-`), modifiers are delimited by one underscore (`_`), and values of modifiers are delimited by one underscore (`_`).
-
-> You can explore this convention at [bem-react-components](https://github.com/bem/bem-react-components).
-
-Example:
-
-```js
+const defaultNaming = require('@bem/sdk.naming.entity');
 const reactNaming = require('@bem/sdk.naming.entity')('react');
-
-reactNaming.parse('Block-Elem');    // BemEntityName { block: 'Block', elem: 'Elem' }
-reactNaming.parse('Block_Mod_Val'); // BemEntityName { block: 'Block',
-                                    //                 mod: { name: 'Mod', val: 'Val' } }
-
-reactNaming.stringify({
-    block: 'Block',
-    elem: 'Elem',
-    mod: 'Mod'
-});
-
-// ➜ Block-Elem_Mod
+const customNaming = require('@bem/sdk.naming.entity'){ wordPattern: '[a-z]+' };
 ```
 
-### Custom naming convention
+See more examples in the [Parameter tuning](#parameters-tuning) section.
 
-To create an instance where you can manage your own naming convention use the [bemNaming](#bemnaming-elem-mod-wordpattern-) function.
+### parse()
 
-Example:
+This function parses the string with a BEM entity name into object representation.
 
 ```js
-const createBemNaming = require('@bem/sdk.naming.entity');
+/**
+ * @typedef BemEntityName
+ * @property {string} block — block name.
+ * @property {string} [elem] — element name.
+ * @property {string|Object} [mod] — modifier name or object with name and value.
+ * @property {string} mod.name — modifier name.
+ * @property {string} [mod.val=true] — modifier value.
+ */
 
-const myNaming = createBemNaming({
-    delims: {
-        elem: '-',
-        mod: { name: '--', val: '_' }
-    },
-    wordPattern: '[a-zA-Z0-9]+'   // because element and modifier's separators include
-});                               // hyphen in it, we need to exclude it from block,
-                                  // element and modifier's name
-
-myNaming.parse('block--mod_val'); // BemEntityName
-                                  // { block: 'block',
-                                  //   mod: { name: 'mod', val: 'val' } }
-
-const BemEntityName = require('@bem/sdk.entity-name');
-
-myNaming.stringify(new BemEntityName({
-    block: 'blockName',
-    elem: 'elemName',
-    mod: 'simpleElemMod'
-});
-
-// ➜ blockName-elemName--simpleElemMod
+/**
+ * Parses string into object representation.
+ *
+ * @param {string} str - string representation of BEM entity.
+ * @returns {(BemEntityName|undefined)}
+ */
+parse(str);
 ```
 
-API
----
-
-* [bemNaming({ delims: {elem, mod}, wordPattern })](#bemnaming-delims-elem-mod-wordpattern-)
-* [parse(str)](#parsestr)
-* [stringify(entityName)](#stringifyentityname)
-* [delims](#delims)
-
-### bemNaming({ delims: {elem, mod}, wordPattern })
-
-Parameter         | Type     | Description                                                                       | Default
-------------------|----------|-----------------------------------------------------------------------------------|----------------------------------------
-`delims`          | `object` | Defines delimeters for elem and/or mods                                           |
-`delims.elem`     | `string` | Separates element's name from block.                                              | `__`
-`delims.mod`      | `string`, `{ name: string, val: string }` | Separates modifier from block or element.        | `_`
-`delims.mod.name` | `string` | Separates a modifier name from a block or an element.                             | `_`
-`delims.mod.val`  | `string` | Separates the value of a modifier from the modifier name.                         | `_`
-`wordPattern`     | `string` | Defines which characters can be used in names of blocks, elements, and modifiers. | `[a-z0-9]+(?:-[a-z0-9]+)*`
-
-### parse(str)
-
-Parameter | Type     | Description
-----------|----------|--------------------------------
-`str`     | `string` | BEM entity name representation.
-
-Parses the string into an instance of `BemEntityName`.
-
-Example:
+**Example:**
 
 ```js
 const bemNaming = require('@bem/sdk.naming.entity');
 
-bemNaming.parse('block__elem_mod_val');
-
-// ➜ BemEntityName {
-//     block: 'block',
-//     elem: 'elem',
-//     mod: { name: 'mod', val: 'val' }
+bemNaming.parse('my-block__my-element_my-modifier_some-value');
+// => BemEntityName {
+//     block: 'my-block',
+//     elem: 'my-element',
+//     mod: { name: 'my-modifier', val: 'some-value' }
 // }
 ```
 
-### stringify(entityName)
+For more information about the `parse()` function, see the `@bem/sdk.naming.parse` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse).
 
-Parameter    | Type                      | Description
--------------|---------------------------|--------------------------------
-`entityName` | `BemEntityName`, `object` | BEM entity name representation.
+### stringify()
 
-Forms a string from the instance of `BemEntityName`.
+This function forms a string from the object that specifies a BEM entity name.
 
-Example:
+```js
+/**
+ * @typedef BemEntityName
+ * @property {string} block — block name.
+ * @property {string} [elem] — element name.
+ * @property {string|Object} [mod] — modifier name or object with name and value.
+ * @property {string} mod.name — modifier name.
+ * @property {string|boolean} [mod.val] — modifier value.
+ */
+
+/**
+ * Forms a string according to object representation of BEM entity.
+ *
+ * @param {object|BemEntityName} entity - object representation of BEM entity.
+ * @returns {string} - BEM entity name. This name can be used in class attributes.
+ */
+stringify(entity);
+```
+
+**Example:**
 
 ```js
 const bemNaming = require('@bem/sdk.naming.entity');
-const BemEntityName = require('@bem/sdk.entity-name');
 
-bemNaming.stringify(new BemEntityName({
-    block: 'block',
-    elem: 'elem',
-    mod: { name: 'mod', val: 'val' }
-});
+const bemEntityName = {
+    block: 'my-block',
+    elem: 'my-element',
+    mod: { name: 'my-modifier', val: 'some-value' }
+}
 
-// ➜ block__elem_mod_val
+console.log(bemNaming.stringify(bemEntityName));
+// => my-block__my-element_my-modifier_some-value
 ```
 
-### delims
+For more information about the `stringify()` function, see the `@bem/sdk.naming.stringify` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify).
 
-Strings to separate names of bem entities.
+## Parameters tuning
 
-Type: `Object`
+* [Using a specified naming convention](#using-a-specified-naming-convention)
+* [Using a custom naming convention](#using-a-custom-naming-convention)
+* [Using another preset as default](#using-another-preset-as-default)
 
-#### delims.elem
+### Using a specified naming convention
 
-String to separate an element from a block.
+The [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) package provides presets with various naming conventions.
 
-Type: `String`
+Specify the name of a preset to use in the [bemNaming()](#bemnaming) function. See the full list of supported presets in the package [documentation](https://github.com/bem/bem-sdk/tree/migelle-naming-presets-doc/packages/naming.presets#naming-conventions).
 
-Default: `__`
+**Example:**
 
-#### delims.mod.name
+```js
+const createBemNaming = require('@bem/sdk.naming.entity');
+const myEntity = {
+    block: 'my-block',
+    elem: 'my-element',
+    mod: {
+        name: 'my-modifier',
+        val: 'some-value'
+    }
+};
 
-String to separate a modifier name from a block or element.
+// Create the new instance from the `two-dashes` preset.
+const twoDashes = createBemNaming('two-dashes');
+twoDashes.stringify(myEntity);
+// => my-block__my-element--my-modifier_some-value
 
-Type: `String`
+// Create an instance from the `react` preset.
+const react = createBemNaming('react');
+react.stringify(myEntity);
+// => my-block-my-element_my-modifier_some-value
+```
 
-Default: `_`
+[RunKit live example](https://runkit.com/migs911/naming-entity-using-the-specified-naming-convention).
 
-#### delims.mod.val
+### Using a custom naming convention
 
-String to separate a modifier value from the name of the modifier.
+To use a custom naming convention create an object that will overwrite the default naming convention parameters. Pass this object in the [bemNaming()](#bemnaming) function.
 
-Type: `String`
+For example overwrite the modifier value delimiter and use the equal sign (`=`) as the delimiter.
 
-Default: `_`
+**Example:**
 
-License
--------
+```js
+const createBemNaming = require('@bem/sdk.naming.entity');
+const myNamingOptions = {
+    delims: {
+        mod: { val: '=' }
+    }
+};
+const myNaming = createBemNaming(myNamingOptions);
 
-Code and documentation copyright 2014 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+// Parse a BEM entity name to test created instance.
+myNaming.parse('my-block_my-modifier=some-value');
+/**
+ * => BemEntityName {
+ *  block: 'my-block',
+ *  mod: { name: 'my-modifier', val: 'some-value' } }
+ */
+
+// Stringify an object representation of the BEM entity name.
+const myEntity = {
+    block: 'my-block',
+    elem: 'my-element',
+    mod: {
+        name: 'my-modifier',
+        val: 'some-value'
+    }
+};
+myNaming.stringify(myEntity);
+// => my-block__my-element_my-modifier=some-value
+```
+
+[RunKit live example](https://runkit.com/migs911/naming-entity-using-a-custom-naming-convention).
+
+### Using another preset as default
+
+The default preset is `origin`, but you can set another preset as default in the `options.preset` parameter.
+
+For example set the `two-dashes` preset as the default and create a `naming.entity` instance based on it.
+
+**Example:**
+
+```js
+const createBemNaming = require('@bem/sdk.naming.entity');
+const myNamingOptions = {
+    preset: 'two-dashes',
+    delims: {
+        mod: { val: '=' }
+    }
+};
+
+const myNaming = createBemNaming(myNamingOptions);
+
+// Parse a BEM entity name to test created preset.
+myNaming.parse('my-block--my-modifier=some-value');
+/**
+ * => BemEntityName {
+ * block: 'my-block',
+ * mod: { name: 'my-modifier', val: 'some-value' } }
+ */
+
+// Stringify an object representation of the BEM entity name.
+const myEntity = {
+    block: 'my-block',
+    elem: 'my-element',
+    mod: {
+        name: 'my-modifier',
+        val: 'some-value'
+    }
+};
+myNaming.stringify(myEntity);
+// => my-block__my-element--my-modifier=some-value
+```
+
+[RunKit live example](https://runkit.com/migs911/naming-entity-use-another-preset-as-default).
+
+## Usage examples
+
+### Convert a string to the Two Dashes style
+
+In this example we will convert the string from the [origin](https://en.bem.info/methodology/naming-convention/#naming-rules) naming convention to the [Two Dashes](https://en.bem.info/methodology/naming-convention/#two-dashes-style).
+
+Origin: `my-block__my-element_my-modifier_some-value`
+
+Two Dashes: `my-block__my-element--my-modifier_some-value`
+
+**Example:**
+
+```js
+const originNaming = require('@bem/sdk.naming.entity');
+const twoDashesNaming = require('@bem/sdk.naming.entity')('two-dashes');
+
+const bemEntityNameStr = 'my-block__my-element_my-modifier_some-value'
+
+const bemEntityNameObj = originNaming.parse(bemEntityName);
+// => BemEntityName {
+//     block: 'my-block',
+//     elem: 'my-element',
+//     mod: { name: 'my-modifier', val: 'some-value' }
+// }
+
+twoDashesNaming.stringify(bemEntityNameObj);
+// => my-block__my-element--my-modifier_some-value
+```
+
+[RunKit live example](https://runkit.com/migs911/naming-entity-convert-a-string-to-another-naming-convention).
