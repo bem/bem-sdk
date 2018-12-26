@@ -15,9 +15,9 @@ Stringifier for a [BEM entity](https://bem.info/methodology/key-concepts/#bem-en
 
 ## Introduction
 
-Stringify returns the string with the name of specified BEM entity representation. This name can be used in a class attributes.
+Stringify returns a string with the name of the specified BEM entity representation. This name can be used in class attributes.
 
-You can choose which [naming convention](https://en.bem.info/methodology/naming-convention/) to used for creating a `stingify()` function.
+You can choose which [naming convention](https://en.bem.info/methodology/naming-convention/) to use for creating a `stingify()` function.
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.entity.stringify` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
@@ -33,14 +33,14 @@ To run the `@bem/sdk.naming.entity.stringify` package:
 
 1. [Install required packages](#installing-required-packages).
 3. [Create a stringify() function](#creating-a-stringify-function).
-4. [Make a string from BEM entity](#creating-a-string-from-a-bem-entity-name).
+4. [Make a string from a BEM entity](#creating-a-string-from-a-bem-entity-name).
 
 ### Installing required packages
 
 Install the following packages:
 
-* [@bem/sdk.naming.entity.stringify](https://www.npmjs.org/package/@bem/sdk.naming.entity.stringify) that contains the `stingify()` function.
-* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
+* [@bem/sdk.naming.entity.stringify](https://www.npmjs.org/package/@bem/sdk.naming.entity.stringify), which contains the `stringify()` function.
+* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
 
 To install the packages, run the following command:
 
@@ -62,7 +62,7 @@ const stringify = require('@bem/sdk.naming.entity.stringify')(originNaming);
 
 ### Creating a string from a BEM entity name
 
-Stringify an object representation of BEM entity:
+Stringify an object representation of a BEM entity:
 
 ```js
 stringify({ block: 'my-block', mod: 'my-modifier' });
@@ -109,18 +109,18 @@ console.log(stringify({ block: 'my-block',
 ```js
 /**
  * @typedef BemEntityName
- * @property {string} block — block name.
- * @property {string} [elem] — element name.
- * @property {string|Object} [mod] — modifier name or object with name and value.
- * @property {string} mod.name — modifier name.
- * @property {string|boolean} [mod.val] — modifier value.
+ * @property {string} block — Block name.
+ * @property {string} [elem] — Element name.
+ * @property {string|Object} [mod] — Modifier name or object with name and value.
+ * @property {string} mod.name — Modifier name.
+ * @property {string|boolean} [mod.val] — Modifier value.
  */
 
 /**
- * Forms a string according to object representation of BEM entity.
+ * Forms a string based on the object representation of a BEM entity.
  *
- * @param {object|BemEntityName} entity - object representation of BEM entity.
- * @returns {string} - BEM entity name. This name can be used in class attributes.
+ * @param {object|BemEntityName} entity — Object representation of the BEM entity.
+ * @returns {string} — Name of the BEM entity. This name can be used in class attributes.
  */
 stringify(entity);
 ```
@@ -129,9 +129,9 @@ stringify(entity);
 
 ### Using a custom naming convention
 
-Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the `delims` field — the delimiters that are used to separate names in the naming convention.
+Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the `delims` field, which defines the delimiters that are used to separate names in the naming convention.
 
-Use this object to make your `stingify()` function.
+Use this object to make your `stringify()` function.
 
 **Example:**
 
