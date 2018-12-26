@@ -42,8 +42,8 @@ To run the `@bem/sdk.naming.cell.match` package:
 
 Install the following packages:
 
-* [@bem/sdk.naming.cell.match](https://www.npmjs.org/package/@bem/sdk.naming.cell.match) that makes the `match()` function.
-* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
+* [@bem/sdk.naming.cell.match](https://www.npmjs.org/package/@bem/sdk.naming.cell.match), which makes the `match()` function.
+* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
 
 To install these packages, run the following command:
 

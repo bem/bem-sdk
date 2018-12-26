@@ -42,8 +42,8 @@ To run the `@bem/sdk.naming.cell.pattern-parser` package:
 
 Install the following packages:
 
-* [@bem/sdk.naming.cell.pattern-parser](https://www.npmjs.org/package/@bem/sdk.naming.cell.pattern-parser) that contains the `parse()` function.
-* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
+* [@bem/sdk.naming.cell.pattern-parser](https://www.npmjs.org/package/@bem/sdk.naming.cell.pattern-parser), which contains the `parse()` function.
+* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
 
 To install the packages, run the following command:
 

@@ -149,7 +149,7 @@ This function parses the string with a BEM entity name into object representatio
 /**
  * Parses string into object representation.
  *
- * @param {string} str - string representation of BEM entity.
+ * @param {string} str - string representation of a BEM entity.
  * @returns {(BemEntityName|undefined)}
  */
 parse(str);
@@ -185,9 +185,9 @@ This function forms a string from the object that specifies a BEM entity name.
  */
 
 /**
- * Forms a string according to object representation of BEM entity.
+ * Forms a string according to object representation of a BEM entity.
  *
- * @param {object|BemEntityName} entity - object representation of BEM entity.
+ * @param {object|BemEntityName} entity - object representation of a BEM entity.
  * @returns {string} - BEM entity name. This name can be used in class attributes.
  */
 stringify(entity);
