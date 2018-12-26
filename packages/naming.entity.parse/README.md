@@ -120,17 +120,17 @@ parse('my-block__my-element_my-modifier_some-value').valueOf();
 ```js
 /**
  * @typedef BemEntityName
- * @property {string} block — block name.
- * @property {string} [elem] — element name.
- * @property {Object} [mod] — modifier name or object with name and value.
- * @property {string} mod.name — modifier name.
+ * @property {string} block — Block name.
+ * @property {string} [elem] — Element name.
+ * @property {Object} [mod] — Modifier name or object with name and value.
+ * @property {string} mod.name — Modifier name.
  * @property {string} [mod.val=true] — modifier value.
  */
 
 /**
  * Parses string into object representation.
  *
- * @param {string} str - string representation of a BEM entity.
+ * @param {string} str — String representation of a BEM entity.
  * @returns {(BemEntityName|undefined)}
  */
 parse(str);

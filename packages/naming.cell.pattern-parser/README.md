@@ -84,9 +84,9 @@ parse(originNaming.fs.pattern);
 /**
  * Parses a path pattern into array representation.
  *
- * @param {string} pattern - template-string-like pattern that describes
+ * @param {string} pattern — Template-string-like pattern that describes
  *                           the file structure organization of a BEM project.
- * @returns {Array} — array with separated elements from the pattern.
+ * @returns {Array} — Array with separated elements from the pattern.
  */
 parse(pattern);
 ```

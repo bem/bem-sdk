@@ -153,10 +153,10 @@ match(incorrectPath);
 
 ```js
 /**
- * @typedef BemCell — representation of cell.
- * @property {BemEntityName} entity — representation of entity name.
- * @property {string} tech - tech of cell.
- * @property {string} [obj.layer] - layer of cell.
+ * @typedef BemCell — Representation of cell.
+ * @property {BemEntityName} entity — Representation of entity name.
+ * @property {string} tech — Tech of cell.
+ * @property {string} [obj.layer] — Layer of cell.
  */
 
 /**
@@ -167,7 +167,7 @@ match(incorrectPath);
  * - isMatch — `true` if the path matches a BEM cell and `false` if not.
  * - rest — some additional text at the end of the path. If the value is not `null` then `isMatch` value will be `false`.
  *
- * @param {string} path - object representation of BEM cell.
+ * @param {string} path — Object representation of BEM cell.
  * @returns {cell: ?BemCell, isMatch: boolean, rest: ?string}
  */
 match(path);

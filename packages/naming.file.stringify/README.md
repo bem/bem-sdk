@@ -143,17 +143,17 @@ console.log(stringify(myFile));
 
 ```js
 /**
- * @typedef BemFile — representation of file.
- * @property {BemCell} cell — representation of a BEM cell.
- * @property {String} [level] - base level path.
- * @property {String} [path] - path to file.
+ * @typedef BemFile — Representation of file.
+ * @property {BemCell} cell — Representation of a BEM cell.
+ * @property {String} [level] — Base level path.
+ * @property {String} [path] — Path to file.
  */
 
 /**
  * Forms a file according to object representation of BEM file.
  *
- * @param {Object|BemFile} file - object representation of BEM file.
- * @returns {string} - file path.
+ * @param {Object|BemFile} file — Object representation of BEM file.
+ * @returns {string} — File path.
  */
 stringify(file);
 ```

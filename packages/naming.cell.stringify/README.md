@@ -145,17 +145,17 @@ console.log(stringify(myBemCell));
 
 ```js
 /**
- * @typedef BemCell — representation of cell.
- * @property {BemEntityName} entity — representation of entity name.
- * @property {string} tech - tech of cell.
- * @property {string} [obj.layer] - layer of cell.
+ * @typedef BemCell — Representation of cell.
+ * @property {BemEntityName} entity — Representation of entity name.
+ * @property {string} tech — Tech of cell.
+ * @property {string} [obj.layer] — Layer of cell.
  */
 
 /**
  * Forms a file according to object representation of BEM cell.
  *
- * @param {Object|BemCell} cell - object representation of BEM cell.
- * @returns {string} - file path for the BEM cell. This name can be used in class attributes.
+ * @param {Object|BemCell} cell — Object representation of BEM cell.
+ * @returns {string} — File path for the BEM cell. This name can be used in class attributes.
  */
 stringify(cell);
 ```
