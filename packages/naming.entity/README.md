@@ -94,29 +94,29 @@ This function creates a `naming.entity` instance with the [parse()](#parse) and 
 ```js
 /**
  * @typedef INamingConventionDelims
- * @property {string} elem — separates an element name from block.
- * @property {string|Object} mod — separates a modifier name and the value of a modifier.
- * @property {string} mod.name — separates a modifier name from a block or an element.
- * @property {string|boolean} mod.val — separates the value of a modifier from the modifier name.
+ * @property {string} elem — Separates an element name from block.
+ * @property {string|Object} mod — Separates a modifier name and the value of a modifier.
+ * @property {string} mod.name — Separates a modifier name from a block or an element.
+ * @property {string|boolean} mod.val — Separates the value of a modifier from the modifier name.
  */
 
 /**
  * Returns created  with the specified naming convention.
  *
- * @param {(Object|string)} [options] — user options or the name of preset to return.
+ * @param {(Object|string)} [options] — User options or the name of preset to return.
  *                                      If not specified, default preset will be returned.
- * @param {string} [options.preset] — preset name that should be used as default preset.
- * @param {Object} [options.delims] — strings to separate names of bem entities.
+ * @param {string} [options.preset] — Preset name that should be used as default preset.
+ * @param {Object} [options.delims] — Strings to separate names of bem entities.
  *                                    This object has the same structure with `INamingConventionDelims`,
  *                                    but all properties inside are optional.
- * @param {Object} [options.fs] — user options to separate names of files with bem entities.
- * @param {Object} [options.fs.delims] — strings to separate names of files in a BEM project.
+ * @param {Object} [options.fs] — User options to separate names of files with bem entities.
+ * @param {Object} [options.fs.delims] — Strings to separate names of files in a BEM project.
  *                                       This object has the same structure with `INamingConventionDelims`,
  *                                       but all properties inside are optional.
- * @param {string} [options.fs.pattern] — pattern that describes the file structure of a BEM project.s
- * @param {string} [options.fs.scheme] — schema name that describes the file structure of one BEM entity.
- * @param {string} [options.wordPattern] — a regular expression that will be used to match an entity name.
- * @returns {INamingConvention} — an object with `delims`, `fs` and `wordPattern` properties
+ * @param {string} [options.fs.pattern] — Pattern that describes the file structure of a BEM project.s
+ * @param {string} [options.fs.scheme] — Schema name that describes the file structure of one BEM entity.
+ * @param {string} [options.wordPattern] — A regular expression that will be used to match an entity name.
+ * @returns {INamingConvention} — An object with `delims`, `fs` and `wordPattern` properties
  *                                that describes the naming convention.
  */
 create(options);
@@ -139,17 +139,17 @@ This function parses the string with a BEM entity name into object representatio
 ```js
 /**
  * @typedef BemEntityName
- * @property {string} block — block name.
- * @property {string} [elem] — element name.
- * @property {string|Object} [mod] — modifier name or object with name and value.
- * @property {string} mod.name — modifier name.
- * @property {string} [mod.val=true] — modifier value.
+ * @property {string} block — Block name.
+ * @property {string} [elem] — Element name.
+ * @property {string|Object} [mod] — Modifier name or object with name and value.
+ * @property {string} mod.name — Modifier name.
+ * @property {string} [mod.val=true] — Modifier value.
  */
 
 /**
  * Parses string into object representation.
  *
- * @param {string} str - string representation of BEM entity.
+ * @param {string} str — String representation of a BEM entity.
  * @returns {(BemEntityName|undefined)}
  */
 parse(str);
@@ -177,18 +177,18 @@ This function forms a string from the object that specifies a BEM entity name.
 ```js
 /**
  * @typedef BemEntityName
- * @property {string} block — block name.
- * @property {string} [elem] — element name.
- * @property {string|Object} [mod] — modifier name or object with name and value.
- * @property {string} mod.name — modifier name.
- * @property {string|boolean} [mod.val] — modifier value.
+ * @property {string} block — Block name.
+ * @property {string} [elem] — Element name.
+ * @property {string|Object} [mod] — Modifier name or object with name and value.
+ * @property {string} mod.name — Modifier name.
+ * @property {string|boolean} [mod.val] — Modifier value.
  */
 
 /**
- * Forms a string according to object representation of BEM entity.
+ * Forms a string according to object representation of a BEM entity.
  *
- * @param {object|BemEntityName} entity - object representation of BEM entity.
- * @returns {string} - BEM entity name. This name can be used in class attributes.
+ * @param {object|BemEntityName} entity — Object representation of a BEM entity.
+ * @returns {string} — BEM entity name. This name can be used in class attributes.
  */
 stringify(entity);
 ```

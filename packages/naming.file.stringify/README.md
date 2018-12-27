@@ -17,7 +17,7 @@ Stringifier for a BEM file.
 
 Stringify returns the file path for a specified BEM file object.
 
-You can choose a preset with [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stingify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
+You can choose a preset with [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stringify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
 
 All provided presets uses the [`nested`](https://en.bem.info/methodology/filestructure/#nested) file structure scheme. To use the [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme that is better for small projects, see [Using a custom naming convention](#using-a-custom-naming-convention) section.
 
@@ -42,9 +42,9 @@ To run the `@bem/sdk.naming.file.stringify` package:
 
 Install the following packages:
 
-* [@bem/sdk.naming.file.stringify](https://www.npmjs.org/package/@bem/sdk.naming.file.stringify) that makes the `stingify()` function.
-* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
-* [@bem/sdk.file](https://www.npmjs.com/package/@bem/sdk.file) that allows you create a BEM file objects to stringify.
+* [@bem/sdk.naming.file.stringify](https://www.npmjs.org/package/@bem/sdk.naming.file.stringify), which makes the `stringify()` function.
+* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
+* [@bem/sdk.file](https://www.npmjs.com/package/@bem/sdk.file), which allows you create a BEM file objects to stringify.
 
 To install these packages, run the following command:
 
@@ -143,17 +143,17 @@ console.log(stringify(myFile));
 
 ```js
 /**
- * @typedef BemFile — representation of file.
- * @property {BemCell} cell — representation of a BEM cell.
- * @property {String} [level] - base level path.
- * @property {String} [path] - path to file.
+ * @typedef BemFile — Representation of file.
+ * @property {BemCell} cell — Representation of a BEM cell.
+ * @property {String} [level] — Base level path.
+ * @property {String} [path] — Path to file.
  */
 
 /**
  * Forms a file according to object representation of BEM file.
  *
- * @param {Object|BemFile} file - object representation of BEM file.
- * @returns {string} - file path.
+ * @param {Object|BemFile} file — Object representation of BEM file.
+ * @returns {string} — File path.
  */
 stringify(file);
 ```
@@ -166,7 +166,7 @@ To create a preset with a custom naming convention use the `create()` function f
 
 For example create a preset that uses [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme to describe a file structure organization.
 
-Use the created preset to make your `stingify()` function.
+Use the created preset to make your `stringify()` function.
 
 **Example:**
 

@@ -17,7 +17,7 @@ Stringifier for a BEM cell object.
 
 Stringify returns the file path for a specified BEM cell object.
 
-You can choose a preset with [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stingify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
+You can choose a preset with [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stringify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
 
 All provided presets uses the [`nested`](https://en.bem.info/methodology/filestructure/#nested) file structure scheme. To use the [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme that is better for small projects, see [Using a custom naming convention](#using-a-custom-naming-convention) section.
 
@@ -42,9 +42,9 @@ To run the `@bem/sdk.naming.cell.stringify` package:
 
 Install the following packages:
 
-* [@bem/sdk.naming.cell.stringify](https://www.npmjs.org/package/@bem/sdk.naming.cell.stringify) that makes the `stingify()` function.
-* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets) that contains presets with well-known naming conventions.
-* [@bem/sdk.cell](https://www.npmjs.com/package/@bem/sdk.cell) that allows you create a BEM cell objects to stringify.
+* [@bem/sdk.naming.cell.stringify](https://www.npmjs.org/package/@bem/sdk.naming.cell.stringify), which makes the `stringify()` function.
+* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
+* [@bem/sdk.cell](https://www.npmjs.com/package/@bem/sdk.cell), which allows you create a BEM cell objects to stringify.
 
 To install these packages, run the following command:
 
@@ -145,17 +145,17 @@ console.log(stringify(myBemCell));
 
 ```js
 /**
- * @typedef BemCell — representation of cell.
- * @property {BemEntityName} entity — representation of entity name.
- * @property {string} tech - tech of cell.
- * @property {string} [obj.layer] - layer of cell.
+ * @typedef BemCell — Representation of cell.
+ * @property {BemEntityName} entity — Representation of entity name.
+ * @property {string} tech — Tech of cell.
+ * @property {string} [obj.layer] — Layer of cell.
  */
 
 /**
  * Forms a file according to object representation of BEM cell.
  *
- * @param {Object|BemCell} cell - object representation of BEM cell.
- * @returns {string} - file path for the BEM cell. This name can be used in class attributes.
+ * @param {Object|BemCell} cell — Object representation of BEM cell.
+ * @returns {string} — File path for the BEM cell. This name can be used in class attributes.
  */
 stringify(cell);
 ```
@@ -168,7 +168,7 @@ To create a preset with a custom naming convention use the `create()` function f
 
 For example create a preset that uses [flat](https://en.bem.info/methodology/filestructure/#flat) scheme to describe a file structure organization.
 
-Use the created preset to make your `stingify()` function.
+Use the created preset to make your `stringify()` function.
 
 **Example:**
 
