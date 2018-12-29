@@ -21,8 +21,8 @@ The package contains the default naming convention presets and the tool to creat
 
 You can use this package to:
 
-* import an existed preset with [naming convention](https://bem.info/methodology/naming-convention/);
-* create a preset with a custom naming convention.
+* Import an existing preset with a [naming convention](https://bem.info/methodology/naming-convention/).
+* Create a preset with a custom naming convention.
 
 This package is useful when you want to create a new preset based on another preset, for example, to change only the modifier delimiter and keep other options unchanged.
 
@@ -36,12 +36,12 @@ An example is available in the [RunKit editor](https://runkit.com/migs911/how-be
 
 > **Attention.** To use `@bem/sdk.naming.presets`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
-In this quick start you will learn, how to import a preset with naming convention and create a preset with a custom naming convention.
+In this quick start you will learn how to import a preset with a naming convention and create a preset with a custom naming convention.
 
 To run the `@bem/sdk.naming.presets` package:
 1. [Install the `@bem/sdk.naming.presets` package](#installing-the-bemsdknamingpresets-package).
-2. [Import a preset with naming convention](#importing-a-preset-with-naming-convention).
-3. [Create preset with a custom naming convention](#creating-preset-with-a-custom-naming-convention).
+2. [Import a preset with a naming convention](#importing-a-preset-with-naming-convention).
+3. [Create a preset with a custom naming convention](#creating-preset-with-a-custom-naming-convention).
 
 ### Installing the `@bem/sdk.naming.presets` package
 
@@ -51,15 +51,15 @@ To install the `@bem/sdk.naming.presets` package, run the following command:
 $ npm install --save @bem/sdk.naming.presets
 ```
 
-### Importing a preset with naming convention
+### Importing a preset with a naming convention
 
-To import preset with default naming convention, create a JavaScript file with any name (for example, **app.js**) and insert the following:
+To import a preset with a default naming convention, create a JavaScript file with any name (for example, **app.js**) and insert the following:
 
 ```js
 const originNaming = require('@bem/sdk.naming.presets/origin');
 ```
 
-This code imports the preset with origin naming convention. To import another preset type its' name instead of `origin`.
+This code imports the preset with the origin naming convention. To import another preset, change `origin` to the preset name.
 
 **Examples:**
 
@@ -72,7 +72,7 @@ const twoDashesNaming = require('@bem/sdk.naming.presets/two-dashes');
 
 [RunKit live example](https://runkit.com/migs911/different-presets-from-bem-sdk-naming-presets-package).
 
-After preset been imported you can use it for your purposes. For example, to create a `parse()` function from the [@bem/sdk.naming.entity.parse](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse) package.
+After you've imported the preset, you can use it for your own purposes, such as to create a `parse()` function from the [@bem/sdk.naming.entity.parse](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse) package.
 
 **Example:**
 
@@ -101,9 +101,9 @@ parse('my-block__my-element_my-modifier_some-value');
 
 [RunKit live example](https://runkit.com/migs911/parse-a-string-using-origin-naming-convention).
 
-### Creating preset with a custom naming convention
+### Creating a preset with a custom naming convention
 
-To create a preset with a custom naming convention use the [create](#create) function. In the arguments pass options that you want to overwrite in the default naming convention. For example, you can define that the values of modifiers are delimited with the equal (`=`).
+To create a preset with a custom naming convention, use the [create](#create) function. In the arguments, pass options that you want to overwrite in the default naming convention. For example, you can define that the values of modifiers are delimited with the equal sign (`=`).
 
 **Example:**
 
@@ -115,7 +115,7 @@ const myNamingOptions = {
 };
 const myNaming = require('@bem/sdk.naming.presets/create')(myNamingOptions);
 
-// Parse a BEM entity name to test created preset.
+// Parse a BEM entity name to test the created preset.
 const parse = require('@bem/sdk.naming.entity.parse')(myNaming);
 parse('my-block_my-modifier=some-value');
 /**
@@ -143,43 +143,43 @@ parse('my-block_my-modifier=some-value');
 /**
  * Returns created preset with the specified naming convention.
  *
- * @param {(Object|string)} [options] — User options or the name of preset to return.
- *                                      If not specified, default preset will be returned.
- * @param {string} [options.preset] — Preset name that should be used as default preset.
+ * @param {(Object|string)} [options] — User options or the name of the preset to return.
+ *                                      If not specified, the default preset will be returned.
+ * @param {string} [options.preset] — Preset name that should be used as the default preset.
  * @param {Object} [options.delims] — Strings to separate names of bem entities.
- *                                    This object has the same structure with `INamingConventionDelims`,
+ *                                    This object has the same structure as `INamingConventionDelims`,
  *                                    but all properties inside are optional.
  * @param {Object} [options.fs] — User options to separate names of files with bem entities.
  * @param {Object} [options.fs.delims] — Strings to separate names of files in a BEM project.
- *                                       This object has the same structure with `INamingConventionDelims`,
+ *                                       This object has the same structure as `INamingConventionDelims`,
  *                                       but all properties inside are optional.
  * @param {string} [options.fs.pattern] — Pattern that describes the file structure of a BEM project.s
  * @param {string} [options.fs.scheme] — Schema name that describes the file structure of one BEM entity.
  * @param {string} [options.wordPattern] — A regular expression that will be used to match an entity name.
- * @param {(Object|string)} [userDefaults] — User default options or the name of preset to use.
- *                                           If the name of preset incorrect `origin` preset will be used.
+ * @param {(Object|string)} [userDefaults] — User default options or the name of the preset to use.
+ *                                           If the name of the preset is incorrect, the `origin` preset will be used.
  * @returns {INamingConvention} — An object with `delims`, `fs` and `wordPattern` properties
  *                                that describes the naming convention.
  */
 create(options, userDefaults);
 ```
 
-This function will get all options from the default preset, overwrite them by passed options and return the result. Options are overwritten in the following order:
+This function will get all options from the default preset, overwrite them with the passed options and return the result. Options are overwritten in the following order:
 
-1. options from the default preset;
-2. options from the `userDefaults` parameter;
-3. options from the `options` parameter.
+1. Options from the default preset.
+2. Options from the `userDefaults` parameter.
+3. Options from the `options` parameter.
 
 ## Parameter tuning
 
 ### Get the default preset
 
-You can use `create()` function to get the default preset from this package. Call `create()` function without parameters.
+You can use the `create()` function to get the default preset from this package. Call the `create()` function without parameters.
 
 ```js
 const defaultPreset = require('@bem/sdk.naming.presets/create')();
 
-// Check that origin preset is default.
+// Check that the origin preset is default.
 const originPreset = require('@bem/sdk.naming.presets/origin');
 if (defaultPreset === originPreset) {
     console.log('Origin is the default preset now.');
@@ -203,7 +203,7 @@ const myNamingOptions = {
 };
 const myNaming = require('@bem/sdk.naming.presets/create')(myNamingOptions);
 
-// Parse a BEM entity name to test created preset.
+// Parse a BEM entity name to test the created preset.
 const parse = require('@bem/sdk.naming.entity.parse')(myNaming);
 parse('my-block--my-modifier=some-value');
 /**
@@ -215,7 +215,7 @@ parse('my-block--my-modifier=some-value');
 
 [RunKit live example](https://runkit.com/migs911/use-another-preset-as-default-via-presets-option).
 
-You can set default preset in the `userDefaults` parameter. To use this method pass the name of preset in the second argument.
+You can set the default preset in the `userDefaults` parameter. To use this method, pass the name of the preset in the second argument.
 
 **Example:**
 
@@ -227,7 +227,7 @@ const myNamingOptions = {
 };
 const myNaming = require('@bem/sdk.naming.presets/create')(myNamingOptions, 'two-dashes');
 
-// Parse a BEM entity name to test created preset.
+// Parse a BEM entity name to test the created preset.
 const parse = require('@bem/sdk.naming.entity.parse')(myNaming);
 parse('my-block--my-modifier=some-value');
 /**
@@ -239,7 +239,7 @@ parse('my-block--my-modifier=some-value');
 
 [RunKit live example](https://runkit.com/migs911/use-another-preset-as-default-via-userdefaults-option).
 
-If you pass a preset name in the `userDefaults` parameter, it will completely overwrite the default preset. For example, all these lines return `two-dashes` preset:
+If you pass a preset name in the `userDefaults` parameter, it will completely overwrite the default preset. For example, all these lines return the `two-dashes` preset:
 
 ```js
 const createPreset = require('@bem/sdk.naming.presets/create');
@@ -250,7 +250,7 @@ const twoDashesPreset3 = require('@bem/sdk.naming.presets/two-dashes');
 
 ### Pass an object with default options
 
-You can pass an object with default options to use it in the `userDefaults` level. Pass this object in the second argument of the `create()` function.
+You can pass an object with default options to use it on the `userDefaults` level. Pass this object in the second argument of the `create()` function.
 
 **Example:**
 
@@ -293,15 +293,15 @@ const anotherPreset = require('@bem/sdk.naming.presets/create')(presetOptions, u
 
 The main idea of the naming convention is to make names of [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) as informative and clear as possible.
 
-This package contains follow presets with naming conventions:
+This package contains the following presets with naming conventions:
 
-* [origin](#origin) — default naming convention.
-* [legacy](#legacy) — it's like origin naming convention, but with different file structure organization.
-* [origin-react](#origin-react) — mix of origin and react naming conventions.
-* [react](#react) — naming convention in React style.
-* [two-dashes](#two-dashes) — according to this naming convention modifiers are delimited by two hyphens (`--`).
+* [origin](#origin) — Default naming convention.
+* [legacy](#legacy) — Similar to the origin naming convention, but with a different file structure organization.
+* [origin-react](#origin-react) — Mix of origin and react naming conventions.
+* [react](#react) — Naming convention in React style.
+* [two-dashes](#two-dashes) — According to this naming convention, modifiers are delimited by two hyphens (`--`).
 
-In addition, you can invent your naming convention. How to do this, see the [Custom naming convention](#custom-naming-convention) section.
+In addition, you can invent your own naming convention. To learn how to do this, see [Custom naming convention](#custom-naming-convention).
 
 ### origin
 
@@ -315,7 +315,7 @@ Every name must match the regular expression: `[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*`.
 
 **Delimiters:**
 
-Elements are delimited with two underscores (`__`), modifiers and values of modifiers are delimited by one underscore (`_`).
+Elements are delimited with two underscores (`__`), while modifiers and values of modifiers are delimited by one underscore (`_`).
 
 Example: `my-block__my-element_my-modifier_some-value`.
 
@@ -346,7 +346,7 @@ Every name must match the regular expression: `[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*`.
 
 **Delimiters:**
 
-Elements are delimited with two underscores (`__`), modifiers and values of modifiers are delimited by one underscore (`_`).
+Elements are delimited with two underscores (`__`), while modifiers and values of modifiers are delimited by one underscore (`_`).
 
 Example: `my-block__my-element_my-modifier_some-value`.
 
@@ -367,9 +367,9 @@ my-block/__my-element/_my-modifier_some-value@layer.css
 
 ### origin-react
 
-`origin-react` preset is an implementation of [React style](https://en.bem.info/methodology/naming-convention/#react-style) naming convention.
+The `origin-react` preset is an implementation of the [React style](https://en.bem.info/methodology/naming-convention/#react-style) naming convention.
 
-This preset based on the [origin](#origin) preset but provides another word pattern and element delimiters.
+This preset is based on the [origin](#origin) preset but provides a different word pattern and element delimiters.
 
 **Word pattern:**
 
@@ -379,13 +379,13 @@ Every name must match the regular expression: `[a-zA-Z0-9]+`.
 
 **Delimiters:**
 
-Elements are delimited by one hyphen (`-`), modifiers and values of modifiers are delimited by one underscore (`_`).
+Elements are delimited by one hyphen (`-`), while modifiers and values of modifiers are delimited by one underscore (`_`).
 
 Example: `MyBlock-MyElement_myModifier_modValue`.
 
 **File structure:**
 
-* Element names in the file structure haven't any delimiter.
+* Element names in the file structure don't have any delimiters.
 * BEM entities structure scheme: `nested`.
 * Project structure pattern: `${layer?${layer}.}blocks/${entity}.${tech}`.
 
@@ -401,9 +401,9 @@ layer.blocks/MyBlock/MyElement/_myModifier_modValue.css
 
 ### react
 
-`react` preset is an implementation of [React style](https://en.bem.info/methodology/naming-convention/#react-style) naming convention.
+The `react` preset is an implementation of the [React style](https://en.bem.info/methodology/naming-convention/#react-style) naming convention.
 
-This preset based on the [origin-react](#origin-react) preset but provides another project structure pattern like in the [legacy](#legacy) preset.
+This preset is based on the [origin-react](#origin-react) preset but provides another project structure pattern like in the [legacy](#legacy) preset.
 
 **Word pattern:**
 
@@ -413,13 +413,13 @@ Every name must match the regular expression: `[a-zA-Z0-9]+`.
 
 **Delimiters:**
 
-Elements are delimited by one hyphen (`-`), modifiers and values of modifiers are delimited by one underscore (`_`).
+Elements are delimited by one hyphen (`-`), while modifiers and values of modifiers are delimited by one underscore (`_`).
 
 Example: `MyBlock-MyElement_myModifier_modValue`.
 
 **File structure:**
 
-* Element names in the file structure haven't any delimiter.
+* Element names in the file structure don't have any delimiters.
 * BEM entities structure scheme: `nested`.
 * Project structure pattern: `${entity}${layer?@${layer}}.${tech}`.
 
@@ -436,9 +436,9 @@ MyBlock/MyElement/_myModifier_modValue@layer.css
 
 ### two-dashes
 
-`two-dashes` preset is an implementation of [Two Dashes style](https://en.bem.info/methodology/naming-convention/#two-dashes-style) naming convention.
+The `two-dashes` preset is an implementation of the [Two Dashes style](https://en.bem.info/methodology/naming-convention/#two-dashes-style) naming convention.
 
-This preset based on the [origin](#origin) preset but modifiers are delimited by two hyphens (`--`).
+This preset is based on the [origin](#origin) preset but modifiers are delimited by two hyphens (`--`).
 
 **Word pattern:**
 
@@ -448,7 +448,7 @@ Every name must match the regular expression: `[a-zA-Z0-9]+(?:-[a-zA-Z0-9]+)*`.
 
 **Delimiters:**
 
-Elements are delimited with two underscores (`__`), modifiers are delimited by two hyphens (`--`), and values of modifiers are delimited by one underscore (`_`).
+Elements are delimited with two underscores (`__`), while modifiers are delimited by two hyphens (`--`), and values of modifiers are delimited by one underscore (`_`).
 
 Example: `my-block__my-element--my-modifier_some-value`.
 
