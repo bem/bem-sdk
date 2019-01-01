@@ -7,6 +7,13 @@ The graph of dependencies for BEM entities.
 [npm]:          https://www.npmjs.org/package/@bem/sdk.graph
 [npm-img]:      https://img.shields.io/npm/v/@bem/sdk.graph.svg
 
+* [Introduction](#introduction)
+* [Try graph](#try-graph)
+* [Quickstart](#quickstart)
+* [API Reference](#api-reference)
+* [Parameters tuning](#parameters-tuning)
+* [Usage examples](#usage-examples)
+
 ## Introduction
 
 Graph allows you create an ordered dependencies list for the specified BEM entities and technologies.
@@ -21,9 +28,12 @@ An example is available in the [RunKit editor](https://runkit.com/migs911/how-be
 
 To run the `@bem/sdk.graph` package:
 
-* [Install `graph`](#installing-bemsdknamingentity-package).
-* [Create a `graph` instance](#creating-a-namingentity-instance).
-* [Use the created instance](#using-the-created-instance).
+1. [Install `@bem/sdk.graph` package](#installing-bemsdkgraph-package)
+2. [Create an empty graph](#creating-an-empty-graph)
+3. [Create vertices](#creating-vertices)
+4. [Set dependencies by using the `dependsOn()` function](#setting-dependencies-by-using-the-dependson-function)
+5. [Get the dependencies of a block](#getting-the-dependencies-of-a-block)
+6. [Set dependencies using the `linkWith()` function](#setting-dependencies-using-the-linkwith-function)
 
 ### Installing `@bem/sdk.graph` package
 
@@ -54,7 +64,7 @@ graph.vertex({ block: 'a' });
 graph.vertex({ block: 'b' });
 ```
 
-### Set dependencies by using the `dependsOn()` function
+### Setting dependencies by using the `dependsOn()` function
 
 Let the block `a` depends on the block `b`. It means that the block `b` has some code that **must be imported before** the block `a` code.
 
@@ -70,7 +80,7 @@ graph.vertex({ block: 'b' })
 
 > If you are familiar with the [@bem/sdk.deps](https://github.com/bem/bem-sdk/tree/master/packages/deps) package, the `dependsOn()` adds the `mustDeps` link.
 
-### Get the dependencies of a block
+### Getting the dependencies of a block
 
 So the block `a` depends on the `b` and the block `b` depends on the `c`. If we want to compile the block `a`, we need to import the code of the block `c` first, then import the code of the block `b` and only then use the code of the block `a`.
 
@@ -85,7 +95,7 @@ graph.dependenciesOf({ block: 'a' })
 // ]
 ```
 
-### Set dependencies using the `linkWith()` function
+### Setting dependencies using the `linkWith()` function
 
 Let the block `b` also depends on the block `d`, but it doesn't matter when the code from the block `d` is imported, before the block `b` or after.
 
@@ -120,6 +130,12 @@ In the dependencies list the block `d` will be added to any position randomly.
 [RunKit live example](https://runkit.com/migs911/graph-quick-start).
 
 ## API Reference
+
+* [BemGraph.vertex()](#bemgraphvertex)
+* [BemGraph.Vertex.linkWith()](#bemgraphvertexlinkwith)
+* [BemGraph.Vertex.dependsOn()](#bemgraphvertexdependson)
+* [BemGraph.dependenciesOf()](#bemgraphdependenciesof)
+* [BemGraph.naturalize()](#bemgraphnaturalize)
 
 ### BemGraph.vertex()
 
@@ -245,6 +261,11 @@ BemGraph.naturalize()
 See an example of using this function in the [Naturalize graph](#naturalize-graph) section.
 
 ## Parameters tuning
+
+* [Specify a technology for the created vertex](#specify-a-technology-for-the-created-vertex)
+* [Specify a technology for the dependency](#specify-a-technology-for-the-dependency)
+* [Naturalize graph](#naturalize-graph)
+* [Get dependencies for the list of cells](#get-dependencies-for-the-list-of-cells)
 
 ### Specify a technology for the created vertex
 
