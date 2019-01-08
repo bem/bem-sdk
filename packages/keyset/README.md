@@ -12,8 +12,6 @@ Tool for representation of BEM i18n keyset.
 * [Quick start](#quick-start)
 * [Formats](#formats)
 * [API reference](#api-reference)
-* [Parameter tuning](#parameter-tuning)
-* [Usage examples](#usage-examples)
 
 ## Introduction
 
@@ -60,7 +58,7 @@ keyset.format; // => 'taburet' — default format, see Formats
 
 Keyset has two default formats:
 
-| Format | Default extantion |
+| Format | Extantion |
 |-----------|-------------|
 | `enb` | `.js` |
 | `taburet` | `.ts` |
