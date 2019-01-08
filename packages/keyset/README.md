@@ -98,14 +98,9 @@ keyset;
 
 ### keyset.load()
 
-Loads keyset from project's file system and returns a JavaScript object with information about it.
+Loads keyset from project's file system.
 
 ```js
-/**
-* Loads keyset.
-*
-* @return {object} — readable stream
-*/
 keyset.load();
 ```
 
@@ -158,7 +153,7 @@ Gets keys from found keyset.
 /**
 * Gets keys.
 *
-* @param {string} lang — language to traverse
+* @param {string} lang — the language to traverse
 * @return {string[]} — keys
 */
 keyset.getLangKeysForLang(lang);
@@ -215,7 +210,7 @@ Adds keys for language. Use with `keyset.save()` method.
 /**
 * Adds keys.
 *
-* @param {string} lang — language to add
+* @param {string} lang — the language to add
 * @return {object[]} — keys
 */
 keyset.addKeysForLang(lang, langKeys);
@@ -296,9 +291,9 @@ keyset.langs; // => ['ru']
 
 [RunKit live editor](https://runkit.com/godfreyd/5c347019617b3200145cd068).
 
-### LangKeys.stringify(this, formatName);
+### LangKeys.stringify(value, formatName);
 
-Converts a JavaScript object or value to a string.
+Converts a JavaScript object to a special string ready to save on the project's file system.
 
 ```js
 /**
