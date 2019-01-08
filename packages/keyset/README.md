@@ -28,7 +28,7 @@ An example is available in the [RunKit editor](https://runkit.com/godfreyd/5c333
 To run the `@bem/sdk.keyset` package:
 
 1. [Install keyset](#installing-the-bemsdkkeyset-package).
-2. [Declarating keyset](#declarating-keyset).
+2. [Declaration keyset](#declaration-keyset).
 
 ### Installing the `@bem/sdk.keyset` package
 
@@ -38,9 +38,9 @@ To install the `@bem/sdk.keyset` package, run the following command:
 $ npm install --save @bem/sdk.keyset
 ```
 
-### Declarating keyset
+### Declaration keyset
 
-Specify the keyset name, path and format for keyset. The `Keyset` class is a constructor for classes that enable format-sensitive keyset formatting.
+Specify the Keyset name, path, and format for keyset. The `Keyset` class is a constructor for classes that enable format-sensitive keyset formatting.
 
 **Example:**
 
@@ -58,12 +58,12 @@ keyset.format; // => 'taburet' — default format, see Formats
 
 Keyset has two default formats:
 
-| Format | Extantion |
+| Format | Extension |
 |-----------|-------------|
 | `enb` | `.js` |
 | `taburet` | `.ts` |
 
-If you want change default extantion, override a variable `keyset.langsKeysExt` before saving keyset.
+If you want to change default extension, override a variable `keyset.langsKeysExt` before saving keyset.
 
 **Example:**
 
