@@ -40,8 +40,8 @@ In this quick start you will learn how to import a preset with a naming conventi
 
 To run the `@bem/sdk.naming.presets` package:
 1. [Install the `@bem/sdk.naming.presets` package](#installing-the-bemsdknamingpresets-package).
-2. [Import a preset with a naming convention](#importing-a-preset-with-naming-convention).
-3. [Create a preset with a custom naming convention](#creating-preset-with-a-custom-naming-convention).
+2. [Import a preset with a naming convention](#importing-a-preset-with-a-naming-convention).
+3. [Create a preset with a custom naming convention](#creating-a-preset-with-a-custom-naming-convention).
 
 ### Installing the `@bem/sdk.naming.presets` package
 
