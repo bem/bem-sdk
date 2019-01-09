@@ -17,9 +17,9 @@ Stringifier for a BEM file.
 
 Stringify returns the file path for a specified BEM file object.
 
-You can choose a preset with [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stringify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
+You can choose a preset with a [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stringify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
 
-All provided presets uses the [`nested`](https://en.bem.info/methodology/filestructure/#nested) file structure scheme. To use the [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme that is better for small projects, see [Using a custom naming convention](#using-a-custom-naming-convention) section.
+All provided presets use the [`nested`](https://en.bem.info/methodology/filestructure/#nested) file structure. To use the [`flat`](https://en.bem.info/methodology/filestructure/#flat) structure that is better for small projects, see [Using a custom naming convention](#using-a-custom-naming-convention).
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.file.stringify` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
@@ -44,7 +44,7 @@ Install the following packages:
 
 * [@bem/sdk.naming.file.stringify](https://www.npmjs.org/package/@bem/sdk.naming.file.stringify), which makes the `stringify()` function.
 * [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
-* [@bem/sdk.file](https://www.npmjs.com/package/@bem/sdk.file), which allows you create a BEM file objects to stringify.
+* [@bem/sdk.file](https://www.npmjs.com/package/@bem/sdk.file), which allows you create BEM file objects to stringify.
 
 To install these packages, run the following command:
 
@@ -84,7 +84,7 @@ Stringify the created BEM file object:
 stringify(myFile);
 ```
 
-This function will return the string with file path `common.blocks/my-block/my-block.css`.
+This function will return the string with the file path `common.blocks/my-block/my-block.css`.
 
 **Example:**
 
@@ -162,9 +162,9 @@ stringify(file);
 
 ### Using a custom naming convention
 
-To create a preset with a custom naming convention use the `create()` function from the `@bem/sdk.naming.presets` package.
+To create a preset with a custom naming convention, use the `create()` function from the `@bem/sdk.naming.presets` package.
 
-For example create a preset that uses [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme to describe a file structure organization.
+For example, create a preset that uses the [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme to describe the file structure organization.
 
 Use the created preset to make your `stringify()` function.
 
