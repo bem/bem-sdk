@@ -14,7 +14,7 @@ The tool for working with [BEM entity](https://en.bem.info/methodology/key-conce
 * [Try naming.entity](#try-namingentity)
 * [Quick start](#quick-start)
 * [API Reference](#api-reference)
-* [Parameters tuning](#parameters-tuning)
+* [Parameter tuning](#parameter-tuning)
 * [Usage examples](#usage-examples)
 
 ## Introduction
@@ -38,7 +38,7 @@ An example is available in the [RunKit editor](https://runkit.com/migs911/how-be
 
 To run the `@bem/sdk.naming.entity` package:
 
-* [Install `naming.entity`](#installing-bemsdknamingentity-package).
+* [Install `naming.entity`](#installing-the-bemsdknamingentity-package).
 * [Create a `naming.entity` instance](#creating-a-namingentity-instance).
 * [Use the created instance](#using-the-created-instance).
 
@@ -130,7 +130,7 @@ const reactNaming = require('@bem/sdk.naming.entity')('react');
 const customNaming = require('@bem/sdk.naming.entity'){ wordPattern: '[a-z]+' };
 ```
 
-See more examples in the [Parameter tuning](#parameters-tuning) section.
+See more examples in the [Parameter tuning](#parameter-tuning) section.
 
 ### parse()
 
