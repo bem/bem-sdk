@@ -148,7 +148,7 @@ console.log(stringify(myBemCell));
  * @typedef BemCell — Representation of cell.
  * @property {BemEntityName} entity — Representation of entity name.
  * @property {string} tech — Tech of cell.
- * @property {string} [obj.layer] — Layer of cell.
+ * @property {string} [layer] — Layer of cell.
  */
 
 /**
