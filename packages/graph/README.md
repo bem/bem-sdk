@@ -216,7 +216,7 @@ graph.vertex({ block: 'a'})
 
 ```js
 /**
- * Create an ordered list of the entities and technologies.
+ * Creates an ordered list of the entities and technologies.
  *
  * @param {Object|Array} cells — one or more objects to create a BEM cells for them and get the dependencies list for.
  * @param {string} cells.block — Block name.
