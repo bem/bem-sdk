@@ -14,19 +14,19 @@ The tool for working with [BEM entity](https://en.bem.info/methodology/key-conce
 * [Try naming.entity](#try-namingentity)
 * [Quick start](#quick-start)
 * [API Reference](#api-reference)
-* [Parameters tuning](#parameters-tuning)
+* [Parameter tuning](#parameter-tuning)
 * [Usage examples](#usage-examples)
 
 ## Introduction
 
-This package combines the capabilities of the packages:
+This package combines the capabilities of the following packages:
 * [@bem/sdk.naming.parse](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse) — to create a [parse()](#parse) function.
 * [@bem/sdk.naming.stringify](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify) — to create a [stringify()](#stringify) function.
 * [@bem/sdk.naming.presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) — to select a [naming convention](https://bem.info/methodology/naming-convention/) for these functions.
 
-    Various naming conventions are supported such as [origin](https://en.bem.info/methodology/naming-convention/#naming-rules), [two-dashes](https://en.bem.info/methodology/naming-convention/#two-dashes-style) or [react](https://en.bem.info/methodology/naming-convention/#react-style). See the full list of supported presets in the package [documentation](https://github.com/bem/bem-sdk/tree/migelle-naming-presets-doc/packages/naming.presets#naming-conventions).
+    Various naming conventions are supported, such as [origin](https://en.bem.info/methodology/naming-convention/#naming-rules), [two-dashes](https://en.bem.info/methodology/naming-convention/#two-dashes-style) and [react](https://en.bem.info/methodology/naming-convention/#react-style). See the full list of supported presets in the package [documentation](https://github.com/bem/bem-sdk/tree/migelle-naming-presets-doc/packages/naming.presets#naming-conventions).
 
-    Also you can [create](#using-a-custom-naming-convention) a custom naming convention and use it for creating the `parse()` and `stringify()` functions.
+    You can also [create](#using-a-custom-naming-convention) a custom naming convention and use it for creating the `parse()` and `stringify()` functions.
 
 ## Try naming.entity
 
@@ -38,11 +38,11 @@ An example is available in the [RunKit editor](https://runkit.com/migs911/how-be
 
 To run the `@bem/sdk.naming.entity` package:
 
-* [Install `naming.entity`](#installing-bemsdknamingentity-package).
+* [Install `naming.entity`](#installing-the-bemsdknamingentity-package).
 * [Create a `naming.entity` instance](#creating-a-namingentity-instance).
 * [Use the created instance](#using-the-created-instance).
 
-### Installing `@bem/sdk.naming.entity` package
+### Installing the `@bem/sdk.naming.entity` package
 
 To install the `@bem/sdk.naming.entity` package, run the following command:
 
@@ -52,17 +52,17 @@ $ npm install --save @bem/sdk.naming.entity
 
 ### Creating a `naming.entity` instance
 
-To create a `naming.entity` instance insert the following into your code:
+To create a `naming.entity` instance, insert the following lines into your code:
 
 ```js
 const bemNaming = require('@bem/sdk.naming.entity');
 ```
 
-By default the created instance is based on the `origin` preset, that represents the default naming convention for BEM entities. To use another preset, see the [Using the specified naming convention](#using-the-specified-naming-convention) section.
+By default, the created instance is based on the `origin` preset that represents the default naming convention for BEM entities. To use another preset, see [Using the specified naming convention](#using-the-specified-naming-convention).
 
 ### Using the created instance
 
-Now you can use the created instance to parse and stringify a BEM entity name representations.
+Now you can use the created instance to parse and stringify BEM entity name representations.
 
 #### Parse a string representation
 
@@ -70,7 +70,7 @@ Now you can use the created instance to parse and stringify a BEM entity name re
 bemNaming.parse('my-block__my-element');
 ```
 
-This code will return the BemEnityName object with block name `my-block` and element name `my-element`.
+This code will return the BemEntityName object with the block name `my-block` and the element name `my-element`.
 
 #### Stringify an object representation
 
@@ -103,15 +103,15 @@ This function creates a `naming.entity` instance with the [parse()](#parse) and 
 /**
  * Returns created  with the specified naming convention.
  *
- * @param {(Object|string)} [options] — User options or the name of preset to return.
- *                                      If not specified, default preset will be returned.
- * @param {string} [options.preset] — Preset name that should be used as default preset.
+ * @param {(Object|string)} [options] — User options or the name of the preset to return.
+ *                                      If not specified, the default preset will be returned.
+ * @param {string} [options.preset] — Preset name that should be used as the default preset.
  * @param {Object} [options.delims] — Strings to separate names of bem entities.
- *                                    This object has the same structure with `INamingConventionDelims`,
+ *                                    This object has the same structure as `INamingConventionDelims`,
  *                                    but all properties inside are optional.
  * @param {Object} [options.fs] — User options to separate names of files with bem entities.
  * @param {Object} [options.fs.delims] — Strings to separate names of files in a BEM project.
- *                                       This object has the same structure with `INamingConventionDelims`,
+ *                                       This object has the same structure as `INamingConventionDelims`,
  *                                       but all properties inside are optional.
  * @param {string} [options.fs.pattern] — Pattern that describes the file structure of a BEM project.s
  * @param {string} [options.fs.scheme] — Schema name that describes the file structure of one BEM entity.
@@ -130,11 +130,11 @@ const reactNaming = require('@bem/sdk.naming.entity')('react');
 const customNaming = require('@bem/sdk.naming.entity'){ wordPattern: '[a-z]+' };
 ```
 
-See more examples in the [Parameter tuning](#parameters-tuning) section.
+See more examples in the [Parameter tuning](#parameter-tuning) section.
 
 ### parse()
 
-This function parses the string with a BEM entity name into object representation.
+This function parses the string with a BEM entity name into an object representation.
 
 ```js
 /**
@@ -210,7 +210,7 @@ console.log(bemNaming.stringify(bemEntityName));
 
 For more information about the `stringify()` function, see the `@bem/sdk.naming.stringify` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify).
 
-## Parameters tuning
+## Parameter tuning
 
 * [Using a specified naming convention](#using-a-specified-naming-convention)
 * [Using a custom naming convention](#using-a-custom-naming-convention)
@@ -250,9 +250,9 @@ react.stringify(myEntity);
 
 ### Using a custom naming convention
 
-To use a custom naming convention create an object that will overwrite the default naming convention parameters. Pass this object in the [bemNaming()](#bemnaming) function.
+To use a custom naming convention, create an object that will overwrite the default naming convention parameters. Pass this object in the [bemNaming()](#bemnaming) function.
 
-For example overwrite the modifier value delimiter and use the equal sign (`=`) as the delimiter.
+For example, overwrite the modifier value delimiter and use the equal sign (`=`) as the delimiter.
 
 **Example:**
 
@@ -292,7 +292,7 @@ myNaming.stringify(myEntity);
 
 The default preset is `origin`, but you can set another preset as default in the `options.preset` parameter.
 
-For example set the `two-dashes` preset as the default and create a `naming.entity` instance based on it.
+For example, set the `two-dashes` preset as the default and create a `naming.entity` instance based on it.
 
 **Example:**
 
@@ -334,7 +334,7 @@ myNaming.stringify(myEntity);
 
 ### Convert a string to the Two Dashes style
 
-In this example we will convert the string from the [origin](https://en.bem.info/methodology/naming-convention/#naming-rules) naming convention to the [Two Dashes](https://en.bem.info/methodology/naming-convention/#two-dashes-style).
+In this example, we will convert the string from the [origin](https://en.bem.info/methodology/naming-convention/#naming-rules) naming convention to [Two Dashes](https://en.bem.info/methodology/naming-convention/#two-dashes-style).
 
 Origin: `my-block__my-element_my-modifier_some-value`
 
