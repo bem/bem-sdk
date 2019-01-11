@@ -101,23 +101,14 @@ This function creates a `naming.entity` instance with the [parse()](#parse) and 
  */
 
 /**
- * Returns created  with the specified naming convention.
- *
  * @param {(Object|string)} [options] — User options or the name of the preset to return.
- *                                      If not specified, the default preset will be returned.
+ *                                      If not specified, the default preset will be used.
  * @param {string} [options.preset] — Preset name that should be used as the default preset.
  * @param {Object} [options.delims] — Strings to separate names of bem entities.
  *                                    This object has the same structure as `INamingConventionDelims`,
  *                                    but all properties inside are optional.
- * @param {Object} [options.fs] — User options to separate names of files with bem entities.
- * @param {Object} [options.fs.delims] — Strings to separate names of files in a BEM project.
- *                                       This object has the same structure as `INamingConventionDelims`,
- *                                       but all properties inside are optional.
- * @param {string} [options.fs.pattern] — Pattern that describes the file structure of a BEM project.s
- * @param {string} [options.fs.scheme] — Schema name that describes the file structure of one BEM entity.
  * @param {string} [options.wordPattern] — A regular expression that will be used to match an entity name.
- * @returns {INamingConvention} — An object with `delims`, `fs` and `wordPattern` properties
- *                                that describes the naming convention.
+ * @returns {Object} — Created instance with the `parse()` and `stringify()` functions.
  */
 create(options);
 ```
