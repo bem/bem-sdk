@@ -106,6 +106,8 @@ console.log(stringify({ block: 'my-block',
 
 ### stringify()
 
+Forms a string based on the object representation of a BEM entity.
+
 ```js
 /**
  * @typedef BemEntityName
@@ -117,8 +119,6 @@ console.log(stringify({ block: 'my-block',
  */
 
 /**
- * Forms a string based on the object representation of a BEM entity.
- *
  * @param {object|BemEntityName} entity — Object representation of the BEM entity.
  * @returns {string} — Name of the BEM entity. This name can be used in class attributes.
  */

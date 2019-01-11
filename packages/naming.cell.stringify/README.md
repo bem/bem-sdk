@@ -143,6 +143,8 @@ console.log(stringify(myBemCell));
 
 ### stringify()
 
+Forms a file according to object representation of BEM cell.
+
 ```js
 /**
  * @typedef BemCell — Representation of cell.
@@ -152,8 +154,6 @@ console.log(stringify(myBemCell));
  */
 
 /**
- * Forms a file according to object representation of BEM cell.
- *
  * @param {Object|BemCell} cell — Object representation of BEM cell.
  * @returns {string} — File path for the BEM cell. This name can be used in class attributes.
  */

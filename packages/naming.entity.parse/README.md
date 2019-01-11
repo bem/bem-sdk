@@ -117,6 +117,8 @@ parse('my-block__my-element_my-modifier_some-value').valueOf();
 
 ### parse()
 
+Parses string into object representation.
+
 ```js
 /**
  * @typedef BemEntityName
@@ -128,8 +130,6 @@ parse('my-block__my-element_my-modifier_some-value').valueOf();
  */
 
 /**
- * Parses string into object representation.
- *
  * @param {string} str — String representation of a BEM entity.
  * @returns {(BemEntityName|undefined)}
  */

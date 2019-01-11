@@ -131,6 +131,14 @@ parse('my-block_my-modifier=some-value');
 
 #### create()
 
+Creates a preset with the specified naming convention.
+
+This function will get all options from the default preset, overwrite them with the passed options and return the result. Options are overwritten in the following order:
+
+1. Options from the default preset.
+2. Options from the `userDefaults` parameter.
+3. Options from the `options` parameter.
+
 ```js
 /**
  * @typedef INamingConventionDelims
@@ -163,12 +171,6 @@ parse('my-block_my-modifier=some-value');
  */
 create(options, userDefaults);
 ```
-
-This function will get all options from the default preset, overwrite them with the passed options and return the result. Options are overwritten in the following order:
-
-1. Options from the default preset.
-2. Options from the `userDefaults` parameter.
-3. Options from the `options` parameter.
 
 ## Parameter tuning
 

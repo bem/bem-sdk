@@ -125,7 +125,7 @@ See more examples in the [Parameter tuning](#parameter-tuning) section.
 
 ### parse()
 
-This function parses the string with a BEM entity name into an object representation.
+Parses the string with a BEM entity name into an object representation.
 
 ```js
 /**
@@ -138,8 +138,6 @@ This function parses the string with a BEM entity name into an object representa
  */
 
 /**
- * Parses string into object representation.
- *
  * @param {string} str — String representation of a BEM entity.
  * @returns {(BemEntityName|undefined)}
  */
@@ -163,7 +161,7 @@ For more information about the `parse()` function, see the `@bem/sdk.naming.pars
 
 ### stringify()
 
-This function forms a string from the object that specifies a BEM entity name.
+Forms a string from the object that specifies a BEM entity name.
 
 ```js
 /**
@@ -176,8 +174,6 @@ This function forms a string from the object that specifies a BEM entity name.
  */
 
 /**
- * Forms a string according to object representation of a BEM entity.
- *
  * @param {object|BemEntityName} entity — Object representation of a BEM entity.
  * @returns {string} — BEM entity name. This name can be used in class attributes.
  */

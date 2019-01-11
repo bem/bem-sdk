@@ -80,10 +80,10 @@ parse(originNaming.fs.pattern);
 
 ### parse()
 
+Parses a path pattern into array representation.
+
 ```js
 /**
- * Parses a path pattern into array representation.
- *
  * @param {string} pattern — Template-string-like pattern that describes
  *                           the file structure organization of a BEM project.
  * @returns {Array} — Array with separated elements from the pattern.
