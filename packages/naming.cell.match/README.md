@@ -151,6 +151,15 @@ match(incorrectPath);
 
 ### match()
 
+Tries to convert the specified path to a BEM cell object and return an object that contains the result.
+
+The returned object has the follow properties:
+
+* `cell` — converted BEM cell.
+* `isMatch` — `true` if the path matches a BEM cell and `false` if not.
+* `rest` — some additional text at the end of the path. If the value is not `null` then the `isMatch` value will be `false`.
+
+
 ```js
 /**
  * @typedef BemCell — Representation of cell.
@@ -160,13 +169,6 @@ match(incorrectPath);
  */
 
 /**
- * Tries to convert the specified path to a BEM cell object and return an object that contains the result.
- *
- * The returned object has the follow properties:
- * - cell — converted BEM cell.
- * - isMatch — `true` if the path matches a BEM cell and `false` if not.
- * - rest — some additional text at the end of the path. If the value is not `null` then the `isMatch` value will be `false`.
- *
  * @param {string} path — Object representation of the BEM cell.
  * @returns {cell: ?BemCell, isMatch: boolean, rest: ?string}
  */
