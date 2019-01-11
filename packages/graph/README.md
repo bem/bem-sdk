@@ -59,9 +59,9 @@ const graph = new BemGraph();
 Create a new vertices for the blocks `a` and `b`:
 
 ```js
-graph.vertex({ block: 'a' });
+graph.vertex({ block: 'a'});
 
-graph.vertex({ block: 'b' });
+graph.vertex({ block: 'b'});
 ```
 
 ### Setting dependencies by using the `dependsOn()` function
@@ -71,11 +71,11 @@ Let the block `a` depends on the block `b`. It means that the block `b` has some
 And let the block `b` depends on the block `c`:
 
 ```js
-graph.vertex({ block: 'a' })
-    .dependsOn({ block: 'b' });
+graph.vertex({ block: 'a'})
+    .dependsOn({ block: 'b'});
 
-graph.vertex({ block: 'b' })
-    .dependsOn({ block: 'c' });
+graph.vertex({ block: 'b'})
+    .dependsOn({ block: 'c'});
 ```
 
 > If you are familiar with the [@bem/sdk.deps](https://github.com/bem/bem-sdk/tree/master/packages/deps) package, the `dependsOn()` adds the `mustDeps` link.
@@ -87,11 +87,11 @@ So the block `a` depends on the `b` and the block `b` depends on the `c`. If we 
 The `dependenciesOf()` function will return entities names to us in the right order:
 
 ```js
-graph.dependenciesOf({ block: 'a' })
+graph.dependenciesOf({ block: 'a'})
 // => [
-//     {"entity":{"block":"c"}},
-//     {"entity":{"block":"b"}},
-//     {"entity":{"block":"a"}}
+//     { 'entity': { 'block': 'c'}},
+//     { 'entity': { 'block': 'b'}},
+//     { 'entity': { 'block': 'a'}}
 // ]
 ```
 
@@ -107,19 +107,19 @@ Change the code to set this dependency for the block `b` vertex.
 const { BemGraph } = require('@bem/sdk.graph');
 const graph = new BemGraph();
 
-graph.vertex({ block: 'a' })
-    .dependsOn({ block: 'b' });
+graph.vertex({ block: 'a'})
+    .dependsOn({ block: 'b'});
 
-graph.vertex({ block: 'b' })
-    .dependsOn({ block: 'c' })
+graph.vertex({ block: 'b'})
+    .dependsOn({ block: 'c'})
     .linkWith({ block: 'd'});
 
-graph.dependenciesOf({ block: 'a' })
+graph.dependenciesOf({ block: 'a'})
 // => [
-//     {"entity":{"block":"c"}},
-//     {"entity":{"block":"b"}},
-//     {"entity":{"block":"a"}},
-//     {"entity":{"block":"d"}}
+//     { 'entity': { 'block': 'c'}},
+//     { 'entity': { 'block': 'b'}},
+//     { 'entity': { 'block': 'a'}},
+//     { 'entity': { 'block': 'd'}}
 // ]
 ```
 
@@ -165,7 +165,7 @@ BemGraph.vertex(entity, tech)
 const { BemGraph } = require('@bem/sdk.graph');
 const graph = new BemGraph();
 
-graph.vertex({ block: 'my-block', elem: 'my-element', mod: 'my-modifier' }, 'css');
+graph.vertex({ block: 'my-block', elem: 'my-element', mod: 'my-modifier'}, 'css');
 ```
 
 ### BemGraph.Vertex.linkWith()
@@ -214,10 +214,6 @@ graph.vertex({ block: 'a'})
 
 ### BemGraph.dependenciesOf()
 
-In this function you pass an object or array of objects to get the dependencies list for these objects.
-
-For each passed object a new `BemCell` object will be created using the [create()](https://github.com/bem/bem-sdk/tree/master/packages/cell#createobject) function from the `@bem/sdk.cell` package.
-
 ```js
 /**
  * Create an ordered list of the entities and technologies.
@@ -233,6 +229,8 @@ For each passed object a new `BemCell` object will be created using the [create(
  */
 BemGraph.dependenciesOf(cells)
 ```
+
+For each object passed in the `cells` parameter, a new `BemCell` object will be created using the [create()](https://github.com/bem/bem-sdk/tree/master/packages/cell#createobject) function from the `@bem/sdk.cell` package.
 
 **Example:**
 
@@ -250,7 +248,7 @@ graph.dependenciesOf();
 
 ```js
 /**
- * Creates "natural" links between registered entities:
+ * Creates "natural" links between registered vertices:
  * - element should depend on block;
  * - block modifier should depend on block;
  * - element modifier should depend on element.
@@ -272,42 +270,42 @@ See an example of using this function in the [Naturalize graph](#naturalize-grap
 When you create a new vertex you can specify the technology.
 
 ```js
-graph.vertex({ block: 'a' })
-    .dependsOn({ block: 'b' });
+graph.vertex({ block: 'a'})
+    .dependsOn({ block: 'b'});
 
-graph.vertex({ block: 'a' }, 'css')
-    .dependsOn({ block: 'c' });
+graph.vertex({ block: 'a'}, 'css')
+    .dependsOn({ block: 'c'});
 ```
 
-This code means that only the block `a` with technology `css` depends on the block `c`. If you get the dependencies list for the block `a` with another technology or without any technology, the block `c` will not be in this list.
+This code means that only the block `a` with technology CSS depends on the block `c`. If you get the dependencies list for the block `a` with another technology or without any technology, the block `c` will not be in this list.
 
 ```js
 const { BemGraph } = require('@bem/sdk.graph');
 const graph = new BemGraph();
 
-graph.vertex({ block: 'a' })
-    .dependsOn({ block: 'b' });
+graph.vertex({ block: 'a'})
+    .dependsOn({ block: 'b'});
 
-graph.vertex({ block: 'a' }, 'css')
-    .dependsOn({ block: 'c' });
+graph.vertex({ block: 'a'}, 'css')
+    .dependsOn({ block: 'c'});
 
 graph.dependenciesOf({ block: 'a'});
 // => [
-//     {"entity":{"block":"b"}},
-//     {"entity":{"block":"a"}},
+//     { 'entity': { 'block': 'b'}},
+//     { 'entity': { 'block': 'a'}},
 // ]
 
 graph.dependenciesOf({ block: 'a'}, 'js');
 // => [
-//     {"entity":{"block":"b"},"tech":"js"},
-//     {"entity":{"block":"a"},"tech":"js"}
+//     { 'entity': { 'block': 'b'}, 'tech': 'js'},
+//     { 'entity': { 'block': 'a'}, 'tech': 'js'}
 // ]
 
 graph.dependenciesOf({ block: 'a'}, 'css');
 // => [
-//     {"entity":{"block":"c"},"tech":"css"},
-//     {"entity":{"block":"b"},"tech":"css"},
-//     {"entity":{"block":"a"},"tech":"css"}
+//     { 'entity': { 'block': 'c'}, 'tech': 'css'},
+//     { 'entity': { 'block': 'b'}, 'tech': 'css'},
+//     { 'entity': { 'block': 'a'}, 'tech': 'css'}
 // ]
 ```
 
@@ -315,17 +313,17 @@ graph.dependenciesOf({ block: 'a'}, 'css');
 
 ### Specify a technology for the dependency
 
-When you create set a dependency for the created vertex you can specify the technology.
+When you set a dependency for the created vertex you can specify the technology.
 
 ```js
-graph.vertex({ block: 'a' })
-    .dependsOn({ block: 'b' }, 'js');
+graph.vertex({ block: 'a'})
+    .dependsOn({ block: 'b'}, 'js');
 
-graph.vertex({ block: 'b' }, 'css')
-    .dependsOn({ block: 'common-css' });
+graph.vertex({ block: 'b'}, 'css')
+    .dependsOn({ block: 'common-css'});
 
-graph.vertex({ block: 'b' }, 'js')
-    .dependsOn({ block: 'common-js' });
+graph.vertex({ block: 'b'}, 'js')
+    .dependsOn({ block: 'common-js'});
 ```
 
 This code means that the block `a` depends on the block `b` with the `js` technology. So in dependencies list for the block `a` will be the block `common-js`, but  will not be the `common-css` block.
@@ -334,20 +332,20 @@ This code means that the block `a` depends on the block `b` with the `js` techno
 const { BemGraph } = require('@bem/sdk.graph');
 const graph = new BemGraph();
 
-graph.vertex({ block: 'a' })
-    .dependsOn({ block: 'b' }, 'js');
+graph.vertex({ block: 'a'})
+    .dependsOn({ block: 'b'}, 'js');
 
-graph.vertex({ block: 'b' }, 'css')
-    .dependsOn({ block: 'common-css' });
+graph.vertex({ block: 'b'}, 'css')
+    .dependsOn({ block: 'common-css'});
 
-graph.vertex({ block: 'b' }, 'js')
-    .dependsOn({ block: 'common-js' });
+graph.vertex({ block: 'b'}, 'js')
+    .dependsOn({ block: 'common-js'});
 
 graph.dependenciesOf({ block: 'a'});
 // => [
-//     { "entity": {"block": "common-js"}, "tech": "js"},
-//     { "entity": {"block": "b"}, "tech": "js"},
-//     { "entity": {"block": "a"}}
+//     { 'entity': { 'block': 'common-js'}, 'tech': 'js'},
+//     { 'entity': { 'block': 'b'}, 'tech': 'js'},
+//     { 'entity': { 'block': 'a'}}
 // ]
 ```
 
@@ -361,23 +359,23 @@ Let you create a new vertex for the blocks `a` and `b` and set the block `a` dep
 const { BemGraph } = require('@bem/sdk.graph');
 const graph = new BemGraph();
 
-graph.vertex({ block: 'a' })
-    .dependsOn({ block: 'b', elem: `el` });
+graph.vertex({ block: 'a'})
+    .dependsOn({ block: 'b', elem: 'el'});
 
-graph.vertex({ block: 'b' });
+graph.vertex({ block: 'b'});
 
 graph.dependenciesOf({block: 'a'});
 // => [
-//     { "entity": {"block": "b", elem: "el"}},
-//     { "entity": {"block": "a"}}
+//     { 'entity': { 'block': 'b', elem: 'el'}},
+//     { 'entity': { 'block': 'a'}}
 // ]
 
 graph.naturalize();
 graph.dependenciesOf({block: 'a'});
 // => [
-//     { "entity": {"block": "b"}},
-//     { "entity": {"block": "b", elem: "el"}},
-//     { "entity": {"block": "a"}}
+//     { 'entity': { 'block': 'b'}},
+//     { 'entity': { 'block': 'b', elem: 'el'}},
+//     { 'entity': { 'block': 'a'}}
 // ]
 ```
 
@@ -398,10 +396,10 @@ You can get the dependencies list for multiple cells. To do it create an array o
 const { BemGraph } = require('@bem/sdk.graph');
 const graph = new BemGraph();
 
-graph.vertex({ block: 'a' })
-    .linkWith({ block: 'b' });
+graph.vertex({ block: 'a'})
+    .linkWith({ block: 'b'});
 
-graph.vertex({ block: 'c' }, 'js')
+graph.vertex({ block: 'c'}, 'js')
     .dependsOn({ block: 'd'});
 
 const cells  = [
@@ -412,10 +410,10 @@ const cells  = [
 // Create a BEM cell for each object in the `cells` array and get the dependencies list for these objects.
 graph.dependenciesOf(cells);
 // => [
-//     { "entity": {"block": "a"}},
-//     { "entity": {"block": "d"}},
-//     { "entity": {"block": "c"}}
-//     { "entity": {"block": "b"}}
+//     { 'entity': { 'block': 'a'}},
+//     { 'entity': { 'block': 'd'}},
+//     { 'entity': { 'block': 'c'}}
+//     { 'entity': { 'block': 'b'}}
 // ]
 ```
 
@@ -425,7 +423,7 @@ graph.dependenciesOf(cells);
 
 ### Create a Header dependencies list
 
-In the BEM methodology we have seen [an example of typical Header](https://en.bem.info/methodology/key-concepts/#block-features).
+In the BEM methodology, we have seen [an example of a typical Header](https://en.bem.info/methodology/key-concepts/#block-features).
 
 ![](header_example.png)
 
@@ -436,71 +434,51 @@ const { BemGraph } = require('@bem/sdk.graph');
 const BemCell = require('@bem/sdk.cell');
 const graph = new BemGraph();
 
-// Declare vertices for all blocks.
-graph.vertex({ block: 'head' });
-graph.vertex({ block: 'logo' });
-graph.vertex({ block: 'search' });
-graph.vertex({ block: 'auth' });
-graph.vertex({ block: 'menu' });
-graph.vertex({ block: 'input' });
-graph.vertex({ block: 'button' });
-graph.vertex({ block: 'tab' });
+graph.vertex({ block: 'head'})
+    .dependsOn({ block: 'menu'})
+    .dependsOn({ block: 'logo'})
+    .dependsOn({ block: 'search'})
+    .dependsOn({ block: 'auth'});
 
-graph.vertex({ block: 'head' })
-    .dependsOn({ block: 'logo' })
-    .dependsOn({ block: 'search' })
-    .dependsOn({ block: 'auth' })
-    .linkWith({ block: 'menu' });
-
-graph.vertex({ block: 'head', mod: 'my-site' })
-    .linkWith({ block: 'logo', mod: 'my-company' }, 'css')
-    .linkWith({ block: 'search', mod: 'my-site' }, 'js')
-    .linkWith({ block: 'menu', mod: 'my-site' });
-
-graph.vertex({ block: 'search' })
+graph.vertex({ block: 'search'})
     .dependsOn({ block: 'input', mod: 'search-input'})
-    .dependsOn({ block: 'button', elem: 'search-button'});
+    .dependsOn({ block: 'button', mod: 'search-button'});
 
-graph.vertex({ block: 'menu', mod: 'my-site' })
-    .dependsOn({ block: 'tab', elem: 'tab1' })
-    .dependsOn({ block: 'tab', elem: 'tab2' })
-    .dependsOn({ block: 'tab', elem: 'tab3' })
-    .dependsOn({ block: 'tab', elem: 'tab4' });
+graph.vertex({ block: 'menu'})
+    .dependsOn({ block: 'tab', elem: 'tab1'})
+    .dependsOn({ block: 'tab', elem: 'tab2'})
+    .dependsOn({ block: 'tab', elem: 'tab3'})
+    .dependsOn({ block: 'tab', elem: 'tab4'});
 
-graph.vertex({ block: 'auth' })
+graph.vertex({ block: 'auth'})
     .dependsOn({ block: 'input', elem: 'login'})
     .dependsOn({ block: 'input', elem: 'password'})
-    .dependsOn({ block: 'button', elem: 'sign-in'});
+    .dependsOn({ block: 'button', mod: 'sign-in'});
 
+// Register remaining vertices to naturalize the graph.
+graph.vertex({ block: 'input'});
+graph.vertex({ block: 'button'});
+graph.vertex({ block: 'tab'});
 graph.naturalize();
-graph.dependenciesOf({ block: 'head', mod: 'my-site'}).map(c => BemCell.create(c).id).join('\n');
-// logo
-// input
-// input_search-input
-// button
-// button__search-button
-// search
-// input__login
-// input__password
-// button__sign-in
-// auth
-// head
-// head_my-site
-// logo.css
-// input.js
-// input_search-input.js
-// button.js
-// button__search-button.js
-// search.js
-// tab
+
+graph.dependenciesOf({ block: 'head'}).map(c => BemCell.create(c).id).join('\n');
+// => tab
 // tab__tab1
 // tab__tab2
 // tab__tab3
 // tab__tab4
 // menu
-// logo_my-company.css
-// search_my-site.js
-// menu_my-site
+// logo
+// input
+// input_search-input
+// button
+// button_search-button
+// search
+// input__login
+// input__password
+// button_sign-in
+// auth
+// head
 ```
 
 [RunKit live example](https://runkit.com/migs911/graph-create-a-header-dependencies-list).
