@@ -139,6 +139,8 @@ In the dependencies list the block `d` will be added to any position randomly.
 
 ### BemGraph.vertex()
 
+Registers a new vertex for the specified BEM entity and technology.
+
 ```js
 /**
  * @typedef BemEntityName
@@ -150,8 +152,6 @@ In the dependencies list the block `d` will be added to any position randomly.
  */
 
 /**
- * Registers a new vertex for the specified BEM entity and technology.
- *
  * @param {BemEntityName} entity — Representation of the BEM entity name.
  * @param {string} [tech] — Tech of the BEM entity.
  * @returns {BemGraph.Vertex} — A created vertex with methods that allow you to link it with other vertices.
@@ -170,10 +170,10 @@ graph.vertex({ block: 'my-block', elem: 'my-element', mod: 'my-modifier'}, 'css'
 
 ### BemGraph.Vertex.linkWith()
 
+Creates an unordered link between contained and passed vertices.
+
 ```js
 /**
- * Creates an unordered link between contained and passed vertices.
- *
  * @param {BemEntityName} entity — Representation of the BEM entity name.
  * @param {string} [tech] — Tech of the BEM entity.
  */
@@ -192,10 +192,10 @@ graph.vertex({ block: 'a'})
 
 ### BemGraph.Vertex.dependsOn()
 
+Creates an ordered link between contained and passed vertices.
+
 ```js
 /**
- * Creates an ordered link between contained and passed vertices.
- *
  * @param {BemEntityName} entity — Representation of the BEM entity name.
  * @param {string} [tech] — Tech of the BEM entity.
  */
@@ -214,10 +214,12 @@ graph.vertex({ block: 'a'})
 
 ### BemGraph.dependenciesOf()
 
+Creates an ordered list of the entities and technologies.
+
+For each object passed in the `cells` parameter, a new `BemCell` object will be created using the [create()](https://github.com/bem/bem-sdk/tree/master/packages/cell#createobject) function from the `@bem/sdk.cell` package.
+
 ```js
 /**
- * Creates an ordered list of the entities and technologies.
- *
  * @param {Object|Array} cells — one or more objects to create a BEM cells for them and get the dependencies list for.
  * @param {string} cells.block — Block name.
  * @param {string} cells.elem — Element name
@@ -229,8 +231,6 @@ graph.vertex({ block: 'a'})
  */
 BemGraph.dependenciesOf(cells)
 ```
-
-For each object passed in the `cells` parameter, a new `BemCell` object will be created using the [create()](https://github.com/bem/bem-sdk/tree/master/packages/cell#createobject) function from the `@bem/sdk.cell` package.
 
 **Example:**
 
@@ -246,13 +246,12 @@ graph.dependenciesOf();
 
 ### BemGraph.naturalize()
 
+Creates "natural" links between registered vertices:
+* element should depend on block;
+* block modifier should depend on block;
+* element modifier should depend on element.
+
 ```js
-/**
- * Creates "natural" links between registered vertices:
- * - element should depend on block;
- * - block modifier should depend on block;
- * - element modifier should depend on element.
- */
 BemGraph.naturalize()
 ```
 
