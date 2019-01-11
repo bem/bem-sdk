@@ -141,6 +141,8 @@ console.log(stringify(myFile));
 
 ### stringify()
 
+Forms a file according to object representation of BEM file.
+
 ```js
 /**
  * @typedef BemFile — Representation of file.
@@ -150,8 +152,6 @@ console.log(stringify(myFile));
  */
 
 /**
- * Forms a file according to object representation of BEM file.
- *
  * @param {Object|BemFile} file — Object representation of BEM file.
  * @returns {string} — File path.
  */
