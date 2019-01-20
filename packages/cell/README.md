@@ -1,21 +1,22 @@
 # BemCell
 
+Representation of identifier of a part of [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity).
+
+BEM Cell consists of the [BEM entity name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name), technology and layer.
+
 [![NPM Status][npm-img]][npm]
 
 [npm]:          https://www.npmjs.org/package/@bem/sdk.cell
 [npm-img]:      https://img.shields.io/npm/v/@bem/sdk.cell.svg
 
-Representation of identifier of a part of [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity).
 
-Install
--------
+## Install
 
 ```sh
 $ npm install --save @bem/sdk.cell
 ```
 
-Usage
------
+## Usage
 
 ```js
 const BemCell = require('@bem/sdk.cell');
@@ -27,7 +28,7 @@ const cell = new BemCell({
     layer: 'common'
 });
 
-cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text' }
+cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text',  }
 cell.tech;   // css
 cell.layer;  // common
 cell.id;     // button__text@common.css
@@ -37,8 +38,7 @@ cell.elem;   // → text
 cell.mod;    // → { name: 'theme', val: 'simple' }
 ```
 
-API
----
+## API
 
 * [constructor(obj)](#constructorobj)
 * [entity](#entity)
@@ -56,13 +56,13 @@ API
 
 Parameter     | Type            | Description
 --------------|-----------------|------------------------------
-`obj.entity`  | `BemEntityName` | Representation of entity name
+`obj.entity`  | `BemEntityName` | Representation of [BEM entity name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name)
 `obj.tech`    | `string`        | Tech of cell
 `obj.layer`   | `string`        | Layer of cell
 
 ### entity
 
-Returns the name of entity.
+Returns the [BEM entity name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) of this cell.
 
 ```js
 const BemCell = require('@bem/sdk.cell');
@@ -77,7 +77,7 @@ cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text' }
 
 ### tech
 
-Returns the tech of cell.
+Returns the tech of this cell.
 
 ```js
 const BemCell = require('@bem/sdk.cell');
@@ -222,8 +222,8 @@ Object field | Type     | Description
 `val`        | `string` | The modifier value of entity. Used if `mod` is a string.
 `mod.name`   | `string` | The modifier name of entity.
 `mod.val`    | `*`      | The modifier value of entity.
-`modName`    | `string` | The modifier name of entity. Used if `mod.name` wasn't specified.
-`modVal`     | `*`      | The modifier value of entity. Used if neither `mod.val` nor `val` were not specified.
+`modName`    | `string` | The modifier name of entity. Used if `mod.name` wasn't specified. **Deprecated**
+`modVal`     | `*`      | The modifier value of entity. Used if neither `mod.val` nor `val` were not specified. **Deprecated**
 `tech`       | `string` | Technology of cell.
 `layer`      | `string` | Layer of cell.
 
@@ -236,8 +236,7 @@ BemCell.create({ entity: { block: 'my-button', modName: 'theme', modVal: 'red' }
 // → BemCell { entity: { block: 'my-button', mod: { name: 'theme', val: 'red' } }, tech: 'css', layer: 'common' }
 ```
 
-Debuggability
--------------
+## Debuggability
 
 In Node.js, `console.log()` calls `util.inspect()` on each argument without a formatting placeholder.
 
@@ -289,8 +288,7 @@ console.log(JSON.stringify(cell));
 // ➜ {"entity":{"block":"input","mod":{"name":"available","val":true}},"tech":"css"}
 ```
 
-Deprecation
------------
+## Deprecation
 
 Deprecation is performed with [depd](https://github.com/dougwilson/nodejs-depd)
 To silencing deprecation warnings from being output simply use this. [Details](https://github.com/dougwilson/nodejs-depd#processenvno_deprecation)
@@ -298,7 +296,6 @@ To silencing deprecation warnings from being output simply use this. [Details](h
 NO_DEPRECATION=@bem/sdk.cell node app.js
 ```
 
-License
--------
+## License
 
-Code and documentation © 2016 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+Code and documentation © 2019 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
