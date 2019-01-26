@@ -143,7 +143,7 @@ console.log(stringify(myBemCell));
 
 ### stringify()
 
-Forms a file according to object representation of BEM cell.
+Forms a file according to the object representation of BEM cell.
 
 ```js
 /**
