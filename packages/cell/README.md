@@ -2,7 +2,7 @@
 
 Representation of identifier of a part of [BEM entity](https://en.bem.info/methodology/key-concepts/#bem-entity).
 
-BEM Cell consists of the [BEM entity name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name), technology and layer.
+BEM Cell consists of the [BEM entity name][entity-name], technology and layer.
 
 [![NPM Status][npm-img]][npm]
 
@@ -28,7 +28,7 @@ const cell = new BemCell({
     layer: 'common'
 });
 
-cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text',  }
+cell.entity; // ➜ BemEntityName { block: 'button', elem: 'text' }
 cell.tech;   // css
 cell.layer;  // common
 cell.id;     // button__text@common.css
@@ -56,13 +56,13 @@ cell.mod;    // → { name: 'theme', val: 'simple' }
 
 Parameter     | Type            | Description
 --------------|-----------------|------------------------------
-`obj.entity`  | `BemEntityName` | Representation of [BEM entity name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name)
+`obj.entity`  | `BemEntityName` | Representation of [BEM entity name][entity-name]
 `obj.tech`    | `string`        | Tech of cell
 `obj.layer`   | `string`        | Layer of cell
 
 ### entity
 
-Returns the [BEM entity name](https://github.com/bem/bem-sdk/tree/master/packages/entity-name) of this cell.
+Returns the [BEM entity name][entity-name] of this cell.
 
 ```js
 const BemCell = require('@bem/sdk.cell');
@@ -299,3 +299,7 @@ NO_DEPRECATION=@bem/sdk.cell node app.js
 ## License
 
 Code and documentation © 2019 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+
+
+<!-- References list -->
+[entity-name]: https://github.com/bem/bem-sdk/tree/master/packages/entity-name
