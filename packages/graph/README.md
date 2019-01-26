@@ -16,26 +16,26 @@ The graph of dependencies for BEM entities.
 
 ## Introduction
 
-Graph allows you create an ordered dependencies list for the specified BEM entities and technologies.
+Graph allows you to create an ordered dependencies list for the specified BEM entities and technologies.
 
 ## Try graph
 
 An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-graph-works).
 
-## Quickstart
+## Quick start
 
 > **Attention.** To use `@bem/sdk.graph`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
 To run the `@bem/sdk.graph` package:
 
-1. [Install `@bem/sdk.graph` package](#installing-bemsdkgraph-package)
+1. [Install the `@bem/sdk.graph` package](#installing-bemsdkgraph-package)
 2. [Create an empty graph](#creating-an-empty-graph)
 3. [Create vertices](#creating-vertices)
 4. [Set dependencies by using the `dependsOn()` function](#setting-dependencies-by-using-the-dependson-function)
 5. [Get the dependencies of a block](#getting-the-dependencies-of-a-block)
-6. [Set dependencies using the `linkWith()` function](#setting-dependencies-using-the-linkwith-function)
+6. [Set dependencies by using the `linkWith()` function](#setting-dependencies-using-the-linkwith-function)
 
-### Installing `@bem/sdk.graph` package
+### Installing the `@bem/sdk.graph` package
 
 To install the `@bem/sdk.graph` package, run the following command:
 
@@ -56,7 +56,7 @@ const graph = new BemGraph();
 
 ### Creating vertices
 
-Create a new vertices for the blocks `a` and `b`:
+Create new vertices for the blocks `a` and `b`:
 
 ```js
 graph.vertex({ block: 'a'});
@@ -66,9 +66,9 @@ graph.vertex({ block: 'b'});
 
 ### Setting dependencies by using the `dependsOn()` function
 
-Let the block `a` depends on the block `b`. It means that the block `b` has some code that **must be imported before** the block `a` code.
+Assume that block `a` depends on block `b`. This means that block `b` has some code that **must be imported before** the block `a` code.
 
-And let the block `b` depends on the block `c`:
+Let's also say that block `b` depends on block `c`:
 
 ```js
 graph.vertex({ block: 'a'})
@@ -78,13 +78,13 @@ graph.vertex({ block: 'b'})
     .dependsOn({ block: 'c'});
 ```
 
-> If you are familiar with the [@bem/sdk.deps](https://github.com/bem/bem-sdk/tree/master/packages/deps) package, the `dependsOn()` adds the `mustDeps` link.
+> If you are familiar with the [@bem/sdk.deps](https://github.com/bem/bem-sdk/tree/master/packages/deps) package, `dependsOn()` adds the `mustDeps` link.
 
 ### Getting the dependencies of a block
 
-So the block `a` depends on the `b` and the block `b` depends on the `c`. If we want to compile the block `a`, we need to import the code of the block `c` first, then import the code of the block `b` and only then use the code of the block `a`.
+So block `a` depends on block `b`, and block `b` depends on block `c`. If we want to compile block `a`, we need to import the code of block `c` first, then import the code of block `b`, and only then use the code of block `a`.
 
-The `dependenciesOf()` function will return entities names to us in the right order:
+The `dependenciesOf()` function will return entity names to us in the correct order:
 
 ```js
 graph.dependenciesOf({ block: 'a'})
@@ -95,9 +95,9 @@ graph.dependenciesOf({ block: 'a'})
 // ]
 ```
 
-### Setting dependencies using the `linkWith()` function
+### Setting dependencies by using the `linkWith()` function
 
-Let the block `b` also depends on the block `d`, but it doesn't matter when the code from the block `d` is imported, before the block `b` or after.
+Let's say that block `b` also depends on block `d`, but it doesn't matter when the code from block `d` is imported (before or after block `b`).
 
 Change the code to set this dependency for the block `b` vertex.
 
@@ -123,9 +123,9 @@ graph.dependenciesOf({ block: 'a'})
 // ]
 ```
 
-In the dependencies list the block `d` will be added to any position randomly.
+In the dependencies list, block `d` will be added to any position randomly.
 
-> If you are familiar with the [@bem/sdk.deps](https://github.com/bem/bem-sdk/tree/master/packages/deps) package, the `linkWith()` adds the `shouldDeps` link.
+> If you are familiar with the [@bem/sdk.deps](https://github.com/bem/bem-sdk/tree/master/packages/deps) package, `linkWith()` adds the `shouldDeps` link.
 
 [RunKit live example](https://runkit.com/migs911/graph-quick-start).
 
@@ -220,14 +220,14 @@ For each object passed in the `cells` parameter, a new `BemCell` object will be 
 
 ```js
 /**
- * @param {Object|Array} cells — one or more objects to create a BEM cells for them and get the dependencies list for.
+ * @param {Object|Array} cells — One or more objects to create BEM cells for and get the dependencies list for.
  * @param {string} cells.block — Block name.
- * @param {string} cells.elem — Element name
+ * @param {string} cells.elem — Element name.
  * @param {string|object} cells.mod — Modifier name or object with name and value.
  * @param {string} cells.mod.name — Modifier name.
  * @param {string} cells.mod.val — Modifier value.
  * @param {string} cells.tech — Tech of cell.
- * @return {Array} — an ordered list of the entities and technologies.
+ * @return {Array} — Ordered list of the entities and technologies.
  */
 BemGraph.dependenciesOf(cells)
 ```
@@ -247,9 +247,9 @@ graph.dependenciesOf();
 ### BemGraph.naturalize()
 
 Creates "natural" links between registered vertices:
-* element should depend on block;
-* block modifier should depend on block;
-* element modifier should depend on element.
+* An element should depend on a block.
+* A block modifier should depend on a block.
+* An element modifier should depend on an element.
 
 ```js
 BemGraph.naturalize()
@@ -257,7 +257,7 @@ BemGraph.naturalize()
 
 See an example of using this function in the [Naturalize graph](#naturalize-graph) section.
 
-## Parameters tuning
+## Tuning parameters
 
 * [Specify a technology for the created vertex](#specify-a-technology-for-the-created-vertex)
 * [Specify a technology for the dependency](#specify-a-technology-for-the-dependency)
@@ -276,7 +276,7 @@ graph.vertex({ block: 'a'}, 'css')
     .dependsOn({ block: 'c'});
 ```
 
-This code means that only the block `a` with technology CSS depends on the block `c`. If you get the dependencies list for the block `a` with another technology or without any technology, the block `c` will not be in this list.
+This code means that only block `a` with the CSS technology depends on block `c`. If you get the dependencies list for block `a` with another technology or without any technology, block `c` will not be in this list.
 
 ```js
 const { BemGraph } = require('@bem/sdk.graph');
@@ -325,7 +325,7 @@ graph.vertex({ block: 'b'}, 'js')
     .dependsOn({ block: 'common-js'});
 ```
 
-This code means that the block `a` depends on the block `b` with the `js` technology. So in dependencies list for the block `a` will be the block `common-js`, but  will not be the `common-css` block.
+This code means that block `a` depends on block `b` with the `js` technology. The dependencies list for block `a` will include the `common-js` block, but won't include the `common-css` block.
 
 ```js
 const { BemGraph } = require('@bem/sdk.graph');
@@ -352,7 +352,7 @@ graph.dependenciesOf({ block: 'a'});
 
 ### Naturalize graph
 
-Let you create a new vertex for the blocks `a` and `b` and set the block `a` depends on the block element `b__el`.
+Let's say you create a new vertex for the blocks `a` and `b` and set block `a` to depend on the block element `b__el`.
 
 ```js
 const { BemGraph } = require('@bem/sdk.graph');
@@ -378,7 +378,7 @@ graph.dependenciesOf({block: 'a'});
 // ]
 ```
 
-In this code calling the `graph.naturalize()` function is equal to the following code:
+In this code, calling the `graph.naturalize()` function works the same way as the following code:
 
 ```js
 graph.vertex({ block: 'b', elem: `el` })
@@ -389,7 +389,7 @@ graph.vertex({ block: 'b', elem: `el` })
 
 ### Get dependencies for the list of cells
 
-You can get the dependencies list for multiple cells. To do it create an array of cells and pass this array into the `dependenciesOf()` function.
+You can get the dependencies list for multiple cells. To do this, create an array of cells and pass this array to the `dependenciesOf()` function.
 
 ```js
 const { BemGraph } = require('@bem/sdk.graph');
@@ -422,11 +422,11 @@ graph.dependenciesOf(cells);
 
 ### Create a Header dependencies list
 
-In the BEM methodology, we have seen [an example of a typical Header](https://en.bem.info/methodology/key-concepts/#block-features).
+The BEM methodology provides [an example of a typical Header](https://en.bem.info/methodology/key-concepts/#block-features).
 
 ![](header_example.png)
 
-Let create a graph and get the dependencies list for the Head block from this example.
+Let's create a graph and get the dependencies list for the Head block from this example.
 
 ```js
 const { BemGraph } = require('@bem/sdk.graph');
