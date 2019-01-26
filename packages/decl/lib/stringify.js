@@ -25,6 +25,7 @@ const generators = {
 };
 // Aliases
 generators.es6 = generators.es2015;
+generators.cjs = generators.commonjs;
 
 /**
  * Create string representation of declaration
