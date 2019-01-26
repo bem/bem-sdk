@@ -13,8 +13,8 @@ const DEFAULTS = { exportType: 'json', space: 4 };
 // which called from parse method.
 const fieldByFormat = {
     v1: 'blocks',
-    enb: '',
-    v2: 'deps'
+    enb: 'deps',
+    v2: ''
 };
 
 const generators = {
