@@ -144,7 +144,7 @@ To add elements from one set to other use the [`merge()`](#merge) method:
 
 ```js
 console.log(bemDecl.merge(set1, set2).map(c => c.id));
-// → a,b,c,e
+// → ["a", "b", "c", "e"]
 ```
 
 ### Saving declaration to file
@@ -187,7 +187,7 @@ async function testDecl() {
     // → ["b"]
 
     console.log(bemDecl.merge(set1, set2).map(c => c.id));
-    // → a,b,c,e
+    // → ["a", "b", "c", "e"]
 
     const mergedSet = bemDecl.normalize(bemDecl.merge(set1, set2));
     bemDecl.save('mergedSet.bemdecl.js', mergedSet, { format: 'v1', exportType: 'commonjs' })
@@ -196,7 +196,7 @@ async function testDecl() {
 testDecl();
 ```
 
-[RunKit live example](https://runkit.com/migs911/parse-a-string-using-origin-naming-convention)
+[RunKit live example](https://runkit.com/migs911/how-bem-sdk-decl-works)
 
 After you run the **app.js** file in the same directory the `mergedSet.bemdecl.js` file will be created with the following code:
 
@@ -225,35 +225,22 @@ module.exports = {
 There are several formats:
 
 * **'v1'** — the old [BEMDECL](https://en.bem.info/methodology/declarations/) format, also known as `exports.blocks = [ /* ... */ ]`.
-* **'v2'** — the format based on [`deps.js`](https://en.bem.info/platform/deps/)-files, also known as `exports.deps = [ /* ... */ ]`.
+* **'v2'** — the format based on [`deps.js`](https://en.bem.info/technologies/classic/deps-spec/)-files, also known as `exports.deps = [ /* ... */ ]`.
 * **'enb'** — the legacy format for widely used enb deps reader.
 
 > **Note** `bem-decl` controls all of them.
 
 ## API
 
-* [format()](#format)
 * [load()](#load)
-* [save()](#save)
-* [merge()](#merge)
-* [intersect()](#intersect)
-* [subtract()](#subtract)
 * [parse()](#parse)
-* [stringify()](#stringify)
 * [normalize()](#normalize)
-
-### format()
-
-Formats a normalized declaration to the target [format](#bemdecl-formats).
-
-```js
-/**
- * @param  {Array|Object} decl — Normalized declaration.
- * @param  {string} [opts.format] — Target format.
- * @return {Array} — Array with converted declaration.
- */
-format(decl, opts)
-```
+* [subtract()](#subtract)
+* [intersect()](#intersect)
+* [merge()](#merge)
+* [save()](#save)
+* [stringify()](#stringify)
+* [format()](#format)
 
 ### load()
 
@@ -279,36 +266,112 @@ bemDecl.load('set1.bemdecl.js')
     });
 ```
 
-### save()
+### parse()
 
-Formats and saves a file with BEM cells from a file in any format
+Parses raw string or evaluated JS object to a set of BEM cells.
 
 ```js
 /**
- * @param   {String} filename — File path to save the declaration.
- * @param   {BemCell[]} cells  — Set of BEM cells to save.
- * @param   {Object} [opts] —Additional options.
- * @returns {Promise.<undefined>} — A promise resolved when file was stored.
+ * @param {String|Object} bemdecl - String of bemdecl or object.
+ * @returns {Array<BemCell>} — Set of BEM cells.
  */
+parse(bemdecl)
 ```
-
-You can pass additional options that are used in the methods:
-
-* [stringify()](#stringify) method from this package.
-* [writeFile()](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) method from the Node.js File System.
-
-Read more about additional options for the `writeFile()` method in the Node.js File System [documentation](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback).
 
 **Example:**
 
 ```js
-const decl = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) })
+bemDecl.parse('exports.deps = [{ block: "a" }]').map(c => c.id);
+
+// → ["a"]
+```
+
+See also [Declarations in BEM](https://en.bem.info/methodology/declarations/).
+
+### normalize()
+
+Normalizes the declaration declaration.
+
+```js
+/**
+ * @param {Array<{block: string, elem: ?string, mod: ?{name: string, val: (string|true)}, tech: ?string}>} decl - declaration
+ * @param {Object} [opts] - Additional options.
+ * @param {String} [opts.format] - Format of the output (v1, v2, enb).
+ * @param {String} [opts.scope] - Only for "v2" format.
+ * @returns {BemCell[]}
+ */
+normalize(decl, opts)
+```
+
+### subtract()
+
+Calculates the set of BEM cells that occur only in the first passed set and does not exist in the rest. [Read more](https://en.bem.info/methodology/declarations/#subtracting-declarations).
+
+```js
+/**
+ * Subtracting sets of cells.
+ *
+ * @param {BemCell[]} set - Original set of cells.
+ * @param {...(BemCell[])} removingSet - Set (or sets) with cells that should be removed.
+ * @returns {BemCell[]} - Resulting set of cells.
+ */
+subtract(set, removingSet, ...)
+```
+
+**Example:**
+
+```js
+const decl1 = [
+    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
+    new BemCell({ entity: new BemEntityName({ block: 'b' }) }),
+    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
 ];
-bemDecl.save('set.bemdecl.js', decl, { format: 'enb' })
-    .then(() => {
-        console.log('saved');
-    });
+
+const decl2 = [
+    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
+];
+
+const decl3 = [
+    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
+];
+
+bemDecl.subtract(decl1, decl2, decl3).map(c => c.id);
+// → ["a"]
+```
+
+### intersect()
+
+Calculates the set of BEM cells that exists in each passed set. [Read more](https://en.bem.info/methodology/declarations/#intersecting-declarations).
+
+```js
+/**
+ * @param {BemCell[]} set - Original set of cells.
+ * @param {...(BemCell[])} otherSet - Set (or sets) of that should be merged into the original one.
+ * @returns {BemCell[]} - Resulting set of cells.
+ */
+intersect(set, otherSet, ...)
+```
+
+**Example:**
+
+```js
+const decl1 = [
+    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
+    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
+];
+
+const decl2 = [
+    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
+    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
+];
+
+const decl3 = [
+    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
+    new BemCell({ entity: new BemEntityName({ block: 'e' }) })
+];
+
+bemDecl.intersect(decl1, decl2, decl3).map(c => c.id);
+// → ["a"]
 ```
 
 ### merge()
@@ -345,99 +408,37 @@ bemDecl.merge(decl1, decl2, decl3).map(c => c.id);
 // → ['a', 'b', 'c']
 ```
 
-### intersect()
+### save()
 
-Calculates the set of BEM cells that exists in each passed set. [Read more](https://en.bem.info/methodology/declarations/#intersecting-declarations).
+Formats and saves a file with BEM cells from a file in any format
 
 ```js
 /**
- * @param {BemCell[]} set - Original set of cells.
- * @param {...(BemCell[])} otherSet - Set (or sets) of that should be merged into the original one.
- * @returns {BemCell[]} - Resulting set of cells.
+ * @param   {String} filename — File path to save the declaration.
+ * @param   {BemCell[]} cells  — Set of BEM cells to save.
+ * @param   {Object} [opts] —Additional options.
+ * @returns {Promise.<undefined>} — A promise resolved when file was stored.
  */
-intersect(set, otherSet, ...)
 ```
+
+You can pass additional options that are used in the methods:
+
+* [stringify()](#stringify) method from this package.
+* [writeFile()](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback) method from the Node.js File System.
+
+Read more about additional options for the `writeFile()` method in the Node.js File System [documentation](https://nodejs.org/api/fs.html#fs_fs_writefile_file_data_options_callback).
 
 **Example:**
 
 ```js
-const decl1 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
+const decl = [
+    new BemCell({ entity: new BemEntityName({ block: 'a' }) })
 ];
-
-const decl2 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
-];
-
-const decl3 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'e' }) })
-];
-
-bemDecl.intersect(decl1, decl2, decl3).map(c => c.id);
-// → ['a']
+bemDecl.save('set.bemdecl.js', decl, { format: 'enb' })
+    .then(() => {
+        console.log('saved');
+    });
 ```
-
-### subtract()
-
-Calculates the set of BEM cells that occur only in the first passed set and does not exist in the rest. [Read more](https://en.bem.info/methodology/declarations/#subtracting-declarations).
-
-```js
-/**
- * Subtracting sets of cells.
- *
- * @param {BemCell[]} set - Original set of cells.
- * @param {...(BemCell[])} removingSet - Set (or sets) with cells that should be removed.
- * @returns {BemCell[]} - Resulting set of cells.
- */
-subtract(set, removingSet, ...)
-```
-
-**Example:**
-
-```js
-const decl1 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
-];
-
-const decl2 = [
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
-];
-
-const decl3 = [
-    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
-];
-
-bemDecl.subtract(decl1, decl2, decl3).map(c => c.id);
-
-// → ['button']
-```
-
-### parse()
-
-Parses raw string or evaluated JS object to a set of BEM cells.
-
-```js
-/**
- * @param {String|Object} bemdecl - String of bemdecl or object.
- * @returns {Array<BemCell>} — Set of BEM cells.
- */
-parse(bemdecl)
-```
-
-**Example:**
-
-```js
-bemDecl.parse('exports.deps = [{ block: "a" }]').map(c => c.id);
-
-// → ['a']
-```
-
-See also [Declarations in BEM](https://en.bem.info/methodology/declarations/).
 
 ### stringify()
 
@@ -476,19 +477,17 @@ bemDecl.stringify(decl, { format: 'enb', exportType: 'commonjs' });
 // → };
 ```
 
-### normalize()
+### format()
 
-Normalizes the declaration declaration.
+Formats a normalized declaration to the target [format](#bemdecl-formats).
 
 ```js
 /**
- * @param {Array<{block: string, elem: ?string, mod: ?{name: string, val: (string|true)}, tech: ?string}>} decl - declaration
- * @param {Object} [opts] - Additional options.
- * @param {String} [opts.format] - Format of the output (v1, v2, enb).
- * @param {String} [opts.scope] - Only for "v2" format.
- * @returns {BemCell[]}
+ * @param  {Array|Object} decl — Normalized declaration.
+ * @param  {string} [opts.format] — Target format.
+ * @return {Array} — Array with converted declaration.
  */
-normalize(decl, opts)
+format(decl, opts)
 ```
 
 ## Contributing
