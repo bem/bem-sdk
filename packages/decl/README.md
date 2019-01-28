@@ -499,7 +499,7 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## License
 
-Code and documentation copyright © 2014-2019 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+© 2019 [Yandex](https://yandex.com/company/). Code released under [Mozilla Public License 2.0](LICENSE.txt).
 
 
 
