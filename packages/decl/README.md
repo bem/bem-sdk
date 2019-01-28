@@ -17,6 +17,10 @@ Tool to work with [declarations in BEM](https://en.bem.info/methodology/declarat
 
 ## Introduction
 
+A declaration is a list of [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) (blocks, elements and modifiers) that are used on a web-page. Also you can specify a [technology](https://en.bem.info/methodology/key-concepts/#implementation-technology) for each BEM entity so all methods in this package use [BemCell][cell-package] object to represent a BEM entity. In fact each declaration is a list of BEM cells.
+
+A build tool uses declaration data to narrow down a list of entities that end up in the final project.
+
 This tool contains number of methods to work with the declarations:
 
 * Get declarations:
@@ -100,14 +104,14 @@ async function testDecl() {
     const set1 = await bemDecl.load('set1.bemdecl.js');
 
     // `set1` is an array of BemCell objects,
-    // convert them to strings using `.map` and special `id` property:
-    console.log(set1.map(c => c.id).toString());
+    // convert them to strings using the `map()` method and special `id` property:
+    console.log(set1.map(c => c.id));
     // → ["a", "b", "c"]
 
 
     // Load the second set
     const set2 = await bemDecl.load('set2.bemdecl.js');
-    console.log(set2.map(c => c.id).toString());
+    console.log(set2.map(c => c.id));
     // → ["b", "e"]
 }
 
@@ -125,7 +129,7 @@ console.log(bemDecl.subtract(set1, set2).map(c => c.id));
 
 Result will be different if we swap arguments:
 ```js
-console.log(bemDecl.subtract(set2, set1).map(c => c.id).toString());
+console.log(bemDecl.subtract(set2, set1).map(c => c.id));
 // → ["e"]
 ```
 
@@ -167,7 +171,7 @@ async function testDecl() {
     const set1 = await bemDecl.load('set1.bemdecl.js');
 
     // `set1` is an array of BemCell objects,
-    // convert them to strings using `.map` and special `id` property:
+    // convert them to strings using the `map()` method and special `id` property:
     console.log(set1.map(c => c.id));
     // → ["a", "b", "c"]
 
@@ -224,9 +228,9 @@ module.exports = {
 
 There are several formats:
 
-* **'v1'** — the old [BEMDECL](https://en.bem.info/methodology/declarations/) format, also known as `exports.blocks = [ /* ... */ ]`.
-* **'v2'** — the format based on [`deps.js`](https://en.bem.info/technologies/classic/deps-spec/)-files, also known as `exports.deps = [ /* ... */ ]`.
-* **'enb'** — the legacy format for widely used enb deps reader.
+* **'v1'** — the old [BEMDECL](https://en.bem.info/methodology/declarations/) format also known as `exports.blocks = [ /* ... */ ]`. This format supports only block names in the declaration.
+* **'v2'** — the format based on [`deps.js`](https://en.bem.info/technologies/classic/deps-spec/)-files, also known as `exports.decl = [ /* ... */ ]`.
+* **'enb'** — the legacy format for widely used enb deps reader, also known as `exports.deps = [ /* ... */ ]`. This format looks like 'v2' format, but doesnt't support [syntactic sugar](https://en.bem.info/technologies/classic/deps-spec/#syntactic-sugar) from this format.
 
 > **Note** `bem-decl` controls all of them.
 
@@ -244,36 +248,29 @@ There are several formats:
 
 ### load()
 
-Loads BEM cells from a file in any. This method reads file and calls the [parse()](#parse) function on its content.
+Loads a declaration from specified file. This method reads the file and calls the [parse()](#parse) function on its content.
 
 ```js
 /**
- * @param  {string} filePath — Path to bemdecl.js file.
+ * @param  {string} filePath — Path to file.
  * @param  {Object|string} opts — Additional options.
  * @return {Promise} — A promise that represents `BemCell[]`.
  */
 format(filePath)
 ```
 
-You can pass additional options that are used in the [readFile()]((https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)) method from the Node.js File System..
+You can pass additional options that are used in the [readFile()]((https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)) method from the Node.js File System.
 
-**Example:**
-
-```js
-bemDecl.load('set1.bemdecl.js')
-    .then(decl => {
-        // Work with declaration
-    });
-```
+The declaration in file can be described in any [format](#bemdecl-formats)
 
 ### parse()
 
-Parses raw string or evaluated JS object to a set of BEM cells.
+Parses raw string or evaluated JS object to a set of [BEM cells][cell-package].
 
 ```js
 /**
  * @param {String|Object} bemdecl - String of bemdecl or object.
- * @returns {Array<BemCell>} — Set of BEM cells.
+ * @returns {BemCell[]} — Set of BEM cells.
  */
 parse(bemdecl)
 ```
@@ -286,18 +283,16 @@ bemDecl.parse('exports.deps = [{ block: "a" }]').map(c => c.id);
 // → ["a"]
 ```
 
-See also [Declarations in BEM](https://en.bem.info/methodology/declarations/).
-
 ### normalize()
 
-Normalizes the declaration declaration.
+Normalizes the declaration and returns the list of [BEM cells][cell-package] which represents declaration.
 
 ```js
 /**
- * @param {Array<{block: string, elem: ?string, mod: ?{name: string, val: (string|true)}, tech: ?string}>} decl - declaration
+ * @param {Array|Object} decl - declaration.
  * @param {Object} [opts] - Additional options.
  * @param {String} [opts.format] - Format of the output (v1, v2, enb).
- * @param {String} [opts.scope] - Only for "v2" format.
+ * @param {BemCell} [opts.scope] - A BEM cell to use as a scope to fill the fields of normalized entites. Only for "v2" format.
  * @returns {BemCell[]}
  */
 normalize(decl, opts)
@@ -305,7 +300,7 @@ normalize(decl, opts)
 
 ### subtract()
 
-Calculates the set of BEM cells that occur only in the first passed set and does not exist in the rest. [Read more](https://en.bem.info/methodology/declarations/#subtracting-declarations).
+Calculates the set of [BEM cells][cell-package] that occur only in the first passed set and does not exist in the rest. [Read more](https://en.bem.info/methodology/declarations/#subtracting-declarations).
 
 ```js
 /**
@@ -341,7 +336,7 @@ bemDecl.subtract(decl1, decl2, decl3).map(c => c.id);
 
 ### intersect()
 
-Calculates the set of BEM cells that exists in each passed set. [Read more](https://en.bem.info/methodology/declarations/#intersecting-declarations).
+Calculates the set of [BEM cells][cell-package] that exists in each passed set. [Read more](https://en.bem.info/methodology/declarations/#intersecting-declarations).
 
 ```js
 /**
@@ -376,7 +371,7 @@ bemDecl.intersect(decl1, decl2, decl3).map(c => c.id);
 
 ### merge()
 
-Merges many sets of BEM cells into one set. [Read more](https://en.bem.info/methodology/declarations/#adding-declarations)
+Merges many sets of [BEM cells][cell-package] into one set. [Read more](https://en.bem.info/methodology/declarations/#adding-declarations)
 
 ```js
 /**
@@ -405,12 +400,12 @@ const decl3 = [
 ];
 
 bemDecl.merge(decl1, decl2, decl3).map(c => c.id);
-// → ['a', 'b', 'c']
+// → ["a", "b", "c"]
 ```
 
 ### save()
 
-Formats and saves a file with BEM cells from a file in any format
+Formats and saves a file with [BEM cells][cell-package] from a file in any format
 
 ```js
 /**
@@ -442,7 +437,7 @@ bemDecl.save('set.bemdecl.js', decl, { format: 'enb' })
 
 ### stringify()
 
-Stringifies a set of BEM cells to a specific format.
+Stringifies a set of [BEM cells][cell-package] to a specific format.
 
 **Note** Temporary there is just `enb` format. It will be fixed later.
 
@@ -462,7 +457,8 @@ stringify(decl, options)
 
 ```js
 const decl = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) })
+    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
+    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
 ];
 
 bemDecl.stringify(decl, { format: 'enb', exportType: 'commonjs' });
@@ -472,6 +468,9 @@ bemDecl.stringify(decl, { format: 'enb', exportType: 'commonjs' });
 // →     "decl": [
 // →         {
 // →             "block": "a"
+// →         },
+// →         {
+// →             "block": "b"
 // →         }
 // →     ]
 // → };
@@ -501,3 +500,9 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 ## License
 
 Code and documentation copyright © 2014-2019 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+
+
+
+<!-- References list -->
+[entity-name-package]: https://github.com/bem/bem-sdk/tree/master/packages/entity-name
+[cell-package]: https://github.com/bem/bem-sdk/tree/master/packages/cell
