@@ -9,7 +9,7 @@ The graph of dependencies for BEM entities.
 
 * [Introduction](#introduction)
 * [Try graph](#try-graph)
-* [Quickstart](#quickstart)
+* [Quick start](#quick-start)
 * [API Reference](#api-reference)
 * [Parameters tuning](#parameters-tuning)
 * [Usage examples](#usage-examples)
@@ -28,12 +28,12 @@ An example is available in the [RunKit editor](https://runkit.com/migs911/how-be
 
 To run the `@bem/sdk.graph` package:
 
-1. [Install the `@bem/sdk.graph` package](#installing-bemsdkgraph-package)
+1. [Install the `@bem/sdk.graph` package](#installing-the-bemsdkgraph-package)
 2. [Create an empty graph](#creating-an-empty-graph)
 3. [Create vertices](#creating-vertices)
 4. [Set dependencies by using the `dependsOn()` function](#setting-dependencies-by-using-the-dependson-function)
 5. [Get the dependencies of a block](#getting-the-dependencies-of-a-block)
-6. [Set dependencies by using the `linkWith()` function](#setting-dependencies-using-the-linkwith-function)
+6. [Set dependencies by using the `linkWith()` function](#setting-dependencies-by-using-the-linkwith-function)
 
 ### Installing the `@bem/sdk.graph` package
 
@@ -257,7 +257,7 @@ BemGraph.naturalize()
 
 See an example of using this function in the [Naturalize graph](#naturalize-graph) section.
 
-## Tuning parameters
+## Parameters tuning
 
 * [Specify a technology for the created vertex](#specify-a-technology-for-the-created-vertex)
 * [Specify a technology for the dependency](#specify-a-technology-for-the-dependency)
