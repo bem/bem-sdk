@@ -200,7 +200,7 @@ async function testDecl() {
 testDecl();
 ```
 
-[RunKit live example](https://runkit.com/migs911/how-bem-sdk-decl-works)
+[RunKit live example](https://runkit.com/migs911/how-bem-sdk-decl-works).
 
 After you run the **app.js** file in the same directory the `mergedSet.bemdecl.js` file will be created with the following code:
 
@@ -412,6 +412,8 @@ Formats and saves a file with [BEM cells][cell-package] from a file in any forma
  * @param   {String} filename — File path to save the declaration.
  * @param   {BemCell[]} cells  — Set of BEM cells to save.
  * @param   {Object} [opts] —Additional options.
+ * @param   {String} [opts.format='enb'] The desired format
+ * @param   {String} [opts.exportType='cjs'] The desired type for export
  * @returns {Promise.<undefined>} — A promise resolved when file was stored.
  */
 ```
@@ -488,6 +490,109 @@ Formats a normalized declaration to the target [format](#bemdecl-formats).
  */
 format(decl, opts)
 ```
+
+### assign()
+
+Fills missed BEM cell fields with the fields from the scope except the `layer` field.
+
+For example, you have a list of BEM cells and you need can change the This method can be useful to change the
+
+There is no sense to pass a block name, because it will dominate
+
+```js
+/**
+ * @typedef BemEntityNameFields
+ * @property {string} [block] — Block name.
+ * @property {string} [elem] — Element name.
+ * @property {string|Object} [mod] — Modifier name or object with name and value.
+ * @property {string} [mod.name] — Modifier name.
+ * @property {string} [mod.val=true] — Modifier value.
+ */
+
+/**
+ * @param {Object} cell - BEM cell fields, except, that represents
+ *   Incoming entity and tech
+ * @param {BemEntityNameFields} [cell.entity] — Object with fields that specify BEM entity name.
+ *                               This object has the same structure as `BemEntityName`,
+ *                               but all properties inside are optional.
+ * @param {string} [cell.tech] — BEM cell technology
+ * @param {BemCell} scope - Context, the processing entity usually
+ * @returns {BemCell} - Filled BEM cell with `entity` and `tech fields.
+ */
+assign(cell, scope)
+```
+
+**Example:**
+
+```js
+const bemDecl = require('@bem/sdk.decl');
+
+bemDecl.assign(
+    { entity: { elem: '1'}, tech: 'js'},
+    { entity: { block: 'a'}}
+).valueOf();
+// → { entity: { block: "a", elem: "1"}, tech: "js"}
+
+
+bemDecl.assign(
+    { tech: 'js'},
+    { entity: { block: 'a'}, tech: 'css'}
+).valueOf();
+// → { entity: { block: "a"}, tech: "js"}
+
+bemDecl.assign(
+    { entity: { mod: { name: 'test'}}},
+    { entity: { block: 'a', elem: '1'}, tech: 'js' }
+).valueOf();
+// → { entity: { block: "a", elem: "1", mod: { name: "test", val: true}}, tech: "js"}
+```
+
+See another example of `assign()` usage in the [Select all checkboxes](#select-all-checkboxes) section.
+
+## Usage examples
+
+### Select all checkboxes
+
+Let's say you have a list of checkboxes and you want to implement the "Select all" button, which will mark all checkboxes as `checked`.
+
+Each checkbox is the element of the block `checkbox` and `checked` state is the value of the `state` modifier.
+
+```js
+const bemDecl = require('@bem/sdk.decl');
+const bemCell = require('@bem/sdk.cell');
+
+// Set state modifier for the entity
+function select(entity) {
+    const selectedState = {
+        entity: { mod: { name: 'state', val: 'checked'}}
+    };
+    return bemDecl.assign(selectedState, entity);
+};
+
+// Set state modifier for the array of entities
+function selectAll(entities) {
+    return entities.map(e => select(e));
+};
+
+// Define BEM cells that represents checkbox entities.
+const checkboxes = [
+    bemCell.create({ block: 'checkbox', elem: '1', mod: { name: 'state', val: 'unchecked'}}),
+    bemCell.create({ block: 'checkbox', elem: '2', mod: { name: 'state', val: 'checked'}}),
+    bemCell.create({ block: 'checkbox', elem: '3', mod: { name: 'state'}}),
+    bemCell.create({ block: 'checkbox', elem: '4'}),
+];
+
+// Select all checkboxes.
+selectAll(checkboxes).map(e => e.valueOf());
+// → [
+//      { entity: { block: "checkbox", elem: "1", mod: { name: "state", val: "checked"}}}
+//      { entity: { block: "checkbox", elem: "2", mod: { name: "state", val: "checked"}}}
+//      { entity: { block: "checkbox", elem: "3", mod: { name: "state", val: "checked"}}}
+//      { entity: { block: "checkbox", elem: "4", mod: { name: "state", val: "checked"}}}
+//  ]
+```
+
+[RunKit live example](https://runkit.com/migs911/bem-sdk-decl-usage-examples-select-all-checkboxes).
 
 ## Contributing
 
