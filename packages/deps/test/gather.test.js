@@ -21,10 +21,11 @@ describe('gather', () => {
         });
 
         const config = {
-            levels: ['common.blocks']
+            levels: () => ['common.blocks'],
+            levelMap: () => ({'common.blocks': {}})
         };
 
-        return gather(config).then(data =>
+        return gather({ config }).then(data =>
             expect(data).to.deep.equal([])
         );
     });
@@ -35,10 +36,11 @@ describe('gather', () => {
         });
 
         const config = {
-            levels: ['common.blocks']
+            levels: () => ['common.blocks'],
+            levelMap: () => ({'common.blocks': {}})
         };
 
-        return gather(config).then(data => {
+        return gather({ config }).then(data => {
             expect(data.map(f => f.cell.id)).to.deep.equal([
                 'button@common.deps.js'
             ]);
@@ -53,10 +55,11 @@ describe('gather', () => {
         });
 
         const config = {
-            levels: ['common.blocks', 'desktop.blocks']
+            levels: () => ['common.blocks', 'desktop.blocks'],
+            levelMap: () => ({'common.blocks': {}})
         };
 
-        return gather(config).then(data =>
+        return gather({ config }).then(data =>
             expect(data.map(f => f.cell.id)).to.deep.equal([
                 'button@common.deps.js',
                 'input@common.deps.js',
