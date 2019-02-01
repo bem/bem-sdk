@@ -17,12 +17,12 @@ module.exports = async function ({ platform = 'desktop', defaults = {}, config }
     assert(!Array.isArray(config.levels), 'Please pass config into deps/gather as field (`{config}`)');
 
     const [ levels, levelMap ] = await Promise.all([
-        config.levels(platform).map(l => l.path || l),
+        config.levels(platform),
         config.levelMap(),
     ]);
 
     return new Promise(async (resolve, reject) => {
-        const walker = walk(await levels, { levels: levelMap, defaults });
+        const walker = walk(levels.map(l => l.path || l), { levels: levelMap, defaults });
         const res = [];
         let filesCount = 1;
         let rejected =  false;
