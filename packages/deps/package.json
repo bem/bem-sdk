@@ -29,6 +29,7 @@
     "lib/**"
   ],
   "dependencies": {
+    "@bem/sdk.config": "*",
     "@bem/sdk.decl": "^0.3.8",
     "@bem/sdk.entity-name": "^0.2.10",
     "@bem/sdk.graph": "^0.3.1",
