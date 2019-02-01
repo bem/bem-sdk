@@ -14,7 +14,7 @@ const DEFAULTS = { exportType: 'json', space: 4 };
 const fieldByFormat = {
     v1: 'blocks',
     enb: 'deps',
-    v2: ''
+    v2: 'deps'
 };
 
 const generators = {
