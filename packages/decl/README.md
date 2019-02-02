@@ -12,18 +12,17 @@ The tool to work with [declarations](https://en.bem.info/methodology/declaration
 * [Quick start](#quick-start)
 * [BEMDECL formats](#bemdecl-formats)
 * [API](#api)
-* [Versioning](#versioning)
 * [License](#license)
 
 ## Introduction
 
-A declaration is a list of [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) (blocks, elements and modifiers) that are used on a page. Also you can specify a [technology](https://en.bem.info/methodology/key-concepts/#implementation-technology) for each BEM entity so all methods in this package use [BemCell][cell-package] object to represent a BEM entity. In fact each declaration is a list of BEM cells.
+A declaration is a list of [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) (blocks, elements and modifiers) and their [technologies](https://en.bem.info/methodology/key-concepts/#implementation-technology) that are used on a page.
 
 A build tool uses declaration data to narrow down a list of entities that end up in the final project.
 
-This tool contains number of methods to:
+This tool contains a number of methods to work with declarations:
 
-* [Load](#load) declaration from a file and convert it to set of BEM cells.
+* [Load](#load) a declaration from a file and convert it to a set of [BEM cells][cell-package].
 * Modify sets of BEM cells:
   * [Subtract](#subtract) sets.
   * [Intersect](#intersect) sets.
@@ -61,8 +60,6 @@ To run the `@bem/sdk.decl` package:
 5. [Merge declarations](#merging-declarations)
 6. [Save declaration to file](#saving-declaration-to-file)
 
-> **Note.** Use the same file for all of the following steps.
-
 ### Loading declarations from files
 
 Create two files with declarations and insert the following code into them:
@@ -86,7 +83,7 @@ exports.blocks = [
 ];
 ```
 
-Create in the same directory a JavaScript file with any name (for example, **app.js**):
+In the same directory create a JavaScript file with any name (for example, **app.js**), so your work directory will look like:
 
 ```
 app/
@@ -163,7 +160,7 @@ const mergedSet = bemDecl.normalize(bemDecl.merge(set1, set2));
 bemDecl.save('mergedSet.bemdecl.js', mergedSet, { format: 'v1', exportType: 'commonjs' })
 ```
 
-The full code of **app.js** file:
+The full code of **app.js** file will look like:
 
 ```js
 const bemDecl = require('@bem/sdk.decl');
@@ -205,7 +202,7 @@ testDecl();
 
 [RunKit live example](https://runkit.com/migs911/how-bem-sdk-decl-works).
 
-After you run the **app.js** file in the same directory the `mergedSet.bemdecl.js` file will be created with the following code:
+Run the **app.js** file. In the same directory the `mergedSet.bemdecl.js` file will be created with the following code:
 
 ```js
 module.exports = {
@@ -232,7 +229,7 @@ module.exports = {
 There are several formats:
 
 * **'v1'** — the old [BEMDECL](https://en.bem.info/methodology/declarations/) format also known as `exports.blocks = [ /* ... */ ]`.
-* **'v2'** — the format based on [`deps.js`](https://en.bem.info/technologies/classic/deps-spec/)-files, also known as `exports.decl = [ /* ... */ ]`.
+* **'v2'** — the format based on [`deps.js`](https://en.bem.info/technologies/classic/deps-spec/)-files, also known as `exports.decl = [ /* ... */ ]`. Also you can specify declaration in the `deps` field: `exports.deps = [ /* ... */ ]` as in the 'enb' format.
 * **'enb'** — the legacy format for widely used enb deps reader, also known as `exports.deps = [ /* ... */ ]`. This format looks like 'v2' format, but doesnt't support [syntactic sugar](https://en.bem.info/technologies/classic/deps-spec/#syntactic-sugar) from this format.
 
 > **Note**. `bem-decl` controls all of them.
@@ -248,6 +245,7 @@ There are several formats:
 * [save()](#save)
 * [stringify()](#stringify)
 * [format()](#format)
+* [assign()](#assign)
 
 ### load()
 
@@ -264,9 +262,9 @@ This method reads the file and calls the [parse()](#parse) function on its conte
 format(filePath, opts)
 ```
 
-You can pass additional options that are used in the [readFile()]((https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)) method from the Node.js File System.
+You can pass additional options that are used in the [`readFile()`]((https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) method from the Node.js File System.
 
-The declaration in file can be described in any [format](#bemdecl-formats)
+The declaration in the file can be described in any [format](#bemdecl-formats)
 
 ### parse()
 
@@ -449,13 +447,13 @@ See another example of `assign()` usage in the [Select all checkboxes](#select-a
 
 Let's say you have a list of checkboxes and you want to implement the "Select all" button, which will mark all checkboxes as `checked`.
 
-Each checkbox is the element of the block `checkbox` and `checked` state is the value of the `state` modifier.
+Each checkbox is the element of the block `checkbox`, and `checked` is the value of the `state` modifier.
 
 ```js
 const bemDecl = require('@bem/sdk.decl');
 const bemCell = require('@bem/sdk.cell');
 
-// Set state modifier for the entity.
+// Sets the 'state' modifier for the entity.
 function select(entity) {
     const selectedState = {
         entity: { mod: { name: 'state', val: 'checked'}}
@@ -463,12 +461,12 @@ function select(entity) {
     return bemDecl.assign(selectedState, entity);
 };
 
-// Set state modifier for the array of entities.
+// Sets the 'state' modifier for the array of entities.
 function selectAll(entities) {
     return entities.map(e => select(e));
 };
 
-// Define BEM cells that represents checkbox entities.
+// Let's define BEM cells that represent checkbox entities.
 const checkboxes = [
     bemCell.create({ block: 'checkbox', elem: '1', mod: { name: 'state', val: 'unchecked'}}),
     bemCell.create({ block: 'checkbox', elem: '2', mod: { name: 'state', val: 'checked'}}),
