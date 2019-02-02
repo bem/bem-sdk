@@ -264,7 +264,7 @@ Loads a declaration from specified file. This method reads the file and calls th
  * @param  {Object|string} opts — Additional options.
  * @return {Promise} — A promise that represents `BemCell[]`.
  */
-format(filePath)
+format(filePath, opts)
 ```
 
 You can pass additional options that are used in the [readFile()]((https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback)) method from the Node.js File System.
@@ -273,11 +273,11 @@ The declaration in file can be described in any [format](#bemdecl-formats)
 
 ### parse()
 
-Parses raw string or evaluated JS object to a set of [BEM cells][cell-package].
+Parses declaration from a string or JS object to a set of [BEM cells][cell-package].
 
 ```js
 /**
- * @param {String|Object} bemdecl - String of bemdecl or object.
+ * @param {string|Object} bemdecl - String of bemdecl or object.
  * @returns {BemCell[]} — Set of BEM cells.
  */
 parse(bemdecl)
@@ -299,7 +299,7 @@ Normalizes the declaration and returns the list of [BEM cells][cell-package] whi
 /**
  * @param {Array|Object} decl - declaration.
  * @param {Object} [opts] - Additional options.
- * @param {String} [opts.format] - Format of the output (v1, v2, enb).
+ * @param {string} [opts.format] - Format of the output (v1, v2, enb).
  * @param {BemCell} [opts.scope] - A BEM cell to use as a scope to fill the fields of normalized entites. Only for 'v2' format.
  * @returns {BemCell[]}
  */
@@ -417,11 +417,11 @@ Formats and saves a file with [BEM cells][cell-package] from a file in any forma
 
 ```js
 /**
- * @param   {String} filename — File path to save the declaration.
+ * @param   {string} filename — File path to save the declaration.
  * @param   {BemCell[]} cells  — Set of BEM cells to save.
  * @param   {Object} [opts] — Additional options.
- * @param   {String} [opts.format='v2'] — The desired format.
- * @param   {String} [opts.exportType='cjs'] — The desired type for export.
+ * @param   {string} [opts.format='v2'] — The desired format.
+ * @param   {string} [opts.exportType='cjs'] — The desired type for export.
  * @returns {Promise.<undefined>} — A promise resolved when file was stored.
  */
 ```
@@ -453,10 +453,10 @@ Stringifies a set of [BEM cells][cell-package] to a specific format.
 /**
  * @param {BemCell|BemCell[]} decl - Source declaration.
  * @param {Object} opts - Additional options.
- * @param {String} opts.format - Format of the output (v1, v2, enb).
- * @param {String} [opts.exportType=json5] - Defines how to wrap result (commonjs, json5, json, es6|es2015).
- * @param {String|Number} [opts.space] - Number of space characters or string to use as a white space (exactly as in JSON.stringify).
- * @returns {String} — String representation of declaration.
+ * @param {string} opts.format - Format of the output (v1, v2, enb).
+ * @param {string} [opts.exportType=json5] - Defines how to wrap result (commonjs, json5, json, es6|es2015).
+ * @param {string|Number} [opts.space] - Number of space characters or string to use as a white space (exactly as in JSON.stringify).
+ * @returns {string} — String representation of declaration.
  */
 stringify(decl, options)
 ```
