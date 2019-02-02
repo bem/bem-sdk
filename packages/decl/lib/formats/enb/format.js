@@ -25,8 +25,5 @@ module.exports = function (cells) {
         return tmp;
     });
 
-    return {
-        format: 'enb',
-        deps: decl
-    };
+    return decl;
 };
