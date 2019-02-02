@@ -118,13 +118,13 @@ async function testDecl() {
     // `set1` is an array of BemCell objects,
     // convert them to strings using the `map()` method and special `id` property:
     console.log(set1.map(c => c.id));
-    // => ["a", "b", "c"]
+    // => ['a', 'b', 'c']
 
 
     // Load the second set.
     const set2 = await bemDecl.load('set2.bemdecl.js');
     console.log(set2.map(c => c.id));
-    // => ["b", "e"]
+    // => ['b', 'e']
 }
 
 testDecl();
@@ -136,13 +136,13 @@ To subtract one set from another use the [`subtract()`](#subtract) method. Inser
 
 ```js
 console.log(bemDecl.subtract(set1, set2).map(c => c.id));
-// => ["a", "c"]
+// => ['a', 'c']
 ```
 
 Result will be different if we swap arguments:
 ```js
 console.log(bemDecl.subtract(set2, set1).map(c => c.id));
-// => ["e"]
+// => ['e']
 ```
 
 ### Intersecting declarations
@@ -151,7 +151,7 @@ To calculate intersection between two sets use the [`intersect()`](#intersect) m
 
 ```js
 console.log(bemDecl.intersect(set1, set2).map(c => c.id));
-// => ["b"]
+// => ['b']
 ```
 
 ### Merging declarations
@@ -160,7 +160,7 @@ To add elements from one set to other use the [`merge()`](#merge) method:
 
 ```js
 console.log(bemDecl.merge(set1, set2).map(c => c.id));
-// => ["a", "b", "c", "e"]
+// => ['a', 'b', 'c', 'e']
 ```
 
 ### Saving declaration to file
@@ -185,25 +185,25 @@ async function testDecl() {
     // `set1` is an array of BemCell objects,
     // convert them to strings using the `map()` method and special `id` property:
     console.log(set1.map(c => c.id));
-    // => ["a", "b", "c"]
+    // => ['a', 'b', 'c']
 
 
     // Load the second set.
     const set2 = await bemDecl.load('set2.bemdecl.js');
     console.log(set2.map(c => c.id));
-    // => ["b", "e"]
+    // => ['b', 'e']
 
     console.log(bemDecl.subtract(set1, set2).map(c => c.id));
-    // => ["a", "c"]
+    // => ['a', 'c']
 
     console.log(bemDecl.subtract(set2, set1).map(c => c.id));
-    // => ["e"]
+    // => ['e']
 
     console.log(bemDecl.intersect(set1, set2).map(c => c.id));
-    // => ["b"]
+    // => ['b']
 
     console.log(bemDecl.merge(set1, set2).map(c => c.id));
-    // => ["a", "b", "c", "e"]
+    // => ['a', 'b', 'c', 'e']
 
     const mergedSet = bemDecl.normalize(bemDecl.merge(set1, set2));
     bemDecl.save('mergedSet.bemdecl.js', mergedSet, { format: 'v1', exportType: 'commonjs' })
@@ -218,19 +218,19 @@ After you run the **app.js** file in the same directory the `mergedSet.bemdecl.j
 
 ```js
 module.exports = {
-    format: "v1",
+    format: 'v1',
     blocks: [
         {
-            name: "a"
+            name: 'a'
         },
         {
-            name: "b"
+            name: 'b'
         },
         {
-            name: "c"
+            name: 'c'
         },
         {
-            name: "e"
+            name: 'e'
         }
     ]
 };
@@ -290,9 +290,9 @@ parse(bemdecl)
 **Example:**
 
 ```js
-bemDecl.parse('exports.deps = [{ block: "a" }]').map(c => c.id);
+bemDecl.parse('exports.deps = [{ block: 'a' }]').map(c => c.id);
 
-// => ["a"]
+// => ['a']
 ```
 
 ### normalize()
@@ -304,7 +304,7 @@ Normalizes the declaration and returns the list of [BEM cells][cell-package] whi
  * @param {Array|Object} decl - declaration.
  * @param {Object} [opts] - Additional options.
  * @param {String} [opts.format] - Format of the output (v1, v2, enb).
- * @param {BemCell} [opts.scope] - A BEM cell to use as a scope to fill the fields of normalized entites. Only for "v2" format.
+ * @param {BemCell} [opts.scope] - A BEM cell to use as a scope to fill the fields of normalized entites. Only for 'v2' format.
  * @returns {BemCell[]}
  */
 normalize(decl, opts)
@@ -343,7 +343,7 @@ const decl3 = [
 ];
 
 bemDecl.subtract(decl1, decl2, decl3).map(c => c.id);
-// => ["a"]
+// => ['a']
 ```
 
 ### intersect()
@@ -378,7 +378,7 @@ const decl3 = [
 ];
 
 bemDecl.intersect(decl1, decl2, decl3).map(c => c.id);
-// => ["a"]
+// => ['a']
 ```
 
 ### merge()
@@ -412,7 +412,7 @@ const decl3 = [
 ];
 
 bemDecl.merge(decl1, decl2, decl3).map(c => c.id);
-// => ["a", "b", "c"]
+// => ['a', 'b', 'c']
 ```
 
 ### save()
@@ -476,13 +476,13 @@ const decl = [
 bemDecl.stringify(decl, { format: 'enb', exportType: 'commonjs' });
  
 // => module.exports = {
-//      "format": "enb",
-//      "decl": [
+//      'format': 'enb',
+//      'decl': [
 //          {
-//              "block": "a"
+//              'block': 'a'
 //          },
 //          {
-//              "block": "b"
+//              'block': 'b'
 //          }
 //      ]
 //  };
@@ -536,27 +536,27 @@ bemDecl.assign(
     { entity: { elem: '1'}, tech: 'js'},
     { entity: { block: 'a'}}
 ).valueOf();
-// => { entity: { block: "a", elem: "1"}, tech: "js"}
+// => { entity: { block: 'a', elem: '1'}, tech: 'js'}
 
 
 bemDecl.assign(
     { tech: 'js'},
     { entity: { block: 'a'}, tech: 'css'}
 ).valueOf();
-// => { entity: { block: "a"}, tech: "js"}
+// => { entity: { block: 'a'}, tech: 'js'}
 
 bemDecl.assign(
     { entity: { mod: { name: 'test'}}},
     { entity: { block: 'a', elem: '1'}, tech: 'js' }
 ).valueOf();
-// => { entity: { block: "a", elem: "1", mod: { name: "test", val: true}}, tech: "js"}
+// => { entity: { block: 'a', elem: '1', mod: { name: 'test', val: true}}, tech: 'js'}
 
 // If you pass only a `block` field, it will dominate over the other BemEntityName fields.
 bemDecl.assign(
     { entity: { block: 'a'},
     { entity: { block: 'b', elem: '1'}, tech: 'js' }
 ).valueOf();
-// => { entity: { block: "a"}, tech: "js"}
+// => { entity: { block: 'a'}, tech: 'js'}
 ```
 
 See another example of `assign()` usage in the [Select all checkboxes](#select-all-checkboxes) section.
@@ -597,10 +597,10 @@ const checkboxes = [
 // Select all checkboxes.
 selectAll(checkboxes).map(e => e.valueOf());
 // => [
-//      { entity: { block: "checkbox", elem: "1", mod: { name: "state", val: "checked"}}}
-//      { entity: { block: "checkbox", elem: "2", mod: { name: "state", val: "checked"}}}
-//      { entity: { block: "checkbox", elem: "3", mod: { name: "state", val: "checked"}}}
-//      { entity: { block: "checkbox", elem: "4", mod: { name: "state", val: "checked"}}}
+//      { entity: { block: 'checkbox', elem: '1', mod: { name: 'state', val: 'checked'}}}
+//      { entity: { block: 'checkbox', elem: '2', mod: { name: 'state', val: 'checked'}}}
+//      { entity: { block: 'checkbox', elem: '3', mod: { name: 'state', val: 'checked'}}}
+//      { entity: { block: 'checkbox', elem: '4', mod: { name: 'state', val: 'checked'}}}
 //  ]
 ```
 
