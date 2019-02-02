@@ -21,20 +21,14 @@ A declaration is a list of [BEM entities](https://en.bem.info/methodology/key-co
 
 A build tool uses declaration data to narrow down a list of entities that end up in the final project.
 
-This tool contains number of methods to work with the declarations:
+This tool contains number of methods to:
 
-* Read declarations:
-  * [Load](#load) a declaration from a file.
-  * [Parse](#parse) a string with declaration.
-* Modify declarations:
-  * [Normalize](#normalize) a declaration.
-  * [Subtract](#subtract) declarations.
-  * [Intersect](#intersect) declarations.
-  * [Merge](#merge) declarations (adding declarations).
-* Save declarations:
-  * [Save](#save) a declaration to a file.
-  * [Stringify](#stringify) a declaration.
-  * [Change format](#format) of a declaration.
+* [Load](#load) declaration from a file and convert it to set of BEM cells.
+* Modify sets of BEM cells:
+  * [Subtract](#subtract) sets.
+  * [Intersect](#intersect) sets.
+  * [Merge](#merge) sets (adding declarations).
+* [Save](#save) a set of BEM cells into a file.
 
 Also, this tool contains the [`assign()`](#assign) method. This method allows you to fill missed BEM cell fields with the fields from the scope.
 
@@ -136,6 +130,7 @@ console.log(bemDecl.subtract(set1, set2).map(c => c.id));
 ```
 
 Result will be different if we swap arguments:
+
 ```js
 console.log(bemDecl.subtract(set2, set1).map(c => c.id));
 // => ['e']
@@ -236,7 +231,7 @@ module.exports = {
 
 There are several formats:
 
-* **'v1'** — the old [BEMDECL](https://en.bem.info/methodology/declarations/) format also known as `exports.blocks = [ /* ... */ ]`. This format supports only block names in the declaration.
+* **'v1'** — the old [BEMDECL](https://en.bem.info/methodology/declarations/) format also known as `exports.blocks = [ /* ... */ ]`.
 * **'v2'** — the format based on [`deps.js`](https://en.bem.info/technologies/classic/deps-spec/)-files, also known as `exports.decl = [ /* ... */ ]`.
 * **'enb'** — the legacy format for widely used enb deps reader, also known as `exports.deps = [ /* ... */ ]`. This format looks like 'v2' format, but doesnt't support [syntactic sugar](https://en.bem.info/technologies/classic/deps-spec/#syntactic-sugar) from this format.
 
@@ -256,7 +251,9 @@ There are several formats:
 
 ### load()
 
-Loads a declaration from specified file. This method reads the file and calls the [parse()](#parse) function on its content.
+Loads a declaration from specified file.
+
+This method reads the file and calls the [parse()](#parse) function on its content.
 
 ```js
 /**
@@ -275,6 +272,8 @@ The declaration in file can be described in any [format](#bemdecl-formats)
 
 Parses declaration from a string or JS object to a set of [BEM cells][cell-package].
 
+This method automatically detects format of the declaration and call a `parse()` function for the detected format. Then it [normalizes](#normalize) the declartion and convert it to a set of BEM cells.
+
 ```js
 /**
  * @param {string|Object} bemdecl - String of bemdecl or object.
@@ -283,28 +282,26 @@ Parses declaration from a string or JS object to a set of [BEM cells][cell-packa
 parse(bemdecl)
 ```
 
-**Example:**
-
-```js
-bemDecl.parse('exports.deps = [{ block: 'a' }]').map(c => c.id);
-
-// => ['a']
-```
+[RunKit live example](https://runkit.com/migs911/bem-decl-parse-declaration).
 
 ### normalize()
 
-Normalizes the declaration and returns the list of [BEM cells][cell-package] which represents declaration.
+Normalizes the array of entities from a declaration for the specified format. If success this method returns the list of [BEM cells][cell-package] which represents the declaration.
+
+This method is an alternative to [`parse()`](#parse) method. In this method, you pass a format and the declaration contents separately.
 
 ```js
 /**
  * @param {Array|Object} decl - declaration.
  * @param {Object} [opts] - Additional options.
- * @param {string} [opts.format] - Format of the output (v1, v2, enb).
+ * @param {string} [opts.format='v2'] - Format of the declaration (v1, v2, enb).
  * @param {BemCell} [opts.scope] - A BEM cell to use as a scope to fill the fields of normalized entites. Only for 'v2' format.
  * @returns {BemCell[]}
  */
 normalize(decl, opts)
 ```
+
+[RunKit live example](https://runkit.com/migs911/bem-decl-normalize-declaration).
 
 ### subtract()
 
@@ -312,35 +309,14 @@ Calculates the set of [BEM cells][cell-package] that occur only in the first pas
 
 ```js
 /**
- * Subtracting sets of cells.
- *
- * @param {BemCell[]} set - Original set of cells.
+ * @param {BemCell[]} set - Original set of BEM cells.
  * @param {...(BemCell[])} removingSet - Set (or sets) with cells that should be removed.
  * @returns {BemCell[]} - Resulting set of cells.
  */
 subtract(set, removingSet, ...)
 ```
 
-**Example:**
-
-```js
-const decl1 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
-];
-
-const decl2 = [
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
-];
-
-const decl3 = [
-    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
-];
-
-bemDecl.subtract(decl1, decl2, decl3).map(c => c.id);
-// => ['a']
-```
+[RunKit live example](https://runkit.com/migs911/bem-decl-subtracting-declarations).
 
 ### intersect()
 
@@ -348,34 +324,14 @@ Calculates the set of [BEM cells][cell-package] that exists in each passed set. 
 
 ```js
 /**
- * @param {BemCell[]} set - Original set of cells.
+ * @param {BemCell[]} set - Original set of BEM cells.
  * @param {...(BemCell[])} otherSet - Set (or sets) of that should be merged into the original one.
  * @returns {BemCell[]} - Resulting set of cells.
  */
 intersect(set, otherSet, ...)
 ```
 
-**Example:**
-
-```js
-const decl1 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
-];
-
-const decl2 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
-];
-
-const decl3 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'e' }) })
-];
-
-bemDecl.intersect(decl1, decl2, decl3).map(c => c.id);
-// => ['a']
-```
+[RunKit live example](https://runkit.com/migs911/bem-decl-intersecting-declarations).
 
 ### merge()
 
@@ -390,26 +346,7 @@ Merges many sets of [BEM cells][cell-package] into one set. [Read more](https://
 merge(set, otherSet, ...)
 ```
 
-**Example:**
-
-```js
-const decl1 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) })
-];
-
-const decl2 = [
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
-];
-
-const decl3 = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'c' }) })
-];
-
-bemDecl.merge(decl1, decl2, decl3).map(c => c.id);
-// => ['a', 'b', 'c']
-```
+[RunKit live example](https://runkit.com/migs911/bem-decl-merging-declarations).
 
 ### save()
 
@@ -420,7 +357,7 @@ Formats and saves a file with [BEM cells][cell-package] from a file in any forma
  * @param   {string} filename — File path to save the declaration.
  * @param   {BemCell[]} cells  — Set of BEM cells to save.
  * @param   {Object} [opts] — Additional options.
- * @param   {string} [opts.format='v2'] — The desired format.
+ * @param   {string} [opts.format='v2'] — The desired format (v1, v2, enb).
  * @param   {string} [opts.exportType='cjs'] — The desired type for export.
  * @returns {Promise.<undefined>} — A promise resolved when file was stored.
  */
@@ -453,7 +390,7 @@ Stringifies a set of [BEM cells][cell-package] to a specific format.
 /**
  * @param {BemCell|BemCell[]} decl - Source declaration.
  * @param {Object} opts - Additional options.
- * @param {string} opts.format - Format of the output (v1, v2, enb).
+ * @param {string} opts.format - Format of the output declaration (v1, v2, enb).
  * @param {string} [opts.exportType=json5] - Defines how to wrap result (commonjs, json5, json, es6|es2015).
  * @param {string|Number} [opts.space] - Number of space characters or string to use as a white space (exactly as in JSON.stringify).
  * @returns {string} — String representation of declaration.
@@ -461,28 +398,7 @@ Stringifies a set of [BEM cells][cell-package] to a specific format.
 stringify(decl, options)
 ```
 
-**Example:**
-
-```js
-const decl = [
-    new BemCell({ entity: new BemEntityName({ block: 'a' }) }),
-    new BemCell({ entity: new BemEntityName({ block: 'b' }) })
-];
-
-bemDecl.stringify(decl, { format: 'enb', exportType: 'commonjs' });
- 
-// => module.exports = {
-//      'format': 'enb',
-//      'decl': [
-//          {
-//              'block': 'a'
-//          },
-//          {
-//              'block': 'b'
-//          }
-//      ]
-//  };
-```
+[RunKit live example](https://runkit.com/migs911/bem-decl-stringify-a-set-of-bem-cells).
 
 ### format()
 
@@ -491,7 +407,7 @@ Formats a normalized declaration to the target [format](#bemdecl-formats).
 ```js
 /**
  * @param  {Array|Object} decl — Normalized declaration.
- * @param  {string} opts.format — Target format.
+ * @param  {string} opts.format — Target format (v1, v2, enb).
  * @return {Array} — Array with converted declaration.
  */
 format(decl, opts)
@@ -523,37 +439,7 @@ Fills missed BEM cell fields with the fields from the scope except the `layer` f
 assign(cell, scope)
 ```
 
-**Example:**
-
-```js
-const bemDecl = require('@bem/sdk.decl');
-
-bemDecl.assign(
-    { entity: { elem: '1'}, tech: 'js'},
-    { entity: { block: 'a'}}
-).valueOf();
-// => { entity: { block: 'a', elem: '1'}, tech: 'js'}
-
-
-bemDecl.assign(
-    { tech: 'js'},
-    { entity: { block: 'a'}, tech: 'css'}
-).valueOf();
-// => { entity: { block: 'a'}, tech: 'js'}
-
-bemDecl.assign(
-    { entity: { mod: { name: 'test'}}},
-    { entity: { block: 'a', elem: '1'}, tech: 'js' }
-).valueOf();
-// => { entity: { block: 'a', elem: '1', mod: { name: 'test', val: true}}, tech: 'js'}
-
-// If you pass only a `block` field, it will dominate over the other BemEntityName fields.
-bemDecl.assign(
-    { entity: { block: 'a'},
-    { entity: { block: 'b', elem: '1'}, tech: 'js' }
-).valueOf();
-// => { entity: { block: 'a'}, tech: 'js'}
-```
+[RunKit live example](https://runkit.com/migs911/bem-decl-using-assign-function).
 
 See another example of `assign()` usage in the [Select all checkboxes](#select-all-checkboxes) section.
 
