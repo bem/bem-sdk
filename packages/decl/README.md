@@ -1,6 +1,6 @@
 # decl
 
-Tool to work with [declarations in BEM](https://en.bem.info/methodology/declarations/).
+The tool to work with [declarations](https://en.bem.info/methodology/declarations/) in BEM.
 
 [![NPM Status][npm-img]][npm]
 
@@ -8,16 +8,15 @@ Tool to work with [declarations in BEM](https://en.bem.info/methodology/declarat
 [npm-img]:      https://img.shields.io/npm/v/@bem/sdk.decl.svg
 
 * [Introduction](#introduction)
-* [Quickstart](#quickstart)
+* [Quick start](#quick-start)
 * [BEMDECL formats](#bemdecl-formats)
 * [API](#api)
-* [Contributing](#contributing)
 * [Versioning](#versioning)
 * [License](#license)
 
 ## Introduction
 
-A declaration is a list of [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) (blocks, elements and modifiers) that are used on a web-page. Also you can specify a [technology](https://en.bem.info/methodology/key-concepts/#implementation-technology) for each BEM entity so all methods in this package use [BemCell][cell-package] object to represent a BEM entity. In fact each declaration is a list of BEM cells.
+A declaration is a list of [BEM entities](https://en.bem.info/methodology/key-concepts/#bem-entity) (blocks, elements and modifiers) that are used on a page. Also you can specify a [technology](https://en.bem.info/methodology/key-concepts/#implementation-technology) for each BEM entity so all methods in this package use [BemCell][cell-package] object to represent a BEM entity. In fact each declaration is a list of BEM cells.
 
 A build tool uses declaration data to narrow down a list of entities that end up in the final project.
 
@@ -38,7 +37,7 @@ This tool contains number of methods to work with the declarations:
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.decl` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
-## Quickstart
+## Quick start
 
 > **Attention.** To use `@bem/sdk.decl`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
@@ -106,13 +105,13 @@ async function testDecl() {
     // `set1` is an array of BemCell objects,
     // convert them to strings using the `map()` method and special `id` property:
     console.log(set1.map(c => c.id));
-    // → ["a", "b", "c"]
+    // => ["a", "b", "c"]
 
 
     // Load the second set
     const set2 = await bemDecl.load('set2.bemdecl.js');
     console.log(set2.map(c => c.id));
-    // → ["b", "e"]
+    // => ["b", "e"]
 }
 
 testDecl();
@@ -124,13 +123,13 @@ To subtract one set from another use the [`subtract()`](#subtract) method. Inser
 
 ```js
 console.log(bemDecl.subtract(set1, set2).map(c => c.id));
-// → ["a", "c"]
+// => ["a", "c"]
 ```
 
 Result will be different if we swap arguments:
 ```js
 console.log(bemDecl.subtract(set2, set1).map(c => c.id));
-// → ["e"]
+// => ["e"]
 ```
 
 ### Intersecting declarations
@@ -139,7 +138,7 @@ To calculate intersection between two sets use the [`intersect()`](#intersect) m
 
 ```js
 console.log(bemDecl.intersect(set1, set2).map(c => c.id));
-// → ["b"]
+// => ["b"]
 ```
 
 ### Merging declarations
@@ -148,7 +147,7 @@ To add elements from one set to other use the [`merge()`](#merge) method:
 
 ```js
 console.log(bemDecl.merge(set1, set2).map(c => c.id));
-// → ["a", "b", "c", "e"]
+// => ["a", "b", "c", "e"]
 ```
 
 ### Saving declaration to file
@@ -173,25 +172,25 @@ async function testDecl() {
     // `set1` is an array of BemCell objects,
     // convert them to strings using the `map()` method and special `id` property:
     console.log(set1.map(c => c.id));
-    // → ["a", "b", "c"]
+    // => ["a", "b", "c"]
 
 
     // Load the second set
     const set2 = await bemDecl.load('set2.bemdecl.js');
     console.log(set2.map(c => c.id));
-    // → ["b", "e"]
+    // => ["b", "e"]
 
     console.log(bemDecl.subtract(set1, set2).map(c => c.id));
-    // → ["a", "c"]
+    // => ["a", "c"]
 
     console.log(bemDecl.subtract(set2, set1).map(c => c.id));
-    // → ["e"]
+    // => ["e"]
 
     console.log(bemDecl.intersect(set1, set2).map(c => c.id));
-    // → ["b"]
+    // => ["b"]
 
     console.log(bemDecl.merge(set1, set2).map(c => c.id));
-    // → ["a", "b", "c", "e"]
+    // => ["a", "b", "c", "e"]
 
     const mergedSet = bemDecl.normalize(bemDecl.merge(set1, set2));
     bemDecl.save('mergedSet.bemdecl.js', mergedSet, { format: 'v1', exportType: 'commonjs' })
@@ -280,7 +279,7 @@ parse(bemdecl)
 ```js
 bemDecl.parse('exports.deps = [{ block: "a" }]').map(c => c.id);
 
-// → ["a"]
+// => ["a"]
 ```
 
 ### normalize()
@@ -331,7 +330,7 @@ const decl3 = [
 ];
 
 bemDecl.subtract(decl1, decl2, decl3).map(c => c.id);
-// → ["a"]
+// => ["a"]
 ```
 
 ### intersect()
@@ -366,7 +365,7 @@ const decl3 = [
 ];
 
 bemDecl.intersect(decl1, decl2, decl3).map(c => c.id);
-// → ["a"]
+// => ["a"]
 ```
 
 ### merge()
@@ -400,7 +399,7 @@ const decl3 = [
 ];
 
 bemDecl.merge(decl1, decl2, decl3).map(c => c.id);
-// → ["a", "b", "c"]
+// => ["a", "b", "c"]
 ```
 
 ### save()
@@ -465,17 +464,17 @@ const decl = [
 
 bemDecl.stringify(decl, { format: 'enb', exportType: 'commonjs' });
  
-// → module.exports = {
-// →     "format": "enb",
-// →     "decl": [
-// →         {
-// →             "block": "a"
-// →         },
-// →         {
-// →             "block": "b"
-// →         }
-// →     ]
-// → };
+// => module.exports = {
+//      "format": "enb",
+//      "decl": [
+//          {
+//              "block": "a"
+//          },
+//          {
+//              "block": "b"
+//          }
+//      ]
+//  };
 ```
 
 ### format()
@@ -531,20 +530,20 @@ bemDecl.assign(
     { entity: { elem: '1'}, tech: 'js'},
     { entity: { block: 'a'}}
 ).valueOf();
-// → { entity: { block: "a", elem: "1"}, tech: "js"}
+// => { entity: { block: "a", elem: "1"}, tech: "js"}
 
 
 bemDecl.assign(
     { tech: 'js'},
     { entity: { block: 'a'}, tech: 'css'}
 ).valueOf();
-// → { entity: { block: "a"}, tech: "js"}
+// => { entity: { block: "a"}, tech: "js"}
 
 bemDecl.assign(
     { entity: { mod: { name: 'test'}}},
     { entity: { block: 'a', elem: '1'}, tech: 'js' }
 ).valueOf();
-// → { entity: { block: "a", elem: "1", mod: { name: "test", val: true}}, tech: "js"}
+// => { entity: { block: "a", elem: "1", mod: { name: "test", val: true}}, tech: "js"}
 ```
 
 See another example of `assign()` usage in the [Select all checkboxes](#select-all-checkboxes) section.
@@ -584,7 +583,7 @@ const checkboxes = [
 
 // Select all checkboxes.
 selectAll(checkboxes).map(e => e.valueOf());
-// → [
+// => [
 //      { entity: { block: "checkbox", elem: "1", mod: { name: "state", val: "checked"}}}
 //      { entity: { block: "checkbox", elem: "2", mod: { name: "state", val: "checked"}}}
 //      { entity: { block: "checkbox", elem: "3", mod: { name: "state", val: "checked"}}}
@@ -593,14 +592,6 @@ selectAll(checkboxes).map(e => e.valueOf());
 ```
 
 [RunKit live example](https://runkit.com/migs911/bem-sdk-decl-usage-examples-select-all-checkboxes).
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://github.com/bem/bem-sdk/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/bem/bem-sdk/tree/master/packages/decl/tags).
 
 ## License
 
