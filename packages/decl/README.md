@@ -22,20 +22,24 @@ A build tool uses declaration data to narrow down a list of entities that end up
 
 This tool contains number of methods to work with the declarations:
 
-* Get declarations:
-  * [Load](#load) declaration from a file.
+* Read declarations:
+  * [Load](#load) a declaration from a file.
   * [Parse](#parse) a string with declaration.
-  * [Normalize](#normalize) declaration.
 * Modify declarations:
+  * [Normalize](#normalize) a declaration.
   * [Subtract](#subtract) declarations.
   * [Intersect](#intersect) declarations.
   * [Merge](#merge) declarations (adding declarations).
 * Save declarations:
-  * [Save](#save) the declaration to a file.
-  * [Make a string](#stringify) declaration.
-  * [Change format](#format) of the declaration.
+  * [Save](#save) a declaration to a file.
+  * [Stringify](#stringify) a declaration.
+  * [Change format](#format) of a declaration.
+
+Also, this tool contains the [`assign()`](#assign) method. This method allows you to fill missed BEM cell fields with the fields from the scope.
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.decl` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
+
+## Installing
 
 ## Quick start
 
@@ -43,13 +47,13 @@ This tool contains number of methods to work with the declarations:
 
 To run the `@bem/sdk.decl` package:
 
-* [Install the `@bem/sdk.decl` package](#installing-the-bemsdkdecl-package)
-* [Include the `@bem/sdk.decl` package](#including-the-bemsdkdecl-package)
-* [Load declarations from files](#loading-declarations-from-files)
-* [Subtract declarations](#subtracting-declarations)
-* [Intersect declarations](#intersecting-declarations)
-* [Merge declarations](#merging-declarations)
-* [Save declaration to file](#saving-declaration-to-file)
+1. [Install the `@bem/sdk.decl` package](#installing-the-bemsdkdecl-package)
+2. [Include the `@bem/sdk.decl` package](#including-the-bemsdkdecl-package)
+3. [Load declarations from files](#loading-declarations-from-files)
+4. [Subtract declarations](#subtracting-declarations)
+5. [Intersect declarations](#intersecting-declarations)
+6. [Merge declarations](#merging-declarations)
+7. [Save declaration to file](#saving-declaration-to-file)
 
 ### Installing the `@bem/sdk.decl` package
 
@@ -72,6 +76,15 @@ const bemDecl = require('@bem/sdk.decl');
 ### Loading declarations from files
 
 Create two files with declarations:
+
+```
+app/
+├── app.js — your application file.
+├── set1.bemdecl.js — the first declaration file.
+└── set2.bemdecl.js — the second declaration file.
+```
+
+Insert the following code into the created files:
 
 **set1.bemdecl.js:**
 
@@ -97,9 +110,9 @@ To get the declarations from the created files use the [`load()`](#load) method.
 **app.js:**
 
 ```js
-// Since we using sets stored in files we need to load them asynchronously
+// Since we using sets stored in files we need to load them asynchronously.
 async function testDecl() {
-    // Await loading of file and put it to `set1` variable
+    // Await loading of file and put it to `set1` variable.
     const set1 = await bemDecl.load('set1.bemdecl.js');
 
     // `set1` is an array of BemCell objects,
@@ -108,7 +121,7 @@ async function testDecl() {
     // => ["a", "b", "c"]
 
 
-    // Load the second set
+    // Load the second set.
     const set2 = await bemDecl.load('set2.bemdecl.js');
     console.log(set2.map(c => c.id));
     // => ["b", "e"]
@@ -164,9 +177,9 @@ The full code of **app.js** file:
 ```js
 const bemDecl = require('@bem/sdk.decl');
 
-// Since we using sets stored in files we need to load them asynchronously
+// Since we using sets stored in files we need to load them asynchronously.
 async function testDecl() {
-    // Await loading of file and put it to `set1` variable
+    // Await loading of file and put it to `set1` variable.
     const set1 = await bemDecl.load('set1.bemdecl.js');
 
     // `set1` is an array of BemCell objects,
@@ -175,7 +188,7 @@ async function testDecl() {
     // => ["a", "b", "c"]
 
 
-    // Load the second set
+    // Load the second set.
     const set2 = await bemDecl.load('set2.bemdecl.js');
     console.log(set2.map(c => c.id));
     // => ["b", "e"]
@@ -231,7 +244,7 @@ There are several formats:
 * **'v2'** — the format based on [`deps.js`](https://en.bem.info/technologies/classic/deps-spec/)-files, also known as `exports.decl = [ /* ... */ ]`.
 * **'enb'** — the legacy format for widely used enb deps reader, also known as `exports.deps = [ /* ... */ ]`. This format looks like 'v2' format, but doesnt't support [syntactic sugar](https://en.bem.info/technologies/classic/deps-spec/#syntactic-sugar) from this format.
 
-> **Note** `bem-decl` controls all of them.
+> **Note**. `bem-decl` controls all of them.
 
 ## API
 
@@ -404,15 +417,15 @@ bemDecl.merge(decl1, decl2, decl3).map(c => c.id);
 
 ### save()
 
-Formats and saves a file with [BEM cells][cell-package] from a file in any format
+Formats and saves a file with [BEM cells][cell-package] from a file in any format.
 
 ```js
 /**
  * @param   {String} filename — File path to save the declaration.
  * @param   {BemCell[]} cells  — Set of BEM cells to save.
- * @param   {Object} [opts] —Additional options.
- * @param   {String} [opts.format='enb'] The desired format
- * @param   {String} [opts.exportType='cjs'] The desired type for export
+ * @param   {Object} [opts] — Additional options.
+ * @param   {String} [opts.format='v2'] — The desired format.
+ * @param   {String} [opts.exportType='cjs'] — The desired type for export.
  * @returns {Promise.<undefined>} — A promise resolved when file was stored.
  */
 ```
@@ -439,8 +452,6 @@ bemDecl.save('set.bemdecl.js', decl, { format: 'enb' })
 ### stringify()
 
 Stringifies a set of [BEM cells][cell-package] to a specific format.
-
-**Note** Temporary there is just `enb` format. It will be fixed later.
 
 ```js
 /**
@@ -484,7 +495,7 @@ Formats a normalized declaration to the target [format](#bemdecl-formats).
 ```js
 /**
  * @param  {Array|Object} decl — Normalized declaration.
- * @param  {string} [opts.format] — Target format.
+ * @param  {string} opts.format — Target format.
  * @return {Array} — Array with converted declaration.
  */
 format(decl, opts)
@@ -493,10 +504,6 @@ format(decl, opts)
 ### assign()
 
 Fills missed BEM cell fields with the fields from the scope except the `layer` field.
-
-For example, you have a list of BEM cells and you need can change the This method can be useful to change the
-
-There is no sense to pass a block name, because it will dominate
 
 ```js
 /**
@@ -509,13 +516,12 @@ There is no sense to pass a block name, because it will dominate
  */
 
 /**
- * @param {Object} cell - BEM cell fields, except, that represents
- *   Incoming entity and tech
+ * @param {Object} cell - BEM cell fields except the `layer` field.
  * @param {BemEntityNameFields} [cell.entity] — Object with fields that specify BEM entity name.
  *                               This object has the same structure as `BemEntityName`,
  *                               but all properties inside are optional.
- * @param {string} [cell.tech] — BEM cell technology
- * @param {BemCell} scope - Context, the processing entity usually
+ * @param {string} [cell.tech] — BEM cell technology.
+ * @param {BemCell} scope - Context, the processing entity usually.
  * @returns {BemCell} - Filled BEM cell with `entity` and `tech fields.
  */
 assign(cell, scope)
@@ -544,6 +550,13 @@ bemDecl.assign(
     { entity: { block: 'a', elem: '1'}, tech: 'js' }
 ).valueOf();
 // => { entity: { block: "a", elem: "1", mod: { name: "test", val: true}}, tech: "js"}
+
+// If you pass only a `block` field, it will dominate over the other BemEntityName fields.
+bemDecl.assign(
+    { entity: { block: 'a'},
+    { entity: { block: 'b', elem: '1'}, tech: 'js' }
+).valueOf();
+// => { entity: { block: "a"}, tech: "js"}
 ```
 
 See another example of `assign()` usage in the [Select all checkboxes](#select-all-checkboxes) section.
@@ -560,7 +573,7 @@ Each checkbox is the element of the block `checkbox` and `checked` state is the 
 const bemDecl = require('@bem/sdk.decl');
 const bemCell = require('@bem/sdk.cell');
 
-// Set state modifier for the entity
+// Set state modifier for the entity.
 function select(entity) {
     const selectedState = {
         entity: { mod: { name: 'state', val: 'checked'}}
@@ -568,7 +581,7 @@ function select(entity) {
     return bemDecl.assign(selectedState, entity);
 };
 
-// Set state modifier for the array of entities
+// Set state modifier for the array of entities.
 function selectAll(entities) {
     return entities.map(e => select(e));
 };
