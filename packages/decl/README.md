@@ -8,6 +8,7 @@ The tool to work with [declarations](https://en.bem.info/methodology/declaration
 [npm-img]:      https://img.shields.io/npm/v/@bem/sdk.decl.svg
 
 * [Introduction](#introduction)
+* [Installation](#installation)
 * [Quick start](#quick-start)
 * [BEMDECL formats](#bemdecl-formats)
 * [API](#api)
@@ -39,23 +40,7 @@ Also, this tool contains the [`assign()`](#assign) method. This method allows yo
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.decl` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
-## Installing
-
-## Quick start
-
-> **Attention.** To use `@bem/sdk.decl`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
-
-To run the `@bem/sdk.decl` package:
-
-1. [Install the `@bem/sdk.decl` package](#installing-the-bemsdkdecl-package)
-2. [Include the `@bem/sdk.decl` package](#including-the-bemsdkdecl-package)
-3. [Load declarations from files](#loading-declarations-from-files)
-4. [Subtract declarations](#subtracting-declarations)
-5. [Intersect declarations](#intersecting-declarations)
-6. [Merge declarations](#merging-declarations)
-7. [Save declaration to file](#saving-declaration-to-file)
-
-### Installing the `@bem/sdk.decl` package
+## Installation
 
 To install the `@bem/sdk.decl` package, run the following command:
 
@@ -63,28 +48,30 @@ To install the `@bem/sdk.decl` package, run the following command:
 npm install --save @bem/sdk.decl
 ```
 
-### Including the `@bem/sdk.decl` package
-
-Create a JavaScript file with any name (for example, **app.js**) and insert the following:
+After installation you can include this package into your code:
 
 ```js
 const bemDecl = require('@bem/sdk.decl');
 ```
 
+
+## Quick start
+
+> **Attention.** To use `@bem/sdk.decl`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
+
+To run the `@bem/sdk.decl` package:
+
+2. [Load declarations from files](#loading-declarations-from-files)
+3. [Subtract declarations](#subtracting-declarations)
+4. [Intersect declarations](#intersecting-declarations)
+5. [Merge declarations](#merging-declarations)
+6. [Save declaration to file](#saving-declaration-to-file)
+
 > **Note.** Use the same file for all of the following steps.
 
 ### Loading declarations from files
 
-Create two files with declarations:
-
-```
-app/
-├── app.js — your application file.
-├── set1.bemdecl.js — the first declaration file.
-└── set2.bemdecl.js — the second declaration file.
-```
-
-Insert the following code into the created files:
+Create two files with declarations and insert the following code into them:
 
 **set1.bemdecl.js:**
 
@@ -105,11 +92,20 @@ exports.blocks = [
 ];
 ```
 
-To get the declarations from the created files use the [`load()`](#load) method. Insert the following code into your file.
+Create in the same directory a JavaScript file with any name (for example, **app.js**):
 
-**app.js:**
+```
+app/
+├── app.js — your application file.
+├── set1.bemdecl.js — the first declaration file.
+└── set2.bemdecl.js — the second declaration file.
+```
+
+To get the declarations from the created files use the [`load()`](#load) method. Insert the following code into your **app.js** file:
 
 ```js
+const bemDecl = require('@bem/sdk.decl');
+
 // Since we using sets stored in files we need to load them asynchronously.
 async function testDecl() {
     // Await loading of file and put it to `set1` variable.
