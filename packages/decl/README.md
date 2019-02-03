@@ -11,7 +11,7 @@ The tool to work with [declarations](https://en.bem.info/methodology/declaration
 * [Installation](#installation)
 * [Quick start](#quick-start)
 * [BEMDECL formats](#bemdecl-formats)
-* [API](#api)
+* [API reference](#api-reference)
 * [License](#license)
 
 ## Introduction
@@ -234,7 +234,7 @@ There are several formats:
 
 > **Note**. `bem-decl` controls all of them.
 
-## API
+## API reference
 
 * [load()](#load)
 * [parse()](#parse)
