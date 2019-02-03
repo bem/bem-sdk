@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.9](https://github.com/bem/bem-sdk/compare/@bem/sdk.bemjson-to-jsx@0.2.8...@bem/sdk.bemjson-to-jsx@0.2.9) (2019-02-03)
+
+**Note:** Version bump only for package @bem/sdk.bemjson-to-jsx
+
+
+
+
+
 <a name="0.2.8"></a>
 ## [0.2.8](https://github.com/bem/bem-sdk/compare/@bem/sdk.bemjson-to-jsx@0.2.7...@bem/sdk.bemjson-to-jsx@0.2.8) (2018-07-16)
 
