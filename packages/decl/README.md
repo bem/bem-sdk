@@ -290,7 +290,7 @@ This method is an alternative to [`parse()`](#parse) method. In this method, you
 
 ```js
 /**
- * @param {Array|Object} decl - declaration.
+ * @param {Array|Object} decl - Declaration.
  * @param {Object} [opts] - Additional options.
  * @param {string} [opts.format='v2'] - Format of the declaration (v1, v2, enb).
  * @param {BemCell} [opts.scope] - A BEM cell to use as a scope to fill the fields of normalized entites. Only for 'v2' format.
