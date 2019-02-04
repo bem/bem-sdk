@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.3](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.presets@0.2.2...@bem/sdk.naming.presets@0.2.3) (2019-02-03)
+
+**Note:** Version bump only for package @bem/sdk.naming.presets
+
+
+
+
+
 <a name="0.2.1"></a>
 ## [0.2.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.presets@0.2.0...@bem/sdk.naming.presets@0.2.1) (2018-07-16)
 

@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.1.2](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity.stringify@1.1.1...@bem/sdk.naming.entity.stringify@1.1.2) (2019-02-03)
+
+**Note:** Version bump only for package @bem/sdk.naming.entity.stringify
+
+
+
+
+
 <a name="1.1.1"></a>
 ## [1.1.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity.stringify@1.1.0...@bem/sdk.naming.entity.stringify@1.1.1) (2018-07-16)
 

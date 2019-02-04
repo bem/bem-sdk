@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.3.5](https://github.com/bem/bem-sdk/compare/@bem/sdk.file@0.3.4...@bem/sdk.file@0.3.5) (2019-02-03)
+
+**Note:** Version bump only for package @bem/sdk.file
+
+
+
+
+
 <a name="0.3.4"></a>
 ## [0.3.4](https://github.com/bem/bem-sdk/compare/@bem/sdk.file@0.3.3...@bem/sdk.file@0.3.4) (2018-07-16)
 
