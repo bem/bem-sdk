@@ -52,13 +52,15 @@ const bemDecl = require('@bem/sdk.decl');
 
 > **Attention.** To use `@bem/sdk.decl`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
+Use the following steps after [installing the package](#installation).
+
 To run the `@bem/sdk.decl` package:
 
-2. [Load declarations from files](#loading-declarations-from-files)
-3. [Subtract declarations](#subtracting-declarations)
-4. [Intersect declarations](#intersecting-declarations)
-5. [Merge declarations](#merging-declarations)
-6. [Save declaration to file](#saving-declaration-to-file)
+1. [Load declarations from files](#loading-declarations-from-files)
+1. [Subtract declarations](#subtracting-declarations)
+1. [Intersect declarations](#intersecting-declarations)
+1. [Merge declarations](#merging-declarations)
+1. [Save declaration to file](#saving-declaration-to-file)
 
 ### Loading declarations from files
 
@@ -262,7 +264,7 @@ This method reads the file and calls the [parse()](#parse) function on its conte
 format(filePath, opts)
 ```
 
-You can pass additional options that are used in the [`readFile()`]((https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) method from the Node.js File System.
+You can pass additional options that are used in the [`readFile()`](https://nodejs.org/api/fs.html#fs_fs_readfile_path_options_callback) method from the Node.js File System.
 
 The declaration in the file can be described in any [format](#bemdecl-formats)
 
