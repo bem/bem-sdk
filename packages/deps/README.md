@@ -60,11 +60,13 @@ const deps = require('@bem/sdk.deps');
 
 In this quick start we will use the [bem-express](https://github.com/bem/bem-express) project, so you may want to clone it before we start.
 
+Use the following steps after [installing the package](#installation).
+
 To run the `@bem/sdk.deps` package:
 
-1. [Create the project's configuration file](#defining-the-projects-configuration-file)
-2. [Load dependencies from file](#loading-dependencies-from-file)
-3. [Create a BEM graph](#creating-a-bem-graph)
+1. [Create the project's configuration file](#defining-the-projects-configuration-file).
+2. [Load dependencies from file](#loading-dependencies-from-file).
+3. [Create a BEM graph](#creating-a-bem-graph).
 
 ### Defining the project's configuration file
 
