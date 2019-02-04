@@ -193,21 +193,21 @@ This method sequentially [gathers](#gather) the `deps.js` files, then [reads](#r
 ```js
 /**
  * @typedef {Object} DepsLink
- * @property {BemCell} vertex
- * @property {BemCell} dependOn
- * @property {boolean} [ordered] - `mustDeps` if set to true
- * @property {string} [path] - path to deps.js file if exists
+ * @property {BemCell} vertex — An entity, that depends on the entity from the `dependOn` field.
+ * @property {BemCell} dependOn — An entity from which the `vertex` entity depends on.
+ * @property {boolean} [ordered] - `mustDeps` dependency if `true`.
+ * @property {string} [path] - Path to deps.js file if exists.
  */
 
 /**
- * @param {Object} config — an object with options to configure. Read more in the
- * @param {BemConfig} [config.config] — object that specify project's configuration.
- *                                    If not specified the project's configuration
- *                                    file will be used (`.bemrc`, `.bemrc.js` or `.bemrc.json`).
- * @param {Object} [format] — an object which contains functions to create `reader` and `parser`.
+ * @param {Object} config — An object with options to configure. Read more in the
+ * @param {BemConfig} [config.config] — Project's configuration.
+ *                                      If not specified the project's configuration
+ *                                      file will be used (`.bemrc`, `.bemrc.js` or `.bemrc.json`).
+ * @param {Object} [format] — An object which contains functions to create `reader` and `parser`.
  *                            If format not specified the files in `formats/deps.js/` module's directory will be used.
- * @param {Function} format.reader — a function to create reader for the `deps.js` files.
- * @param {Function} format.parser  — a function to create parser for the `deps.js` files.
+ * @param {Function} format.reader — A function to create reader for the `deps.js` files.
+ * @param {Function} format.parser  — A function to create parser for the `deps.js` files.
  * @returns {Promise<Array<DepsLink>>}
  */
 load(config, format)
@@ -221,12 +221,12 @@ Gathering `deps.js` files in the project. This method uses [`@bem/sdk.walk`][wal
 
 ```js
 /**
- * @param {Object} opts — an object with options to configure.
- * @param {BemConfig} [opts.config] — object that specify project's configuration.
+ * @param {Object} opts — An object with options to configure.
+ * @param {BemConfig} [opts.config] — Project's configuration.
  *                                    If not specified the project's configuration
  *                                    file will be used (`.bemrc`, `.bemrc.js` or `.bemrc.json`).
- * @param {BemConfig} [opts.platform='desktop'] — name of the level set to gather `deps.js` files for.
- * @param {Object} [options.defaults={}] — use this object as fallback for found configs.
+ * @param {BemConfig} [opts.platform='desktop'] — The name of the level set to gather `deps.js` files for.
+ * @param {Object} [options.defaults={}] — Use this object as fallback for found configs.
  * @returns {Promise<Array<BemFile>>}
  */
 gather(opts)
@@ -259,21 +259,21 @@ With returned array of dependencies you can create a graph using the [`buildGrap
  * @typedef {Object} DepsData
  * @property {BemCell} [scope] - BEM cell object to use as a scope.
  * @property {BemEntityName} [entity] - Entity to use if no scope was passed.
- * @property {Array<DepsChunk>} data - dependencies data.
+ * @property {Array<DepsChunk>} data - Dependencies data.
  */
 
 /**
  * @typedef {(string|Object)} DepsChunk
- * @property {string} [block] — a block name
- * @property {(DepsChunk|Array<DepsChunk>)} [elem] — an element name.
- * @property {string} [mod] — a modifier name.
- * @property {string} [val] — a modifier value.
- * @property {string} [tech] — a technology (for example, 'css').
- * @property {(DepsChunk|Array<DepsChunk>)} [elems] — syntacic sugar that means `shouldDeps` dependency
+ * @property {string} [block] — Block name
+ * @property {(DepsChunk|Array<DepsChunk>)} [elem] — Element name.
+ * @property {string} [mod] — Modifier name.
+ * @property {string} [val] — Modifier value.
+ * @property {string} [tech] — Technology (for example, 'css').
+ * @property {(DepsChunk|Array<DepsChunk>)} [elems] — Syntacic sugar that means `shouldDeps` dependency
  *                                                    from the specified elements.
- * @property {Array|Object} [mods] — syntacic sugar that means `shouldDeps` dependency from the specified modifiers.
- * @property {(DepsChunk|Array<DepsChunk>)} [mustDeps] — an ordered dependency.
- * @property {(DepsChunk|Array<DepsChunk>)} [shouldDeps] — an unordered dependency.
+ * @property {Array|Object} [mods] — Syntacic sugar that means `shouldDeps` dependency from the specified modifiers.
+ * @property {(DepsChunk|Array<DepsChunk>)} [mustDeps] — An ordered dependency.
+ * @property {(DepsChunk|Array<DepsChunk>)} [shouldDeps] — An unordered dependency.
  */
 
 /**
@@ -281,7 +281,7 @@ With returned array of dependencies you can create a graph using the [`buildGrap
  * @property {BemCell} vertex — An entity, that depends on the entity from the `dependOn` field.
  * @property {BemCell} dependOn — An entity from which the `vertex` entity depends on.
  * @property {boolean} [ordered] - `mustDeps` dependency if `true`.
- * @property {string} [path] - path to deps.js file if exists.
+ * @property {string} [path] - Path to deps.js file if exists.
  */
 
 /**
@@ -299,23 +299,18 @@ Creates a graph from the dependencies list. [Read more][graph-package] about gra
 
 ```js
 /**
- * A BEM-entity with or without a tech
- * @typedef {entity: BemEntityName, tech: ?String} Vertex
- */
-
-/**
  * @typedef {Object} DepsLink
- * @property {BemCell} vertex
- * @property {BemCell} dependOn
- * @property {boolean} [ordered] - `mustDeps` if set to true
- * @property {string} [path] - path to deps.js file if exists
+ * @property {BemCell} vertex — An entity, that depends on the entity from the `dependOn` field.
+ * @property {BemCell} dependOn — An entity from which the `vertex` entity depends on.
+ * @property {boolean} [ordered] - `mustDeps` dependency if `true`.
+ * @property {string} [path] - Path to deps.js file if exists.
  */
 
 /**
  * @param {Array<DepsLink>} deps - List of dependencies.
- * @param {Object} options — an options used to create a graph.
- * @param {Boolean} denaturalized — if `true` the created graph won't be naturalized.
- * @returns {BemGraph} — a created graph of dependencies.
+ * @param {Object} options — An options used to create a graph.
+ * @param {Boolean} denaturalized — If `true` the created graph won't be naturalized.
+ * @returns {BemGraph} — Graph of dependencies.
  */
 buildGraph(deps, options)
 ```
