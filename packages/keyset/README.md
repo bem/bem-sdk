@@ -170,7 +170,7 @@ mockfs({
     'src/features/Time/Time.i18n': {
         'ru.js': stripIndent`
             export const ru = {
-                'Time difference': 'Разница "во" времени',
+                'Time difference': 'Разница во времени',
                 '{count} minute': {
                     'one': '{count} минута',
                     'some': '{count} минуты',
