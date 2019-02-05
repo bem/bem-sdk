@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.3.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.deps@0.2.14...@bem/sdk.deps@0.3.0) (2019-02-03)
+
+
+### Features
+
+* **deps:** use config instance ([7aad088](https://github.com/bem/bem-sdk/commit/7aad088))
+
+
+
+
+
 <a name="0.2.14"></a>
 ## [0.2.14](https://github.com/bem/bem-sdk/compare/@bem/sdk.deps@0.2.13...@bem/sdk.deps@0.2.14) (2018-08-21)
 

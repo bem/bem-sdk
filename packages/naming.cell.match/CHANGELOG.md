@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.1.3](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.cell.match@0.1.2...@bem/sdk.naming.cell.match@0.1.3) (2019-02-03)
+
+**Note:** Version bump only for package @bem/sdk.naming.cell.match
+
+
+
+
+
 <a name="0.1.2"></a>
 ## [0.1.2](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.cell.match@0.1.1...@bem/sdk.naming.cell.match@0.1.2) (2018-07-16)
 

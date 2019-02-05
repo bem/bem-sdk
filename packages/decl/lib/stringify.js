@@ -13,7 +13,7 @@ const DEFAULTS = { exportType: 'json', space: 4 };
 // which called from parse method.
 const fieldByFormat = {
     v1: 'blocks',
-    enb: '',
+    enb: 'deps',
     v2: 'deps'
 };
 
@@ -25,6 +25,7 @@ const generators = {
 };
 // Aliases
 generators.es6 = generators.es2015;
+generators.cjs = generators.commonjs;
 
 /**
  * Create string representation of declaration

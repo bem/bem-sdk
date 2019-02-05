@@ -1,8 +1,8 @@
 # naming.cell.pattern-parser
 
-Parser for the path pattern from a preset with naming convention.
+Parser for the path pattern from a preset with a naming convention.
 
-This is internal package that using in the `@bem/sdk.naming.cell.stringify` and `@bem/sdk.naming.cell.match` packages.
+This is an internal package that is used in the `@bem/sdk.naming.cell.stringify` and `@bem/sdk.naming.cell.match` packages.
 
 [![NPM Status][npm-img]][npm]
 
@@ -16,9 +16,9 @@ This is internal package that using in the `@bem/sdk.naming.cell.stringify` and 
 
 ## Introduction
 
-The tool parses a pattern and creates an array with separated elements from the pattern.
+The tool parses a pattern and creates an array with separate elements from the pattern.
 
-Pattern describes the file structure organization of a BEM project. For example `${layer?${layer}.}blocks/${entity}.${tech}` pattern matches the file path: `my-layer.blocks/my-file.css`.
+The pattern describes the file structure organization of a BEM project. For example, the `${layer?${layer}.}blocks/${entity}.${tech}` pattern matches the file path: `my-layer.blocks/my-file.css`.
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.cell.stringify` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
@@ -30,7 +30,7 @@ An example is available in the [RunKit editor](https://runkit.com/migs911/how-be
 
 > **Attention.** To use `@bem/sdk.naming.cell.pattern-parser`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
-In this quick start you will learn, how to use this package to parse the path pattern from the `origin` preset.
+In this quick start you will learn how to use this package to parse the path pattern from the `origin` preset.
 
 To run the `@bem/sdk.naming.cell.pattern-parser` package:
 
@@ -80,10 +80,10 @@ parse(originNaming.fs.pattern);
 
 ### parse()
 
+Parses a path pattern into array representation.
+
 ```js
 /**
- * Parses a path pattern into array representation.
- *
  * @param {string} pattern — Template-string-like pattern that describes
  *                           the file structure organization of a BEM project.
  * @returns {Array} — Array with separated elements from the pattern.

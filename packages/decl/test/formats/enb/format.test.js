@@ -14,7 +14,7 @@ describe('decl.formats.enb.format', () => {
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block' }] });
+        assert.deepEqual(formatted, [{ block: 'block' }]);
     });
 
     it('should format block with tech', () => {
@@ -22,7 +22,7 @@ describe('decl.formats.enb.format', () => {
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', tech: 'tech' }] });
+        assert.deepEqual(formatted, [{ block: 'block', tech: 'tech' }]);
     });
 
     it('should format elem', () => {
@@ -30,7 +30,7 @@ describe('decl.formats.enb.format', () => {
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', elem: 'elem' }] });
+        assert.deepEqual(formatted, [{ block: 'block', elem: 'elem' }]);
     });
 
     it('should format mod', () => {
@@ -38,7 +38,7 @@ describe('decl.formats.enb.format', () => {
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', mod: 'mod', val: 'val' }] });
+        assert.deepEqual(formatted, [{ block: 'block', mod: 'mod', val: 'val' }]);
     });
 
     it('should format simple mod', () => {
@@ -46,7 +46,7 @@ describe('decl.formats.enb.format', () => {
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', mod: 'mod' }] });
+        assert.deepEqual(formatted, [{ block: 'block', mod: 'mod' }]);
     });
 
     it('should format elem mod', () => {
@@ -54,7 +54,7 @@ describe('decl.formats.enb.format', () => {
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', elem: 'elem', mod: 'mod', val: 'val' }] });
+        assert.deepEqual(formatted, [{ block: 'block', elem: 'elem', mod: 'mod', val: 'val' }]);
     });
 
     it('should format elem simple mod', () => {
@@ -62,6 +62,6 @@ describe('decl.formats.enb.format', () => {
 
         const formatted = format(cells);
 
-        assert.deepEqual(formatted, { format: 'enb', deps: [{ block: 'block', elem: 'elem', mod: 'mod' }] });
+        assert.deepEqual(formatted, [{ block: 'block', elem: 'elem', mod: 'mod' }]);
     });
 });

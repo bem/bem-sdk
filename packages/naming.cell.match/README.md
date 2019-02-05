@@ -15,11 +15,11 @@ Parser for the file path of a BEM cell object.
 
 ## Introduction
 
-The tool checks if the specified file path can be a path of a BEM cell. Also the tool can be used to parse the file path and create a BEM cell object from it.
+The tool checks if the specified file path can be a path of a BEM cell. This tool can also be used to parse the file path and create a BEM cell object from it.
 
-You can choose a preset with [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `match()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
+You can choose a preset with a [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `match()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
 
-All provided presets uses the [`nested`](https://en.bem.info/methodology/filestructure/#nested) file structure scheme. To use the [`flat`](https://en.bem.info/methodology/filestructure/#flat) scheme that is better for small projects, see [Using a custom naming convention](#using-a-custom-naming-convention) section.
+All provided presets use the [`nested`](https://en.bem.info/methodology/filestructure/#nested) file structure. To use the [`flat`](https://en.bem.info/methodology/filestructure/#flat) structure that is better for small projects, see [Using a custom naming convention](#using-a-custom-naming-convention).
 
 > **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.cell.match` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
 
@@ -73,7 +73,7 @@ match('my-layer.blocks/my-block/my-block.js').isMatch;
 // => true
 ```
 
-This function also converts the path to a BemCell object and return it.
+This function also converts the path to a BemCell object and returns it.
 
 ```js
 match('my-layer.blocks/my-block/my-block.js').cell.valueOf();
@@ -82,7 +82,7 @@ match('my-layer.blocks/my-block/my-block.js').cell.valueOf();
 
 ### Check an incorrect file path
 
-If the file path is incorrect `isMatch` value will be `false` but the BemCell object still can be created. It will happen if the file path has some additional text at the end. Additional text will be written in the `rest` value.
+If the file path is incorrect, the `isMatch` value will be `false` but the BemCell object can still be created. This will happen if the file path has some additional text at the end. The extra text will be written in the `rest` value.
 
 ```js
 let incorrectPath = 'my-layer.blocks/my-block/my-block.js_some-text';
@@ -92,7 +92,7 @@ match(incorrectPath).cell.valueOf();
 // => {entity: {block: "my-block"}, tech: "js", layer: "my-layer"}
 ```
 
-If the file path hasn't been parsed the `cell` and `rest` values will be `null`.
+If the file path hasn't been parsed, the `cell` and `rest` values will be `null`.
 
 ```js
 incorrectPath = 'some incorrect string';
@@ -151,6 +151,15 @@ match(incorrectPath);
 
 ### match()
 
+Tries to convert the specified path to a BEM cell object and return an object that contains the result.
+
+The returned object has the follow properties:
+
+* `cell` — converted BEM cell.
+* `isMatch` — `true` if the path matches a BEM cell and `false` if not.
+* `rest` — some additional text at the end of the path. If the value is not `null` then the `isMatch` value will be `false`.
+
+
 ```js
 /**
  * @typedef BemCell — Representation of cell.
@@ -160,14 +169,7 @@ match(incorrectPath);
  */
 
 /**
- * Tries to convert the specified path to a BEM cell object and return an object that contains the result.
- *
- * Returned object has the follow properties:
- * - cell — converted BEM cell.
- * - isMatch — `true` if the path matches a BEM cell and `false` if not.
- * - rest — some additional text at the end of the path. If the value is not `null` then `isMatch` value will be `false`.
- *
- * @param {string} path — Object representation of BEM cell.
+ * @param {string} path — Object representation of the BEM cell.
  * @returns {cell: ?BemCell, isMatch: boolean, rest: ?string}
  */
 match(path);
@@ -177,9 +179,9 @@ match(path);
 
 ### Using a custom naming convention
 
-To create a preset with a custom naming convention use the `create()` function from the `@bem/sdk.naming.presets` package.
+To create a preset with a custom naming convention, use the `create()` function from the `@bem/sdk.naming.presets` package.
 
-For example create a preset that uses [flat](https://en.bem.info/methodology/filestructure/#flat) scheme to describe a file structure organization.
+For example, create a preset that uses the [flat](https://en.bem.info/methodology/filestructure/#flat) scheme to describe the file structure organization.
 
 Use the created preset to make your `match()` function.
 

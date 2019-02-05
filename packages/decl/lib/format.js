@@ -5,11 +5,11 @@ const assert = require('assert');
 const formats = require('./formats');
 
 /**
- * Format normalized declaration to target format
+ * Formats a normalized declaration to the target format
  *
  * @param  {Array|Object} decl normalized declaration
  * @param  {Object} [opts] Additional options
- * @param  {string} opts.format format format
+ * @param  {string} opts.format target format
  * @return {Array} Array with converted declaration
  */
 module.exports = function (decl, opts) {
