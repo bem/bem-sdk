@@ -260,7 +260,7 @@ keyset.langs; // => ['ru', 'en']
 Saves keyset to project's file system. Use with `keyset.addKeysForLang(lang, langKeys)` method.
 
 ```js
-keyset.save();
+async keyset.save();
 ```
 
 **Example:**
