@@ -197,7 +197,7 @@ const keyset = new Keyset('Time', 'src/features/Time/Time.i18n');
 await keyset.load();
 const langKeys = keyset.getLangKeysForLang('ru');
 
-langKeys.keys; // => [Key {name: 'Time difference', value: 'Разница \'во\' времени'}, PluralKey {forms: {}, name: '{count} minute', value: {} }]
+langKeys.keys; // => [Key {name: 'Time difference', value: 'Разница во времени'}, PluralKey { ... }]
 ```
 
 [RunKit live editor](https://runkit.com/godfreyd/5c345a7b617b3200145cbcfc).
