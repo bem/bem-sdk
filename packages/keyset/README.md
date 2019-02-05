@@ -101,7 +101,7 @@ keyset;
 Loads keyset from project's file system.
 
 ```js
-keyset.load();
+async keyset.load();
 ```
 
 **Example:**
