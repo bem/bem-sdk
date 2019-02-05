@@ -274,7 +274,7 @@ mockfs({
 });
 
 const langKeys = new LangKeys('ru', [
-    new Key('Time difference', 'Разница "во" времени'),
+    new Key('Time difference', 'Разница во времени'),
     new PluralKey('{count} minute', {
         one: new ParamedKey('{count} minute', '{count} минута', ['count']),
         some: new ParamedKey('{count} minute', '{count} минуты', ['count']),
