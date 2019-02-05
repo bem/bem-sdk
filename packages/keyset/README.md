@@ -54,7 +54,7 @@ keyset.format; // => 'taburet' — default format, see Formats.
 
 [RunKit live editor](https://runkit.com/godfreyd/5c3339d802ce8e00124ead3f).
 
-### Formats
+## Formats
 
 Keyset has two default formats:
 
