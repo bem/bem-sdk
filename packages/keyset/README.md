@@ -1,6 +1,6 @@
 # Keyset
 
-Tool for representation of BEM i18n keyset.
+The tool for representation of BEM i18n keyset.
 
 [![NPM Status][npm-img]][npm]
 
@@ -28,7 +28,7 @@ An example is available in the [RunKit editor](https://runkit.com/godfreyd/5c333
 To run the `@bem/sdk.keyset` package:
 
 1. [Install keyset](#installing-the-bemsdkkeyset-package).
-2. [Declaration keyset](#declaration-keyset).
+1. [Declaration keyset](#declaration-keyset).
 
 ### Installing the `@bem/sdk.keyset` package
 
@@ -47,9 +47,9 @@ Specify the Keyset name, path, and format for keyset. The `Keyset` class is a co
 ```js
 const { Keyset } = require('@bem/sdk.keyset');
 const keyset = new Keyset('Time', 'src/features/Time/Time.i18n');
-keyset.name; // => 'Time'
-keyset.path; // => 'src/features/Time/Time.i18n'
-keyset.format; // => 'taburet' — default format, see Formats
+keyset.name; // => 'Time'.
+keyset.path; // => 'src/features/Time/Time.i18n'.
+keyset.format; // => 'taburet' — default format, see Formats.
 ```
 
 [RunKit live editor](https://runkit.com/godfreyd/5c3339d802ce8e00124ead3f).
@@ -59,7 +59,7 @@ keyset.format; // => 'taburet' — default format, see Formats
 Keyset has two default formats:
 
 | Format | Extension |
-|-----------|-------------|
+|--------|-----------|
 | `enb` | `.js` |
 | `taburet` | `.ts` |
 
@@ -153,8 +153,8 @@ Gets keys from found keyset.
 /**
 * Gets keys.
 *
-* @param {string} lang — the language to traverse
-* @return {string[]} — keys
+* @param {string} lang — The language to traverse.
+* @return {string[]} — Keys.
 */
 keyset.getLangKeysForLang(lang);
 ```
@@ -210,8 +210,8 @@ Adds keys for language. Use with `keyset.save()` method.
 /**
 * Adds keys.
 *
-* @param {string} lang — the language to add
-* @return {object[]} — keys
+* @param {string} lang — The language to add.
+* @return {object[]} — Keys.
 */
 keyset.addKeysForLang(lang, langKeys);
 ```
@@ -299,9 +299,9 @@ Converts a JavaScript object to a special string ready to save on the project's 
 /**
  * Converts a JavaScript object to a string.
  *
- * @param {Object} value — the value to convert
- * @param {string} formatName  — the name of format
- * @returns {string} — the string to save
+ * @param {Object} value — The value to convert.
+ * @param {string} formatName  — The name of format.
+ * @returns {string} — The string to save.
  */
 LangKeys.stringify(value, formatName);
 ```
@@ -333,9 +333,9 @@ Parses a string, constructing the JavaScript object described by the string.
 /**
  * Parses a string to JavaScript object.
  *
- * @param {Object} str — the string to parse
- * @param {string} formatName  — the name of format
- * @returns {string} — the JavaScript object
+ * @param {Object} str — The string to parse.
+ * @param {string} formatName  — The name of format.
+ * @returns {string} — The JavaScript object.
  */
 await LangKeys.parse(str, formatName);
 ```
@@ -363,3 +363,6 @@ langKeys;
 
 [RunKit live editor](https://runkit.com/godfreyd/5c348f9ec236980012045540).
 
+## License
+
+© 2019 [Yandex](https://yandex.com/company/). Code released under [Mozilla Public License 2.0](LICENSE.txt).
