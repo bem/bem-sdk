@@ -337,7 +337,7 @@ Parses a string, constructing the JavaScript object described by the string.
  * @param {string} formatName  — the name of format
  * @returns {string} — the JavaScript object
  */
-LangKeys.parse(str, formatName);
+await LangKeys.parse(str, formatName);
 ```
 
 **Example:**
