@@ -1,6 +1,6 @@
 # deps
 
-The tool to work with [DEPS](https://en.bem.info/technologies/classic/deps-spec/) specifications in BEM.
+The tool to work with [dependencies](https://en.bem.info/technologies/classic/deps-spec/) in BEM.
 
 [![NPM Status][npm-img]][npm]
 
@@ -15,8 +15,6 @@ The tool to work with [DEPS](https://en.bem.info/technologies/classic/deps-spec/
 * [License](#license)
 
 ## Introduction
-
-DEPS is a technology for defining dependencies in BEM.
 
 Dependencies are defined as JavaScript objects in files with the `.deps.js` extension and look like this:
 
@@ -36,6 +34,8 @@ Dependencies are defined as JavaScript objects in files with the `.deps.js` exte
 
 [Read more](https://en.bem.info/technologies/classic/deps-spec/) in the BEM technologies documentation.
 
+> **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.decl` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
+
 ## Try deps
 
 An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-deps-works).
@@ -48,48 +48,96 @@ To install the `@bem/sdk.deps` package, run the following command:
 npm install --save @bem/sdk.deps
 ```
 
-After installation you can include this package into your code:
-
-```js
-const deps = require('@bem/sdk.deps');
-```
-
 ## Quick start
 
 > **Attention.** To use `@bem/sdk.deps`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
-
-In this quick start we will use the [bem-express](https://github.com/bem/bem-express) project, so you may want to clone it before we start.
 
 Use the following steps after [installing the package](#installation).
 
 To run the `@bem/sdk.deps` package:
 
+1. [Prepare files with dependencies](#preparing-files-with-dependencies)
 1. [Create the project's configuration file](#defining-the-projects-configuration-file).
-2. [Load dependencies from file](#loading-dependencies-from-file).
-3. [Create a BEM graph](#creating-a-bem-graph).
+1. [Load dependencies from file](#loading-dependencies-from-file).
+1. [Create a BEM graph](#creating-a-bem-graph).
+
+### Preparing files with dependencies
+
+To work with dependencies you need to define them in files with the `.deps.js` extension. If you don't have such files in your project, prepare them.
+
+In this quick start we will create simplified file structure of the [bem-express](https://github.com/bem/bem-express) project:
+
+```
+app
+├── .bemrc
+├── app.js
+├── common.blocks
+│   ├── header
+│   │   └── header.deps.js
+│   ├── page
+│   │   └── page.deps.js
+└── development.blocks
+    └── page
+        └── page.deps.js
+```
+
+Define the dependencies in the files with `.deps.js` extension:
+
+**common.blocks/page/page.deps.js:**
+
+```js
+({
+    shouldDeps: [
+        {
+            mods: { view: ['404'] }
+        },
+        'header',
+        'body',
+        'footer'
+    ]
+})
+```
+
+**common.blocks/header/header.deps.js:**
+
+```js
+({
+    shouldDeps: ['logo']
+})
+```
+
+**development.blocks/page/page.deps.js:**
+
+```js
+({
+    shouldDeps: 'livereload'
+});
+```
 
 ### Defining the project's configuration file
 
-Let's you have a BEM project with the created `*.deps.js` files for project's entities.
+Create the project's configuration file. In this file you should specify levels with paths to search BEM entities and `*.deps.js` files inside.
 
-Specify the project's settings in the project's configuration file. Put it in the application's root directory.
+Also you should specify level's sets. Each set is a list of level's layers. By default this tool will load dependencies for the `desktop` set.
 
-**.bemsrc file example:**
+**.bemrc:**
 
 ```js
 module.exports = {
-        root: true,
+    root: true,
 
-        levels: [
-            { naming: 'legacy', layer: 'common',  path: 'common.blocks' },
-            { naming: 'legacy', layer: 'development',  path: 'development.blocks' }
-        ],
-        sets: {
-            'desktop': 'common',
-            'development': 'common development'
-        }
+    levels: [
+        { naming: 'legacy', layer: 'common',  path: 'common.blocks' },
+        { naming: 'legacy', layer: 'development',  path: 'development.blocks' }
+    ],
+    sets: {
+        'desktop': 'common',
+        'development': 'common development'
     }
+}
 ```
+
+Read more about working with the configurations in the [`@bem/sdk.config`][config-package] package.
 
 ### Loading dependencies from file
 
@@ -103,18 +151,14 @@ const deps = require('@bem/sdk.deps');
     dependencies.map(e => console.log(e.vertex.id + ' => ' + e.dependOn.id));
 })().catch(e => console.error(e.stack));
 // header => logo
-// logo => link
 // page => page_view
 // page => page_view_404
 // page => header
 // page => body
 // page => footer
-// root => page
 ```
 
-This code will load the project's dependencies with default setting and print it to console in a readable format.
-
-By default it loads dependencies for the `desktop` level set which includes only `common` layer. So the tool will search `*.deps.js` files only in the `common.blocks` directory.
+This code will load the project's dependencies with default settings (for the `desktop` set) and print it to console in a readable format.
 
 Let's try to search `*.deps.js` files with dependencies in the `common.blocks` and `development.blocks` directories. To do it we will use the `development` set, which includes both `common` and `development` sets. Pass the set's name in the `platform` field.
 
@@ -129,13 +173,11 @@ const deps = require('@bem/sdk.deps');
     dependencies.map(e => console.log(e.vertex.id + ' => ' + e.dependOn.id));
 })().catch(e => console.error(e.stack));
 // header => logo
-// logo => link
 // page => page_view
 // page => page_view_404
 // page => header
 // page => body
 // page => footer
-// root => page
 // page => livereload
 ```
 
@@ -173,8 +215,7 @@ const deps = require('@bem/sdk.deps');
 })().catch(e => console.error(e.stack));
 // => [
 //     { 'entity': { 'block': 'header'}},
-//     { 'entity': { 'block': 'logo'}},
-//     { 'entity': { 'block': 'link'}}
+//     { 'entity': { 'block': 'logo'}}
 // ]
 ```
 
@@ -202,8 +243,8 @@ This method sequentially [gathers](#gather) the `deps.js` files, then [reads](#r
  */
 
 /**
- * @param {Object} config — An object with options to configure. Read more in the
- * @param {BemConfig} [config.config] — Project's configuration.
+ * @param {Object} config — An object with options to configure.
+ * @param {BemConfig} [config.config] — Project's configuration. Read more in the `@bem/sdk.config` package.
  *                                      If not specified the project's configuration
  *                                      file will be used (`.bemrc`, `.bemrc.js` or `.bemrc.json`).
  * @param {Object} [format] — An object which contains functions to create `reader` and `parser`.
@@ -244,7 +285,7 @@ This method returns a function that reads and evaluates `BemFile` objects with d
 
 ```js
 /**
- * @param {function(f: BemFile): Promise<{file: BemFile, data: *, scope: BemEntityName}>} [reader]
+ * @param {function(f: BemFile): Promise<{file: BemFile, data: *, scope: BemEntityName}>} [reader] — A generic serial reader for `BemFile` objects.
  * @returns {Function}
  */
 read(reader)

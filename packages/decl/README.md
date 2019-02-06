@@ -41,13 +41,6 @@ To install the `@bem/sdk.decl` package, run the following command:
 npm install --save @bem/sdk.decl
 ```
 
-After installation you can include this package into your code:
-
-```js
-const bemDecl = require('@bem/sdk.decl');
-```
-
-
 ## Quick start
 
 > **Attention.** To use `@bem/sdk.decl`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
