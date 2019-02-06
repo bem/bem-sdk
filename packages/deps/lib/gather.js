@@ -14,7 +14,7 @@ const walk = require('@bem/sdk.walk');
 module.exports = async function ({ platform = 'desktop', defaults = {}, config }) {
     config || (config = Config());
 
-    assert(!Array.isArray(config.levels), 'Please pass config into deps/gather as field (`{config}`)');
+    assert(!Array.isArray(config.levels), 'Missing description of levels in the configuration.');
 
     const [ levels, levelMap ] = await Promise.all([
         config.levels(platform),

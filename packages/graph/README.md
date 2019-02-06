@@ -129,7 +129,7 @@ In the dependencies list, block `d` will be added to any position randomly.
 
 [RunKit live example](https://runkit.com/migs911/graph-quick-start).
 
-## API Reference
+## API reference
 
 * [BemGraph.vertex()](#bemgraphvertex)
 * [BemGraph.Vertex.linkWith()](#bemgraphvertexlinkwith)
