@@ -5,7 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "main": "index.js",
+  "main": "config.js",
   "scripts": {
     "specs": "mocha",
     "cover": "nyc mocha",
