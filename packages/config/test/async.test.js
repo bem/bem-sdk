@@ -392,6 +392,37 @@ describe('async', () => {
         );
     });
 
+    it('should respect rc options in levels', () => {
+        const pathToConfig = path.resolve(__dirname, 'mocks', 'argv-conf.json');
+        const opts = {
+            defaults: {
+                conf: 'def',
+                levels: [
+                    { path: 'path/to/level', test1: 1, same: 'initial', layer: 'blah' }
+                ],
+                sets: {
+                    yo: 'blah'
+                }
+            },
+            pathToConfig: pathToConfig,
+            fsRoot: process.cwd(),
+            fsHome: process.cwd()
+        };
+
+        const expected = [{
+            test1: 1,
+            same: 'initial',
+            conf: 'def',
+            layer: 'blah',
+            path: path.resolve(opts.defaults.levels[0].path),
+            argv: true
+        }];
+
+        return expect(notStubbedBemConfig(opts).levels('yo')).to.eventually.deep.equal(
+            expected
+        );
+    });
+
 // TODO: add test for
 // resolving, e.g. projectRoot
 // 'should override default config with .bemrc'
