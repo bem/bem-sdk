@@ -9,7 +9,9 @@ var fs = require('fs'),
     merge = require('./lib/merge'),
     resolveSets = require('./lib/resolve-sets'),
 
-    basePlugins = [require('./plugins/resolve-level')];
+    basePlugins = [require('./plugins/resolve-level')],
+
+    specialKeys = new Set(['sets', 'levels', 'libs', 'modules', '__source']);
 
 /**
  * Constructor
@@ -168,7 +170,14 @@ BemConfig.prototype.levelMap = function() {
 
     return this.get().then(function(config) {
         var projectLevels = config.levels || [],
-            libNames = config.libs ? Object.keys(config.libs) : [];
+            libNames = config.libs ? Object.keys(config.libs) : [],
+            commonOpts = Object.keys(config)
+                .filter(key => !specialKeys.has(key))
+                .reduce((acc, key) => {
+                    acc[key] = config[key];
+
+                    return acc;
+                }, {});
 
         return Promise.all(libNames.map(function(libName) {
             return _this.library(libName).then(function(bemLibConf) {
@@ -180,7 +189,7 @@ BemConfig.prototype.levelMap = function() {
             var allLevels = [].concat.apply([], libLevels.filter(Boolean)).concat(projectLevels);
 
             return allLevels.reduce((res, lvl) => {
-                res[lvl.path] = merge(res[lvl.path] || {}, lvl);
+                res[lvl.path] = merge({}, commonOpts, res[lvl.path] || {}, lvl);
                 return res;
             }, {});
         });
@@ -320,9 +329,17 @@ BemConfig.prototype.levelMapSync = function() {
         return libConfig.levels;
     }, this)).filter(Boolean);
 
+    const commonOpts = Object.keys(config)
+        .filter(key => !specialKeys.has(key))
+        .reduce((acc, key) => {
+            acc[key] = config[key];
+
+            return acc;
+        }, {});
+
     var allLevels = [].concat(libLevels, projectLevels); // hm.
     return allLevels.reduce(function(acc, level) {
-        acc[level.path] = level;
+        acc[level.path] = Object.assign({}, commonOpts, level);
         return acc;
     }, {});
 };

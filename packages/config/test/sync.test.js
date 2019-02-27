@@ -428,6 +428,37 @@ describe('sync', () => {
         expect(actual).to.deep.equal({ conf: 'def', argv: true, __source: pathToConfig });
     });
 
+    it('should respect rc options in levelsSync', () => {
+        const pathToConfig = path.resolve(__dirname, 'mocks', 'argv-conf.json');
+        const opts = {
+            defaults: {
+                conf: 'def',
+                levels: [
+                    { path: 'path/to/level', test1: 1, same: 'initial', layer: 'blah' }
+                ],
+                sets: {
+                    yo: 'blah'
+                }
+            },
+            pathToConfig: pathToConfig,
+            fsRoot: process.cwd(),
+            fsHome: process.cwd()
+        };
+
+        const configInstance = notStubbedBemConfig(opts);
+
+        const expected = [{
+            test1: 1,
+            same: 'initial',
+            conf: 'def',
+            argv: true,
+            layer: 'blah',
+            path: path.resolve(opts.defaults.levels[0].path)
+        }];
+
+        expect(configInstance.levelsSync('yo')).to.deep.equal(expected);
+    });
+
     it('should respect extendedBy from rc options', () => {
         const pathToConfig = path.resolve(__dirname, 'mocks', 'argv-conf.json');
         const actual = notStubbedBemConfig({
