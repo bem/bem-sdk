@@ -53,7 +53,7 @@ To run the `@bem/sdk.decl` package:
 1. [Subtract declarations](#subtracting-declarations)
 1. [Intersect declarations](#intersecting-declarations)
 1. [Merge declarations](#merging-declarations)
-1. [Save declarations to a file](#saving-declaration-to-file)
+1. [Save declarations to a file](#saving-declarations-to-a-file)
 
 ### Loading declarations from files
 
