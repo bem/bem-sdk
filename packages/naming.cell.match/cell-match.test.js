@@ -164,6 +164,7 @@ describe('naming.cell.match', () => {
             parse typical block path       → bb/bb.css              → { cell: { layer: 'common', block: 'bb', tech: 'css' } }
             parse typical elem path        → bb/ee/bb-ee.css        → { cell: { layer: 'common', block: 'bb', elem: 'ee', tech: 'css' } }
             parse typical block in layer   → bb/bb@ios.css          → { cell: { layer: 'ios', block: 'bb', tech: 'css' } }
+            parse typical block in layer   → bb/bb@touch-phone.css  → { cell: { layer: 'touch-phone', block: 'bb', tech: 'css' } }
             parse typical mod path         → bb/_mod/bb_mod.css     → { cell: { layer: 'common', block: 'bb', mod: 'mod', tech: 'css' } }
         `]
     })) {
