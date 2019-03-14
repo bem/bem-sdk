@@ -9,5 +9,6 @@ module.exports = Object.assign({}, origin, {
     fs: Object.assign({}, origin.fs, {
         delims: { elem: '' }
     }),
-    wordPattern: '[a-zA-Z0-9-]+'
+    wordPattern: '[a-zA-Z0-9-]+',
+    blockPattern: '[a-zA-Z0-9]+',
 });
