@@ -551,4 +551,4 @@ module.exports = {
 
 ## License
 
-© 2019 [Yandex](https://yandex.com/company/). Code released under [Mozilla Public License 2.0](LICENSE.txt).
+© 2019 [YANDEX LLC](https://yandex.com/company/). Code released under [Mozilla Public License 2.0](LICENSE.txt).

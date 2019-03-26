@@ -298,7 +298,7 @@ NO_DEPRECATION=@bem/sdk.cell node app.js
 
 ## License
 
-Code and documentation © 2019 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+© 2019 [YANDEX LLC](https://yandex.com/company/). Code released under [Mozilla Public License 2.0](LICENSE.txt).
 
 
 <!-- References list -->
