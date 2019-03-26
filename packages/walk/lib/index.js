@@ -1,17 +1,17 @@
 'use strict';
 
-const fs = require('fs');
 const { Readable } = require('stream');
 const each = require('async-each');
 const deprecate = require('depd')('@bem/sdk.walk');
 
+const Config = require('@bem/sdk.config');
 const namingCreate = require('@bem/sdk.naming.presets/create');
 const walkers = require('./walkers');
 
+const legacycallLayerName = 'legacycall';
+
 /**
- * Scans levels in file system.
- *
- * If file or directory is valid BEM entity then `add` will be called with info about this file.
+ * Legacy callback for walker.
  *
  * @param {string[]} levels                The paths to levels.
  * @param {object} options                 The options.
@@ -24,61 +24,67 @@ const walkers = require('./walkers');
  * @returns {module:stream.Readable} stream with info about found files and directories.
  */
 module.exports = (levels, options) => {
-    const output = new Readable({ objectMode: true, read() {} });
     if (!levels || !levels.length) {
-        process.nextTick(() => output.push(null));
+        const output = new Readable({ objectMode: true, read() {} });
+        output.push(null);
         return output;
     }
 
-    options || (options = {});
+    const config = {...(options || {})};
+    const defaults = config.defaults = {...(config.defaults || {})}; // eslint-disable-line
 
-    const defaults = options.defaults || {};
+    defaults.sets = {...(defaults.sets || {})};
+
+    if (!defaults.levels) {
+        defaults.levels = config.levels
+            ? Object.entries(config.levels).map(([path, level]) => ({layer: legacycallLayerName, ...level, path}))
+            : levels.map(level => ({ path: level, layer: legacycallLayerName }));
+        defaults.sets.legacycall = [...new Set(defaults.levels.map(({layer}) => layer))].join(' ');
+    }
 
     // Turn warning about old using old walkers in the next major
     defaults.scheme && deprecate('Please stop using old API');
 
-    const levelConfigs = Object.entries(options.levels || {})
-        .reduce((res, [level, config]) => {
-            const realLevel = realpathOrError(level);
-            if (typeof realLevel !== 'string') {
-                console.error(`walk: Can't find '${level}' on the FS, need manual fix`);
-                throw realLevel;
-            }
+    // ?
+    // const defaultNaming = defaults.naming || {};
+    // const defaultScheme = defaultNaming.scheme || defaults.scheme;
+    // const defaultWalker = (typeof defaultScheme === 'string' ? walkers[defaultScheme] : defaultScheme) || walkers.sdk;
 
-            res[level] = res[realLevel] = config;
-            config.paths_ = new Set([level, realLevel]);
+    return module.exports.walk({ sets: legacycallLayerName, config });
+};
 
-            return res;
-        }, {});
+// TODO: V KONFIG
+Config.create = function(config) {
+    return config instanceof Config ? config : new Config(config);
+};
 
-    // Check levels, and fillup configs
-    for (const level of levels) {
-        if (levelConfigs[level]) {
-            continue;
-        }
+/**
+ * Scans levels in file system.
+ *
+ * If file or directory is valid BEM entity then `add` will be called with info about this file.
+ *
+ * @param {object} options
+ * @param {string} [options.sets] - space delimited string of layer set names
+ * @param {string|string[]} [options.levels]
+ * @param {IBemConfig} [options.config]
+ *
+ * @returns {module:stream.Readable} stream with info about found files and directories.
+ */
+module.exports.walk = ({ /*levels,*/ sets, config: userConfig }) => {
+    const walkConfig = Config.create(userConfig);
+    const output = new Readable({ objectMode: true, read() {} });
 
-        const realLevel = realpathOrError(level);
-        if (typeof realLevel !== 'string') {
-            process.nextTick(() => output.emit('error', realLevel));
-            return output;
-        }
+    const levelConfigs = walkConfig.levelMapSync();
 
-        if (!levelConfigs[realLevel]) {
-            levelConfigs[realLevel] = {paths_: new Set([level, realLevel])};
-        } else {
-            levelConfigs[realLevel].paths_.add(level);
-        }
-        levelConfigs[level] = levelConfigs[realLevel];
-    }
-
-    const defaultNaming = defaults.naming || {};
-    const defaultScheme = defaultNaming.scheme || defaults.scheme;
-    const defaultWalker = (typeof defaultScheme === 'string' ? walkers[defaultScheme] : defaultScheme) || walkers.sdk;
+    // levels or sets ?
+    const levelsForWalk = walkConfig.levels(sets);
 
     const add = (obj) => output.push(obj);
 
+    const defaultWalker = walkers.sdk;
+
     const scan = (level, callback) => {
-        const config = levelConfigs[level] || {};
+        const config = levelConfigs[level.path] || {};
         const isLegacyScheme = 'scheme' in config;
         const userNaming = typeof config.naming === 'object'
             ? config.naming
@@ -90,7 +96,7 @@ module.exports = (levels, options) => {
             userNaming.fs.scheme = config.scheme;
         }
 
-        const naming = namingCreate(userNaming, defaultNaming);
+        const naming = namingCreate(userNaming);
 
         const scheme = config && config.scheme || naming.fs && naming.fs.scheme;
 
@@ -99,25 +105,22 @@ module.exports = (levels, options) => {
             ? (typeof scheme === 'string' ? walkers[scheme] : (scheme || defaultWalker))
             : defaultWalker;
 
-        walker({ path: level, naming: naming /* extend with defauls */ }, add, callback);
+        walker({ path: level.path, naming: naming /* extend with defauls */ }, add, callback);
     };
 
-    each(levels, scan, err => {
-        err
-            ? output.emit('error', err)
-            : output.push(null);
-    });
+    // object[]
+    levelsForWalk
+        .then(levels => {
+            each(levels, scan, err => {
+                err
+                    ? output.emit('error', err)
+                    : output.push(null);
+            });
+        })
+        .catch(error => output.emit('error', error));
 
     return output;
 };
-
-function realpathOrError(path) {
-    try {
-        return fs.realpathSync(path);
-    } catch (e) {
-        return e;
-    }
-}
 
 /**
  * Inline version of stream to array

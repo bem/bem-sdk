@@ -41,9 +41,9 @@ describe('schemes/nested/levels', () => {
                 const file = files[0];
 
                 expect(file.cell.entity.valueOf()).to.deep.equal({ block: 'block' });
-                expect(file.level).to.equal('name.blocks');
+                expect(file.level).to.match(/[/\\]name.blocks$/);
                 expect(file.cell.tech).to.equal('tech');
-                expect(file.path).to.equal(path.join('name.blocks', 'block', 'block.tech'));
+                expect(file.path).to.equal(path.join(file.level, 'block', 'block.tech'));
             });
     });
 
@@ -74,14 +74,14 @@ describe('schemes/nested/levels', () => {
                 const file2 = files[1];
 
                 expect(file1.cell.entity.valueOf()).to.deep.equal({ block: 'block-1' });
-                expect(file1.level).to.equal('level-1');
+                expect(file1.level).to.match(/[/\\]level-1$/);
                 expect(file1.cell.tech).to.equal('tech');
-                expect(file1.path).to.equal(path.join('level-1', 'block-1', 'block-1.tech'));
+                expect(file1.path).to.equal(path.join(file1.level, 'block-1', 'block-1.tech'));
 
                 expect(file2.cell.entity.valueOf()).to.deep.equal({ block: 'block-2' });
-                expect(file2.level).to.equal('level-2');
+                expect(file2.level).to.match(/[/\\]level-2$/);
                 expect(file2.cell.tech).to.equal('tech');
-                expect(file2.path).to.equal(path.join('level-2', 'block-2', 'block-2.tech'));
+                expect(file2.path).to.equal(path.join(file2.level, 'block-2', 'block-2.tech'));
             });
     });
 
@@ -112,14 +112,14 @@ describe('schemes/nested/levels', () => {
                 const file2 = files[1];
 
                 expect(file1.cell.entity.valueOf()).to.deep.equal({ block: 'block' });
-                expect(file1.level).to.equal('level-1');
+                expect(file1.level).to.match(/[/\\]level-1$/);
                 expect(file1.cell.tech).to.equal('tech');
-                expect(file1.path).to.equal(path.join('level-1', 'block', 'block.tech'));
+                expect(file1.path).to.equal(path.join(file1.level, 'block', 'block.tech'));
 
                 expect(file2.cell.entity.valueOf()).to.deep.equal({ block: 'block' });
-                expect(file2.level).to.equal('level-2');
+                expect(file2.level).to.match(/[/\\]level-2$/);
                 expect(file2.cell.tech).to.equal('tech');
-                expect(file2.path).to.equal(path.join('level-2', 'block', 'block.tech'));
+                expect(file2.path).to.equal(path.join(file2.level, 'block', 'block.tech'));
             });
     });
 });
