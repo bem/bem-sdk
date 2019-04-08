@@ -1,6 +1,6 @@
 # config
 
-The tool allows you to get a [BEM](https://en.bem.info) project's settings.
+This tool allows you to get a [BEM](https://en.bem.info) project's settings.
 
 [![NPM Status][npm-img]][npm]
 
@@ -18,14 +18,14 @@ The tool allows you to get a [BEM](https://en.bem.info) project's settings.
 
 ## Introduction
 
-Config allows you to get a [BEM](https://en.bem.info) project's settings from a configuration file (for example `.bemrc` or `.bemrc.js`).
+Config allows you to get a [BEM](https://en.bem.info) project's settings from a configuration file (for example, `.bemrc` or `.bemrc.js`).
 
 The configuration file can contain:
 
-* Redefinition levels of BEM project.
-* An array of options to the libraries used.
-* An array of options to the modules used.
-* The level's sets.
+* Redefinition levels of the BEM project.
+* An array of options for the libraries used.
+* An array of options for the modules used.
+* The level sets.
 
 ## Installation
 
@@ -43,11 +43,11 @@ An example is available in the [RunKit editor](https://runkit.com/godfreyd/5c49a
 
 > **Attention.** To use `@bem/sdk.config`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
 
-Use the following steps after [installing the package](#installation).
+First [install the `@bem/sdk.config` package](#installation).
 
-To run the `@bem/sdk.config` package:
+To run the package, follow these steps:
 
-1. [Include the package](#including-the-bemsdkconfig-package).
+1. [Include the package in the project](#including-the-bemsdkconfig-package).
 1. [Define the project's configuration file](#defining-the-projects-configuration-file).
 1. [Get the project's settings](#getting-the-projects-settings).
 
@@ -59,7 +59,7 @@ Create a JavaScript file with any name (for example, **app.js**) and insert the 
 const config = require('@bem/sdk.config')();
 ```
 
-> **Note.** Use the same file for step [Getting the project's settings](#getting-the-projects-settings).
+> **Note.** Use the same file for the [Getting the project's settings](#getting-the-projects-settings) step.
 
 ### Defining the project's configuration file
 
@@ -91,7 +91,7 @@ module.exports = {
 
 ### Getting the project's settings
 
-Call an asynchronous method `get()` to get the project's settings.
+Call the asynchronous `get()` method to get the project's settings.
 
 **app.js file:**
 
@@ -122,20 +122,20 @@ config.get().then((conf) => {
 
 ## Options
 
-Config options. The config options can be used to make settings for the config itself. Options are optional and listed below.
+Config options listed below can be used to create settings for the config itself. They are optional.
 
 ```js
 const config = require('@bem/sdk.config');
 /**
  * Constructor.
  * @param {Object} [options] — Object.
- * @param {String} [options.name='bem'] — Config filename. This option is converted to `rc` file and config traverse different variations of file formats (for example `.bemrc`, `.bemrc.js`, `.bemrc.json`).
+ * @param {String} [options.name='bem'] — Config filename. `rc` is appended to the filename, and the config traverses files with this name with any extension (for example `.bemrc`, `.bemrc.js`, `.bemrc.json`).
  * @param {String} [options.cwd=process.cwd()] — Project's root directory.
- * @param {Object} [options.defaults={}] — Use this object as fallback for found configs.
- * @param {String} [options.pathToConfig] — Custom path to config on FS via command line argument `--config`.
+ * @param {Object} [options.defaults={}] — Found configs are merged with this object.
+ * @param {String} [options.pathToConfig] — Custom path to the config in FS via the `--config` command line argument.
  * @param {String} [options.fsRoot] — Custom root directory.
  * @param {String} [options.fsHome] — Custom `$HOME` directory.
- * @param {Object} [options.plugins] — An array of paths to plugins to require.
+ * @param {Object} [options.plugins] — An array of paths to the required plugins.
  * @param {Object} [options.extendBy] — Extensions.
  * @constructor
  */
@@ -175,7 +175,7 @@ Sets the project's root directory. The name of the desired resource relative to 
 
 ```js
 const config = require('@bem/sdk.config');
-const bemConfig = config({cwd: 'src'}); // You should put `rc` file to `src` folder.
+const bemConfig = config({cwd: 'src'}); // Put the `rc` file into the `src` folder.
 bemConfig.get().then(conf => {
     console.log(conf);
 });
@@ -208,7 +208,7 @@ projectConfig.get().then(conf => {
 
 ### options.pathToConfig
 
-Sets the custom path to config on file system via command line argument `--config`.
+Sets the custom path to the config in file system via the `--config` command line argument.
 
 **Example:**
 
@@ -256,7 +256,7 @@ bemConfig.get().then(conf => {
 
 ### options.plugins
 
-Sets the array of paths to plugins to require.
+Sets the array of paths to the required plugins.
 
 **Example:**
 
@@ -302,7 +302,7 @@ bemConfig.get().then(conf => {
 Returns the extended project configuration merged from:
 
 * an optional configuration object from [options.defaults](#optionsdefaults);
-* all configs found by `rc` configuration file.
+* all configs found by the `rc` configuration file.
 
 ```js
 const config = require('@bem/sdk.config')();
@@ -341,7 +341,7 @@ config.level('path/to/level').then(levelConf => {
 
 ### levels()
 
-Returns an array of levels for the level set.
+Returns an array of levels for the set of levels.
 
 ```js
 const config = require('@bem/sdk.config')();
@@ -354,7 +354,7 @@ config.levels('desktop').then(desktopSet => {
 
 ### levelMap()
 
-Returns all levels hash with their options.
+Returns a hash of all levels with their options.
 
 ```js
 const config = require('@bem/sdk.config')();
@@ -400,7 +400,7 @@ config.configs().then(configs => {
 Returns the extended project configuration merged from:
 
 * an optional configuration object from [options.defaults](#optionsdefaults);
-* all configs found by `rc` configuration file.
+* all configs found by the `rc` configuration file.
 
 ```js
 const config = require('@bem/sdk.config')();
@@ -412,7 +412,7 @@ console.log(conf);
 
 ### librarySync()
 
-Returns the path to the library config to get. To get config, use [`getSync()`](#getsync) method.
+Returns the path to the library config. To get the config, use the [`getSync()`](#getsync) method.
 
 ```js
 const config = require('@bem/sdk.config')();
@@ -436,7 +436,7 @@ console.log(levelConf);
 
 ### levelsSync()
 
-Returns an array of levels configs for the level set.
+Returns an array of level configs for the set of levels.
 
 > **Note.** This is a sync function because we have all the data.
 
@@ -450,7 +450,7 @@ console.log(desktopSet);
 
 ### levelMapSync()
 
-Returns all levels hash with their options.
+Returns a hash of all levels with their options.
 
 ```js
 const config = require('@bem/sdk.config')();
@@ -462,7 +462,7 @@ console.log(levelMap);
 
 ### moduleSync()
 
-Returns merged config for required module.
+Returns the merged config for the required module.
 
 ```js
 const config = require('@bem/sdk.config')();
@@ -509,12 +509,12 @@ module.exports = {
     },
     // Sets.
     'sets': {
-        // Will use `touch-phone` set from bem-components and few local levels.
+        // Will use the `touch-phone` set from bem-components and a few local levels.
         'touch-phone': '@bem-components/touch-phone common touch touch-phone',
         'touch-pad': '@bem-components common deskpad touch touch-pad',
-        // Will use `desktop` set from `bem-components`, and also few local levels.
+        // Will use the `desktop` set from `bem-components` and also a few local levels.
         'desktop': '@bem-components common deskpad desktop',
-        // Will use mix of levels from `desktop` and `touch-pad` level sets from `core`, `bem-components` and locals.
+        // Will use a mix of levels from the `desktop` and `touch-pad` sets from `core`, `bem-components` and locals.
         'deskpad': 'desktop@core touch-pad@core desktop@bem-components touch-pad@bem-components desktop@ touch-pad@'
     },
     // Modules.
