@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.decl",
-  "version": "0.3.9",
+  "version": "0.3.10",
   "description": "Manage declaration of BEM entities",
   "publishConfig": {
     "access": "public"

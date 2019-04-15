@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.deps",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "Manage BEM dependencies",
   "publishConfig": {
     "access": "public"
@@ -29,11 +29,11 @@
     "lib/**"
   ],
   "dependencies": {
-    "@bem/sdk.config": "*",
-    "@bem/sdk.decl": "^0.3.9",
+    "@bem/sdk.config": "^0.1.0",
+    "@bem/sdk.decl": "^0.3.10",
     "@bem/sdk.entity-name": "^0.2.11",
-    "@bem/sdk.graph": "^0.3.2",
-    "@bem/sdk.walk": "^0.5.1",
+    "@bem/sdk.graph": "^0.3.3",
+    "@bem/sdk.walk": "^0.6.0",
     "debug": "2.6.9",
     "mz": "2.4.0",
     "node-eval": "1.1.0"

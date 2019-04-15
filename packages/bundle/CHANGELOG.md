@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.2.15](https://github.com/bem/bem-sdk/compare/@bem/sdk.bundle@0.2.14...@bem/sdk.bundle@0.2.15) (2019-04-15)
+
+**Note:** Version bump only for package @bem/sdk.bundle
+
+
+
+
+
 ## [0.2.14](https://github.com/bem/bem-sdk/compare/@bem/sdk.bundle@0.2.13...@bem/sdk.bundle@0.2.14) (2019-02-03)
 
 **Note:** Version bump only for package @bem/sdk.bundle

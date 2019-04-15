@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.6.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.5.1...@bem/sdk.walk@0.6.0) (2019-04-15)
+
+
+### Features
+
+* allow to use new config format ([b8c0a22](https://github.com/bem/bem-sdk/commit/b8c0a22))
+
+
+
+
+
 ## [0.5.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.walk@0.5.0...@bem/sdk.walk@0.5.1) (2019-02-03)
 
 **Note:** Version bump only for package @bem/sdk.walk

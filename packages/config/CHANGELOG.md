@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.1.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.10...@bem/sdk.config@0.1.0) (2019-04-15)
+
+
+### Features
+
+* **config:** merge common opts to each level ([349460a](https://github.com/bem/bem-sdk/commit/349460a))
+
+
+
+
+
 <a name="0.0.10"></a>
 ## [0.0.10](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.9...@bem/sdk.config@0.0.10) (2018-07-01)
 
