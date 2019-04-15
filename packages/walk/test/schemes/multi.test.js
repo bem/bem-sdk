@@ -42,14 +42,14 @@ describe('schemes/multi', () => {
                 const file2 = files[1];
 
                 expect(file1.cell.entity.valueOf()).to.deep.equal({ block: 'block' });
-                expect(file1.level).to.equal('flat.blocks');
+                expect(file1.level).to.match(/[/\\]flat.blocks$/);
                 expect(file1.cell.tech).to.equal('tech');
-                expect(file1.path).to.equal(path.join('flat.blocks', 'block.tech'));
+                expect(file1.path).to.equal(path.join(file1.level, 'block.tech'));
 
                 expect(file2.cell.entity.valueOf()).to.deep.equal({ block: 'block' });
-                expect(file2.level).to.equal('nested.blocks');
+                expect(file2.level).to.match(/[/\\]nested.blocks$/);
                 expect(file2.cell.tech).to.equal('tech');
-                expect(file2.path).to.equal(path.join('nested.blocks', 'block', 'block.tech'));
+                expect(file2.path).to.equal(path.join(file2.level, 'block', 'block.tech'));
             });
     });
 });

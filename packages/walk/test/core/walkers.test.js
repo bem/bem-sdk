@@ -5,7 +5,9 @@ const it = require('mocha').it;
 const beforeEach = require('mocha').beforeEach;
 const afterEach = require('mocha').afterEach;
 
-const expect = require('chai').expect;
+const chai = require('chai');
+chai.use(require('chai-subset'));
+const { expect } = chai;
 
 const proxyquire = require('proxyquire');
 const sinon = require('sinon');
@@ -96,8 +98,12 @@ describe('core/walkers', () => {
         context.walk(['flat.blocks', 'nested.blocks'], options)
             .resume()
             .on('end', () => {
-                expect(context.flatStub.calledWith(sinon.match({ path: 'flat.blocks' }))).to.be.true;
-                expect(context.nestedStub.calledWith(sinon.match({ path: 'nested.blocks' }))).to.be.true;
+                const firstCallArg = context.flatStub.getCall(0).args[0];
+                expect(firstCallArg.path).to.match(/flat.blocks$/);
+
+                const secondCallArg = context.nestedStub.getCall(0).args[0];
+                expect(secondCallArg.path).to.match(/nested.blocks$/);
+
                 done();
             });
     });
@@ -118,8 +124,14 @@ describe('core/walkers', () => {
         context.walk(['origin.blocks', 'two-dashes.blocks'], options)
             .resume()
             .on('end', () => {
-                expect(context.nestedStub.calledWith(sinon.match({ path: 'origin.blocks', naming: { delims: { mod: { name: '_' } } } }))).to.be.true;
-                expect(context.nestedStub.calledWith(sinon.match({ path: 'two-dashes.blocks', naming: { delims: { mod: { name: '--' } } } }))).to.be.true;
+                const firstCallArg = context.nestedStub.getCall(0).args[0];
+                expect(firstCallArg).to.containSubset({ naming: { delims: { mod: { name: '_' } } } });
+                expect(firstCallArg.path).to.match(/origin.blocks$/);
+
+                const secondCallArg = context.nestedStub.getCall(1).args[0];
+                expect(secondCallArg).to.containSubset({ naming: { delims: { mod: { name: '--' } } } });
+                expect(secondCallArg.path).to.match(/two-dashes.blocks$/);
+
                 done();
             });
     });

@@ -90,27 +90,22 @@ BemConfig.prototype.configs = function(isSync) {
 
 /**
  * Returns project root
- * @returns {Promise}
+ * @returns {Promise<string>}
  */
-BemConfig.prototype.root = function() {
-    if (this._root) {
-        return Promise.resolve(this._root);
+BemConfig.prototype.root = async function() {
+    if (!this._root) {
+        await this.configs();
     }
 
-    var _this = this;
-    return this.configs().then(function() {
-        return _this._root;
-    });
+    return this._root;
 };
 
 /**
  * Returns merged config
  * @returns {Promise}
  */
-BemConfig.prototype.get = function() {
-    return this.configs().then(function(configs) {
-        return merge(configs);
-    });
+BemConfig.prototype.get = async function() {
+    return merge(await this.configs());
 };
 
 /**
@@ -235,7 +230,7 @@ BemConfig.prototype.levels = function(setName) {
                 return levels.reduce((acc, lvl) => {
                     if (lvl.layer !== chunk.layer) { return acc; }
 
-                    var levelPath = lvl.path || (lvl.layer + '.blocks'); // TODO: Use `@bem/sdk.file.naming`
+                    var levelPath = lvl.path || calculateDefaultLevelPath(lvl);
 
                     levelsMap[levelPath] && acc.push(levelsMap[levelPath]);
 
@@ -364,7 +359,7 @@ BemConfig.prototype.levelsSync = function(setName) {
             assert(libConfig, 'Library `' + chunk.library + '` was not found');
 
             if (config.__source === libConfig.getSync().__source) {
-                console.log('WARN: no config was found in `' + chunk.library + '` library');
+                console.error('WARN: no config was found in `' + chunk.library + '` library');
                 return [];
             }
 
@@ -378,7 +373,7 @@ BemConfig.prototype.levelsSync = function(setName) {
         levels.forEach(lvl => {
             if (lvl.layer !== chunk.layer) { return; }
 
-            var levelPath = lvl.path || (lvl.layer + '.blocks'); // TODO: Use `@bem/sdk.file.naming`
+            var levelPath = lvl.path || calculateDefaultLevelPath(lvl);
 
             levelsMap[levelPath] && acc.push(levelsMap[levelPath]);
         });
@@ -466,6 +461,11 @@ function doSomeMagicProcedure(configs, cwd) {
     });
 
     return configs;
+}
+
+function calculateDefaultLevelPath(lvl) {
+    // TODO: Use `@bem/sdk.naming.file.stringify`
+    return `${lvl.layer}.blocks`;
 }
 
 module.exports = function(opts) {
