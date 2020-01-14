@@ -7,10 +7,11 @@ const BemEntityName = require('@bem/sdk.entity-name');
  *
  * @param {INamingConventionDelims} delims — separates entity names from each other.
  * @param {String} wordPattern — defines which symbols can be used for block, element and modifier's names.
+ * @param {String} blockPattern — WIP
  * @returns {RegExp}
  */
-function buildRegex(delims, wordPattern) {
-    const block = '(' + wordPattern + ')';
+function buildRegex(delims, wordPattern, blockPattern) {
+    const block = '(' + blockPattern + ')';
     const elem = '(?:' + delims.elem + '(' + wordPattern + '))?';
     const modName = '(?:' + delims.mod.name + '(' + wordPattern + '))?';
     const modVal = '(?:' + delims.mod.val + '(' + wordPattern + '))?';
@@ -50,7 +51,7 @@ function parse(str, regex) {
  * @returns {Function}
  */
 module.exports = (convention) => {
-    const regex = buildRegex(convention.delims, convention.wordPattern);
+    const regex = buildRegex(convention.delims, convention.wordPattern, convention.blockPattern);
 
     return (str) => parse(str, regex);
 };
