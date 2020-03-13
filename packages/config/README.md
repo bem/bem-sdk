@@ -55,6 +55,74 @@ To run the package, follow these steps:
 
 Create a JavaScript file with any name (for example, **app.js**) and insert the following:
 
+### `.bemrc` fields
+
+Field   | Type    | Purpose
+---     | ---     | ---
+root    | `Boolean` | Used to determine the root directory. Configs in parent dirs won't be gathered
+naming  | `string`, `Object` | Name of one of [naming presets](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets) or custom naming definition
+levels  | `Array<LevelConf>` | List of known levels in the right order<br> (usually local) with their configurations
+sets    | `Object<string, SetConf>` | Named sets of layers to build
+libs    | `Object<string, LibraryConf>` | Dependency libraries to use in sets
+plugins | `Object<string, PluginConf>` | Various configurations for plugins,<br>can be reached via [`.module`](#module) method
+
+#### `root`
+
+For the following file structure
+```
+/
+    projects/
+        prj1/
+            .bemrc
+        .bemrc
+    .bemrc
+```
+and `/projects/prj1/` as current working directory `root` option set to `true` in `/projects/prj1/.bemrc` will prevent `bem-config` to collect data from `/projects/.bemrc` and `/.bemrc`.
+
+#### `LevelConf`
+
+Describes [redefinition level](https://en.bem.info/methodology/key-concepts/#redefinition-level) with sources — a set of layers relative to library path (`.bemrc` location)
+and depends on naming preset. E.g. `common` and `desktop` for `bem-components/` (library) path and [`origin`](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/origin.js) preset.
+
+Usualy it represents a directory for a single layer — e.g. `bem-components/common.blocks/` for `common` or `bem-components/desktop.blocks/` for `desktop`.
+
+- `layer` - name of level‘s layer to use in `sets` option
+- `naming` - naming preset for this level
+- `path` - optional, deprecated. Required for legacy way, unwanted for the modern one
+- the rest fields will be passed to level config (if required by some custom consumer)
+
+##### Example
+```js
+{
+    "levels": [
+        {
+            "layer": "common",
+            "naming": "origin",
+            "scheme": "nested"
+        }
+    ]
+}
+```
+
+#### `SetConf`
+
+`string|Array<string|{library: string, set?: string}>`
+
+One of:
+- single string with all used layers; e.g. `'bem-core@ common deskpad desktop'`
+- list of layers and/or libraries and library sets; e.g. `[{library: 'bem-core'}, 'common', 'deskpad', 'desktop']`
+
+#### `LibraryConf`
+
+- `path` - path (repeating is okey) to library. Library should contain its own .bemrc file. If omitted path is evaluated to node_modules/${libraryName}
+- the rest fields will be passed to library config and extend `.bemrc` config found at `${path}/.bemrc`
+
+#### `PluginConf`
+
+- all the fields will be passed directly to plugins
+
+## API
+
 ```js
 const config = require('@bem/sdk.config')();
 ```
