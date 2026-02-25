@@ -38,7 +38,7 @@
     "typescript": "^5.9.0"
   },
   "overrides": {
-    "yocto-queue": "^1.2.0"
+    "p-limit": "^4.0.0"
   },
   "scripts": {
     "lint": "eslint .",
