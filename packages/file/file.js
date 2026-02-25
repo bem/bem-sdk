@@ -78,6 +78,10 @@ class BemFile {
         return `BemFile ${stringRepresentation}`;
     }
 
+    [Symbol.for('nodejs.util.inspect.custom')](depth, options) {
+        return this.inspect(depth, options);
+    }
+
     toJSON() {
         return this.valueOf();
     }

@@ -10,7 +10,7 @@ describe('save', () => {
 
         const save = await esmock('../lib/save.js', {
             '../lib/stringify.js': { default: stringifyStub },
-            'node:fs/promises': { writeFile: sinon.stub() }
+            'node:fs/promises': { writeFile: sinon.stub().resolves() }
         });
 
         context = {

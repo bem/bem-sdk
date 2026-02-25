@@ -1,4 +1,3 @@
-import { describe, it, afterEach } from 'mocha';
 import { expect } from 'chai';
 
 import mockFs from 'mock-fs';

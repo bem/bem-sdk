@@ -1,40 +1,44 @@
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-import chai from 'chai';
+import { expect, use } from 'chai';
 import chaiAsPromised from 'chai-as-promised';
 
-chai.use(chaiAsPromised);
+use(chaiAsPromised);
 
-const expect = chai.expect;
-
-import esmock from 'esmock';
 import notStubbedBemConfig from '../index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-async function config(conf) {
-    return esmock('../index.js', {
-        'betterc': () => Promise.resolve(conf || [{}])
-    });
+/**
+ * Creates a bemConfig factory with pre-set configs (bypassing cosmiconfig).
+ * @param {Array} conf - Array of config objects to inject
+ * @returns {Function} bemConfig factory
+ */
+function config(conf) {
+    return function(opts) {
+        const instance = notStubbedBemConfig(opts);
+        instance._configs = conf || [{}];
+        return instance;
+    };
 }
 
 describe('async', () => {
-    it('should return empty config', async () => {
-        const bemConfig = await config();
+    it('should return empty config', () => {
+        const bemConfig = config();
 
         return expect(bemConfig().configs()).to.eventually.deep.equal([{}]);
     });
 
-    it('should return empty config if empty map passed', async () => {
-        const bemConfig = await config([{}]);
+    it('should return empty config if empty map passed', () => {
+        const bemConfig = config([{}]);
 
         return expect(bemConfig().configs()).to.eventually.deep.equal([{}]);
     });
 
-    it('should return configs', async () => {
-        const bemConfig = await config([
+    it('should return configs', () => {
+        const bemConfig = config([
             { test: 1 },
             { test: 2 }
         ]);
@@ -45,8 +49,8 @@ describe('async', () => {
     });
 
     // root()
-    it('should return project root', async () => {
-        const bemConfig = await config([
+    it('should return project root', () => {
+        const bemConfig = config([
             { test: 1, __source: 'some/path' },
             { test: 2, root: true, __source: __filename },
             { other: 'field', __source: 'some/other/path' }
@@ -58,8 +62,8 @@ describe('async', () => {
     });
 
     // get()
-    it('should return merged config', async () => {
-        const bemConfig = await config([
+    it('should return merged config', () => {
+        const bemConfig = config([
             { test: 1 },
             { test: 2 },
             { other: 'field' }
@@ -71,16 +75,16 @@ describe('async', () => {
     });
 
     // level()
-    it('should return undefined if no levels in config', async () => {
-        const bemConfig = await config();
+    it('should return undefined if no levels in config', () => {
+        const bemConfig = config();
 
         return expect(bemConfig().level('l1')).to.eventually.equal(
             undefined
         );
     });
 
-    it('should return undefined if no level found', async () => {
-        const bemConfig = await config([{
+    it('should return undefined if no level found', () => {
+        const bemConfig = config([{
             levels: [
                 { path: 'l1', some: 'conf' }
             ]
@@ -91,8 +95,8 @@ describe('async', () => {
         );
     });
 
-    it('should return level if no __source provided', async () => {
-        const bemConfig = await config([{
+    it('should return level if no __source provided', () => {
+        const bemConfig = config([{
             levels: [
                 { path: 'path/to/level', test: 1 }
             ],
@@ -104,8 +108,8 @@ describe('async', () => {
         );
     });
 
-    it('should return level with __source', async () => {
-        const bemConfig = await config([{
+    it('should return level with __source', () => {
+        const bemConfig = config([{
             levels: [
                 { path: 'path/to/level', test: 1 }
             ],
@@ -118,8 +122,8 @@ describe('async', () => {
         );
     });
 
-    it('should resolve wildcard levels', async () => {
-        const bemConfig = await config([{
+    it('should resolve wildcard levels', () => {
+        const bemConfig = config([{
             levels: [
                 { path: 'l*', test: 1 }
             ],
@@ -137,7 +141,7 @@ describe('async', () => {
         ]);
     });
 
-    it('should resolve wildcard levels with absolute path', async () => {
+    it('should resolve wildcard levels with absolute path', () => {
         const conf = {
             levels: [],
             something: 'else'
@@ -145,19 +149,19 @@ describe('async', () => {
 
         conf.levels = [{ path: path.join(__dirname, 'mocks', 'l*'), test: 1 }];
 
-        const bemConfig = await config([conf]);
+        const bemConfig = config([conf]);
 
         return expect(bemConfig({ cwd: path.resolve(__dirname, 'mocks') }).level('level1')).to.eventually.deep.equal(
             { test: 1, something: 'else' }
         );
     });
 
-    it('should return globbed levels map', async () => {
+    it('should return globbed levels map', () => {
         const mockDir = path.resolve(__dirname, 'mocks');
         const levelPath = path.join(mockDir, 'l*');
         const levels = [{path: levelPath, some: 'conf1'}];
 
-        const bemConfig = await config([{
+        const bemConfig = config([{
             levels,
             __source: mockDir
         }]);
@@ -171,8 +175,8 @@ describe('async', () => {
         );
     });
 
-    it('should respect absolute path for level', async () => {
-        const bemConfig = await config([{
+    it('should respect absolute path for level', () => {
+        const bemConfig = config([{
             levels: [
                 { path: '/path/to/level', test: 1 }
             ],
@@ -184,8 +188,8 @@ describe('async', () => {
         );
     });
 
-    it('should respect "." path', async () => {
-        const bemConfig = await config([{
+    it('should respect "." path', () => {
+        const bemConfig = config([{
             levels: [
                { path:  '.', test: 1 }
             ],
@@ -197,8 +201,8 @@ describe('async', () => {
         );
     });
 
-    it('should return extended level config merged from different configs', async () => {
-        const bemConfig = await config([{
+    it('should return extended level config merged from different configs', () => {
+        const bemConfig = config([{
             levels: [
                 { path: 'level1', l1o1: 'l1v1' }
             ],
@@ -220,8 +224,8 @@ describe('async', () => {
         );
     });
 
-    it('should not extend with configs higher then root', async () => {
-        const bemConfig = await config([
+    it('should not extend with configs higher then root', () => {
+        const bemConfig = config([
             {
                 levels: [
                     { path: 'level1', l1o1: 'should not be used', l1o2: 'should not be used either' }
@@ -250,15 +254,15 @@ describe('async', () => {
     it('should respect extend for options');
 
     // levelMap()
-    it('should return empty map on levelMap if no levels found', async () => {
-        const bemConfig = await config();
+    it('should return empty map on levelMap if no levels found', () => {
+        const bemConfig = config();
 
         return expect(bemConfig().levelMap()).to.eventually.deep.equal({});
     });
 
-    it('should return levels map', async () => {
+    it('should return levels map', () => {
         const pathToLib1 = path.resolve(__dirname, 'mocks', 'node_modules', 'lib1');
-        const bemConfig = await config([{
+        const bemConfig = config([{
             levels: [
                 { path: 'l1', some: 'conf1' }
             ],
@@ -274,15 +278,15 @@ describe('async', () => {
         const expected = {};
         expected[path.resolve('l1')] = { path: path.resolve('l1'), some: 'conf1' };
 
-        // because of mocked rc, all instances of bemConfig has always the same data
+        // because of injected configs, all instances of bemConfig has always the same data
         return expect(bemConfig().levelMap()).to.eventually.deep.equal(
             expected
         );
     });
 
     // library()
-    it('should throw if lib format is incorrect', async () => {
-        const bemConfig = await config([{
+    it('should throw if lib format is incorrect', () => {
+        const bemConfig = config([{
             libs: {
                 lib1: ''
             }
@@ -295,8 +299,8 @@ describe('async', () => {
         return notStubbedBemConfig().library('lib1').catch(err => expect(err.includes('Library lib1 was not found at')).to.equal(true));
     });
 
-    it('should throw if lib was not found', async () => {
-        const bemConfig = await config([{
+    it('should throw if lib was not found', () => {
+        const bemConfig = config([{
             libs: {
                 lib1: {
                     conf: 'of lib1',
@@ -311,7 +315,7 @@ describe('async', () => {
         ]);
     });
 
-    it('should return library config', async () => {
+    it('should return library config', () => {
         const conf = [{
             libs: {
                 lib1: {
@@ -321,28 +325,28 @@ describe('async', () => {
             }
         }];
 
-        const bemConfig = await config(conf);
+        const bemConfig = config(conf);
 
         return bemConfig().library('lib1')
             .then(lib => {
                 return lib.get().then(libConf => {
-                    // because of mocked rc, all instances of bemConfig has always the same data
-                    return expect(libConf).to.deep.equal(conf[0]);
+                    // library config is loaded from the library's own .bemrc.json
+                    return expect(libConf).to.have.property('lib1Config', true);
                 });
             });
     });
 
     // module()
-    it('should return undefined if no modules in config', async () => {
-        const bemConfig = await config();
+    it('should return undefined if no modules in config', () => {
+        const bemConfig = config();
 
         return expect(bemConfig().module('m1')).to.eventually.equal(
             undefined
         );
     });
 
-    it('should return undefined if no module found', async () => {
-        const bemConfig = await config([{
+    it('should return undefined if no module found', () => {
+        const bemConfig = config([{
             modules: {
                 m1: {
                     conf: 'of m1'
@@ -355,8 +359,8 @@ describe('async', () => {
         );
     });
 
-    it('should return module', async () => {
-        const bemConfig = await config([{
+    it('should return module', () => {
+        const bemConfig = config([{
             modules: {
                 m1: {
                     conf: 'of m1'
@@ -419,14 +423,8 @@ describe('async', () => {
         );
     });
 
-// TODO: add test for
-// resolving, e.g. projectRoot
-// 'should override default config with .bemrc'
-// 'should not override default levels if none in .bemrc provided'
-// 'should not mutate defaults'
-
-    it('should return common config if no levels provided', async () => {
-        const bemConfig = await config([
+    it('should return common config if no levels provided', () => {
+        const bemConfig = config([
             { common: 'value' }
         ]);
 
@@ -473,8 +471,8 @@ describe('async', () => {
     });
 
     // levels
-    it('should return levels set', async () => {
-        const bemConfig = await config([{
+    it('should return levels set', () => {
+        const bemConfig = config([{
             levels: [
                 { layer: 'common', data: '1' },
                 { layer: 'desktop', data: '2' },
@@ -518,8 +516,8 @@ describe('async', () => {
         return expect(actual).to.eventually.deep.equal(expected);
     });
 
-    it('should return levels set with custom paths', async () => {
-        const bemConfig = await config([{
+    it('should return levels set with custom paths', () => {
+        const bemConfig = config([{
             levels: [
                 { layer: 'common', path: 'node_modules/lib/common.blocks' },
                 { layer: 'common', path: 'common.blocks' },

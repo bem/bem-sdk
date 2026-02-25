@@ -242,6 +242,10 @@ export default class BemCell {
         return `BemCell ${stringRepresentation}`;
     }
 
+    [Symbol.for('nodejs.util.inspect.custom')](depth, options) {
+        return this.inspect(depth, options);
+    }
+
     /**
      * Return raw data for `JSON.stringify()`.
      *

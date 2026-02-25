@@ -31,7 +31,7 @@
   "dependencies": {
     "@bem/sdk.entity-name": "^0.2.11",
     "@bem/sdk.naming.entity.stringify": "^1.1.2",
-    "@bem/sdk.naming.presets": "^0.0.9",
+    "@bem/sdk.naming.presets": "^0.2.3",
     "change-case": "^5.0.0"
   }
 }

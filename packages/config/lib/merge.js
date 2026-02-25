@@ -14,6 +14,7 @@ function isPlainObject(val) {
 function deepMergeTwo(target, source) {
     for (const key of Object.keys(source)) {
         const srcVal = source[key];
+        if (srcVal === undefined) { continue; }
         const tgtVal = target[key];
         if (Array.isArray(tgtVal)) {
             // customizer: arrays are replaced, not deep-merged

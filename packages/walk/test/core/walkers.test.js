@@ -1,8 +1,6 @@
-import { describe, it, beforeEach, afterEach } from 'mocha';
-import chai from 'chai';
+import { expect, use } from 'chai';
 import chaiSubset from 'chai-subset';
-chai.use(chaiSubset);
-const { expect } = chai;
+use(chaiSubset);
 
 import esmock from 'esmock';
 import sinon from 'sinon';
@@ -23,6 +21,7 @@ describe('core/walkers', () => {
                 default: {
                     'flat': flatStub,
                     'nested': nestedStub,
+                    'sdk': sdkStub,
                 },
                 'flat': flatStub,
                 'nested': nestedStub,

@@ -1,7 +1,6 @@
-import chai from 'chai';
+import { expect, use } from 'chai';
 import helpers from './helpers.js';
-chai.use(helpers);
-const expect = chai.expect;
+use(helpers);
 
 import bemjsonToDecl from '../index.js';
 const parse = bemjsonToDecl.convert;

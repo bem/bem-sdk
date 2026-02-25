@@ -34,6 +34,21 @@
     "node": ">= 24.0"
   },
   "main": "index.js",
+  "exports": {
+    ".": "./index.js",
+    "./create": "./create.js",
+    "./create.js": "./create.js",
+    "./origin": "./origin.js",
+    "./origin.js": "./origin.js",
+    "./origin-react": "./origin-react.js",
+    "./origin-react.js": "./origin-react.js",
+    "./react": "./react.js",
+    "./react.js": "./react.js",
+    "./legacy": "./legacy.js",
+    "./legacy.js": "./legacy.js",
+    "./two-dashes": "./two-dashes.js",
+    "./two-dashes.js": "./two-dashes.js"
+  },
   "typings": "index.d.ts",
   "files": [
     "*.js",

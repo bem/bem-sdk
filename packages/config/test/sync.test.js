@@ -3,21 +3,20 @@ import { fileURLToPath } from 'node:url';
 
 import { expect } from 'chai';
 
-import esmock from 'esmock';
 import notStubbedBemConfig from '../index.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-// stub for bem-config
-async function config(conf) {
-    return esmock('../index.js', {
-        'betterc': {
-            sync: function() {
-                return conf || [{}];
-            }
-        }
-    });
+/**
+ * Creates a bemConfig factory with pre-set configs (bypassing cosmiconfig).
+ */
+function config(conf) {
+    return function(opts) {
+        const instance = notStubbedBemConfig(opts);
+        instance._configs = conf || [{}];
+        return instance;
+    };
 }
 
 describe('sync', () => {
@@ -356,8 +355,8 @@ describe('sync', () => {
 
         const libConf = bemConfig().librarySync('lib1').getSync();
 
-        // because of mocked rc, all instances of bemConfig has always the same data
-        expect(libConf).to.deep.equal(conf[0]);
+        // library config is loaded from the library's own .bemrc.json
+        expect(libConf).to.have.property('lib1Config', true);
     });
 
     // module()

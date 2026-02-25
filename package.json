@@ -29,6 +29,7 @@
     "c8": "^10.0.0",
     "chai": "^6.0.0",
     "chai-as-promised": "^8.0.0",
+    "chai-subset": "^1.6.0",
     "eslint": "^10.0.0",
     "esmock": "^2.6.0",
     "mocha": "^11.0.0",
