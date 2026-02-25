@@ -32,7 +32,7 @@ const bemWalk = (levels, options) => {
     }
 
     const config = {...(options || {})};
-    const defaults = config.defaults = {...(config.defaults || {})}; // eslint-disable-line
+    const defaults = config.defaults = {...(config.defaults || {})};  
 
     defaults.sets = {...(defaults.sets || {})};
 

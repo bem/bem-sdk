@@ -11,7 +11,7 @@ describe('deps/direct-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'B' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' });  
 
                 return graph;
             },
@@ -30,8 +30,8 @@ describe('deps/direct-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'B' }) // eslint-disable-line no-unexpected-multiline
-                    [linkMethod]({ block: 'C' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' })  
+                    [linkMethod]({ block: 'C' });  
 
                 return graph;
             },
@@ -51,11 +51,11 @@ describe('deps/direct-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'B' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' });  
 
                 graph
                     .vertex({ block: 'A' }, 'js')
-                    [linkMethod]({ block: 'B' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' });  
 
                 return graph;
             },
@@ -74,11 +74,11 @@ describe('deps/direct-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'C' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' });  
 
                 graph
                     .vertex({ block: 'B' }, 'css')
-                    [linkMethod]({ block: 'C' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' });  
 
                 return graph;
             },

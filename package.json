@@ -40,6 +40,6 @@
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
-    "test": "c8 mocha 'packages/*/{test,spec}/**/*.{test,spec}.js'"
+    "test": "c8 mocha \"packages/*/{test,spec}/**/*.{test,spec}.js\""
   }
 }

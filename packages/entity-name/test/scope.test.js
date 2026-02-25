@@ -37,7 +37,7 @@ describe('scope', () => {
     it('should cache scope value', () => {
         const entity = new BemEntityName({ block: 'block', elem: 'elem' });
 
-        entity.scope; // eslint-disable-line no-unused-expressions
+        entity.scope;  
 
         expect(entity._scope.valueOf()).to.deep.equal({ block: 'block' });
     });

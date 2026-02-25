@@ -50,7 +50,7 @@ describe('deps/ignore-deps/common-deps/resolve-tech-deps', () => {
 
                 graph
                     .vertex({ block: 'C' })
-                    [linkMethod]({ block: 'D' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'D' });  
 
                 return graph;
             },

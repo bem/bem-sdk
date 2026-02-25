@@ -30,7 +30,7 @@ describe('type', () => {
     it('should cache type value', () => {
         const entity = new BemEntityName({ block: 'block' });
 
-        entity.type; // eslint-disable-line no-unused-expressions
+        entity.type;  
 
         expect(entity._type).to.equal('block');
     });

@@ -11,7 +11,7 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'B' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'js');  
 
                 return graph;
             },
@@ -30,8 +30,8 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'B' }, 'js') // eslint-disable-line no-unexpected-multiline
-                    [linkMethod]({ block: 'B' }, 'bemhtml'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'js')  
+                    [linkMethod]({ block: 'B' }, 'bemhtml');  
 
                 return graph;
             },
@@ -52,11 +52,11 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod]({ block: 'B' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'css');  
 
                 graph
                     .vertex({ block: 'B' })
-                    [linkMethod]({ block: 'C' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'js');  
 
                 return graph;
             },
@@ -75,12 +75,12 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod]({ block: 'B' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'css');  
 
                 graph
                     .vertex({ block: 'B' })
-                    [linkMethod]({ block: 'C' }, 'bemhtml') // eslint-disable-line no-unexpected-multiline
-                    [linkMethod]({ block: 'D' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'bemhtml')  
+                    [linkMethod]({ block: 'D' }, 'js');  
 
                 return graph;
             },
@@ -101,11 +101,11 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'C' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'js');  
 
                 graph
                     .vertex({ block: 'B' }, 'css')
-                    [linkMethod]({ block: 'C' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'js');  
 
                 return graph;
             },

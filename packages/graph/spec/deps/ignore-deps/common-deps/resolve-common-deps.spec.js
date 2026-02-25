@@ -29,7 +29,7 @@ describe('deps/ignore-deps/common-deps/resolve-common-deps', () => {
 
                 graph
                     .vertex({ block: 'B' })
-                    [linkMethod]({ block: 'A' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'A' });  
 
                 return graph;
             },
@@ -48,7 +48,7 @@ describe('deps/ignore-deps/common-deps/resolve-common-deps', () => {
 
                 graph
                     .vertex({ block: 'C' })
-                    [linkMethod]({ block: 'D' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'D' });  
 
                 return graph;
             },
