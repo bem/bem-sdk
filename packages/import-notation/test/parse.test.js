@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    p = require('..').parse;
+import { expect } from 'chai';
+import { parse as p } from '../index.js';
 
 it('should return an array', () => {
     expect(p('b:button')).to.be.an('Array');

@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Intersecting sets of cells.
  *
@@ -7,7 +5,7 @@
  * @param {...(BemCell[])} otherSet - Set (or sets) of that should be merged into the original one.
  * @returns {BemCell[]} - Resulting set of cells.
  */
-module.exports = function () {
+export default function () {
     const hash = {};
     const res = [];
     const setsQty = arguments.length;
@@ -31,4 +29,4 @@ module.exports = function () {
     }
 
     return res;
-};
+}

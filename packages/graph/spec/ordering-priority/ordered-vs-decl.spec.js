@@ -1,11 +1,7 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../lib').BemGraph;
+import { BemGraph } from '../../lib/index.js';
 
 describe('ordering-priority/ordered-vs-decl', () => {
     it('should resolve ordered dependencies independently for each declaration entity', () => {

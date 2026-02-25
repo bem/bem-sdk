@@ -1,10 +1,10 @@
-'use strict';
+import chai from 'chai';
+import helpers from './helpers.js';
+chai.use(helpers);
+const expect = chai.expect;
 
-const chai = require('chai');
-chai.use(require('./helpers'));
-const expect = require('chai').expect;
-
-const parse = require('..').convert;
+import bemjsonToDecl from '../index.js';
+const parse = bemjsonToDecl.convert;
 
 it('should return an array', () => {
     expect(parse({ block: 'button2' })).to.be.an('Array');

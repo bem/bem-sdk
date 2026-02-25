@@ -1,14 +1,15 @@
-'use strict';
+import { Readable } from 'node:stream';
 
-const { Readable } = require('stream');
-const each = require('async-each');
-const deprecate = require('depd')('@bem/sdk.walk');
-
-const Config = require('@bem/sdk.config');
-const namingCreate = require('@bem/sdk.naming.presets/create');
-const walkers = require('./walkers');
+import Config from '@bem/sdk.config';
+import namingCreate from '@bem/sdk.naming.presets/create';
+import walkers from './walkers/index.js';
 
 const legacycallLayerName = 'legacycall';
+
+const _warned = new Set();
+function deprecate(msg) {
+    if (!_warned.has(msg)) { _warned.add(msg); process.emitWarning(msg, 'DeprecationWarning'); }
+}
 
 /**
  * Legacy callback for walker.
@@ -23,7 +24,7 @@ const legacycallLayerName = 'legacycall';
  *
  * @returns {module:stream.Readable} stream with info about found files and directories.
  */
-module.exports = (levels, options) => {
+const bemWalk = (levels, options) => {
     if (!levels || !levels.length) {
         const output = new Readable({ objectMode: true, read() {} });
         output.push(null);
@@ -50,7 +51,7 @@ module.exports = (levels, options) => {
     // const defaultScheme = defaultNaming.scheme || defaults.scheme;
     // const defaultWalker = (typeof defaultScheme === 'string' ? walkers[defaultScheme] : defaultScheme) || walkers.sdk;
 
-    return module.exports.walk({ sets: legacycallLayerName, config });
+    return bemWalk.walk({ sets: legacycallLayerName, config });
 };
 
 // TODO: V KONFIG
@@ -70,7 +71,7 @@ Config.create = function(config) {
  *
  * @returns {module:stream.Readable} stream with info about found files and directories.
  */
-module.exports.walk = ({ /*levels,*/ sets, config: userConfig }) => {
+bemWalk.walk = ({ /*levels,*/ sets, config: userConfig }) => {
     const walkConfig = Config.create(userConfig);
     const output = new Readable({ objectMode: true, read() {} });
 
@@ -111,11 +112,27 @@ module.exports.walk = ({ /*levels,*/ sets, config: userConfig }) => {
     // object[]
     levelsForWalk
         .then(levels => {
-            each(levels, scan, err => {
-                err
-                    ? output.emit('error', err)
-                    : output.push(null);
-            });
+            if (levels.length === 0) {
+                output.push(null);
+                return;
+            }
+
+            let completed = 0;
+            let errored = false;
+
+            for (const level of levels) {
+                scan(level, (err) => {
+                    if (errored) return;
+                    if (err) {
+                        errored = true;
+                        output.emit('error', err);
+                        return;
+                    }
+                    if (++completed === levels.length) {
+                        output.push(null);
+                    }
+                });
+            }
         })
         .catch(error => output.emit('error', error));
 
@@ -127,12 +144,16 @@ module.exports.walk = ({ /*levels,*/ sets, config: userConfig }) => {
  *
  * @returns {Promise<BemFile[]>}
  */
-module.exports.asArray = function(...args) {
+bemWalk.asArray = function(...args) {
     return new Promise((resolve, reject) => {
         const files = [];
-        module.exports(...args)
+        bemWalk(...args)
             .on('data', file => files.push(file))
             .on('error', reject)
             .on('end', () => resolve(files));
     });
 };
+
+export default bemWalk;
+export const walk = bemWalk.walk;
+export const asArray = bemWalk.asArray;

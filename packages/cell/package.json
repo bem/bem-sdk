@@ -2,6 +2,7 @@
   "name": "@bem/sdk.cell",
   "version": "0.2.9",
   "description": "Representation of identifier of a part of BEM entity.",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -28,15 +29,13 @@
     "index.js"
   ],
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.11",
-    "depd": "1.1.0"
+    "@bem/sdk.entity-name": "^0.2.11"
   },
   "scripts": {
     "specs": "mocha",
-    "cover": "nyc mocha",
     "test": "npm run specs"
   }
 }

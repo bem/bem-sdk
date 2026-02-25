@@ -1,6 +1,7 @@
-'use strict';
+import { performance } from 'node:perf_hooks';
 
-const normalize = require('../lib/index').normalize;
+import { normalize } from '../lib/index.js';
+
 const decls = {
     blocks: [
         { name: 'block-1' },
@@ -29,26 +30,33 @@ const decls = {
 
 decls.full = [].concat(decls.blocks, decls.blockMods, decls.elems, decls.elemMods);
 
-suite('normalize', () => {
-    set('interations', 200000);
+function bench(name, fn, iterations = 200000) {
+    const start = performance.now();
+    for (let i = 0; i < iterations; i++) {
+        fn();
+    }
+    const elapsed = performance.now() - start;
+    console.log(`  ${name}: ${iterations} iterations in ${elapsed.toFixed(2)}ms (${(iterations / elapsed * 1000).toFixed(0)} ops/sec)`);
+}
 
-    bench('blocks', () => {
-        normalize(decls.blocks);
-    });
+console.log('normalize:');
 
-    bench('block mods', () => {
-        normalize(decls.blockMods);
-    });
+bench('blocks', () => {
+    normalize(decls.blocks);
+});
 
-    bench('elems', () => {
-        normalize(decls.elems);
-    });
+bench('block mods', () => {
+    normalize(decls.blockMods);
+});
 
-    bench('elem mods', () => {
-        normalize(decls.elemMods);
-    });
+bench('elems', () => {
+    normalize(decls.elems);
+});
 
-    bench('full', () => {
-        normalize(decls.full);
-    });
+bench('elem mods', () => {
+    normalize(decls.elemMods);
+});
+
+bench('full', () => {
+    normalize(decls.full);
 });

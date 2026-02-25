@@ -1,26 +1,21 @@
-'use strict';
-
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-const beforeEach = require('mocha').beforeEach;
-
-const expect = require('chai').expect;
-
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
+import { expect } from 'chai';
+import sinon from 'sinon';
+import esmock from 'esmock';
 
 describe('save', () => {
     let context;
 
-    beforeEach(() => {
+    beforeEach(async () => {
         const stringifyStub = sinon.stub();
+
+        const save = await esmock('../lib/save.js', {
+            '../lib/stringify.js': { default: stringifyStub },
+            'node:fs/promises': { writeFile: sinon.stub() }
+        });
 
         context = {
             stringifyStub: stringifyStub,
-            save: proxyquire('../lib/save', {
-                './stringify': stringifyStub,
-                fs: { writeFile: sinon.stub() }
-            })
+            save: save.default || save
         };
     });
 

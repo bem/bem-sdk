@@ -1,12 +1,7 @@
-'use strict';
+import { assert } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const assert = require('chai').assert;
-
-const cellify = require('../../../lib/cellify');
-const format = require('../../../lib/formats/enb/format');
+import cellify from '../../../lib/cellify.js';
+import format from '../../../lib/formats/enb/format.js';
 
 describe('decl.formats.enb.format', () => {
     it('should format block', () => {

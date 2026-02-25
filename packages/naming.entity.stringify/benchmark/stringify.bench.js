@@ -1,12 +1,11 @@
-'use strict';
+import naming from '../index.js';
 
-var naming = require('../index'),
-    notations = {
-        block: { block: 'block' },
-        blockMod: { block: 'block', mod: { name: 'mod-name', val: 'mod-val' } },
-        elem: { block: 'block', elem: 'elem' },
-        elemMod: { block: 'block', elem: 'elem', mod: { name: 'mod-name', val: 'mod-val' } }
-    };
+var notations = {
+    block: { block: 'block' },
+    blockMod: { block: 'block', mod: { name: 'mod-name', val: 'mod-val' } },
+    elem: { block: 'block', elem: 'elem' },
+    elemMod: { block: 'block', elem: 'elem', mod: { name: 'mod-name', val: 'mod-val' } }
+};
 
 suite('stringify', function () {
     set('iterations', 2000000);

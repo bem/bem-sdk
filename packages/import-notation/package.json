@@ -2,14 +2,17 @@
   "name": "@bem/sdk.import-notation",
   "version": "0.0.7",
   "description": "BEM import notation parser",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "main": "index.js",
+  "engines": {
+    "node": ">= 24.0"
+  },
   "scripts": {
     "test": "npm run specs",
-    "specs": "mocha",
-    "cover": "nyc mocha"
+    "specs": "mocha"
   },
   "repository": "bem/bem-sdk",
   "keywords": [
@@ -22,7 +25,5 @@
     "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Aimport-notation"
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/import-notation#readme",
-  "dependencies": {
-    "hash-set": "^1.0.1"
-  }
+  "dependencies": {}
 }

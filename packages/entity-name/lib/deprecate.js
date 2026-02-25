@@ -1,8 +1,6 @@
-'use strict';
+import { inspect } from 'node:util';
 
-const util = require('util');
-
-const deprecate = require('depd')('@bem/sdk.entity-name');
+const warned = new Set();
 
 /**
  * Logs deprecation messages.
@@ -11,12 +9,17 @@ const deprecate = require('depd')('@bem/sdk.entity-name');
  * @param {string} deprecateName
  * @param {string} newName
  */
-module.exports = (obj, deprecateName, newName) => {
-    const objStr = util.inspect(obj, { depth: 1 });
+const deprecate = (obj, deprecateName, newName) => {
+    const objStr = inspect(obj, { depth: 1 });
     const message = [
         `\`${deprecateName}\` is kept just for compatibility and can be dropped in the future.`,
         `Use \`${newName}\` instead in \`${objStr}\` at`
     ].join(' ');
 
-    deprecate(message);
+    if (!warned.has(message)) {
+        warned.add(message);
+        process.emitWarning(message, 'DeprecationWarning');
+    }
 };
+
+export default deprecate;

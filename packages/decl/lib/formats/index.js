@@ -1,4 +1,7 @@
-'use strict';
+import v1 from './v1/index.js';
+import v2 from './v2/index.js';
+import enb from './enb/index.js';
+import harmony from './harmony/index.js';
 
 const isNotSupported = () => {
     throw new Error(
@@ -11,14 +14,9 @@ const baseFormat = {
     parse: isNotSupported
 };
 
-const formats = {
-    v1: require('./v1'),
-    v2: require('./v2'),
-    enb: require('./enb'),
-    harmony: require('./harmony')
-};
+const formats = { v1, v2, enb, harmony };
 
-module.exports = Object.keys(formats).reduce((obj, formatName) => {
+export default Object.keys(formats).reduce((obj, formatName) => {
     obj[formatName] = Object.assign({}, baseFormat, formats[formatName]);
 
     return obj;

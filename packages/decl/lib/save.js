@@ -1,10 +1,6 @@
-'use strict';
+import { writeFile } from 'node:fs/promises';
 
-const fs = require('fs');
-const promisify = require('es6-promisify');
-const stringify = require('./stringify');
-
-const writeFile = promisify(fs.writeFile);
+import stringify from './stringify.js';
 
 /**
  * Save normalized declaration to target format
@@ -17,7 +13,7 @@ const writeFile = promisify(fs.writeFile);
  * @param   {Number}    [opts.mode=0o666] File mode
  * @returns {Promise.<undefined>}
  */
-module.exports = (filename, cells, opts) => {
+export default (filename, cells, opts) => {
     const options = opts || {};
     const defaults = {
         format: 'v2',
@@ -27,4 +23,4 @@ module.exports = (filename, cells, opts) => {
     const str = stringify(cells, Object.assign({}, defaults, opts));
 
     return writeFile(filename, str, { mode: options.mode });
-}
+};

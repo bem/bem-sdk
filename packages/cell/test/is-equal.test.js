@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemCell = require('../index');
+import BemCell from '../index.js';
 
 describe('is-equal', () => {
     it('should detect equal cell', () => {

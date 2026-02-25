@@ -1,9 +1,10 @@
-'use strict';
+export { default } from './legacy.js';
+export { default as legacy } from './legacy.js';
+export { default as origin } from './origin.js';
+export { default as react } from './react.js';
 
-exports.default = require('./legacy');
+import originReact from './origin-react.js';
+import twoDashes from './two-dashes.js';
 
-exports.legacy = require('./legacy');
-exports.origin = require('./origin');
-exports.react = require('./react');
-exports['origin-react'] = require('./origin-react');
-exports['two-dashes'] = require('./two-dashes');
+export { originReact as 'origin-react' };
+export { twoDashes as 'two-dashes' };

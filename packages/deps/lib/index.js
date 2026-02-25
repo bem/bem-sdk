@@ -1,10 +1,8 @@
-'use strict';
+import read from './read.js';
+import parse from './parse.js';
+import load from './load.js';
+import gather from './gather.js';
+import resolve from './resolve.js';
+import buildGraph from './buildGraph.js';
 
-const read = require('./read');
-const parse = require('./parse');
-const load = require('./load');
-const gather = require('./gather');
-const resolve = require('./resolve');
-const buildGraph = require('./buildGraph');
-
-module.exports = { load, read, parse, gather, resolve, buildGraph };
+export { load, read, parse, gather, resolve, buildGraph };

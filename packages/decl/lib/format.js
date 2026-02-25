@@ -1,8 +1,6 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
-
-const formats = require('./formats');
+import formats from './formats/index.js';
 
 /**
  * Formats a normalized declaration to the target format
@@ -12,7 +10,7 @@ const formats = require('./formats');
  * @param  {string} opts.format target format
  * @return {Array} Array with converted declaration
  */
-module.exports = function (decl, opts) {
+export default function (decl, opts) {
     opts || (opts = {});
 
     const formatName = opts.format;
@@ -26,4 +24,4 @@ module.exports = function (decl, opts) {
     }
 
     return format.format(decl);
-};
+}

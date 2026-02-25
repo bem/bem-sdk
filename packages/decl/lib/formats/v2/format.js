@@ -1,3 +1,1 @@
-'use strict';
-
-module.exports = require('../enb/format');
+export { default } from '../enb/format.js';

@@ -1,13 +1,10 @@
-'use strict';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const fs = require('fs');
-const path = require('path');
-
-const each = require('async-each');
-const BemFile = require('@bem/sdk.file');
-const createPreset = require('@bem/sdk.naming.presets/create');
-const createParse = require('@bem/sdk.naming.entity.parse');
-const createStringify = require('@bem/sdk.naming.entity.stringify');
+import BemFile from '@bem/sdk.file';
+import createPreset from '@bem/sdk.naming.presets/create';
+import createParse from '@bem/sdk.naming.entity.parse';
+import createStringify from '@bem/sdk.naming.entity.stringify';
 
 /**
  * Calls specified callback for each file or directory in specified directory.
@@ -48,7 +45,25 @@ const eachDirItem = (dirname, fn, callback) => {
             };
         });
 
-        each(files, fn, callback);
+        if (files.length === 0) {
+            return callback();
+        }
+
+        let completed = 0;
+        let errored = false;
+
+        for (const file of files) {
+            fn(file, (err) => {
+                if (errored) return;
+                if (err) {
+                    errored = true;
+                    return callback(err);
+                }
+                if (++completed === files.length) {
+                    callback();
+                }
+            });
+        }
     });
 };
 
@@ -247,8 +262,10 @@ class LevelWalker {
  * @param {function}      add         The function to provide info about found files.
  * @param {function}      callback    The callback function.
  */
-module.exports = (info, add, callback) => {
+const nested = (info, add, callback) => {
     const walker = new LevelWalker(info, add);
 
     walker.scanLevel(callback);
 };
+
+export default nested;

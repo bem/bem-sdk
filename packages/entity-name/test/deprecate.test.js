@@ -1,21 +1,24 @@
-'use strict';
+import { expect } from 'chai';
+import sinon from 'sinon';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
-
-const BemEntityName = require('..');
-
-const deprecateSpy = sinon.spy();
-const deprecate = proxyquire('../lib/deprecate', {
-    'depd':() => deprecateSpy
-});
+import BemEntityName from '../index.js';
 
 describe('deprecate', () => {
-    it('should deprecate object', () => {
+    let emitWarningSpy;
+
+    beforeEach(async () => {
+        emitWarningSpy = sinon.spy(process, 'emitWarning');
+    });
+
+    afterEach(() => {
+        emitWarningSpy.restore();
+    });
+
+    it('should deprecate object', async () => {
+        // Import a fresh deprecate module via esmock to reset its internal Set
+        const esmock = (await import('esmock')).default;
+        const { default: deprecate } = await esmock('../lib/deprecate.js', {});
+
         deprecate({ block: 'block' }, 'oldField', 'newField');
 
         const message = [
@@ -23,10 +26,13 @@ describe('deprecate', () => {
             "Use `newField` instead in `{ block: 'block' }` at"
         ].join(' ');
 
-        expect(deprecateSpy.calledWith(message)).to.be.true;
+        expect(emitWarningSpy.calledWith(message, 'DeprecationWarning')).to.be.true;
     });
 
-    it('should deprecate BemEntityName instance', () => {
+    it('should deprecate BemEntityName instance', async () => {
+        const esmock = (await import('esmock')).default;
+        const { default: deprecate } = await esmock('../lib/deprecate.js', {});
+
         deprecate(new BemEntityName({ block: 'block' }), 'oldField', 'newField');
 
         const message = [
@@ -34,6 +40,6 @@ describe('deprecate', () => {
             "Use `newField` instead in `BemEntityName { block: 'block' }` at"
         ].join(' ');
 
-        expect(deprecateSpy.calledWith(message)).to.be.true;
+        expect(emitWarningSpy.calledWith(message, 'DeprecationWarning')).to.be.true;
     });
 });

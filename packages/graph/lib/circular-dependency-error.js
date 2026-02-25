@@ -1,11 +1,7 @@
-'use strict';
-
-const ExtendableError = require('es6-error');
-
 /**
- * СircularDependencyError
+ * CircularDependencyError
  */
-module.exports = class СircularDependencyError extends ExtendableError {
+export default class CircularDependencyError extends Error {
     constructor(loop) {
         loop = Array.from(loop || []);
 
@@ -16,6 +12,7 @@ module.exports = class СircularDependencyError extends ExtendableError {
 
         super(message);
 
+        this.name = this.constructor.name;
         this._loop = loop;
     }
     get loop() {
@@ -26,4 +23,4 @@ module.exports = class СircularDependencyError extends ExtendableError {
             return res;
         });
     }
-};
+}

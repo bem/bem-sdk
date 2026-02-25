@@ -1,11 +1,7 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const findLastIndex = require('../../lib/test-utils').findLastIndex;
+import { findLastIndex } from '../../lib/test-utils.js';
 
 describe('utils/find-last-index', () => {
     it('should not find non existing block', () => {

@@ -1,12 +1,11 @@
-'use strict';
+import BemCell from '@bem/sdk.cell';
 
-const series = require('ho-iter').series;
+import VertexSet from './vertex-set.js';
+import CircularDependencyError from './circular-dependency-error.js';
 
-const BemCell = require('@bem/sdk.cell')
-const VertexSet = require('./vertex-set');
-const CircularDependencyError = require('./circular-dependency-error');
-
-module.exports = resolve;
+function* series(...iters) {
+    for (const it of iters) if (it) yield* it;
+}
 
 class TopoGroups {
     constructor() {
@@ -43,7 +42,7 @@ function resolve(mixedGraph, startVertices, tech) {
     const _positions = startVertices.reduce((res, e, pos) => { res[e.id] = pos; return res; }, {});
     const backsort = (a, b) => _positions[a.id] - _positions[b.id];
 
-    const orderedSuccessors = []; // L ← Empty list that will contain the sorted nodes
+    const orderedSuccessors = []; // L <- Empty list that will contain the sorted nodes
     const _orderedVisits = {}; // Hash with visiting flags: temporary - false, permanently - true
     const unorderedSuccessors = new VertexSet(); // The rest nodes
     let crumbs = [];
@@ -146,3 +145,5 @@ function resolve(mixedGraph, startVertices, tech) {
         crumbs.pop();
     }
 }
+
+export default resolve;

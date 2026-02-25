@@ -1,13 +1,7 @@
-'use strict';
+import { expect } from 'chai';
+import { inspect } from 'node:util';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const inspect = require('util').inspect;
-
-const BemEntityName = require('..');
+import BemEntityName from '../index.js';
 
 describe('inspect.test.js', () => {
     it('should return entity object', () => {

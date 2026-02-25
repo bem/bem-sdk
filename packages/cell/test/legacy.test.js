@@ -1,15 +1,8 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-const beforeEach = require('mocha').beforeEach;
-const afterEach = require('mocha').afterEach;
+import BemEntityName from '@bem/sdk.entity-name';
 
-const expect = require('chai').expect;
-
-const BemEntityName = require('@bem/sdk.entity-name');
-
-const BemCell = require('../index');
+import BemCell from '../index.js';
 
 const cell = new BemCell({ entity: new BemEntityName({ block: 'b', elem: 'e', mod: { name: 'm', val: 'v' } }) });
 const modLessCell = new BemCell({ entity: new BemEntityName({ block: 'b' }) });

@@ -1,87 +1,101 @@
-'use strict';
+import { XMLParser } from 'fast-xml-parser';
 
-const xamel = require('xamel');
-
-module.exports = async function transform(str) {
+export default async function transform(str) {
 
     if (!str.includes('<i18n:')) {
         return [[str]];
     }
 
-     const transformed = await new Promise((res, rej) =>
-         xamel.parse(str, { strict: false, trim: false }, async function(err, xml) {
-            if (err) {
-                console.log('Error while transform XML');
-                rej(err);
-            }
+    // Wrap in a root element so the parser handles it as valid XML
+    const wrappedStr = `<root>${str}</root>`;
 
-            const _transformed = await processNodes(xml, true);
+    const parser = new XMLParser({
+        ignoreAttributes: false,
+        attributeNamePrefix: '',
+        preserveOrder: true,
+        trimValues: false,
+        textNodeName: '#text',
+        processEntities: false,
+        // Treat i18n: prefixed tags properly
+        allowBooleanAttributes: true
+    });
 
-            res(_transformed);
-        })
-    );
+    const parsed = parser.parse(wrappedStr);
+    // parsed is an array, root element is first
+    const rootChildren = parsed[0].root;
+
+    const transformed = await processNodes(rootChildren);
 
     return transformed;
 }
 
 
 async function processNodes(nodes) {
-    return await new Promise(async (res, rej) => {
-        const unknown = [];
+    const unknown = [];
+    const transformed = [];
 
-        const transformed = await nodes.reduce(async (accP, node) => {
-            const acc = await accP;
-
-            if (typeof node === 'string') {
-                acc.push([node]);
-                return Promise.resolve(acc);
-            }
-
-            if (node.name === 'I18N:DYNAMIC') {
-                const { KEY } = node.attrs || {};
-
-                if (KEY === 'plural' || KEY === 'plural_adv') {
-                    const pluralNode = await transformPlural(node)
-                    acc.push([pluralNode]);
-                }
-
-                return Promise.resolve(acc);
-            }
-
-            if (node.name === 'I18N:PARAM') {
-                acc.push([
-                    transformParam(node),
-                    extractText(node)
-                ]);
-                return Promise.resolve(acc);
-            }
-
-            if (process.env.DEBUG) {
-                console.log('need transform:');
-                console.log(node);
-                unknown.push(node);
-            }
-
-            return Promise.resolve(acc);
-        }, Promise.resolve([]));
-
-        if (unknown.length) {
-            rej(unknown);
+    for (const node of nodes) {
+        // Text node
+        if (typeof node['#text'] === 'string' || typeof node['#text'] === 'number') {
+            transformed.push([String(node['#text'])]);
+            continue;
         }
 
-        return res(transformed);
-    });
+        const nodeName = getNodeName(node);
+        if (!nodeName) continue;
+
+        const upperName = nodeName.toUpperCase();
+
+        if (upperName === 'I18N:DYNAMIC') {
+            const attrs = getNodeAttrs(node, nodeName);
+            const key = attrs.key || attrs.KEY;
+
+            if (key === 'plural' || key === 'plural_adv') {
+                const children = getNodeChildren(node, nodeName);
+                const pluralNode = await transformPlural(children);
+                transformed.push([pluralNode]);
+            }
+
+            continue;
+        }
+
+        if (upperName === 'I18N:PARAM') {
+            const textContent = extractText(node, nodeName);
+            transformed.push([
+                `{${textContent}}`,
+                textContent
+            ]);
+            continue;
+        }
+
+        if (process.env.DEBUG) {
+            console.log('need transform:');
+            console.log(node);
+            unknown.push(node);
+        }
+    }
+
+    if (unknown.length) {
+        throw unknown;
+    }
+
+    return transformed;
 }
 
-async function transformPlural({ children = [] }) {
-
+async function transformPlural(children) {
     const pluralObj = {};
 
-    for (let node of children) {
-        for (let type of  ['one', 'some', 'many', 'none']) {
-            if (node.name === `I18N:${type.toUpperCase()}`) {
+    for (const node of children) {
+        const nodeName = getNodeName(node);
+        if (!nodeName) continue;
+
+        const upperName = nodeName.toUpperCase();
+
+        for (const type of ['one', 'some', 'many', 'none']) {
+            if (upperName === `I18N:${type.toUpperCase()}`) {
                 try {
-                    pluralObj[type] = await processNodes(node.children);
+                    const nodeChildren = getNodeChildren(node, nodeName);
+                    pluralObj[type] = await processNodes(nodeChildren);
                 } catch(err) {
                     console.log('Failed to process nodes');
                     console.log(err);
@@ -93,11 +107,37 @@ async function transformPlural({ children = [] }) {
     return pluralObj;
 }
 
-function transformParam(node) {
-    const text = extractText(node);
-    return `{${text}}`;
+// Helper: get the element name from a fast-xml-parser preserveOrder node
+function getNodeName(node) {
+    for (const key of Object.keys(node)) {
+        if (key !== '#text' && key !== ':@') {
+            return key;
+        }
+    }
+    return null;
 }
 
-function extractText(node) {
-    return node.$(`text()`);
+// Helper: get attributes from a preserveOrder node
+function getNodeAttrs(node, nodeName) {
+    if (node[':@']) {
+        return node[':@'];
+    }
+    return {};
+}
+
+// Helper: get children array from a preserveOrder node
+function getNodeChildren(node, nodeName) {
+    return node[nodeName] || [];
+}
+
+// Helper: extract text content from a node (like xamel's .$('text()'))
+function extractText(node, nodeName) {
+    const children = node[nodeName] || [];
+    let text = '';
+    for (const child of children) {
+        if (typeof child['#text'] === 'string' || typeof child['#text'] === 'number') {
+            text += String(child['#text']);
+        }
+    }
+    return text;
 }

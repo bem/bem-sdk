@@ -1,7 +1,7 @@
-'use strict';
+import { debuglog } from 'node:util';
+import decl from '@bem/sdk.decl';
 
-const debug = require('debug')('@bem/sdk.deps');
-const decl = require('@bem/sdk.decl');
+const debug = debuglog('bem_sdk_deps');
 
 /**
  * @typedef {Object} DepsData
@@ -35,7 +35,7 @@ const decl = require('@bem/sdk.decl');
  * @param {(Array<DepsData>|DepsData)} depsData - List of deps
  * @returns {Array<DepsLink>}
  */
-module.exports = function parse(depsData) {
+export default function parse(depsData) {
     const mustDeps = [];
     const shouldDeps = [];
     const mustDepsIndex = {};
@@ -60,7 +60,7 @@ module.exports = function parse(depsData) {
                 decl.normalize(dep.mustDeps, {format: 'v2', scope: subscope}).forEach(function (nd) {
                     nd = decl.assign(nd, subscope);
                     const key = nd.id;
-                    const indexKey = subscopeKey + '→' + key;
+                    const indexKey = subscopeKey + '\u2192' + key;
                     if (!mustDepsIndex[indexKey]) {
                         subscopeKey === key ||
                             mustDeps.push({ vertex: subscope, dependOn: nd, ordered: true, path: record.path });
@@ -71,7 +71,7 @@ module.exports = function parse(depsData) {
             if (dep.shouldDeps) {
                 decl.normalize(dep.shouldDeps, {format: 'v2', scope: subscope}).forEach(function (nd) {
                     const key = nd.id;
-                    const indexKey = subscopeKey + '→' + key;
+                    const indexKey = subscopeKey + '\u2192' + key;
                     if (!shouldDepsIndex[indexKey]) {
                         subscopeKey === key ||
                             shouldDeps.push({ vertex: subscope, dependOn: nd, path: record.path });
@@ -82,7 +82,7 @@ module.exports = function parse(depsData) {
             if (dep.noDeps) {
                 decl.normalize(dep.noDeps, {format: 'v2', scope: subscope}).forEach(function (nd) {
                     const key = nd.id;
-                    const indexKey = subscopeKey + '→' + key;
+                    const indexKey = subscopeKey + '\u2192' + key;
                     removeFromDeps(key, indexKey, mustDepsIndex, mustDeps);
                     removeFromDeps(key, indexKey, shouldDepsIndex, shouldDeps);
                 });
@@ -107,8 +107,8 @@ module.exports = function parse(depsData) {
         return null;
     }
 
-    debug.enabled && debug('parsed-deps: ', mustDeps.concat(shouldDeps)
+    debug('parsed-deps: ', mustDeps.concat(shouldDeps)
         .map(v => `${v.vertex.id} ${v.ordered ? '=>' : '->'} ${v.dependOn.id} : ${v.path}`));
 
     return mustDeps.concat(shouldDeps);
-};
+}

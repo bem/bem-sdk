@@ -1,9 +1,9 @@
-'use strict';
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
+import T from '../lib/index.js';
 
-var transformer = require('../lib')();
-var transform = transformer.process.bind(transformer);
+const transformer = T();
+const transform = transformer.process.bind(transformer);
 
 describe('transform', () => {
 

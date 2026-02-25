@@ -1,12 +1,9 @@
-'use strict';
+import { assert } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import { simplifyCell } from '../../util.js';
+import v1Format from '../../../lib/formats/v1/index.js';
 
-const assert = require('chai').assert;
-
-const simplifyCell = require('../../util').simplifyCell;
-const parse = require('../../../lib/formats/v1').parse;
+const { parse } = v1Format;
 
 describe('decl.formats.v1.parse', () => {
     it('should throw if invalid format', () => {

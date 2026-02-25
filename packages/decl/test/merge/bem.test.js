@@ -1,14 +1,10 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import BemCell from '@bem/sdk.cell';
 
-const expect = require('chai').expect;
-
-const BemCell = require('@bem/sdk.cell');
 const createCell = BemCell.create;
 
-const merge = require('../../lib/merge');
+import merge from '../../lib/merge.js';
 
 describe('intersect.bem', () => {
     it('should merge block with its elem', () => {

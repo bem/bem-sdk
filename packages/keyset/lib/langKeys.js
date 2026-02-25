@@ -1,10 +1,8 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
+import formats from './formats/index.js';
 
-const formats = require('./formats');
-
-const { Key, ParamedKey, PluralKey } = require('./key');
+import { Key, ParamedKey, PluralKey } from './key.js';
 
 class LangKeys {
 
@@ -65,6 +63,6 @@ class LangKeys {
 
 }
 
-module.exports = {
+export {
     LangKeys
 };

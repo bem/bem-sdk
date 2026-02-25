@@ -1,8 +1,6 @@
-'use strict';
+import defaultParser from './formats/deps.js/parser.js';
 
-const defaultParser = require('./formats/deps.js/parser');
-
-module.exports = function parse(parser) {
+export default function parse(parser) {
     parser || (parser = defaultParser);
 
     return function (deps) {
@@ -12,4 +10,4 @@ module.exports = function parse(parser) {
             }
         );
     };
-};
+}

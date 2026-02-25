@@ -1,20 +1,16 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import BemEntityName from '../../index.js';
 
-const expect = require('chai').expect;
-
-const BemEntityName = require('../..');
 const noop = () => {};
 
 describe('constructor/normalize.test.js', () => {
     beforeEach(() => {
-        process.on('deprecation', noop);
+        process.on('warning', noop);
     });
 
     afterEach(() => {
-        process.removeListener('deprecation', noop);
+        process.removeListener('warning', noop);
     });
 
     it('should normalize simple modifier', () => {

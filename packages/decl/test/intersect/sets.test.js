@@ -1,12 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const createCell = require('../util').createCell;
-const intersect = require('../../lib/intersect');
+import { createCell } from '../util.js';
+import intersect from '../../lib/intersect.js';
 
 describe('intersect.sets', () => {
     it('should support only one decl', () => {

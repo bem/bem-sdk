@@ -1,11 +1,9 @@
-'use strict';
+import fs from 'node:fs';
+import path from 'node:path';
 
-const fs = require('fs');
-const path = require('path');
-
-const namingEntityParse = require('@bem/sdk.naming.entity.parse');
-const createNamingPreset = require('@bem/sdk.naming.presets/create');
-const BemFile = require('@bem/sdk.file');
+import namingEntityParse from '@bem/sdk.naming.entity.parse';
+import createNamingPreset from '@bem/sdk.naming.presets/create';
+import BemFile from '@bem/sdk.file';
 
 /**
  * Plugin to scan flat levels.
@@ -16,7 +14,7 @@ const BemFile = require('@bem/sdk.file');
  * @param {function}      add         The function to provide info about found files.
  * @param {function}      callback    The callback function.
  */
-module.exports = (info, add, callback) => {
+const flat = (info, add, callback) => {
     const levelpath = info.path;
     // Create `@bem/sdk.naming.preset` instance for specified options.
     const parseEntityName = namingEntityParse(createNamingPreset(info.naming));
@@ -48,3 +46,5 @@ module.exports = (info, add, callback) => {
         callback();
     });
 };
+
+export default flat;

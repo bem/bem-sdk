@@ -1,13 +1,8 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-
-const BemGraph = require('../../lib').BemGraph;
-const findIndex = require('../../lib/test-utils').findIndex;
+import { BemGraph } from '../../lib/index.js';
+import { findIndex } from '../../lib/test-utils.js';
 
 describe('decl-order/ordered-deps', () => {
     it('should place ordered entity from decl before several entities depending on it', () => {

@@ -1,8 +1,12 @@
-'use strict';
+import assert from 'node:assert';
+import vm from 'node:vm';
 
-const assert = require('assert');
-
-const nEval = require('node-eval');
+function nodeEval(code) {
+    const m = { exports: {} };
+    const wrapped = `(function(module, exports) { ${code}\n})(m, m.exports)`;
+    vm.runInNewContext(wrapped, { m });
+    return m.exports;
+}
 
 const LangKeys = {
     stringify: langKeys => {
@@ -36,7 +40,7 @@ const LangKeys = {
 
         let data = null;
         try {
-            data = nEval(strToParse);
+            data = nodeEval(strToParse);
         } catch(err) {
             console.log(err);
         }
@@ -100,7 +104,7 @@ const Key = {
     }
 }
 
-module.exports = {
+export {
     LangKeys,
     Key
-}
+};

@@ -1,10 +1,8 @@
-'use strict';
+import vow from 'vow';
+import Level from 'enb/lib/levels/level';
+import LevelPlain from 'enb/lib/levels/level-plain';
 
-const vow = require('vow');
-const Level = require('enb/lib/levels/level');
-const LevelPlain = require('enb/lib/levels/level-plain');
-
-module.exports = function run(levels, scheme, done) {
+export default function run(levels, scheme, done) {
     var plain = scheme === 'flat' ? LevelPlain : null;
 
     vow.all(levels.map(function (level) {

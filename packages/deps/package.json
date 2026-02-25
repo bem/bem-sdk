@@ -2,6 +2,7 @@
   "name": "@bem/sdk.deps",
   "version": "0.3.1",
   "description": "Manage BEM dependencies",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -22,7 +23,7 @@
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/deps#readme",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "main": "lib/index.js",
   "files": [
@@ -33,18 +34,10 @@
     "@bem/sdk.decl": "^0.3.10",
     "@bem/sdk.entity-name": "^0.2.11",
     "@bem/sdk.graph": "^0.3.3",
-    "@bem/sdk.walk": "^0.6.0",
-    "debug": "2.6.9",
-    "mz": "2.4.0",
-    "node-eval": "1.1.0"
-  },
-  "devDependencies": {
-    "stream-to-array": "^2.3.0",
-    "through2": "^2.0.1"
+    "@bem/sdk.walk": "^0.6.0"
   },
   "scripts": {
     "specs": "mocha",
-    "cover": "nyc mocha",
     "test": "npm run specs"
   }
 }

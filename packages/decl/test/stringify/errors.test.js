@@ -1,12 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemCell = require('@bem/sdk.cell');
-const stringify = require('../../lib/stringify');
+import BemCell from '@bem/sdk.cell';
+import stringify from '../../lib/stringify.js';
 
 const cell = BemCell.create({ block: 'block' });
 

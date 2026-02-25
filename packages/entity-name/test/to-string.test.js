@@ -1,18 +1,18 @@
-'use strict';
-
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
-
-const spy = sinon.spy();
-const BemEntityName = proxyquire('../lib/entity-name', {
-    '@bem/sdk.naming.entity.stringify': () => spy
-});
+import { expect } from 'chai';
+import sinon from 'sinon';
+import esmock from 'esmock';
 
 describe('to-string', () => {
+    let spy;
+    let BemEntityName;
+
+    before(async () => {
+        spy = sinon.spy();
+        BemEntityName = (await esmock('../lib/entity-name.js', {
+            '@bem/sdk.naming.entity.stringify': { default: () => spy }
+        })).default;
+    });
+
     it('should use `naming.stringify()` for block', () => {
         const entityName = new BemEntityName({ block: 'block' });
 

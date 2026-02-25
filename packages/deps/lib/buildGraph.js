@@ -1,6 +1,4 @@
-'use strict';
-
-const BemGraph = require('@bem/sdk.graph').BemGraph;
+import { BemGraph } from '@bem/sdk.graph';
 
 /**
  * A BEM-entity with or without a tech
@@ -12,7 +10,7 @@ const BemGraph = require('@bem/sdk.graph').BemGraph;
  * @param {?{denaturalized: Boolean}} options
  * @returns {BemGraph}
  */
-module.exports = function buildGraph(deps, options) {
+export default function buildGraph(deps, options) {
     options || (options = {});
 
     const graph = new BemGraph();
@@ -30,4 +28,4 @@ module.exports = function buildGraph(deps, options) {
     options.denaturalized || graph.naturalize();
 
     return graph;
-};
+}

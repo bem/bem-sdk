@@ -1,13 +1,16 @@
-'use strict';
+import v1Normalize from './formats/v1/normalize.js';
+import v2Normalize from './formats/v2/normalize.js';
+import harmonyNormalize from './formats/harmony/normalize.js';
+import enbNormalize from './formats/enb/normalize.js';
 
 const normalizer = {
-    v1: require('./formats/v1/normalize'),
-    v2: require('./formats/v2/normalize'),
-    harmony: require('./formats/harmony/normalize'),
-    enb: require('./formats/enb/normalize')
+    v1: v1Normalize,
+    v2: v2Normalize,
+    harmony: harmonyNormalize,
+    enb: enbNormalize
 };
 
-module.exports = (decl, opts) => {
+export default (decl, opts) => {
     opts || (opts = {});
 
     const format = opts.format || 'v2';

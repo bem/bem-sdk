@@ -1,8 +1,6 @@
-'use strict';
+import BemCell from '@bem/sdk.cell';
 
-const BemCell = require('@bem/sdk.cell');
-
-module.exports = (data) => {
+export default (data) => {
     const arr = Array.isArray(data) ? data : [data];
 
     return arr.map(BemCell.create);

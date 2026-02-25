@@ -1,12 +1,8 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
+import path from 'node:path';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-const path = require('path');
-
-const walk = require('../../../lib/index');
+import walk from '../../../lib/index.js';
 
 describe('schemes/flat/error', () => {
     it('should throw error if level is not found', done => {
@@ -15,7 +11,7 @@ describe('schemes/flat/error', () => {
             defaults: { scheme: 'flat' }
         };
 
-        walk([levelpath], options)
+        walk(levelpath ? [levelpath] : [], options)
             .resume()
             .on('error', err => {
                 expect(err.code).to.equal('ENOENT', 'err code is wrong');

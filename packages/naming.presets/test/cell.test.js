@@ -1,13 +1,11 @@
-'use strict';
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
+import BemCell from '@bem/sdk.cell';
+import BemEntityName from '@bem/sdk.entity-name';
 
-const BemCell = require('@bem/sdk.cell');
-const BemEntityName = require('@bem/sdk.entity-name');
+import createStringify from '@bem/sdk.naming.cell.stringify';
 
-const createStringify = require('@bem/sdk.naming.cell.stringify');
-
-const presets = require('..');
+import * as presets from '../index.js';
 
 const createPreset = (name, fsConv, conv) => {
     const res = Object.assign({}, presets[name], conv);

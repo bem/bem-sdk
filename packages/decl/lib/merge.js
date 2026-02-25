@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Merging sets of cells.
  *
@@ -7,7 +5,7 @@
  * @param {...(BemCell[])} otherCollection - Set (or sets) of that should be merged into the original one.
  * @returns {BemCell[]} - Resulting set of cells.
  */
-module.exports = function (collection) {
+export default function (collection) {
     const hash = {};
     const res = [].concat(collection);
 
@@ -33,4 +31,4 @@ module.exports = function (collection) {
     }
 
     return res;
-};
+}

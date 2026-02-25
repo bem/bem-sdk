@@ -1,11 +1,7 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const parser = require('../../../lib/formats/deps.js/parser');
+import parser from '../../../lib/formats/deps.js/parser.js';
 
 const key = (v) => `${v.entity.id}${v.tech ? '.' + v.tech : ''}`;
 const parse = (z) => {

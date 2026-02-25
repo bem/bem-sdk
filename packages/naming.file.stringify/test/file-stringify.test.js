@@ -1,9 +1,7 @@
-'use strict';
+import { expect } from 'chai';
+import BemFile from '@bem/sdk.file';
 
-const expect = require('chai').expect;
-const BemFile = require('@bem/sdk.file');
-
-const method = require('..');
+import method from '../file-stringify.js';
 
 const f = (cell, level) => (new BemFile({ cell, level }));
 

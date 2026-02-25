@@ -1,10 +1,11 @@
-'use strict';
+import BemCell from '@bem/sdk.cell';
 
-const series = require('ho-iter').series;
-const BemCell = require('@bem/sdk.cell');
+import VertexSet from './vertex-set.js';
+import DirectedGraph from './directed-graph.js';
 
-const VertexSet = require('./vertex-set');
-const DirectedGraph = require('./directed-graph');
+function* series(...iters) {
+    for (const it of iters) if (it) yield* it;
+}
 
 /**
  * Mixed graph.
@@ -13,7 +14,7 @@ const DirectedGraph = require('./directed-graph');
  *
  * @type {MixedGraph}
  */
-module.exports = class MixedGraph {
+export default class MixedGraph {
     constructor() {
         this._vertices = new VertexSet();
         this._orderedGraphMap = new Map();
@@ -58,7 +59,7 @@ module.exports = class MixedGraph {
      *
      * @param {Vertex} vertex - Vertex with succeeding vertices
      * @param {{ordered: ?Boolean, tech: ?String}} data - ?
-     * @returns {HOIterator} - Iterator with succeeding vertices
+     * @returns {Iterator} - Iterator with succeeding vertices
      */
     directSuccessors(vertex, data) {
         data || (data = {});

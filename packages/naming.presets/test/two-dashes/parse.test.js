@@ -1,8 +1,6 @@
-'use strict';
-
-const assert = require('chai').assert;
-const naming = require('@bem/sdk.naming.entity')('two-dashes');
-const parse = naming.parse;
+import { assert } from 'chai';
+import naming from '@bem/sdk.naming.entity';
+const parse = naming('two-dashes').parse;
 
 describe('two-dashes parse', () => {
     it('should not parse not valid string', () => {

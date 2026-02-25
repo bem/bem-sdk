@@ -1,11 +1,9 @@
-'use strict';
+import assert from 'node:assert';
+import path from 'node:path';
 
-const assert = require('assert');
-const path = require('path');
+import bemjsonToDecl from '@bem/sdk.bemjson-to-decl';
 
-const bemjsonToDecl = require('@bem/sdk.bemjson-to-decl');
-
-module.exports = class BemBundle {
+export default class BemBundle {
     /**
      * @constructor
      * @param {Object} opts - Params

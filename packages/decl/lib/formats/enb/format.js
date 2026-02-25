@@ -1,12 +1,10 @@
-'use strict';
-
 /**
  * Format normalized declaration to enb format.
  *
  * @param {BemCell[]} cells - Source declaration
  * @returns {Array<{block: string, elem: ?string, mod: ?{name: string, val: (string|true)}, tech: ?string}>}
  */
-module.exports = function (cells) {
+export default function (cells) {
     Array.isArray(cells) || (cells = [cells]);
 
     const decl = cells.map(cell => {
@@ -26,4 +24,4 @@ module.exports = function (cells) {
     });
 
     return decl;
-};
+}

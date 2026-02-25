@@ -1,10 +1,12 @@
-'use strict';
+import BemCell from '@bem/sdk.cell';
+import { legacy, origin, react } from '@bem/sdk.naming.presets';
+import createMatch from './cell-match.js';
 
-const safeEval = require('node-eval');
+import { expect } from 'chai';
 
-const BemCell = require('@bem/sdk.cell');
-const { legacy, origin, react } = require('@bem/sdk.naming.presets');
-const createMatch = require('.');
+function safeEval(code) {
+    return new Function(`return ${code}`)();
+}
 
 const flatLegacyMatch = createMatch(Object.assign({}, legacy, { fs: Object.assign({}, legacy.fs, { scheme: 'flat' }) }));
 const flatOriginMatch = createMatch(Object.assign({}, origin, { fs: Object.assign({}, origin.fs, { scheme: 'flat' }) }));
@@ -16,8 +18,6 @@ const nestedModernMatch = createMatch(Object.assign({}, origin, { fs: Object.ass
     pattern: '${entity}${layer?@${layer}}.${tech}' }) }));
 const nestedModernEmptyElemMatch = createMatch(Object.assign({}, react, { fs: Object.assign({}, react.fs, { scheme: 'nested',
     pattern: '${entity}${layer?@${layer}}.${tech}' }) }));
-
-const { expect } = require('chai');
 
 describe('naming.cell.match', () => {
     for (const [dTitle, [match, its]] of Object.entries({
@@ -190,7 +190,7 @@ function rawses(strings) {
 
     return lines
         .map(line => {
-            const [ title, relPath, rawExpected ] = line.slice(minLineIndent).split('→').map(s => s.trim());
+            const [ title, relPath, rawExpected ] = line.slice(minLineIndent).split('\u2192').map(s => s.trim());
 
             const expected = {
                 cell: null,

@@ -2,6 +2,7 @@
   "name": "@bem/sdk.decl",
   "version": "0.3.10",
   "description": "Manage declaration of BEM entities",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -22,7 +23,7 @@
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/decl#readme",
   "engines": {
-    "node": ">= 8"
+    "node": ">= 24.0"
   },
   "main": "lib/index.js",
   "files": [
@@ -30,19 +31,10 @@
   ],
   "dependencies": {
     "@bem/sdk.cell": "^0.2.9",
-    "@bem/sdk.entity-name": "^0.2.11",
-    "es6-promisify": "5.0.0",
-    "graceful-fs": "4.1.11",
-    "json5": "0.5.1",
-    "node-eval": "1.1.0"
+    "@bem/sdk.entity-name": "^0.2.11"
   },
   "scripts": {
-    "bench": "matcha benchmark/*.bench.js",
     "specs": "mocha",
-    "cover": "nyc mocha",
     "test": "npm run specs"
-  },
-  "devDependencies": {
-    "matcha": "^0.7.0"
   }
 }

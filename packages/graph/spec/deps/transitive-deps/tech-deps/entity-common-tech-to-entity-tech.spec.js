@@ -1,12 +1,8 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../../../lib').BemGraph;
-const macro = require('../../../../lib/test-utils').depsMacro;
+import { BemGraph } from '../../../../lib/index.js';
+import { depsMacro as macro } from '../../../../lib/test-utils.js';
 
 describe('deps/transitive-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
     it('should resolve transitive dependency', () => {

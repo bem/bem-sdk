@@ -1,5 +1,3 @@
-'use strict';
-
 function valToStr(val) {
     switch(typeof val) {
         case 'string':
@@ -31,7 +29,7 @@ function styleToObj(style) {
     if (typeof style === 'string') {
         return style.split(';').reduce((acc, st) => {
             if (st.length) {
-                var prop = st.split(':');
+                const prop = st.split(':');
                 acc[prop[0]] = prop[1];
             }
             return acc;
@@ -40,7 +38,7 @@ function styleToObj(style) {
     return style;
 }
 
-module.exports = {
+export {
     objToStr,
     arrToStr,
     styleToObj,

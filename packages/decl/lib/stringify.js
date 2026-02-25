@@ -1,9 +1,6 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
-const JSON5 = require('json5');
-
-const format = require('./format');
+import format from './format.js';
 
 const DEFAULTS = { exportType: 'json', space: 4 };
 
@@ -17,11 +14,23 @@ const fieldByFormat = {
     v2: 'deps'
 };
 
+/**
+ * Simple JSON5-like output: unquoted keys where possible.
+ *
+ * @param {*} obj - object to stringify
+ * @param {null} _replacer - unused, kept for signature compat
+ * @param {String|Number} space - indentation
+ * @returns {String}
+ */
+function json5Stringify(obj, _replacer, space) {
+    return JSON.stringify(obj, null, space).replace(/"(\w+)":/g, '$1:');
+}
+
 const generators = {
-    json5: (obj, space) => JSON5.stringify(obj, null, space),
+    json5: (obj, space) => json5Stringify(obj, null, space),
     json: (obj, space) => JSON.stringify(obj, null, space),
-    commonjs: (obj, space) => `module.exports = ${JSON5.stringify(obj, null, space)};\n`,
-    es2015: (obj, space) => `export default ${JSON5.stringify(obj, null, space)};\n`
+    commonjs: (obj, space) => `module.exports = ${json5Stringify(obj, null, space)};\n`,
+    es2015: (obj, space) => `export default ${json5Stringify(obj, null, space)};\n`
 };
 // Aliases
 generators.es6 = generators.es2015;
@@ -37,7 +46,7 @@ generators.cjs = generators.commonjs;
  * @param {String|Number} [opts.space] - number of space characters or string to use as a white space
  * @returns {String}
  */
-module.exports = function (decl, opts) {
+export default function (decl, opts) {
     const options = Object.assign({}, DEFAULTS, opts);
 
     assert(options.format, 'You must declare target format');
@@ -57,4 +66,4 @@ module.exports = function (decl, opts) {
     }
 
     return generators[options.exportType](stringifiedObj, options.space);
-};
+}

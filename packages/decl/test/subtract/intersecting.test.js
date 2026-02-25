@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const subtract = require('../../lib/subtract');
+import subtract from '../../lib/subtract.js';
 
 describe('subtract.intersecting', () => {
     it('should subtract block from block', () => {

@@ -1,10 +1,11 @@
-'use strict';
+import { debuglog } from 'node:util';
 
-const debug = require('debug')('@bem/sdk.graph');
-const BemCell = require('@bem/sdk.cell');
+import BemCell from '@bem/sdk.cell';
 
-const MixedGraph = require('./mixed-graph');
-const resolve = require('./mixed-graph-resolve');
+import MixedGraph from './mixed-graph.js';
+import resolve from './mixed-graph-resolve.js';
+
+const debug = debuglog('bem_sdk_graph');
 
 class BemGraph {
     constructor() {
@@ -188,4 +189,4 @@ BemGraph.Vertex = class {
  *
  * @type {BemGraph}
  */
-module.exports = BemGraph;
+export default BemGraph;

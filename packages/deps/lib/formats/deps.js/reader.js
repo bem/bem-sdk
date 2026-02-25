@@ -1,7 +1,20 @@
-'use strict';
+import { readFile } from 'node:fs/promises';
+import vm from 'node:vm';
 
-const fsp = require('mz/fs');
-const _eval = require('node-eval');
+/**
+ * Evaluates BEM deps file content.
+ * BEM deps files use `module.exports` to export deps data.
+ *
+ * @param {string} code - File content to evaluate
+ * @param {string} filename - Original file path (for error messages)
+ * @returns {*} Evaluated module exports
+ */
+function nodeEval(code, filename) {
+    const m = { exports: {} };
+    const wrapped = `(function(module, exports, require) { ${code}\n})(m, m.exports, () => {})`;
+    vm.runInNewContext(wrapped, { m }, { filename });
+    return m.exports;
+}
 
 /**
  * Reads and evaluates BemFiles.
@@ -9,9 +22,9 @@ const _eval = require('node-eval');
  * @param {BemFile} f - file data to read
  * @returns {Promise<{file: BemFile, data: *, scope: BemEntityName}>}
  */
-module.exports = function read(f) {
-    return fsp.readFile(f.path, 'utf8')
+export default function read(f) {
+    return readFile(f.path, 'utf8')
         .then(content => Object.assign(f, {
-            data: _eval(content, f.path)
+            data: nodeEval(content, f.path)
         }));
-};
+}

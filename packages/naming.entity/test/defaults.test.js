@@ -1,11 +1,7 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const naming = require('..');
+import naming from '../index.js';
 
 describe('defaults.test.js', () => {
     it.skip('should be elem delim by default', () => {

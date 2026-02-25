@@ -2,6 +2,7 @@
   "name": "@bem/sdk.naming.file.stringify",
   "version": "0.1.11",
   "description": "BemFile stringifier (aka @bem/fs-scheme/path)",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -19,7 +20,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.file.stringify#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "dependencies": {
     "@bem/sdk.naming.cell.stringify": "^0.0.13"
@@ -32,6 +33,6 @@
     "file-stringify.js"
   ],
   "scripts": {
-    "test": "nyc mocha"
+    "test": "mocha"
   }
 }

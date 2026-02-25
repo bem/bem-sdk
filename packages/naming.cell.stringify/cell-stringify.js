@@ -1,9 +1,7 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
-
-const bemNaming = require('@bem/sdk.naming.entity');
-const pathPatternParser = require('@bem/sdk.naming.cell.pattern-parser');
+import bemNaming from '@bem/sdk.naming.entity';
+import pathPatternParser from '@bem/sdk.naming.cell.pattern-parser';
 
 const buildPathStringifyMethod = (pattern, defaultLayer) => {
     const separation = pathPatternParser(pattern);
@@ -35,7 +33,7 @@ const buildPathStringifyMethod = (pattern, defaultLayer) => {
  * @param {INamingConvention} conv - naming, path and scheme
  * @returns {function(BemCell): string} converts cell to file path
  */
-module.exports = (conv) => {
+export default (conv) => {
     assert(typeof conv === 'object', '@bem/sdk.naming.cell.stringify: convention object required');
 
     assert(typeof Object(conv.fs).pattern === 'string',

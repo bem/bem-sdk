@@ -2,6 +2,7 @@
   "name": "@bem/sdk.naming.presets",
   "version": "0.2.3",
   "description": "Presets for naming",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -30,7 +31,7 @@
     "@bem/sdk.naming.entity": "^0.2.11"
   },
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "main": "index.js",
   "typings": "index.d.ts",
@@ -39,6 +40,6 @@
     "index.d.ts"
   ],
   "scripts": {
-    "test": "nyc mocha"
+    "test": "mocha"
   }
 }

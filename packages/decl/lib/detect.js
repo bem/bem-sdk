@@ -1,6 +1,4 @@
-'use strict';
-
-const assert = require('assert');
+import assert from 'node:assert';
 
 /**
  * Detects decl format
@@ -8,7 +6,7 @@ const assert = require('assert');
  * @param  {Object} obj Declaration object
  * @return {String}
  */
-module.exports = function (obj) {
+export default function (obj) {
     assert(typeof obj === 'object', 'Argument must be an object');
 
     if (typeof obj.blocks === 'object') {
@@ -18,4 +16,4 @@ module.exports = function (obj) {
     } else if (typeof obj.decl === 'object' || Array.isArray(obj)) {
         return 'v2';
     }
-};
+}

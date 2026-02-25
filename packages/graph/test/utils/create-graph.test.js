@@ -1,13 +1,7 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-
-const createGraph = require('../../lib/test-utils').createGraph;
-const createVertex = require('../../lib/test-utils').createVertex;
+import { createGraph, createVertex } from '../../lib/test-utils.js';
 
 const depsOfGraph = (s, decl, tech) => createGraph(s)
     .dependenciesOf(decl, tech)

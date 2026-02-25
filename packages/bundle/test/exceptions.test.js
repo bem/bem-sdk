@@ -1,7 +1,5 @@
-'use strict';
-
-const assert = require('chai').assert;
-const BemBundle = require('..');
+import { assert } from 'chai';
+import BemBundle from '../lib/index.js';
 
 describe('throw exception', function () {
     it('should throw if no bemjson and bemdecl given', function () {

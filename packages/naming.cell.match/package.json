@@ -2,6 +2,7 @@
   "name": "@bem/sdk.naming.cell.match",
   "version": "0.1.3",
   "description": "BemCell parser",
+  "type": "module",
   "license": "MPL-2.0",
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
   "keywords": [
@@ -13,9 +14,10 @@
   ],
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "main": "cell-match.js",
+  "exports": "./cell-match.js",
   "files": [
     "cell-match.js"
   ],
@@ -28,6 +30,6 @@
     "@bem/sdk.naming.presets": "^0.2.3"
   },
   "scripts": {
-    "test": "nyc mocha *.test.js"
+    "test": "mocha *.test.js"
   }
 }

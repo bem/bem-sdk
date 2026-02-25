@@ -1,8 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
-
-const { Key, ParamedKey, PluralKey } = require('..');
+import { Key, ParamedKey, PluralKey } from '../index.js';
 
 
 describe('Key', () => {

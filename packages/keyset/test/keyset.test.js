@@ -1,12 +1,10 @@
-'use strict';
+import fs from 'node:fs';
 
-const fs = require('fs');
+import { stripIndent } from 'common-tags';
+import { expect } from 'chai';
+import mock from 'mock-fs';
 
-const { stripIndent } = require('common-tags');
-const expect = require('chai').expect;
-const mock = require('mock-fs');
-
-const { Keyset, Key, ParamedKey, PluralKey, LangKeys } = require('..');
+import { Keyset, Key, ParamedKey, PluralKey, LangKeys } from '../index.js';
 
 describe('Keyset', () => {
     it('should create Keyset', () => {

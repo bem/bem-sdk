@@ -1,3 +1,1 @@
-'use strict';
-
-module.exports = require('./lib/entity-name');
+export { default } from './lib/entity-name.js';

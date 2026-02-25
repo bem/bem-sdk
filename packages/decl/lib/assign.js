@@ -1,8 +1,6 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
-
-const BemCell = require('@bem/sdk.cell');
+import BemCell from '@bem/sdk.cell';
 
 const isValidVal = v => Boolean(v || v === 0);
 
@@ -14,7 +12,7 @@ const isValidVal = v => Boolean(v || v === 0);
  * @param {BemCell} scope - Context, the processing entity usually
  * @returns {BemCell} - Filled entity and tech
  */
-module.exports = function (cell, scope) {
+export default function (cell, scope) {
     assert(scope, 'Scope parameter is a required one.');
     assert(scope.constructor.name === 'BemCell' || scope.entity && scope.entity.block,
         'Scope parameter should be a BemCell-like object.');
@@ -57,4 +55,4 @@ module.exports = function (cell, scope) {
     }
 
     return BemCell.create(result);
-};
+}

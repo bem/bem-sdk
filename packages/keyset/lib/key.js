@@ -1,7 +1,5 @@
-'use strict';
-
-const assert = require('assert');
-const util = require('util');
+import assert from 'node:assert';
+import util from 'node:util';
 
 class Key {
     constructor(name, value) {
@@ -54,7 +52,7 @@ class PluralKey extends Key {
     }
 }
 
-module.exports = {
+export {
     Key,
     ParamedKey,
     PluralKey

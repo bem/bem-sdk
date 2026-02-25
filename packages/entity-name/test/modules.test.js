@@ -1,14 +1,10 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemEntityName = require('..');
+import BemEntityName from '../index.js';
 
 describe('modules', () => {
-    it('should export to default', () => {
-        expect(BemEntityName).to.equal(BemEntityName.default);
+    it('should export default', () => {
+        expect(BemEntityName).to.be.a('function');
+        expect(BemEntityName.name).to.equal('BemEntityName');
     });
 });

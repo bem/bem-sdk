@@ -1,17 +1,8 @@
-'use strict';
+import { readdir, readFile, mkdir, unlink, writeFile } from 'node:fs/promises';
+import { resolve, parse, join } from 'node:path';
 
-const fs = require('fs');
-const { promisify } = require('util');
-const { resolve, parse, join } = require('path');
-
-const formats = require('./formats');
-const { LangKeys } = require('./langKeys');
-
-const readdir = promisify(fs.readdir);
-const readFile = promisify(fs.readFile);
-const mkdir = promisify(fs.mkdir);
-const unlink = promisify(fs.unlink);
-const writeFile = promisify(fs.writeFile);
+import formats from './formats/index.js';
+import { LangKeys } from './langKeys.js';
 
 class Keyset {
     constructor(name, path, format) {
@@ -224,6 +215,6 @@ class Keyset {
 Keyset.availableFormats = formats;
 
 
-module.exports = {
+export {
     Keyset
-}
+};

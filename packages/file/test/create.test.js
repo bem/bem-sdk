@@ -1,12 +1,9 @@
-'use strict';
+import { describe, it } from 'node:test';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
-
-const BemCell = require('@bem/sdk.cell');
-const BemFile = require('..');
+import BemCell from '@bem/sdk.cell';
+import BemFile from '../file.js';
 
 describe('create', () => {
     it('should return instance as is if it`s a BemFile', () => {

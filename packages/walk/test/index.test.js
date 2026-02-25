@@ -1,10 +1,9 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect, use } from 'chai';
+import chaiAsPromised from 'chai-as-promised';
+use(chaiAsPromised);
 
-const { describe, it } = require('mocha');
-const { expect, use } = require('chai');
-use(require('chai-as-promised'));
-
-const { asArray } = require('..');
+import { asArray } from '../lib/index.js';
 
 describe('asArray', () => {
     it('should return an empty array', async () => {

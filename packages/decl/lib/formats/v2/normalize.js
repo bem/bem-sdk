@@ -1,11 +1,9 @@
-'use strict';
+import BemCell from '@bem/sdk.cell';
+import BemEntityName from '@bem/sdk.entity-name';
 
-const BemCell = require('@bem/sdk.cell');
-const BemEntityName = require('@bem/sdk.entity-name');
+import declAssign from '../../assign.js';
 
-const declAssign = require('../../assign');
-
-module.exports = function (decl, scope) {
+export default function (decl, scope) {
     const res = [];
     const hash = {};
 
@@ -243,4 +241,4 @@ module.exports = function (decl, scope) {
     function isNotActual(obj) {
         return !obj || (typeof obj === 'object' && Object.keys(obj).length === 0);
     }
-};
+}

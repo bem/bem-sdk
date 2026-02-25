@@ -1,13 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemCell = require('@bem/sdk.cell');
-
-const format = require('../../../lib/formats/v1/format');
+import BemCell from '@bem/sdk.cell';
+import format from '../../../lib/formats/v1/format.js';
 
 function cellify(entities) {
     return entities.map(BemCell.create);

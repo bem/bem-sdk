@@ -1,17 +1,15 @@
-'use strict';
+import assert from 'node:assert';
+import fs from 'node:fs';
 
-const assert = require('assert');
-const fs = require('fs');
-
-const Config = require('@bem/sdk.config');
-const walk = require('@bem/sdk.walk');
+import Config from '@bem/sdk.config';
+import walk from '@bem/sdk.walk';
 
 /**
  * Gathering deps.js files with bem-walk
  * @param {BemConfig} config
  * @returns {Promise<Array<BemFile>>}
  */
-module.exports = async function ({ platform = 'desktop', defaults = {}, config }) {
+export default async function ({ platform = 'desktop', defaults = {}, config }) {
     config || (config = Config());
 
     assert(!Array.isArray(config.levels), 'Missing description of levels in the configuration.');
@@ -53,4 +51,4 @@ module.exports = async function ({ platform = 'desktop', defaults = {}, config }
             .on('error', reject)
             .on('end', resolveIfPossible);
     });
-};
+}

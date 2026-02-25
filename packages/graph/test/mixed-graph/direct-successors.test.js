@@ -1,14 +1,9 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import MixedGraph from '../../lib/mixed-graph.js';
 
-const expect = require('chai').expect;
-
-
-const MixedGraph = require('../../lib/mixed-graph');
-
-const createVertex = require('../../lib/test-utils').createVertex;
+import { createVertex } from '../../lib/test-utils.js';
 
 describe('mixed-graph/direct-successors', () => {
     it('should return empty set if no successors', () => {

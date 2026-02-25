@@ -1,13 +1,8 @@
-'use strict';
+import { describe, it } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-
-const DirectedGraph = require('../../lib/directed-graph');
-const MixedGraph = require('../../lib/mixed-graph');
+import DirectedGraph from '../../lib/directed-graph.js';
+import MixedGraph from '../../lib/mixed-graph.js';
 
 describe('mixed-graph/get-subgraph', () => {
     it('should return unordered subgraph with common deps', () => {

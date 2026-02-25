@@ -1,8 +1,4 @@
-'use strict';
-
-module.exports = formatv1;
-
-function formatv1(decl) {
+export default function formatv1(decl) {
     Array.isArray(decl) || decl && (decl = [decl]);
 
     if (!decl || !decl.length) {

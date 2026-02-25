@@ -1,6 +1,4 @@
-'use strict';
-
-const merge = require('./merge');
+import merge from './merge.js';
 
 /**
  * Subtracting sets of cells.
@@ -9,7 +7,7 @@ const merge = require('./merge');
  * @param {...(BemCell[])} removingSet - Set (or sets) with cells that should be removed
  * @returns {BemCell[]} - Resulting set of cells
  */
-module.exports = function (collection, removingSet) {
+export default function (collection, removingSet) {
     const hash = {};
     (arguments.length > 2) && (removingSet = merge.apply(null, [].slice.call(arguments, 1)));
 
@@ -21,4 +19,4 @@ module.exports = function (collection, removingSet) {
     return collection.filter(function (item) {
         return !hash[item.id];
     });
-};
+}

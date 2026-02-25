@@ -1,9 +1,7 @@
-'use strict';
+import BemCell from '@bem/sdk.cell';
+import BemEntityName from '@bem/sdk.entity-name';
 
-const BemCell = require('@bem/sdk.cell');
-const BemEntityName = require('@bem/sdk.entity-name');
-
-module.exports = function (decl) {
+export default function (decl) {
     const res = [];
     const hash = {};
 
@@ -70,4 +68,4 @@ module.exports = function (decl) {
     }
 
     return res;
-};
+}

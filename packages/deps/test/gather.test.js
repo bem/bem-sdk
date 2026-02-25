@@ -1,14 +1,9 @@
-'use strict';
+import { describe, it, afterEach } from 'mocha';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-const afterEach = require('mocha').afterEach;
+import mock from 'mock-fs';
 
-const expect = require('chai').expect;
-
-const mock = require('mock-fs');
-
-const gather = require('..').gather;
+import { gather } from '../lib/index.js';
 
 describe('gather', () => {
     afterEach(() => {
