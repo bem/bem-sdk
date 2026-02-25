@@ -15,7 +15,7 @@ const Key = {
     getParams: function (name, value) {
         const r = this.paramsReg();
         const params = [];
-        let res = null;
+        let res;
 
         while ((res = r.exec(value)) !== null) {
             params.push(res[1]);

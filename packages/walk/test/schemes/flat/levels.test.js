@@ -15,7 +15,7 @@ describe('schemes/flat/levels', () => {
     afterEach('restore fs', () => {
         try {
             mockFs.restore();
-        } catch (e) {
+        } catch {
             // ...
         }
     });

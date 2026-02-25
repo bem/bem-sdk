@@ -15,7 +15,6 @@ export default {
         var b_;
 
         if (!options) {
-            opts = presets['origin'];
             b_ = bemNaming;
         } else if (typeof options === 'string') {
             var preset = presets[options];

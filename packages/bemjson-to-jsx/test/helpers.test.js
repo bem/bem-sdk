@@ -20,7 +20,7 @@ describe('helpers: objToStr', () => {
         expect(objToStr({ 'hello world': 42 })).to.equal('{ \'hello world\': 42 }');
     });
 
-    xit('should process computed property names', () => {
+    it.skip('should process computed property names', () => {
         expect(objToStr({ ['hello' + 'world']: 42 })).to.equal('{ [\'hello\' + \'world\']: 42 }');
     });
 

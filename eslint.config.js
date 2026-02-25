@@ -15,6 +15,7 @@ export default [
                 clearInterval: 'readonly',
                 URL: 'readonly',
                 Buffer: 'readonly',
+                structuredClone: 'readonly',
             }
         },
         rules: {
@@ -50,6 +51,7 @@ export default [
                 afterEach: 'readonly',
                 lib: 'readonly',
                 utils: 'readonly',
+                xit: 'readonly',
             }
         },
         rules: {

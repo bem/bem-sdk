@@ -48,7 +48,7 @@ class BemEntityName {
         const modObj = obj.mod;
         const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) ||
             !isBemEntityName && obj.modName;
-        const hasModVal = modObj && modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
+        const hasModVal = modObj && Object.hasOwn(modObj, 'val') || Object.hasOwn(obj, 'modVal');
 
         if (modName) {
             const normalizeValue = v => v === 0 ? '0' : v;

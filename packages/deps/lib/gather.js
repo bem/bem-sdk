@@ -19,7 +19,7 @@ export default async function ({ platform = 'desktop', defaults = {}, config }) 
         config.levelMap(),
     ]);
 
-    return new Promise(async (resolve, reject) => {
+    return new Promise((resolve, reject) => {
         const walker = walk(levels.map(l => l.path || l), { levels: levelMap, defaults });
         const res = [];
         let filesCount = 1;

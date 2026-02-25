@@ -9,7 +9,7 @@ import normalize from './normalize.js';
  * @returns {BemCell[]}
  */
 export default (data) => {
-    assert(data.hasOwnProperty('blocks'), 'Invalid format of v1 declaration.');
+    assert(Object.hasOwn(data, 'blocks'), 'Invalid format of v1 declaration.');
 
     return normalize(data.blocks);
 };

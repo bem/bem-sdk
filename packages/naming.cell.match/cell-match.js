@@ -29,7 +29,7 @@ const SCHEMES = {
             let i = 1;
             return entity.block === parts[0] &&
                 (!entity.elem || (parts[i++] === elem + entity.elem)) &&
-                (!entity.mod || (parts[i++] == mod + entity.mod.name));
+                (!entity.mod || (parts[i] == mod + entity.mod.name));
         }
     ]
 };

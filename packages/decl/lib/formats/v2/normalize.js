@@ -170,7 +170,7 @@ export default function (decl, scope) {
 
         if (!entity.mod) { return mod; }
 
-        const val = entity.hasOwnProperty('val') ?
+        const val = Object.hasOwn(entity, 'val') ?
             entity.val
             : true;
 

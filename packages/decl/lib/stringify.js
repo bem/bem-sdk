@@ -50,8 +50,8 @@ export default function (decl, opts) {
     const options = Object.assign({}, DEFAULTS, opts);
 
     assert(options.format, 'You must declare target format');
-    assert(fieldByFormat.hasOwnProperty(options.format), 'Specified format isn\'t supported');
-    assert(generators.hasOwnProperty(options.exportType), 'Specified export type isn\'t supported');
+    assert(Object.hasOwn(fieldByFormat, options.format), 'Specified format isn\'t supported');
+    assert(Object.hasOwn(generators, options.exportType), 'Specified export type isn\'t supported');
 
     Array.isArray(decl) || (decl = [decl]);
 

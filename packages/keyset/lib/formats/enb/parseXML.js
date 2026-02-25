@@ -118,7 +118,7 @@ function getNodeName(node) {
 }
 
 // Helper: get attributes from a preserveOrder node
-function getNodeAttrs(node, nodeName) {
+function getNodeAttrs(node, _nodeName) {
     if (node[':@']) {
         return node[':@'];
     }

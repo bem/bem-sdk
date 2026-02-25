@@ -15,7 +15,7 @@ describe('schemes/nested/levels', () => {
     afterEach('restore fs', () => {
         try {
             mockFs.restore();
-        } catch (e) {
+        } catch {
             // ...
         }
     });
