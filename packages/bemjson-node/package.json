@@ -30,10 +30,7 @@
   "engines": {
     "node": ">= 24.0"
   },
-  "devDependencies": {
-    "@types/node": "^8.0"
-  },
-  "scripts": {
+"scripts": {
     "test": "npm run specs",
     "specs": "mocha"
   }

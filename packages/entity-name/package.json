@@ -43,10 +43,7 @@
     "@bem/sdk.naming.entity.stringify": "^1.1.2",
     "@bem/sdk.naming.presets": "^0.2.3"
   },
-  "devDependencies": {
-    "@types/node": "^8.0"
-  },
-  "scripts": {
+"scripts": {
     "specs": "mocha",
     "test": "npm run specs"
   }
