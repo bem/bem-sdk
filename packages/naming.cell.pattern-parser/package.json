@@ -2,6 +2,7 @@
   "name": "@bem/sdk.naming.cell.pattern-parser",
   "version": "0.0.7",
   "description": "Pattern parser",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -20,13 +21,13 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.pattern-parser#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "main": "pattern-parser.js",
   "files": [
     "pattern-parser.js"
   ],
   "scripts": {
-    "test": "nyc mocha"
+    "test": "mocha"
   }
 }

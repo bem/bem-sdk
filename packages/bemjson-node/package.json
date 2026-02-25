@@ -2,6 +2,7 @@
   "name": "@bem/sdk.bemjson-node",
   "version": "0.0.6",
   "description": "BEM tree node representation",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -27,19 +28,10 @@
     "index.d.ts"
   ],
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
-  "devDependencies": {
-    "@types/node": "^8.0"
-  },
-  "scripts": {
+"scripts": {
     "test": "npm run specs",
-    "specs": "mocha",
-    "cover": "nyc mocha"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "@types/node"
-    ]
+    "specs": "mocha"
   }
 }

@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemjsonNode = require('../..');
+import BemjsonNode from '../../index.js';
 
 describe('constructor tests', () => {
 

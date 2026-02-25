@@ -1,13 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const createCell = require('../../../util').createCell;
-const simplifyCell = require('../../../util').simplifyCell;
-const normalize = require('../../../../lib/formats/v2/normalize');
+import { createCell, simplifyCell } from '../../../util.js';
+import normalize from '../../../../lib/formats/v2/normalize.js';
 
 describe('normalize2.mod-mods-vals', () => {
     it('should support mod and mods with scope block, elem', () => {

@@ -1,9 +1,7 @@
-'use strict';
+import { expect } from 'chai';
+import BemCell from '@bem/sdk.cell';
 
-const expect = require('chai').expect;
-const BemCell = require('@bem/sdk.cell');
-
-const method = require('..');
+import method from '../cell-stringify.js';
 
 const button = BemCell.create({ block: 'button', tech: 'css' });
 const buttonCommon = BemCell.create({ block: 'button', layer: 'common', tech: 'css' });

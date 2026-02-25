@@ -1,8 +1,6 @@
-'use strict';
+import scan from 'scan-level';
 
-var scan = require('scan-level');
-
-module.exports = function run(levels, scheme, done) {
+export default function run(levels, scheme, done) {
     var opts = {};
 
     if (scheme === 'flat') {

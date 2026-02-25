@@ -1,15 +1,14 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-const afterEach = require('mocha').afterEach;
+import mockFs from 'mock-fs';
 
-const expect = require('chai').expect;
+import walk from '../../../lib/index.js';
 
-const mockFs = require('mock-fs');
-const toArray = require('stream-to-array');
-
-const walk = require('../../../lib/index');
+async function toArray(stream) {
+    const result = [];
+    for await (const chunk of stream) result.push(chunk);
+    return result;
+}
 
 const options = {
     levels: {

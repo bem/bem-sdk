@@ -1,6 +1,4 @@
-'use strict';
-
-const buildGraph = require('./buildGraph');
+import buildGraph from './buildGraph.js';
 
 /**
  * @param {BemEntityName[]} declaration
@@ -8,7 +6,7 @@ const buildGraph = require('./buildGraph');
  * @param {{tech: ?String}} options
  * @returns {Array<{entity: BemEntityName, tech: String}>}
  */
-module.exports = function (declaration, relations, options) {
+export default function (declaration, relations, options) {
     declaration || (declaration = []);
     relations || (relations = []);
     options || (options = {});
@@ -33,4 +31,4 @@ module.exports = function (declaration, relations, options) {
             return res;
         }, [])
     };
-};
+}

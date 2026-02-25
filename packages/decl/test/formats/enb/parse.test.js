@@ -1,12 +1,9 @@
-'use strict';
+import { assert } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import { simplifyCell } from '../../util.js';
+import enbFormat from '../../../lib/formats/enb/index.js';
 
-const assert = require('chai').assert;
-
-const simplifyCell = require('../../util').simplifyCell;
-const parse = require('../../../lib/formats/enb').parse;
+const { parse } = enbFormat;
 
 describe('decl.formats.enb.parse', () => {
     it('should throw if invalid format', () => {

@@ -1,12 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const simplifyVertices = require('../../lib/test-utils').simplifyVertices;
-const createVertex = require('../../lib/test-utils').createVertex;
+import { simplifyVertices, createVertex } from '../../lib/test-utils.js';
 
 describe('utils/simplify-vertices', () => {
     it('should simplify vertex', () => {

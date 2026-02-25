@@ -1,15 +1,11 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
+import { assign } from '../lib/index.js';
 
 const simplifyCell = c => Object.assign({tech: null}, c.valueOf());
-const assign = require('..').assign;
 
 describe('assign', () => {
-    it('entity block should dominate scope’s one', () => {
+    it('entity block should dominate scope\u2019s one', () => {
         expect(simplifyCell(assign(
             { entity: { block: 'b' } },
             { entity: { block: 'sb' } }))).to.deep.equal(
@@ -30,21 +26,21 @@ describe('assign', () => {
             { entity: { block: 'b' }, tech: null });
     });
 
-    it('entity elem should dominate scope’s one', () => {
+    it('entity elem should dominate scope\u2019s one', () => {
         expect(simplifyCell(assign(
             { entity: { block: 'b', elem: 'e' } },
             { entity: { block: 'sb', elem: 'sb' } }))).to.deep.equal(
             { entity: { block: 'b', elem: 'e' }, tech: null });
     });
 
-    it('entity modName should dominate scope’s one for block', () => {
+    it('entity modName should dominate scope\u2019s one for block', () => {
         expect(simplifyCell(assign(
             { entity: { block: 'b', mod: { name: 'm' } } },
             { entity: { block: 'sb', mod: { name: 'sm' } } }))).to.deep.equal(
             { entity: { block: 'b', mod: { name: 'm', val: true }}, tech: null });
     });
 
-    it('entity modVal should dominate scope’s one for block', () => {
+    it('entity modVal should dominate scope\u2019s one for block', () => {
         expect(simplifyCell(assign(
             { entity: { block: 'b', mod: { name: 'm', val: 'v' } } },
             { entity: { block: 'sb', mod: { name: 'sm', val: 'sv' } } }))).to.deep.equal(
@@ -58,14 +54,14 @@ describe('assign', () => {
             { entity: { block: 'b', mod: { name: 'm', val: 'v' } }, tech: null });
     });
 
-    it('entity modName should dominate scope’s one for block and elem', () => {
+    it('entity modName should dominate scope\u2019s one for block and elem', () => {
         expect(simplifyCell(assign(
             { entity: { block: 'b', elem: 'e', mod: { name: 'm' } } },
             { entity: { block: 'sb', elem: 'se', mod: { name: 'sm' } } }))).to.deep.equal(
             { entity: { block: 'b', elem: 'e', mod: { name: 'm', val: true }}, tech: null });
     });
 
-    it('entity modVal should dominate scope’s one for block and elem', () => {
+    it('entity modVal should dominate scope\u2019s one for block and elem', () => {
         expect(simplifyCell(assign(
             { entity: { block: 'b', elem: 'e', mod: { name: 'm', val: 'v' } } },
             { entity: { block: 'sb', elem: 'se', mod: { name: 'sm', val: 'sv' } } }))).to.deep.equal(
@@ -93,35 +89,35 @@ describe('assign', () => {
             { entity: { block: 'sb', elem: 'e' }, tech: null });
     });
 
-    it('entity elem should use scope’s block', () => {
+    it('entity elem should use scope\u2019s block', () => {
         expect(simplifyCell(assign(
             { entity: { elem: 'e' } },
             { entity: { block: 'sb', elem: 'se' } }))).to.deep.equal(
             { entity: { block: 'sb', elem: 'e' }, tech: null });
     });
 
-    it('entity modName should use scope’s block', () => {
+    it('entity modName should use scope\u2019s block', () => {
         expect(simplifyCell(assign(
             { entity: { mod: { name: 'm' } } },
             { entity: { block: 'sb', mod: { name: 'sm' } } }))).to.deep.equal(
             { entity: { block: 'sb', mod: { name: 'm', val: true }}, tech: null });
     });
 
-    it('entity modName should use scope’s elem', () => {
+    it('entity modName should use scope\u2019s elem', () => {
         expect(simplifyCell(assign(
             { entity: { mod: { name: 'm' } } },
             { entity: { block: 'sb', elem: 'se', mod: { name: 'sm' } } }))).to.deep.equal(
             { entity: { block: 'sb', elem: 'se', mod: { name: 'm', val: true }}, tech: null });
     });
 
-    it('entity modVal should use scope’s block and modName', () => {
+    it('entity modVal should use scope\u2019s block and modName', () => {
         expect(simplifyCell(assign(
             { entity: { mod: { val: 'v' } } },
             { entity: { block: 'sb', mod: { name: 'sm', val: 'sv' } } }))).to.deep.equal(
             { entity: { block: 'sb', mod: { name: 'sm', val: 'v' } }, tech: null });
     });
 
-    it('entity modVal should use scope’s block, elem and modName', () => {
+    it('entity modVal should use scope\u2019s block, elem and modName', () => {
         expect(simplifyCell(assign(
             { entity: { mod: { val: 'v' } } },
             { entity: { block: 'sb', elem: 'se', mod: { name: 'sm', val: 'sv' } } }))).to.deep.equal(
@@ -261,7 +257,7 @@ describe('assign', () => {
             { entity: { block: 'b' }, tech: 'js' });
     });
 
-    it('entity tech should dominate the scope’s one', () => {
+    it('entity tech should dominate the scope\u2019s one', () => {
         expect(simplifyCell(assign(
             { entity: { block: 'b' }, tech: 'bemhtml' },
             { entity: { block: 'sb' }, tech: 'js' }))).to.deep.equal(

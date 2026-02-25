@@ -2,6 +2,7 @@
   "name": "@bem/sdk.naming.entity",
   "version": "0.2.11",
   "description": "Manage naming of BEM entities",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -26,7 +27,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.entity#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "main": "index.js",
   "files": [
@@ -41,7 +42,6 @@
   },
   "scripts": {
     "specs": "mocha",
-    "cover": "nyc mocha",
     "test": "npm run specs"
   }
 }

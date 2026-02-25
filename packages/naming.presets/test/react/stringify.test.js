@@ -1,8 +1,6 @@
-'use strict';
-
-const assert = require('chai').assert;
-const naming = require('@bem/sdk.naming.entity')('react');
-const stringify = naming.stringify;
+import { assert } from 'chai';
+import naming from '@bem/sdk.naming.entity';
+const stringify = naming('react').stringify;
 
 describe('react stringify', () => {
     it('should stringify block', () => {

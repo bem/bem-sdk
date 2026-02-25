@@ -1,12 +1,12 @@
-'use strict';
+import { inspect } from 'node:util';
 
-const util = require('util');
+import originNaming from '@bem/sdk.naming.presets/origin.js';
+import createStringify from '@bem/sdk.naming.entity.stringify';
 
-const originNaming = require('@bem/sdk.naming.presets/origin');
-const stringifyEntity = require('@bem/sdk.naming.entity.stringify')(originNaming);
+import deprecate from './deprecate.js';
+import EntityTypeError from './entity-type-error.js';
 
-const deprecate = require('./deprecate');
-const EntityTypeError = require('./entity-type-error');
+const stringifyEntity = createStringify(originNaming);
 
 /**
  * Enum for types of BEM entities.
@@ -48,7 +48,7 @@ class BemEntityName {
         const modObj = obj.mod;
         const modName = (typeof modObj === 'string' ? modObj : modObj && modObj.name) ||
             !isBemEntityName && obj.modName;
-        const hasModVal = modObj && modObj.hasOwnProperty('val') || obj.hasOwnProperty('modVal');
+        const hasModVal = modObj && Object.hasOwn(modObj, 'val') || Object.hasOwn(obj, 'modVal');
 
         if (modName) {
             const normalizeValue = v => v === 0 ? '0' : v;
@@ -68,7 +68,7 @@ class BemEntityName {
      * Returns the name of block to which this entity belongs.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button' });
      *
      * name.block; // button
@@ -83,7 +83,7 @@ class BemEntityName {
      * If entity is not element or modifier of element then returns empty string.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button', elem: 'text' });
      *
      * name.elem; // text
@@ -98,7 +98,7 @@ class BemEntityName {
      * Important: If entity is not a modifier then returns `undefined`.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      *
      * const blockName = new BemEntityName({ block: 'button' });
      * const modName = new BemEntityName({ block: 'button', mod: 'disabled' });
@@ -142,13 +142,13 @@ class BemEntityName {
      * Returns type for this entity.
      *
      * @example <caption>type of element</caption>
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button', elem: 'text' });
      *
      * name.type; // elem
      *
      * @example <caption>type of element modifier</caption>
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'menu', elem: 'item', mod: 'current' });
      *
      * name.type; // elemMod
@@ -174,7 +174,7 @@ class BemEntityName {
      * Important: block-typed entities has no scope.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      *
      * const buttonName = new BemEntityName({ block: 'button' });
      * const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
@@ -207,7 +207,7 @@ class BemEntityName {
      * you should use `@bem/naming` package.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button', mod: 'disabled' });
      *
      * name.id; // button_disabled
@@ -226,19 +226,19 @@ class BemEntityName {
      * Determines whether modifier simple or not
      *
      * @example <caption>simple mod</caption>
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button', mod: { name: 'theme' } });
      *
      * name.isSimpleMod(); // true
      *
      * @example <caption>mod with value</caption>
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button', mod: { name: 'theme', val: 'normal' } });
      *
      * name.isSimpleMod(); // false
      *
      * @example <caption>block</caption>
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button' });
      *
      * name.isSimpleMod(); // null
@@ -253,7 +253,7 @@ class BemEntityName {
      * Determines whether specified entity is the deepEqual entity.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      *
      * const inputName = new BemEntityName({ block: 'input' });
      * const buttonName = new BemEntityName({ block: 'button' });
@@ -272,7 +272,7 @@ class BemEntityName {
      * Determines whether specified entity belongs to this.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      *
      * const buttonName = new BemEntityName({ block: 'button' });
      * const buttonTextName = new BemEntityName({ block: 'button', elem: 'text' });
@@ -305,12 +305,12 @@ class BemEntityName {
      * without private and deprecated fields (`modName` and `modVal`).
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button', mod: 'focused' });
      *
      * name.valueOf();
      *
-     * // ➜ { block: 'button', mod: { name: 'focused', value: true } }
+     * // -> { block: 'button', mod: { name: 'focused', value: true } }
      *
      * @returns {BEMSDK.EntityName.Representation}
      */
@@ -320,7 +320,7 @@ class BemEntityName {
      * Returns raw data for `JSON.stringify()` purposes.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      *
      * const name = new BemEntityName({ block: 'input', mod: 'available' });
      *
@@ -339,7 +339,7 @@ class BemEntityName {
      * you should use `@bem/naming` package.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button', mod: 'focused' });
      *
      * name.toString(); // button_focused
@@ -358,7 +358,7 @@ class BemEntityName {
      * without private and deprecated fields (`modName` and `modVal`).
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      * const name = new BemEntityName({ block: 'button' });
      *
      * console.log(name); // BemEntityName { block: 'button' }
@@ -369,8 +369,8 @@ class BemEntityName {
      *
      * @returns {string}
      */
-    inspect(depth, options) {
-        const stringRepresentation = util.inspect(this._data, options);
+    [Symbol.for('nodejs.util.inspect.custom')](depth, options) {
+        const stringRepresentation = inspect(this._data, options);
 
         return `BemEntityName ${stringRepresentation}`;
     }
@@ -379,11 +379,11 @@ class BemEntityName {
      * Creates BemEntityName instance by any object representation.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      *
      * BemEntityName.create({ block: 'my-button', mod: 'theme', val: 'red' });
      * BemEntityName.create({ block: 'my-button', modName: 'theme', modVal: 'red' });
-     * // → BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
+     * // -> BemEntityName { block: 'my-button', mod: { name: 'theme', val: 'red' } }
      *
      * @param {(BEMSDK.EntityName.CreateOptions|string)} obj — representation of entity name.
      * @returns {BemEntityName} An object representing entity name.
@@ -422,7 +422,7 @@ class BemEntityName {
      * Determines whether specified entity is instance of BemEntityName.
      *
      * @example
-     * const BemEntityName = require('@bem/sdk.entity-name');
+     * import BemEntityName from '@bem/sdk.entity-name';
      *
      * const entityName = new BemEntityName({ block: 'input' });
      *
@@ -438,9 +438,4 @@ class BemEntityName {
     }
 }
 
-module.exports = BemEntityName;
-
-// TypeScript imports the `default` property for
-// an ES2015 default import (`import BemEntityName from '@bem/sdk.entity-name'`)
-// See: https://github.com/Microsoft/TypeScript/issues/2242#issuecomment-83694181
-module.exports.default = BemEntityName;
+export default BemEntityName;

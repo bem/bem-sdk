@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const EntityTypeError = require('../lib/entity-type-error');
+import EntityTypeError from '../lib/entity-type-error.js';
 
 describe('entity-type-error', () => {
     it('should create type error', () => {

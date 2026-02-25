@@ -1,10 +1,10 @@
-'use strict';
+import { expect } from 'chai';
+import BemEntityName from '@bem/sdk.entity-name';
 
-const expect = require('chai').expect;
-const BemEntityName = require('@bem/sdk.entity-name');
+import originNaming from '@bem/sdk.naming.presets/origin';
+import stringifyWrapper from '../index.js';
 
-const originNaming = require('@bem/sdk.naming.presets/origin');
-const stringify = require('..')(originNaming);
+const stringify = stringifyWrapper(originNaming);
 
 describe('naming.entity.stringify', () => {
     it('should not stringify not valid notation', () => {

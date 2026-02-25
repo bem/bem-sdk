@@ -1,3 +1,1 @@
-'use strict';
-
-module.exports = require('./lib/bemjson-node');
+export { default } from './lib/bemjson-node.js';

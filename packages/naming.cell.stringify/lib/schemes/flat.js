@@ -1,13 +1,11 @@
-'use strict';
+import path from 'node:path';
+import assert from 'node:assert';
+import BemCell from '@bem/sdk.cell';
+import bemNaming from '@bem/sdk.naming.entity';
 
-var path = require('path');
-var assert = require('assert');
-var BemCell = require('@bem/sdk.cell');
-var bemNaming = require('@bem/sdk.naming.entity');
+import presets from '../presets.js';
 
-var presets = require('../presets');
-
-module.exports = {
+export default {
     path: function(cell, options) {
         assert(BemCell.isBemCell(cell),
             'Provide instance of [@bem/sdk.cell](https://github.com/bem/bem-sdk/tree/master/packages/cell).'
@@ -17,7 +15,6 @@ module.exports = {
         var b_;
 
         if (!options) {
-            opts = presets['origin'];
             b_ = bemNaming;
         } else if (typeof options === 'string') {
             var preset = presets[options];

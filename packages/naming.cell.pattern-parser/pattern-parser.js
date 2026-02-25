@@ -1,6 +1,4 @@
-'use strict';
-
-module.exports = (pattern) => {
+const patternParser = (pattern) => {
     const separation = [];
 
     let ref = { separation };
@@ -47,3 +45,5 @@ module.exports = (pattern) => {
 
     return separation;
 };
+
+export default patternParser;

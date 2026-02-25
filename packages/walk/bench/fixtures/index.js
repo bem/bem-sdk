@@ -1,6 +1,9 @@
-'use strict';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const path = require('path');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const levels = path.resolve(__dirname, 'levels');
 const libs = path.resolve(__dirname, 'libs');
 const fixtures = {
@@ -38,4 +41,4 @@ const fixtures = {
 
 fixtures.libs.o2 = [].concat(fixtures.libs['bem-core'], fixtures.libs['bem-components']);
 
-module.exports = fixtures;
+export default fixtures;

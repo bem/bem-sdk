@@ -2,13 +2,13 @@
   "name": "@bem/sdk.bemjson-to-decl",
   "version": "0.2.15",
   "description": "BEMJSON to BEMDECL helper",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "main": "index.js",
   "scripts": {
     "specs": "mocha",
-    "cover": "nyc mocha",
     "test": "npm run specs"
   },
   "repository": "bem/bem-sdk",
@@ -26,11 +26,10 @@
   "author": "Vladimir Grinenko",
   "license": "MPL-2.0",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "dependencies": {
     "@bem/sdk.decl": "^0.3.10",
-    "@bem/sdk.entity-name": "^0.2.11",
-    "stringify-object": "^3.2.0"
+    "@bem/sdk.entity-name": "^0.2.11"
   }
 }

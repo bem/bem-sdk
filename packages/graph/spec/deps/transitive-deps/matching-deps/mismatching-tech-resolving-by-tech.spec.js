@@ -1,14 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../../../lib').BemGraph;
-const macro = require('../../../../lib/test-utils').depsMacro;
-const findIndex = require('../../../../lib/test-utils').findIndex;
-const findLastIndex = require('../../../../lib/test-utils').findLastIndex;
+import { BemGraph } from '../../../../lib/index.js';
+import { depsMacro as macro, findIndex, findLastIndex } from '../../../../lib/test-utils.js';
 
 describe('deps/transitive-deps/matching-deps/mismatching-tech-resolving-by-tech', () => {
     it('should not resolve transitive dependency', () => {

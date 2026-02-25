@@ -1,12 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../lib').BemGraph;
-const findIndex = require('../../lib/test-utils').findIndex;
+import { BemGraph } from '../../lib/index.js';
+import { findIndex } from '../../lib/test-utils.js';
 
 describe('deps-recommended-order/unordered-deps', () => {
     it('should keep the ordering described in deps', () => {

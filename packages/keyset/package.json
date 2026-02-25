@@ -2,14 +2,17 @@
   "name": "@bem/sdk.keyset",
   "version": "0.1.1",
   "description": "Representation of BEM i18n keyset",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "main": "index.js",
+  "engines": {
+    "node": ">= 24.0"
+  },
   "scripts": {
     "test": "npm run specs",
-    "specs": "mocha",
-    "cover": "nyc mocha"
+    "specs": "mocha"
   },
   "repository": "bem/bem-sdk",
   "keywords": [
@@ -28,7 +31,6 @@
     "common-tags": "^1.8.0"
   },
   "dependencies": {
-    "node-eval": "^2.0.0",
-    "xamel": "^0.3.1"
+    "fast-xml-parser": "^4.5.3"
   }
 }

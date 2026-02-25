@@ -1,6 +1,7 @@
-'use strict';
+import { performance } from 'node:perf_hooks';
 
-const merge = require('../lib/index').merge;
+import { merge } from '../lib/index.js';
+
 const decls = {
     blocks: [
         [{ block: 'block-1' }],
@@ -24,26 +25,33 @@ const decls = {
 
 decls.full = [].concat(decls.blocks, decls.blockMods, decls.elems, decls.elemMods);
 
-suite('merge', () => {
-    set('interations', 200000);
+function bench(name, fn, iterations = 200000) {
+    const start = performance.now();
+    for (let i = 0; i < iterations; i++) {
+        fn();
+    }
+    const elapsed = performance.now() - start;
+    console.log(`  ${name}: ${iterations} iterations in ${elapsed.toFixed(2)}ms (${(iterations / elapsed * 1000).toFixed(0)} ops/sec)`);
+}
 
-    bench('blocks', () => {
-        merge.apply(null, decls.blocks);
-    });
+console.log('merge:');
 
-    bench('block mods', () => {
-        merge.apply(null, decls.blockMods);
-    });
+bench('blocks', () => {
+    merge.apply(null, decls.blocks);
+});
 
-    bench('elems', () => {
-        merge.apply(null, decls.elems);
-    });
+bench('block mods', () => {
+    merge.apply(null, decls.blockMods);
+});
 
-    bench('elem mods', () => {
-        merge.apply(null, decls.elemMods);
-    });
+bench('elems', () => {
+    merge.apply(null, decls.elems);
+});
 
-    bench('full', () => {
-        merge.apply(null, decls.full);
-    });
+bench('elem mods', () => {
+    merge.apply(null, decls.elemMods);
+});
+
+bench('full', () => {
+    merge.apply(null, decls.full);
 });

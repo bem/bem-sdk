@@ -1,14 +1,14 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import BemCell from '@bem/sdk.cell';
+import stringify from '../../lib/stringify.js';
 
-const expect = require('chai').expect;
-
-const BemCell = require('@bem/sdk.cell');
-const JSON5 = require('json5');
-
-const stringify = require('../../lib/stringify');
+/**
+ * Simple JSON5-like output: unquoted keys where possible.
+ */
+function json5Stringify(obj, _replacer, space) {
+    return JSON.stringify(obj, null, space).replace(/"(\w+)":/g, '$1:');
+}
 
 const obj = {
     format: 'enb',
@@ -24,19 +24,19 @@ describe('stringify.enb', () => {
     it('should stringify enb declaration with commonJS', () => {
         expect(
             stringify(cell, { format: 'enb', exportType: 'commonjs' })
-        ).to.equal(`module.exports = ${JSON5.stringify(obj, null, 4)};\n`);
+        ).to.equal(`module.exports = ${json5Stringify(obj, null, 4)};\n`);
     });
 
     it('should stringify enb declaration with es6', () => {
         expect(
             stringify(cell, { format: 'enb', exportType: 'es6' })
-        ).to.equal(`export default ${JSON5.stringify(obj, null, 4)};\n`);
+        ).to.equal(`export default ${json5Stringify(obj, null, 4)};\n`);
     });
 
     it('should stringify enb declaration with es2105', () => {
         expect(
             stringify(cell, { format: 'enb', exportType: 'es2015' })
-        ).to.equal(`export default ${JSON5.stringify(obj, null, 4)};\n`);
+        ).to.equal(`export default ${json5Stringify(obj, null, 4)};\n`);
     });
 
     it('should stringify enb declaration with JSON', () => {
@@ -48,7 +48,7 @@ describe('stringify.enb', () => {
     it('should stringify enb declaration with JSON5', () => {
         expect(
             stringify(cell, { format: 'enb', exportType: 'json5' })
-        ).to.equal(JSON5.stringify(obj, null, 4));
+        ).to.equal(json5Stringify(obj, null, 4));
     });
 
     it('should stringify enb declaration with JSON if no exportType given', () => {

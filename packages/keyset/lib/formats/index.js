@@ -1,9 +1,7 @@
-'use strict';
+import * as taburet from './taburet/index.js';
+import * as enb from './enb/index.js';
 
-const taburet = require('./taburet');
-const enb = require('./enb');
-
-module.exports = {
+export default {
     taburet,
     enb
 };

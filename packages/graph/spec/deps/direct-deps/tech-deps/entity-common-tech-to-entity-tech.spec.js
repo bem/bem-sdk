@@ -1,14 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../../../lib').BemGraph;
-const macro = require('../../../../lib/test-utils').depsMacro;
-const findIndex = require('../../../../lib/test-utils').findIndex;
-const findLastIndex = require('../../../../lib/test-utils').findLastIndex;
+import { BemGraph } from '../../../../lib/index.js';
+import { depsMacro as macro, findIndex, findLastIndex } from '../../../../lib/test-utils.js';
 
 describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
     it('should resolve entity depending on another entity', () => {
@@ -18,7 +11,7 @@ describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod]({ block: 'B' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'css');  
 
                 return graph;
             },
@@ -37,8 +30,8 @@ describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod]({ block: 'B' }, 'css') // eslint-disable-line no-unexpected-multiline
-                    [linkMethod]({ block: 'B' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'css')  
+                    [linkMethod]({ block: 'B' }, 'js');  
 
                 return graph;
             },
@@ -57,8 +50,8 @@ describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod]({ block: 'B' }, 'css') // eslint-disable-line no-unexpected-multiline
-                    [linkMethod]({ block: 'C' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'css')  
+                    [linkMethod]({ block: 'C' }, 'css');  
 
                 return graph;
             },
@@ -77,11 +70,11 @@ describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod]({ block: 'C' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'css');  
 
                 graph
                     .vertex({ block: 'B' })
-                    [linkMethod]({ block: 'C' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'css');  
 
                 return graph;
             },

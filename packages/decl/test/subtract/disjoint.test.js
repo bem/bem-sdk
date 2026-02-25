@@ -1,14 +1,10 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import BemCell from '@bem/sdk.cell';
 
-const expect = require('chai').expect;
-
-const BemCell = require('@bem/sdk.cell');
 const createCell = BemCell.create;
 
-const subtract = require('../../lib/subtract');
+import subtract from '../../lib/subtract.js';
 
 describe('subtract.disjoint', () => {
     it('should not subtract other entities from block', () => {

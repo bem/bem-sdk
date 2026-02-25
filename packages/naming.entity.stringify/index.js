@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Forms a string according to object representation of BEM entity.
  *
@@ -50,5 +48,5 @@ function stringifyWrapper(convention) {
     };
 }
 
-module.exports = stringifyWrapper;
-module.exports.stringifyWrapper = stringifyWrapper;
+export default stringifyWrapper;
+export { stringifyWrapper };

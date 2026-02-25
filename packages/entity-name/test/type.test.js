@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemEntityName = require('..');
+import BemEntityName from '../index.js';
 
 describe('type', () => {
     it('should determine block', () => {
@@ -35,7 +30,7 @@ describe('type', () => {
     it('should cache type value', () => {
         const entity = new BemEntityName({ block: 'block' });
 
-        entity.type; // eslint-disable-line no-unused-expressions
+        entity.type;  
 
         expect(entity._type).to.equal('block');
     });

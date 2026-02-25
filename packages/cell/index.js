@@ -1,11 +1,12 @@
-'use strict';
+import assert from 'node:assert';
+import util from 'node:util';
 
-const assert = require('assert');
-const util = require('util');
+import BemEntityName from '@bem/sdk.entity-name';
 
-const deprecate = require('depd')(require('./package.json').name);
-
-const BemEntityName = require('@bem/sdk.entity-name');
+const _warned = new Set();
+function deprecate(msg) {
+    if (!_warned.has(msg)) { _warned.add(msg); process.emitWarning(msg, 'DeprecationWarning'); }
+}
 
 /**
  * Bem mod representation
@@ -20,7 +21,7 @@ const BemEntityName = require('@bem/sdk.entity-name');
  *
  * @type {module.BemCell}
  */
-module.exports = class BemCell {
+export default class BemCell {
     /**
      * @param {Object} obj — representation of cell.
      * @param {BemEntityName} obj.entity — representation of entity name.
@@ -174,7 +175,7 @@ module.exports = class BemCell {
      *
      * @example
      * const BemCell = require('@bem/sdk.cell');
-     * const BemEntityName§ = require('@bem/sdk.entity-name');
+     * const BemEntityName = require('@bem/sdk.entity-name');
      * const cell = new BemCell({ entity: new BemEntityName({ block: 'button', mod: 'focused' }),
      *     tech: 'css', layer: 'desktop' });
      *
@@ -239,6 +240,10 @@ module.exports = class BemCell {
         const stringRepresentation = util.inspect(this.valueOf(), options);
 
         return `BemCell ${stringRepresentation}`;
+    }
+
+    [Symbol.for('nodejs.util.inspect.custom')](depth, options) {
+        return this.inspect(depth, options);
     }
 
     /**
@@ -331,4 +336,4 @@ module.exports = class BemCell {
 
         return new BemCell(data);
     }
-};
+}

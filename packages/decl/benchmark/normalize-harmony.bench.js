@@ -1,9 +1,10 @@
-'use strict';
+import { performance } from 'node:perf_hooks';
 
-const bemdecl = require('../lib/index');
+import { normalize } from '../lib/index.js';
+
 const opts = { harmony: true };
-const normalize = function (entities) {
-    return bemdecl.normalize(entities, opts);
+const normalizeHarmony = function (entities) {
+    return normalize(entities, opts);
 };
 const decls = {
     blocks: [
@@ -35,26 +36,33 @@ const decls = {
 
 decls.full = [].concat(decls.blocks, decls.blockMods, decls.elems, decls.elemMods);
 
-suite('normalize --harmony', () => {
-    set('interations', 200000);
+function bench(name, fn, iterations = 200000) {
+    const start = performance.now();
+    for (let i = 0; i < iterations; i++) {
+        fn();
+    }
+    const elapsed = performance.now() - start;
+    console.log(`  ${name}: ${iterations} iterations in ${elapsed.toFixed(2)}ms (${(iterations / elapsed * 1000).toFixed(0)} ops/sec)`);
+}
 
-    bench('blocks', () => {
-        normalize(decls.blocks);
-    });
+console.log('normalize --harmony:');
 
-    bench('block mods', () => {
-        normalize(decls.blockMods);
-    });
+bench('blocks', () => {
+    normalizeHarmony(decls.blocks);
+});
 
-    bench('elems', () => {
-        normalize(decls.elems);
-    });
+bench('block mods', () => {
+    normalizeHarmony(decls.blockMods);
+});
 
-    bench('elem mods', () => {
-        normalize(decls.elemMods);
-    });
+bench('elems', () => {
+    normalizeHarmony(decls.elems);
+});
 
-    bench('full', () => {
-        normalize(decls.full);
-    });
+bench('elem mods', () => {
+    normalizeHarmony(decls.elemMods);
+});
+
+bench('full', () => {
+    normalizeHarmony(decls.full);
 });

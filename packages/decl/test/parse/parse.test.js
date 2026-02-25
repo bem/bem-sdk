@@ -1,12 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const simplifyCell = require('../util').simplifyCell;
-const parse = require('../../lib/parse');
+import { simplifyCell } from '../util.js';
+import parse from '../../lib/parse.js';
 
 describe('decl.parse', () => {
     it('should throw if undefined', () => {

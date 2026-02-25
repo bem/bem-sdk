@@ -1,11 +1,6 @@
-'use strict';
+import { readFile } from 'node:fs/promises';
 
-const fs = require('graceful-fs');
-const promisify = require('es6-promisify');
-
-const parse = require('./parse');
-
-const readFile = promisify(fs.readFile);
+import parse from './parse.js';
 
 /**
  * Read file and call parse on its content
@@ -14,4 +9,4 @@ const readFile = promisify(fs.readFile);
  * @param  {Object} opts     additional options
  * @return {Promise}
  */
-module.exports = (filePath, opts) => readFile(filePath, opts || 'utf-8').then(parse);
+export default (filePath, opts) => readFile(filePath, opts || 'utf-8').then(parse);

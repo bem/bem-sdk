@@ -1,6 +1,5 @@
-'use strict';
+import format from './format.js';
+import parse from './parse.js';
 
-module.exports = {
-    format: require('./format'),
-    parse: require('./parse')
-};
+export { format, parse };
+export default { format, parse };

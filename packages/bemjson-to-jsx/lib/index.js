@@ -1,15 +1,12 @@
-'use strict';
+import createStringify from '@bem/sdk.naming.entity.stringify';
+import createNamingPreset from '@bem/sdk.naming.presets/create.js';
+import BemEntity from '@bem/sdk.entity-name';
+import { pascalCase } from 'change-case';
 
-var createStringify = require('@bem/sdk.naming.entity.stringify');
-var createNamingPreset = require('@bem/sdk.naming.presets/create');
-var BemEntity = require('@bem/sdk.entity-name');
-var pascalCase = require('pascal-case');
+import reactMappings from './reactMappings.js';
+import { valToStr, styleToObj } from './helpers.js';
 
-var reactMappings = require('./reactMappings');
-var valToStr = require('./helpers').valToStr;
-var styleToObj = require('./helpers').styleToObj;
-
-var plugins = require('./plugins');
+import * as plugins from './plugins.js';
 
 function JSXNode(tag, props, children) {
     this.tag = tag || 'div';
@@ -20,7 +17,7 @@ function JSXNode(tag, props, children) {
     this.simpleText = '';
 }
 
-var propsToStr = props => Object.keys(props).reduce((acc, k) => {
+const propsToStr = props => Object.keys(props).reduce((acc, k) => {
     if (typeof props[k] === 'string') {
         return acc + ` ${k}=${valToStr(props[k])}`
     } else if (props[k] instanceof JSXNode) {
@@ -29,20 +26,20 @@ var propsToStr = props => Object.keys(props).reduce((acc, k) => {
         return acc + ` ${k}={${valToStr(props[k])}}`
     }
 }, '');
-var tagToClass = tag => reactMappings[tag] ? tag : pascalCase(tag);
+const tagToClass = tag => reactMappings[tag] ? tag : pascalCase(tag);
 
 JSXNode.prototype.toString = function() {
     if (this.isText) {
         return this.simpleText;
     }
 
-    var tag = tagToClass(this.tag);
-    var children = [].concat(this.children)
+    const tag = tagToClass(this.tag);
+    const children = [].concat(this.children)
         .filter(Boolean)
         // remove empty text nodes
         .filter(child => !(child.isText && child.simpleText === ''));
 
-    var str = children.length ?
+    const str = children.length ?
         `<${tag}${propsToStr(this.props)}>\n${children.join('\n')}\n</${tag}>` :
         `<${tag}${propsToStr(this.props)}/>`;
     return str;
@@ -55,19 +52,19 @@ function Transformer(options) {
 }
 
 Transformer.prototype.process = function(bemjson) {
-    var nodes = [{
+    const nodes = [{
         json: bemjson,
         id: 0,
         blockName: '',
         tree: []
     }];
-    var root = nodes[0];
+    const root = nodes[0];
 
-    var node;
+    let node;
 
-    var setJsx = (json) => {
-        var jsx = new JSXNode();
-        var _blockName = json.block || node.blockName;
+    const setJsx = (json) => {
+        const jsx = new JSXNode();
+        const _blockName = json.block || node.blockName;
 
         if (typeof json === 'string') {
             jsx.isText = true;
@@ -85,21 +82,21 @@ Transformer.prototype.process = function(bemjson) {
     };
 
     while((node = nodes.shift())) {
-        var json = node.json, i;
+        let json = node.json, i;
 
         if (Array.isArray(json)) {
             for (i = 0; i < json.length; i++) {
                 nodes.push({ json: json[i], id: i, tree: node.tree, blockName: node.blockName});
             }
         } else {
-            var res = undefined;
-            var blockName = json.block || node.blockName;
+            let res = undefined;
+            const blockName = json.block || node.blockName;
 
-            var jsx = setJsx(json);
+            const jsx = setJsx(json);
 
-            for (var key in json) {
+            for (const key in json) {
                 if (!~['mix', 'content', 'attrs'].indexOf(key) && typeof Object(json[key]).block === 'string') {
-                    var nestedJSX = setJsx(json[key]);
+                    const nestedJSX = setJsx(json[key]);
 
                     for (i = 0; i < this.plugins.length; i++) {
                         this.plugins[i](nestedJSX, Object.assign({ block: json[key].block }, json[key]));
@@ -110,7 +107,7 @@ Transformer.prototype.process = function(bemjson) {
             }
 
             for (i = 0; i < this.plugins.length; i++) {
-                var plugin = this.plugins[i];
+                const plugin = this.plugins[i];
                 res = plugin(jsx, Object.assign({ block: blockName }, json));
                 if (res !== undefined) {
                     json = res;
@@ -122,11 +119,11 @@ Transformer.prototype.process = function(bemjson) {
             }
 
             if (res === undefined) {
-                var content = json.content;
+                let content = json.content;
                 if (content) {
                     if (Array.isArray(content)) {
                         // content: [[[{}, {}, [{}]]]]
-                        var flatten;
+                        let flatten;
                         do {
                             flatten = false;
                             for (i = 0; i < content.length; i++) {
@@ -177,10 +174,13 @@ function render(tree) {
 
 Transformer.prototype.Transformer = Transformer;
 
-module.exports = function(opts) {
+const bemjsonToJsx = function(opts) {
     return new Transformer(opts || {});
 };
 
-module.exports.tagToClass = tagToClass;
-module.exports.plugins = plugins;
-module.exports.styleToObj = styleToObj;
+bemjsonToJsx.tagToClass = tagToClass;
+bemjsonToJsx.plugins = plugins;
+bemjsonToJsx.styleToObj = styleToObj;
+
+export default bemjsonToJsx;
+export { tagToClass, plugins, styleToObj };

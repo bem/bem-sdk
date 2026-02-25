@@ -1,12 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../../../lib').BemGraph;
-const macro = require('../../../../lib/test-utils').depsMacro;
+import { BemGraph } from '../../../../lib/index.js';
+import { depsMacro as macro } from '../../../../lib/test-utils.js';
 
 describe('deps/ignore-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
     it('should not include entity if no entity from decl depends on it and this entity has dependency on entity' +
@@ -17,7 +12,7 @@ describe('deps/ignore-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
 
                 graph
                     .vertex({ block: 'B' }, 'css')
-                    [linkMethod]({ block: 'A' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'A' });  
 
                 return graph;
             },
@@ -36,7 +31,7 @@ describe('deps/ignore-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
 
                 graph
                     .vertex({ block: 'C' }, 'css')
-                    [linkMethod]({ block: 'D' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'D' });  
 
                 return graph;
             },
@@ -57,11 +52,11 @@ describe('deps/ignore-deps/tech-deps/entity-tech-to-entity-common-tech', () => {
 
                 graph
                     .vertex({ block: 'A' }, 't1')
-                    [linkMethod]({ block: 'D' }, 'r1'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'D' }, 'r1');  
 
                 graph
                     .vertex({ block: 'B' }, 't2')
-                    [linkMethod]({ block: 'D' }, 'r2'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'D' }, 'r2');  
 
                 return graph;
             },

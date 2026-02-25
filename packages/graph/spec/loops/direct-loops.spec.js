@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../lib').BemGraph;
+import { BemGraph } from '../../lib/index.js';
 
 describe('loops/direct-loops', () => {
     it('should not throw error if detected unordered direct loop', () => {

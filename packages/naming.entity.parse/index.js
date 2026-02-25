@@ -1,6 +1,4 @@
-'use strict';
-
-const BemEntityName = require('@bem/sdk.entity-name');
+import BemEntityName from '@bem/sdk.entity-name';
 
 /**
  * Builds regex for specified naming convention.
@@ -49,7 +47,7 @@ function parse(str, regex) {
  * @param {INamingConvention} convention - options for naming convention.
  * @returns {Function}
  */
-module.exports = (convention) => {
+export default (convention) => {
     const regex = buildRegex(convention.delims, convention.wordPattern);
 
     return (str) => parse(str, regex);

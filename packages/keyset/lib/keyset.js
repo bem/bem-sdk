@@ -1,17 +1,8 @@
-'use strict';
+import { readdir, readFile, mkdir, unlink, writeFile } from 'node:fs/promises';
+import { resolve, parse, join } from 'node:path';
 
-const fs = require('fs');
-const { promisify } = require('util');
-const { resolve, parse, join } = require('path');
-
-const formats = require('./formats');
-const { LangKeys } = require('./langKeys');
-
-const readdir = promisify(fs.readdir);
-const readFile = promisify(fs.readFile);
-const mkdir = promisify(fs.mkdir);
-const unlink = promisify(fs.unlink);
-const writeFile = promisify(fs.writeFile);
+import formats from './formats/index.js';
+import { LangKeys } from './langKeys.js';
 
 class Keyset {
     constructor(name, path, format) {
@@ -141,11 +132,7 @@ class Keyset {
         for (let [lang, langKeys] of this.langKeys) {
             try {
                const filePath = resolve(this.path, lang + this.langsKeysExt);
-               try {
-                   await writeFile(filePath, langKeys.stringify(this.format));
-               } catch(err) {
-                   throw err;
-               }
+               await writeFile(filePath, langKeys.stringify(this.format));
             } catch(err) {
                 this.errors.push(err);
             }
@@ -172,17 +159,17 @@ class Keyset {
     async load() {
         this.isBroken = false;
 
-        let files = [];
+        let files;
         try {
             files = await readdir(resolve(this.path));
         } catch(err) {
-            throw new Error(`${this.path} is not directory`);
+            throw new Error(`${this.path} is not directory`, { cause: err });
         }
 
         for (let file of files) {
             const filePath = resolve(this.path, file);
             const lang = parse(file).name;
-            let data = null;
+            let data;
 
             if (lang === 'index') {
                 continue;
@@ -190,12 +177,12 @@ class Keyset {
 
             try {
                 data = await readFile(filePath, 'utf8');
-            } catch(err) {
+            } catch {
                 this.errors.push(new Error(`${filePath} is broken`));
                 continue;
             }
 
-            let langKeys = null;
+            let langKeys;
             try {
                 langKeys = await LangKeys.parse(data, this.format);
                 langKeys.lang = lang;
@@ -224,6 +211,6 @@ class Keyset {
 Keyset.availableFormats = formats;
 
 
-module.exports = {
+export {
     Keyset
-}
+};

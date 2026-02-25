@@ -1,15 +1,9 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import BemEntityName from '@bem/sdk.entity-name';
+import BemCell from '@bem/sdk.cell';
 
-const expect = require('chai').expect;
-
-
-const BemEntityName = require('@bem/sdk.entity-name');
-const BemCell = require('@bem/sdk.cell');
-
-const DirectedGraph = require('../../lib/directed-graph');
+import DirectedGraph from '../../lib/directed-graph.js';
 
 const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'select' }) });
 const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'button' }) });

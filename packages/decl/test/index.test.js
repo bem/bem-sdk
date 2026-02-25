@@ -1,12 +1,8 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import { simplifyCell } from './util.js';
+import bemDecl from '../lib/index.js';
 
-const expect = require('chai').expect;
-
-const simplifyCell = require('./util').simplifyCell;
-const bemDecl = require('../lib/index');
 const decls = {
     v1: [{ name: 'block' }],
     v2: [{ block: 'block' }],

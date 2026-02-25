@@ -1,13 +1,8 @@
-'use strict';
+import { expect } from 'chai';
+import sinon from 'sinon';
+import esmock from 'esmock';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-const sinon = require('sinon');
-const proxyquire = require('proxyquire');
-
-const BemEntityName = require('..');
+import BemEntityName from '../index.js';
 
 describe('id', () => {
     it('should build equal id for equal blocks', () => {
@@ -24,11 +19,11 @@ describe('id', () => {
         expect(entityName1.id).is.not.equal(entityName2.id);
     });
 
-    it('should cache id value', () => {
+    it('should cache id value', async () => {
         const stub = sinon.stub().returns('id');
-        const StubBemEntityName = proxyquire('../lib/entity-name', {
-            '@bem/sdk.naming.entity.stringify': () => stub
-        });
+        const StubBemEntityName = (await esmock('../lib/entity-name.js', {
+            '@bem/sdk.naming.entity.stringify': { default: () => stub }
+        })).default;
 
         const entityName = new StubBemEntityName({ block: 'block' });
 

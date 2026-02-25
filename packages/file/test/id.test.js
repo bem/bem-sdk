@@ -1,11 +1,8 @@
-'use strict';
+import { describe, it } from 'node:test';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
-
-const BemFile = require('..');
+import BemFile from '../file.js';
 
 describe('id', () => {
     it('should provide `id` field', () => {

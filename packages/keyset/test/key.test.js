@@ -1,8 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
-
-const { Key, ParamedKey, PluralKey } = require('..');
+import { Key, ParamedKey, PluralKey } from '../index.js';
 
 
 describe('Key', () => {
@@ -20,11 +18,11 @@ describe('Key', () => {
 
         it('should throw with wrong type of key_name', () => {
             expect(() => {
-                new Key({ 42 : 42 }, 'Разница во времени'); // eslint-disable-line
+                new Key({ 42 : 42 }, 'Разница во времени');  
             }).to.throw();
 
             expect(() => {
-                new Key(42, 'Разница во времени'); // eslint-disable-line
+                new Key(42, 'Разница во времени');  
             }).to.throw();
         });
     });
@@ -40,7 +38,7 @@ describe('Key', () => {
 
         it('should throw if value doesn\'t include param', () => {
             expect(() => {
-                new ParamedKey('Time in {city}', 'Точное время {city} {val}', ['city', 'town']); // eslint-disable-line
+                new ParamedKey('Time in {city}', 'Точное время {city} {val}', ['city', 'town']);  
             }).to.throw('Key: value should include param: town');
         });
     });

@@ -1,9 +1,7 @@
-'use strict';
+import { stripIndent, oneLineTrim } from 'common-tags';
+import { expect } from 'chai';
 
-const { stripIndent, oneLineTrim } = require('common-tags');
-const expect = require('chai').expect;
-
-const { Key, ParamedKey, PluralKey, LangKeys } = require('..');
+import { Key, ParamedKey, PluralKey, LangKeys } from '../index.js';
 
 describe('LangKeys', () => {
     it('should create LangKeys', () => {
@@ -36,7 +34,7 @@ describe('LangKeys', () => {
         it('should stringify paramed keys', () => {
             const langKeys = new LangKeys('ru', [
                 new Key('Time difference', 'Разница во времени'),
-                new ParamedKey('Time in {city}', 'Точное время {city}') 
+                new ParamedKey('Time in {city}', 'Точное время {city}')
             ]);
 
             expect(langKeys.stringify('taburet')).to.eql(stripIndent`

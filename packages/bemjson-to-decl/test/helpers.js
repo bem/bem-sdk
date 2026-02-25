@@ -1,9 +1,9 @@
-'use strict';
+import BemEntity from '@bem/sdk.entity-name';
+import { inspect } from 'node:util';
 
-const b_ = require('@bem/sdk.entity-name').create;
-const util = require('util');
+const b_ = BemEntity.create;
 
-module.exports = function bemeql(chai) {
+export default function bemeql(chai) {
     var Assertion = chai.Assertion;
 
     Assertion.addMethod('bemeql', function (obj) {
@@ -13,8 +13,8 @@ module.exports = function bemeql(chai) {
                 this.assert(false,
                     'expected #{act} to deeply equal #{exp}',
                     'expected #{act} to not deeply equal #{exp}',
-                    obj.map(inspect),
-                    this._obj.map(inspect),
+                    obj.map(inspectEl),
+                    this._obj.map(inspectEl),
                     true
                 );
             }
@@ -24,15 +24,15 @@ module.exports = function bemeql(chai) {
                 bemObj.every((e, i) => e.isEqual ? e.isEqual(this._obj[i]) : false),
                 'expected #{act} to deeply equal #{exp}',
                 'expected #{act} to not deeply equal #{exp}',
-                bemObj.map(inspect),
-                this._obj.map(inspect),
+                bemObj.map(inspectEl),
+                this._obj.map(inspectEl),
                 true
             );
         }
 
-        function inspect(el) {
-            return util.inspect(el, { breakLength: Infinity, maxArrayLength: null, depth: null });
+        function inspectEl(el) {
+            return inspect(el, { breakLength: Infinity, maxArrayLength: null, depth: null });
         }
 
     });
-};
+}

@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemEntityName = require('..');
+import BemEntityName from '../index.js';
 
 describe('create', () => {
     it('should return object as is if it`s a BemEntityName', () => {

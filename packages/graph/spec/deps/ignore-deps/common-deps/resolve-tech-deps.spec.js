@@ -1,12 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../../../lib').BemGraph;
-const macro = require('../../../../lib/test-utils').depsMacro;
+import { BemGraph } from '../../../../lib/index.js';
+import { depsMacro as macro } from '../../../../lib/test-utils.js';
 
 describe('deps/ignore-deps/common-deps/resolve-tech-deps', () => {
     it('should not include entity if no entity from decl depends on it', () => {
@@ -55,7 +50,7 @@ describe('deps/ignore-deps/common-deps/resolve-tech-deps', () => {
 
                 graph
                     .vertex({ block: 'C' })
-                    [linkMethod]({ block: 'D' }); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'D' });  
 
                 return graph;
             },

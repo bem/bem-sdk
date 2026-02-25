@@ -1,10 +1,6 @@
-'use strict';
-
-const BemGraph = require('./bem-graph');
+import BemGraph from './bem-graph.js';
 
 /**
  * Графы
  */
-module.exports = {
-    BemGraph
-};
+export { BemGraph };

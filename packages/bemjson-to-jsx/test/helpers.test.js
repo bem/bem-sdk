@@ -1,10 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
-
-const helpers = require('../lib/helpers');
-const objToStr = helpers.objToStr;
-const styleToObj = helpers.styleToObj;
+import { objToStr, styleToObj } from '../lib/helpers.js';
 
 
 describe('helpers: objToStr', () => {
@@ -24,7 +20,7 @@ describe('helpers: objToStr', () => {
         expect(objToStr({ 'hello world': 42 })).to.equal('{ \'hello world\': 42 }');
     });
 
-    xit('should process computed property names', () => {
+    it.skip('should process computed property names', () => {
         expect(objToStr({ ['hello' + 'world']: 42 })).to.equal('{ [\'hello\' + \'world\']: 42 }');
     });
 
@@ -65,12 +61,12 @@ describe('helpers: objToStr', () => {
 
 describe('helpers: styleToObj', () => {
     it('should transform style string to style obj', () => {
-        var obj = styleToObj('width:200px;height:100px;');
+        const obj = styleToObj('width:200px;height:100px;');
         expect(obj).to.eql({ width: '200px', height: '100px' });
     });
 
     it('should not transform style obj to smth else', () => {
-        var obj = styleToObj({ width: '200px', height: '100px' });
+        const obj = styleToObj({ width: '200px', height: '100px' });
         expect(obj).to.eql({ width: '200px', height: '100px' });
     });
 });

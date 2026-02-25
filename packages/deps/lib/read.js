@@ -1,6 +1,4 @@
-'use strict';
-
-const defaultReader = require('./formats/deps.js/reader');
+import defaultReader from './formats/deps.js/reader.js';
 
 /**
  * Generic serial reader generator
@@ -8,7 +6,7 @@ const defaultReader = require('./formats/deps.js/reader');
  * @param {function(f: BemFile): Promise<{file: BemFile, data: *, scope: BemEntityName}>} reader - Reads and evaluates BemFiles.
  * @returns {Function}
  */
-module.exports = function read(reader) {
+export default function read(reader) {
     reader || (reader = defaultReader);
 
     /**
@@ -36,4 +34,4 @@ module.exports = function read(reader) {
                     .catch(reject);
             });
     };
-};
+}

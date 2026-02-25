@@ -1,13 +1,9 @@
-'use strict';
-
-const VertexSet = require('./vertex-set');
+import VertexSet from './vertex-set.js';
 
 /**
  * Направленый граф
- *
- * @type {module.DirectedGraph}
  */
-module.exports = class DirectedGraph {
+export default class DirectedGraph {
     constructor() {
         this._vertices = new VertexSet();
         this._edgeMap = new Map();

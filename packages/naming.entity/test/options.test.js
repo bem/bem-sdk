@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const naming = require('../index');
+import naming from '../index.js';
 
 describe('options.test.js', () => {
     it('should throw error if specified preset is unknow', () => {

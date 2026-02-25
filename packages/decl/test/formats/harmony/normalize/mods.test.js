@@ -1,12 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const simplifyCell = require('../../../util').simplifyCell;
-const normalize = require('../../../../lib/formats/harmony/normalize');
+import { simplifyCell } from '../../../util.js';
+import normalize from '../../../../lib/formats/harmony/normalize.js';
 
 describe('normalize-harmony.mods', () => {
     it('should support shortcut for bool mod', () => {

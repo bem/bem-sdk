@@ -1,8 +1,6 @@
-'use strict';
-
-const stringifyObj = require('stringify-object');
-const normalize = require('@bem/sdk.decl').normalize;
-const BemEntity = require('@bem/sdk.entity-name');
+import { inspect } from 'node:util';
+import { normalize } from '@bem/sdk.decl';
+import BemEntity from '@bem/sdk.entity-name';
 
 function getEntities(bemjson, ctx) {
     const visited = {};
@@ -80,10 +78,10 @@ function stringify(bemjson, ctx, opts) {
     opts || (opts = {});
     opts.indent || (opts.indent = '    ');
 
-    return stringifyObj(getEntities(bemjson, ctx).map(entity => entity.toJSON()), opts);
+    return inspect(getEntities(bemjson, ctx).map(entity => entity.toJSON()), { depth: Infinity, compact: false });
 }
 
-module.exports = {
+export default {
     convert: getEntities,
     stringify: stringify
 };

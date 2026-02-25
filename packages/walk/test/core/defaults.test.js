@@ -1,35 +1,33 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-const beforeEach = require('mocha').beforeEach;
-const afterEach = require('mocha').afterEach;
+import esmock from 'esmock';
+import sinon from 'sinon';
+import mockFs from 'mock-fs';
 
-const expect = require('chai').expect;
-
-const proxyquire = require('proxyquire');
-const sinon = require('sinon');
-const mockFs = require('mock-fs');
-
-const walkers = require('../../lib/walkers');
+import walkers from '../../lib/walkers/index.js';
 
 describe('core/defaults', () => {
     const context = {};
 
-    beforeEach(() => {
+    beforeEach(async () => {
         const flatStub = sinon.stub(walkers, 'flat').callsArg(2);
         const nestedStub = sinon.stub(walkers, 'nested').callsArg(2);
         const sdkStub = sinon.stub(walkers, 'sdk').callsArg(2);
 
-        const walk = proxyquire('../..', {
-            './walkers': {
+        const walk = await esmock('../../lib/index.js', {
+            '../../lib/walkers/index.js': {
+                default: {
+                    'flat': flatStub,
+                    'nested': nestedStub,
+                    'sdk': sdkStub,
+                },
                 'flat': flatStub,
                 'nested': nestedStub,
                 'sdk': sdkStub,
             }
         });
 
-        context.walk = walk;
+        context.walk = walk.default;
         context.flatStub = flatStub;
         context.nestedStub = nestedStub;
         context.sdkStub = sdkStub;

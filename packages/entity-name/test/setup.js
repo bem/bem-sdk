@@ -1,4 +1,4 @@
-'use strict';
-
-// To silence deprecation warnings from being output
-process.env.NO_DEPRECATION = '@bem/sdk.entity-name';
+// Silence DeprecationWarning during tests
+process.on('warning', (warning) => {
+    if (warning.name === 'DeprecationWarning') return;
+});

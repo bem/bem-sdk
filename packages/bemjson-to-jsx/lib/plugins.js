@@ -1,25 +1,21 @@
-'use strict';
+import { camelCase } from 'change-case';
+import { styleToObj, valToStr } from './helpers.js';
 
-var camelCase = require('camel-case');
-var helpers = require('./helpers');
-var styleToObj = helpers.styleToObj;
-var valToStr = helpers.valToStr;
-
-module.exports.copyMods = () => function copyMods(jsx, bemjson) {
+export const copyMods = () => function copyMods(jsx, bemjson) {
     bemjson.elem
         ? bemjson.elemMods && Object.assign(jsx.props, bemjson.elemMods)
         : bemjson.mods && Object.assign(jsx.props, bemjson.mods);
 };
 
-module.exports.camelCaseProps = () => function camelCaseProps(jsx) {
+export const camelCaseProps = () => function camelCaseProps(jsx) {
     jsx.props = Object.keys(jsx.props).reduce((acc, propKey) => {
         acc[camelCase(propKey)] = jsx.props[propKey];
         return acc;
     }, {});
 };
 
-module.exports.copyCustomFields = () => function copyCustomFields(jsx, bemjson) {
-    var blackList = ['content', 'block', 'elem', 'mods', 'elemMods', 'tag', 'js'];
+export const copyCustomFields = () => function copyCustomFields(jsx, bemjson) {
+    const blackList = ['content', 'block', 'elem', 'mods', 'elemMods', 'tag', 'js'];
 
     Object.keys(bemjson).forEach(k => {
         if(~blackList.indexOf(k)) { return; }
@@ -31,7 +27,7 @@ module.exports.copyCustomFields = () => function copyCustomFields(jsx, bemjson) 
     });
 };
 
-module.exports.stylePropToObj = () => function stylePropToObj(jsx) {
+export const stylePropToObj = () => function stylePropToObj(jsx) {
     if (jsx.props['style']) {
         jsx.props['style'] = styleToObj(jsx.props['style'])
         jsx.props['attrs'] &&
@@ -39,7 +35,7 @@ module.exports.stylePropToObj = () => function stylePropToObj(jsx) {
     }
 };
 
-module.exports.keepWhiteSpaces = () => function keepWhiteSpaces(jsx) {
+export const keepWhiteSpaces = () => function keepWhiteSpaces(jsx) {
     if (jsx.isText) {
         if (jsx.simpleText[0] === ' ' || jsx.simpleText[jsx.simpleText.length - 1] === ' ') {
             // wrap to {} to keep spaces
@@ -48,15 +44,15 @@ module.exports.keepWhiteSpaces = () => function keepWhiteSpaces(jsx) {
     }
 };
 
-module.exports.defaultPlugins = [
-    module.exports.keepWhiteSpaces,
-    module.exports.copyMods,
-    module.exports.camelCaseProps,
-    module.exports.copyCustomFields,
-    module.exports.stylePropToObj
+export const defaultPlugins = [
+    keepWhiteSpaces,
+    copyMods,
+    camelCaseProps,
+    copyCustomFields,
+    stylePropToObj
 ];
 
-module.exports.whiteList = function(options) {
+export const whiteList = function(options) {
     options = options || {};
     return function(jsx) {
         if (options.entities && jsx.bemEntity) {
@@ -66,4 +62,3 @@ module.exports.whiteList = function(options) {
         }
     }
 };
-

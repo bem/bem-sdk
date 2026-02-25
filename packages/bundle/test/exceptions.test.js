@@ -1,18 +1,16 @@
-'use strict';
-
-const assert = require('chai').assert;
-const BemBundle = require('..');
+import { assert } from 'chai';
+import BemBundle from '../lib/index.js';
 
 describe('throw exception', function () {
     it('should throw if no bemjson and bemdecl given', function () {
         assert.throws(function () {
-            new BemBundle({}); // eslint-disable-line no-new
+            new BemBundle({});  
         }, Error, 'BEMJSON or BEMDECL must be present');
     });
 
     it('should throw if bemjson not an object', function () {
         assert.throws(function () {
-            new BemBundle({ // eslint-disable-line no-new
+            new BemBundle({  
                 bemjson: 'bemjson'
             });
         }, Error, 'BEMJSON should be an object');
@@ -20,7 +18,7 @@ describe('throw exception', function () {
 
     it('should throw if levels given but not an array', function () {
         assert.throws(function () {
-            new BemBundle({ // eslint-disable-line no-new
+            new BemBundle({  
                 bemjson: {
                     block: 'block'
                 },
@@ -31,7 +29,7 @@ describe('throw exception', function () {
 
     it('should throw if no path and name given', function () {
         assert.throws(function () {
-            new BemBundle({ // eslint-disable-line no-new
+            new BemBundle({  
                 bemjson: {
                     block: 'block'
                 }

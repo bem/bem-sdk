@@ -1,16 +1,11 @@
-'use strict';
-
-const assert = require('assert');
-
-const _ = {
-    uniqWith: require('lodash.uniqwith'),
-    isEqual: require('lodash.isequal')
-};
+import assert from 'node:assert';
+import { isDeepStrictEqual } from 'node:util';
 
 // TODO: cache
-module.exports = function resolveSets(sets) {
+export default function resolveSets(sets) {
     return Object.keys(sets).reduce((acc, setName) => {
-        acc[setName] = _.uniqWith(resolveSet(sets[setName], setName, sets), _.isEqual);
+        const arr = resolveSet(sets[setName], setName, sets);
+        acc[setName] = arr.filter((item, i) => arr.findIndex(o => isDeepStrictEqual(item, o)) === i);
         return acc;
     }, {});
 }

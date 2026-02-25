@@ -1,17 +1,15 @@
-'use strict';
+import fs from 'node:fs';
+import stream from 'node:stream';
 
-const fs = require('fs');
-const stream = require('stream');
+import Benchmark from 'Benchmark';
+import series from 'promise-map-series';
+import { stringify as stringifyEntity } from '@bem/naming';
 
-const Benchmark = require('Benchmark');
-const series = require('promise-map-series');
-const stringifyEntity = require('@bem/naming').stringify;
+import fixtures from './fixtures/index.js';
 
-const fixtures = require('./fixtures');
-
-const walk = require('../lib');
-const enb = require('./enb');
-const scanl = require('./scan-level');
+import walk from '../lib/index.js';
+import enb from './enb.js';
+import scanl from './scan-level.js';
 
 const cases = [
     { name: 'flat level',     levels: fixtures.levels.flat,    scheme: 'flat' },

@@ -1,4 +1,29 @@
-const hashSet = require('hash-set');
+class HashSet {
+    constructor(hashFn) {
+        this._hashFn = hashFn;
+        this._map = new Map();
+    }
+
+    add(item) {
+        const key = this._hashFn(item);
+        if (!this._map.has(key)) {
+            this._map.set(key, item);
+        }
+        return this;
+    }
+
+    get size() {
+        return this._map.size;
+    }
+
+    forEach(fn) {
+        this._map.forEach(value => fn(value));
+    }
+
+    [Symbol.iterator]() {
+        return this._map.values();
+    }
+}
 
 const tmpl = {
     b : b => `b:${b}`,
@@ -13,11 +38,10 @@ const btmpl = Object.assign({}, tmpl, {
     m : m => m ? `${tmpl.mn(m['name'])}${tmpl.mv([m['val']])}` : ''
 });
 
-const BemCellSet = hashSet(cell =>
+const cellHashFn = cell =>
     ['block', 'elem', 'mod', 'tech']
         .map(k => btmpl[k[0]](cell[k]))
-        .join('')
-);
+        .join('');
 
 /**
  * Parse import statement and extract bem entities
@@ -77,7 +101,7 @@ function parse(importString, scope) {
             }
         }
         return acc;
-    }, new BemCellSet()));
+    }, new HashSet(cellHashFn)));
 }
 
 /**
@@ -107,7 +131,4 @@ function stringify(cells) {
     return ['b', 'e', 'm', 't'].map(k => tmpl[k](merged[k])).join('');
 }
 
-module.exports = {
-    parse,
-    stringify
-};
+export { parse, stringify };

@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemEntityName = require('..');
+import BemEntityName from '../index.js';
 
 describe('scope', () => {
     it('should return scope of block', () => {
@@ -42,7 +37,7 @@ describe('scope', () => {
     it('should cache scope value', () => {
         const entity = new BemEntityName({ block: 'block', elem: 'elem' });
 
-        entity.scope; // eslint-disable-line no-unused-expressions
+        entity.scope;  
 
         expect(entity._scope.valueOf()).to.deep.equal({ block: 'block' });
     });

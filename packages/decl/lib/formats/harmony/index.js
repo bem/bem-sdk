@@ -1,5 +1,4 @@
-'use strict';
+import parse from './parse.js';
 
-module.exports = {
-    parse: require('./parse')
-};
+export { parse };
+export default { parse };

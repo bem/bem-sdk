@@ -1,15 +1,9 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import BemEntityName from '@bem/sdk.entity-name';
+import BemCell from '@bem/sdk.cell';
 
-const expect = require('chai').expect;
-
-
-const BemEntityName = require('@bem/sdk.entity-name');
-const BemCell = require('@bem/sdk.cell');
-
-const MixedGraph = require('../../lib/mixed-graph');
+import MixedGraph from '../../lib/mixed-graph.js';
 
 const vertex = new BemCell({ entity: new BemEntityName({ block: 'button' }) });
 

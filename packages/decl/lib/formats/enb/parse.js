@@ -1,8 +1,6 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
-
-const normalize = require('./normalize');
+import normalize from './normalize.js';
 
 /**
  * Parses enb declaration.
@@ -10,8 +8,8 @@ const normalize = require('./normalize');
  * @param {Object} data - Object with declaration
  * @returns {BemCell[]}
  */
-module.exports = (data) => {
-    assert(data.hasOwnProperty('deps') || data.hasOwnProperty('decl'), 'Invalid format of enb declaration.');
+export default (data) => {
+    assert(Object.hasOwn(data, 'deps') || Object.hasOwn(data, 'decl'), 'Invalid format of enb declaration.');
 
     return normalize(data.deps || data.decl);
 };

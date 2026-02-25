@@ -1,12 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-
-const v = require('../../lib/test-utils').createVertex;
+import { createVertex as v } from '../../lib/test-utils.js';
 
 describe('utils/create-vertex.test.js', () => {
     it('should create block vertex', () => {

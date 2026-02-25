@@ -1,9 +1,7 @@
-'use strict';
+import base from './origin-react.js';
 
-const base = require('./origin-react');
-
-module.exports = Object.assign({}, base, {
-    fs: Object.assign(base.fs, {
+export default Object.assign({}, base, {
+    fs: Object.assign({}, base.fs, {
         pattern: '${entity}${layer?@${layer}}.${tech}'
     })
 });

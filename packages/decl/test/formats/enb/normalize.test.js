@@ -1,12 +1,7 @@
-'use strict';
+import { assert } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const assert = require('chai').assert;
-
-const cellify = require('../../../lib/cellify');
-const normalize = require('../../../lib/formats/enb/normalize');
+import cellify from '../../../lib/cellify.js';
+import normalize from '../../../lib/formats/enb/normalize.js';
 
 describe('decl.formats.enb.normalize', () => {
     it('should normalize block', () => {

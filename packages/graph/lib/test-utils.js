@@ -1,9 +1,7 @@
-'use strict';
+import BemCell from '@bem/sdk.cell';
+import bemNaming from '@bem/sdk.naming.entity';
 
-const BemCell = require('@bem/sdk.cell');
-const bemNaming = require('@bem/sdk.naming.entity');
-
-const BemGraph = require('./bem-graph');
+import BemGraph from './bem-graph.js';
 
 function depsMacro(obj) {
     const graphFunction = obj.graph;
@@ -98,7 +96,7 @@ function createGraph(str) {
 /**
  * Utilities for tests
  */
-module.exports = {
+export {
     findIndex,
     findLastIndex,
     depsMacro,

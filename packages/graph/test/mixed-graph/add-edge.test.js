@@ -1,19 +1,11 @@
-'use strict';
+import { expect } from 'chai';
+import sinon from 'sinon';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-const beforeEach = require('mocha').beforeEach;
-const afterEach = require('mocha').afterEach;
+import BemEntityName from '@bem/sdk.entity-name';
+import BemCell from '@bem/sdk.cell';
 
-const expect = require('chai').expect;
-
-const sinon = require('sinon');
-
-const BemEntityName = require('@bem/sdk.entity-name');
-const BemCell = require('@bem/sdk.cell');
-
-const MixedGraph = require('../../lib/mixed-graph');
-const DirectedGraph = require('../../lib/directed-graph');
+import MixedGraph from '../../lib/mixed-graph.js';
+import DirectedGraph from '../../lib/directed-graph.js';
 
 const vertex1 = new BemCell({ entity: new BemEntityName({ block: 'button' }), tech: 'css' });
 const vertex2 = new BemCell({ entity: new BemEntityName({ block: 'control' }), tech: 'css' });

@@ -1,6 +1,4 @@
-'use strict';
+import reader from './reader.js';
+import parser from './parser.js';
 
-const reader = require('./reader');
-const parser = require('./parser');
-
-module.exports = { parser, reader };
+export default { parser, reader };

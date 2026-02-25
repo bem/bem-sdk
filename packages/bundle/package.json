@@ -2,19 +2,19 @@
   "name": "@bem/sdk.bundle",
   "version": "0.2.15",
   "description": "bem-bundle",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
   "main": "lib/index.js",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "files": [
     "lib/**"
   ],
   "scripts": {
     "specs": "mocha",
-    "cover": "nyc mocha",
     "test": "npm run specs"
   },
   "repository": "bem/bem-sdk",

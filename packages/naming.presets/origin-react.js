@@ -1,8 +1,6 @@
-'use strict';
+import origin from './origin.js';
 
-const origin = require('./origin');
-
-module.exports = Object.assign({}, origin, {
+export default Object.assign({}, origin, {
     delims: Object.assign({}, origin.delims, {
         elem: '-'
     }),

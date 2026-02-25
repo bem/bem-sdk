@@ -1,8 +1,6 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
-
-const createCellStringify = require('@bem/sdk.naming.cell.stringify');
+import createCellStringify from '@bem/sdk.naming.cell.stringify';
 
 /**
  * Stringifier generator
@@ -10,7 +8,7 @@ const createCellStringify = require('@bem/sdk.naming.cell.stringify');
  * @param {INamingConvention} conv - naming, path and scheme
  * @returns {function(BemCell): string} converts cell to file path
  */
-module.exports = (conv) => {
+export default (conv) => {
     assert(typeof conv === 'object', '@bem/sdk.naming.file.stringify: convention object required');
 
     const stringify = createCellStringify(conv);

@@ -1,5 +1,5 @@
-const assert = require('assert');
-const resolveSets = require('../lib/resolve-sets');
+import assert from 'node:assert';
+import resolveSets from '../lib/resolve-sets.js';
 
 describe('resolve-sets', function() {
     it('should support objects', function() {

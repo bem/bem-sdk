@@ -1,25 +1,27 @@
-'use strict';
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
-const path = require('path');
+import { expect, use } from 'chai';
+import chaiAsPromised from 'chai-as-promised';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+use(chaiAsPromised);
 
-const chai = require('chai');
+import notStubbedBemConfig from '../index.js';
 
-chai.use(require('chai-as-promised'));
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const expect = chai.expect;
-
-const proxyquire = require('proxyquire');
-const notStubbedBemConfig = require('..');
-
+/**
+ * Creates a bemConfig factory with pre-set configs (bypassing cosmiconfig).
+ * @param {Array} conf - Array of config objects to inject
+ * @returns {Function} bemConfig factory
+ */
 function config(conf) {
-    return proxyquire('..', {
-        'betterc'() {
-            return Promise.resolve(conf || [{}]);
-        }
-    });
+    return function(opts) {
+        const instance = notStubbedBemConfig(opts);
+        instance._configs = conf || [{}];
+        return instance;
+    };
 }
 
 describe('async', () => {
@@ -276,7 +278,7 @@ describe('async', () => {
         const expected = {};
         expected[path.resolve('l1')] = { path: path.resolve('l1'), some: 'conf1' };
 
-        // because of mocked rc, all instances of bemConfig has always the same data
+        // because of injected configs, all instances of bemConfig has always the same data
         return expect(bemConfig().levelMap()).to.eventually.deep.equal(
             expected
         );
@@ -294,9 +296,7 @@ describe('async', () => {
     });
 
     it('should throw if lib was not found', () => {
-        const bemConfig = config();
-
-        return bemConfig().library('lib1').catch(err => expect(err.includes('Library lib1 was not found at')).to.equal(true));
+        return notStubbedBemConfig().library('lib1').catch(err => expect(err.includes('Library lib1 was not found at')).to.equal(true));
     });
 
     it('should throw if lib was not found', () => {
@@ -330,8 +330,8 @@ describe('async', () => {
         return bemConfig().library('lib1')
             .then(lib => {
                 return lib.get().then(libConf => {
-                    // because of mocked rc, all instances of bemConfig has always the same data
-                    return expect(libConf).to.deep.equal(conf[0]);
+                    // library config is loaded from the library's own .bemrc.json
+                    return expect(libConf).to.have.property('lib1Config', true);
                 });
             });
     });
@@ -422,12 +422,6 @@ describe('async', () => {
             expected
         );
     });
-
-// TODO: add test for
-// resolving, e.g. projectRoot
-// 'should override default config with .bemrc'
-// 'should not override default levels if none in .bemrc provided'
-// 'should not mutate defaults'
 
     it('should return common config if no levels provided', () => {
         const bemConfig = config([

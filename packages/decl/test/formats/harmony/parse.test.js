@@ -1,12 +1,9 @@
-'use strict';
+import { assert } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import { simplifyCell } from '../../util.js';
+import harmonyFormat from '../../../lib/formats/harmony/index.js';
 
-const assert = require('chai').assert;
-
-const simplifyCell = require('../../util').simplifyCell;
-const parse = require('../../../lib/formats/harmony').parse;
+const { parse } = harmonyFormat;
 
 describe('decl.formats.harmony.parse', () => {
     it('should throw if invalid format', () => {

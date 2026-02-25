@@ -1,17 +1,21 @@
-'use strict';
+import assert from 'node:assert';
+import vm from 'node:vm';
 
-const assert = require('assert');
+import parseXML from './parseXML.js';
 
-const nEval = require('node-eval');
-
-const parseXML = require('./parseXML');
+function nodeEval(code) {
+    const m = { exports: {} };
+    const wrapped = `(function(module, exports) { ${code}\n})(m, m.exports)`;
+    vm.runInNewContext(wrapped, { m });
+    return m.exports;
+}
 
 const Key = {
     paramsReg: () => /<i18n:param>(\w+)<\/i18n:param>/g,
     getParams: function (name, value) {
         const r = this.paramsReg();
         const params = [];
-        let res = null;
+        let res;
 
         while ((res = r.exec(value)) !== null) {
             params.push(res[1]);
@@ -91,7 +95,7 @@ const LangKeys = {
         let data = null;
         let errMsg = '';
         try {
-            data = nEval(str);
+            data = nodeEval(str);
         } catch(err) {
             const s = err.stack.split('\n');
             errMsg += err.message + '\n';
@@ -119,7 +123,7 @@ const LangKeys = {
 }
 
 
-module.exports = {
+export {
     LangKeys,
     Key
-}
+};

@@ -1,0 +1,15 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(echo:*)",
+      "Bash(head:*)",
+      "Bash(wc:*)",
+      "Bash(echo === $\\(basename $pkg\\) ===:*)",
+      "Bash(python3:*)",
+      "WebSearch",
+      "Bash(npx mocha:*)",
+      "Bash(test:*)",
+      "Bash(node:*)"
+    ]
+  }
+}

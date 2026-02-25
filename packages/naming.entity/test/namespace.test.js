@@ -1,11 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const bemNaming = require('../index');
+import bemNaming from '../index.js';
 
 describe('namespace.test.js', () => {
     it('should be a namespace', () => {

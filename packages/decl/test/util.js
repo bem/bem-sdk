@@ -1,10 +1,8 @@
-'use strict';
+import BemCell from '@bem/sdk.cell';
 
-const BemCell = require('@bem/sdk.cell');
+export const createCell = BemCell.create;
 
-exports.createCell = BemCell.create;
-
-exports.simplifyCell = function (cell) {
+export const simplifyCell = function (cell) {
     const entity = { block: cell.entity.block };
     cell.entity.elem && (entity.elem = cell.entity.elem);
     if (cell.entity.mod) {

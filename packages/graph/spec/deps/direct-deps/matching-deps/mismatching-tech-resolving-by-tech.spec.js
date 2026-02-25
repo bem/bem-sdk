@@ -1,14 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const BemGraph = require('../../../../lib').BemGraph;
-const macro = require('../../../../lib/test-utils').depsMacro;
-const findIndex = require('../../../../lib/test-utils').findIndex;
-const findLastIndex = require('../../../../lib/test-utils').findLastIndex;
+import { BemGraph } from '../../../../lib/index.js';
+import { depsMacro as macro, findIndex, findLastIndex } from '../../../../lib/test-utils.js';
 
 describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', () => {
     it('should resolve entity depending on another entity', () => {
@@ -18,7 +11,7 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'B' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'js');  
 
                 return graph;
             },
@@ -37,8 +30,8 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'B' }, 'js') // eslint-disable-line no-unexpected-multiline
-                    [linkMethod]({ block: 'B' }, 'bemhtml'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'js')  
+                    [linkMethod]({ block: 'B' }, 'bemhtml');  
 
                 return graph;
             },
@@ -59,11 +52,11 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod]({ block: 'B' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'css');  
 
                 graph
                     .vertex({ block: 'B' })
-                    [linkMethod]({ block: 'C' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'js');  
 
                 return graph;
             },
@@ -82,12 +75,12 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod]({ block: 'B' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'B' }, 'css');  
 
                 graph
                     .vertex({ block: 'B' })
-                    [linkMethod]({ block: 'C' }, 'bemhtml') // eslint-disable-line no-unexpected-multiline
-                    [linkMethod]({ block: 'D' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'bemhtml')  
+                    [linkMethod]({ block: 'D' }, 'js');  
 
                 return graph;
             },
@@ -108,11 +101,11 @@ describe('deps/direct-deps/matching-deps/mismatching-tech-resolving-by-tech', ()
 
                 graph
                     .vertex({ block: 'A' }, 'css')
-                    [linkMethod]({ block: 'C' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'js');  
 
                 graph
                     .vertex({ block: 'B' }, 'css')
-                    [linkMethod]({ block: 'C' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod]({ block: 'C' }, 'js');  
 
                 return graph;
             },

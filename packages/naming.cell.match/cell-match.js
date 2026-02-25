@@ -1,10 +1,8 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
-
-const BemCell = require('@bem/sdk.cell');
-const bemNamingParse = require('@bem/sdk.naming.entity.parse');
-const pathPatternParser = require('@bem/sdk.naming.cell.pattern-parser');
+import BemCell from '@bem/sdk.cell';
+import bemNamingParse from '@bem/sdk.naming.entity.parse';
+import pathPatternParser from '@bem/sdk.naming.cell.pattern-parser';
 
 const ALPHANUM_RE = '[A-Za-z][\\w\\-]*';
 const resc = s => String(s).replace(/[\\^$*+?.()|[\]{}]/g, '\\$&');
@@ -31,7 +29,7 @@ const SCHEMES = {
             let i = 1;
             return entity.block === parts[0] &&
                 (!entity.elem || (parts[i++] === elem + entity.elem)) &&
-                (!entity.mod || (parts[i++] == mod + entity.mod.name));
+                (!entity.mod || (parts[i] == mod + entity.mod.name));
         }
     ]
 };
@@ -136,7 +134,7 @@ function buildPathParseMethod(conv) {
  * @param {BemNamingConvention} conv - naming, path and scheme
  * @returns {function(string): {cell: ?BemCell, isMatch: boolean, rest: ?string}} converts cell to file path
  */
-module.exports = (conv = {}) => {
+export default (conv = {}) => {
     assert(conv.fs && typeof conv.fs.pattern === 'string',
         '@bem/sdk.naming.cell.match: fs.pattern field required in convention');
 
@@ -146,7 +144,7 @@ module.exports = (conv = {}) => {
     // Special crunch for nested scheme and empty elem
     if (conv.fs.delims && conv.fs.delims.elem === '') {
         const parse1 = parse;
-        const parse2 = buildPathParseMethod({ ...conv, fs: { ...conv.fs, delims: { ...conv.fs.delims, elem: '💩' } } });
+        const parse2 = buildPathParseMethod({ ...conv, fs: { ...conv.fs, delims: { ...conv.fs.delims, elem: '\u{1F4A9}' } } });
         parse = (relPath) => parse1(relPath) || parse2(relPath);
     }
 

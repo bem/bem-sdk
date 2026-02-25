@@ -2,6 +2,7 @@
   "name": "@bem/sdk.naming.cell.stringify",
   "version": "0.0.13",
   "description": "BemCell stringifier (aka @bem/fs-scheme/path)",
+  "type": "module",
   "publishConfig": {
     "access": "public"
   },
@@ -19,7 +20,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.stringify#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">= 24.0"
   },
   "main": "cell-stringify.js",
   "files": [
@@ -33,6 +34,6 @@
     "@bem/sdk.naming.entity": "^0.2.11"
   },
   "scripts": {
-    "test": "nyc mocha"
+    "test": "mocha"
   }
 }

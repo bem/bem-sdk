@@ -1,17 +1,15 @@
-'use strict';
+import assert from 'node:assert';
 
-const assert = require('assert');
-
-const normalize = require('./normalize');
+import normalize from './normalize.js';
 
 /**
- * Parses enb declaration.
+ * Parses harmony declaration.
  *
  * @param {Object} data - Object with declaration
  * @returns {BemCell[]}
  */
-module.exports = (data) => {
-    assert(data.hasOwnProperty('decl'), 'Invalid format of harmony declaration.');
+export default (data) => {
+    assert(Object.hasOwn(data, 'decl'), 'Invalid format of harmony declaration.');
 
     return normalize(data.decl);
 };

@@ -1,9 +1,7 @@
-'use strict';
+import assert from 'node:assert';
+import util from 'node:util';
 
-const assert = require('assert');
-const util = require('util');
-
-const BemCell = require('@bem/sdk.cell');
+import BemCell from '@bem/sdk.cell';
 
 class BemFile {
     /**
@@ -32,8 +30,8 @@ class BemFile {
      * Returns the cell of the file.
      *
      * @example
-     * const BemFile = require('@bem/sdk.file');
-     * const BemCell = require('@bem/sdk.cell');
+     * import BemFile from '@bem/sdk.file';
+     * import BemCell from '@bem/sdk.cell';
      *
      * const file = new BemFile({
      *     cell: BemCell.create({ block: 'button', elem: 'text', tech: 'css' })
@@ -80,6 +78,10 @@ class BemFile {
         return `BemFile ${stringRepresentation}`;
     }
 
+    [Symbol.for('nodejs.util.inspect.custom')](depth, options) {
+        return this.inspect(depth, options);
+    }
+
     toJSON() {
         return this.valueOf();
     }
@@ -92,7 +94,7 @@ class BemFile {
      * Determines whether specified file is deep equal to another file or not
      *
      * @example
-     * const BemFile = require('@bem/sdk.file');
+     * import BemFile from '@bem/sdk.file';
      * const buttonFile1 = BemFile.create({ block: 'button', tech: 'css', layer: 'desktop', level: 'desktop.blocks' });
      * const buttonFile2 = BemFile.create({ block: 'button', tech: 'css', layer: 'desktop', level: 'desktop.blocks' });
      * const inputFile = BemFile.create({ block: 'input', tech: 'css', layer: 'common', level: 'common.blocks' });
@@ -111,8 +113,8 @@ class BemFile {
      * Determines whether specified file is instance of BemFile.
      *
      * @example
-     * const BemFile = require('@bem/sdk.file');
-     * const BemCell = require('@bem/sdk.cell');
+     * import BemFile from '@bem/sdk.file';
+     * import BemCell from '@bem/sdk.cell';
      *
      * const file = new BemFile({
      *     cell: new BemCell({ block: 'button', elem: 'text', tech: 'css' }),
@@ -133,7 +135,7 @@ class BemFile {
      * Creates BemFile instance by any object representation.
      *
      * @example
-     * const BemFile = require('@bem/sdk.file');
+     * import BemFile from '@bem/sdk.file';
      *
      * BemFile.create({ block: 'my-button', mod: 'theme', val: 'red', tech: 'css' });
      * BemFile.create({ block: 'my-button', modName: 'theme', modVal: 'red', tech: 'css' });
@@ -166,4 +168,4 @@ class BemFile {
     }
 }
 
-module.exports = BemFile;
+export default BemFile;

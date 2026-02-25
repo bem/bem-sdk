@@ -1,13 +1,8 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
+import BemEntityName from '@bem/sdk.entity-name';
 
-const expect = require('chai').expect;
-
-const BemEntityName = require('@bem/sdk.entity-name');
-
-const BemCell = require('../index');
+import BemCell from '../index.js';
 
 describe('fields', () => {
     it('should provide `entity` field', () => {

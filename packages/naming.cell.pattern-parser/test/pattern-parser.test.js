@@ -1,8 +1,6 @@
-'use strict';
+import { expect } from 'chai';
 
-const expect = require('chai').expect;
-
-const method = require('..');
+import method from '../pattern-parser.js';
 
 describe('pattern-parser', () => {
     it('should throw on incorrect pattern', () => {

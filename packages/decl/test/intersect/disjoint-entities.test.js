@@ -1,13 +1,7 @@
-'use strict';
+import { expect } from 'chai';
 
-const describe = require('mocha').describe;
-const it = require('mocha').it;
-
-const expect = require('chai').expect;
-
-const createCell = require('../util').createCell;
-
-const intersect = require('../../lib/intersect');
+import { createCell } from '../util.js';
+import intersect from '../../lib/intersect.js';
 
 describe('intersect.disjoint-entities', () => {
     it('should not intersect other entities from block', () => {

@@ -1,22 +1,20 @@
-'use strict';
+import path from 'node:path';
+import { globSync } from 'node:fs';
+import merge from '../lib/merge.js';
 
-var path = require('path'),
-    isGlob = require('is-glob'),
-    glob = require('glob'),
-    cloneDeep = require('lodash.clonedeep'),
-    merge = require('../lib/merge');
+const isGlob = s => /[*?{[\]]/.test(s.replace(/\\./g, ''));
 
-module.exports = function(config, configs, options, cb) {
-    var cwd = options.cwd || process.cwd(),
-        source = config.__source,
-        res = cloneDeep(config),
-        levels = res.levels || [],
-        levelsIndex = {},
-        cyclesToResolve = levels.length;
+export default function resolveLevel(config, configs, options, cb) {
+    const cwd = options.cwd || process.cwd();
+    const source = config.__source;
+    const res = structuredClone(config);
+    const levels = res.levels || [];
+    const levelsIndex = {};
+    let cyclesToResolve = levels.length;
 
     if (!cyclesToResolve) { return cb ? cb(res) : res; }
 
-    var pathsToRemove = [];
+    const pathsToRemove = [];
 
     levels.forEach(function(level, i) {
         cyclesToResolve--;
@@ -35,7 +33,7 @@ module.exports = function(config, configs, options, cb) {
         }
 
         if (!cb) { // sync
-            var globbedLevels = glob.sync(level.path, { cwd: cwd });
+            const globbedLevels = globSync(level.path, { cwd: cwd });
             globbedLevels.forEach(function(levelPath, idx) {
                 onLevel(levelPath, level.path);
                 globbedLevels.length - 1 === idx && pathsToRemove.push(level.path);
@@ -44,20 +42,18 @@ module.exports = function(config, configs, options, cb) {
             return;
         }
 
-        // async
-        glob(level.path, { cwd: cwd }, function(err, asyncGlobbedLevels) {
-            // TODO: if (err) { throw err; }
-            asyncGlobbedLevels.forEach(function(levelPath, idx) {
-                onLevel(levelPath, level.path);
-                asyncGlobbedLevels.length - 1 === idx && pathsToRemove.push(level.path);
-            });
-
-            if (!cyclesToResolve) {
-                removeRelPaths();
-
-                cb(res);
-            }
+        // async — node:fs globSync is always sync, so use it here too
+        // (the original used async glob; we simplify to sync and call cb)
+        const asyncGlobbedLevels = globSync(level.path, { cwd: cwd });
+        asyncGlobbedLevels.forEach(function(levelPath, idx) {
+            onLevel(levelPath, level.path);
+            asyncGlobbedLevels.length - 1 === idx && pathsToRemove.push(level.path);
         });
+
+        if (!cyclesToResolve) {
+            removeRelPaths();
+            cb(res);
+        }
     });
 
     cb || removeRelPaths();
@@ -67,7 +63,7 @@ module.exports = function(config, configs, options, cb) {
     function onLevel(levelPath, globLevelPath) {
         globLevelPath || (globLevelPath = levelPath);
 
-        var resolvedLevel = path.resolve(source ? path.dirname(source) : cwd, levelPath);
+        const resolvedLevel = path.resolve(source ? path.dirname(source) : cwd, levelPath);
 
         if (resolvedLevel === levelPath && levelPath === globLevelPath) { return; }
 
@@ -85,4 +81,4 @@ module.exports = function(config, configs, options, cb) {
             levelsIndex[pathToRemove] = undefined;
         });
     }
-};
+}

@@ -1,7 +1,6 @@
-'use strict';
+import sdk from './sdk.js';
+import nested from './nested.js';
+import flat from './flat.js';
 
-module.exports = {
-    sdk: require('./sdk'),
-    nested: require('./nested'),
-    flat: require('./flat')
-};
+export { sdk, nested, flat };
+export default { sdk, nested, flat };

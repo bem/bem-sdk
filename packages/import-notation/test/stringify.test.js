@@ -1,5 +1,5 @@
-var expect = require('chai').expect,
-    s = require('..').stringify;
+import { expect } from 'chai';
+import { stringify as s } from '../index.js';
 
 it('should return a string', () => {
     expect(s([{ block : 'button' }])).to.be.an('String');

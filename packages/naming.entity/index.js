@@ -1,5 +1,3 @@
-'use strict';
-
 /**
  * Delims of bem entity, elem and/or mod.
  *
@@ -19,9 +17,9 @@
   *                                                                         element and modifier's names.
   */
 
-const createStringify = require('@bem/sdk.naming.entity.stringify');
-const createParse = require('@bem/sdk.naming.entity.parse');
-const createPreset = require('@bem/sdk.naming.presets/create');
+import createStringify from '@bem/sdk.naming.entity.stringify';
+import createParse from '@bem/sdk.naming.entity.parse';
+import createPreset from '@bem/sdk.naming.presets/create';
 
 /**
  * It is necessary not to create new instances for the same custom naming.
@@ -61,4 +59,4 @@ function createNaming(options) {
     return namespace;
 }
 
-module.exports = Object.assign(createNaming, createNaming());
+export default Object.assign(createNaming, createNaming());
