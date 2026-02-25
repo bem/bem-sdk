@@ -37,9 +37,6 @@
     "sinon": "^21.0.0",
     "typescript": "^5.9.0"
   },
-  "overrides": {
-    "p-limit": "^4.0.0"
-  },
   "scripts": {
     "lint": "eslint .",
     "pretest": "npm run lint",
