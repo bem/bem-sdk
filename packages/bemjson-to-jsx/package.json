@@ -26,10 +26,13 @@
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/bemjson-to-jsx#readme",
   "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.11",
-    "@bem/sdk.naming.entity.stringify": "^1.1.2",
-    "@bem/sdk.naming.presets": "^0.0.9",
-    "camel-case": "^3.0.0",
-    "pascal-case": "^2.0.1"
+    "@bem/sdk.entity-name": "workspace:^",
+    "@bem/sdk.naming.entity.stringify": "workspace:^",
+    "@bem/sdk.naming.presets": "workspace:^",
+    "camel-case": "^5.0.0",
+    "pascal-case": "^4.0.0"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

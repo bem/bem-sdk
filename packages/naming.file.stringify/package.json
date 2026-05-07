@@ -19,13 +19,13 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.file.stringify#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "dependencies": {
-    "@bem/sdk.naming.cell.stringify": "^0.0.13"
+    "@bem/sdk.naming.cell.stringify": "workspace:^"
   },
   "devDependencies": {
-    "@bem/sdk.file": "^0.3.5"
+    "@bem/sdk.file": "workspace:^"
   },
   "main": "file-stringify.js",
   "files": [

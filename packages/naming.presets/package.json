@@ -24,13 +24,13 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#readme",
   "repository": "bem/bem-sdk",
   "devDependencies": {
-    "@bem/sdk.cell": "^0.2.9",
-    "@bem/sdk.entity-name": "^0.2.11",
-    "@bem/sdk.naming.cell.stringify": "^0.0.13",
-    "@bem/sdk.naming.entity": "^0.2.11"
+    "@bem/sdk.cell": "workspace:^",
+    "@bem/sdk.entity-name": "workspace:^",
+    "@bem/sdk.naming.cell.stringify": "workspace:^",
+    "@bem/sdk.naming.entity": "workspace:^"
   },
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "main": "index.js",
   "typings": "index.d.ts",

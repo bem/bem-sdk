@@ -19,18 +19,18 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.stringify#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "main": "cell-stringify.js",
   "files": [
     "cell-stringify.js"
   ],
   "dependencies": {
-    "@bem/sdk.naming.cell.pattern-parser": "^0.0.7"
+    "@bem/sdk.naming.cell.pattern-parser": "workspace:^"
   },
   "devDependencies": {
-    "@bem/sdk.cell": "^0.2.9",
-    "@bem/sdk.naming.entity": "^0.2.11"
+    "@bem/sdk.cell": "workspace:^",
+    "@bem/sdk.naming.entity": "workspace:^"
   },
   "scripts": {
     "test": "nyc mocha"

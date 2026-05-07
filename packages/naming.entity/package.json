@@ -26,7 +26,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.entity#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "main": "index.js",
   "files": [
@@ -34,10 +34,10 @@
     "index.js"
   ],
   "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.11",
-    "@bem/sdk.naming.entity.parse": "^0.2.9",
-    "@bem/sdk.naming.entity.stringify": "^1.1.2",
-    "@bem/sdk.naming.presets": "^0.2.3"
+    "@bem/sdk.entity-name": "workspace:^",
+    "@bem/sdk.naming.entity.parse": "workspace:^",
+    "@bem/sdk.naming.entity.stringify": "workspace:^",
+    "@bem/sdk.naming.presets": "workspace:^"
   },
   "scripts": {
     "specs": "mocha",

@@ -7,7 +7,7 @@
   },
   "main": "lib/index.js",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "files": [
     "lib/**"
@@ -28,6 +28,6 @@
   "author": "Anton Krichevskii <mrskadi0@gmail.com> (github.com/skad0)",
   "license": "MPL-2.0",
   "dependencies": {
-    "@bem/sdk.bemjson-to-decl": "^0.2.15"
+    "@bem/sdk.bemjson-to-decl": "workspace:^"
   }
 }

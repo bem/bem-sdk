@@ -13,21 +13,24 @@
   ],
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "main": "cell-match.js",
   "files": [
     "cell-match.js"
   ],
   "dependencies": {
-    "@bem/sdk.cell": "^0.2.9",
-    "@bem/sdk.naming.cell.pattern-parser": "^0.0.7",
-    "@bem/sdk.naming.entity.parse": "^0.2.9"
+    "@bem/sdk.cell": "workspace:^",
+    "@bem/sdk.naming.cell.pattern-parser": "workspace:^",
+    "@bem/sdk.naming.entity.parse": "workspace:^"
   },
   "devDependencies": {
-    "@bem/sdk.naming.presets": "^0.2.3"
+    "@bem/sdk.naming.presets": "workspace:^"
   },
   "scripts": {
     "test": "nyc mocha *.test.js"
+  },
+  "publishConfig": {
+    "access": "public"
   }
 }

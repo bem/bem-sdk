@@ -27,19 +27,14 @@
     "index.d.ts"
   ],
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "devDependencies": {
-    "@types/node": "^8.0"
+    "@types/node": "^25.6.2"
   },
   "scripts": {
     "test": "npm run specs",
     "specs": "mocha",
     "cover": "nyc mocha"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "@types/node"
-    ]
   }
 }

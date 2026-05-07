@@ -24,5 +24,8 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/import-notation#readme",
   "dependencies": {
     "hash-set": "^1.0.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

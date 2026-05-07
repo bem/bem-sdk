@@ -26,11 +26,11 @@
     "file.js"
   ],
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "dependencies": {
-    "@bem/sdk.cell": "^0.2.9",
-    "depd": "1.1.0"
+    "@bem/sdk.cell": "workspace:^",
+    "depd": "^2.0.0"
   },
   "scripts": {
     "specs": "mocha",

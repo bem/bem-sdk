@@ -1,6 +1,14 @@
+node_modules
+.pnpm-store
+.pnpm-debug.log
+npm-debug.log
+lerna-debug.log
+
 .nyc_output
 coverage
 
-node_modules
-npm-debug.log
-lerna-debug.log
+dist
+*.tsbuildinfo
+
+.worktrees
+.DS_Store

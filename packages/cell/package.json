@@ -28,11 +28,11 @@
     "index.js"
   ],
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.11",
-    "depd": "1.1.0"
+    "@bem/sdk.entity-name": "workspace:^",
+    "depd": "^2.0.0"
   },
   "scripts": {
     "specs": "mocha",

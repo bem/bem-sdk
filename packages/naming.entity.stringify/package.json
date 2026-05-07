@@ -21,7 +21,7 @@
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.stringify#readme",
   "repository": "bem/bem-sdk",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "main": "index.js",
   "files": [
@@ -30,8 +30,8 @@
     "index.d.ts"
   ],
   "devDependencies": {
-    "@bem/sdk.entity-name": "^0.2.11",
-    "@bem/sdk.naming.presets": "^0.0.9"
+    "@bem/sdk.entity-name": "workspace:^",
+    "@bem/sdk.naming.presets": "workspace:^"
   },
   "scripts": {
     "test": "nyc mocha",

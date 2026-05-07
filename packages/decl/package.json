@@ -22,19 +22,19 @@
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/decl#readme",
   "engines": {
-    "node": ">= 8"
+    "node": ">=20"
   },
   "main": "lib/index.js",
   "files": [
     "lib/**"
   ],
   "dependencies": {
-    "@bem/sdk.cell": "^0.2.9",
-    "@bem/sdk.entity-name": "^0.2.11",
-    "es6-promisify": "5.0.0",
-    "graceful-fs": "4.1.11",
-    "json5": "0.5.1",
-    "node-eval": "1.1.0"
+    "@bem/sdk.cell": "workspace:^",
+    "@bem/sdk.entity-name": "workspace:^",
+    "es6-promisify": "^7.0.0",
+    "graceful-fs": "^4.2.11",
+    "json5": "^2.2.3",
+    "node-eval": "^2.0.0"
   },
   "scripts": {
     "bench": "matcha benchmark/*.bench.js",

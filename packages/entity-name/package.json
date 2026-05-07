@@ -36,25 +36,20 @@
     "index.d.ts"
   ],
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "dependencies": {
-    "@bem/sdk.naming.entity.stringify": "^1.1.2",
-    "@bem/sdk.naming.presets": "^0.0.9",
-    "depd": "1.1.0",
-    "es6-error": "4.0.2"
+    "@bem/sdk.naming.entity.stringify": "workspace:^",
+    "@bem/sdk.naming.presets": "workspace:^",
+    "depd": "^2.0.0",
+    "es6-error": "^4.1.1"
   },
   "devDependencies": {
-    "@types/node": "^8.0"
+    "@types/node": "^25.6.2"
   },
   "scripts": {
     "specs": "mocha",
     "cover": "nyc mocha",
     "test": "npm run specs"
-  },
-  "greenkeeper": {
-    "ignore": [
-      "@types/node"
-    ]
   }
 }

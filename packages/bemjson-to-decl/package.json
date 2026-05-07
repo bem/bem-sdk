@@ -26,11 +26,11 @@
   "author": "Vladimir Grinenko",
   "license": "MPL-2.0",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "dependencies": {
-    "@bem/sdk.decl": "^0.3.10",
-    "@bem/sdk.entity-name": "^0.2.11",
-    "stringify-object": "^3.2.0"
+    "@bem/sdk.decl": "workspace:^",
+    "@bem/sdk.entity-name": "workspace:^",
+    "stringify-object": "^6.0.0"
   }
 }

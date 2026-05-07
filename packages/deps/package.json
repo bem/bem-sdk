@@ -22,25 +22,25 @@
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/deps#readme",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
   "main": "lib/index.js",
   "files": [
     "lib/**"
   ],
   "dependencies": {
-    "@bem/sdk.config": "^0.1.0",
-    "@bem/sdk.decl": "^0.3.10",
-    "@bem/sdk.entity-name": "^0.2.11",
-    "@bem/sdk.graph": "^0.3.3",
-    "@bem/sdk.walk": "^0.6.0",
-    "debug": "2.6.9",
-    "mz": "2.4.0",
-    "node-eval": "1.1.0"
+    "@bem/sdk.config": "workspace:^",
+    "@bem/sdk.decl": "workspace:^",
+    "@bem/sdk.entity-name": "workspace:^",
+    "@bem/sdk.graph": "workspace:^",
+    "@bem/sdk.walk": "workspace:^",
+    "debug": "^4.4.3",
+    "mz": "^2.7.0",
+    "node-eval": "^2.0.0"
   },
   "devDependencies": {
     "stream-to-array": "^2.3.0",
-    "through2": "^2.0.1"
+    "through2": "^5.0.0"
   },
   "scripts": {
     "specs": "mocha",
