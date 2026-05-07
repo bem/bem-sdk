@@ -1,0 +1,37 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:recommended",
+    ":semanticCommits",
+    ":maintainLockFilesMonthly",
+    "group:allNonMajor"
+  ],
+  "schedule": ["before 6am on monday"],
+  "labels": ["dependencies"],
+  "rangeStrategy": "bump",
+  "lockFileMaintenance": {
+    "enabled": true
+  },
+  "packageRules": [
+    {
+      "matchUpdateTypes": ["major"],
+      "addLabels": ["breaking"]
+    },
+    {
+      "matchPackageNames": [
+        "typescript",
+        "typescript-eslint",
+        "@typescript-eslint/*"
+      ],
+      "groupName": "TypeScript stack"
+    },
+    {
+      "matchPackageNames": ["mocha", "chai", "chai-as-promised", "sinon", "c8"],
+      "groupName": "Test stack"
+    },
+    {
+      "matchPackageNames": ["eslint", "@eslint/*", "globals"],
+      "groupName": "ESLint stack"
+    }
+  ]
+}

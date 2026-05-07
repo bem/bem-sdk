@@ -1,0 +1,15 @@
+{
+  "reporter": ["text", "lcov", "html"],
+  "include": ["packages/*/src/**/*.ts"],
+  "exclude": [
+    "**/*.test.ts",
+    "**/*.spec.ts",
+    "**/dist/**",
+    "**/node_modules/**",
+    "**/test/**",
+    "**/spec/**",
+    "**/types/**"
+  ],
+  "all": true,
+  "extension": [".ts"]
+}

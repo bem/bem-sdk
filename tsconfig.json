@@ -1,0 +1,27 @@
+{
+  "files": [],
+  "references": [
+    { "path": "./packages/bemjson-node" },
+    { "path": "./packages/bemjson-to-decl" },
+    { "path": "./packages/bemjson-to-jsx" },
+    { "path": "./packages/bundle" },
+    { "path": "./packages/cell" },
+    { "path": "./packages/config" },
+    { "path": "./packages/decl" },
+    { "path": "./packages/deps" },
+    { "path": "./packages/entity-name" },
+    { "path": "./packages/file" },
+    { "path": "./packages/graph" },
+    { "path": "./packages/import-notation" },
+    { "path": "./packages/keyset" },
+    { "path": "./packages/naming.cell.match" },
+    { "path": "./packages/naming.cell.pattern-parser" },
+    { "path": "./packages/naming.cell.stringify" },
+    { "path": "./packages/naming.entity" },
+    { "path": "./packages/naming.entity.parse" },
+    { "path": "./packages/naming.entity.stringify" },
+    { "path": "./packages/naming.file.stringify" },
+    { "path": "./packages/naming.presets" },
+    { "path": "./packages/walk" }
+  ]
+}

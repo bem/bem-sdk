@@ -2,6 +2,7 @@
   "name": "@bem/sdk-monorepo",
   "version": "0.0.0",
   "private": true,
+  "type": "module",
   "description": "BEM SDK monorepo",
   "keywords": [
     "bem",
