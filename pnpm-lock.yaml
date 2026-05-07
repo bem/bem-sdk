@@ -333,14 +333,7 @@ importers:
         specifier: workspace:^
         version: link:../entity-name
 
-  packages/naming.entity.stringify:
-    devDependencies:
-      '@bem/sdk.entity-name':
-        specifier: workspace:^
-        version: link:../entity-name
-      '@bem/sdk.naming.presets':
-        specifier: workspace:^
-        version: link:../naming.presets
+  packages/naming.entity.stringify: {}
 
   packages/naming.file.stringify:
     dependencies:
@@ -352,20 +345,7 @@ importers:
         specifier: workspace:^
         version: link:../file
 
-  packages/naming.presets:
-    devDependencies:
-      '@bem/sdk.cell':
-        specifier: workspace:^
-        version: link:../cell
-      '@bem/sdk.entity-name':
-        specifier: workspace:^
-        version: link:../entity-name
-      '@bem/sdk.naming.cell.stringify':
-        specifier: workspace:^
-        version: link:../naming.cell.stringify
-      '@bem/sdk.naming.entity':
-        specifier: workspace:^
-        version: link:../naming.entity
+  packages/naming.presets: {}
 
   packages/walk:
     dependencies:
