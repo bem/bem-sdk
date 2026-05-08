@@ -1,154 +1,59 @@
-# stringify
+# @bem/sdk.naming.entity.stringify
 
-Stringifier for a [BEM entity](https://bem.info/methodology/key-concepts/#bem-entity) representation.
+> Stringifier for [BEM entity][bem-entity] objects under a chosen
+> [naming convention][naming]. Companion to
+> `@bem/sdk.naming.entity.parse`.
 
-[![NPM Status][npm-img]][npm]
+[![npm](https://img.shields.io/npm/v/@bem/sdk.naming.entity.stringify.svg)](https://www.npmjs.org/package/@bem/sdk.naming.entity.stringify)
 
-[npm]:          https://www.npmjs.org/package/@bem/sdk.naming.entity.stringify
-[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.naming.entity.stringify.svg
+## Install
 
-* [Introduction](#introduction)
-* [Try stringify](#try-stringify)
-* [Quick start](#quick-start)
-* [API reference](#api-reference)
-* [Parameter tuning](#parameter-tuning)
-
-## Introduction
-
-Stringify returns a string with the name of the specified BEM entity representation. This name can be used in class attributes.
-
-You can choose which [naming convention](https://en.bem.info/methodology/naming-convention/) to use for creating a `stingify()` function.
-
-> **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.entity.stringify` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
-
-## Try stringify
-
-An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-naming-entity-stringify-works).
-
-## Quick start
-
-> **Attention.** To use `@bem/sdk.naming.entity.stringify`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
-
-To run the `@bem/sdk.naming.entity.stringify` package:
-
-1. [Install required packages](#installing-required-packages).
-3. [Create a stringify() function](#creating-a-stringify-function).
-4. [Make a string from a BEM entity](#creating-a-string-from-a-bem-entity-name).
-
-### Installing required packages
-
-Install the following packages:
-
-* [@bem/sdk.naming.entity.stringify](https://www.npmjs.org/package/@bem/sdk.naming.entity.stringify), which contains the `stringify()` function.
-* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
-
-To install the packages, run the following command:
-
-```
-$ npm install --save @bem/sdk.naming.entity.stringify @bem/sdk.naming.presets
+```sh
+pnpm add @bem/sdk.naming.entity.stringify @bem/sdk.naming.presets
 ```
 
-### Creating a `stringify()` function
+Requires **Node.js >= 20** and ESM (`"type": "module"` in your
+`package.json`, or use `import()` from CJS).
 
-Create a JavaScript file with any name (for example, **app.js**) and do the following:
+## Usage
 
-1. Choose the [naming convention](https://bem.info/methodology/naming-convention/) and import the preset with this convention (for example, origin naming convention).
-1. Import the `@bem/sdk.naming.entity.stringify` package and create the `stringify()` function using the imported preset:
+```ts
+import { stringify, stringifyWrapper } from '@bem/sdk.naming.entity.stringify';
+import { origin, react } from '@bem/sdk.naming.presets';
 
-```js
-const originNaming = require('@bem/sdk.naming.presets/origin');
-const stringify = require('@bem/sdk.naming.entity.stringify')(originNaming);
+stringify({ block: 'button', mod: { name: 'theme', val: 'red' } }, origin.delims);
+// => 'button_theme_red'
+
+const toReact = stringifyWrapper(react);
+toReact({ block: 'Button', elem: 'Text' });
+// => 'Button-Text'
 ```
 
-### Creating a string from a BEM entity name
+## API
 
-Stringify an object representation of a BEM entity:
+### `stringify(entity, delims): string`
 
-```js
-stringify({ block: 'my-block', mod: 'my-modifier' });
-```
+One-shot stringifier.
 
-This function will return the string `my-block_my-modifier`.
+- `entity` — `{ block, elem?, mod? }`. `mod` accepts a string
+  shorthand or `{ name, val? }`.
+- `delims` — `{ elem, mod: { name, val } }`.
 
-**Example**:
+Returns the conventional BEM string. Returns `''` for `null` /
+`undefined` or for objects without a `block`.
 
-```js
-const originNaming = require('@bem/sdk.naming.presets/origin');
-const stringify = require('@bem/sdk.naming.entity.stringify')(originNaming);
+### `stringifyWrapper(convention): Stringify`
 
-console.log(stringify({ block: 'my-block', mod: 'my-modifier' }));
-// => my-block_my-modifier
+Returns a curried stringifier bound to `convention.delims`. Convenient
+when the convention is fixed (e.g. one of the `@bem/sdk.naming.presets`
+exports).
 
-console.log(stringify({ block: 'my-block', mod: { name: 'my-modifier'}}));
-// => my-block_my-modifier
+For exhaustive typings, see `EntityLike`, `NamingDelims`,
+`NamingConvention`, `Stringify` in `dist/index.d.ts`.
 
-console.log(stringify({ block: 'my-block',
-                        mod: { name: 'my-modifier', val: 'some-value'}}));
-// => my-block__my-modifier_some-value
+## License
 
-console.log(stringify({ block: 'my-block', elem: 'my-element' }));
-// => my-block__my-element
+MPL-2.0
 
-console.log(stringify({ block: 'my-block',
-                        elem: 'my-element',
-                        mod: 'my-modifier'}));
-// => my-block__my-element_my-modifier
-
-console.log(stringify({ block: 'my-block',
-                        elem: 'my-element',
-                        mod: { name: 'my-modifier', val: 'some-value'}}));
-// => my-block__my-element_my-modifier_some-value
-```
-
-[RunKit live example](https://runkit.com/migs911/stringify-using-origin-convention).
-
-## API reference
-
-### stringify()
-
-Forms a string based on the object representation of a BEM entity.
-
-```js
-/**
- * @typedef BemEntityName
- * @property {string} block — Block name.
- * @property {string} [elem] — Element name.
- * @property {string|Object} [mod] — Modifier name or object with name and value.
- * @property {string} mod.name — Modifier name.
- * @property {string|boolean} [mod.val] — Modifier value.
- */
-
-/**
- * @param {object|BemEntityName} entity — Object representation of the BEM entity.
- * @returns {string} — Name of the BEM entity. This name can be used in class attributes.
- */
-stringify(entity);
-```
-
-## Parameter tuning
-
-### Using a custom naming convention
-
-Specify an [INamingConvention](https://github.com/bem/bem-sdk/blob/master/packages/naming.presets/index.d.ts#L10) object with the `delims` field, which defines the delimiters that are used to separate names in the naming convention.
-
-Use this object to make your `stringify()` function.
-
-**Example:**
-
-```js
-const convention = {
-    delims: {
-        elem: '_EL-',
-        mod: {
-            name: '_MOD-',
-            val: '-'
-    }}};
-const stringify = require('@bem/sdk.naming.entity.stringify')(convention);
-
-console.log(stringify({ block: 'myBlock',
-                        elem: 'myElement',
-                        mod: 'myModifier'}));
-// => myBlock_EL-myElement_MOD-myModifier
-```
-
-[RunKit live example](https://runkit.com/migs911/stringify-usage-examples-custom-naming-convention).
+[bem-entity]: https://en.bem.info/methodology/key-concepts/#bem-entity
+[naming]: https://en.bem.info/methodology/naming-convention/
