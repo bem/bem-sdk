@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.file.stringify",
-  "version": "1.0.0-next.0",
+  "version": "1.0.0",
   "description": "BemFile stringifier (aka @bem/fs-scheme/path)",
   "license": "MPL-2.0",
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.file.stringify#readme",

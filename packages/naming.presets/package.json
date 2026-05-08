@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.presets",
-  "version": "1.0.0-next.0",
+  "version": "1.0.0",
   "description": "Presets for BEM naming conventions",
   "license": "MPL-2.0",
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (http://github.com/zxqfox)",

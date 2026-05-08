@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.file",
-  "version": "1.0.0-next.0",
+  "version": "1.0.0",
   "description": "Representation of identifier of a part of BEM entity.",
   "license": "MPL-2.0",
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/file#readme",

@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.naming.entity.stringify",
-  "version": "2.0.0-next.0",
+  "version": "2.0.0",
   "description": "Stringifier for BEM entities",
   "license": "MPL-2.0",
   "author": "Andrew Abramov <mail@blond.im>",

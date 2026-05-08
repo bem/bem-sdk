@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.keyset",
-  "version": "1.0.0-next.0",
+  "version": "1.0.0",
   "description": "Representation of BEM i18n keyset",
   "license": "MPL-2.0",
   "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",

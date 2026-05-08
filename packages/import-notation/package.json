@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.import-notation",
-  "version": "1.0.0-next.0",
+  "version": "1.0.0",
   "description": "BEM import notation parser",
   "license": "MPL-2.0",
   "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",

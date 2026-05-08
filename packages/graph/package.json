@@ -1,6 +1,6 @@
 {
   "name": "@bem/sdk.graph",
-  "version": "1.0.0-next.0",
+  "version": "1.0.0",
   "description": "Bem graph storage",
   "license": "MPL-2.0",
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/graph#readme",
