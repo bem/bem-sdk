@@ -308,6 +308,10 @@ importers:
       '@bem/sdk.entity-name':
         specifier: workspace:^
         version: link:../entity-name
+    devDependencies:
+      '@bem/sdk.naming.presets':
+        specifier: workspace:^
+        version: link:../naming.presets
 
   packages/naming.entity.stringify: {}
 
