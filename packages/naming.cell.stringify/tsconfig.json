@@ -15,6 +15,9 @@
   "references": [
     {
       "path": "../naming.cell.pattern-parser"
+    },
+    {
+      "path": "../naming.entity.stringify"
     }
   ]
 }

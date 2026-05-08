@@ -290,13 +290,9 @@ importers:
       '@bem/sdk.naming.cell.pattern-parser':
         specifier: workspace:^
         version: link:../naming.cell.pattern-parser
-    devDependencies:
-      '@bem/sdk.cell':
+      '@bem/sdk.naming.entity.stringify':
         specifier: workspace:^
-        version: link:../cell
-      '@bem/sdk.naming.entity':
-        specifier: workspace:^
-        version: link:../naming.entity
+        version: link:../naming.entity.stringify
 
   packages/naming.entity:
     dependencies:
