@@ -1,92 +1,51 @@
-# naming.cell.pattern-parser
+# @bem/sdk.naming.cell.pattern-parser
 
-Parser for the path pattern from a preset with a naming convention.
+> Internal helper used by `@bem/sdk.naming.cell.stringify` and
+> `@bem/sdk.naming.cell.match` to parse the `fs.pattern` template of a
+> naming preset.
 
-This is an internal package that is used in the `@bem/sdk.naming.cell.stringify` and `@bem/sdk.naming.cell.match` packages.
+[![npm](https://img.shields.io/npm/v/@bem/sdk.naming.cell.pattern-parser.svg)](https://www.npmjs.org/package/@bem/sdk.naming.cell.pattern-parser)
 
-[![NPM Status][npm-img]][npm]
+## Install
 
-[npm]:          https://www.npmjs.org/package/@bem/sdk.naming.cell.pattern-parser
-[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.naming.cell.pattern-parser.svg
-
-* [Introduction](#introduction)
-* [Try pattern-parser](#try-pattern-parser)
-* [Quick start](#quick-start)
-* [API reference](#api-reference)
-
-## Introduction
-
-The tool parses a pattern and creates an array with separate elements from the pattern.
-
-The pattern describes the file structure organization of a BEM project. For example, the `${layer?${layer}.}blocks/${entity}.${tech}` pattern matches the file path: `my-layer.blocks/my-file.css`.
-
-> **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.cell.stringify` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
-
-## Try pattern-parser
-
-An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-naming-cell-pattern-parser-works).
-
-## Quick start
-
-> **Attention.** To use `@bem/sdk.naming.cell.pattern-parser`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
-
-In this quick start you will learn how to use this package to parse the path pattern from the `origin` preset.
-
-To run the `@bem/sdk.naming.cell.pattern-parser` package:
-
-1. [Install required packages](#installing-required-packages).
-2. [Create a `parse()` function](#creating-a-parse-function).
-3. [Parse the path pattern](#parsing-the-path-pattern-from-the-origin-preset).
-
-### Installing required packages
-
-Install the following packages:
-
-* [@bem/sdk.naming.cell.pattern-parser](https://www.npmjs.org/package/@bem/sdk.naming.cell.pattern-parser), which contains the `parse()` function.
-* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
-
-To install the packages, run the following command:
-
-```
-$ npm install --save @bem/sdk.naming.cell.pattern-parser @bem/sdk.naming.presets
+```sh
+pnpm add @bem/sdk.naming.cell.pattern-parser
 ```
 
-### Creating a `parse()` function
+Requires **Node.js >= 20** and ESM (`"type": "module"` in your
+`package.json`, or use `import()` from CJS).
 
-Create a JavaScript file with any name (for example, **app.js**) and insert the following:
+## Usage
 
-```js
-const parse = require('@bem/sdk.naming.cell.pattern-parser');
+```ts
+import { patternParser } from '@bem/sdk.naming.cell.pattern-parser';
+
+patternParser('${layer?${layer}.}blocks/${entity}.${tech}');
+// => ['', ['layer', '', 'layer', '.'], 'blocks/', 'entity', '.', 'tech']
 ```
 
-After that you can use the `parse()` function to parse a path pattern.
+The pattern is a template-string-like description of a path layout in a
+[BEM project][BEM]: literal text plus `${name}` slots, with an optional
+`${name?...}` form that emits its body only when `name` is bound.
 
-### Parsing the path pattern from the origin preset
+## API
 
-To parse a pattern, use the created function.
+### `patternParser(pattern): PatternSeparation`
 
-The pattern from the `origin` preset is equal to `${layer?${layer}.}blocks/${entity}.${tech}`. Parse this pattern.
+Parses a path pattern into a flat array.
 
-```js
-const originNaming = require('@bem/sdk.naming.presets/origin');
+- `pattern` — `string`, the path pattern from a naming preset
+  (for example, `${layer?${layer}.}blocks/${entity}.${tech}`).
+- Returns: `PatternSeparation` (`Array<string | PatternSeparation>`) —
+  literal segments interleaved with variable names, with optional groups
+  represented as nested arrays.
+- Throws: `Error` if the pattern has unbalanced `${ ... }` braces.
 
-parse(originNaming.fs.pattern);
-// => ['', ['layer', '', 'layer', '.'], 'blocks/', 'entity', '.', 'tech']
-```
+The exported `PatternSeparation` type is the recursive shape consumed by
+the cell stringifier and matcher.
 
-[RunKit live example](https://runkit.com/migs911/parse-a-pattern-from-the-origin-preset)
+## License
 
-## API reference
+MPL-2.0
 
-### parse()
-
-Parses a path pattern into array representation.
-
-```js
-/**
- * @param {string} pattern — Template-string-like pattern that describes
- *                           the file structure organization of a BEM project.
- * @returns {Array} — Array with separated elements from the pattern.
- */
-parse(pattern);
-```
+[BEM]: https://en.bem.info/methodology/
