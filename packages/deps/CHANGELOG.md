@@ -2,6 +2,14 @@
 
 ## 1.0.0
 
+### Features
+
+- `parseSync(parser?)` — synchronous counterpart of `parse()`. Useful when
+  the file contents are already in memory and the caller does not need a
+  Promise. Closes [#301].
+
+[#301]: https://github.com/bem/bem-sdk/issues/301
+
 ### Major Changes
 
 - c5d34fc: Migrated to TypeScript / ESM (Node >=20). Replaced legacy deps:

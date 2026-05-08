@@ -1,5 +1,5 @@
 export { read, type Reader } from './read.js';
-export { parse, type Parser } from './parse.js';
+export { parse, parseSync, type Parser } from './parse.js';
 export { gather, type GatherOptions } from './gather.js';
 export { resolve } from './resolve.js';
 export { buildGraph, type BuildGraphOptions } from './build-graph.js';
@@ -19,10 +19,10 @@ export type {
 } from './types.js';
 
 import { read } from './read.js';
-import { parse } from './parse.js';
+import { parse, parseSync } from './parse.js';
 import { gather } from './gather.js';
 import { resolve } from './resolve.js';
 import { buildGraph } from './build-graph.js';
 import { load } from './load.js';
 
-export default { read, parse, gather, resolve, buildGraph, load };
+export default { read, parse, parseSync, gather, resolve, buildGraph, load };
