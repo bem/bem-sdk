@@ -263,13 +263,15 @@ importers:
       '@bem/sdk.cell':
         specifier: workspace:^
         version: link:../cell
+      '@bem/sdk.entity-name':
+        specifier: workspace:^
+        version: link:../entity-name
       '@bem/sdk.naming.cell.pattern-parser':
         specifier: workspace:^
         version: link:../naming.cell.pattern-parser
       '@bem/sdk.naming.entity.parse':
         specifier: workspace:^
         version: link:../naming.entity.parse
-    devDependencies:
       '@bem/sdk.naming.presets':
         specifier: workspace:^
         version: link:../naming.presets

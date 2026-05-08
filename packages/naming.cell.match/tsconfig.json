@@ -17,10 +17,16 @@
       "path": "../cell"
     },
     {
+      "path": "../entity-name"
+    },
+    {
       "path": "../naming.cell.pattern-parser"
     },
     {
       "path": "../naming.entity.parse"
+    },
+    {
+      "path": "../naming.presets"
     }
   ]
 }
