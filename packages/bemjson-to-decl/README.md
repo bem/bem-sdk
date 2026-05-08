@@ -1,101 +1,67 @@
-# bemjson-to-decl
+# @bem/sdk.bemjson-to-decl
 
-Easy to use BEMJSON to set of BEM-entities (aka BEMDECL) converter written in JS
+> Walks a [BEMJSON][bemjson] tree and collects every referenced BEM
+> entity, optionally serialised back as a declaration ([BEMDECL][bemdecl]).
 
-[![NPM Status][npm-img]][npm]
-[![Travis Status][test-img]][travis]
-[![Coverage Status][coverage-img]][coveralls]
-[![Dependency Status][david-img]][david]
+[![npm](https://img.shields.io/npm/v/@bem/sdk.bemjson-to-decl.svg)](https://www.npmjs.org/package/@bem/sdk.bemjson-to-decl)
 
-[npm]:          https://www.npmjs.org/package/bemjson-to-decl
-[npm-img]:      https://img.shields.io/npm/v/bemjson-to-decl.svg
-[travis]:       https://travis-ci.org/bem-sdk/bemjson-to-decl
-[test-img]:     https://img.shields.io/travis/bem-sdk/bemjson-to-decl.svg?label=tests
-[coveralls]:    https://coveralls.io/r/bem-sdk/bemjson-to-decl
-[coverage-img]: https://img.shields.io/coveralls/bem-sdk/bemjson-to-decl.svg
-[david]:        https://david-dm.org/bem-sdk/bemjson-to-decl
-[david-img]:    https://img.shields.io/david/bem-sdk/bemjson-to-decl.svg
+## Install
 
-## Prerequisites
-
-- [Node.js](https://nodejs.org/en/) 4.x+
-
-## Installing
-
-Run in your project:
 ```sh
-npm install --save bemjson-to-decl
+pnpm add @bem/sdk.bemjson-to-decl
 ```
+
+Requires **Node.js >= 20** and ESM (`"type": "module"` in your
+`package.json`, or use `import()` from CJS).
 
 ## Usage
 
-```js
-const bemjsonToDecl = require('bemjson-to-decl');
+```ts
+import { convert, stringify } from '@bem/sdk.bemjson-to-decl';
 
-bemjsonToDecl.convert([
-    {elem: 'control', elemMods: {theme: 'normal'}},
-    {elem: 'control', elemMods: {theme: 'ghost'}}
-], {block: 'button'});
+const bemjson = {
+  block: 'button',
+  mods: { theme: 'normal' },
+  content: { elem: 'text', content: 'Submit' },
+};
 
-// →
-//  [ BemEntityName { block: 'button', elem: 'control' },
-//    BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: true } },
-//    BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: 'normal' } },
-//    BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: 'ghost' } }
-//  ]
+convert(bemjson);
+// => [BemEntityName('button'),
+//     BemEntityName('button', mod 'theme=normal'),
+//     BemEntityName('button', elem 'text')]
+
+console.log(stringify(bemjson));
+// [
+//     { block: 'button' },
+//     { block: 'button', mod: { name: 'theme', val: 'normal' } },
+//     { block: 'button', elem: 'text' }
+// ]
 ```
 
 ## API
 
-### `convert(bemjson: BEMJSON, scope: ?BemEntityName): BemEntityName[]`
+### `convert(bemjson, ctx?): BemEntityName[]`
 
-Extract BEM-entities from BEMJSON object.
+Walks the tree and returns a deduplicated, insertion-ordered array of
+`BemEntityName`s referenced by the BEMJSON.
 
-```js
-const bemjsonToDecl = require('bemjson-to-decl');
+- `bemjson` — any BEMJSON-shaped value (single node, array, nested
+  `content` / `js` / `attrs`, etc.).
+- `ctx.block` — optional fallback block name for nodes without `block`.
 
-bemjsonToDecl.convert({block: 'button', mods: {theme: 'normal'}});
+### `stringify(bemjson, ctx?, opts?): string`
 
-// →
-//  [ BemEntityName { block: 'button' },
-//    BemEntityName { block: 'button', mod: { name: 'theme', val: true } },
-//    BemEntityName { block: 'button', mod: { name: 'theme', val: 'normal' } }
-//  ]
-```
+Same walk as `convert`, then renders the entities with
+[`stringify-object`][stringify-object]. `opts.indent` defaults to
+four spaces; remaining options are forwarded to `stringify-object`.
 
-### `stringify(bemjson: BEMJSON, scope: ?BemEntityName, opts: ?{indent: string}): string`
-
-Extract BEM-entities and stringify result to the string.
-
-```js
-const bemjsonToDecl = require('bemjson-to-decl');
-
-bemjsonToDecl.stringify({block: 'button'}, null, {indent: '\t'});
-
-// →
-// "[\n\t{\n\t\tblock: 'button'\n\t}\n]"
-```
-
-## Contributing
-
-Please read [CONTRIBUTING.md](https://github.com/bem-sdk/bem-sdk/blob/master/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
-## Versioning
-
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/bem-sdk/bemjson-to-decl/tags).
-
-## Authors
-
-* **Vladimir Grinenko** - *Initial work* - [tadatuta](https://github.com/tadatuta)
-
-See also the full list of [contributors](https://github.com/bem-sdk/bemjson-to-decl/contributors) who participated in this project.
-
-You may also get it with `git log --pretty=format:"%an <%ae>" | sort -u`.
+For exhaustive typings, see `Bemjson`, `ConvertContext`,
+`StringifyOptions` in `dist/index.d.ts`.
 
 ## License
 
-Code and documentation are licensed under the Mozilla Public License 2.0 - see the [LICENSE.md](LICENSE.md) file for details.
+MPL-2.0
 
-<!--
-## Acknowledgments
--->
+[bemjson]: https://en.bem.info/platform/bemjson/
+[bemdecl]: https://en.bem.info/methodology/declarations/
+[stringify-object]: https://www.npmjs.com/package/stringify-object
