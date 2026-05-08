@@ -15,6 +15,9 @@
   "references": [
     {
       "path": "../bemjson-to-decl"
+    },
+    {
+      "path": "../entity-name"
     }
   ]
 }

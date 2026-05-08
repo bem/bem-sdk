@@ -109,6 +109,9 @@ importers:
       '@bem/sdk.bemjson-to-decl':
         specifier: workspace:^
         version: link:../bemjson-to-decl
+      '@bem/sdk.entity-name':
+        specifier: workspace:^
+        version: link:../entity-name
 
   packages/cell:
     dependencies:
