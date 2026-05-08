@@ -92,6 +92,42 @@ describe('walk / sdk walker (default)', () => {
   });
 });
 
+describe('walk / path normalization (#335)', () => {
+  it('canonicalizes a relative `.`-prefixed path against cwd', async () => {
+    const root = await setupTree({
+      'blocks/button': { 'button.css': '' },
+    });
+    const prevCwd = process.cwd();
+    try {
+      process.chdir(root);
+      const files = (await asArray(['./blocks/..'])) as FileLike[];
+      expect(files.map(
+        (f) => (f.cell.entity.valueOf() as { block: string }).block,
+      )).to.include('button');
+    } finally {
+      process.chdir(prevCwd);
+      await cleanup(root);
+    }
+  });
+
+  it('follows a symlinked level via realpath', async () => {
+    const root = await setupTree({
+      'real/blocks/header': { 'header.css': '' },
+    });
+    try {
+      const linkPath = path.join(root, 'symlinked');
+      await fs.symlink(path.join(root, 'real'), linkPath);
+      const files = (await asArray([linkPath])) as FileLike[];
+      const blocks = files.map(
+        (f) => (f.cell.entity.valueOf() as { block: string }).block,
+      );
+      expect(blocks).to.include('header');
+    } finally {
+      await cleanup(root);
+    }
+  });
+});
+
 describe('walk / flat scheme (legacy)', () => {
   it('reads files from a flat level', async () => {
     const root = await setupTree({

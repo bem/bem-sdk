@@ -2,6 +2,15 @@
 
 ## 1.0.0
 
+### Bug fixes
+
+- Level paths are now resolved against `process.cwd()` and dereferenced via
+  `fs.realpath` before scanning. `'.'` softly equals to `process.cwd()`,
+  symlinked levels follow to the real directory, and config lookups by
+  level path remain consistent. Closes [#335].
+
+[#335]: https://github.com/bem/bem-sdk/issues/335
+
 ### Major Changes
 
 - c8a5c4e: Migrated to TypeScript / ESM (Node >=20). Replaced legacy deps:

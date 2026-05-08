@@ -1,3 +1,5 @@
+import { realpath } from 'node:fs/promises';
+import { resolve as resolvePath } from 'node:path';
 import { Readable } from 'node:stream';
 import { deprecate } from 'node:util';
 
@@ -116,13 +118,39 @@ export function walkSets(options: WalkOptions): Readable {
   return output;
 }
 
+/**
+ * Normalize a path to its absolute, real-filesystem form.
+ *
+ * - Always returns an absolute path (resolves `.`, `..` and relative
+ *   segments against `process.cwd()`).
+ * - Best-effort follows symlinks via `realpath`; falls back to the
+ *   `path.resolve` form when the path does not yet exist on disk.
+ *
+ * Closes #335.
+ */
+async function canonicalize(input: string): Promise<string> {
+  const absolute = resolvePath(input);
+  try {
+    return await realpath(absolute);
+  } catch {
+    return absolute;
+  }
+}
+
 async function scanLevel(
   level: LevelConfig,
   levelConfigs: Record<string, LevelConfig>,
   add: (file: unknown) => void,
 ): Promise<void> {
-  const path = level.path!;
-  const config = levelConfigs[path] ?? {};
+  const inputPath = level.path!;
+  const path = await canonicalize(inputPath);
+  // Look up the per-level config first by the user-supplied form, then by
+  // the canonicalized form — both should hit the same entry.
+  const config =
+    levelConfigs[inputPath] ??
+    levelConfigs[path] ??
+    levelConfigs[resolvePath(inputPath)] ??
+    {};
   const isLegacyScheme = 'scheme' in config;
   const cfgNaming = (config as { naming?: unknown }).naming;
   const userNaming: Record<string, unknown> =
