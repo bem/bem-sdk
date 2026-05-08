@@ -1,0 +1,4 @@
+// TODO(migration): the original `gather` test relied on `mock-fs` and a
+// hand-rolled fake config object. Port it to a real-tmpdir fixture (or
+// `memfs`) when revisiting deps gathering — the current public-surface
+// coverage is via `resolve` and the `deps.js` parser tests.

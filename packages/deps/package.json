@@ -1,12 +1,18 @@
 {
   "name": "@bem/sdk.deps",
-  "version": "0.3.1",
+  "version": "1.0.0-next.0",
   "description": "Manage BEM dependencies",
-  "publishConfig": {
-    "access": "public"
-  },
   "license": "MPL-2.0",
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/deps#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem/bem-sdk.git",
+    "directory": "packages/deps"
+  },
   "author": "Andrew Abramov <mail@blond.im>",
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Adeps"
+  },
   "keywords": [
     "bem",
     "deps",
@@ -16,35 +22,40 @@
     "parse",
     "resolve"
   ],
-  "repository": "bem/bem-sdk",
-  "bugs": {
-    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Adeps"
-  },
-  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/deps#readme",
+  "type": "module",
   "engines": {
     "node": ">=20"
   },
-  "main": "lib/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "files": [
-    "lib/**"
+    "dist"
   ],
+  "scripts": {
+    "build": "tsc --build",
+    "test": "mocha 'src/**/*.test.ts'"
+  },
   "dependencies": {
+    "@bem/sdk.cell": "workspace:^",
     "@bem/sdk.config": "workspace:^",
     "@bem/sdk.decl": "workspace:^",
     "@bem/sdk.entity-name": "workspace:^",
+    "@bem/sdk.file": "workspace:^",
     "@bem/sdk.graph": "workspace:^",
     "@bem/sdk.walk": "workspace:^",
-    "debug": "^4.4.3",
-    "mz": "^2.7.0",
-    "node-eval": "^2.0.0"
+    "debug": "catalog:",
+    "node-eval": "catalog:"
   },
   "devDependencies": {
-    "stream-to-array": "^2.3.0",
-    "through2": "^5.0.0"
+    "@types/debug": "^4.1.12"
   },
-  "scripts": {
-    "specs": "mocha",
-    "cover": "nyc mocha",
-    "test": "npm run specs"
+  "publishConfig": {
+    "access": "public"
   }
 }

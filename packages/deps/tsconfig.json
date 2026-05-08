@@ -14,6 +14,9 @@
   ],
   "references": [
     {
+      "path": "../cell"
+    },
+    {
       "path": "../config"
     },
     {
@@ -21,6 +24,9 @@
     },
     {
       "path": "../entity-name"
+    },
+    {
+      "path": "../file"
     },
     {
       "path": "../graph"
