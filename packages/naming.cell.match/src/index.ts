@@ -143,10 +143,15 @@ function preparePattern(conv: MatchConvention): PreparedPattern {
         regexpChunks.unshift(entityReEnd);
       } else {
         keys.push(el as string);
+        // Non-entity placeholders (layer, tech, etc.) are values of pattern
+        // variables, not BEM-entity names — `wordPattern` (which can be as
+        // strict as `[a-zA-Z0-9]+` for the react preset) must not constrain
+        // them.  Use a broader alphanumeric range that accepts hyphens.
+        // `tech` additionally allows a dotted tail (e.g. `bemhtml.js`).
         res.push(
           el === 'tech'
-            ? `(${wordPattern}(?:\\.(?:${wordPattern})+)*)`
-            : `(${wordPattern})`,
+            ? `(${ALPHANUM_RE}(?:\\.${ALPHANUM_RE})*)`
+            : `(${ALPHANUM_RE})`,
         );
       }
     }

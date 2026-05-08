@@ -287,6 +287,7 @@ const groups: Array<[string, ReturnType<typeof bemNamingCellMatch>, Case[]]> = [
       parse typical elem path        → bb/ee/bb-ee.css        → { cell: { layer: 'common', block: 'bb', elem: 'ee', tech: 'css' } }
       parse typical block in layer   → bb/bb@ios.css          → { cell: { layer: 'ios', block: 'bb', tech: 'css' } }
       parse typical mod path         → bb/_mod/bb_mod.css     → { cell: { layer: 'common', block: 'bb', mod: 'mod', tech: 'css' } }
+      parse hyphenated layer (#385)  → MyBlock/_kind/MyBlock_kind@touch-phone.js → { cell: { layer: 'touch-phone', block: 'MyBlock', mod: 'kind', tech: 'js' } }
     `,
   ],
 ];
