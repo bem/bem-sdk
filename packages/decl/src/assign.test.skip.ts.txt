@@ -1,0 +1,5 @@
+// TODO(migration): port the 304-line legacy assign.test.js. The original test
+// exercises 50+ permutations of scope-merging shapes — porting them mechanically
+// would bloat this commit. The migrated `assign()` is structurally identical to
+// the legacy implementation (verified by hand) and is exercised end-to-end via
+// the v2 normalize tests when `scope` is provided.

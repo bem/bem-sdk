@@ -9,6 +9,12 @@ catalogs:
     change-case:
       specifier: ^5.4.4
       version: 5.4.4
+    json5:
+      specifier: ^2.2.3
+      version: 2.2.3
+    node-eval:
+      specifier: ^2.0.0
+      version: 2.0.0
 
 importers:
 
@@ -143,22 +149,12 @@ importers:
       '@bem/sdk.entity-name':
         specifier: workspace:^
         version: link:../entity-name
-      es6-promisify:
-        specifier: ^7.0.0
-        version: 7.0.0
-      graceful-fs:
-        specifier: ^4.2.11
-        version: 4.2.11
       json5:
-        specifier: ^2.2.3
+        specifier: 'catalog:'
         version: 2.2.3
       node-eval:
-        specifier: ^2.0.0
+        specifier: 'catalog:'
         version: 2.0.0
-    devDependencies:
-      matcha:
-        specifier: ^0.7.0
-        version: 0.7.0
 
   packages/deps:
     dependencies:
@@ -1024,15 +1020,8 @@ packages:
     resolution: {integrity: sha512-WkrWp9GR4KXfKGYzOLmTuGVi1UWFfws377n9cc55/tb6DuqyF6pcQ5AbiHEshaDpY9v6oaSr2XCDidGmMwdzIA==}
     engines: {node: '>=8'}
 
-  drip@1.1.0:
-    resolution: {integrity: sha512-Db1uWNrndUsEpUSS86wUSAk71O70CBBtht5G9EaK8WsDP8ukOViXSupMog/aLjeAhhf/mMO77Ng04YpwuBtSMg==}
-
   eastasianwidth@0.2.0:
     resolution: {integrity: sha512-I88TYZWc9XiYHRQ4/3c5rjjfgkjhLyW2luGIheGERbNQ6OY7yTybanSpDXZa8y7VUP9YmDcYa+eyq4ca7iLqWA==}
-
-  electron@0.4.1:
-    resolution: {integrity: sha512-Df03T/lkxnFmI+yxDTgZcVqc4fLLpZHTnfkUFAlgL8T4h/rIwI/KFBTqPfqIRs9TVo9rv27+YHVx9l/0tiIQ7g==}
-    deprecated: The original electron project has been moved. Visit github.com/logicalparadox/electron for more details.
 
   emoji-regex@8.0.0:
     resolution: {integrity: sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==}
@@ -1046,10 +1035,6 @@ packages:
 
   es6-error@4.1.1:
     resolution: {integrity: sha512-Um/+FxMr9CISWh0bi5Zv0iOD+4cFh5qLeks1qhAopKVAJw3drgKbKySikp7wGhDL0HPeaja0P5ULZrxLkniUVg==}
-
-  es6-promisify@7.0.0:
-    resolution: {integrity: sha512-ginqzK3J90Rd4/Yz7qRrqUeIpe3TwSXTPPZtPne7tGBPeAaQiU8qt4fpKApnxHcq1AwtUdHVg5P77x/yrggG8Q==}
-    engines: {node: '>=6'}
 
   esbuild@0.27.7:
     resolution: {integrity: sha512-IxpibTjyVnmrIQo5aqNpCgoACA/dTKLTlhMHihVHhdkxKyPO1uBBthumT0rdHmcsk9uMonIWS0m4FljWzILh3w==}
@@ -1430,11 +1415,6 @@ packages:
     resolution: {integrity: sha512-hXdUTZYIVOt1Ex//jAQi+wTZZpUpwBj/0QsOzqegb3rGMMeJiSEu5xLHnYfBrRV4RH2+OCSOO95Is/7x1WJ4bw==}
     engines: {node: '>=10'}
 
-  matcha@0.7.0:
-    resolution: {integrity: sha512-RL4/GKENqz+bUFP3PPAfJrTxnsSHl+lAJBV/dNj9asqzbtWmh9Rv2rW5zWaEtg9x60SakKX3U/s52HeQyQhT1w==}
-    engines: {node: '>= 0.8.0'}
-    hasBin: true
-
   merge2@1.4.1:
     resolution: {integrity: sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==}
     engines: {node: '>= 8'}
@@ -1747,9 +1727,6 @@ packages:
     resolution: {integrity: sha512-MpUEN2OodtUzxvKQl72cUF7RQ5EiHsGvSsVG0ia9c5RbWGL2CI4C7EpPS8UTBIplnlzZiNuV56w+FuNxy3ty2Q==}
     engines: {node: '>=10'}
 
-  tea-concat@0.1.0:
-    resolution: {integrity: sha512-DtBfLLwLBUKht/GDHCsfIyLrygum21JdPW438Srutjj2xVtDNrD0RCP/1TGw9as+R2p3W2nPYtkiGqCpVYes+A==}
-
   term-size@2.2.1:
     resolution: {integrity: sha512-wK0Ri4fOGjv/XPy8SBHZChl8CM7uMc5VML7SqiQ0zG7+J5Vr+RMQDoHa2CNT6KHUnTGIXH34UDMkPzAUyapBZg==}
     engines: {node: '>=8'}
@@ -1828,9 +1805,6 @@ packages:
 
   uri-js@4.4.1:
     resolution: {integrity: sha512-7rKUyy33Q1yc98pQ1DAmLtwX109F7TIfWlW1Ydo8Wl1ii1SeHieeh0HHfPeL2fMXK6z0s8ecKs9frCuLJvndBg==}
-
-  v8-argv@0.1.0:
-    resolution: {integrity: sha512-fbsJRIy2BP/J6V09MP0FqMFUnsTYsLy3QO1MUooCWVtSLHLo33eMZJdnSnirHROvzxBK2HIqtXMNwINUBO0yXA==}
 
   v8-to-istanbul@9.3.0:
     resolution: {integrity: sha512-kiGUalWN+rgBJ/1OHZsBtU4rXZOfj/7rKQxULKlIzwzQSvMJUUNgPwJEEh7gU6xEVxC0ahoOBvN2YI8GH6FNgA==}
@@ -2543,15 +2517,7 @@ snapshots:
     dependencies:
       path-type: 4.0.0
 
-  drip@1.1.0:
-    dependencies:
-      tea-concat: 0.1.0
-
   eastasianwidth@0.2.0: {}
-
-  electron@0.4.1:
-    dependencies:
-      drip: 1.1.0
 
   emoji-regex@8.0.0: {}
 
@@ -2563,8 +2529,6 @@ snapshots:
       strip-ansi: 6.0.1
 
   es6-error@4.1.1: {}
-
-  es6-promisify@7.0.0: {}
 
   esbuild@0.27.7:
     optionalDependencies:
@@ -2946,11 +2910,6 @@ snapshots:
     dependencies:
       semver: 7.7.4
 
-  matcha@0.7.0:
-    dependencies:
-      electron: 0.4.1
-      v8-argv: 0.1.0
-
   merge2@1.4.1: {}
 
   micromatch@4.0.8:
@@ -3239,8 +3198,6 @@ snapshots:
     dependencies:
       has-flag: 4.0.0
 
-  tea-concat@0.1.0: {}
-
   term-size@2.2.1: {}
 
   test-exclude@8.0.0:
@@ -3315,8 +3272,6 @@ snapshots:
   uri-js@4.4.1:
     dependencies:
       punycode: 2.3.1
-
-  v8-argv@0.1.0: {}
 
   v8-to-istanbul@9.3.0:
     dependencies:

@@ -22,8 +22,13 @@ export interface BemCellOptions {
 
 /**
  * Object accepted by `BemCell.create(obj)`.
+ *
+ * Either provide a nested `entity` field or flat `block`/`elem`/`mod` fields.
+ * `block` is therefore optional at the type level — `BemEntityName.create`
+ * still validates that one of the two shapes is present at runtime.
  */
-export interface BemCellCreateOptions extends EntityNameCreateOptions {
+export interface BemCellCreateOptions extends Omit<EntityNameCreateOptions, 'block'> {
+  block?: EntityNameCreateOptions['block'];
   /** Technology of cell. */
   tech?: Tech;
   /** Layer of cell. */

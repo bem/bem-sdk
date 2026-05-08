@@ -166,7 +166,9 @@ export class BemCell {
     }
 
     const data: BemCellOptions = {
-      entity: BemEntityName.create(obj.entity ?? obj),
+      entity: BemEntityName.create(
+        (obj.entity ?? obj) as Parameters<typeof BemEntityName.create>[0],
+      ),
     };
     if (obj.tech) data.tech = obj.tech;
     if (obj.layer) data.layer = obj.layer;
