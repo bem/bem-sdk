@@ -4,11 +4,14 @@ import { patternParser } from '@bem/sdk.naming.cell.pattern-parser';
 import type { BemEntityName } from '@bem/sdk.entity-name';
 import type { NamingConvention } from '@bem/sdk.naming.presets';
 
-export interface MatchFsConvention extends Partial<NamingConvention['fs']> {
+export interface MatchFsConvention extends Omit<Partial<NamingConvention['fs']>, 'delims'> {
   pattern: string;
-  scheme?: 'flat' | 'mixed' | 'nested';
+  scheme?: 'flat' | 'mixed' | 'nested' | string;
   defaultLayer?: string;
-  delims?: { elem?: string; mod?: string };
+  delims?: {
+    elem?: string;
+    mod?: string | { name: string; val: string };
+  };
 }
 
 export interface MatchConvention {
@@ -100,9 +103,12 @@ function preparePattern(conv: MatchConvention): PreparedPattern {
       ? fsDelims.elem
       : (convDelims?.elem ?? '__');
   const modDelimRaw = convDelims?.mod;
-  const modDelim =
-    'mod' in fsDelims && fsDelims.mod !== undefined
-      ? fsDelims.mod
+  const fsModRaw = 'mod' in fsDelims ? fsDelims.mod : undefined;
+  const modDelim: string =
+    fsModRaw !== undefined
+      ? typeof fsModRaw === 'object'
+        ? fsModRaw.name
+        : fsModRaw
       : typeof modDelimRaw === 'object' && modDelimRaw
         ? modDelimRaw.name
         : typeof modDelimRaw === 'string'

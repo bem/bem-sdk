@@ -1,0 +1,47 @@
+// TODO(migration): tests probe private MixedGraph._getSubgraph and
+// _unordered/_orderedGraphMap fields. These are now `private` in TS — rewrite
+// against public API or drop entirely.
+import { expect } from 'chai';
+import { DirectedGraph } from '../directed-graph.js';
+import { MixedGraph } from '../mixed-graph.js';
+describe('mixed-graph/get-subgraph', () => {
+    it('should return unordered subgraph with common deps', () => {
+        const mixedGraph = new MixedGraph();
+        const directedGraph = new DirectedGraph();
+
+        mixedGraph._unorderedGraphMap.set(undefined, directedGraph);
+
+        const subgraph = mixedGraph._getSubgraph({ ordered: false });
+
+        expect(subgraph).to.equal(directedGraph);    });
+
+    it('should return ordered subgraph with common deps', () => {
+        const mixedGraph = new MixedGraph();
+        const directedGraph = new DirectedGraph();
+
+        mixedGraph._orderedGraphMap.set(undefined, directedGraph);
+
+        const subgraph = mixedGraph._getSubgraph({ ordered: true });
+
+        expect(subgraph).to.equal(directedGraph);    });
+
+    it('should return unordered subgraph with tech deps', () => {
+        const mixedGraph = new MixedGraph();
+        const directedGraph = new DirectedGraph();
+
+        mixedGraph._unorderedGraphMap.set('css', directedGraph);
+
+        const subgraph = mixedGraph._getSubgraph({ tech: 'css', ordered: false });
+
+        expect(subgraph).to.equal(directedGraph);    });
+
+    it('should return ordered subgraph with tech deps', () => {
+        const mixedGraph = new MixedGraph();
+        const directedGraph = new DirectedGraph();
+
+        mixedGraph._orderedGraphMap.set('css', directedGraph);
+
+        const subgraph = mixedGraph._getSubgraph({ tech: 'css', ordered: true });
+
+        expect(subgraph).to.equal(directedGraph);    });
+});
