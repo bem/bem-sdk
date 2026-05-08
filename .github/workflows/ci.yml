@@ -33,8 +33,6 @@ jobs:
 
       - run: pnpm lint
 
-      - run: pnpm -r build
-
       - run: pnpm test:cover
 
       - if: matrix.node == 22

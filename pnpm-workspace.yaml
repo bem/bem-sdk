@@ -31,6 +31,10 @@ catalog:
   typescript-eslint: ^8.59.2
   globals: ^17.6.0
   benchmark: ^2.1.4
+  '@types/is-glob': ^4.0.4
+  '@types/lodash.mergewith': ^4.6.9
+  '@types/lodash.uniqwith': ^4.5.9
+  '@types/common-tags': ^1.8.4
 
 allowBuilds:
   esbuild: true

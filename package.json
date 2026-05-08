@@ -22,7 +22,7 @@
     "build": "tsc --build",
     "build:clean": "tsc --build --clean",
     "lint": "eslint .",
-    "typecheck": "tsc --build --dry",
+    "typecheck": "tsc --build && tsc -p tsconfig.test.json --noEmit",
     "test": "mocha",
     "test:cover": "c8 mocha",
     "changeset": "changeset",

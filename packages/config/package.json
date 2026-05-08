@@ -43,6 +43,11 @@
     "lodash.mergewith": "^4.6.2",
     "lodash.uniqwith": "^4.5.0"
   },
+  "devDependencies": {
+    "@types/is-glob": "^4.0.4",
+    "@types/lodash.mergewith": "^4.6.9",
+    "@types/lodash.uniqwith": "^4.5.9"
+  },
   "publishConfig": {
     "access": "public"
   }

@@ -52,7 +52,7 @@ describe('errors', () => {
   it('should throw error if no `block` field', () => {
     expect(
       () =>
-        new BemjsonNode({ elem: 'elem' } as unknown as Parameters<
+        new BemjsonNode({ elem: 'elem' } as unknown as ConstructorParameters<
           typeof BemjsonNode
         >[0]),
     ).to.throw(/`block` field should be a non empty string/);
@@ -61,7 +61,7 @@ describe('errors', () => {
   it('should throw error if `elem` field has non-string value', () => {
     expect(
       () =>
-        new BemjsonNode({ block: 'b', elem: {} } as unknown as Parameters<
+        new BemjsonNode({ block: 'b', elem: {} } as unknown as ConstructorParameters<
           typeof BemjsonNode
         >[0]),
     ).to.throw(/`elem` field should be a non-empty string/);
@@ -79,7 +79,7 @@ describe('errors', () => {
         new BemjsonNode({
           block: 'block',
           mods: 'string',
-        } as unknown as Parameters<typeof BemjsonNode>[0]),
+        } as unknown as ConstructorParameters<typeof BemjsonNode>[0]),
     ).to.throw(/`mods` field should be a simple object or null/);
   });
 
@@ -90,7 +90,7 @@ describe('errors', () => {
           block: 'block',
           elem: 'e',
           elemMods: 'string',
-        } as unknown as Parameters<typeof BemjsonNode>[0]),
+        } as unknown as ConstructorParameters<typeof BemjsonNode>[0]),
     ).to.throw(/`elemMods` field should be a simple object or null/);
   });
 });

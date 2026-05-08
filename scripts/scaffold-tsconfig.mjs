@@ -47,7 +47,7 @@ for (const d of dirs) {
       rootDir: 'src',
       outDir: 'dist',
     },
-    include: ['src/**/*.ts'],
+    include: ['src/**/*.ts', 'src/**/*.d.ts'],
     exclude: ['src/**/*.test.ts', 'src/**/*.spec.ts'],
     references: refs,
   };
