@@ -103,9 +103,6 @@ importers:
       '@bem/sdk.entity-name':
         specifier: workspace:^
         version: link:../entity-name
-      depd:
-        specifier: ^2.0.0
-        version: 2.0.0
 
   packages/config:
     dependencies:
