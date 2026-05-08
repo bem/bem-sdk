@@ -196,4 +196,41 @@ export class Keyset {
   *[Symbol.iterator](): IterableIterator<[string, LangKeys]> {
     for (const entry of this._landKeys) yield entry;
   }
+
+  /**
+   * Merge a list of {@link Keyset}s into a new one (closes #350).
+   *
+   * - The result inherits `name`, `path` and `format` from the first
+   *   argument.
+   * - Each language present in any input is included in the result; keys
+   *   are deduplicated by name and "last passed in wins".
+   * - Inputs are not mutated.
+   */
+  static merge(...keysets: Keyset[]): Keyset {
+    if (keysets.length === 0) {
+      throw new Error('Keyset.merge requires at least one keyset');
+    }
+    const first = keysets[0]!;
+    const result = new Keyset(first.name, first.path, first.format);
+    const byLang = new Map<string, LangKeys[]>();
+    for (const ks of keysets) {
+      for (const lang of ks.langs) {
+        const existing = byLang.get(lang) ?? [];
+        const lk = ks.getLangKeysForLang(lang);
+        if (lk) {
+          existing.push(lk);
+          byLang.set(lang, existing);
+        }
+      }
+    }
+    for (const [lang, parts] of byLang) {
+      result.addKeysForLang(lang, LangKeys.merge(...parts));
+    }
+    return result;
+  }
+
+  /** Convenience: `ks.merge(...others)` ≡ `Keyset.merge(ks, ...others)`. */
+  merge(...others: Keyset[]): Keyset {
+    return Keyset.merge(this, ...others);
+  }
 }

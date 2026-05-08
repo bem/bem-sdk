@@ -24,6 +24,24 @@ export class LangKeys {
     return [...this._keys];
   }
 
+  /**
+   * Merges several `LangKeys` of the same language into a new instance.
+   * Duplicates are deduplicated by `Key.name`; for clashes the last one
+   * passed in wins. The first argument supplies metadata (`lang`,
+   * `keysetName`) for the result.
+   */
+  static merge(...lks: LangKeys[]): LangKeys {
+    if (lks.length === 0) {
+      throw new Error('LangKeys.merge requires at least one LangKeys');
+    }
+    const first = lks[0]!;
+    const byName = new Map<string, Key>();
+    for (const lk of lks) {
+      for (const key of lk.keys) byName.set(key.name, key);
+    }
+    return new LangKeys(first.lang, byName.values(), first.keysetName);
+  }
+
   stringify(formatName: FormatName): string {
     return LangKeys.stringify(this, formatName);
   }

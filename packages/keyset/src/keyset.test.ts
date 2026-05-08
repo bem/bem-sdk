@@ -182,4 +182,76 @@ describe('Keyset', () => {
     });
   });
 
+  describe('Keyset.merge (#350)', () => {
+    it('combines two keysets that share a language', () => {
+      const a = new Keyset('app');
+      a.addKeysForLang('en', new LangKeys('en', [new Key('greeting', 'Hello')]));
+      const b = new Keyset('app');
+      b.addKeysForLang('en', new LangKeys('en', [new Key('farewell', 'Bye')]));
+
+      const merged = Keyset.merge(a, b);
+
+      expect(merged.langs).to.eql(['en']);
+      const keys = merged.getKeysForLang('en') as Key[];
+      const byName = Object.fromEntries(keys.map((k) => [k.name, k.value]));
+      expect(byName).to.deep.equal({ greeting: 'Hello', farewell: 'Bye' });
+    });
+
+    it('keeps both languages when only one source has each', () => {
+      const ru = new Keyset('app');
+      ru.addKeysForLang('ru', new LangKeys('ru', [new Key('hi', 'Привет')]));
+      const en = new Keyset('app');
+      en.addKeysForLang('en', new LangKeys('en', [new Key('hi', 'Hello')]));
+
+      const merged = Keyset.merge(ru, en);
+
+      expect(merged.langs.sort()).to.eql(['en', 'ru']);
+    });
+
+    it('lets the last argument override duplicate key names', () => {
+      const a = new Keyset('app');
+      a.addKeysForLang('en', new LangKeys('en', [new Key('greeting', 'Hello')]));
+      const b = new Keyset('app');
+      b.addKeysForLang('en', new LangKeys('en', [new Key('greeting', 'Hi')]));
+
+      const merged = Keyset.merge(a, b);
+      const [key] = merged.getKeysForLang('en') as Key[];
+      expect(key!.value).to.equal('Hi');
+    });
+
+    it('does not mutate inputs', () => {
+      const a = new Keyset('app');
+      a.addKeysForLang('en', new LangKeys('en', [new Key('a', 'A')]));
+      const b = new Keyset('app');
+      b.addKeysForLang('en', new LangKeys('en', [new Key('b', 'B')]));
+
+      Keyset.merge(a, b);
+
+      expect((a.getKeysForLang('en') as Key[]).length).to.equal(1);
+      expect((b.getKeysForLang('en') as Key[]).length).to.equal(1);
+    });
+
+    it('inherits name/path/format from the first argument', () => {
+      const first = new Keyset('FirstKeyset', '', 'enb');
+      const second = new Keyset('SecondKeyset', '', 'taburet');
+      const merged = Keyset.merge(first, second);
+      expect(merged.name).to.equal('FirstKeyset');
+      expect(merged.format).to.equal('enb');
+    });
+
+    it('exposes the same behaviour via instance.merge', () => {
+      const a = new Keyset('app');
+      a.addKeysForLang('en', new LangKeys('en', [new Key('a', 'A')]));
+      const b = new Keyset('app');
+      b.addKeysForLang('en', new LangKeys('en', [new Key('b', 'B')]));
+
+      const merged = a.merge(b);
+      expect((merged.getKeysForLang('en') as Key[]).length).to.equal(2);
+    });
+
+    it('throws on empty input', () => {
+      expect(() => Keyset.merge()).to.throw(/at least one keyset/);
+    });
+  });
+
 });

@@ -2,6 +2,14 @@
 
 ## 1.0.0
 
+### Features
+
+- `Keyset.merge(...keysets)` (and `keyset.merge(...others)`) and
+  `LangKeys.merge(...langKeys)` — combine sources, deduplicating by key
+  name with last-write-wins semantics. Inputs are not mutated. Closes [#350].
+
+[#350]: https://github.com/bem/bem-sdk/issues/350
+
 ### Major Changes
 
 - b717cfd: Migrated to TypeScript / ESM (Node >=20).
