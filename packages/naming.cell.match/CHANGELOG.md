@@ -2,6 +2,15 @@
 
 ## 1.0.0
 
+### Bug fixes
+
+- Pattern placeholders other than `entity` (`layer`, `tech`, …) no longer
+  inherit `wordPattern` from the convention. Hyphens in layer values and
+  similar scenarios (`MyBlock_kind@touch-phone.js` with the react preset)
+  now match correctly. Closes [#385].
+
+[#385]: https://github.com/bem/bem-sdk/issues/385
+
 ### Major Changes
 
 - 93526f7: Migrated to TypeScript / ESM (Node >=20). Public API stays as a single function

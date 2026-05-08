@@ -4,6 +4,13 @@
 
 ### Major Changes
 
+- `BemEntityName.belongsTo` now treats a key-value modifier as a
+  specialization of its boolean counterpart with the same name and scope
+  (closes [#269]). `popup2_target_position.belongsTo(popup2_target)` is
+  now `true`; the reverse stays `false`.
+
+[#269]: https://github.com/bem/bem-sdk/issues/269
+
 - 6a4b1b3: Migrated to TypeScript / ESM (Node >=20).
   Public API: named export `BemEntityName` (default export retained), plus
   `EntityTypeError` and types `BlockName`, `ElementName`, `EntityNameOptions`,

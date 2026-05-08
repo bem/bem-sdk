@@ -112,6 +112,19 @@ The `EntityTypeError` is now also a named export.
 `@deprecated` — the canonical accessor is `entity.mod.name` /
 `entity.mod.val`.
 
+`belongsTo()` now treats a key-value modifier as a specialization of its
+boolean form (closes [#269][]):
+
+```ts
+const target  = BemEntityName.create({ block: 'popup2', mod: { name: 'target' } });
+const targetX = BemEntityName.create({ block: 'popup2', mod: { name: 'target', val: 'position' } });
+
+targetX.belongsTo(target); // true (was false in 0.x)
+target.belongsTo(targetX); // false (unchanged)
+```
+
+[#269]: https://github.com/bem/bem-sdk/issues/269
+
 ### `@bem/sdk.cell` — 0.2.x → 1.0.0
 
 ```diff

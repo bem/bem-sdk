@@ -79,18 +79,35 @@ describe('belongs-to', () => {
     expect(blockMod.belongsTo(elemMod)).to.be.false;
   });
 
-  it('should not detect belonging between boolean and key-value mod of block', () => {
+  it('should resolve belonging between key-value and boolean mod of block', () => {
+    // A modifier with a value is a specialization of its boolean form (#269).
     const boolMod = new BemEntityName({ block: 'block', mod: { name: 'mod', val: true } });
     const keyMod = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key' } });
-    expect(keyMod.belongsTo(boolMod)).to.be.false;
+    expect(keyMod.belongsTo(boolMod)).to.be.true;
     expect(boolMod.belongsTo(keyMod)).to.be.false;
   });
 
-  it('should not detect belonging between boolean and key-value mod of element', () => {
+  it('should resolve belonging between key-value and boolean mod of element', () => {
     const boolMod = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: true } });
     const keyMod = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: 'key' } });
-    expect(keyMod.belongsTo(boolMod)).to.be.false;
+    expect(keyMod.belongsTo(boolMod)).to.be.true;
     expect(boolMod.belongsTo(keyMod)).to.be.false;
+  });
+
+  it('should not cross-cut elem boundary when comparing mods (#269)', () => {
+    // Bool mod on the elem and key-value mod on the block share name and val
+    // shape, but live in different scopes — no belonging either way.
+    const boolElemMod = new BemEntityName({ block: 'block', elem: 'elem', mod: { name: 'mod', val: true } });
+    const keyBlockMod = new BemEntityName({ block: 'block', mod: { name: 'mod', val: 'key' } });
+    expect(keyBlockMod.belongsTo(boolElemMod)).to.be.false;
+    expect(boolElemMod.belongsTo(keyBlockMod)).to.be.false;
+  });
+
+  it('should not detect belonging between mods of different names', () => {
+    const boolA = new BemEntityName({ block: 'block', mod: { name: 'a', val: true } });
+    const keyB = new BemEntityName({ block: 'block', mod: { name: 'b', val: 'v' } });
+    expect(keyB.belongsTo(boolA)).to.be.false;
+    expect(boolA.belongsTo(keyB)).to.be.false;
   });
 
   it('should not detect belonging between key-value mods of block', () => {

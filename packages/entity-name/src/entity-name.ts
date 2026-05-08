@@ -168,13 +168,39 @@ export class BemEntityName {
   belongsTo(entityName: BemEntityName): boolean {
     if (entityName.block !== this.block) return false;
 
-    return (
-      (entityName.type === TYPES.BLOCK &&
-        (this.type === TYPES.BLOCK_MOD || this.type === TYPES.ELEM)) ||
-      (entityName.elem === this.elem &&
-        entityName.type === TYPES.ELEM &&
-        this.type === TYPES.ELEM_MOD)
-    );
+    // 1. elem and blockMod belong to their parent block
+    if (
+      entityName.type === TYPES.BLOCK &&
+      (this.type === TYPES.BLOCK_MOD || this.type === TYPES.ELEM)
+    ) {
+      return true;
+    }
+
+    // 2. elemMod belongs to its parent elem (same elem name)
+    if (
+      entityName.type === TYPES.ELEM &&
+      this.type === TYPES.ELEM_MOD &&
+      entityName.elem === this.elem
+    ) {
+      return true;
+    }
+
+    // 3. A modifier with a specific value belongs to its boolean form when
+    //    the modifier name and the surrounding scope match (closes #269).
+    //    `popup2_target_position`.belongsTo(`popup2_target`) === true,
+    //    but the reverse stays false.
+    if (
+      this.mod &&
+      entityName.mod &&
+      this.mod.name === entityName.mod.name &&
+      entityName.mod.val === true &&
+      this.mod.val !== true &&
+      (this.elem ?? null) === (entityName.elem ?? null)
+    ) {
+      return true;
+    }
+
+    return false;
   }
 
   valueOf(): EntityRepresentation {
