@@ -39,7 +39,32 @@ Useful modules to work with projects based on principles of [BEM][] methodology.
 * [file](https://github.com/bem/bem-sdk/tree/master/packages/file) — partial cell with full path and level
 * [bundle](https://github.com/bem/bem-sdk/tree/master/packages/bundle) — representation of [BEM][] bundles: name, set of cells, and bemjson optionally
 
+## Development
+
+The repository is a monorepo managed with [pnpm workspaces][pnpm] and
+[Changesets][changesets]. All packages ship as ESM-only TypeScript with
+`>= Node 20`.
+
+```sh
+corepack enable
+pnpm install
+pnpm typecheck     # tsc --build + tsc --noEmit on tests
+pnpm lint          # ESLint flat config
+pnpm test          # Mocha 11 + Chai 6 + tsx loader
+pnpm test:cover    # c8 coverage
+```
+
+### Releasing
+
+```sh
+pnpm changeset            # add a changeset (interactive)
+pnpm version              # bump versions per changesets
+pnpm release              # build + publish via changesets
+```
+
 [BEM]: https://en.bem.info
 [entity]: https://en.bem.info/methodology/key-concepts/#bem-entity
 [bemjson]: https://en.bem.info/platform/bemjson/
 [JSX]: https://facebook.github.io/react/docs/introducing-jsx.html
+[pnpm]: https://pnpm.io/
+[changesets]: https://github.com/changesets/changesets

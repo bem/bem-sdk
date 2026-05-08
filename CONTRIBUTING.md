@@ -5,16 +5,58 @@ email, or any other method with the owners of this repository before making a ch
 
 Please note we have a code of conduct, please follow it in all your interactions with the project.
 
+## Local development
+
+Requirements:
+
+- **Node.js >= 20** (CI matrix: 20, 22, 24).
+- **pnpm 11**, installed via [Corepack](https://nodejs.org/api/corepack.html):
+
+  ```sh
+  corepack enable
+  ```
+
+Setup:
+
+```sh
+pnpm install
+pnpm typecheck    # tsc --build (production) + tsc on test files
+pnpm lint         # ESLint 10 flat config
+pnpm test         # Mocha 11 + Chai 6 + tsx (TypeScript ESM)
+pnpm test:cover   # c8 coverage
+```
+
+Project layout:
+
+- `packages/*` — independent published packages, each ESM-only TypeScript.
+- `pnpm-workspace.yaml` — workspace + version catalog.
+- `tsconfig.base.json` — strict TS baseline (NodeNext, ES2023, composite).
+- `eslint.config.js` — flat config.
+- `.mocharc.json` — mocha config rooted at `packages/*/src/**/*.test.ts`.
+- `.changeset/` — pending changesets (each one PR-able).
+- `.github/workflows/` — CI (Node 20/22/24 matrix) and changesets-driven release.
+
 ## Pull Request Process
 
-1. Ensure any install or build dependencies are removed before the end of the layer when doing a
-   build.
-2. Update the README.md with details of changes to the interface, this includes new environment
-   variables, exposed ports, useful file locations and container parameters.
-3. Increase the version numbers in any examples files and the README.md to the new version that this
-   Pull Request would represent. The versioning scheme we use is [SemVer](http://semver.org/).
-4. You may merge the Pull Request in once you have the sign-off of two other developers, or if you
-   do not have permission to do that, you may request the second reviewer to merge it for you.
+1. Add a changeset describing your change:
+
+   ```sh
+   pnpm changeset
+   ```
+
+   Pick the affected package(s), the bump level (major/minor/patch) and write a
+   one-paragraph explanation of the user-visible change. The file lands under
+   `.changeset/` and gets committed together with your code.
+
+2. Make sure `pnpm typecheck`, `pnpm lint` and `pnpm test` are all green
+   locally — these are the same checks CI runs.
+
+3. Update the package's README if the public API changed (entry name, options,
+   types, etc.).
+
+4. Open the PR. CI is required to pass before merge. Releases are produced
+   automatically by the `changesets/action` workflow when the changeset PR
+   is merged into `master`.
 
 ## Code of Conduct
 
