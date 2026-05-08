@@ -2,7 +2,7 @@ import { expect } from 'chai';
 import { findLastIndex } from '../test-utils.js';
 describe('utils/find-last-index', () => {
     it('should not find non existing block', () => {
-        var decl = [{ entity: { block: 'block' } }];
+        const decl = [{ entity: { block: 'block' } }];
 
         expect(findLastIndex(decl, { entity: { block: 'other-block' } })).to.equal(-1);
     });
@@ -12,35 +12,35 @@ describe('utils/find-last-index', () => {
     });
 
     it('should find block', () => {
-        var entity = { entity: { block: 'block' } },
+        const entity = { entity: { block: 'block' } },
             decl = [entity];
 
         expect(findLastIndex(decl, entity)).to.equal(0);
     });
 
     it('should find modifier of block', () => {
-        var entity = { entity: { block: 'block', modName: 'mod', modVal: 'val' } },
+        const entity = { entity: { block: 'block', modName: 'mod', modVal: 'val' } },
             decl = [entity];
 
         expect(findLastIndex(decl, entity)).to.equal(0);
     });
 
     it('should find element', () => {
-        var entity = { entity: { block: 'block', elem: 'elem' } },
+        const entity = { entity: { block: 'block', elem: 'elem' } },
             decl = [entity];
 
         expect(findLastIndex(decl, entity)).to.equal(0);
     });
 
     it('should find modifier of element', () => {
-        var entity = { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' } },
+        const entity = { entity: { block: 'block', elem: 'elem', modName: 'mod', modVal: 'val' } },
             decl = [entity];
 
         expect(findLastIndex(decl, entity)).to.equal(0);
     });
 
     it('should find equal entity', () => {
-        var decl = [
+        const decl = [
             { entity: { block: 'other-block' } },
             { entity: { block: 'block' } },
             { entity: { block: 'other-block' } }
@@ -54,7 +54,7 @@ describe('utils/find-last-index', () => {
     });
 
     it('should find last equal entity', () => {
-        var decl = [
+        const decl = [
             { entity: { block: 'block' } },
             { entity: { block: 'other-block' } },
             { entity: { block: 'block' } }

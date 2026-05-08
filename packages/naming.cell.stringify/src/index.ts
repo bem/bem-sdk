@@ -9,7 +9,6 @@ import type {
   BemCellLike,
   CellStringify,
   NamingConvention,
-  NamingDelims,
 } from './types.js';
 
 export type {

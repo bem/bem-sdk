@@ -11,7 +11,7 @@ describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod!]({ block: 'B' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'B' }, 'css');  
 
                 return graph;
             },
@@ -30,8 +30,8 @@ describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod!]({ block: 'B' }, 'css') // eslint-disable-line no-unexpected-multiline
-                    [linkMethod!]({ block: 'B' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'B' }, 'css')  
+                    [linkMethod!]({ block: 'B' }, 'js');  
 
                 return graph;
             },
@@ -50,8 +50,8 @@ describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod!]({ block: 'B' }, 'css') // eslint-disable-line no-unexpected-multiline
-                    [linkMethod!]({ block: 'C' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'B' }, 'css')  
+                    [linkMethod!]({ block: 'C' }, 'css');  
 
                 return graph;
             },
@@ -70,11 +70,11 @@ describe('deps/direct-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'A' })
-                    [linkMethod!]({ block: 'C' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'C' }, 'css');  
 
                 graph
                     .vertex({ block: 'B' })
-                    [linkMethod!]({ block: 'C' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'C' }, 'css');  
 
                 return graph;
             },

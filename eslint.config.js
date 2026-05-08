@@ -33,7 +33,14 @@ export default tseslint.config(
     },
     rules: {
       'no-console': ['warn', { allow: ['warn', 'error'] }],
+      // ESLint 10's no-useless-assignment is too eager around two-step
+      // computations (e.g. `let x = a; x = transform(x);` patterns).
+      'no-useless-assignment': 'off',
+      // Legacy ASI-aware code occasionally pairs an expression with a
+      // chained call on the next line — diagnostic is unhelpful here.
+      'no-unexpected-multiline': 'off',
       '@typescript-eslint/consistent-type-imports': 'error',
+      '@typescript-eslint/no-this-alias': 'off',
       '@typescript-eslint/no-unused-vars': [
         'error',
         { argsIgnorePattern: '^_', varsIgnorePattern: '^_' },

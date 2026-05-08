@@ -10,7 +10,7 @@ describe('deps/ignore-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'B' })
-                    [linkMethod!]({ block: 'A' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'A' }, 'css');  
 
                 return graph;
             },
@@ -29,7 +29,7 @@ describe('deps/ignore-deps/tech-deps/entity-common-tech-to-entity-tech', () => {
 
                 graph
                     .vertex({ block: 'C' })
-                    [linkMethod!]({ block: 'D' }, 'css'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'D' }, 'css');  
 
                 return graph;
             },

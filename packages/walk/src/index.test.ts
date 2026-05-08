@@ -3,7 +3,7 @@ import { promises as fs } from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 
-import { asArray, walk } from './index.js';
+import { asArray } from './index.js';
 
 interface FileLike {
   cell: { entity: { valueOf(): unknown }; tech: string };

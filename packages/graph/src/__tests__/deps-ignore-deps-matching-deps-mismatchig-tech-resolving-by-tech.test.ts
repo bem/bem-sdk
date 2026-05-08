@@ -10,7 +10,7 @@ describe('deps/ignore-deps/matching-deps/mismatchig-tech-resolving-by-tech', () 
 
                 graph
                     .vertex({ block: 'B' }, 'css')
-                    [linkMethod!]({ block: 'A' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'A' }, 'js');  
 
                 return graph;
             },
@@ -29,7 +29,7 @@ describe('deps/ignore-deps/matching-deps/mismatchig-tech-resolving-by-tech', () 
 
                 graph
                     .vertex({ block: 'C' }, 'css')
-                    [linkMethod!]({ block: 'D' }, 'js'); // eslint-disable-line no-unexpected-multiline
+                    [linkMethod!]({ block: 'D' }, 'js');  
 
                 return graph;
             },

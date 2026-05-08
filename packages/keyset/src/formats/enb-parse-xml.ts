@@ -36,8 +36,8 @@ async function processNodes(
     }
 
     if (process.env['DEBUG']) {
-      console.log('need transform:');
-      console.log(node);
+      console.warn('need transform:');
+      console.warn(node);
       unknown.push(node);
     }
   }
@@ -64,8 +64,8 @@ async function transformPlural(
             (child.children ?? []) as Array<XamelNode | string>,
           );
         } catch (err) {
-          console.log('Failed to process nodes');
-          console.log(err);
+          console.warn('Failed to process nodes');
+          console.warn(err);
         }
       }
     }

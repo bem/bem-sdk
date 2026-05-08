@@ -6,7 +6,7 @@ type AnyEntity = any;
 
 function getMods(entity: AnyEntity): Record<string, unknown> | undefined {
   let mods = entity.mods;
-  let modName = entity.modName;
+  const modName = entity.modName;
 
   if (modName) {
     mods = {};

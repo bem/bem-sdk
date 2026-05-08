@@ -74,7 +74,7 @@ interface RawExpect {
 }
 
 function evalLiteral(src: string): RawExpect {
-  // eslint-disable-next-line @typescript-eslint/no-implied-eval
+   
   return new Function(`return (${src});`)() as RawExpect;
 }
 

@@ -1,7 +1,7 @@
 // Typed promise wrapper around the CommonJS `xamel` package. The library is
 // untyped and exposes a Node-style callback API; we only need a tiny subset.
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any -- xamel is CJS, no types
+ 
 import xamel from 'xamel';
 
 export interface XamelNode {

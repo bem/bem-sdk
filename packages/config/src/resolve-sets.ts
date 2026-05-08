@@ -35,7 +35,7 @@ function resolveSet(
     }
 
     const [headRaw, tailRaw] = layerStr.split('@');
-    let layerName = headRaw ?? '';
+    const layerName = headRaw ?? '';
     let libName = tailRaw ?? '';
 
     if (!layerName) {

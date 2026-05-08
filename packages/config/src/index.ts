@@ -292,8 +292,8 @@ export class BemConfig {
           assert(libConfig, `Library \`${chunk.library}\` was not found`);
           const libConfigData = await libConfig.get();
           if (config.__source === libConfigData.__source) {
-            console.log(
-              `WARN: no config was found in \`${chunk.library}\` library`,
+            console.warn(
+              `no config was found in \`${chunk.library}\` library`,
             );
             return [];
           }

@@ -136,8 +136,9 @@ export class BemGraph {
             `${entity.block}__${entity.elem}_${entity.mod.name}`,
           );
         }
-        addEdgeLosely(vertex, `${entity.block}__${entity.elem}`) ||
+        if (!addEdgeLosely(vertex, `${entity.block}__${entity.elem}`)) {
           addEdgeLosely(vertex, entity.block);
+        }
       } else if (entity.elem) {
         addEdgeLosely(vertex, entity.block);
       } else if (entity.mod) {

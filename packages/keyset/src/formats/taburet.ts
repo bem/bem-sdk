@@ -41,7 +41,7 @@ const langKeysFormat: LangKeysFormat = {
     try {
       data = nEval(strToParse) as typeof data;
     } catch (err) {
-      console.log(err);
+      console.warn(err);
     }
 
     assert(data, 'Format is not taburet or broken\n' + str + '\n');
