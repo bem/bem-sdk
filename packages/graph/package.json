@@ -49,6 +49,7 @@
     "@types/debug": "^4.1.12"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

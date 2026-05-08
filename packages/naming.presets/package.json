@@ -43,6 +43,7 @@
     "test": "mocha 'src/**/*.test.ts'"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

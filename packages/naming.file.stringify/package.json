@@ -45,6 +45,7 @@
     "@bem/sdk.file": "workspace:^"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

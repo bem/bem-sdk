@@ -6,6 +6,8 @@
 
 Useful modules to work with projects based on principles of [BEM][] methodology.
 
+> **Upgrading from 0.x?** See [MIGRATION.md](./MIGRATION.md).
+
 ## General
 
 * [walk](https://github.com/bem/bem-sdk/tree/master/packages/walk) — traversing a BEM project's file system

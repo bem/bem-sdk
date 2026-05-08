@@ -51,6 +51,7 @@
     "@bem/sdk.naming.presets": "workspace:^"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }

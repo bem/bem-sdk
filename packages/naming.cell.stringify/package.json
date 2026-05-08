@@ -43,6 +43,7 @@
     "@bem/sdk.naming.entity.stringify": "workspace:^"
   },
   "publishConfig": {
-    "access": "public"
+    "access": "public",
+    "provenance": true
   }
 }
