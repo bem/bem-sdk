@@ -54,8 +54,34 @@ export class BemConfig {
   private _root?: string;
 
   constructor(options: BemConfigOptions = {}) {
+    if (options.cwd !== undefined && !path.isAbsolute(options.cwd)) {
+      throw new Error(
+        `@bem/sdk.config: 'cwd' option must be an absolute path, got '${options.cwd}'`,
+      );
+    }
     this._options = { ...options };
     if (!this._options.cwd) this._options.cwd = process.cwd();
+  }
+
+  /**
+   * Returns the level config that covers a given file or directory path.
+   *
+   * Picks the most specific (longest) level whose `path` is a prefix of
+   * the input, respecting directory boundaries (e.g. `/a/b/blocks` does
+   * not match `/a/b/blocks-extra/...`). Returns `undefined` when no level
+   * applies. Relative inputs are resolved against `options.cwd`.
+   *
+   * Closes #277.
+   */
+  async levelByPath(input: string): Promise<LevelConfig | undefined> {
+    const map = await this.levelMap();
+    return pickLevelByPath(map, input, this._options.cwd!);
+  }
+
+  /** Synchronous counterpart of {@link levelByPath}. */
+  levelByPathSync(input: string): LevelConfig | undefined {
+    const map = this.levelMapSync();
+    return pickLevelByPath(map, input, this._options.cwd!);
   }
 
   /** Returns all found configs (after the `resolve-level` plugin pass). */
@@ -360,6 +386,31 @@ export class BemConfig {
   moduleSync(moduleName: string): unknown {
     return this.getSync().modules?.[moduleName];
   }
+}
+
+function pickLevelByPath(
+  map: Record<string, LevelConfig>,
+  input: string,
+  cwd: string,
+): LevelConfig | undefined {
+  const absolute = path.resolve(cwd, input);
+
+  // Match path against levels with directory-boundary awareness so that
+  // `/a/b/blocks` does not collide with `/a/b/blocks-extra/…`.
+  const inputWithSep = absolute + path.sep;
+  let best: { path: string; cfg: LevelConfig } | undefined;
+  for (const [levelPath, cfg] of Object.entries(map)) {
+    const lvlNorm = path.resolve(levelPath);
+    if (
+      absolute === lvlNorm ||
+      inputWithSep.startsWith(lvlNorm + path.sep)
+    ) {
+      if (!best || lvlNorm.length > best.path.length) {
+        best = { path: lvlNorm, cfg };
+      }
+    }
+  }
+  return best?.cfg;
 }
 
 function pickCommonOpts(config: MergedConfig): Record<string, unknown> {

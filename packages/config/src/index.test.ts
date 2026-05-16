@@ -176,3 +176,102 @@ describe('config: levels & sets', () => {
     expect(levels[0]?.layer).to.equal('common');
   });
 });
+
+describe('cwd must be absolute (#268)', () => {
+  it('throws when cwd is a relative path', () => {
+    expect(() => bemConfig({ cwd: 'relative/path' })).to.throw(
+      /'cwd' option must be an absolute path/,
+    );
+  });
+
+  it('accepts an absolute cwd', () => {
+    expect(() => bemConfig({ cwd: path.resolve('/project') })).to.not.throw();
+  });
+
+  it('falls back to process.cwd() when cwd is omitted', () => {
+    expect(() => bemConfig()).to.not.throw();
+  });
+});
+
+describe('levelByPath / levelByPathSync (#277)', () => {
+  const root = path.resolve('/project');
+  const commonLevel = path.join(root, 'common.blocks');
+  const innerLevel = path.join(root, 'src', 'common.blocks');
+
+  it('returns level config for a path exactly matching the level', () => {
+    const cfg = bemConfig({
+      cwd: root,
+      configs: [{ levels: [{ path: commonLevel, scheme: 'nested' }] }],
+    });
+    expect(cfg.levelByPathSync(commonLevel)).to.deep.include({
+      path: commonLevel,
+      scheme: 'nested',
+    });
+  });
+
+  it('returns level config for a file inside the level', () => {
+    const cfg = bemConfig({
+      cwd: root,
+      configs: [{ levels: [{ path: commonLevel, scheme: 'nested' }] }],
+    });
+    const file = path.join(commonLevel, 'button', 'button.css');
+    expect(cfg.levelByPathSync(file)?.path).to.equal(commonLevel);
+  });
+
+  it('prefers the most specific (deepest) level when several match', () => {
+    const cfg = bemConfig({
+      cwd: root,
+      configs: [
+        {
+          levels: [
+            { path: path.join(root, 'src'), scheme: 'flat' },
+            { path: innerLevel, scheme: 'nested' },
+          ],
+        },
+      ],
+    });
+    const file = path.join(innerLevel, 'button', 'button.css');
+    const out = cfg.levelByPathSync(file);
+    expect(out?.scheme).to.equal('nested');
+    expect(out?.path).to.equal(innerLevel);
+  });
+
+  it('returns undefined when no level matches', () => {
+    const cfg = bemConfig({
+      cwd: root,
+      configs: [{ levels: [{ path: commonLevel, scheme: 'nested' }] }],
+    });
+    expect(
+      cfg.levelByPathSync(path.join(root, 'unrelated', 'file.js')),
+    ).to.equal(undefined);
+  });
+
+  it('does not substring-match across directory boundaries', () => {
+    const cfg = bemConfig({
+      cwd: root,
+      configs: [{ levels: [{ path: commonLevel, scheme: 'nested' }] }],
+    });
+    expect(
+      cfg.levelByPathSync(path.join(root, 'common.blocks-extra', 'x.css')),
+    ).to.equal(undefined);
+  });
+
+  it('resolves relative input against cwd', () => {
+    const cfg = bemConfig({
+      cwd: root,
+      configs: [{ levels: [{ path: commonLevel, scheme: 'nested' }] }],
+    });
+    expect(cfg.levelByPathSync('common.blocks/button/button.css')?.path).to.equal(
+      commonLevel,
+    );
+  });
+
+  it('async variant returns the same result', async () => {
+    const cfg = bemConfig({
+      cwd: root,
+      configs: [{ levels: [{ path: commonLevel, scheme: 'nested' }] }],
+    });
+    const file = path.join(commonLevel, 'button', 'button.css');
+    expect((await cfg.levelByPath(file))?.path).to.equal(commonLevel);
+  });
+});

@@ -2,6 +2,18 @@
 
 ## 1.0.0
 
+### Features
+
+- `BemConfig.levelByPath(path)` and `BemConfig.levelByPathSync(path)` —
+  return the level config that covers a given file/directory path. Picks
+  the most specific (longest) level whose `path` is a prefix of the input,
+  respecting directory boundaries. Closes [#277].
+- `BemConfig` constructor now requires `options.cwd` to be an absolute
+  path; relative values throw with a clear message. Closes [#268].
+
+[#277]: https://github.com/bem/bem-sdk/issues/277
+[#268]: https://github.com/bem/bem-sdk/issues/268
+
 ### Major Changes
 
 - 79068ed: Migrated to TypeScript / ESM (Node >=20).
