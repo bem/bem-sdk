@@ -17,46 +17,54 @@ Requires **Node.js >= 20** and ESM (`"type": "module"` in your
 ## Usage
 
 ```ts
-import { convert, stringify } from '@bem/sdk.bemjson-to-decl';
+import { convert } from '@bem/sdk.bemjson-to-decl';
 
-const bemjson = {
-  block: 'button',
-  mods: { theme: 'normal' },
-  content: { elem: 'text', content: 'Submit' },
-};
+convert([
+  { elem: 'control', elemMods: { theme: 'normal' } },
+  { elem: 'control', elemMods: { theme: 'ghost' } },
+], { block: 'button' });
 
-convert(bemjson);
-// => [BemEntityName('button'),
-//     BemEntityName('button', mod 'theme=normal'),
-//     BemEntityName('button', elem 'text')]
-
-console.log(stringify(bemjson));
-// [
-//     { block: 'button' },
-//     { block: 'button', mod: { name: 'theme', val: 'normal' } },
-//     { block: 'button', elem: 'text' }
+// →
+// [ BemEntityName { block: 'button', elem: 'control' },
+//   BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: true } },
+//   BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: 'normal' } },
+//   BemEntityName { block: 'button', elem: 'control', mod: { name: 'theme', val: 'ghost' } }
 // ]
 ```
 
 ## API
 
-### `convert(bemjson, ctx?): BemEntityName[]`
+### `convert(bemjson: Bemjson, scope?: BemEntityName): BemEntityName[]`
 
-Walks the tree and returns a deduplicated, insertion-ordered array of
-`BemEntityName`s referenced by the BEMJSON.
+Extract BEM entities from a BEMJSON value.
 
-- `bemjson` — any BEMJSON-shaped value (single node, array, nested
-  `content` / `js` / `attrs`, etc.).
-- `ctx.block` — optional fallback block name for nodes without `block`.
+```ts
+import { convert } from '@bem/sdk.bemjson-to-decl';
 
-### `stringify(bemjson, ctx?, opts?): string`
+convert({ block: 'button', mods: { theme: 'normal' } });
 
-Same walk as `convert`, then renders the entities with
-[`stringify-object`][stringify-object]. `opts.indent` defaults to
-four spaces; remaining options are forwarded to `stringify-object`.
+// →
+// [ BemEntityName { block: 'button' },
+//   BemEntityName { block: 'button', mod: { name: 'theme', val: true } },
+//   BemEntityName { block: 'button', mod: { name: 'theme', val: 'normal' } }
+// ]
+```
 
-For exhaustive typings, see `Bemjson`, `ConvertContext`,
-`StringifyOptions` in `dist/index.d.ts`.
+### `stringify(bemjson: Bemjson, scope?: BemEntityName, opts?: { indent?: string }): string`
+
+Extract BEM entities and serialise the result as a string (uses
+[`stringify-object`][stringify-object] under the hood).
+
+```ts
+import { stringify } from '@bem/sdk.bemjson-to-decl';
+
+stringify({ block: 'button' }, null, { indent: '\t' });
+
+// → "[\n\t{\n\t\tblock: 'button'\n\t}\n]"
+```
+
+For exhaustive typings (`Bemjson`, `ConvertContext`, `StringifyOptions`)
+see `dist/index.d.ts`.
 
 ## License
 
