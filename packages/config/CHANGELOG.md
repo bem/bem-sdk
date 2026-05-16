@@ -10,9 +10,20 @@
   respecting directory boundaries. Closes [#277].
 - `BemConfig` constructor now requires `options.cwd` to be an absolute
   path; relative values throw with a clear message. Closes [#268].
+- `sets` now accept a verbose array form mixing strings and `SetChunk`
+  objects, e.g. `[{ library: 'bem-components', set: 'touch-phone' },
+  { set: 'common' }, 'touch']`. Local `{ set: 'name' }` references are
+  expanded recursively against the surrounding `sets` map. Empty chunks,
+  conflicting `set`+`layer`, and missing references throw with explicit
+  messages. New public type `SetDefinitionItem`. Closes [#246].
+- `resolveSets` now rejects the ambiguous `set@lib/layer` token with a
+  clear message and documents the existing `@lib/layer` library-layer
+  reference syntax. Closes [#262].
 
 [#277]: https://github.com/bem/bem-sdk/issues/277
 [#268]: https://github.com/bem/bem-sdk/issues/268
+[#246]: https://github.com/bem/bem-sdk/issues/246
+[#262]: https://github.com/bem/bem-sdk/issues/262
 
 ### Major Changes
 

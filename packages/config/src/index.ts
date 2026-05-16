@@ -25,6 +25,7 @@ export type {
   RawConfig,
   SetChunk,
   SetDefinition,
+  SetDefinitionItem,
   ConfigPlugin,
 } from './types.js';
 export { merge } from './merge.js';

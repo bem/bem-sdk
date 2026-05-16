@@ -15,7 +15,14 @@ export interface SetChunk {
   library?: string;
 }
 
-export type SetDefinition = string | SetChunk | SetChunk[];
+/**
+ * Individual entry inside the verbose array form of a set definition.
+ * Either a legacy string token (`"@lib/layer"`, `"common"`, `"setName@"`,
+ * `"setName@lib"`) or a {@link SetChunk} object.
+ */
+export type SetDefinitionItem = string | SetChunk;
+
+export type SetDefinition = string | SetChunk | SetDefinitionItem[];
 
 export interface RawConfig {
   __source?: string;
