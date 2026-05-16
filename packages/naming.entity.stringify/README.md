@@ -21,17 +21,20 @@ Requires **Node.js >= 20** and ESM (`"type": "module"` in your
 import { stringify, stringifyWrapper } from '@bem/sdk.naming.entity.stringify';
 import { origin, react } from '@bem/sdk.naming.presets';
 
-stringify({ block: 'button', mod: { name: 'theme', val: 'red' } }, origin.delims);
-// => 'button_theme_red'
+stringify(
+  { block: 'button', mod: { name: 'theme', val: 'red' } },
+  origin.delims,
+);
+// → 'button_theme_red'
 
 const toReact = stringifyWrapper(react);
 toReact({ block: 'Button', elem: 'Text' });
-// => 'Button-Text'
+// → 'Button-Text'
 ```
 
 ## API
 
-### `stringify(entity, delims): string`
+### `stringify(entity: EntityLike | null | undefined, delims: NamingDelims): string`
 
 One-shot stringifier.
 
@@ -42,14 +45,25 @@ One-shot stringifier.
 Returns the conventional BEM string. Returns `''` for `null` /
 `undefined` or for objects without a `block`.
 
-### `stringifyWrapper(convention): Stringify`
+```ts
+stringify({ block: 'b', mod: 'm' },         { elem: '__', mod: { name: '_', val: '_' } });
+// → 'b_m'
+stringify({ block: 'b', elem: 'e', mod: { name: 'm', val: true } }, origin.delims);
+// → 'b__e_m'
+```
 
-Returns a curried stringifier bound to `convention.delims`. Convenient
+### `stringifyWrapper(convention: NamingConvention): Stringify`
+
+> Was: `createStringify(naming)` in 0.x.
+
+Return a curried stringifier bound to `convention.delims`. Convenient
 when the convention is fixed (e.g. one of the `@bem/sdk.naming.presets`
 exports).
 
-For exhaustive typings, see `EntityLike`, `NamingDelims`,
-`NamingConvention`, `Stringify` in `dist/index.d.ts`.
+### `type Stringify = (entity: EntityLike | null | undefined) => string`
+
+For exhaustive typings (`EntityLike`, `NamingDelims`, `NamingConvention`,
+`Stringify`) see `dist/index.d.ts`.
 
 ## License
 

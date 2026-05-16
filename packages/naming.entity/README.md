@@ -23,26 +23,26 @@ import { bemNaming } from '@bem/sdk.naming.entity';
 
 // Default — `origin` preset.
 bemNaming.parse('button__text');
-// => BemEntityName { block: 'button', elem: 'text' }
+// → BemEntityName { block: 'button', elem: 'text' }
 bemNaming.stringify({ block: 'button', mod: { name: 'theme', val: 'red' } });
-// => 'button_theme_red'
+// → 'button_theme_red'
 
 // React-style namespace.
 const react = bemNaming('react');
 react.stringify({ block: 'Button', elem: 'Text' });
-// => 'Button-Text'
+// → 'Button-Text'
 
 // Custom convention.
 const custom = bemNaming({
   delims: { elem: '__', mod: { name: '--', val: '_' } },
 });
 custom.stringify({ block: 'b', mod: { name: 'm', val: 'v' } });
-// => 'b--m_v'
+// → 'b--m_v'
 ```
 
 ## API
 
-### `bemNaming(options?): BemNaming`
+### `bemNaming(options?: CreateOptions | string): BemNaming`
 
 Factory that returns a namespace bound to a naming convention.
 `options` is one of:
@@ -53,24 +53,38 @@ Factory that returns a namespace bound to a naming convention.
 
 Same options yield the same cached instance.
 
-### `bemNaming.parse` / `bemNaming.stringify` / `bemNaming.delims` / `bemNaming.wordPattern`
+### `bemNaming.parse(str: string): BemEntityName | undefined`
 
-Shortcuts for the default (`origin`) namespace. Equivalent to
-`bemNaming().parse`, etc.
+> Shortcut for `bemNaming().parse`. Default `origin` preset.
+
+### `bemNaming.stringify(entity: BemEntityName | EntityRepresentation): string`
+
+> Shortcut for `bemNaming().stringify`. Default `origin` preset.
+
+### `bemNaming.delims: { elem, mod: { name, val } }`, `bemNaming.wordPattern: string`
+
+Direct access to the default namespace's resolved delimiters and word
+pattern.
 
 ### `BemNaming` namespace
 
 Each created namespace exposes:
 
-- `parse(str): BemEntityName | undefined` — parses a BEM string under
-  the convention.
-- `stringify(entity): string` — serialises a `BemEntityName`-shaped
-  object to its conventional string form.
-- `delims` — resolved `{ elem, mod: { name, val } }` delimiters.
-- `wordPattern` — regex source describing one BEM word.
+#### `naming.parse(str: string): BemEntityName | undefined`
 
-For exhaustive typings, see `BemNaming`, `BemNamingFactory` in
-`dist/index.d.ts`.
+Parse a BEM string under the convention.
+
+#### `naming.stringify(entity: BemEntityName | EntityRepresentation): string`
+
+Serialise a `BemEntityName`-shaped object to its conventional string
+form.
+
+#### `naming.delims: { elem, mod: { name, val } }` / `naming.wordPattern: string`
+
+Resolved delimiters and the regex source for a single BEM word.
+
+For exhaustive typings (`BemNaming`, `BemNamingFactory`, `CreateOptions`)
+see `dist/index.d.ts`.
 
 ## License
 

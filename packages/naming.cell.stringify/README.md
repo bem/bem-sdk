@@ -27,29 +27,40 @@ stringify({
   tech: 'css',
   layer: 'common',
 });
-// => 'common.blocks/button/button.css'
+// → 'common.blocks/button/button.css'
 
 stringify({
   entity: { block: 'button', mod: { name: 'theme', val: 'red' } },
   tech: 'css',
   layer: 'common',
 });
-// => 'common.blocks/button/_theme/button_theme_red.css'
+// → 'common.blocks/button/_theme/button_theme_red.css'
 ```
 
 ## API
 
-### `cellStringifyWrapper(convention): CellStringify`
+### `cellStringifyWrapper(convention: NamingConvention): CellStringify`
 
-Builds a stringifier from a `NamingConvention` (typically one of the
-`@bem/sdk.naming.presets` exports). Throws when `fs.pattern` is
-missing.
+> Was: `createStringify(naming)` in 0.x (returned the same callable).
 
-Returns `CellStringify: (cell: BemCellLike) => string`. The cell must
-have `tech`; `layer` defaults to `'common'`.
+Build a stringifier from a `NamingConvention` (typically one of the
+`@bem/sdk.naming.presets` exports). Throws when `convention` is missing
+or has no `fs.pattern`.
 
-For exhaustive typings, see `BemCellLike`, `CellStringify`,
-`NamingConvention`, `NamingDelims`, `FsConvention` in
+### `CellStringify: (cell: BemCellLike) => string`
+
+The cell must have `tech`; `layer` defaults to `'common'`. Throws when
+`tech` is missing.
+
+```ts
+const stringify = cellStringifyWrapper(origin);
+
+stringify({ entity: { block: 'icon', elem: 'svg' }, tech: 'js' });
+// → 'common.blocks/icon/__svg/icon__svg.js'
+```
+
+For exhaustive typings (`BemCellLike`, `CellStringify`,
+`NamingConvention`, `NamingDelims`, `FsConvention`) see
 `dist/index.d.ts`.
 
 ## License

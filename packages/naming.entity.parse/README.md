@@ -23,36 +23,48 @@ import { origin } from '@bem/sdk.naming.presets';
 const parse = bemNamingEntityParse(origin);
 
 parse('button');
-// => BemEntityName { block: 'button' }
+// → BemEntityName { block: 'button' }
 
 parse('button__text');
-// => BemEntityName { block: 'button', elem: 'text' }
+// → BemEntityName { block: 'button', elem: 'text' }
 
 parse('button_disabled');
-// => BemEntityName { block: 'button', mod: { name: 'disabled', val: true } }
+// → BemEntityName { block: 'button', mod: { name: 'disabled', val: true } }
 
 parse('button_theme_red');
-// => BemEntityName { block: 'button', mod: { name: 'theme', val: 'red' } }
+// → BemEntityName { block: 'button', mod: { name: 'theme', val: 'red' } }
 
-parse('not a bem string'); // => undefined
+parse('not a bem string'); // → undefined
 ```
 
 ## API
 
-### `bemNamingEntityParse(convention): EntityParse`
+### `bemNamingEntityParse(convention: NamingConvention): EntityParse`
 
-Builds a parser bound to a `{ delims, wordPattern }` slice of a
+> Was: `parse(naming)` factory in 0.x (returns the same callable).
+
+Build a parser bound to a `{ delims, wordPattern }` slice of a
 `NamingConvention` (see `@bem/sdk.naming.presets`).
 
-- `convention.delims.elem` — element delimiter (e.g. `'__'`);
-- `convention.delims.mod` — modifier delimiters
-  (`{ name, val }` or a single string);
-- `convention.wordPattern` — regex source for one BEM word.
+- `convention.delims.elem: string` — element delimiter (e.g. `'__'`);
+- `convention.delims.mod: { name: string; val: string } | string` —
+  modifier delimiters;
+- `convention.wordPattern: string` — regex source for one BEM word.
 
-Returns `EntityParse: (str: string) => BemEntityName | undefined`.
-The parser yields `undefined` for non-matching strings.
+### `EntityParse: (str: string) => BemEntityName | undefined`
 
-For exhaustive typings, see `EntityParse` in `dist/index.d.ts`.
+Yields `undefined` for non-matching strings.
+
+```ts
+import { bemNamingEntityParse } from '@bem/sdk.naming.entity.parse';
+import { react } from '@bem/sdk.naming.presets';
+
+const parse = bemNamingEntityParse(react);
+parse('MyBlock-Element_mod_val');
+// → BemEntityName { block: 'MyBlock', elem: 'Element', mod: { name: 'mod', val: 'val' } }
+```
+
+For exhaustive typings (`EntityParse`) see `dist/index.d.ts`.
 
 ## License
 

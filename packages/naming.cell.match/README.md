@@ -24,40 +24,48 @@ import { origin } from '@bem/sdk.naming.presets';
 const match = bemNamingCellMatch(origin);
 
 match('common.blocks/button/button.css');
-// => { isMatch: true,
-//      cell: BemCell { entity: { block: 'button' }, tech: 'css', layer: 'common' },
-//      rest: null }
+// → { isMatch: true,
+//     cell: BemCell { entity: { block: 'button' }, tech: 'css', layer: 'common' },
+//     rest: null }
 
 match('common.blocks/button/_theme/button_theme_red.css');
-// => { isMatch: true, cell: BemCell { ..., mod: { name: 'theme', val: 'red' } }, ... }
+// → { isMatch: true, cell: BemCell { ..., mod: { name: 'theme', val: 'red' } }, ... }
 
 match('common.blocks/button/__text/button__text.js');
-// => { isMatch: true, cell: BemCell { ..., elem: 'text', tech: 'js' }, ... }
+// → { isMatch: true, cell: BemCell { ..., elem: 'text', tech: 'js' }, ... }
 
-match('common.blocks/button'); // partial match -> { isMatch: false, cell: null, rest: '...' }
-match('not/a/bem/path');       // => { isMatch: false, cell: null, rest: null }
+match('common.blocks/button'); // partial match → { isMatch: false, cell: null, rest: '...' }
+match('not/a/bem/path');       // → { isMatch: false, cell: null, rest: null }
 ```
 
 ## API
 
-### `bemNamingCellMatch(convention): Match`
+### `bemNamingCellMatch(convention: MatchConvention): Match`
 
-Builds a matcher from a `MatchConvention` (a `NamingConvention` with at
-least `fs.pattern`).
+> Was: `bemNamingCellMatch(naming)` in 0.x (signature compatible).
 
-Returns `Match: (relPath: string) => MatchResult`, where:
+Build a matcher from a `MatchConvention` (a `NamingConvention` with at
+least `fs.pattern`). Throws when `fs.pattern` is missing or when
+`fs.scheme` is not one of `'nested' | 'mixed' | 'flat'`.
 
-- `cell: BemCell | null` — populated when the path is a fully qualified
-  entity.
+### `Match: (relPath: string) => MatchResult`
+
+Takes a relative path and returns:
+
+- `cell: BemCell | null` — populated when the path is a fully
+  qualified entity.
 - `isMatch: boolean` — `true` only when the whole path is consumed.
 - `rest: string | null` — leftover suffix when the path is a partial
   match (e.g. directory prefix).
 
-Throws when `fs.pattern` is missing or when `fs.scheme` is not one of
-`'nested' | 'mixed' | 'flat'`.
+```ts
+const match = bemNamingCellMatch(origin);
+match('common.blocks/button-with-icon/button-with-icon.js').cell?.entity.block;
+// → 'button-with-icon'  (closes #385: hyphens are allowed)
+```
 
-For exhaustive typings, see `MatchConvention`, `MatchFsConvention`,
-`MatchResult`, `Match` in `dist/index.d.ts`.
+For exhaustive typings (`MatchConvention`, `MatchFsConvention`,
+`MatchResult`, `Match`) see `dist/index.d.ts`.
 
 ## License
 

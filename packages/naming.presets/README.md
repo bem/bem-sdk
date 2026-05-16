@@ -28,8 +28,8 @@ import {
   getPreset,
 } from '@bem/sdk.naming.presets';
 
-origin.delims; // { elem: '__', mod: { name: '_', val: '_' } }
-react.delims;  // { elem: '-',  mod: { name: '_', val: '_' } }
+origin.delims; // { elem: '__', mod: { name: '_',  val: '_' } }
+react.delims;  // { elem: '-',  mod: { name: '_',  val: '_' } }
 
 // Resolve a preset by name.
 getPreset('two-dashes').delims; // { elem: '__', mod: { name: '--', val: '_' } }
@@ -46,19 +46,26 @@ const custom = create({
 
 ### Preset exports
 
-`origin`, `originReact`, `react`, `legacy`, `twoDashes` — full
-`NamingConvention` objects (`{ delims, fs, wordPattern }`).
+```ts
+const origin:      NamingConvention;
+const originReact: NamingConvention;
+const react:       NamingConvention;
+const legacy:      NamingConvention;
+const twoDashes:   NamingConvention;
+```
 
-### `getPreset(name): NamingConvention`
+Each is a full `NamingConvention` object (`{ delims, fs, wordPattern }`).
+
+### `getPreset(name: string): NamingConvention`
 
 Returns one of the named presets. Accepts `'origin' | 'origin-react' |
 'react' | 'legacy' | 'two-dashes'`. Throws on unknown names.
 
-### `create(options?, defaults?): NamingConvention`
+### `create(options?: CreateOptions | string, defaults?: CreateOptions | string): NamingConvention`
 
-Composes a `NamingConvention`.
+Compose a `NamingConvention`.
 
-- `options` — `string` (preset name) or `CreateOptions`
+- `options` — preset name or `CreateOptions`
   (`{ preset?, delims?, fs?, wordPattern? }`).
 - `defaults` — fallback preset name or `CreateOptions`. Used when
   `options` does not specify a base preset.
@@ -67,8 +74,15 @@ Composes a `NamingConvention`.
 shorthand expanded to `{ name, val }`. `fs` is shallow-merged on top of
 the resolved preset.
 
-For exhaustive typings, see `NamingConvention`, `NamingDelims`,
-`FsConvention`, `CreateOptions` in `dist/index.d.ts`.
+```ts
+create();                       // → origin
+create('react');                // → react
+create({ delims: { mod: '--' } }, 'two-dashes');
+// → custom convention rooted at two-dashes with mod delimiter overridden
+```
+
+For exhaustive typings (`NamingConvention`, `NamingDelims`,
+`FsConvention`, `CreateOptions`) see `dist/index.d.ts`.
 
 ## License
 

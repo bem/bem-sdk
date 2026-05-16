@@ -21,7 +21,7 @@ Requires **Node.js >= 20** and ESM (`"type": "module"` in your
 import { patternParser } from '@bem/sdk.naming.cell.pattern-parser';
 
 patternParser('${layer?${layer}.}blocks/${entity}.${tech}');
-// => ['', ['layer', '', 'layer', '.'], 'blocks/', 'entity', '.', 'tech']
+// → ['', ['layer', '', 'layer', '.'], 'blocks/', 'entity', '.', 'tech']
 ```
 
 The pattern is a template-string-like description of a path layout in a
@@ -30,19 +30,27 @@ The pattern is a template-string-like description of a path layout in a
 
 ## API
 
-### `patternParser(pattern): PatternSeparation`
+### `patternParser(pattern: string): PatternSeparation`
 
-Parses a path pattern into a flat array.
+Parse a path pattern into a flat array.
 
-- `pattern` — `string`, the path pattern from a naming preset
+- `pattern` — the path pattern from a naming preset
   (for example, `${layer?${layer}.}blocks/${entity}.${tech}`).
-- Returns: `PatternSeparation` (`Array<string | PatternSeparation>`) —
-  literal segments interleaved with variable names, with optional groups
-  represented as nested arrays.
-- Throws: `Error` if the pattern has unbalanced `${ ... }` braces.
+- Returns: `PatternSeparation` — literal segments interleaved with
+  variable names, with optional groups represented as nested arrays.
+- Throws `Error` if the pattern has unbalanced `${ ... }` braces.
 
-The exported `PatternSeparation` type is the recursive shape consumed by
-the cell stringifier and matcher.
+```ts
+patternParser('${entity}.${tech}');
+// → ['', 'entity', '.', 'tech']
+
+patternParser('${unclosed');
+// → Error: Unclosed parenthesis in path pattern
+```
+
+### `type PatternSeparation = Array<string | PatternSeparation>`
+
+Recursive shape consumed by the cell stringifier and matcher.
 
 ## License
 
