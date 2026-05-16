@@ -1,7 +1,22 @@
-# Change Log
+# @bem/sdk.file
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## 1.0.0
+
+### Major Changes
+
+- eb101dc: Migrated to TypeScript / ESM (Node >=20).
+  Public API preserved: `BemFile` class with `cell`/`entity`/`tech`/`layer`/
+  `level`/`path`/`id`/`valueOf`/`toString`/`toJSON`/`isEqual`/`inspect` and
+  statics `BemFile.create`/`BemFile.isBemFile`. Removed unused `depd` runtime
+  dependency (legacy `BemFile` had no actual deprecation surface). All 17 unit
+  tests ported.
+
+### Patch Changes
+
+- Updated dependencies [22ec60f]
+  - @bem/sdk.cell@1.0.0
+
+## Pre-1.0 history (legacy)
 
 ## [0.3.5](https://github.com/bem/bem-sdk/compare/@bem/sdk.file@0.3.4...@bem/sdk.file@0.3.5) (2019-02-03)
 

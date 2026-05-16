@@ -1,0 +1,26 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "../entity-name"
+    },
+    {
+      "path": "../naming.entity.stringify"
+    },
+    {
+      "path": "../naming.presets"
+    }
+  ]
+}

@@ -1,368 +1,122 @@
-# Keyset
+# @bem/sdk.keyset
 
-The tool for representation of BEM i18n keyset.
+> In-memory representation of a BEM i18n keyset: a directory of
+> per-language files, each containing simple, parameterised or plural
+> keys, in the `taburet` or `enb` format.
 
-[![NPM Status][npm-img]][npm]
+[![npm](https://img.shields.io/npm/v/@bem/sdk.keyset.svg)](https://www.npmjs.org/package/@bem/sdk.keyset)
 
-[npm]:            https://www.npmjs.org/package/@bem/sdk.keyset
-[npm-img]:        https://img.shields.io/npm/v/@bem/sdk.keyset.svg
+## Install
 
-* [Introduction](#introduction)
-* [Try keyset](#try-keyset)
-* [Quick start](#quick-start)
-* [Formats](#formats)
-* [API reference](#api-reference)
-
-## Introduction
-
-Keyset representations BEM project's keysets and returns a JavaScript object with information about it.
-
-## Try keyset
-
-An example is available in the [RunKit editor](https://runkit.com/godfreyd/5c3339d802ce8e00124ead3f).
-
-## Quick start
-
-> **Attention.** To use `@bem/sdk.keyset`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
-
-To run the `@bem/sdk.keyset` package:
-
-1. [Install keyset](#installing-the-bemsdkkeyset-package).
-1. [Declaration keyset](#declaration-keyset).
-
-### Installing the `@bem/sdk.keyset` package
-
-To install the `@bem/sdk.keyset` package, run the following command:
-
-```bash
-$ npm install --save @bem/sdk.keyset
+```sh
+pnpm add @bem/sdk.keyset
 ```
 
-### Declaration keyset
+Requires **Node.js >= 20** and ESM (`"type": "module"` in your
+`package.json`, or use `import()` from CJS).
 
-Specify the Keyset name, path, and format for keyset. The `Keyset` class is a constructor for classes that enable format-sensitive keyset formatting.
+## Usage
 
-**Example:**
+```ts
+import { Keyset, LangKeys, Key, ParamedKey, PluralKey } from '@bem/sdk.keyset';
 
-```js
-const { Keyset } = require('@bem/sdk.keyset');
-const keyset = new Keyset('Time', 'src/features/Time/Time.i18n');
-keyset.name; // => 'Time'.
-keyset.path; // => 'src/features/Time/Time.i18n'.
-keyset.format; // => 'taburet' — default format, see Formats.
-```
+const keyset = new Keyset('Time', 'src/features/Time/Time.i18n', 'taburet');
 
-[RunKit live editor](https://runkit.com/godfreyd/5c3339d802ce8e00124ead3f).
-
-## Formats
-
-Keyset has two default formats:
-
-| Format | Extension |
-|--------|-----------|
-| `enb` | `.js` |
-| `taburet` | `.ts` |
-
-If you want to change default extension, override a variable `keyset.langsKeysExt` before saving keyset.
-
-**Example:**
-
-```js
-const mockfs = require('mock-fs');
-const { Keyset, Key, ParamedKey, PluralKey, LangKeys } = require("@bem/sdk.keyset");
-
-mockfs({
-    'src/features/Time/Time.i18n': {}
-});
-
-const langKeys = new LangKeys('ru', [
-    new Key('Time difference', 'Разница во времени'),
-    new PluralKey('{count} minute', {
-        one: new ParamedKey('{count} minute', '{count} минута', ['count']),
-        some: new ParamedKey('{count} minute', '{count} минуты', ['count']),
-        many: new ParamedKey('{count} minute', '{count} минут', ['count']),
-        none: new Key('{count} minute', 'нет минут')
-    })
+const en = new LangKeys('en', [
+  new Key('hello', 'Hello'),
+  new ParamedKey('greet', 'Hi, {name}!', ['name']),
+  new PluralKey('items', {
+    one:  new Key('items', '{count} item'),
+    some: new Key('items', '{count} items'),
+    many: new Key('items', '{count} items'),
+    none: new Key('items', 'No items'),
+  }),
 ]);
 
-const keyset = new Keyset('Time', 'src/features/Time/Time.i18n');
-keyset.addKeysForLang('ru', langKeys);
-keyset.langsKeysExt = '.ts';
-await keyset.save();
-keyset;
+keyset.addKeysForLang('en', en);
+
+await keyset.save(); // writes Time/en.ts (and index.ts for taburet)
 ```
 
-[RunKit live editor](https://runkit.com/godfreyd/5c347b7d8b4b220012693664).
+Round-trip:
 
-## API reference
-
-### keyset.load()
-
-Loads keyset from project's file system.
-
-```js
-async keyset.load();
+```ts
+const restored = new Keyset('Time', 'src/features/Time/Time.i18n', 'taburet');
+await restored.load();
 ```
 
-**Example:**
+## API
 
-```js
-const mockfs = require('mock-fs');
-const { stripIndent } = require('common-tags');
-const { Keyset } = require("@bem/sdk.keyset");
+### `class Keyset`
 
-mockfs({
-    'src/features/Time/Time.i18n': {
-        'ru.js': stripIndent`
-            export const ru = {
-                'Time difference': 'Разница во времени',
-                '{count} minute': {
-                    'one': '{count} минута',
-                    'some': '{count} минуты',
-                    'many': '{count} минут',
-                    'none': 'нет минут',
-                },
-            };
-        `,
-        'en.js': stripIndent`
-            export const en = {
-                'Time difference': 'Time difference',
-                '{count} minute': {
-                    'one': '{count} minute',
-                    'some': '{count} minutes',
-                    'many': '{count} minutes',
-                    'none': 'none',
-                },
-            };
-        `
-    }
-});
+#### `new Keyset(name: string, path?: string, format?: FormatName): Keyset`
 
-const keyset = new Keyset('Time', 'src/features/Time/Time.i18n');
-await keyset.load();
-keyset.langs; // => ['en', 'ru']
-```
+`format` is `'taburet'` (default, emits `.ts`) or `'enb'` (emits `.js`).
 
-[RunKit live editor](https://runkit.com/godfreyd/5c334a31bf421300126811b3).
+#### `keyset.addKeysForLang(lang: string, keys: LangKeys): void`
 
-### keyset.getLangKeysForLang(lang)
+Attach a `LangKeys` for a language code.
 
-Gets keys from found keyset.
+#### `keyset.getLangKeysForLang(lang: string): LangKeys | undefined`
 
-```js
-/**
-* Gets keys.
-*
-* @param {string} lang — The language to traverse.
-* @return {string[]} — Keys.
-*/
-keyset.getLangKeysForLang(lang);
-```
+#### `keyset.getKeysForLang(lang: string): Key[] | Record<string, never>`
 
-**Example:**
+#### `keyset.save(): Promise<void>`
 
-```js
-const mockfs = require('mock-fs');
-const { stripIndent } = require('common-tags');
-const { Keyset } = require("@bem/sdk.keyset");
+Write one file per language to `path`. Re-creates the directory.
 
-mockfs({
-    'src/features/Time/Time.i18n': {
-        'ru.js': stripIndent`
-            export const ru = {
-                'Time difference': 'Разница во времени',
-                '{count} minute': {
-                    'one': '{count} минута',
-                    'some': '{count} минуты',
-                    'many': '{count} минут',
-                    'none': 'нет минут',
-                },
-            };
-        `,
-        'en.js': stripIndent`
-            export const en = {
-                'Time difference': 'Time difference',
-                '{count} minute': {
-                    'one': '{count} minute',
-                    'some': '{count} minutes',
-                    'many': '{count} minutes',
-                    'none': 'none',
-                },
-            };
-        `
-    }
-});
+#### `keyset.load(): Promise<void>`
 
-const keyset = new Keyset('Time', 'src/features/Time/Time.i18n');
-await keyset.load();
-const langKeys = keyset.getLangKeysForLang('ru');
+Read files from `path` back into the keyset.
 
-langKeys.keys; // => [Key {name: 'Time difference', value: 'Разница во времени'}, PluralKey { ... }]
-```
+#### `Keyset.merge(...keysets: Keyset[]): Keyset` / `keyset.merge(...others: Keyset[]): Keyset`
 
-[RunKit live editor](https://runkit.com/godfreyd/5c345a7b617b3200145cbcfc).
+> Added in current release (closes #350).
 
-### keyset.addKeysForLang(lang, langKeys)
+Return a new keyset whose per-language `LangKeys` are the result of
+`LangKeys.merge` across all inputs. The instance method is shorthand
+for `Keyset.merge(this, ...others)`.
 
-Adds keys for language. Use with `keyset.save()` method.
+#### Read-only state
 
-```js
-/**
-* Adds keys.
-*
-* @param {string} lang — The language to add.
-* @return {object[]} — Keys.
-*/
-keyset.addKeysForLang(lang, langKeys);
-```
+- `keyset.langs: string[]`
+- `keyset.langKeys: Map<string, LangKeys>`
+- `keyset.errors: Error[]`
+- `keyset.isBroken: boolean`
+- Iterable over `[lang, LangKeys]` pairs.
 
-**Example:**
+### `class LangKeys`
 
-```js
-const mockfs = require('mock-fs');
-const { Keyset, Key, ParamedKey, PluralKey, LangKeys } = require("@bem/sdk.keyset");
+#### `new LangKeys(lang?: string, keys?: Iterable<Key>, keysetName?: string): LangKeys`
 
-mockfs({
-    'src/features/Time/Time.i18n': {}
-});
+#### `langKeys.keys: Key[]`
 
-const ruLangKeys = new LangKeys('ru', [
-    new Key('Time difference', 'Разница "во" времени'),
-    new PluralKey('{count} minute', {
-        one: new ParamedKey('{count} minute', '{count} минута', ['count']),
-        some: new ParamedKey('{count} minute', '{count} минуты', ['count']),
-        many: new ParamedKey('{count} minute', '{count} минут', ['count']),
-        none: new Key('{count} minute', 'нет минут')
-    })
-]);
+All `Key` instances as an array.
 
-const enLangKeys = new LangKeys('en', [
-    new Key('Time difference', 'Time difference',),
-    new PluralKey('{count} minute', {
-        one: new ParamedKey('{count} minute', '{count} minute', ['count']),
-        some: new ParamedKey('{count} minute', '{count} minutes', ['count']),
-        many: new ParamedKey('{count} minute', '{count} minutes', ['count']),
-        none: new Key('{count} minute', 'none')
-    })
-]);
+#### `langKeys.stringify(formatName: FormatName): string`
 
-const keyset = new Keyset('Time', 'src/features/Time/Time.i18n');
-keyset.addKeysForLang('ru', ruLangKeys);
-keyset.addKeysForLang('en', enLangKeys);
-await keyset.save();
-keyset.langs; // => ['ru', 'en']
-```
+Render to source text.
 
-[RunKit live editor](https://runkit.com/godfreyd/5c3476cf617b3200145cd6e6).
+#### `LangKeys.parse(source: string, formatName: FormatName): Promise<LangKeys>`
 
-### keyset.save()
+Inverse of `stringify`.
 
-Saves keyset to project's file system. Use with `keyset.addKeysForLang(lang, langKeys)` method.
+#### `LangKeys.merge(...langs: LangKeys[]): LangKeys`
 
-```js
-async keyset.save();
-```
+> Added in current release (closes #350).
 
-**Example:**
+Union of keys; later inputs override earlier ones on conflict.
 
-```js
-const mockfs = require('mock-fs');
-const { Keyset, Key, ParamedKey, PluralKey, LangKeys } = require("@bem/sdk.keyset");
+### `class Key`, `class ParamedKey`, `class PluralKey`
 
-mockfs({
-    'src/features/Time/Time.i18n': {}
-});
+- `new Key(name: string, value: string): Key` — plain string key.
+- `new ParamedKey(name: string, value: string, params: string[]): ParamedKey` — adds a list of placeholder names.
+- `new PluralKey(name: string, forms: PluralForms): PluralKey` — `forms`
+  is a partial map over `'one' | 'some' | 'many' | 'none'`.
 
-const langKeys = new LangKeys('ru', [
-    new Key('Time difference', 'Разница во времени'),
-    new PluralKey('{count} minute', {
-        one: new ParamedKey('{count} minute', '{count} минута', ['count']),
-        some: new ParamedKey('{count} minute', '{count} минуты', ['count']),
-        many: new ParamedKey('{count} minute', '{count} минут', ['count']),
-        none: new Key('{count} minute', 'нет минут')
-    })
-]);
-
-const keyset = new Keyset('Time', 'src/features/Time/Time.i18n');
-keyset.addKeysForLang('ru', langKeys);
-await keyset.save();
-keyset.langs; // => ['ru']
-```
-
-[RunKit live editor](https://runkit.com/godfreyd/5c347019617b3200145cd068).
-
-### LangKeys.stringify(value, formatName);
-
-Converts a JavaScript object to a special string ready to save on the project's file system.
-
-```js
-/**
- * Converts a JavaScript object to a string.
- *
- * @param {Object} value — The value to convert.
- * @param {string} formatName  — The name of format.
- * @returns {string} — The string to save.
- */
-LangKeys.stringify(value, formatName);
-```
-
-**Example:**
-
-```js
-const { Keyset, Key, ParamedKey, PluralKey, LangKeys } = require("@bem/sdk.keyset");
-const langKeys = new LangKeys('ru', [
-    new Key('Time difference', 'Разница во времени'),
-    new PluralKey('{count} minute', {
-        one: new ParamedKey('{count} minute', '{count} минута', ['count']),
-        some: new ParamedKey('{count} minute', '{count} минуты', ['count']),
-        many: new ParamedKey('{count} minute', '{count} минут', ['count']),
-        none: new Key('{count} minute', 'нет минут')
-    })
-]);
-langKeys.stringify('taburet');
-// => "export const ru = {\n'Time difference': 'Разница "во" времени',\n'{count} minute': {\n'one': '{count} минута',\n'some': '{count} минуты',\n'many': '{count} минут',\n'none': 'нет минут',\n},\n};"
-```
-
-[RunKit live editor](https://runkit.com/godfreyd/5c348b6bee503400124b0523).
-
-### LangKeys.parse(str, formatName)
-
-Parses a string, constructing the JavaScript object described by the string.
-
-```js
-/**
- * Parses a string to JavaScript object.
- *
- * @param {Object} str — The string to parse.
- * @param {string} formatName  — The name of format.
- * @returns {string} — The JavaScript object.
- */
-await LangKeys.parse(str, formatName);
-```
-
-**Example:**
-
-```js
-const { Keyset, Key, ParamedKey, PluralKey, LangKeys } = require("@bem/sdk.keyset");
-const { stripIndent } = require('common-tags');
-const str = stripIndent`
-    export const ru = {
-        'Time difference': 'Разница "во" времени',
-        '{count} minute': {
-            'one': '{count} минута',
-            'some': '{count} минуты',
-            'many': '{count} минут',
-            'none': 'нет минут',
-        },
-    };
-`;
-
-const langKeys = await LangKeys.parse(str, 'taburet');
-langKeys;
-```
-
-[RunKit live editor](https://runkit.com/godfreyd/5c348f9ec236980012045540).
+For exhaustive typings (`KeyValue`, `PluralForm`, `PluralForms`,
+`FormatName`) see `dist/index.d.ts`.
 
 ## License
 
-© 2019 [YANDEX LLC](https://yandex.com/company/). Code released under [Mozilla Public License 2.0](LICENSE.txt).
+MPL-2.0

@@ -1,12 +1,18 @@
 {
   "name": "@bem/sdk.naming.entity.parse",
-  "version": "0.2.9",
+  "version": "1.0.0",
   "description": "Parses slugs of BEM entities",
-  "publishConfig": {
-    "access": "public"
-  },
   "license": "MPL-2.0",
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem/bem-sdk.git",
+    "directory": "packages/naming.entity.parse"
+  },
   "author": "Andrew Abramov <mail@blond.im>",
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Anaming.entity.parse"
+  },
   "keywords": [
     "bem",
     "naming",
@@ -15,24 +21,31 @@
     "representation",
     "parse"
   ],
-  "bugs": {
-    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Anaming.entity.parse"
-  },
-  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.entity.parse#readme",
-  "repository": "bem/bem-sdk",
+  "type": "module",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
-  "main": "index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "files": [
-    "lib/**",
-    "index.js"
+    "dist"
   ],
-  "dependencies": {
-    "@bem/sdk.entity-name": "^0.2.11"
-  },
   "scripts": {
-    "bench": "matcha benchmark/*.js",
-    "test": "exit 0"
+    "build": "tsc --build",
+    "test": "mocha 'src/**/*.test.ts'"
+  },
+  "dependencies": {
+    "@bem/sdk.entity-name": "workspace:^",
+    "@bem/sdk.naming.presets": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

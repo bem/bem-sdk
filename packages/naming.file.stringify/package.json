@@ -1,37 +1,51 @@
 {
   "name": "@bem/sdk.naming.file.stringify",
-  "version": "0.1.11",
+  "version": "1.0.0",
   "description": "BemFile stringifier (aka @bem/fs-scheme/path)",
-  "publishConfig": {
-    "access": "public"
-  },
   "license": "MPL-2.0",
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.file.stringify#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem/bem-sdk.git",
+    "directory": "packages/naming.file.stringify"
+  },
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Anaming.file.stringify"
+  },
   "keywords": [
     "bem",
     "naming",
     "file",
     "stringify"
   ],
-  "bugs": {
-    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Anaming.file.stringify"
-  },
-  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.file.stringify#readme",
-  "repository": "bem/bem-sdk",
+  "type": "module",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
-  "dependencies": {
-    "@bem/sdk.naming.cell.stringify": "^0.0.13"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
   },
-  "devDependencies": {
-    "@bem/sdk.file": "^0.3.5"
-  },
-  "main": "file-stringify.js",
   "files": [
-    "file-stringify.js"
+    "dist"
   ],
   "scripts": {
-    "test": "nyc mocha"
+    "build": "tsc --build",
+    "test": "mocha 'src/**/*.test.ts'"
+  },
+  "dependencies": {
+    "@bem/sdk.naming.cell.stringify": "workspace:^"
+  },
+  "devDependencies": {
+    "@bem/sdk.file": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

@@ -1,7 +1,109 @@
 # Change Log
 
+## 1.0.0
+
+### Features
+
+- `BemConfig.levelByPath(path)` and `BemConfig.levelByPathSync(path)` —
+  return the level config that covers a given file/directory path. Picks
+  the most specific (longest) level whose `path` is a prefix of the input,
+  respecting directory boundaries. Closes [#277].
+- `BemConfig` constructor now requires `options.cwd` to be an absolute
+  path; relative values throw with a clear message. Closes [#268].
+- `sets` now accept a verbose array form mixing strings and `SetChunk`
+  objects, e.g. `[{ library: 'bem-components', set: 'touch-phone' },
+  { set: 'common' }, 'touch']`. Local `{ set: 'name' }` references are
+  expanded recursively against the surrounding `sets` map. Empty chunks,
+  conflicting `set`+`layer`, and missing references throw with explicit
+  messages. New public type `SetDefinitionItem`. Closes [#246].
+- `resolveSets` now rejects the ambiguous `set@lib/layer` token with a
+  clear message and documents the existing `@lib/layer` library-layer
+  reference syntax. Closes [#262].
+
+[#277]: https://github.com/bem/bem-sdk/issues/277
+[#268]: https://github.com/bem/bem-sdk/issues/268
+[#246]: https://github.com/bem/bem-sdk/issues/246
+[#262]: https://github.com/bem/bem-sdk/issues/262
+
+### Major Changes
+
+- 79068ed: Migrated to TypeScript / ESM (Node >=20).
+  Public API: named export `bemConfig` factory (default export retained), plus `BemConfig` class. Helpers `merge` and `resolveSets` are now public exports. New `configs` option allows pre-resolved configs for tests and DI (replacing legacy `proxyquire`-based mocks). Types `BemConfigOptions`, `RawConfig`, `MergedConfig`, `LevelConfig`, `LibConfig`, `SetChunk`, `SetDefinition`, `ConfigPlugin` ship with the package.
+
+  Replaced deps:
+  - `pinkie-promise` -> native `Promise`.
+  - `lodash.flatten` -> `Array.prototype.flat()`.
+  - `lodash.clonedeep` -> `structuredClone`.
+  - `lodash.isequal` -> `node:util.isDeepStrictEqual`.
+  - `glob@7` -> `glob@13` (no default export; `glob` / `globSync` named imports).
+  - `is-glob@3` -> `is-glob@4`.
+
+  Kept: `betterc`, `lodash.mergewith` (custom merge semantics), `lodash.uniqwith` (custom comparator).
+
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+
+# [0.1.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.10...@bem/sdk.config@0.1.0) (2019-04-15)
+
+### Features
+
+- **config:** merge common opts to each level ([349460a](https://github.com/bem/bem-sdk/commit/349460a))
+
+<a name="0.0.10"></a>
+
+## [0.0.10](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.9...@bem/sdk.config@0.0.10) (2018-07-01)
+
+**Note:** Version bump only for package @bem/sdk.config
+
+<a name="0.0.9"></a>
+
+## [0.0.9](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.7...@bem/sdk.config@0.0.9) (2018-04-17)
+
+**Note:** Version bump only for package @bem/sdk.config
+
+<a name="0.0.7"></a>
+
+## [0.0.7](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.6...@bem/sdk.config@0.0.7) (2018-04-17)
+
+**Note:** Version bump only for package @bem/sdk.config
+
+<a name="0.0.6"></a>
+
+## [0.0.6](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.5...@bem/sdk.config@0.0.6) (2017-12-27)
+
+### Bug Fixes
+
+- **config:** no need to dynamically load plugins ([9eb8df2](https://github.com/bem/bem-sdk/commit/9eb8df2))
+
+<a name="0.0.5"></a>
+
+## [0.0.5](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.4...@bem/sdk.config@0.0.5) (2017-12-12)
+
+**Note:** Version bump only for package @bem/sdk.config
+
+<a name="0.0.4"></a>
+
+## [0.0.4](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.3...@bem/sdk.config@0.0.4) (2017-11-07)
+
+**Note:** Version bump only for package @bem/sdk.config
+
+<a name="0.0.3"></a>
+
+## 0.0.3 (2017-10-01)
+
+### Bug Fixes
+
+- **config:** levels now should be arrays ([ef142d8](https://github.com/bem/bem-sdk/commit/ef142d8))
+
+<a name="0.0.2"></a>
+
+## 0.0.2 (2017-09-30)
+
+### Bug Fixes
+
+- **config:** levels now should be arrays ([ef142d8](https://github.com/bem/bem-sdk/commit/ef142d8))
+
+## Pre-1.0 history (legacy)
 
 # [0.1.0](https://github.com/bem/bem-sdk/compare/@bem/sdk.config@0.0.10...@bem/sdk.config@0.1.0) (2019-04-15)
 

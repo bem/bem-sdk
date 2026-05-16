@@ -1,7 +1,22 @@
-# Change Log
+# @bem/sdk.naming.file.stringify
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## 1.0.0
+
+### Major Changes
+
+- bae5762: Migrated to TypeScript / ESM (Node >=20).
+  Public API: named export `fileStringifyWrapper(convention)` (default export
+  retained). The wrapper consumes any `BemFile`-shaped object with `cell` plus
+  optional `level`/`tech` fields and delegates to
+  `@bem/sdk.naming.cell.stringify`. Tests rewritten in TS using the migrated
+  `@bem/sdk.file` as a fixture source.
+
+### Patch Changes
+
+- Updated dependencies [7456f4f]
+  - @bem/sdk.naming.cell.stringify@1.0.0
+
+## Pre-1.0 history (legacy)
 
 ## [0.1.11](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.file.stringify@0.1.10...@bem/sdk.naming.file.stringify@0.1.11) (2019-02-03)
 

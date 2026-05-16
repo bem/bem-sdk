@@ -1,7 +1,23 @@
-# Change Log
+# @bem/sdk.cell
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## 1.0.0
+
+### Major Changes
+
+- 22ec60f: Migrated to TypeScript / ESM (Node >=20).
+  Public API preserved: `BemCell` class with `entity`/`tech`/`layer`/`block`/
+  `elem`/`mod`/`id`/`valueOf`/`toString`/`toJSON`/`isEqual` and statics
+  `BemCell.create`/`BemCell.isBemCell`. Legacy `modName`/`modVal` getters retained
+  behind deprecation notices. Replaced `depd` with an inline
+  `process.emit('deprecation')` helper sharing semantics with the migrated
+  `@bem/sdk.entity-name` package. All 48 unit tests ported and rewritten in TS.
+
+### Patch Changes
+
+- Updated dependencies [6a4b1b3]
+  - @bem/sdk.entity-name@1.0.0
+
+## Pre-1.0 history (legacy)
 
 ## [0.2.9](https://github.com/bem/bem-sdk/compare/@bem/sdk.cell@0.2.8...@bem/sdk.cell@0.2.9) (2019-02-03)
 

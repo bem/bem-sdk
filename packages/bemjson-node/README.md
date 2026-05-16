@@ -1,278 +1,133 @@
-# BemjsonNode
+# @bem/sdk.bemjson-node
 
-[BEM tree](https://en.bem.info/methodology/key-concepts/#bem-tree) node representation.
+> Object representation of a [BEM tree][bem-tree] node: block, element,
+> modifiers and mixes.
 
-[![NPM Status][npm-img]][npm]
+[![npm](https://img.shields.io/npm/v/@bem/sdk.bemjson-node.svg)](https://www.npmjs.org/package/@bem/sdk.bemjson-node)
 
-[npm]:      https://www.npmjs.org/package/@bem/sdk.bemjson-node
-[npm-img]:  https://img.shields.io/npm/v/@bem/sdk.bemjson-node.svg
-
-Contents
---------
-
-* [Install](#install)
-* [Usage](#usage)
-* [API](#api)
-* [Serialization](#serialization)
-* [Debuggability](#debuggability)
-
-Install
--------
+## Install
 
 ```sh
-$ npm install --save @bem/sdk.bemjson-node
+pnpm add @bem/sdk.bemjson-node
 ```
 
-Usage
------
+Requires **Node.js >= 20** and ESM (`"type": "module"` in your
+`package.json`, or use `import()` from CJS).
 
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
+## Usage
 
-const bemjsonNode = new BemjsonNode({ block: 'button', elem: 'text' });
+```ts
+import { BemjsonNode } from '@bem/sdk.bemjson-node';
 
-bemjsonNode.block;     // button
-bemjsonNode.elem;      // text
-bemjsonNode.mods;      // {}
-bemjsonNode.elemMods;  // {}
-```
-
-API
----
-
-* [constructor({ block, mods, elem, elemMods, mix })](#constructor-block-mods-elem-elemmods-mix)
-* [block](#block)
-* [elem](#elem)
-* [mods](#mods)
-* [elemMods](#elemMods)
-* [mix](#mix)
-* [valueOf()](#valueof)
-* [toJSON()](#tojson)
-* [toString()](#tostring)
-* [static isBemjsonNode(bemjsonNode)](#static-isbemjsonnodebemjsonnode)
-
-### constructor({ block, mods, elem, elemMods, mix })
-
-Parameter  | Type     | Description
------------|----------|------------------------------
-`block`    | `string` | The block name of entity.
-`mods`     | `object` | An object of modifiers for block entity. Optional.
-`elem`     | `string` | The element name of entity. Optional.
-`elemMods` | `object` | An object of modifiers for element entity.<br><br> Should not be used without `elem` field. Optional.
-`mix`      | `string`, `object` or `array` | An array of mixed bemjson nodes.<br><br> From passed strings and objects will be created bemjson node objects. Optional.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
-
-// The block with modifier
-new BemjsonNode({
-    block: 'button',
-    mods: { view: 'action' }
-});
-
-// The element inside block with modifier
-new BemjsonNode({
-    block: 'button',
-    mods: { view: 'action' },
-    elem: 'inner'
-});
-
-// The element node with modifier
-new BemjsonNode({
-    block: 'button',
-    elem: 'icon',
-    elemMods: { type: 'load' }
-});
-
-// The block with a mixed element
-new BemjsonNode({
-    block: 'button',
-    mix: { block: 'button', elem: 'text' }
-});
-
-// Invalid value in mods field
-new BemjsonNode({
-    block: 'button',
-    mods: 'icon'
-});
-// ➜ AssertionError: @bem/sdk.bemjson-node: `mods` field should be a simple object or null.
-```
-
-### block
-
-The name of block to which entity in this node belongs.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
-const name = new BemjsonNode({ block: 'button' });
-
-name.block; // button
-```
-
-### elem
-
-The name of element to which entity in this node belongs.
-
-**Important:**  Contains `null` value if node is a block entity.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
-const node1 = new BemjsonNode({ block: 'button' });
-const node2 = new BemjsonNode({ block: 'button', elem: 'text' });
-
-node1.elem; // null
-node2.elem; // "text"
-```
-
-### mods
-
-The object with modifiers of this node.
-
-**Important:** Contains modifiers of a scope (block) node if this node IS an element.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
-
-const blockNode = new BemjsonNode({ block: 'button' });
-const modsNode = new BemjsonNode({ block: 'button', mods: { disabled: true } });
-const elemNode = new BemjsonNode({ block: 'button', mods: { disabled: true }, elem: 'text' });
-
-blockNode.mods; // { }
-elemNode.mods;  // { disabled: true }
-modsNode.mods;  // { disabled: true }
-```
-
-### elemMods
-
-The object with modifiers of this node.
-
-**Important:** Contains `null` if node IS NOT an element.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
-
-const blockNode = new BemjsonNode({ block: 'button' });
-const modsNode = new BemjsonNode({ block: 'button', mods: { disabled: true } });
-const elemNode = new BemjsonNode({ block: 'button', elem: 'text' });
-const emodsNode = new BemjsonNode({ block: 'button', elem: 'text', elemMods: { highlighted: true } });
-
-blockNode.elemMods; // null
-modsNode.elemMods;  // null
-elemNode.elemMods;  // { }
-emodsNode.elemMods; // { disabled: true }
-```
-
-### valueOf()
-
-Returns normalized object representing the bemjson node.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
-const node = new BemjsonNode({ block: 'button', mods: { focused: true }, elem: 'text' });
-
-node.valueOf();
-
-// ➜ { block: 'button', mods: { focused: true }, elem: 'text', elemMods: { } }
-```
-
-### toJSON()
-
-Returns raw data for `JSON.stringify()` purposes.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
-
-const node = new BemjsonNode({ block: 'input', mods: { available: true } });
-
-JSON.stringify(node); // {"block":"input","mods":{"available":true}}
-```
-
-### toString()
-
-Returns string representing the bemjson node.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
 const node = new BemjsonNode({
-    block: 'button', mods: { focused: true },
-    mix: { block: 'mixed', mods: { bg: 'red' } }
+  block: 'button',
+  mods: { theme: 'normal', size: 'm' },
+  elem: 'text',
+  elemMods: { bold: true },
+  mix: [{ block: 'link', mods: { external: true } }],
 });
 
-node.toString(); // "button _focused  mixed _bg_red"
+node.block;     // 'button'
+node.elem;      // 'text'
+node.mods;      // { theme: 'normal', size: 'm' }
+node.elemMods;  // { bold: true }
+node.mix;       // [BemjsonNode { block: 'link', ... }]
+
+JSON.stringify(node);
+// '{"block":"button","mods":{"theme":"normal","size":"m"},"elem":"text",...}'
 ```
 
-### static isBemjsonNode(bemjsonNode)
+## API
 
-Determines whether specified object is an instance of BemjsonNode.
+### `new BemjsonNode(options: BemjsonNodeOptions): BemjsonNode`
 
-Parameter     | Type            | Description
---------------|-----------------|-----------------------
-`bemjsonNode` | `*`             | The object to check.
+Create a node. `block` is required; `elemMods` requires `elem`. `mix`
+accepts a single value or an array, where entries may be `BemjsonNode`
+instances, option objects, or plain block-name strings.
 
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
+```ts
+import { BemjsonNode } from '@bem/sdk.bemjson-node';
 
-const bemjsonNode = new BemjsonNode({ block: 'input' });
+new BemjsonNode({ block: 'button', mods: { view: 'action' } });
+new BemjsonNode({ block: 'button', elem: 'icon', elemMods: { type: 'load' } });
+new BemjsonNode({ block: 'button', mix: { block: 'button', elem: 'text' } });
 
-BemjsonNode.isBemjsonNode(bemjsonNode); // true
-BemjsonNode.isBemjsonNode({ block: 'button' }); // false
+new BemjsonNode({ block: 'button', mods: 'icon' as never });
+// → AssertionError: `mods` field should be a simple object or null.
 ```
 
-Serialization
--------------
+### `node.block: string`
 
-The `BemjsonNode` has `toJSON` method to support `JSON.stringify()` behaviour.
+The name of the block this node belongs to.
 
-Use `JSON.stringify` to serialize an instance of `BemjsonNode`.
+### `node.elem: string | null`
 
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
+The element name, or `null` for block-level nodes.
 
-const node = new BemjsonNode({ block: 'input', mod: 'available' });
-
-JSON.stringify(node); // {"block":"input","mods":{"available":true}}
+```ts
+new BemjsonNode({ block: 'button' }).elem;                // null
+new BemjsonNode({ block: 'button', elem: 'text' }).elem;  // 'text'
 ```
 
-Use `JSON.parse` to deserialize JSON string and create an instance of `BemjsonNode`.
+### `node.mods: Modifiers`
 
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
+Block-level modifier map. Always an object (possibly empty).
 
-const str = '{"block":"input","mods":{"available"::true}}';
+### `node.elemMods: Modifiers | null`
 
-new BemjsonNode(JSON.parse(str)); // BemjsonNode({ block: 'input', mods: { available: true } });
+Element-level modifier map; `null` when `elem` is absent.
+
+### `node.mix: BemjsonNode[]`
+
+Array of mixed-in `BemjsonNode` instances (each option/string entry
+passed to the constructor is normalised to a `BemjsonNode`).
+
+### `node.valueOf(): BemjsonNodeRepresentation`
+
+Returns a plain-object representation of the node.
+
+```ts
+new BemjsonNode({ block: 'button', mods: { focused: true }, elem: 'text' }).valueOf();
+// → { block: 'button', mods: { focused: true }, elem: 'text', elemMods: {} }
 ```
 
-Debuggability
--------------
+### `node.toJSON(): BemjsonNodeRepresentation`
 
-In Node.js, `console.log()` calls `util.inspect()` on each argument without a formatting placeholder.
+Hook used by `JSON.stringify()`.
 
-`BemjsonNode` has `inspect()` method to get custom string representation of the object.
-
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
-
-const node = new BemjsonNode({ block: 'input', mods: { available: true } });
-
-console.log(node);
-
-// ➜ BemjsonNode { block: 'input', mods: { available: true } }
+```ts
+JSON.stringify(new BemjsonNode({ block: 'input', mods: { available: true } }));
+// → '{"block":"input","mods":{"available":true}}'
 ```
 
-You can also convert `BemjsonNode` object to `string`.
+### `node.toString(): string`
 
-```js
-const BemjsonNode = require('@bem/sdk.bemjson-node');
+Compact debug-style string. **Not** a naming-aware serializer — use
+`@bem/sdk.naming.*` for that.
 
-const node = new BemjsonNode({ block: 'input', mods: { available: true } });
-
-console.log(`node: ${node}`);
-
-// ➜ node: input _available
+```ts
+new BemjsonNode({
+  block: 'button',
+  mods: { focused: true },
+  mix: { block: 'mixed', mods: { bg: 'red' } },
+}).toString();
+// → 'button _focused  mixed _bg_red'
 ```
 
-License
--------
+### `BemjsonNode.isBemjsonNode(value: unknown): value is BemjsonNode`
 
-Code and documentation © 2017 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
+Cross-realm `instanceof`-style guard.
+
+```ts
+BemjsonNode.isBemjsonNode(new BemjsonNode({ block: 'input' })); // true
+BemjsonNode.isBemjsonNode({ block: 'button' });                 // false
+```
+
+For exhaustive typings (`BemjsonNodeOptions`, `BemjsonNodeRepresentation`,
+`BemjsonNodeMix`, `Modifiers`, `ModifierValue`) see `dist/index.d.ts`.
+
+## License
+
+MPL-2.0
+
+[bem-tree]: https://en.bem.info/methodology/key-concepts/#bem-tree

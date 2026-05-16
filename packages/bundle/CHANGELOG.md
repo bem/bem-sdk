@@ -1,7 +1,20 @@
-# Change Log
+# @bem/sdk.bundle
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## 1.0.0
+
+### Major Changes
+
+- 750d3d2: Migrated to TypeScript / ESM (Node >=20). Public API: named export `BemBundle`
+  class.
+
+### Patch Changes
+
+- Updated dependencies [1a8a0e5]
+- Updated dependencies [6a4b1b3]
+  - @bem/sdk.bemjson-to-decl@1.0.0
+  - @bem/sdk.entity-name@1.0.0
+
+## Pre-1.0 history (legacy)
 
 ## [0.2.15](https://github.com/bem/bem-sdk/compare/@bem/sdk.bundle@0.2.14...@bem/sdk.bundle@0.2.15) (2019-04-15)
 

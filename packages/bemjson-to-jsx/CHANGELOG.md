@@ -1,7 +1,37 @@
-# Change Log
+# @bem/sdk.bemjson-to-jsx
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## 1.0.0
+
+### Bug fixes
+
+- `styleToObj` now trims whitespace around colons and semicolons in inline
+  `style="..."` strings, so `'width: 200px; height: 100px;'` parses into
+  `{ width: '200px', height: '100px' }` instead of `{ width: ' 200px' }`.
+  Ports the fix from the archived bem-sdk-archive/bemjson-to-jsx#34.
+  Closes [#241].
+
+[#241]: https://github.com/bem/bem-sdk/issues/241
+
+### Major Changes
+
+- 10c3c72: Migrated to TypeScript / ESM (Node >=20).
+  Public API preserved: factory `bemjsonToJsx(options)` exposing
+  `tagToClass`/`plugins`/`styleToObj` as static fields, plus named exports
+  `Transformer`, `bemjsonToJsx`, `tagToClass`, `styleToObj`, and the typed
+  `BemJson`/`JSXNode`/`Plugin`/`PluginFactory`/`WhiteListOptions` shapes. Replaced
+  deprecated `camel-case@^3` and `pascal-case@^2` with `change-case@^5` (ESM,
+  typed). All 45 unit tests ported.
+
+### Patch Changes
+
+- Updated dependencies [6a4b1b3]
+- Updated dependencies [d5954b2]
+- Updated dependencies [d5954b2]
+  - @bem/sdk.entity-name@1.0.0
+  - @bem/sdk.naming.entity.stringify@2.0.0
+  - @bem/sdk.naming.presets@1.0.0
+
+## Pre-1.0 history (legacy)
 
 ## [0.2.9](https://github.com/bem/bem-sdk/compare/@bem/sdk.bemjson-to-jsx@0.2.8...@bem/sdk.bemjson-to-jsx@0.2.9) (2019-02-03)
 

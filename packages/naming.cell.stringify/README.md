@@ -1,230 +1,70 @@
-# naming.cell.stringify
+# @bem/sdk.naming.cell.stringify
 
-Stringifier for a BEM cell object.
+> Turns a `BemCell`-like object into a file path under a chosen
+> [naming convention][naming]. Inverse of `@bem/sdk.naming.cell.match`.
 
-[![NPM Status][npm-img]][npm]
+[![npm](https://img.shields.io/npm/v/@bem/sdk.naming.cell.stringify.svg)](https://www.npmjs.org/package/@bem/sdk.naming.cell.stringify)
 
-[npm]:          https://www.npmjs.org/package/@bem/sdk.naming.cell.stringify
-[npm-img]:      https://img.shields.io/npm/v/@bem/sdk.naming.cell.stringify.svg
+## Install
 
-* [Introduction](#introduction)
-* [Try stringify](#try-stringify)
-* [Quick start](#quick-start)
-* [API reference](#api-reference)
-* [Parameter tuning](#parameter-tuning)
-
-## Introduction
-
-Stringify returns the file path for a specified BEM cell object.
-
-You can choose a preset with a [naming convention](https://en.bem.info/methodology/naming-convention/) for creating a `stringify()` function. See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
-
-All provided presets use the [`nested`](https://en.bem.info/methodology/filestructure/#nested) file structure. To use the [`flat`](https://en.bem.info/methodology/filestructure/#flat) structure that is better for small projects, see [Using a custom naming convention](#using-a-custom-naming-convention).
-
-> **Note.** If you don't have any BEM projects available to try out the `@bem/sdk.naming.cell.stringify` package, the quickest way to create one is to use [bem-express](https://github.com/bem/bem-express).
-
-## Try stringify
-
-An example is available in the [RunKit editor](https://runkit.com/migs911/how-bem-sdk-naming-cell-stringify-works).
-
-## Quick start
-
-> **Attention.** To use `@bem/sdk.naming.cell.stringify`, you must install [Node.js 8.0+](https://nodejs.org/en/download/).
-
-To run the `@bem/sdk.naming.cell.stringify` package:
-
-1. [Install required packages](#installing-required-packages).
-2. [Create a `stringify()` function](#creating-a-stringify-function).
-3. [Create a BEM cell object](#creating-a-bem-cell-object).
-4. [Get a file path](#getting-a-file-path).
-
-### Installing required packages
-
-Install the following packages:
-
-* [@bem/sdk.naming.cell.stringify](https://www.npmjs.org/package/@bem/sdk.naming.cell.stringify), which makes the `stringify()` function.
-* [@bem/sdk.naming.presets](https://www.npmjs.com/package/@bem/sdk.naming.presets), which contains presets with well-known naming conventions.
-* [@bem/sdk.cell](https://www.npmjs.com/package/@bem/sdk.cell), which allows you to create a BEM cell object to stringify.
-
-To install these packages, run the following command:
-
-```
-$ npm install --save @bem/sdk.naming.cell.stringify @bem/sdk.naming.presets @bem/sdk.cell
+```sh
+pnpm add @bem/sdk.naming.cell.stringify @bem/sdk.naming.presets
 ```
 
-### Creating a `stringify()` function
+Requires **Node.js >= 20** and ESM (`"type": "module"` in your
+`package.json`, or use `import()` from CJS).
 
-Create a JavaScript file with any name (for example, **app.js**) and do the following:
+## Usage
 
-1. Choose the [naming convention](https://bem.info/methodology/naming-convention/) and import the preset with this convention (for example, origin naming convention).
-    See the full list of supported presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets#naming-conventions).
-1. Import the `@bem/sdk.naming.cell.stringify` package and create the `stringify()` function using the imported preset:
+```ts
+import { cellStringifyWrapper } from '@bem/sdk.naming.cell.stringify';
+import { origin } from '@bem/sdk.naming.presets';
 
-```js
-const originNaming = require('@bem/sdk.naming.presets/origin');
-const stringify = require('@bem/sdk.naming.cell.stringify')(originNaming);
+const stringify = cellStringifyWrapper(origin);
+
+stringify({
+  entity: { block: 'button' },
+  tech: 'css',
+  layer: 'common',
+});
+// → 'common.blocks/button/button.css'
+
+stringify({
+  entity: { block: 'button', mod: { name: 'theme', val: 'red' } },
+  tech: 'css',
+  layer: 'common',
+});
+// → 'common.blocks/button/_theme/button_theme_red.css'
 ```
 
-### Creating a BEM cell object
+## API
 
-Create a BEM cell object to stringify. You can use the [create()](https://github.com/bem/bem-sdk/tree/master/packages/cell#createobject) function from the `@bem/sdk.cell` package.
+### `cellStringifyWrapper(convention: NamingConvention): CellStringify`
 
-```js
-const BemCell = require('@bem/sdk.cell');
+> Was: `createStringify(naming)` in 0.x (returned the same callable).
 
-var myBemCell;
-myBemCell = BemCell.create({block: 'my-block', tech: 'css' });
+Build a stringifier from a `NamingConvention` (typically one of the
+`@bem/sdk.naming.presets` exports). Throws when `convention` is missing
+or has no `fs.pattern`.
+
+### `CellStringify: (cell: BemCellLike) => string`
+
+The cell must have `tech`; `layer` defaults to `'common'`. Throws when
+`tech` is missing.
+
+```ts
+const stringify = cellStringifyWrapper(origin);
+
+stringify({ entity: { block: 'icon', elem: 'svg' }, tech: 'js' });
+// → 'common.blocks/icon/__svg/icon__svg.js'
 ```
 
-### Getting a file path
+For exhaustive typings (`BemCellLike`, `CellStringify`,
+`NamingConvention`, `NamingDelims`, `FsConvention`) see
+`dist/index.d.ts`.
 
-Stringify the created BEM cell object:
+## License
 
-```js
-stringify(myBemCell);
-```
+MPL-2.0
 
-This function will return the string with the file path `common.blocks/my-block/my-block.css`.
-
-**Example:**
-
-```js
-const originNaming = require('@bem/sdk.naming.presets/origin');
-const stringify = require('@bem/sdk.naming.cell.stringify')(originNaming);
-
-const BemCell = require('@bem/sdk.cell');
-
-var myBemCell;
-myBemCell = BemCell.create({block: 'my-block', tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block/my-block.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                            tech: 'js' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block/my-block.js
-
-myBemCell = BemCell.create({block: 'my-block',
-                            layer: 'my-layer',
-                            tech: 'css' });
-console.log(stringify(myBemCell));
-// => my-layer.blocks/my-block/my-block.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                            mod: 'my-modifier',
-                            tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block/_my-modifier/my-block_my-modifier.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                            mod: 'my-modifier',
-                            val: 'some-value',
-                            tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block/_my-modifier/my-block_my-modifier_some-value.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                            elem: 'my-element',
-                            tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block/__my-element/my-block__my-element.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                            elem: 'my-element',
-                            mod: 'my-modifier',
-                            tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block/__my-element/_my-modifier/my-block__my-element_my-modifier.css
-```
-
-[RunKit live example](https://runkit.com/migs911/naming-cell-stringify-stringify-using-origin-convention).
-
-## API reference
-
-### stringify()
-
-Forms a file according to the object representation of BEM cell.
-
-```js
-/**
- * @typedef BemCell — Representation of cell.
- * @property {BemEntityName} entity — Representation of entity name.
- * @property {string} tech — Tech of cell.
- * @property {string} [layer] — Layer of cell.
- */
-
-/**
- * @param {Object|BemCell} cell — Object representation of BEM cell.
- * @returns {string} — File path for the BEM cell. This name can be used in class attributes.
- */
-stringify(cell);
-```
-
-## Parameter tuning
-
-### Using a custom naming convention
-
-To create a preset with a custom naming convention, use the `create()` function from the `@bem/sdk.naming.presets` package.
-
-For example, create a preset that uses the [flat](https://en.bem.info/methodology/filestructure/#flat) scheme to describe the file structure organization.
-
-Use the created preset to make your `stringify()` function.
-
-**Example:**
-
-```js
-const options = {
-        fs: { scheme: 'flat' }
-    };
-const originFlatNaming = require('@bem/sdk.naming.presets/create')(options);
-const stringify = require('@bem/sdk.naming.cell.stringify')(originFlatNaming);
-
-const BemCell = require('@bem/sdk.cell');
-
-var myBemCell;
-myBemCell = BemCell.create({block: 'my-block',
-                        tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                        tech: 'js' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block.js
-
-myBemCell = BemCell.create({block: 'my-block',
-                        layer: 'my-layer',
-                        tech: 'css' });
-console.log(stringify(myBemCell));
-// => my-layer.blocks/my-block.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                        mod: 'my-modifier',
-                        tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block_my-modifier.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                        mod: 'my-modifier',
-                        val: 'some-value',
-                        tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block_my-modifier_some-value.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                        elem: 'my-element',
-                        tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block__my-element.css
-
-myBemCell = BemCell.create({block: 'my-block',
-                        elem: 'my-element',
-                        mod: 'my-modifier',
-                        tech: 'css' });
-console.log(stringify(myBemCell));
-// => common.blocks/my-block__my-element_my-modifier.css
-```
-
-[RunKit live example](https://runkit.com/migs911/naming-cell-stringify-using-a-custom-naming-convention).
-
-See more examples of creating presets in the `@bem/sdk.naming.presets` package [documentation](https://github.com/bem/bem-sdk/tree/master/packages/naming.presets).
+[naming]: https://en.bem.info/methodology/naming-convention/

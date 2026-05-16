@@ -1,0 +1,17 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "composite": false,
+    "declaration": false,
+    "declarationMap": false,
+    "sourceMap": false,
+    "allowImportingTsExtensions": true,
+    "types": ["node", "mocha"]
+  },
+  "include": [
+    "packages/*/src/**/*.test.ts",
+    "packages/*/src/**/*.spec.ts",
+    "packages/*/src/**/*.d.ts"
+  ]
+}

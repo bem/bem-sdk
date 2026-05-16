@@ -1,9 +1,17 @@
 {
   "name": "@bem/sdk.decl",
-  "version": "0.3.10",
+  "version": "1.0.0",
   "description": "Manage declaration of BEM entities",
-  "publishConfig": {
-    "access": "public"
+  "license": "MPL-2.0",
+  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/decl#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem/bem-sdk.git",
+    "directory": "packages/decl"
+  },
+  "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
+  "bugs": {
+    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Adecl"
   },
   "keywords": [
     "bem",
@@ -14,35 +22,33 @@
     "subtract",
     "bemdecl"
   ],
-  "author": "Andrew Abramov <mail@blond.im> (github.com/blond)",
-  "license": "MPL-2.0",
-  "repository": "bem/bem-sdk",
-  "bugs": {
-    "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Adecl"
-  },
-  "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/decl#readme",
+  "type": "module",
   "engines": {
-    "node": ">= 8"
+    "node": ">=20"
   },
-  "main": "lib/index.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "files": [
-    "lib/**"
+    "dist"
   ],
-  "dependencies": {
-    "@bem/sdk.cell": "^0.2.9",
-    "@bem/sdk.entity-name": "^0.2.11",
-    "es6-promisify": "5.0.0",
-    "graceful-fs": "4.1.11",
-    "json5": "0.5.1",
-    "node-eval": "1.1.0"
-  },
   "scripts": {
-    "bench": "matcha benchmark/*.bench.js",
-    "specs": "mocha",
-    "cover": "nyc mocha",
-    "test": "npm run specs"
+    "build": "tsc --build",
+    "test": "mocha 'src/**/*.test.ts'"
   },
-  "devDependencies": {
-    "matcha": "^0.7.0"
+  "dependencies": {
+    "@bem/sdk.cell": "workspace:^",
+    "@bem/sdk.entity-name": "workspace:^",
+    "json5": "catalog:",
+    "node-eval": "catalog:"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

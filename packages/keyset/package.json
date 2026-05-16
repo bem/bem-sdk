@@ -1,34 +1,53 @@
 {
   "name": "@bem/sdk.keyset",
-  "version": "0.1.1",
+  "version": "1.0.0",
   "description": "Representation of BEM i18n keyset",
-  "publishConfig": {
-    "access": "public"
-  },
-  "main": "index.js",
-  "scripts": {
-    "test": "npm run specs",
-    "specs": "mocha",
-    "cover": "nyc mocha"
-  },
-  "repository": "bem/bem-sdk",
+  "license": "MPL-2.0",
+  "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
   "keywords": [
     "bem",
     "i18n",
     "keyset",
     "l10n"
   ],
-  "author": "Vasiliy Loginevskiy <yeti.or@gmail.com>",
-  "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Akeyset"
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/keyset#readme",
-  "devDependencies": {
-    "common-tags": "^1.8.0"
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem/bem-sdk.git",
+    "directory": "packages/keyset"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc --build",
+    "test": "mocha 'src/**/*.test.ts'"
   },
   "dependencies": {
     "node-eval": "^2.0.0",
     "xamel": "^0.3.1"
+  },
+  "devDependencies": {
+    "common-tags": "^1.8.2",
+    "@types/common-tags": "^1.8.4"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

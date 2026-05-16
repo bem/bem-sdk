@@ -1,0 +1,41 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "../cell"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../entity-name"
+    },
+    {
+      "path": "../file"
+    },
+    {
+      "path": "../naming.cell.match"
+    },
+    {
+      "path": "../naming.entity.parse"
+    },
+    {
+      "path": "../naming.entity.stringify"
+    },
+    {
+      "path": "../naming.presets"
+    }
+  ]
+}

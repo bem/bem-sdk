@@ -1,0 +1,10 @@
+// TODO(migration): the original walk test suite (~15 specs across
+// `test/core`, `test/naming`, `test/schemes/*`) was deeply coupled to
+// `mock-fs`, `proxyquire`, and `chai-subset`. The migration replaced the
+// production code with promise-based walkers and Node fs/promises; the
+// existing replacements (`src/index.test.ts`) cover the public surface
+// against real tmpdirs.
+//
+// The deferred suite still has value for legacy walker scheme detection,
+// nested per-mod path resolution, and naming overrides — port them to
+// real fixtures (or `memfs`) when revisiting walker internals.

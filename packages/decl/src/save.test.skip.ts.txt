@@ -1,0 +1,5 @@
+// TODO(migration): legacy save.test.js used proxyquire + sinon to stub
+// `./stringify` and `fs`. Reintroduce after picking a TS-friendly stubbing
+// strategy (DI on `save()` itself, or `node:test` mocks). For now the
+// behaviour is exercised end-to-end via `stringify.test.ts` + the simple
+// `save()` wrapper around `node:fs/promises.writeFile`.

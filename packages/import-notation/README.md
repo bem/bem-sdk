@@ -1,208 +1,86 @@
-# import-notation
+# @bem/sdk.import-notation
 
-Tool for working with BEM import strings.
+> Parser and stringifier for BEM short import notation
+> (`b:button e:text m:theme=normal|inverted t:css`).
 
-[![NPM Status][npm-img]][npm]
+[![npm](https://img.shields.io/npm/v/@bem/sdk.import-notation.svg)](https://www.npmjs.org/package/@bem/sdk.import-notation)
 
-[npm]:            https://www.npmjs.org/package/@bem/sdk.import-notation
-[npm-img]:        https://img.shields.io/npm/v/@bem/sdk.import-notation.svg
-
-Extract [BEM entities] from import strings.
-
-Installation
-------------
+## Install
 
 ```sh
-npm install --save @bem/sdk.import-notation
+pnpm add @bem/sdk.import-notation
 ```
 
-Usage
------
+Requires **Node.js >= 20** and ESM (`"type": "module"` in your
+`package.json`, or use `import()` from CJS).
 
-```js
-import {parse} from '@bem/sdk.import-notation';
+## Usage
 
-parse('b:button e:text'); // → [ { block : 'button', elem : 'text' } ]
+```ts
+import { parse, stringify, stringifyFull } from '@bem/sdk.import-notation';
 
-parse('b:button m:theme=normal|action');
+parse('b:button m:theme=normal|inverted t:css');
+// → [
+//   { block: 'button',                                              tech: 'css' },
+//   { block: 'button', mod: { name: 'theme' },                      tech: 'css' },
+//   { block: 'button', mod: { name: 'theme', val: 'normal' },       tech: 'css' },
+//   { block: 'button', mod: { name: 'theme', val: 'inverted' },     tech: 'css' },
+// ]
 
-// → [ { block : 'button' },
-//     { block : 'button', mod : { name: 'theme' } },
-//     { block : 'button', mod : { name: 'theme', val : 'normal' } },
-//     { block : 'button', mod : { name: 'theme', val : 'action' } } ]
-
+stringify([
+  { block: 'button' },
+  { block: 'button', mod: { name: 'theme', val: 'normal' } },
+]);
+// → 'b:button m:theme=normal'
 ```
 
-API
----
+## API
 
-* [parse](#parsestr-scope)
-* [stringify](#stringify)
+### `parse(importString: string, scope?: ParseScope): BemCell[]`
 
-### parse(str, [scope])
+Parse an import string and expand it into a deduplicated,
+insertion-ordered array of plain `BemCell` objects.
 
-Parameter | Type     | Description
-----------|----------|--------------------------------------------------------
-`str`     | `string` | BEM import notation check [notation section](#notation)
-[`scope`] | `object` | BEM entity name representation.
+- `importString` — space-separated tokens of the form
+  `b:<block>`, `e:<elem>`, `m:<name>[=<v1>|<v2>...]`, `t:<tech>`.
+- `scope` — optional `{ block?, elem? }` used as defaults for tokens
+  that omit `b:` / `e:`.
 
-Parses the string into BEM entities.
-
-Example:
-
-```js
-var entity = parse('b:button e:text')[0];
-entity.block // → 'button'
-entity.elem // → 'text'
+```ts
+parse('e:text m:pseudo', { block: 'button2' });
+// → [
+//   { block: 'button2', elem: 'text' },
+//   { block: 'button2', elem: 'text', mod: { name: 'pseudo' } },
+// ]
 ```
 
-#### scope
+### `stringify(cells: BemCell | BemCell[]): string`
 
-Context allows to extract portion of entities.
+Inverse of `parse`. Accepts a single cell or an array, merges them,
+and renders the canonical short form.
 
-```js
-var enties = parse('m:theme=normal', { block: 'button' });
-
-// → [ { block: 'button' },
-//     { block: 'button', mod: { name: 'theme' } },
-//     { block: 'button', mod: { name: 'theme', val: 'normal' } } ]
+```ts
+stringify({ block: 'button', mod: { name: 'theme', val: 'normal' } });
+// → 'b:button m:theme=normal'
 ```
 
-### stringify
+### `stringifyFull(importString: string, scope?: ParseScope): string`
 
-Parameter | Type     | Description
-----------|----------|------------------------------------------------------------------------------
-`entities`| `array`  | Array of [BEM entities] to merge into import string [notation](#notation)
+> Added in current release (closes #275).
 
-Forms a string from [BEM entities]. Be aware to merge only one type of entities.
-The array should contains one block or one elem and optionally it's modifiers.
+Resolve a short notation against a scope into its self-contained
+canonical form. Equivalent to `stringify(parse(importString, scope))`,
+exposed for tools (e.g. webpack-bem-plugin) that need a single
+round-trip.
 
-Notation
---------
-
-This section describes all possible syntax of BEM import strings.
-Examples are provided in es6 syntax. Note that [parse](#parsestr-scope) function only works with strings.
-
-Right now order of fields is important, check [issue](https://github.com/bem-sdk-archive/bem-import-notation/issues/12):
-
-1. `b:`
-1. `e:`
-1. `m:`
-1. `t:`
-
-### block
-
-```js
-import 'b:button';
-// → [ { block: 'button' } ]
+```ts
+stringifyFull('m:theme=normal', { block: 'button' });
+// → 'b:button m:theme=normal'
 ```
 
-#### block with simple modifier
+For exhaustive typings (`BemCell`, `BemEntityMod`, `ParseScope`) see
+`dist/index.d.ts`.
 
-```js
-import 'b:popup m:autoclosable';
-// → [ { block: 'popup', mod: { name: 'autoclosable' } } ]
-```
+## License
 
-#### block with modifier
-
-```js
-import 'b:button m:theme=active';
-// → [ { block: 'button', mod: { name: 'theme' } }
-//     { block: 'button', mod: { name: 'theme', val: 'active' } } ]
-```
-
-#### block with several modifiers
-
-```js
-import 'b:button m:theme=active m:size=m';
-// → [ { block: 'button' },
-//     { block: 'button', mod: { name: 'theme' } },
-//     { block: 'button', mod: { name: 'theme', val: 'active' } },
-//     { block: 'button', mod: { name: 'size' } },
-//     { block: 'button', mod: { name: 'size', val: 'm' } } ]
-```
-
-#### block with modifier that has several values
-
-```js
-import 'b:button m:theme=normal|active';
-// → [ { block: 'button' },
-//     { block: 'button', mod: { name: 'theme' } },
-//     { block: 'button', mod: { name: 'theme', val: 'normal' } },
-//     { block: 'button', mod: { name: 'theme', val: 'active' } } ]
-```
-
-### element
-
-```js
-import 'b:button e:text';
-// → [ { block: 'button', elem: 'text' } ]
-```
-
-#### element with simple modifier
-
-```js
-import 'b:popup e:tail m:autoclosable';
-// → [ { block: 'popup', elem: 'tail' },
-//     { block: 'popup', elem: 'tail', mod: { name: 'autoclosable' } } ]
-```
-
-#### element with modifier
-
-```js
-import 'b:button e:text m:theme=active';
-// → [ { block: 'button', elem: 'text' },
-//     { block: 'button', elem: 'text', mod: { name: 'theme' } },
-//     { block: 'button', elem: 'text', mod: { name: 'theme', val: 'active' } } ]
-```
-
-#### element with several modifiers
-
-```js
-import 'b:button e:text m:theme=active m:size=m';
-// → [ { block: 'button', elem: 'text' },
-//     { block: 'button', elem: 'text', mod: { name: 'theme' } },
-//     { block: 'button', elem: 'text', mod: { name: 'theme', val: 'active' } },
-//     { block: 'button', elem: 'text', mod: { name: 'size' } },
-//     { block: 'button', elem: 'text', mod: { name: 'size', val: 'm' } } ]
-```
-
-#### element with modifier that has several values
-
-```js
-import 'b:button e:text m:theme=normal|active';
-// → [ { block: 'button', elem: 'text' },
-//     { block: 'button', elem: 'text', mod: { name: 'theme' } },
-//     { block: 'button', elem: 'text', mod: { name: 'theme', val: 'normal' } },
-//     { block: 'button', elem: 'text', mod: { name: 'theme', val: 'active' } } ]
-```
-
-### technology
-
-Technology is abstraction for extension on file system. Check [docs](https://en.bem.info/methodology/key-concepts/#implementation-technology).
-
-Specify field `t:` to extract BEM entities with concretele technology.
-
-```js
-import 'b:button t:css';
-// → [ { block: 'button', tech: 'css' } ]
-
-import 'b:button m:theme=active t:js';
-// → [ { block: 'button', tech: 'js' },
-//     { block: 'button', mod: { name: 'theme' }, tech: 'js' },
-//     { block: 'button', mod: { name: 'theme', val: 'active' }, tech: 'js' } ]
-
-import 'b:button e:text m:theme=normal|active t:css';
-// → [ { block: 'button', elem: 'text', tech: 'css' },
-//     { block: 'button', elem: 'text', mod: { name: 'theme' }, tech: 'css' },
-//     { block: 'button', elem: 'text', mod: { name: 'theme', val: 'normal' }, tech: 'css' },
-//     { block: 'button', elem: 'text', mod: { name: 'theme', val: 'active' }, tech: 'css' } ]
-```
-
-License
--------
-
-Code and documentation copyright 2017 YANDEX LLC. Code released under the [Mozilla Public License 2.0](LICENSE.txt).
-
-[BEM entities]: https://en.bem.info/methodology/key-concepts/#bem-entity
+MPL-2.0

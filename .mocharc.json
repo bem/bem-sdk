@@ -1,0 +1,8 @@
+{
+  "extension": ["ts"],
+  "spec": "packages/*/src/**/*.{test,spec}.ts",
+  "node-option": ["import=tsx"],
+  "reporter": "spec",
+  "timeout": 5000,
+  "ui": "bdd"
+}

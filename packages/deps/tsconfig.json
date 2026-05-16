@@ -1,0 +1,38 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "rootDir": "src",
+    "outDir": "dist"
+  },
+  "include": [
+    "src/**/*.ts",
+    "src/**/*.d.ts"
+  ],
+  "exclude": [
+    "src/**/*.test.ts",
+    "src/**/*.spec.ts"
+  ],
+  "references": [
+    {
+      "path": "../cell"
+    },
+    {
+      "path": "../config"
+    },
+    {
+      "path": "../decl"
+    },
+    {
+      "path": "../entity-name"
+    },
+    {
+      "path": "../file"
+    },
+    {
+      "path": "../graph"
+    },
+    {
+      "path": "../walk"
+    }
+  ]
+}

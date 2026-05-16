@@ -1,7 +1,25 @@
-# Change Log
+# @bem/sdk.naming.entity
 
-All notable changes to this project will be documented in this file.
-See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
+## 1.0.0
+
+### Major Changes
+
+- fc0d4c5: Migrated to TypeScript / ESM (Node >=20). Public API:
+  `bemNaming(convention) → { parse, stringify, delims, wordPattern }`. The default
+  namespace is also attached to the factory itself (`bemNaming.parse`, etc.).
+
+### Patch Changes
+
+- Updated dependencies [6a4b1b3]
+- Updated dependencies [670a68b]
+- Updated dependencies [d5954b2]
+- Updated dependencies [d5954b2]
+  - @bem/sdk.entity-name@1.0.0
+  - @bem/sdk.naming.entity.parse@1.0.0
+  - @bem/sdk.naming.entity.stringify@2.0.0
+  - @bem/sdk.naming.presets@1.0.0
+
+## Pre-1.0 history (legacy)
 
 ## [0.2.11](https://github.com/bem/bem-sdk/compare/@bem/sdk.naming.entity@0.2.10...@bem/sdk.naming.entity@0.2.11) (2019-02-03)
 

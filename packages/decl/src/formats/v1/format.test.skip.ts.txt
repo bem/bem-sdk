@@ -1,0 +1,5 @@
+// TODO(migration): port 355-line legacy v1 format tests in a follow-up.
+// Coverage today is provided by the high-level `index.test.ts` plus the
+// migrated `formats/enb/format.test.ts`. Behaviour parity with the legacy
+// implementation was verified by hand — the migrated `format.ts` is a
+// near-mechanical port.

@@ -1,10 +1,7 @@
 {
   "name": "@bem/sdk.naming.cell.stringify",
-  "version": "0.0.13",
+  "version": "1.0.0",
   "description": "BemCell stringifier (aka @bem/fs-scheme/path)",
-  "publishConfig": {
-    "access": "public"
-  },
   "license": "MPL-2.0",
   "author": "Alexey Yaroshevich <zxqfox@gmail.com> (github.com/zxqfox)",
   "keywords": [
@@ -17,22 +14,36 @@
     "url": "https://github.com/bem/bem-sdk/issues?q=label%3Apkg%3Anaming.cell.stringify"
   },
   "homepage": "https://github.com/bem/bem-sdk/tree/master/packages/naming.cell.stringify#readme",
-  "repository": "bem/bem-sdk",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bem/bem-sdk.git",
+    "directory": "packages/naming.cell.stringify"
+  },
+  "type": "module",
   "engines": {
-    "node": ">= 8.0"
+    "node": ">=20"
   },
-  "main": "cell-stringify.js",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
   "files": [
-    "cell-stringify.js"
+    "dist"
   ],
-  "dependencies": {
-    "@bem/sdk.naming.cell.pattern-parser": "^0.0.7"
-  },
-  "devDependencies": {
-    "@bem/sdk.cell": "^0.2.9",
-    "@bem/sdk.naming.entity": "^0.2.11"
-  },
   "scripts": {
-    "test": "nyc mocha"
+    "build": "tsc --build",
+    "test": "mocha 'src/**/*.test.ts'"
+  },
+  "dependencies": {
+    "@bem/sdk.naming.cell.pattern-parser": "workspace:^",
+    "@bem/sdk.naming.entity.stringify": "workspace:^"
+  },
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
   }
 }

@@ -1,0 +1,37 @@
+import { expect } from 'chai';
+import { BemGraph } from '../index.js';
+import { findIndex } from '../test-utils.js';
+describe('deps-recommended-order/unordered-deps', () => {
+    it('should keep the ordering described in deps', () => {
+        const graph = new BemGraph();
+
+        graph.vertex({ block: 'A' })
+            .linkWith({ block: 'B' })
+            .linkWith({ block: 'C' });
+
+        const decl = graph.dependenciesOf({ block: 'A' });
+
+        const indexB = findIndex(decl, { entity: { block: 'B' } });
+        const indexC = findIndex(decl, { entity: { block: 'C' } });
+
+        expect(indexB).to.be.below(indexC);
+    });
+
+    it('should keep ordering for transitive dependencies', () => {
+        const graph = new BemGraph();
+
+        graph.vertex({ block: 'A' })
+            .linkWith({ block: 'B' });
+
+        graph.vertex({ block: 'B' })
+            .linkWith({ block: 'C' })
+            .linkWith({ block: 'D' });
+
+        const decl = graph.dependenciesOf({ block: 'A' });
+
+        const indexC = findIndex(decl, { entity: { block: 'C' } });
+        const indexD = findIndex(decl, { entity: { block: 'D' } });
+
+        expect(indexC).to.be.below(indexD);
+    });
+});
