@@ -49,35 +49,73 @@ await restored.load();
 
 ### `class Keyset`
 
-- `new Keyset(name, path?, format?)` — `format` is `'taburet'` (default,
-  emits `.ts`) or `'enb'` (emits `.js`).
-- `addKeysForLang(lang, langKeys)` — attach a `LangKeys` for a
-  language code.
-- `getLangKeysForLang(lang)`, `getKeysForLang(lang)` — lookup helpers.
-- `save(): Promise<void>` — writes one file per language to `path`.
-  Re-creates the directory.
-- `load(): Promise<void>` — reads files from `path` back into the
-  keyset.
-- `langs`, `langKeys`, `errors`, `isBroken` — read-only state.
+#### `new Keyset(name: string, path?: string, format?: FormatName): Keyset`
+
+`format` is `'taburet'` (default, emits `.ts`) or `'enb'` (emits `.js`).
+
+#### `keyset.addKeysForLang(lang: string, keys: LangKeys): void`
+
+Attach a `LangKeys` for a language code.
+
+#### `keyset.getLangKeysForLang(lang: string): LangKeys | undefined`
+
+#### `keyset.getKeysForLang(lang: string): Key[] | Record<string, never>`
+
+#### `keyset.save(): Promise<void>`
+
+Write one file per language to `path`. Re-creates the directory.
+
+#### `keyset.load(): Promise<void>`
+
+Read files from `path` back into the keyset.
+
+#### `Keyset.merge(...keysets: Keyset[]): Keyset` / `keyset.merge(...others: Keyset[]): Keyset`
+
+> Added in current release (closes #350).
+
+Return a new keyset whose per-language `LangKeys` are the result of
+`LangKeys.merge` across all inputs. The instance method is shorthand
+for `Keyset.merge(this, ...others)`.
+
+#### Read-only state
+
+- `keyset.langs: string[]`
+- `keyset.langKeys: Map<string, LangKeys>`
+- `keyset.errors: Error[]`
+- `keyset.isBroken: boolean`
 - Iterable over `[lang, LangKeys]` pairs.
 
 ### `class LangKeys`
 
-- `new LangKeys(lang?, keys?, keysetName?)`.
-- `keys` — all `Key`s as an array.
-- `stringify(formatName)` — render to source text.
-- `static parse(source, formatName): Promise<LangKeys>` — inverse of
-  `stringify`.
+#### `new LangKeys(lang?: string, keys?: Iterable<Key>, keysetName?: string): LangKeys`
+
+#### `langKeys.keys: Key[]`
+
+All `Key` instances as an array.
+
+#### `langKeys.stringify(formatName: FormatName): string`
+
+Render to source text.
+
+#### `LangKeys.parse(source: string, formatName: FormatName): Promise<LangKeys>`
+
+Inverse of `stringify`.
+
+#### `LangKeys.merge(...langs: LangKeys[]): LangKeys`
+
+> Added in current release (closes #350).
+
+Union of keys; later inputs override earlier ones on conflict.
 
 ### `class Key`, `class ParamedKey`, `class PluralKey`
 
-- `Key(name, value)` — plain string key.
-- `ParamedKey(name, value, params)` — adds a list of placeholder names.
-- `PluralKey(name, forms)` — `forms` is a partial map over
-  `'one' | 'some' | 'many' | 'none'`.
+- `new Key(name: string, value: string): Key` — plain string key.
+- `new ParamedKey(name: string, value: string, params: string[]): ParamedKey` — adds a list of placeholder names.
+- `new PluralKey(name: string, forms: PluralForms): PluralKey` — `forms`
+  is a partial map over `'one' | 'some' | 'many' | 'none'`.
 
-For exhaustive typings, see `KeyValue`, `PluralForm`, `PluralForms`,
-`FormatName` in `dist/index.d.ts`.
+For exhaustive typings (`KeyValue`, `PluralForm`, `PluralForms`,
+`FormatName`) see `dist/index.d.ts`.
 
 ## License
 

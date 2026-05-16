@@ -27,43 +27,68 @@ graph.vertex({ block: 'button' })
   .linkWith({ block: 'helper' }); // unordered edge
 
 const sorted = graph.dependenciesOf({ block: 'button' });
-// => [{ entity: { block: 'icon' } },
-//     { entity: { block: 'helper' } },
-//     { entity: { block: 'button' } }]
+// → [{ entity: { block: 'icon' } },
+//    { entity: { block: 'helper' } },
+//    { entity: { block: 'button' } }]
 ```
 
 ## API
 
-### `class BemGraph`
+### `new BemGraph(): BemGraph`
 
-- `vertex(entity, tech?): Vertex` — adds (or returns) a vertex for a
-  cell and returns a `Vertex` builder.
-- `dependenciesOf(cells, tech?): DependencyResult[]` — topologically
-  sorted list. Accepts a single entity / cell or an array.
-- `naturalDependenciesOf(entities, tech?): DependencyResult[]` — same
-  as `dependenciesOf`, but preserves the input declaration order
-  before sorting.
+Create an empty graph.
+
+### `graph.vertex(entity: EntityInput, tech?: string): Vertex`
+
+Add (or retrieve) a vertex for an entity/cell and return a `Vertex`
+builder for chaining edges. `entity` accepts a `BemEntityName`, a flat
+`{ block, elem?, mod? }` object, or a block name string.
+
+### `graph.dependenciesOf(cells: EntityInput | BemCell | Array<EntityInput | BemCell>, tech?: string): DependencyResult[]`
+
+Topologically sorted list of `{ entity, tech? }` records. Accepts a
+single entity / cell or an array.
+
+```ts
+graph.dependenciesOf([{ block: 'button' }, { block: 'icon' }], 'css');
+```
+
+### `graph.naturalDependenciesOf(entities: Array<EntityInput | { entity, tech? }>, tech?: string): DependencyResult[]`
+
+Same as `dependenciesOf`, but pre-sorts the input declaration in
+"natural" order (elems after blocks, value-mods after key-mods) before
+resolving.
+
+### `graph.naturalize(): void`
+
+Adds implicit ordered edges (`block → elem`, `block → mod`, etc.)
+based on naming relationships. Useful when edges come from a parser
+that only records explicit `deps.js` links.
 
 ### `class Vertex`
 
-- `dependsOn(entity, tech?)` — ordered edge: dependency must precede
-  the current vertex.
-- `linkWith(entity, tech?)` — unordered edge: both vertices must end
-  up in the result, order between them is unconstrained.
+#### `vertex.dependsOn(entity: EntityInput, tech?: string): this`
+
+Ordered edge — `entity` must precede the current vertex in the result.
+
+#### `vertex.linkWith(entity: EntityInput, tech?: string): this`
+
+Unordered edge — both vertices must end up in the result; their
+relative order is unconstrained.
 
 Both methods return `this` for chaining.
 
-### Errors
+### `CircularDependencyError`
 
-- `CircularDependencyError` — thrown when ordered edges form a cycle.
-  Exposes the offending path on `error.path`.
+Thrown when ordered edges form a cycle. Exposes the offending path on
+`error.path`.
 
 ### Lower-level building blocks
 
-- `MixedGraph`, `DirectedGraph`, `VertexSet` — internals exposed for
-  advanced use; not part of the public stability surface.
+`MixedGraph`, `DirectedGraph`, `VertexSet` — internals exposed for
+advanced use; not part of the public stability surface.
 
-For exhaustive typings, see `DependencyResult` in `dist/index.d.ts`.
+For exhaustive typings (`DependencyResult`) see `dist/index.d.ts`.
 
 ## License
 

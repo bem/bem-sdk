@@ -17,28 +17,28 @@ Requires **Node.js >= 20** and ESM (`"type": "module"` in your
 ## Usage
 
 ```ts
-import { parse, stringify } from '@bem/sdk.import-notation';
+import { parse, stringify, stringifyFull } from '@bem/sdk.import-notation';
 
 parse('b:button m:theme=normal|inverted t:css');
-// => [
-//   { block: 'button',                               tech: 'css' },
-//   { block: 'button', mod: { name: 'theme' },        tech: 'css' },
-//   { block: 'button', mod: { name: 'theme', val: 'normal' },   tech: 'css' },
-//   { block: 'button', mod: { name: 'theme', val: 'inverted' }, tech: 'css' },
+// → [
+//   { block: 'button',                                              tech: 'css' },
+//   { block: 'button', mod: { name: 'theme' },                      tech: 'css' },
+//   { block: 'button', mod: { name: 'theme', val: 'normal' },       tech: 'css' },
+//   { block: 'button', mod: { name: 'theme', val: 'inverted' },     tech: 'css' },
 // ]
 
 stringify([
   { block: 'button' },
   { block: 'button', mod: { name: 'theme', val: 'normal' } },
 ]);
-// => 'b:button m:theme=normal'
+// → 'b:button m:theme=normal'
 ```
 
 ## API
 
-### `parse(importString, scope?): BemCell[]`
+### `parse(importString: string, scope?: ParseScope): BemCell[]`
 
-Parses an import string and expands it into a deduplicated
+Parse an import string and expand it into a deduplicated,
 insertion-ordered array of plain `BemCell` objects.
 
 - `importString` — space-separated tokens of the form
@@ -46,12 +46,39 @@ insertion-ordered array of plain `BemCell` objects.
 - `scope` — optional `{ block?, elem? }` used as defaults for tokens
   that omit `b:` / `e:`.
 
-### `stringify(cells): string`
+```ts
+parse('e:text m:pseudo', { block: 'button2' });
+// → [
+//   { block: 'button2', elem: 'text' },
+//   { block: 'button2', elem: 'text', mod: { name: 'pseudo' } },
+// ]
+```
+
+### `stringify(cells: BemCell | BemCell[]): string`
 
 Inverse of `parse`. Accepts a single cell or an array, merges them,
 and renders the canonical short form.
 
-For exhaustive typings, see `BemCell`, `BemEntityMod`, `ParseScope` in
+```ts
+stringify({ block: 'button', mod: { name: 'theme', val: 'normal' } });
+// → 'b:button m:theme=normal'
+```
+
+### `stringifyFull(importString: string, scope?: ParseScope): string`
+
+> Added in current release (closes #275).
+
+Resolve a short notation against a scope into its self-contained
+canonical form. Equivalent to `stringify(parse(importString, scope))`,
+exposed for tools (e.g. webpack-bem-plugin) that need a single
+round-trip.
+
+```ts
+stringifyFull('m:theme=normal', { block: 'button' });
+// → 'b:button m:theme=normal'
+```
+
+For exhaustive typings (`BemCell`, `BemEntityMod`, `ParseScope`) see
 `dist/index.d.ts`.
 
 ## License

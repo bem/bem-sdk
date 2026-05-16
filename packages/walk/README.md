@@ -25,7 +25,7 @@ walk(['common.blocks', 'desktop.blocks'])
   .on('data', (file) => console.log(file.cell.id, '->', file.path))
   .on('end',  () => console.log('done'));
 
-// Drained into an array.
+// Drain into an array.
 const files = await asArray(['common.blocks', 'desktop.blocks']);
 
 // Config-driven: pulls levels and sets from `BemConfig`.
@@ -35,22 +35,24 @@ walkSets({
   sets: 'desktop',
   config: new BemConfig({ cwd: process.cwd() }),
 })
-  .on('data', (file) => /* ... */ {});
+  .on('data', (file) => { /* ... */ });
 ```
 
 ## API
 
-### `walk(levels?, options?): Readable`
+### `walk(levels?: string[], options?: LegacyWalkOptions): Readable`
 
 Quick entry point for the legacy "give me a list of paths" workflow.
 Returns an object-mode `Readable` that emits one file per chunk.
 
 - `levels` — array of level paths.
 - `options` — `LegacyWalkOptions`. Common fields:
-  `defaults.scheme` (`'nested' | 'mixed' | 'flat'`),
-  `defaults.naming`, `levels`, `configs`.
+  `defaults.scheme` (`'nested' | 'mixed' | 'flat'`), `defaults.naming`,
+  `levels`, `configs`.
 
-### `walkSets(options): Readable`
+### `walkSets(options: WalkOptions): Readable`
+
+> Was: `walk(options)` config-form in 0.x. Renamed and split for clarity.
 
 Config-driven variant.
 
@@ -60,10 +62,15 @@ Config-driven variant.
 - `options.config` — a `BemConfig` instance or plain
   `BemConfigOptions` object.
 
-### `asArray(...args): Promise<unknown[]>`
+### `asArray(levels?: string[], options?: LegacyWalkOptions): Promise<unknown[]>`
 
 Convenience wrapper around `walk(...)` that resolves with the full
-list of emitted files (use only when the result fits in memory).
+list of emitted files. Uses `Readable.toArray()` (Node 17+) under the
+hood. Use only when the result fits in memory.
+
+```ts
+const files = await asArray(['common.blocks'], { defaults: { scheme: 'nested' } });
+```
 
 ### `walkers`
 
@@ -71,8 +78,9 @@ Map of built-in walker implementations (`walkers.sdk`,
 `walkers.nested`, etc.). Mostly internal; useful when wiring custom
 schemes via `defaults.legacyWalker = true`.
 
-For exhaustive typings, see `Walker`, `WalkerInfo`, `WalkerAdd`,
-`WalkerName`, `LegacyWalkOptions`, `WalkOptions` in `dist/index.d.ts`.
+For exhaustive typings (`Walker`, `WalkerInfo`, `WalkerAdd`,
+`WalkerName`, `LegacyWalkOptions`, `WalkOptions`) see
+`dist/index.d.ts`.
 
 ## License
 
