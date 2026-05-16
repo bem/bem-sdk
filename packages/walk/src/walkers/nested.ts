@@ -92,6 +92,10 @@ class LevelWalker {
   }
 
   async scanBlockModDir(dirname: string, scope: BemEntityName): Promise<void> {
+    // Mod directory holds only leaf entries (no further recursion), so
+    // there's no readdir-induced fan-out to parallelise — a sequential
+    // pass over `items` is enough and keeps the order of `add()` calls
+    // deterministic relative to the parent directory listing.
     const items = await readDirItems(dirname);
     for (const item of items) {
       const entity = this.naming.parse(item.stem);
@@ -145,6 +149,8 @@ class LevelWalker {
   }
 
   async scanElemModDir(dirname: string, scope: BemEntityName): Promise<void> {
+    // Same reasoning as `scanBlockModDir`: leaf-only directory, sequential
+    // iteration keeps `add()` order stable.
     const items = await readDirItems(dirname);
     for (const item of items) {
       const entity = this.naming.parse(item.stem);

@@ -39,34 +39,92 @@ JSON.stringify(node);
 
 ## API
 
-### `new BemjsonNode({ block, elem?, mods?, elemMods?, mix? })`
+### `new BemjsonNode(options: BemjsonNodeOptions): BemjsonNode`
 
-`block` is required. `elemMods` requires `elem`. `mix` accepts a single
-node or an array; entries may be `BemjsonNode` instances, options
-objects, or plain block-name strings.
+Create a node. `block` is required; `elemMods` requires `elem`. `mix`
+accepts a single value or an array, where entries may be `BemjsonNode`
+instances, option objects, or plain block-name strings.
 
-### `BemjsonNode.isBemjsonNode(value)`
+```ts
+import { BemjsonNode } from '@bem/sdk.bemjson-node';
+
+new BemjsonNode({ block: 'button', mods: { view: 'action' } });
+new BemjsonNode({ block: 'button', elem: 'icon', elemMods: { type: 'load' } });
+new BemjsonNode({ block: 'button', mix: { block: 'button', elem: 'text' } });
+
+new BemjsonNode({ block: 'button', mods: 'icon' as never });
+// → AssertionError: `mods` field should be a simple object or null.
+```
+
+### `node.block: string`
+
+The name of the block this node belongs to.
+
+### `node.elem: string | null`
+
+The element name, or `null` for block-level nodes.
+
+```ts
+new BemjsonNode({ block: 'button' }).elem;                // null
+new BemjsonNode({ block: 'button', elem: 'text' }).elem;  // 'text'
+```
+
+### `node.mods: Modifiers`
+
+Block-level modifier map. Always an object (possibly empty).
+
+### `node.elemMods: Modifiers | null`
+
+Element-level modifier map; `null` when `elem` is absent.
+
+### `node.mix: BemjsonNode[]`
+
+Array of mixed-in `BemjsonNode` instances (each option/string entry
+passed to the constructor is normalised to a `BemjsonNode`).
+
+### `node.valueOf(): BemjsonNodeRepresentation`
+
+Returns a plain-object representation of the node.
+
+```ts
+new BemjsonNode({ block: 'button', mods: { focused: true }, elem: 'text' }).valueOf();
+// → { block: 'button', mods: { focused: true }, elem: 'text', elemMods: {} }
+```
+
+### `node.toJSON(): BemjsonNodeRepresentation`
+
+Hook used by `JSON.stringify()`.
+
+```ts
+JSON.stringify(new BemjsonNode({ block: 'input', mods: { available: true } }));
+// → '{"block":"input","mods":{"available":true}}'
+```
+
+### `node.toString(): string`
+
+Compact debug-style string. **Not** a naming-aware serializer — use
+`@bem/sdk.naming.*` for that.
+
+```ts
+new BemjsonNode({
+  block: 'button',
+  mods: { focused: true },
+  mix: { block: 'mixed', mods: { bg: 'red' } },
+}).toString();
+// → 'button _focused  mixed _bg_red'
+```
+
+### `BemjsonNode.isBemjsonNode(value: unknown): value is BemjsonNode`
 
 Cross-realm `instanceof`-style guard.
 
-### Instance properties
+```ts
+BemjsonNode.isBemjsonNode(new BemjsonNode({ block: 'input' })); // true
+BemjsonNode.isBemjsonNode({ block: 'button' });                 // false
+```
 
-- `block` — block name.
-- `elem` — element name or `null`.
-- `mods` — block-level modifier map.
-- `elemMods` — element-level modifier map, or `null` when `elem` is
-  absent.
-- `mix` — array of mixed-in `BemjsonNode` instances.
-
-### Instance methods
-
-- `valueOf()` / `toJSON()` — plain `BemjsonNodeRepresentation` object.
-- `toString()` — compact debug-style string. **Not** a naming-aware
-  serializer; use `@bem/sdk.naming.*` for that.
-
-For exhaustive typings, see `BemjsonNodeOptions`,
-`BemjsonNodeRepresentation`, `BemjsonNodeMix`, `Modifiers`,
-`ModifierValue` in `dist/index.d.ts`.
+For exhaustive typings (`BemjsonNodeOptions`, `BemjsonNodeRepresentation`,
+`BemjsonNodeMix`, `Modifiers`, `ModifierValue`) see `dist/index.d.ts`.
 
 ## License
 

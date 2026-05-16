@@ -36,25 +36,61 @@ bundle.decl;   // BemEntityName[] — derived from bemjson on first access
 
 ## API
 
-### `new BemBundle({ name?, path?, levels?, bemjson?, decl? })`
+### `new BemBundle(options: BemBundleOptions): BemBundle`
 
-At least one of `bemjson` / `decl` is required. At least one of
-`name` / `path` is required (path is fallback for the name; the
-extension is stripped). Throws via `node:assert` on invalid input.
+Create a bundle. At least one of `bemjson` / `decl` is required, and at
+least one of `name` / `path` is required (path is the fallback for the
+name; its extension is stripped). Throws via `node:assert` on invalid
+input.
 
-### `BemBundle.isBundle(value)`
+```ts
+import { BemBundle } from '@bem/sdk.bundle';
+
+new BemBundle({
+  path: 'desktop.bundles/index/index.bemjson.js',
+  bemjson: { block: 'page' },
+});
+
+new BemBundle({ name: 'index' });
+// → AssertionError: BEMJSON or BEMDECL must be present
+```
+
+### `bundle.name: string`
+
+Explicit `name`, otherwise derived from `path` (the basename up to the
+first dot).
+
+### `bundle.bemjson: object | undefined`
+
+The original BEMJSON object, if provided.
+
+### `bundle.decl: BemEntityName[]`
+
+The declaration. Returned as-is when `decl` was passed in; otherwise
+computed lazily from `bemjson` on first access and cached.
+
+```ts
+const b = new BemBundle({ name: 'x', bemjson: { block: 'button' } });
+b.decl; // [BemEntityName { block: 'button' }]
+```
+
+### `bundle.levels: string[]`
+
+Array of level paths (default `[]`).
+
+### `bundle.path: string`
+
+Path string (default `'.'`).
+
+### `BemBundle.isBundle(value: unknown): value is BemBundle`
 
 Cross-realm `instanceof`-style guard (checks the internal `_isBundle`
 brand).
 
-### Instance properties
-
-- `name` — explicit `name`, otherwise derived from `path`.
-- `bemjson` — the original BEMJSON object, if provided.
-- `decl` — `BemEntityName[]`. Returned as-is when `decl` was passed in;
-  otherwise computed lazily from `bemjson` on first access.
-- `levels` — array of level paths (default `[]`).
-- `path` — string (default `'.'`).
+```ts
+BemBundle.isBundle(new BemBundle({ name: 'x', bemjson: { block: 'b' } })); // true
+BemBundle.isBundle({});                                                     // false
+```
 
 For exhaustive typings, see `BemBundleOptions` in `dist/index.d.ts`.
 

@@ -28,19 +28,26 @@ cell.entity; // BemEntityName { block: 'button', elem: 'text' }
 cell.tech;   // 'css'
 cell.layer;  // 'desktop'
 cell.id;     // 'button__text@desktop.css'
-
-BemCell.create({ block: 'button', mod: 'theme', val: 'red', tech: 'js' });
-// BemCell { entity: { block: 'button', mod: { name: 'theme', val: 'red' } }, tech: 'js' }
 ```
 
 ## API
 
-### `new BemCell({ entity, tech?, layer? })`
+### `new BemCell(options: BemCellOptions): BemCell`
 
-`entity` must be a `BemEntityName` instance. Throws on missing or
-invalid `entity`.
+`options.entity` must be a `BemEntityName` instance. `tech` and `layer`
+are optional strings. Throws on missing or invalid `entity`.
 
-### `BemCell.create(input)`
+```ts
+import { BemCell } from '@bem/sdk.cell';
+import { BemEntityName } from '@bem/sdk.entity-name';
+
+new BemCell({
+  entity: new BemEntityName({ block: 'button', mod: 'theme' }),
+  tech: 'css',
+});
+```
+
+### `BemCell.create(input: BemCellCreateOptions | BemEntityName | BemCell): BemCell`
 
 Permissive factory. Accepts:
 
@@ -49,32 +56,60 @@ Permissive factory. Accepts:
 - `{ entity: <name | options>, tech?, layer? }`;
 - flat options `{ block, elem?, mod?, val?, tech?, layer? }`.
 
-### `BemCell.isBemCell(value)`
+```ts
+import { BemCell } from '@bem/sdk.cell';
+
+BemCell.create({ block: 'button', mod: 'theme', val: 'red', tech: 'js' });
+// → BemCell { entity: { block: 'button', mod: { name: 'theme', val: 'red' } }, tech: 'js' }
+```
+
+### `cell.entity: BemEntityName`
+
+The underlying entity. `cell.block`, `cell.elem`, `cell.mod` are
+proxied from it for convenience.
+
+### `cell.tech: Tech | undefined` / `cell.layer: Layer | undefined`
+
+Optional strings.
+
+### `cell.id: string`
+
+Stable `<entity>[@<layer>][.<tech>]` identifier used for equality and
+set keys. Not a naming-conventional path — use
+`@bem/sdk.naming.cell.stringify` to produce a real file path.
+
+```ts
+new BemCell({
+  entity: new BemEntityName({ block: 'button', elem: 'text' }),
+  tech: 'css',
+  layer: 'desktop',
+}).id;
+// → 'button__text@desktop.css'
+```
+
+### `cell.isEqual(other: BemCell): boolean`
+
+Deep equality by entity, tech and layer.
+
+### `cell.valueOf(): BemCellRepresentation` / `cell.toJSON(): BemCellRepresentation`
+
+Plain-object representation.
+
+### `cell.toString(): string`
+
+Alias for `cell.id`.
+
+### `BemCell.isBemCell(value: unknown): value is BemCell`
 
 Cross-realm `instanceof`-style guard.
 
-### Instance properties
+```ts
+BemCell.isBemCell(BemCell.create({ block: 'button' })); // true
+BemCell.isBemCell({ block: 'button' });                 // false
+```
 
-- `entity` — the underlying `BemEntityName`.
-- `tech`, `layer` — optional strings.
-- `block`, `elem`, `mod` — proxied from `entity`.
-- `id` — stable `<entity>[@<layer>][.<tech>]` string used for equality
-  and set keys (not a naming-conventional path).
-
-### Instance methods
-
-- `isEqual(cell)` — deep equality by entity, tech and layer.
-- `valueOf()` / `toJSON()` — plain `BemCellRepresentation` object.
-- `toString()` — alias for `id`.
-
-For exhaustive typings, see `BemCellOptions`,
-`BemCellCreateOptions`, `BemCellRepresentation`, `Tech`, `Layer` in
-`dist/index.d.ts`.
-
-## Stringifying as a path
-
-`id` is for identity only. Use `@bem/sdk.naming.cell.stringify` to
-produce a real file path under a chosen naming convention.
+For exhaustive typings, see `BemCellOptions`, `BemCellCreateOptions`,
+`BemCellRepresentation`, `Tech`, `Layer` in `dist/index.d.ts`.
 
 ## License
 

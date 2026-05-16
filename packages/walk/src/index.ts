@@ -183,13 +183,10 @@ async function scanLevel(
 export async function asArray(
   ...args: Parameters<typeof walk>
 ): Promise<unknown[]> {
-  return new Promise((resolve, reject) => {
-    const files: unknown[] = [];
-    walk(...args)
-      .on('data', (file) => files.push(file))
-      .on('error', reject)
-      .on('end', () => resolve(files));
-  });
+  // Node 17+ ships `Readable.toArray()` which handles both `end` and `error`
+  // events with proper backpressure — safer than the manual event-listener
+  // bookkeeping we used previously.
+  return walk(...args).toArray();
 }
 
 const main = walk as typeof walk & {
