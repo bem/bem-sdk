@@ -39,36 +39,56 @@ file.id;    // 'common.blocks/button.css'
 
 ## API
 
-### `new BemFile({ cell, level?, path? })`
+### `new BemFile(options: BemFileOptions): BemFile`
 
-`cell` may be a `BemCell` or any value accepted by `BemCell.create`.
-`level` and `path` must be strings when provided.
+`options.cell` may be a `BemCell` instance or any value accepted by
+`BemCell.create`. `level` and `path` must be strings or `null` when
+provided.
 
-### `BemFile.create(input)`
+### `BemFile.create(input: BemFileCreateOptions | BemCell | BemFile): BemFile`
 
-Permissive factory. Accepts an existing `BemFile`, a `BemCell`, or any
-flat options object suitable for `BemCell.create` plus `level` / `path`.
+Permissive factory. Accepts an existing `BemFile`, a `BemCell`, or a
+flat options object combining `BemCell.create` fields with
+`level` / `path`.
 
-### `BemFile.isBemFile(value)`
+```ts
+import { BemFile } from '@bem/sdk.file';
+
+BemFile.create({ block: 'button', tech: 'css', level: 'common.blocks' });
+```
+
+### `file.cell: BemCell`
+
+The underlying cell. `file.entity`, `file.tech`, `file.layer` are
+proxied from it for convenience.
+
+### `file.level: Level | undefined`, `file.path: Path | undefined`
+
+Optional strings.
+
+### `file.id: string`
+
+`<level>/<cell.id>` (level part is optional). Stable identifier for
+equality and set keys.
+
+### `file.isEqual(other: BemFile): boolean`
+
+Deep equality by cell, level and path.
+
+### `file.valueOf(): BemFileRepresentation` / `file.toJSON(): BemFileRepresentation`
+
+Plain-object representation.
+
+### `file.toString(): string`
+
+Alias for `file.id`.
+
+### `BemFile.isBemFile(value: unknown): value is BemFile`
 
 Cross-realm `instanceof`-style guard.
 
-### Instance properties
-
-- `cell` — the underlying `BemCell`.
-- `level`, `path` — optional strings.
-- `entity`, `tech`, `layer` — proxied from `cell`.
-- `id` — `<level>/<cell.id>` (level optional). Stable identifier for
-  equality / sets.
-
-### Instance methods
-
-- `isEqual(file)` — deep equality by cell, level and path.
-- `valueOf()` / `toJSON()` — plain `BemFileRepresentation` object.
-- `toString()` — alias for `id`.
-
-For exhaustive typings, see `BemFileOptions`, `BemFileCreateOptions`,
-`BemFileRepresentation`, `Level`, `Path` in `dist/index.d.ts`.
+For exhaustive typings (`BemFileOptions`, `BemFileCreateOptions`,
+`BemFileRepresentation`, `Level`, `Path`) see `dist/index.d.ts`.
 
 ## License
 

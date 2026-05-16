@@ -23,7 +23,6 @@ const name = new BemEntityName({ block: 'button', elem: 'text' });
 
 name.block; // 'button'
 name.elem;  // 'text'
-name.mod;   // undefined
 name.type;  // 'elem'
 name.id;    // 'button__text'
 
@@ -37,48 +36,88 @@ JSON.stringify(mod); // '{"block":"button","mod":{"name":"focused","val":true}}'
 
 ## API
 
-### `new BemEntityName({ block, elem?, mod? })`
+### `new BemEntityName(options: EntityNameOptions): BemEntityName`
 
-Builds an immutable entity. `mod` accepts a string (shorthand for
-`{ name, val: true }`) or `{ name, val? }`. Throws `EntityTypeError`
-when `block` is missing or when `mod.val` is given without `mod.name`.
+Builds an immutable entity. `mod` accepts either a string (shorthand
+for `{ name, val: true }`) or `{ name, val? }`. Throws
+`EntityTypeError` when `block` is missing or when `mod.val` is given
+without `mod.name`.
 
-### `BemEntityName.create(input)`
+```ts
+new BemEntityName({ block: 'button' });
+new BemEntityName({ block: 'button', mod: 'focused' });
+new BemEntityName({ block: 'button', mod: { name: 'theme', val: 'normal' } });
+```
+
+### `BemEntityName.create(input: string | EntityNameCreateOptions | BemEntityName): BemEntityName`
 
 Permissive factory. Accepts a string (block name), an existing
 `BemEntityName`, or a flat options object that may also use
 `{ modName, modVal, val }` shorthands.
 
-### `BemEntityName.isBemEntityName(value)`
+```ts
+BemEntityName.create('button');
+BemEntityName.create({ block: 'button', modName: 'theme', val: 'normal' });
+```
+
+### `name.block: BlockName`, `name.elem: ElementName | undefined`, `name.mod: Modifier | undefined`
+
+Normalised parts of the entity.
+
+### `name.type: EntityType`
+
+One of `'block' | 'elem' | 'blockMod' | 'elemMod'`.
+
+### `name.scope: BemEntityName | null`
+
+Parent entity for elements / mods, `null` for a plain block.
+
+```ts
+new BemEntityName({ block: 'button', elem: 'text' }).scope;
+// → BemEntityName { block: 'button' }
+```
+
+### `name.id: Id`
+
+Stable string identifier (uses the `origin` naming preset). For set
+keys and equality only — **not** a naming-conventional path.
+
+### `name.isSimpleMod(): boolean | null`
+
+`true` for `mod.val === true`, `false` for any other value, `null` for
+entities without `mod`.
+
+### `name.isEqual(other: BemEntityName): boolean`
+
+Deep equality by `id`.
+
+### `name.belongsTo(other: BemEntityName): boolean`
+
+> Fixed in current release (closes #269): key-value mod now belongs to
+> its boolean form.
+
+`true` if `this` is a modifier of `other`, or an element-mod whose
+element matches `other`, etc.
+
+### `name.valueOf(): EntityRepresentation` / `name.toJSON(): EntityRepresentation`
+
+Plain-object representation.
+
+### `name.toString(): string`
+
+Alias for `name.id`.
+
+### `BemEntityName.isBemEntityName(value: unknown): value is BemEntityName`
 
 Cross-realm `instanceof`-style guard.
-
-### Instance properties
-
-- `block`, `elem`, `mod` — normalised parts of the entity.
-- `type` — one of `'block' | 'elem' | 'blockMod' | 'elemMod'`.
-- `scope` — parent `BemEntityName` for elements / mods, `null` for a
-  plain block.
-- `id` — stable string identifier (uses the `origin` naming preset);
-  intended for set keys and equality only, **not** for output.
-
-### Instance methods
-
-- `isSimpleMod()` — `true` for `mod.val === true`, `false` otherwise,
-  `null` for entities without `mod`.
-- `isEqual(entityName)` — deep equality by `id`.
-- `belongsTo(entityName)` — modifier-belongs-to-block / elem-belongs-to
-  block / mod-of-elem-belongs-to elem.
-- `valueOf()` / `toJSON()` — plain object form.
-- `toString()` — alias for `id`.
 
 ### `EntityTypeError`
 
 Thrown by the constructor on invalid input. Exposes the offending
 object via `error.entity`.
 
-For full typings, see `EntityNameOptions`, `EntityNameCreateOptions`,
-`EntityRepresentation`, `Modifier` and `EntityType` in
+For full typings (`EntityNameOptions`, `EntityNameCreateOptions`,
+`EntityRepresentation`, `Modifier`, `EntityType`) see
 `dist/index.d.ts`.
 
 ## Naming-aware string form

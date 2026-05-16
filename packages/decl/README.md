@@ -17,13 +17,13 @@ Requires **Node.js >= 20** and ESM (`"type": "module"` in your
 ## Usage
 
 ```ts
-import { parse, format, merge, normalize, stringify } from '@bem/sdk.decl';
+import { parse, format, merge, stringify } from '@bem/sdk.decl';
 
 const a = parse([{ block: 'button' }, { block: 'input' }]);
 const b = parse([{ block: 'input' }, { block: 'select' }]);
 
-const merged = merge(a, b);              // BemCell[] (deduplicated)
-const decl = format(merged, { format: 'v2' }); // [{ block: 'button' }, ...]
+const merged = merge(a, b);                       // BemCell[] (deduplicated)
+const decl = format(merged, { format: 'v2' });    // [{ block: 'button' }, ...]
 
 console.log(stringify(decl, { format: 'v2' }));
 // `module.exports = [...];`
@@ -31,40 +31,82 @@ console.log(stringify(decl, { format: 'v2' }));
 
 ## API
 
-The package exports a flat set of named functions. All entity-shaped
-data is exchanged as `BemCell` (from `@bem/sdk.cell`).
+All entity-shaped data is exchanged as `BemCell` (from `@bem/sdk.cell`).
 
-### Parsing / formatting
+### `parse(bemdecl: string | object): BemCell[]`
 
-- `parse(bemdecl): BemCell[]` — accepts either a JS source string
-  (evaluated with `node-eval`) or an already-parsed object. Detects
-  format automatically.
-- `detect(data): BemDeclFormat | undefined` — recognises `'enb'`,
-  `'v1'` or `'v2'` shapes.
-- `format(cells, opts?): unknown` — converts `BemCell[]` into the
-  requested BEMDECL shape (`opts.format`).
-- `normalize(cells, opts?): BemCell[]` — canonicalises declarations
-  (sort order, mod expansion, etc.).
-- `stringify(cells, opts?): string` — renders a JS-source BEMDECL
-  module string. Honours `opts.format` and `opts.exportType`
-  (`'cjs' | 'esm'`).
-- `cellify(cells, opts?): BemCell[]` — converts plain entity objects
-  into `BemCell`s.
+Accepts either a JS source string (evaluated with `node-eval`) or an
+already-parsed object. Detects format automatically; throws on unknown
+formats. Returns a flat `BemCell[]`.
+
+```ts
+import { parse } from '@bem/sdk.decl';
+
+parse([{ block: 'button' }, { block: 'input', elem: 'text' }]);
+parse(`module.exports = { format: 'v1', deps: [{ block: 'button' }] };`);
+```
+
+### `detect(data: object): BemDeclFormat | undefined`
+
+Recognises `'enb'`, `'v1'`, `'v2'` or `'harmony'` shapes. Returns
+`undefined` when nothing matches.
+
+### `format(cells: BemCell[], opts?: NormalizeOptions): unknown[]`
+
+Converts `BemCell[]` into the requested BEMDECL shape via
+`opts.format` (default `'v2'`).
+
+### `normalize(cells: BemCell[], opts?: NormalizeOptions): BemCell[]`
+
+Canonicalises declarations (sort order, mod expansion, scope resolution).
+
+### `stringify(cells: BemCell | BemCell[], opts?: StringifyOptions): string`
+
+Renders a JS-source BEMDECL module string. Honours `opts.format` and
+`opts.exportType` (`'cjs' | 'esm' | 'json'`).
+
+```ts
+stringify(merged, { format: 'v2', exportType: 'esm' });
+// `export default [...];`
+```
+
+### `cellify(data: unknown): BemCell[]`
+
+Wraps any value (single object or array) into `BemCell` instances via
+`BemCell.create`.
 
 ### Set operations
 
-- `merge(a, b, ...): BemCell[]`
-- `subtract(a, b): BemCell[]`
-- `intersect(a, b): BemCell[]`
-- `assign(target, source): BemCell[]`
+#### `merge(a: BemCell[], ...rest: BemCell[][]): BemCell[]`
+
+Union of cell sets, deduplicated by `cell.id`.
+
+#### `subtract(a: BemCell[], b: BemCell[]): BemCell[]`
+
+`a` minus cells found in `b`.
+
+#### `intersect(a: BemCell[], b: BemCell[]): BemCell[]`
+
+Cells present in both `a` and `b`.
+
+#### `assign(target: BemCell[], source: BemCell[]): BemCell[]`
+
+Variant of `merge` that mutates `target`.
 
 ### IO
 
-- `load(path): Promise<BemCell[]>` — reads a BEMDECL file from disk.
-- `save(path, cells, opts?): Promise<void>` — writes a BEMDECL file.
+#### `load(path: string, encoding?: BufferEncoding): Promise<BemCell[]>`
 
-For exhaustive typings, see `BemDeclFormat`, `ExportType`,
-`NormalizeOptions`, `StringifyOptions` in `dist/index.d.ts`.
+Reads a BEMDECL file from disk and parses it.
+
+#### `save(path: string, cells: BemCell | BemCell[], opts?: SaveOptions): Promise<void>`
+
+Serialises with `stringify` (default `format: 'v2'`, `exportType: 'cjs'`)
+and writes the result. `opts.mode` is forwarded to `node:fs/promises`.
+
+For exhaustive typings (`BemDeclFormat`, `ExportType`,
+`NormalizeOptions`, `StringifyOptions`, `SaveOptions`) see
+`dist/index.d.ts`.
 
 ## License
 
