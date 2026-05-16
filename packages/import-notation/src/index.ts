@@ -164,3 +164,26 @@ export function stringify(cells: BemCell | BemCell[]): string {
 
   return `${tmpl.b(merged.b)}${tmpl.e(merged.e)}${tmpl.m(merged.m)}${tmpl.t(merged.t)}`;
 }
+
+/**
+ * Build the full form of an import notation string, expanding any bare
+ * tokens (`m:`, `e:`, `t:`) against the given scope (closes #275).
+ *
+ * Equivalent to `stringify(parse(importString, scope))`, but exposed as a
+ * named helper for downstream consumers (e.g. webpack-bem-plugin) that
+ * need a single round-trip from a short, context-dependent notation to
+ * its self-contained canonical form.
+ *
+ * @example
+ *   stringifyFull('m:theme=normal', { block: 'button' });
+ *   // → 'b:button m:theme=normal'
+ *
+ *   stringifyFull('e:text m:pseudo', { block: 'button2' });
+ *   // → 'b:button2 e:text m:pseudo'
+ */
+export function stringifyFull(
+  importString: string,
+  scope?: ParseScope,
+): string {
+  return stringify(parse(importString, scope));
+}

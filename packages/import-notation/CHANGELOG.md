@@ -2,6 +2,17 @@
 
 ## 1.0.0
 
+### Features
+
+- `stringifyFull(importString, scope?)` — composes `parse` and `stringify`
+  in a single call. Expands short, context-dependent notation (`m:theme`,
+  `e:text`, …) into its full self-contained form using an optional scope.
+  Useful for downstream tooling (e.g. webpack-bem-plugin) that needs a
+  canonical key for the entity referenced by an import string.
+  Closes [#275].
+
+[#275]: https://github.com/bem/bem-sdk/issues/275
+
 ### Major Changes
 
 - bdf6ddd: Migrated to TypeScript / ESM (Node >=20).
