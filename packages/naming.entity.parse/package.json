@@ -41,9 +41,7 @@
     "test": "mocha 'src/**/*.test.ts'"
   },
   "dependencies": {
-    "@bem/sdk.entity-name": "workspace:^"
-  },
-  "devDependencies": {
+    "@bem/sdk.entity-name": "workspace:^",
     "@bem/sdk.naming.presets": "workspace:^"
   },
   "publishConfig": {

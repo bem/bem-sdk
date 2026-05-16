@@ -15,6 +15,9 @@
   "references": [
     {
       "path": "../cell"
+    },
+    {
+      "path": "../entity-name"
     }
   ]
 }

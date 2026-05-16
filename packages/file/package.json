@@ -42,9 +42,7 @@
     "test": "mocha 'src/**/*.test.ts'"
   },
   "dependencies": {
-    "@bem/sdk.cell": "workspace:^"
-  },
-  "devDependencies": {
+    "@bem/sdk.cell": "workspace:^",
     "@bem/sdk.entity-name": "workspace:^"
   },
   "publishConfig": {

@@ -70,7 +70,7 @@ noting if you patched against internals:
 |---|---|
 | `es6-promisify`, `mz`, `pinkie-promise` | `node:fs/promises`, `node:util.promisify` |
 | `graceful-fs` | `node:fs/promises` (raw `fs` is enough on Node 20) |
-| `async-each` | `Promise.all` over `node:fs/promises.readdir` |
+| `async-each` | `node:fs/promises.readdir` + `Promise.all` where order is irrelevant, sequential `for await` where it isn't |
 | `es6-error` | native `class … extends Error` |
 | `lodash.flatten`, `lodash.clonedeep`, `lodash.isequal` | `Array.prototype.flat()`, `structuredClone`, `node:util.isDeepStrictEqual` |
 | `lodash` (full, in `graph`) | targeted native ops + `Set`/`Map` |
@@ -247,8 +247,11 @@ including `BemCell` instances.
 + normalize(...);
 ```
 
-The legacy `format: 'harmony'` option (which was silently ignored) is
-gone — pass `format: 'v2'` explicitly.
+The supported `format` values for `normalize()` / `stringify()` /
+`parse()` are `'v1' | 'v2' | 'enb' | 'harmony'`. Unrecognized values now
+throw — previously they silently fell back to `'v1'`. The `{ harmony: true }`
+shortcut form (recognised only by the test fixtures, never by the public
+API) is gone — pass `format: 'harmony'` explicitly.
 
 ### `@bem/sdk.bemjson-to-decl` — 0.2.x → 1.0.0
 
@@ -320,9 +323,18 @@ exported for advanced use, but they used to be access through
 + const files = await asArray(walk(levels, opts));
 ```
 
-`walk()` now returns an `AsyncIterable` instead of a Node stream. `asArray`
-collects it into a plain array. If you need the streaming API, wrap with
-`stream.Readable.from(walk(...))`.
+`walk()` and `walkSets()` still return a `node:stream.Readable` in object
+mode — the streaming API is preserved. New in 1.x: a typed `asArray()`
+helper collects the stream into a plain array (`Promise<WalkerInfo[]>`).
+The new config-driven `walkSets({ sets, config })` entry replaces the old
+positional API; legacy `walk(levels, options)` still works for backward
+compatibility and emits a deprecation warning when `defaults.scheme` is
+used.
+
+Internally `async-each` is gone — directory traversal goes through
+`node:fs/promises.readdir` with `Promise.all` where parallelism is safe,
+and a sequential `for await` where ordering of `add()` calls into the
+stream matters (see `walkers/nested.ts`).
 
 ### `@bem/sdk.deps` — 0.3.x → 1.0.0
 

@@ -21,3 +21,9 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ## [0.1.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.keyset@0.1.0...@bem/sdk.keyset@0.1.1) (2019-04-15)
 
 **Note:** Version bump only for package @bem/sdk.keyset
+
+## Pre-1.0 history (legacy)
+
+## [0.1.1](https://github.com/bem/bem-sdk/compare/@bem/sdk.keyset@0.1.0...@bem/sdk.keyset@0.1.1) (2019-04-15)
+
+**Note:** Version bump only for package @bem/sdk.keyset

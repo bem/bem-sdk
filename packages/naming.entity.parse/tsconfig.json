@@ -15,6 +15,9 @@
   "references": [
     {
       "path": "../entity-name"
+    },
+    {
+      "path": "../naming.presets"
     }
   ]
 }
