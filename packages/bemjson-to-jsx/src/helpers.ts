@@ -41,8 +41,9 @@ export function styleToObj(style: string | StyleObject): StyleObject {
   if (typeof style !== 'string') return style;
 
   return style.split(';').reduce<StyleObject>((acc, st) => {
-    if (st.length) {
-      const [prop, value] = st.split(':');
+    const piece = st.trim();
+    if (piece.length) {
+      const [prop, value] = piece.split(':').map((s) => s.trim());
       if (prop !== undefined && value !== undefined) acc[prop] = value;
     }
     return acc;

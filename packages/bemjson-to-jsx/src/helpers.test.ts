@@ -72,4 +72,15 @@ describe('helpers: styleToObj', () => {
       height: '100px',
     });
   });
+
+  it('trims whitespace around colons and semicolons (#241)', () => {
+    expect(styleToObj('width: 200px; height: 100px;')).to.deep.equal({
+      width: '200px',
+      height: '100px',
+    });
+    expect(styleToObj('  margin: 0 ; padding : 4px ;  ')).to.deep.equal({
+      margin: '0',
+      padding: '4px',
+    });
+  });
 });
